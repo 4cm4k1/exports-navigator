@@ -1,0 +1,37 @@
+***REMOVED***
+  "name": "exports-navigator",
+  "version": "1.0.0",
+  "description": "Web portal for Greater MSP 16-county region businesses to navigate the complicated ecosystem of exports",
+  "main": "server.js",
+  "scripts": ***REMOVED***
+    "test": "echo \"Error: no test specified\" && exit 1"
+  ***REMOVED***,
+  "repository": ***REMOVED***
+    "type": "git",
+    "url": "git+https://github.com/4cm4k1/exports-navigator.git"
+  ***REMOVED***,
+  "author": "Liz Kerber, Anthony Maki, Kyle Quamme, Sahasha Reese, Katie Vogel",
+  "license": "ISC",
+  "bugs": ***REMOVED***
+    "url": "https://github.com/4cm4k1/exports-navigator/issues"
+  ***REMOVED***,
+  "homepage": "https://github.com/4cm4k1/exports-navigator#readme",
+  "dependencies": ***REMOVED***
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "angular-aria": "^1.5.8",
+    "angular-material": "^1.1.0-rc.5",
+    "angular-messages": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "angularfire": "^2.0.1",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "firebase": "^3.3.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0"
+  ***REMOVED***
+***REMOVED***

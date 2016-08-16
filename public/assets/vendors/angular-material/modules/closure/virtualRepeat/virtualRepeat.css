@@ -1,0 +1,57 @@
+/*!
+ * Angular Material Design
+ * https://github.com/angular/material
+ * @license MIT
+ * v1.1.0-rc.5
+ */
+/*  Only used with Theme processes */
+html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+.md-virtual-repeat-container ***REMOVED***
+  box-sizing: border-box;
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: relative; ***REMOVED***
+  .md-virtual-repeat-container .md-virtual-repeat-scroller ***REMOVED***
+    bottom: 0;
+    box-sizing: border-box;
+    left: 0;
+    margin: 0;
+    overflow-x: hidden;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0; ***REMOVED***
+  .md-virtual-repeat-container .md-virtual-repeat-sizer ***REMOVED***
+    box-sizing: border-box;
+    height: 1px;
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 1px; ***REMOVED***
+  .md-virtual-repeat-container .md-virtual-repeat-offsetter ***REMOVED***
+    box-sizing: border-box;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0; ***REMOVED***
+
+.md-virtual-repeat-container.md-orient-horizontal .md-virtual-repeat-scroller ***REMOVED***
+  overflow-x: auto;
+  overflow-y: hidden; ***REMOVED***
+
+.md-virtual-repeat-container.md-orient-horizontal .md-virtual-repeat-offsetter ***REMOVED***
+  bottom: 16px;
+  right: auto;
+  white-space: nowrap; ***REMOVED***
+  [dir=rtl] .md-virtual-repeat-container.md-orient-horizontal .md-virtual-repeat-offsetter ***REMOVED***
+    right: 0;
+    right: auto;
+    right: initial;
+    left: auto; ***REMOVED***

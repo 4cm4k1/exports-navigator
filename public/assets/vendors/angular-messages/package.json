@@ -1,0 +1,105 @@
+***REMOVED***
+  "_args": [
+    [
+      ***REMOVED***
+        "raw": "angular-messages",
+        "scope": null,
+        "escapedName": "angular-messages",
+        "name": "angular-messages",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      ***REMOVED***,
+      "/Users/4cm4k1/GitHub/exports-navigator"
+    ]
+  ],
+  "_from": "angular-messages@latest",
+  "_id": "angular-messages@1.5.8",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/angular-messages",
+  "_nodeVersion": "4.4.7",
+  "_npmOperationalInternal": ***REMOVED***
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/angular-messages-1.5.8.tgz_1469201456584_0.13835237524472177"
+  ***REMOVED***,
+  "_npmUser": ***REMOVED***
+    "name": "angularcore",
+    "email": "angular-core+npm@google.com"
+  ***REMOVED***,
+  "_npmVersion": "2.15.8",
+  "_phantomChildren": ***REMOVED******REMOVED***,
+  "_requested": ***REMOVED***
+    "raw": "angular-messages",
+    "scope": null,
+    "escapedName": "angular-messages",
+    "name": "angular-messages",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  ***REMOVED***,
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-messages/-/angular-messages-1.5.8.tgz",
+  "_shasum": "1f91d1e7f3f4f2e5ab5adefee2c9a7196b1a34cf",
+  "_shrinkwrap": null,
+  "_spec": "angular-messages",
+  "_where": "/Users/4cm4k1/GitHub/exports-navigator",
+  "author": ***REMOVED***
+    "name": "Angular Core Team",
+    "email": "angular-core+npm@google.com"
+  ***REMOVED***,
+  "bugs": ***REMOVED***
+    "url": "https://github.com/angular/angular.js/issues"
+  ***REMOVED***,
+  "dependencies": ***REMOVED******REMOVED***,
+  "description": "AngularJS module that provides enhanced support for displaying messages within templates",
+  "devDependencies": ***REMOVED******REMOVED***,
+  "directories": ***REMOVED******REMOVED***,
+  "dist": ***REMOVED***
+    "shasum": "1f91d1e7f3f4f2e5ab5adefee2c9a7196b1a34cf",
+    "tarball": "https://registry.npmjs.org/angular-messages/-/angular-messages-1.5.8.tgz"
+  ***REMOVED***,
+  "gitHead": "55b1706ce1fbedf88dc9a98f5e0cd01d00110178",
+  "homepage": "http://angularjs.org",
+  "jspm": ***REMOVED***
+    "shim": ***REMOVED***
+      "angular-messages": ***REMOVED***
+        "deps": [
+          "angular"
+        ]
+      ***REMOVED***
+    ***REMOVED***
+  ***REMOVED***,
+  "keywords": [
+    "angular",
+    "framework",
+    "browser",
+    "client-side"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    ***REMOVED***
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    ***REMOVED***,
+    ***REMOVED***
+      "name": "petebd",
+      "email": "pete@bacondarwin.com"
+    ***REMOVED***
+  ],
+  "name": "angular-messages",
+  "optionalDependencies": ***REMOVED******REMOVED***,
+  "readme": "ERROR: No README data found!",
+  "repository": ***REMOVED***
+    "type": "git",
+    "url": "git+https://github.com/angular/angular.js.git"
+  ***REMOVED***,
+  "scripts": ***REMOVED***
+    "test": "echo \"Error: no test specified\" && exit 1"
+  ***REMOVED***,
+  "version": "1.5.8"
+***REMOVED***

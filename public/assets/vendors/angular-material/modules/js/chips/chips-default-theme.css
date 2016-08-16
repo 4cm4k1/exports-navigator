@@ -1,0 +1,47 @@
+/*!
+ * Angular Material Design
+ * https://github.com/angular/material
+ * @license MIT
+ * v1.1.0-rc.5
+ */
+/*  Only used with Theme processes */
+html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-chips.md-THEME_NAME-theme .md-chips ***REMOVED***
+  box-shadow: 0 1px '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***
+  md-chips.md-THEME_NAME-theme .md-chips.md-focused ***REMOVED***
+    box-shadow: 0 2px '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***
+  md-chips.md-THEME_NAME-theme .md-chips ._md-chip-input-container input ***REMOVED***
+    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***
+    md-chips.md-THEME_NAME-theme .md-chips ._md-chip-input-container input::-webkit-input-placeholder ***REMOVED***
+      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+    md-chips.md-THEME_NAME-theme .md-chips ._md-chip-input-container input:-moz-placeholder ***REMOVED***
+      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+    md-chips.md-THEME_NAME-theme .md-chips ._md-chip-input-container input::-moz-placeholder ***REMOVED***
+      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+    md-chips.md-THEME_NAME-theme .md-chips ._md-chip-input-container input:-ms-input-placeholder ***REMOVED***
+      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+    md-chips.md-THEME_NAME-theme .md-chips ._md-chip-input-container input::-webkit-input-placeholder ***REMOVED***
+      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+
+md-chips.md-THEME_NAME-theme md-chip ***REMOVED***
+  background: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***';
+  color: '***REMOVED******REMOVED***background-800***REMOVED******REMOVED***'; ***REMOVED***
+  md-chips.md-THEME_NAME-theme md-chip md-icon ***REMOVED***
+    color: '***REMOVED******REMOVED***background-700***REMOVED******REMOVED***'; ***REMOVED***
+  md-chips.md-THEME_NAME-theme md-chip.md-focused ***REMOVED***
+    background: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';
+    color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***
+    md-chips.md-THEME_NAME-theme md-chip.md-focused md-icon ***REMOVED***
+      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***
+  md-chips.md-THEME_NAME-theme md-chip._md-chip-editing ***REMOVED***
+    background: transparent;
+    color: '***REMOVED******REMOVED***background-800***REMOVED******REMOVED***'; ***REMOVED***
+
+md-chips.md-THEME_NAME-theme md-chip-remove .md-button md-icon path ***REMOVED***
+  fill: '***REMOVED******REMOVED***background-500***REMOVED******REMOVED***'; ***REMOVED***
+
+.md-contact-suggestion span.md-contact-email ***REMOVED***
+  color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***

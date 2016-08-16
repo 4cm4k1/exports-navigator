@@ -1,0 +1,21 @@
+/* Include this file in your html if you are using the CSP mode. */
+
+@charset "UTF-8";
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
+.ng-cloak, .x-ng-cloak,
+.ng-hide:not(.ng-hide-animate) ***REMOVED***
+  display: none !important;
+***REMOVED***
+
+ng\:form ***REMOVED***
+  display: block;
+***REMOVED***
+
+.ng-animate-shim ***REMOVED***
+  visibility:hidden;
+***REMOVED***
+
+.ng-anchor ***REMOVED***
+  position:absolute;
+***REMOVED***

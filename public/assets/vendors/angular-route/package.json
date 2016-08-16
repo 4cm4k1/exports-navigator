@@ -1,0 +1,106 @@
+***REMOVED***
+  "_args": [
+    [
+      ***REMOVED***
+        "raw": "angular-route",
+        "scope": null,
+        "escapedName": "angular-route",
+        "name": "angular-route",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      ***REMOVED***,
+      "/Users/4cm4k1/GitHub/exports-navigator"
+    ]
+  ],
+  "_from": "angular-route@latest",
+  "_id": "angular-route@1.5.8",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/angular-route",
+  "_nodeVersion": "4.4.7",
+  "_npmOperationalInternal": ***REMOVED***
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/angular-route-1.5.8.tgz_1469201487889_0.9498146858531982"
+  ***REMOVED***,
+  "_npmUser": ***REMOVED***
+    "name": "angularcore",
+    "email": "angular-core+npm@google.com"
+  ***REMOVED***,
+  "_npmVersion": "2.15.8",
+  "_phantomChildren": ***REMOVED******REMOVED***,
+  "_requested": ***REMOVED***
+    "raw": "angular-route",
+    "scope": null,
+    "escapedName": "angular-route",
+    "name": "angular-route",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  ***REMOVED***,
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-route/-/angular-route-1.5.8.tgz",
+  "_shasum": "964093de7ec8dc5799bd56a93a6ce5f60095674b",
+  "_shrinkwrap": null,
+  "_spec": "angular-route",
+  "_where": "/Users/4cm4k1/GitHub/exports-navigator",
+  "author": ***REMOVED***
+    "name": "Angular Core Team",
+    "email": "angular-core+npm@google.com"
+  ***REMOVED***,
+  "bugs": ***REMOVED***
+    "url": "https://github.com/angular/angular.js/issues"
+  ***REMOVED***,
+  "dependencies": ***REMOVED******REMOVED***,
+  "description": "AngularJS router module",
+  "devDependencies": ***REMOVED******REMOVED***,
+  "directories": ***REMOVED******REMOVED***,
+  "dist": ***REMOVED***
+    "shasum": "964093de7ec8dc5799bd56a93a6ce5f60095674b",
+    "tarball": "https://registry.npmjs.org/angular-route/-/angular-route-1.5.8.tgz"
+  ***REMOVED***,
+  "gitHead": "e96eff424fdd9689061659603ca59470375bf024",
+  "homepage": "http://angularjs.org",
+  "jspm": ***REMOVED***
+    "shim": ***REMOVED***
+      "angular-route": ***REMOVED***
+        "deps": [
+          "angular"
+        ]
+      ***REMOVED***
+    ***REMOVED***
+  ***REMOVED***,
+  "keywords": [
+    "angular",
+    "framework",
+    "browser",
+    "router",
+    "client-side"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    ***REMOVED***
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    ***REMOVED***,
+    ***REMOVED***
+      "name": "petebd",
+      "email": "pete@bacondarwin.com"
+    ***REMOVED***
+  ],
+  "name": "angular-route",
+  "optionalDependencies": ***REMOVED******REMOVED***,
+  "readme": "ERROR: No README data found!",
+  "repository": ***REMOVED***
+    "type": "git",
+    "url": "git+https://github.com/angular/angular.js.git"
+  ***REMOVED***,
+  "scripts": ***REMOVED***
+    "test": "echo \"Error: no test specified\" && exit 1"
+  ***REMOVED***,
+  "version": "1.5.8"
+***REMOVED***

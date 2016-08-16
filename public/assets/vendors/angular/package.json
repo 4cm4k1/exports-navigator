@@ -1,0 +1,96 @@
+***REMOVED***
+  "_args": [
+    [
+      ***REMOVED***
+        "raw": "angular",
+        "scope": null,
+        "escapedName": "angular",
+        "name": "angular",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      ***REMOVED***,
+      "/Users/4cm4k1/GitHub/exports-navigator"
+    ]
+  ],
+  "_from": "angular@latest",
+  "_id": "angular@1.5.8",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/angular",
+  "_nodeVersion": "4.4.7",
+  "_npmOperationalInternal": ***REMOVED***
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/angular-1.5.8.tgz_1469201394611_0.9924397475551814"
+  ***REMOVED***,
+  "_npmUser": ***REMOVED***
+    "name": "angularcore",
+    "email": "angular-core+npm@google.com"
+  ***REMOVED***,
+  "_npmVersion": "2.15.8",
+  "_phantomChildren": ***REMOVED******REMOVED***,
+  "_requested": ***REMOVED***
+    "raw": "angular",
+    "scope": null,
+    "escapedName": "angular",
+    "name": "angular",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  ***REMOVED***,
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular/-/angular-1.5.8.tgz",
+  "_shasum": "925a5392b8c212d09572dc446db7e01264e094cb",
+  "_shrinkwrap": null,
+  "_spec": "angular",
+  "_where": "/Users/4cm4k1/GitHub/exports-navigator",
+  "author": ***REMOVED***
+    "name": "Angular Core Team",
+    "email": "angular-core+npm@google.com"
+  ***REMOVED***,
+  "bugs": ***REMOVED***
+    "url": "https://github.com/angular/angular.js/issues"
+  ***REMOVED***,
+  "dependencies": ***REMOVED******REMOVED***,
+  "description": "HTML enhanced for web apps",
+  "devDependencies": ***REMOVED******REMOVED***,
+  "directories": ***REMOVED******REMOVED***,
+  "dist": ***REMOVED***
+    "shasum": "925a5392b8c212d09572dc446db7e01264e094cb",
+    "tarball": "https://registry.npmjs.org/angular/-/angular-1.5.8.tgz"
+  ***REMOVED***,
+  "gitHead": "7e0e546eb6caedbb298c91a9f6bf7de7eeaa4ad2",
+  "homepage": "http://angularjs.org",
+  "keywords": [
+    "angular",
+    "framework",
+    "browser",
+    "client-side"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    ***REMOVED***
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    ***REMOVED***,
+    ***REMOVED***
+      "name": "petebd",
+      "email": "pete@bacondarwin.com"
+    ***REMOVED***
+  ],
+  "name": "angular",
+  "optionalDependencies": ***REMOVED******REMOVED***,
+  "readme": "ERROR: No README data found!",
+  "repository": ***REMOVED***
+    "type": "git",
+    "url": "git+https://github.com/angular/angular.js.git"
+  ***REMOVED***,
+  "scripts": ***REMOVED***
+    "test": "echo \"Error: no test specified\" && exit 1"
+  ***REMOVED***,
+  "version": "1.5.8"
+***REMOVED***

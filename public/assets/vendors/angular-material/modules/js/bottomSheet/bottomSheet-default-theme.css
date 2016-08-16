@@ -1,0 +1,20 @@
+/*!
+ * Angular Material Design
+ * https://github.com/angular/material
+ * @license MIT
+ * v1.1.0-rc.5
+ */
+/*  Only used with Theme processes */
+html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-bottom-sheet.md-THEME_NAME-theme ***REMOVED***
+  background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***';
+  border-top-color: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***'; ***REMOVED***
+  md-bottom-sheet.md-THEME_NAME-theme.md-list md-list-item ***REMOVED***
+    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***
+  md-bottom-sheet.md-THEME_NAME-theme .md-subheader ***REMOVED***
+    background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***
+  md-bottom-sheet.md-THEME_NAME-theme .md-subheader ***REMOVED***
+    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***

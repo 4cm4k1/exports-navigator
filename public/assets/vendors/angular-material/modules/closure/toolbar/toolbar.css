@@ -1,0 +1,148 @@
+/*!
+ * Angular Material Design
+ * https://github.com/angular/material
+ * @license MIT
+ * v1.1.0-rc.5
+ */
+/*  Only used with Theme processes */
+html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-toolbar ***REMOVED***
+  box-sizing: border-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
+  z-index: 2;
+  font-size: 20px;
+  min-height: 64px;
+  width: 100%;
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
+  transition-property: background-color, fill, color; ***REMOVED***
+  md-toolbar.md-whiteframe-z1-add, md-toolbar.md-whiteframe-z1-remove ***REMOVED***
+    transition: box-shadow 0.5s linear; ***REMOVED***
+  md-toolbar md-toolbar-filler ***REMOVED***
+    width: 72px; ***REMOVED***
+  md-toolbar *,
+  md-toolbar *:before,
+  md-toolbar *:after ***REMOVED***
+    box-sizing: border-box; ***REMOVED***
+  md-toolbar.ng-animate ***REMOVED***
+    transition: none; ***REMOVED***
+  md-toolbar.md-tall ***REMOVED***
+    height: 128px;
+    min-height: 128px;
+    max-height: 128px; ***REMOVED***
+  md-toolbar.md-medium-tall ***REMOVED***
+    height: 88px;
+    min-height: 88px;
+    max-height: 88px; ***REMOVED***
+    md-toolbar.md-medium-tall .md-toolbar-tools ***REMOVED***
+      height: 48px;
+      min-height: 48px;
+      max-height: 48px; ***REMOVED***
+  md-toolbar > .md-indent ***REMOVED***
+    margin-left: 64px; ***REMOVED***
+    [dir=rtl] md-toolbar > .md-indent ***REMOVED***
+      margin-left: 0;
+      margin-left: auto;
+      margin-left: initial;
+      margin-right: 64px; ***REMOVED***
+  md-toolbar ~ md-content > md-list ***REMOVED***
+    padding: 0; ***REMOVED***
+    md-toolbar ~ md-content > md-list md-list-item:last-child md-divider ***REMOVED***
+      display: none; ***REMOVED***
+
+.md-toolbar-tools ***REMOVED***
+  font-size: 20px;
+  letter-spacing: 0.005em;
+  box-sizing: border-box;
+  font-weight: 400;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  height: 64px;
+  max-height: 64px;
+  padding: 0 16px;
+  margin: 0; ***REMOVED***
+  .md-toolbar-tools h1, .md-toolbar-tools h2, .md-toolbar-tools h3 ***REMOVED***
+    font-size: inherit;
+    font-weight: inherit;
+    margin: inherit; ***REMOVED***
+  .md-toolbar-tools a ***REMOVED***
+    color: inherit;
+    text-decoration: none; ***REMOVED***
+  .md-toolbar-tools .fill-height ***REMOVED***
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center; ***REMOVED***
+  .md-toolbar-tools .md-button ***REMOVED***
+    margin-top: 0;
+    margin-bottom: 0; ***REMOVED***
+    .md-toolbar-tools .md-button, .md-toolbar-tools .md-button.md-icon-button md-icon ***REMOVED***
+      transition-duration: 0.5s;
+      transition-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
+      transition-property: background-color, fill, color; ***REMOVED***
+      .md-toolbar-tools .md-button.ng-animate, .md-toolbar-tools .md-button.md-icon-button md-icon.ng-animate ***REMOVED***
+        transition: none; ***REMOVED***
+  .md-toolbar-tools > .md-button:first-child ***REMOVED***
+    margin-left: -8px; ***REMOVED***
+    [dir=rtl] .md-toolbar-tools > .md-button:first-child ***REMOVED***
+      margin-left: 0;
+      margin-left: auto;
+      margin-left: initial;
+      margin-right: -8px; ***REMOVED***
+  .md-toolbar-tools > .md-button:last-child ***REMOVED***
+    margin-right: -8px; ***REMOVED***
+    [dir=rtl] .md-toolbar-tools > .md-button:last-child ***REMOVED***
+      margin-right: 0;
+      margin-right: auto;
+      margin-right: initial;
+      margin-left: -8px; ***REMOVED***
+  .md-toolbar-tools > md-menu:last-child ***REMOVED***
+    margin-right: -8px; ***REMOVED***
+    [dir=rtl] .md-toolbar-tools > md-menu:last-child ***REMOVED***
+      margin-right: 0;
+      margin-right: auto;
+      margin-right: initial;
+      margin-left: -8px; ***REMOVED***
+    .md-toolbar-tools > md-menu:last-child > .md-button ***REMOVED***
+      margin-right: 0; ***REMOVED***
+      [dir=rtl] .md-toolbar-tools > md-menu:last-child > .md-button ***REMOVED***
+        margin-right: 0;
+        margin-right: auto;
+        margin-right: initial;
+        margin-left: 0; ***REMOVED***
+  @media screen and (-ms-high-contrast: active) ***REMOVED***
+    .md-toolbar-tools ***REMOVED***
+      border-bottom: 1px solid #fff; ***REMOVED*** ***REMOVED***
+
+@media (min-width: 0) and (max-width: 959px) and (orientation: portrait) ***REMOVED***
+  md-toolbar ***REMOVED***
+    min-height: 56px; ***REMOVED***
+  .md-toolbar-tools ***REMOVED***
+    height: 56px;
+    max-height: 56px; ***REMOVED*** ***REMOVED***
+
+@media (min-width: 0) and (max-width: 959px) and (orientation: landscape) ***REMOVED***
+  md-toolbar ***REMOVED***
+    min-height: 48px; ***REMOVED***
+  .md-toolbar-tools ***REMOVED***
+    height: 48px;
+    max-height: 48px; ***REMOVED*** ***REMOVED***

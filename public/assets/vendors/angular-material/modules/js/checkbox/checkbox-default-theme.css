@@ -1,0 +1,97 @@
+/*!
+ * Angular Material Design
+ * https://github.com/angular/material
+ * @license MIT
+ * v1.1.0-rc.5
+ */
+/*  Only used with Theme processes */
+html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme .md-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme.md-checked .md-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme.md-checked.md-focused ._md-container:before ***REMOVED***
+  background-color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme .md-ink-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme.md-checked .md-ink-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme ._md-icon ***REMOVED***
+  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme.md-checked ._md-icon ***REMOVED***
+  background-color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme.md-checked ._md-icon:after ***REMOVED***
+  border-color: '***REMOVED******REMOVED***accent-contrast-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-ink-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary ._md-icon ***REMOVED***
+  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked ._md-icon ***REMOVED***
+  background-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked.md-focused ._md-container:before ***REMOVED***
+  background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked ._md-icon:after ***REMOVED***
+  border-color: '***REMOVED******REMOVED***primary-contrast-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-indeterminate[disabled] ._md-container ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn .md-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***warn-600***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn .md-ink-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn ._md-icon ***REMOVED***
+  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked ._md-icon ***REMOVED***
+  background-color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked.md-focused:not([disabled]) ._md-container:before ***REMOVED***
+  background-color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked ._md-icon:after ***REMOVED***
+  border-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme[disabled] ._md-icon ***REMOVED***
+  border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme[disabled].md-checked ._md-icon ***REMOVED***
+  background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme[disabled].md-checked ._md-icon:after ***REMOVED***
+  border-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme[disabled] ._md-icon:after ***REMOVED***
+  border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+
+md-checkbox.md-THEME_NAME-theme[disabled] ._md-label ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***

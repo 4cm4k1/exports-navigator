@@ -1,0 +1,262 @@
+/*!
+ * Angular Material Design
+ * https://github.com/angular/material
+ * @license MIT
+ * v1.1.0-rc.5
+ */
+/*  Only used with Theme processes */
+html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-progress-linear ***REMOVED***
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 5px;
+  padding-top: 0 !important;
+  margin-bottom: 0 !important; ***REMOVED***
+  md-progress-linear._md-progress-linear-disabled ***REMOVED***
+    visibility: hidden; ***REMOVED***
+  md-progress-linear ._md-container ***REMOVED***
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 5px;
+    -webkit-transform: translate(0, 0) scale(1, 1);
+            transform: translate(0, 0) scale(1, 1); ***REMOVED***
+    md-progress-linear ._md-container ._md-bar ***REMOVED***
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      height: 5px; ***REMOVED***
+    md-progress-linear ._md-container ._md-dashed:before ***REMOVED***
+      content: "";
+      display: none;
+      position: absolute;
+      margin-top: 0;
+      height: 5px;
+      width: 100%;
+      background-color: transparent;
+      background-size: 10px 10px !important;
+      background-position: 0px -23px; ***REMOVED***
+    md-progress-linear ._md-container ._md-bar1, md-progress-linear ._md-container ._md-bar2 ***REMOVED***
+      transition: -webkit-transform 0.2s linear;
+      transition: transform 0.2s linear; ***REMOVED***
+    md-progress-linear ._md-container._md-mode-query ._md-bar1 ***REMOVED***
+      display: none; ***REMOVED***
+    md-progress-linear ._md-container._md-mode-query ._md-bar2 ***REMOVED***
+      transition: all 0.2s linear;
+      -webkit-animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
+              animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1); ***REMOVED***
+    md-progress-linear ._md-container._md-mode-determinate ._md-bar1 ***REMOVED***
+      display: none; ***REMOVED***
+    md-progress-linear ._md-container._md-mode-indeterminate ._md-bar1 ***REMOVED***
+      -webkit-animation: md-progress-linear-indeterminate-scale-1 4s infinite, md-progress-linear-indeterminate-1 4s infinite;
+              animation: md-progress-linear-indeterminate-scale-1 4s infinite, md-progress-linear-indeterminate-1 4s infinite; ***REMOVED***
+    md-progress-linear ._md-container._md-mode-indeterminate ._md-bar2 ***REMOVED***
+      -webkit-animation: md-progress-linear-indeterminate-scale-2 4s infinite, md-progress-linear-indeterminate-2 4s infinite;
+              animation: md-progress-linear-indeterminate-scale-2 4s infinite, md-progress-linear-indeterminate-2 4s infinite; ***REMOVED***
+    md-progress-linear ._md-container.ng-hide ._md-progress-linear-disabled md-progress-linear ._md-container ***REMOVED***
+      -webkit-animation: none;
+              animation: none; ***REMOVED***
+      md-progress-linear ._md-container.ng-hide ._md-progress-linear-disabled md-progress-linear ._md-container ._md-bar1 ***REMOVED***
+        -webkit-animation-name: none;
+                animation-name: none; ***REMOVED***
+      md-progress-linear ._md-container.ng-hide ._md-progress-linear-disabled md-progress-linear ._md-container ._md-bar2 ***REMOVED***
+        -webkit-animation-name: none;
+                animation-name: none; ***REMOVED***
+  md-progress-linear ._md-container._md-mode-buffer ***REMOVED***
+    background-color: transparent !important;
+    transition: all 0.2s linear; ***REMOVED***
+    md-progress-linear ._md-container._md-mode-buffer ._md-dashed:before ***REMOVED***
+      display: block;
+      -webkit-animation: buffer 3s infinite linear;
+              animation: buffer 3s infinite linear; ***REMOVED***
+
+@-webkit-keyframes query ***REMOVED***
+  0% ***REMOVED***
+    opacity: 1;
+    -webkit-transform: translateX(35%) scale(0.3, 1);
+            transform: translateX(35%) scale(0.3, 1); ***REMOVED***
+  100% ***REMOVED***
+    opacity: 0;
+    -webkit-transform: translateX(-50%) scale(0, 1);
+            transform: translateX(-50%) scale(0, 1); ***REMOVED*** ***REMOVED***
+
+@keyframes query ***REMOVED***
+  0% ***REMOVED***
+    opacity: 1;
+    -webkit-transform: translateX(35%) scale(0.3, 1);
+            transform: translateX(35%) scale(0.3, 1); ***REMOVED***
+  100% ***REMOVED***
+    opacity: 0;
+    -webkit-transform: translateX(-50%) scale(0, 1);
+            transform: translateX(-50%) scale(0, 1); ***REMOVED*** ***REMOVED***
+
+@-webkit-keyframes buffer ***REMOVED***
+  0% ***REMOVED***
+    opacity: 1;
+    background-position: 0px -23px; ***REMOVED***
+  50% ***REMOVED***
+    opacity: 0; ***REMOVED***
+  100% ***REMOVED***
+    opacity: 1;
+    background-position: -200px -23px; ***REMOVED*** ***REMOVED***
+
+@keyframes buffer ***REMOVED***
+  0% ***REMOVED***
+    opacity: 1;
+    background-position: 0px -23px; ***REMOVED***
+  50% ***REMOVED***
+    opacity: 0; ***REMOVED***
+  100% ***REMOVED***
+    opacity: 1;
+    background-position: -200px -23px; ***REMOVED*** ***REMOVED***
+
+@-webkit-keyframes md-progress-linear-indeterminate-scale-1 ***REMOVED***
+  0% ***REMOVED***
+    -webkit-transform: scaleX(0.1);
+            transform: scaleX(0.1);
+    -webkit-animation-timing-function: linear;
+            animation-timing-function: linear; ***REMOVED***
+  36.6% ***REMOVED***
+    -webkit-transform: scaleX(0.1);
+            transform: scaleX(0.1);
+    -webkit-animation-timing-function: cubic-bezier(0.33473, 0.12482, 0.78584, 1);
+            animation-timing-function: cubic-bezier(0.33473, 0.12482, 0.78584, 1); ***REMOVED***
+  69.15% ***REMOVED***
+    -webkit-transform: scaleX(0.83);
+            transform: scaleX(0.83);
+    -webkit-animation-timing-function: cubic-bezier(0.22573, 0, 0.23365, 1.37098);
+            animation-timing-function: cubic-bezier(0.22573, 0, 0.23365, 1.37098); ***REMOVED***
+  100% ***REMOVED***
+    -webkit-transform: scaleX(0.1);
+            transform: scaleX(0.1); ***REMOVED*** ***REMOVED***
+
+@keyframes md-progress-linear-indeterminate-scale-1 ***REMOVED***
+  0% ***REMOVED***
+    -webkit-transform: scaleX(0.1);
+            transform: scaleX(0.1);
+    -webkit-animation-timing-function: linear;
+            animation-timing-function: linear; ***REMOVED***
+  36.6% ***REMOVED***
+    -webkit-transform: scaleX(0.1);
+            transform: scaleX(0.1);
+    -webkit-animation-timing-function: cubic-bezier(0.33473, 0.12482, 0.78584, 1);
+            animation-timing-function: cubic-bezier(0.33473, 0.12482, 0.78584, 1); ***REMOVED***
+  69.15% ***REMOVED***
+    -webkit-transform: scaleX(0.83);
+            transform: scaleX(0.83);
+    -webkit-animation-timing-function: cubic-bezier(0.22573, 0, 0.23365, 1.37098);
+            animation-timing-function: cubic-bezier(0.22573, 0, 0.23365, 1.37098); ***REMOVED***
+  100% ***REMOVED***
+    -webkit-transform: scaleX(0.1);
+            transform: scaleX(0.1); ***REMOVED*** ***REMOVED***
+
+@-webkit-keyframes md-progress-linear-indeterminate-1 ***REMOVED***
+  0% ***REMOVED***
+    left: -105.16667%;
+    -webkit-animation-timing-function: linear;
+            animation-timing-function: linear; ***REMOVED***
+  20% ***REMOVED***
+    left: -105.16667%;
+    -webkit-animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);
+            animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582); ***REMOVED***
+  69.15% ***REMOVED***
+    left: 21.5%;
+    -webkit-animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);
+            animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635); ***REMOVED***
+  100% ***REMOVED***
+    left: 95.44444%; ***REMOVED*** ***REMOVED***
+
+@keyframes md-progress-linear-indeterminate-1 ***REMOVED***
+  0% ***REMOVED***
+    left: -105.16667%;
+    -webkit-animation-timing-function: linear;
+            animation-timing-function: linear; ***REMOVED***
+  20% ***REMOVED***
+    left: -105.16667%;
+    -webkit-animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);
+            animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582); ***REMOVED***
+  69.15% ***REMOVED***
+    left: 21.5%;
+    -webkit-animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);
+            animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635); ***REMOVED***
+  100% ***REMOVED***
+    left: 95.44444%; ***REMOVED*** ***REMOVED***
+
+@-webkit-keyframes md-progress-linear-indeterminate-scale-2 ***REMOVED***
+  0% ***REMOVED***
+    -webkit-transform: scaleX(0.1);
+            transform: scaleX(0.1);
+    -webkit-animation-timing-function: cubic-bezier(0.20503, 0.05705, 0.57661, 0.45397);
+            animation-timing-function: cubic-bezier(0.20503, 0.05705, 0.57661, 0.45397); ***REMOVED***
+  19.15% ***REMOVED***
+    -webkit-transform: scaleX(0.57);
+            transform: scaleX(0.57);
+    -webkit-animation-timing-function: cubic-bezier(0.15231, 0.19643, 0.64837, 1.00432);
+            animation-timing-function: cubic-bezier(0.15231, 0.19643, 0.64837, 1.00432); ***REMOVED***
+  44.15% ***REMOVED***
+    -webkit-transform: scaleX(0.91);
+            transform: scaleX(0.91);
+    -webkit-animation-timing-function: cubic-bezier(0.25776, -0.00316, 0.21176, 1.38179);
+            animation-timing-function: cubic-bezier(0.25776, -0.00316, 0.21176, 1.38179); ***REMOVED***
+  100% ***REMOVED***
+    -webkit-transform: scaleX(0.1);
+            transform: scaleX(0.1); ***REMOVED*** ***REMOVED***
+
+@keyframes md-progress-linear-indeterminate-scale-2 ***REMOVED***
+  0% ***REMOVED***
+    -webkit-transform: scaleX(0.1);
+            transform: scaleX(0.1);
+    -webkit-animation-timing-function: cubic-bezier(0.20503, 0.05705, 0.57661, 0.45397);
+            animation-timing-function: cubic-bezier(0.20503, 0.05705, 0.57661, 0.45397); ***REMOVED***
+  19.15% ***REMOVED***
+    -webkit-transform: scaleX(0.57);
+            transform: scaleX(0.57);
+    -webkit-animation-timing-function: cubic-bezier(0.15231, 0.19643, 0.64837, 1.00432);
+            animation-timing-function: cubic-bezier(0.15231, 0.19643, 0.64837, 1.00432); ***REMOVED***
+  44.15% ***REMOVED***
+    -webkit-transform: scaleX(0.91);
+            transform: scaleX(0.91);
+    -webkit-animation-timing-function: cubic-bezier(0.25776, -0.00316, 0.21176, 1.38179);
+            animation-timing-function: cubic-bezier(0.25776, -0.00316, 0.21176, 1.38179); ***REMOVED***
+  100% ***REMOVED***
+    -webkit-transform: scaleX(0.1);
+            transform: scaleX(0.1); ***REMOVED*** ***REMOVED***
+
+@-webkit-keyframes md-progress-linear-indeterminate-2 ***REMOVED***
+  0% ***REMOVED***
+    left: -54.88889%;
+    -webkit-animation-timing-function: cubic-bezier(0.15, 0, 0.51506, 0.40968);
+            animation-timing-function: cubic-bezier(0.15, 0, 0.51506, 0.40968); ***REMOVED***
+  25% ***REMOVED***
+    left: -17.25%;
+    -webkit-animation-timing-function: cubic-bezier(0.31033, 0.28406, 0.8, 0.73372);
+            animation-timing-function: cubic-bezier(0.31033, 0.28406, 0.8, 0.73372); ***REMOVED***
+  48.35% ***REMOVED***
+    left: 29.5%;
+    -webkit-animation-timing-function: cubic-bezier(0.4, 0.62703, 0.6, 0.90203);
+            animation-timing-function: cubic-bezier(0.4, 0.62703, 0.6, 0.90203); ***REMOVED***
+  100% ***REMOVED***
+    left: 117.38889%; ***REMOVED*** ***REMOVED***
+
+@keyframes md-progress-linear-indeterminate-2 ***REMOVED***
+  0% ***REMOVED***
+    left: -54.88889%;
+    -webkit-animation-timing-function: cubic-bezier(0.15, 0, 0.51506, 0.40968);
+            animation-timing-function: cubic-bezier(0.15, 0, 0.51506, 0.40968); ***REMOVED***
+  25% ***REMOVED***
+    left: -17.25%;
+    -webkit-animation-timing-function: cubic-bezier(0.31033, 0.28406, 0.8, 0.73372);
+            animation-timing-function: cubic-bezier(0.31033, 0.28406, 0.8, 0.73372); ***REMOVED***
+  48.35% ***REMOVED***
+    left: 29.5%;
+    -webkit-animation-timing-function: cubic-bezier(0.4, 0.62703, 0.6, 0.90203);
+            animation-timing-function: cubic-bezier(0.4, 0.62703, 0.6, 0.90203); ***REMOVED***
+  100% ***REMOVED***
+    left: 117.38889%; ***REMOVED*** ***REMOVED***

@@ -1,0 +1,400 @@
+/*!
+ * Angular Material Design
+ * https://github.com/angular/material
+ * @license MIT
+ * v1.1.0-rc.5
+ */
+/*  Only used with Theme processes */
+html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+@-webkit-keyframes sliderFocusThumb ***REMOVED***
+  0% ***REMOVED***
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7); ***REMOVED***
+  30% ***REMOVED***
+    -webkit-transform: scale(1);
+            transform: scale(1); ***REMOVED***
+  100% ***REMOVED***
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7); ***REMOVED*** ***REMOVED***
+
+@keyframes sliderFocusThumb ***REMOVED***
+  0% ***REMOVED***
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7); ***REMOVED***
+  30% ***REMOVED***
+    -webkit-transform: scale(1);
+            transform: scale(1); ***REMOVED***
+  100% ***REMOVED***
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7); ***REMOVED*** ***REMOVED***
+
+@-webkit-keyframes sliderDiscreteFocusThumb ***REMOVED***
+  0% ***REMOVED***
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7); ***REMOVED***
+  50% ***REMOVED***
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8); ***REMOVED***
+  100% ***REMOVED***
+    -webkit-transform: scale(0);
+            transform: scale(0); ***REMOVED*** ***REMOVED***
+
+@keyframes sliderDiscreteFocusThumb ***REMOVED***
+  0% ***REMOVED***
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7); ***REMOVED***
+  50% ***REMOVED***
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8); ***REMOVED***
+  100% ***REMOVED***
+    -webkit-transform: scale(0);
+            transform: scale(0); ***REMOVED*** ***REMOVED***
+
+@-webkit-keyframes sliderDiscreteFocusRing ***REMOVED***
+  0% ***REMOVED***
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7);
+    opacity: 0; ***REMOVED***
+  50% ***REMOVED***
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1; ***REMOVED***
+  100% ***REMOVED***
+    -webkit-transform: scale(0);
+            transform: scale(0); ***REMOVED*** ***REMOVED***
+
+@keyframes sliderDiscreteFocusRing ***REMOVED***
+  0% ***REMOVED***
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7);
+    opacity: 0; ***REMOVED***
+  50% ***REMOVED***
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1; ***REMOVED***
+  100% ***REMOVED***
+    -webkit-transform: scale(0);
+            transform: scale(0); ***REMOVED*** ***REMOVED***
+
+md-slider ***REMOVED***
+  height: 48px;
+  min-width: 128px;
+  position: relative;
+  margin-left: 4px;
+  margin-right: 4px;
+  padding: 0;
+  display: block;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  /**
+   * Track
+   */
+  /**
+   * Slider thumb
+   */
+  /* The sign that's focused in discrete mode */
+  /**
+   * The border/background that comes in when focused in non-discrete mode
+   */
+  /* Don't animate left/right while panning */ ***REMOVED***
+  md-slider *, md-slider *:after ***REMOVED***
+    box-sizing: border-box; ***REMOVED***
+  md-slider ._md-slider-wrapper ***REMOVED***
+    outline: none;
+    width: 100%;
+    height: 100%; ***REMOVED***
+  md-slider ._md-slider-content ***REMOVED***
+    position: relative; ***REMOVED***
+  md-slider ._md-track-container ***REMOVED***
+    width: 100%;
+    position: absolute;
+    top: 23px;
+    height: 2px; ***REMOVED***
+  md-slider ._md-track ***REMOVED***
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100%; ***REMOVED***
+  md-slider ._md-track-fill ***REMOVED***
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-property: width, height; ***REMOVED***
+  md-slider ._md-track-ticks ***REMOVED***
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100%; ***REMOVED***
+  md-slider ._md-track-ticks canvas ***REMOVED***
+    width: 100%;
+    height: 100%; ***REMOVED***
+  md-slider ._md-thumb-container ***REMOVED***
+    position: absolute;
+    left: 0;
+    top: 50%;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+            transform: translate3d(-50%, -50%, 0);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-property: left, bottom; ***REMOVED***
+  md-slider ._md-thumb ***REMOVED***
+    z-index: 1;
+    position: absolute;
+    left: -10px;
+    top: 14px;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); ***REMOVED***
+    md-slider ._md-thumb:after ***REMOVED***
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 20px;
+      border-width: 3px;
+      border-style: solid;
+      transition: inherit; ***REMOVED***
+  md-slider ._md-sign ***REMOVED***
+    /* Center the children (slider-thumb-text) */
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    position: absolute;
+    left: -14px;
+    top: -17px;
+    width: 28px;
+    height: 28px;
+    border-radius: 28px;
+    -webkit-transform: scale(0.4) translate3d(0, 67.5px, 0);
+            transform: scale(0.4) translate3d(0, 67.5px, 0);
+    transition: all 0.3s cubic-bezier(0.35, 0, 0.25, 1);
+    /* The arrow pointing down under the sign */ ***REMOVED***
+    md-slider ._md-sign:after ***REMOVED***
+      position: absolute;
+      content: '';
+      left: 0px;
+      border-radius: 16px;
+      top: 19px;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-top-width: 16px;
+      border-top-style: solid;
+      opacity: 0;
+      -webkit-transform: translate3d(0, -8px, 0);
+              transform: translate3d(0, -8px, 0);
+      transition: all 0.2s cubic-bezier(0.35, 0, 0.25, 1); ***REMOVED***
+    md-slider ._md-sign ._md-thumb-text ***REMOVED***
+      z-index: 1;
+      font-size: 12px;
+      font-weight: bold; ***REMOVED***
+  md-slider ._md-focus-ring ***REMOVED***
+    position: absolute;
+    left: -17px;
+    top: 7px;
+    width: 34px;
+    height: 34px;
+    border-radius: 34px;
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7);
+    opacity: 0;
+    transition: all 0.35s cubic-bezier(0.35, 0, 0.25, 1); ***REMOVED***
+  md-slider ._md-disabled-thumb ***REMOVED***
+    position: absolute;
+    left: -14px;
+    top: 10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 28px;
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+    border-width: 4px;
+    border-style: solid;
+    display: none; ***REMOVED***
+  md-slider._md-min ._md-sign ***REMOVED***
+    opacity: 0; ***REMOVED***
+  md-slider:focus ***REMOVED***
+    outline: none; ***REMOVED***
+  md-slider._md-dragging ._md-thumb-container,
+  md-slider._md-dragging ._md-track-fill ***REMOVED***
+    transition: none; ***REMOVED***
+  md-slider:not([md-discrete]) ***REMOVED***
+    /* Hide the sign and ticks in non-discrete mode */ ***REMOVED***
+    md-slider:not([md-discrete]) ._md-track-ticks,
+    md-slider:not([md-discrete]) ._md-sign ***REMOVED***
+      display: none; ***REMOVED***
+    md-slider:not([md-discrete]):not([disabled]) ._md-slider-wrapper ._md-thumb:hover ***REMOVED***
+      -webkit-transform: scale(0.8);
+              transform: scale(0.8); ***REMOVED***
+    md-slider:not([md-discrete]):not([disabled]) ._md-slider-wrapper.md-focused ._md-focus-ring ***REMOVED***
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      opacity: 1; ***REMOVED***
+    md-slider:not([md-discrete]):not([disabled]) ._md-slider-wrapper.md-focused ._md-thumb ***REMOVED***
+      -webkit-animation: sliderFocusThumb 0.7s cubic-bezier(0.35, 0, 0.25, 1);
+              animation: sliderFocusThumb 0.7s cubic-bezier(0.35, 0, 0.25, 1); ***REMOVED***
+    md-slider:not([md-discrete]):not([disabled])._md-active ._md-slider-wrapper ._md-thumb ***REMOVED***
+      -webkit-transform: scale(1);
+              transform: scale(1); ***REMOVED***
+  md-slider[md-discrete]:not([disabled]) ._md-slider-wrapper.md-focused ._md-focus-ring ***REMOVED***
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    -webkit-animation: sliderDiscreteFocusRing 0.5s cubic-bezier(0.35, 0, 0.25, 1);
+            animation: sliderDiscreteFocusRing 0.5s cubic-bezier(0.35, 0, 0.25, 1); ***REMOVED***
+  md-slider[md-discrete]:not([disabled]) ._md-slider-wrapper.md-focused ._md-thumb ***REMOVED***
+    -webkit-animation: sliderDiscreteFocusThumb 0.5s cubic-bezier(0.35, 0, 0.25, 1);
+            animation: sliderDiscreteFocusThumb 0.5s cubic-bezier(0.35, 0, 0.25, 1); ***REMOVED***
+  md-slider[md-discrete]:not([disabled]) ._md-slider-wrapper.md-focused ._md-thumb, md-slider[md-discrete]:not([disabled])._md-active ._md-thumb ***REMOVED***
+    -webkit-transform: scale(0);
+            transform: scale(0); ***REMOVED***
+  md-slider[md-discrete]:not([disabled]) ._md-slider-wrapper.md-focused ._md-sign,
+  md-slider[md-discrete]:not([disabled]) ._md-slider-wrapper.md-focused ._md-sign:after, md-slider[md-discrete]:not([disabled])._md-active ._md-sign,
+  md-slider[md-discrete]:not([disabled])._md-active ._md-sign:after ***REMOVED***
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+            transform: translate3d(0, 0, 0) scale(1); ***REMOVED***
+  md-slider[md-discrete][disabled][readonly] ._md-thumb ***REMOVED***
+    -webkit-transform: scale(0);
+            transform: scale(0); ***REMOVED***
+  md-slider[md-discrete][disabled][readonly] ._md-sign,
+  md-slider[md-discrete][disabled][readonly] ._md-sign:after ***REMOVED***
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+            transform: translate3d(0, 0, 0) scale(1); ***REMOVED***
+  md-slider[disabled] ._md-track-fill ***REMOVED***
+    display: none; ***REMOVED***
+  md-slider[disabled] ._md-track-ticks ***REMOVED***
+    opacity: 0; ***REMOVED***
+  md-slider[disabled]:not([readonly]) ._md-sign ***REMOVED***
+    opacity: 0; ***REMOVED***
+  md-slider[disabled] ._md-thumb ***REMOVED***
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5); ***REMOVED***
+  md-slider[disabled] ._md-disabled-thumb ***REMOVED***
+    display: block; ***REMOVED***
+  md-slider[md-vertical] ***REMOVED***
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    min-height: 128px;
+    min-width: 0; ***REMOVED***
+    md-slider[md-vertical] ._md-slider-wrapper ***REMOVED***
+      -webkit-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      width: 48px;
+      -webkit-align-self: center;
+          -ms-flex-item-align: center;
+              align-self: center;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center; ***REMOVED***
+    md-slider[md-vertical] ._md-track-container ***REMOVED***
+      height: 100%;
+      width: 2px;
+      top: 0;
+      left: calc(50% - (2px / 2)); ***REMOVED***
+    md-slider[md-vertical] ._md-thumb-container ***REMOVED***
+      top: auto;
+      margin-bottom: 23px;
+      left: calc(50% - 1px);
+      bottom: 0; ***REMOVED***
+      md-slider[md-vertical] ._md-thumb-container ._md-thumb:after ***REMOVED***
+        left: 1px; ***REMOVED***
+      md-slider[md-vertical] ._md-thumb-container ._md-focus-ring ***REMOVED***
+        left: -16px; ***REMOVED***
+    md-slider[md-vertical] ._md-track-fill ***REMOVED***
+      bottom: 0; ***REMOVED***
+    md-slider[md-vertical][md-discrete] ._md-sign ***REMOVED***
+      left: -40px;
+      top: 9.5px;
+      -webkit-transform: scale(0.4) translate3d(67.5px, 0, 0);
+              transform: scale(0.4) translate3d(67.5px, 0, 0);
+      /* The arrow pointing left next the sign */ ***REMOVED***
+      md-slider[md-vertical][md-discrete] ._md-sign:after ***REMOVED***
+        top: 9.5px;
+        left: 19px;
+        border-top: 14px solid transparent;
+        border-right: 0;
+        border-bottom: 14px solid transparent;
+        border-left-width: 16px;
+        border-left-style: solid;
+        opacity: 0;
+        -webkit-transform: translate3d(0, -8px, 0);
+                transform: translate3d(0, -8px, 0);
+        transition: all 0.2s ease-in-out; ***REMOVED***
+      md-slider[md-vertical][md-discrete] ._md-sign ._md-thumb-text ***REMOVED***
+        z-index: 1;
+        font-size: 12px;
+        font-weight: bold; ***REMOVED***
+    md-slider[md-vertical][md-discrete]._md-active ._md-sign:after,
+    md-slider[md-vertical][md-discrete] .md-focused ._md-sign:after, md-slider[md-vertical][md-discrete][disabled][readonly] ._md-sign:after ***REMOVED***
+      top: 0; ***REMOVED***
+    md-slider[md-vertical][disabled][readonly] ._md-thumb ***REMOVED***
+      -webkit-transform: scale(0);
+              transform: scale(0); ***REMOVED***
+    md-slider[md-vertical][disabled][readonly] ._md-sign,
+    md-slider[md-vertical][disabled][readonly] ._md-sign:after ***REMOVED***
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0) scale(1);
+              transform: translate3d(0, 0, 0) scale(1); ***REMOVED***
+  md-slider[md-invert]:not([md-vertical]) ._md-track-fill ***REMOVED***
+    left: auto;
+    right: 0; ***REMOVED***
+  md-slider[md-invert][md-vertical] ._md-track-fill ***REMOVED***
+    bottom: auto;
+    top: 0; ***REMOVED***
+
+md-slider-container ***REMOVED***
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row; ***REMOVED***
+  md-slider-container > *:first-child:not(md-slider),
+  md-slider-container > *:last-child:not(md-slider) ***REMOVED***
+    min-width: 25px;
+    max-width: 42px;
+    height: 25px;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-property: color, max-width; ***REMOVED***
+  md-slider-container > *:first-child:not(md-slider) ***REMOVED***
+    margin-right: 16px; ***REMOVED***
+  md-slider-container > *:last-child:not(md-slider) ***REMOVED***
+    margin-left: 16px; ***REMOVED***
+  md-slider-container[md-vertical] ***REMOVED***
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column; ***REMOVED***
+    md-slider-container[md-vertical] > *:first-child:not(md-slider),
+    md-slider-container[md-vertical] > *:last-child:not(md-slider) ***REMOVED***
+      margin-right: 0;
+      margin-left: 0;
+      text-align: center; ***REMOVED***
+  md-slider-container md-input-container input[type="number"] ***REMOVED***
+    text-align: center;
+    padding-left: 15px;
+    height: 50px;
+    margin-top: -25px; ***REMOVED***
+
+@media screen and (-ms-high-contrast: active) ***REMOVED***
+  md-slider.md-default-theme ._md-track ***REMOVED***
+    border-bottom: 1px solid #fff; ***REMOVED*** ***REMOVED***

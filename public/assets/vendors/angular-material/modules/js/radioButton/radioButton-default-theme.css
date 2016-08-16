@@ -1,0 +1,103 @@
+/*!
+ * Angular Material Design
+ * https://github.com/angular/material
+ * @license MIT
+ * v1.1.0-rc.5
+ */
+/*  Only used with Theme processes */
+html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-button.md-THEME_NAME-theme ._md-off ***REMOVED***
+  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-button.md-THEME_NAME-theme ._md-on ***REMOVED***
+  background-color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-button.md-THEME_NAME-theme.md-checked ._md-off ***REMOVED***
+  border-color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-button.md-THEME_NAME-theme.md-checked .md-ink-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-button.md-THEME_NAME-theme ._md-container .md-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary ._md-on, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary ._md-on,
+md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary ._md-on,
+md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary ._md-on ***REMOVED***
+  background-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked ._md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked ._md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked ._md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked ._md-off,
+md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked ._md-off,
+md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked ._md-off,
+md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked ._md-off,
+md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked ._md-off ***REMOVED***
+  border-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple,
+md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-ink-ripple,
+md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-ink-ripple,
+md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-ink-ripple,
+md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary ._md-container .md-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary ._md-container .md-ripple,
+md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary ._md-container .md-ripple,
+md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary ._md-container .md-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn ._md-on, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn ._md-on,
+md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn ._md-on,
+md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn ._md-on ***REMOVED***
+  background-color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked ._md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked ._md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked ._md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked ._md-off,
+md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked ._md-off,
+md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked ._md-off,
+md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked ._md-off,
+md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked ._md-off ***REMOVED***
+  border-color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple,
+md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-ink-ripple,
+md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-ink-ripple,
+md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-ink-ripple,
+md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn ._md-container .md-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn ._md-container .md-ripple,
+md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn ._md-container .md-ripple,
+md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn ._md-container .md-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***warn-600***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme[disabled],
+md-radio-button.md-THEME_NAME-theme[disabled] ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+  md-radio-group.md-THEME_NAME-theme[disabled] ._md-container ._md-off,
+  md-radio-button.md-THEME_NAME-theme[disabled] ._md-container ._md-off ***REMOVED***
+    border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+  md-radio-group.md-THEME_NAME-theme[disabled] ._md-container ._md-on,
+  md-radio-button.md-THEME_NAME-theme[disabled] ._md-container ._md-on ***REMOVED***
+    border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme .md-checked .md-ink-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme.md-primary .md-checked:not([disabled]) .md-ink-ripple, md-radio-group.md-THEME_NAME-theme .md-checked:not([disabled]).md-primary .md-ink-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme .md-checked.md-primary .md-ink-ripple ***REMOVED***
+  color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked ._md-container:before ***REMOVED***
+  background-color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty).md-primary .md-checked ._md-container:before,
+md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked.md-primary ._md-container:before ***REMOVED***
+  background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***
+
+md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty).md-warn .md-checked ._md-container:before,
+md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked.md-warn ._md-container:before ***REMOVED***
+  background-color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***

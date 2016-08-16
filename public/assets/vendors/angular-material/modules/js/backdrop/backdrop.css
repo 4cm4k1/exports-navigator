@@ -1,0 +1,44 @@
+/*!
+ * Angular Material Design
+ * https://github.com/angular/material
+ * @license MIT
+ * v1.1.0-rc.5
+ */
+/*  Only used with Theme processes */
+html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-backdrop ***REMOVED***
+  transition: opacity 450ms;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50; ***REMOVED***
+  md-backdrop._md-menu-backdrop ***REMOVED***
+    position: fixed !important;
+    z-index: 99; ***REMOVED***
+  md-backdrop._md-select-backdrop ***REMOVED***
+    z-index: 81;
+    transition-duration: 0; ***REMOVED***
+  md-backdrop._md-dialog-backdrop ***REMOVED***
+    z-index: 79; ***REMOVED***
+  md-backdrop._md-bottom-sheet-backdrop ***REMOVED***
+    z-index: 69; ***REMOVED***
+  md-backdrop._md-sidenav-backdrop ***REMOVED***
+    z-index: 59; ***REMOVED***
+  md-backdrop._md-click-catcher ***REMOVED***
+    position: absolute; ***REMOVED***
+  md-backdrop.md-opaque ***REMOVED***
+    opacity: .48; ***REMOVED***
+    md-backdrop.md-opaque.ng-enter ***REMOVED***
+      opacity: 0; ***REMOVED***
+    md-backdrop.md-opaque.ng-enter.md-opaque.ng-enter-active ***REMOVED***
+      opacity: .48; ***REMOVED***
+    md-backdrop.md-opaque.ng-leave ***REMOVED***
+      opacity: .48;
+      transition: opacity 400ms; ***REMOVED***
+    md-backdrop.md-opaque.ng-leave.md-opaque.ng-leave-active ***REMOVED***
+      opacity: 0; ***REMOVED***

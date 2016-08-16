@@ -1,0 +1,92 @@
+/*!
+ * Angular Material Design
+ * https://github.com/angular/material
+ * @license MIT
+ * v1.1.0-rc.5
+ */
+/*  Only used with Theme processes */
+html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-tabs.md-THEME_NAME-theme md-tabs-wrapper ***REMOVED***
+  background-color: transparent;
+  border-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***
+
+md-tabs.md-THEME_NAME-theme .md-paginator md-icon ***REMOVED***
+  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-tabs.md-THEME_NAME-theme md-ink-bar ***REMOVED***
+  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';
+  background: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-tabs.md-THEME_NAME-theme .md-tab ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
+  md-tabs.md-THEME_NAME-theme .md-tab[disabled], md-tabs.md-THEME_NAME-theme .md-tab[disabled] md-icon ***REMOVED***
+    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+  md-tabs.md-THEME_NAME-theme .md-tab.md-active, md-tabs.md-THEME_NAME-theme .md-tab.md-active md-icon, md-tabs.md-THEME_NAME-theme .md-tab.md-focused, md-tabs.md-THEME_NAME-theme .md-tab.md-focused md-icon ***REMOVED***
+    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***
+  md-tabs.md-THEME_NAME-theme .md-tab.md-focused ***REMOVED***
+    background: '***REMOVED******REMOVED***primary-color-0.1***REMOVED******REMOVED***'; ***REMOVED***
+  md-tabs.md-THEME_NAME-theme .md-tab .md-ripple-container ***REMOVED***
+    color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'; ***REMOVED***
+
+md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper ***REMOVED***
+  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***
+  md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***
+    color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'; ***REMOVED***
+    md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***
+      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***
+    md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***
+      background: '***REMOVED******REMOVED***accent-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***
+  md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar ***REMOVED***
+    color: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***';
+    background: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***'; ***REMOVED***
+
+md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper ***REMOVED***
+  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***
+  md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***
+    color: '***REMOVED******REMOVED***primary-100***REMOVED******REMOVED***'; ***REMOVED***
+    md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***
+      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***
+    md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***
+      background: '***REMOVED******REMOVED***primary-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***
+
+md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper ***REMOVED***
+  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***
+  md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***
+    color: '***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***'; ***REMOVED***
+    md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***
+      color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***
+    md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***
+      background: '***REMOVED******REMOVED***warn-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***
+
+md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper ***REMOVED***
+  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***
+  md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***
+    color: '***REMOVED******REMOVED***primary-100***REMOVED******REMOVED***'; ***REMOVED***
+    md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***
+      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***
+    md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***
+      background: '***REMOVED******REMOVED***primary-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***
+
+md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper ***REMOVED***
+  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***
+  md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***
+    color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'; ***REMOVED***
+    md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***
+      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***
+    md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***
+      background: '***REMOVED******REMOVED***accent-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***
+  md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar ***REMOVED***
+    color: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***';
+    background: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***'; ***REMOVED***
+
+md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper ***REMOVED***
+  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***
+  md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***
+    color: '***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***'; ***REMOVED***
+    md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***
+      color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***
+    md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***
+      background: '***REMOVED******REMOVED***warn-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***

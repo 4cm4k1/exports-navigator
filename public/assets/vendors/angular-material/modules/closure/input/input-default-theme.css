@@ -1,0 +1,81 @@
+/*!
+ * Angular Material Design
+ * https://github.com/angular/material
+ * @license MIT
+ * v1.1.0-rc.5
+ */
+/*  Only used with Theme processes */
+html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme .md-input ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  border-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***
+  md-input-container.md-THEME_NAME-theme .md-input::-webkit-input-placeholder ***REMOVED***
+    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+  md-input-container.md-THEME_NAME-theme .md-input:-moz-placeholder ***REMOVED***
+    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+  md-input-container.md-THEME_NAME-theme .md-input::-moz-placeholder ***REMOVED***
+    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+  md-input-container.md-THEME_NAME-theme .md-input:-ms-input-placeholder ***REMOVED***
+    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+  md-input-container.md-THEME_NAME-theme .md-input::-webkit-input-placeholder ***REMOVED***
+    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme > md-icon ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme label,
+md-input-container.md-THEME_NAME-theme ._md-placeholder ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme label.md-required:after ***REMOVED***
+  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme:not(.md-input-focused):not(.md-input-invalid) label.md-required:after ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme .md-input-messages-animation, md-input-container.md-THEME_NAME-theme .md-input-message-animation ***REMOVED***
+  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***
+  md-input-container.md-THEME_NAME-theme .md-input-messages-animation .md-char-counter, md-input-container.md-THEME_NAME-theme .md-input-message-animation .md-char-counter ***REMOVED***
+    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-has-value label ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused .md-input, md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-resized .md-input ***REMOVED***
+  border-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused label ***REMOVED***
+  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused md-icon ***REMOVED***
+  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-accent .md-input ***REMOVED***
+  border-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-accent label ***REMOVED***
+  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-warn .md-input ***REMOVED***
+  border-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-warn label ***REMOVED***
+  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme.md-input-invalid .md-input ***REMOVED***
+  border-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme.md-input-invalid label ***REMOVED***
+  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme.md-input-invalid .md-input-message-animation, md-input-container.md-THEME_NAME-theme.md-input-invalid .md-char-counter ***REMOVED***
+  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***
+
+md-input-container.md-THEME_NAME-theme .md-input[disabled],
+[disabled] md-input-container.md-THEME_NAME-theme .md-input ***REMOVED***
+  border-bottom-color: transparent;
+  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';
+  background-image: linear-gradient(to right, "***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***" 0%, "***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***" 33%, transparent 0%); ***REMOVED***

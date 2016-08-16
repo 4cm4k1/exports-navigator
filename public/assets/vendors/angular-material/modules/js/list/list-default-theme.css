@@ -1,0 +1,33 @@
+/*!
+ * Angular Material Design
+ * https://github.com/angular/material
+ * @license MIT
+ * v1.1.0-rc.5
+ */
+/*  Only used with Theme processes */
+html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text h3, md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text h4,
+md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text h3,
+md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text h4 ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***
+
+md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text p,
+md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text p ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
+
+md-list.md-THEME_NAME-theme ._md-proxy-focus.md-focused div._md-no-style ***REMOVED***
+  background-color: '***REMOVED******REMOVED***background-100***REMOVED******REMOVED***'; ***REMOVED***
+
+md-list.md-THEME_NAME-theme md-list-item .md-avatar-icon ***REMOVED***
+  background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';
+  color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-list.md-THEME_NAME-theme md-list-item > md-icon ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
+  md-list.md-THEME_NAME-theme md-list-item > md-icon.md-highlight ***REMOVED***
+    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***
+    md-list.md-THEME_NAME-theme md-list-item > md-icon.md-highlight.md-accent ***REMOVED***
+      color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***

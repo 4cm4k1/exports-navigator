@@ -1,0 +1,40 @@
+/*!
+ * Angular Material Design
+ * https://github.com/angular/material
+ * @license MIT
+ * v1.1.0-rc.5
+ */
+/*  Only used with Theme processes */
+html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-menu-bar.md-THEME_NAME-theme > button.md-button ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***';
+  border-radius: 2px; ***REMOVED***
+
+md-menu-bar.md-THEME_NAME-theme md-menu._md-open > button, md-menu-bar.md-THEME_NAME-theme md-menu > button:focus ***REMOVED***
+  outline: none;
+  background: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***
+
+md-menu-bar.md-THEME_NAME-theme._md-open:not(._md-keyboard-mode) md-menu:hover > button ***REMOVED***
+  background-color: '***REMOVED******REMOVED*** background-500-0.2***REMOVED******REMOVED***'; ***REMOVED***
+
+md-menu-bar.md-THEME_NAME-theme:not(._md-keyboard-mode):not(._md-open) md-menu button:hover,
+md-menu-bar.md-THEME_NAME-theme:not(._md-keyboard-mode):not(._md-open) md-menu button:focus ***REMOVED***
+  background: transparent; ***REMOVED***
+
+md-menu-content.md-THEME_NAME-theme .md-menu > .md-button:after ***REMOVED***
+  color: '***REMOVED******REMOVED***background-A200-0.54***REMOVED******REMOVED***'; ***REMOVED***
+
+md-menu-content.md-THEME_NAME-theme .md-menu._md-open > .md-button ***REMOVED***
+  background-color: '***REMOVED******REMOVED*** background-500-0.2***REMOVED******REMOVED***'; ***REMOVED***
+
+md-toolbar.md-THEME_NAME-theme.md-menu-toolbar ***REMOVED***
+  background-color: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***';
+  color: '***REMOVED******REMOVED***background-A200***REMOVED******REMOVED***'; ***REMOVED***
+  md-toolbar.md-THEME_NAME-theme.md-menu-toolbar md-toolbar-filler ***REMOVED***
+    background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';
+    color: '***REMOVED******REMOVED***background-A100-0.87***REMOVED******REMOVED***'; ***REMOVED***
+    md-toolbar.md-THEME_NAME-theme.md-menu-toolbar md-toolbar-filler md-icon ***REMOVED***
+      color: '***REMOVED******REMOVED***background-A100-0.87***REMOVED******REMOVED***'; ***REMOVED***

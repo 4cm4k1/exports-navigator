@@ -1,0 +1,107 @@
+***REMOVED***
+  "_args": [
+    [
+      ***REMOVED***
+        "raw": "angular-aria",
+        "scope": null,
+        "escapedName": "angular-aria",
+        "name": "angular-aria",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      ***REMOVED***,
+      "/Users/4cm4k1/GitHub/exports-navigator"
+    ]
+  ],
+  "_from": "angular-aria@latest",
+  "_id": "angular-aria@1.5.8",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/angular-aria",
+  "_nodeVersion": "4.4.7",
+  "_npmOperationalInternal": ***REMOVED***
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/angular-aria-1.5.8.tgz_1469201415039_0.7212073430418968"
+  ***REMOVED***,
+  "_npmUser": ***REMOVED***
+    "name": "angularcore",
+    "email": "angular-core+npm@google.com"
+  ***REMOVED***,
+  "_npmVersion": "2.15.8",
+  "_phantomChildren": ***REMOVED******REMOVED***,
+  "_requested": ***REMOVED***
+    "raw": "angular-aria",
+    "scope": null,
+    "escapedName": "angular-aria",
+    "name": "angular-aria",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  ***REMOVED***,
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-aria/-/angular-aria-1.5.8.tgz",
+  "_shasum": "558fa07dc82c6fa57b1438e660bbdcfcb805a2f5",
+  "_shrinkwrap": null,
+  "_spec": "angular-aria",
+  "_where": "/Users/4cm4k1/GitHub/exports-navigator",
+  "author": ***REMOVED***
+    "name": "Angular Core Team",
+    "email": "angular-core+npm@google.com"
+  ***REMOVED***,
+  "bugs": ***REMOVED***
+    "url": "https://github.com/angular/angular.js/issues"
+  ***REMOVED***,
+  "dependencies": ***REMOVED******REMOVED***,
+  "description": "AngularJS module for making accessibility easy",
+  "devDependencies": ***REMOVED******REMOVED***,
+  "directories": ***REMOVED******REMOVED***,
+  "dist": ***REMOVED***
+    "shasum": "558fa07dc82c6fa57b1438e660bbdcfcb805a2f5",
+    "tarball": "https://registry.npmjs.org/angular-aria/-/angular-aria-1.5.8.tgz"
+  ***REMOVED***,
+  "gitHead": "91710f3ee26d4e2858af0c91ec462aa43360da47",
+  "homepage": "http://angularjs.org",
+  "jspm": ***REMOVED***
+    "shim": ***REMOVED***
+      "angular-aria": ***REMOVED***
+        "deps": [
+          "angular"
+        ]
+      ***REMOVED***
+    ***REMOVED***
+  ***REMOVED***,
+  "keywords": [
+    "angular",
+    "framework",
+    "browser",
+    "accessibility",
+    "a11y",
+    "client-side"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    ***REMOVED***
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    ***REMOVED***,
+    ***REMOVED***
+      "name": "petebd",
+      "email": "pete@bacondarwin.com"
+    ***REMOVED***
+  ],
+  "name": "angular-aria",
+  "optionalDependencies": ***REMOVED******REMOVED***,
+  "readme": "ERROR: No README data found!",
+  "repository": ***REMOVED***
+    "type": "git",
+    "url": "git+https://github.com/angular/angular.js.git"
+  ***REMOVED***,
+  "scripts": ***REMOVED***
+    "test": "echo \"Error: no test specified\" && exit 1"
+  ***REMOVED***,
+  "version": "1.5.8"
+***REMOVED***

@@ -1,0 +1,81 @@
+/*!
+ * Angular Material Design
+ * https://github.com/angular/material
+ * @license MIT
+ * v1.1.0-rc.5
+ */
+/*  Only used with Theme processes */
+html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
+  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
+  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+
+md-grid-list ***REMOVED***
+  box-sizing: border-box;
+  display: block;
+  position: relative; ***REMOVED***
+  md-grid-list md-grid-tile,
+  md-grid-list md-grid-tile > figure,
+  md-grid-list md-grid-tile-header,
+  md-grid-list md-grid-tile-footer ***REMOVED***
+    box-sizing: border-box; ***REMOVED***
+  md-grid-list md-grid-tile ***REMOVED***
+    display: block;
+    position: absolute; ***REMOVED***
+    md-grid-list md-grid-tile figure ***REMOVED***
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding: 0;
+      margin: 0; ***REMOVED***
+    md-grid-list md-grid-tile md-grid-tile-header,
+    md-grid-list md-grid-tile md-grid-tile-footer ***REMOVED***
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: row;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      height: 48px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.18);
+      overflow: hidden;
+      position: absolute;
+      left: 0;
+      right: 0; ***REMOVED***
+      md-grid-list md-grid-tile md-grid-tile-header h3,
+      md-grid-list md-grid-tile md-grid-tile-header h4,
+      md-grid-list md-grid-tile md-grid-tile-footer h3,
+      md-grid-list md-grid-tile md-grid-tile-footer h4 ***REMOVED***
+        font-weight: 400;
+        margin: 0 0 0 16px; ***REMOVED***
+      md-grid-list md-grid-tile md-grid-tile-header h3,
+      md-grid-list md-grid-tile md-grid-tile-footer h3 ***REMOVED***
+        font-size: 14px; ***REMOVED***
+      md-grid-list md-grid-tile md-grid-tile-header h4,
+      md-grid-list md-grid-tile md-grid-tile-footer h4 ***REMOVED***
+        font-size: 12px; ***REMOVED***
+    md-grid-list md-grid-tile md-grid-tile-header ***REMOVED***
+      top: 0; ***REMOVED***
+    md-grid-list md-grid-tile md-grid-tile-footer ***REMOVED***
+      bottom: 0; ***REMOVED***
+
+@media screen and (-ms-high-contrast: active) ***REMOVED***
+  md-grid-tile ***REMOVED***
+    border: 1px solid #fff; ***REMOVED***
+  md-grid-tile-footer ***REMOVED***
+    border-top: 1px solid #fff; ***REMOVED*** ***REMOVED***
