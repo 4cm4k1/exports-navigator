@@ -1,14 +1,13 @@
-<div layout="column" flex>
-    <div layout-gt-sm="row">
+<md-content flex="33" layout="column" layout-align="space-around stretch" layout-padding>
+    <h2 class="md-headline">Export Help Navigator Sign In</h2>
+    <div>
         <md-input-container class="md-icon-float md-block" flex-gt-sm>
             <label>Email Address</label>
             <md-icon class="md-primary">email</md-icon>
             <input type="email" ng-model="auth.user.email" />
         </md-input-container>
-
     </div>
-    <!-- a thing -->
-    <div layout-gt-sm="row">
+    <div>
         <md-input-container class="md-icon-float md-block" flex-gt-sm>
             <label>Password</label>
             <md-icon class="md-primary">lock</md-icon>
@@ -17,4 +16,4 @@
     </div>
 
     <md-button class="md-primary md-raised" ng-click="auth.signIn()">Sign In</md-button>
-</div>
+</md-content>
