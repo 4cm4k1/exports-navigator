@@ -20,10 +20,36 @@
     <base href="/" />
 </head>
 
-<body>
-    <h1>Generic page with all scripts and stylesheets imported</h1>
+<body layout="row" layout-align="center">
+    <!-- WRAPPER -->
+    <div layout="column" flex="66">
 
-    <section ng-include="'/templates/auth.html'" ng-controller="AuthCtrl as auth" layout="row" layout-align="center"></section>
+      <!-- HEADER -->
+      <header layout="row">
+        <h1 class="md-display-1">Export Help Navigator</h1>
+      </header>
+
+      <!-- MAIN SECTION -->
+      <main layout="column">
+
+          <!-- NAV BAR -->
+          <md-content ng-include="'templates/navBar.html'" ng-controller="NavCtrl as nav" ng-if="!nav.user"></md-content>
+
+          <!-- CONTENT SECTION -->
+          <section layout="row" layout-align="center" layout-padding>
+            <ng-view></ng-view>
+          </section>
+
+      </main>
+
+      <!-- FOOTER -->
+      <footer layout="row">
+          &copy; 2016 GREATER MSP.
+      </footer>
+    </div>
+
+
+    <!-- <section ng-include="'/templates/auth.html'" ng-controller="AuthCtrl as auth" layout="row" layout-align="center"></section> -->
 </body>
 
 </html>
