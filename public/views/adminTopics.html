@@ -1,0 +1,20 @@
+<div controller="AdminTopicsController as adminTopics" ng-cloak>
+
+  <h1>Topics</h1>
+
+  <p ng-repeat="item in adminTopics.topicsList">
+    {{item}}
+    <button ng-click="adminTopics.update">Update item</button>
+    <button ng-click="adminTopics.remove">Remove item</button>
+  </p>
+
+  <label for="addTopic">Add a topic: </label>
+  <input type="text" name="addTopic" ng-model="adminTopics.new" />
+  <button ng-click="adminTopics.add">Add</button>
+
+  <br />
+
+  <button ng-click="adminTopics.export">Export Topics</button>
+  <button ng-click="adminTopics.import">Import Topics</button>
+
+</div>
