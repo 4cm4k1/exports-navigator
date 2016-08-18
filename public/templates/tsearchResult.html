@@ -1,0 +1,17 @@
+<!-- HTML for Topic SEARCH Result -->
+<div class="jumbotron text-center">
+    <h1>Search by Topic</h1>
+</div>
+<!-- HTML for Topic SEARCH Bar -->
+<body class="main" ng-controller="TSearchCtrl as gentopicsrch">
+<div class="tsearchHeader">
+    <form class="tsearch" action="" method="get">
+        <input type="text" name="gentopic_search" placeholder="Search..">
+        <button type="search" name="search">Search</button>
+        <div class="tsearchClear"></div>
+    </form>
+  </div>
+  <div class="result">
+      <p>{{ gentopicResult.message }}</p>
+  </div>
+</body>

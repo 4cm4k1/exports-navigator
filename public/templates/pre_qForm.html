@@ -1,0 +1,21 @@
+<form ng-model="" ng-controller="PreQCtrl as pre_q">
+  {{pre_q.message:}}
+  <input type="radio" ng-model="foodagContact" value="food_aggribusiness">{{food.option}}
+  <input type="radio" ng-model="meddevContact" value="meddev_pharma_lifesci">{{med.option}}
+  <input type="radio" ng-model="other" value="other">{{other.option}}
+</form>
+
+<div ng-switch="industry_sector">
+  <div ng-switch-when="food_aggribusiness">
+     <h1>{{food.message}}</h1>
+     <p>{{food.contact}}</p>
+  </div>
+  <div ng-switch-when="meddev_pharma_lifesci">
+     <h1>{{med.message}}</h1>
+     <p>{{med.contact}}</p>
+  </div>
+<div ng-switch-when="other">
+     <h1>{{other.message}}</h1>
+     <p>{{other.option}}</p>
+  </div>
+</div>
