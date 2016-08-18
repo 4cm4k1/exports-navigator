@@ -8,7 +8,18 @@ pg.defaults.ssl = true;
 var pool = new pg.Pool(connectionString);
 
 router.get('/contacts', function(req, res){
-
+  pool.connect(function(err, client, done){
+    if(err) {
+    res.send('Error fetching client from pool', err);
+    }
+    client.query('SELECT * FROM contacts',[], function(err, result){
+      done();
+      if(err) {
+      res.send('error running query', err);
+      }
+      res.send(result);
+    });
+  });
 });
 
 pool.on('error', function (err, client) {
