@@ -7,6 +7,8 @@
 
     function NavCtrl($location) ***REMOVED***
         var vm = this;
-    ***REMOVED***
+
+
+    ***REMOVED***;
 
 ***REMOVED***)();
