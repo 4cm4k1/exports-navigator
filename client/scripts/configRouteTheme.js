@@ -10,6 +10,7 @@
             controller: 'HomeCtrl as home',
             templateUrl: 'views/home.html'
         ***REMOVED***)
+        .when('')
         .when('/admin', ***REMOVED***
           controller: 'AdminHomeController as admin',
           templateUrl: 'views/adminHome.html',
@@ -17,6 +18,33 @@
             //  This will require the user is logged in
             //  and pass the current session info to the controller
             'currentAuth': ['Auth', function(Auth)***REMOVED***
+              return Auth.$requireSignIn();
+            ***REMOVED***]
+          ***REMOVED***
+        ***REMOVED***)
+        .when('/admin/topics', ***REMOVED***
+          controller: 'AdminTopicsController as adminTopics',
+          templateUrl: 'views/adminTopics.html',
+          resolve: ***REMOVED***
+            'currentAuth': ['Auth', function(Auth) ***REMOVED***
+              return Auth.$requireSignIn();
+            ***REMOVED***]
+          ***REMOVED***
+        ***REMOVED***)
+        .when('/admin/reports', ***REMOVED***
+          controller: 'AdminReportsController as adminReports',
+          templateUrl: 'views/adminReports.html',
+          resolve: ***REMOVED***
+            'currentAuth': ['Auth', function(Auth) ***REMOVED***
+              return Auth.$requireSignIn();
+            ***REMOVED***]
+          ***REMOVED***
+        ***REMOVED***)
+        .when('/admin/managers', ***REMOVED***
+          controller: 'AdminManagersController as adminManagers',
+          templateUrl: 'views/adminManagers.html',
+          resolve: ***REMOVED***
+            'currentAuth': ['Auth', function(Auth) ***REMOVED***
               return Auth.$requireSignIn();
             ***REMOVED***]
           ***REMOVED***
