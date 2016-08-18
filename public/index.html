@@ -33,7 +33,7 @@
       <main layout="column">
 
           <!-- NAV BAR -->
-          <md-content ng-include="'templates/navBar.html'" ng-controller="NavCtrl as nav" ng-if="!nav.user"></md-content>
+          <md-content ng-include="'templates/navBar.html'" ng-controller="NavCtrl as nav"></md-content>
 
           <!-- CONTENT SECTION -->
           <section layout="row" layout-align="center" layout-padding>
@@ -48,7 +48,7 @@
       </footer>
 
 
-          <!-- <section ng-include="'/templates/auth.html'" ng-controller="AuthCtrl as auth" layout="row" layout-align="center"></section> -->
+          <section ng-include="'/templates/auth.html'" ng-controller="AuthCtrl as auth" layout="row" layout-align="center"></section>
     </div>
 
 
