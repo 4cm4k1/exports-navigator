@@ -5,7 +5,7 @@
 
   // AdminReportsController.$inject = [];
 
-  function AdminTopicsController() ***REMOVED***
+  function AdminReportsController() ***REMOVED***
     var vm = this;
 
 
