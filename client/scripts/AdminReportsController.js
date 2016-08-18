@@ -5,7 +5,7 @@
 
   // AdminReportsController.$inject = [];
 
-  function AdminTopicsController() {
+  function AdminReportsController() {
     var vm = this;
 
 
