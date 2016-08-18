@@ -3,13 +3,14 @@ var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
 var dbRoutes = require('./routes/db');
+require('dotenv').config();
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
 //  routes specifically to server/DB go below here
 //      app.get('/something', function(req, res){ ... });
-app.use('/', dbRoutes);
+app.use('/db', dbRoutes);
 
 //  catch-all route (ie, our Angular SPA will handle it)
 app.get('/*', function(req, res) {
