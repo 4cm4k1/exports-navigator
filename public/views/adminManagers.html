@@ -1,0 +1,30 @@
+<div controller="AdminManagersController as adminManagers" ng-cloak>
+
+  <h1>Managers</h1>
+
+  <h2>Current Managers</h2>
+
+  <p ng-repeat="manager in adminManagers.list">
+    {{manager}}
+    <button ng-click="adminManagers.update(manager)">Update</button>
+    <button ng-click="adminManagers.remove(manager)">Remove</button>
+  </p>
+
+  <h2>Add a Manager</h2>
+
+  <label for="username">Username: </label>
+  <input type="text" name="username" ng-model="adminManagers.username" />
+
+  <label for="password">Password: </label>
+  <input type="password" name="password" ng-model="adminManagers.password" />
+
+  <label for="passwordConfirm">Confirm password: </label>
+  <input type="password" name="passwordConfirm" ng-model="adminManagers.passwordConfirm" />
+
+  <button ng-click="adminManagers.addManager()">Add</button>
+
+  <br />
+
+  <p>{{adminManagers.noMatch}}</p>
+
+</div>
