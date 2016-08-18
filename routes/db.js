@@ -71,7 +71,7 @@ pool.on('error', function (err, client) ***REMOVED***
   // this is a rare occurrence but can happen if there is a network partition
   // between your application and the database, the database restarts, etc.
   // and so you might want to handle it and at least log it out
-  console.error('idle client error', err.message, err.stack)
-***REMOVED***)
+  console.error('idle client error', err.message, err.stack);
+***REMOVED***);
 
 module.exports = router;
