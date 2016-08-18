@@ -10,6 +10,7 @@
             controller: 'HomeCtrl as home',
             templateUrl: 'views/home.html'
         })
+        .when('')
         .when('/admin', {
           controller: 'AdminHomeController as admin',
           templateUrl: 'views/adminHome.html',
@@ -17,6 +18,33 @@
             //  This will require the user is logged in
             //  and pass the current session info to the controller
             'currentAuth': ['Auth', function(Auth){
+              return Auth.$requireSignIn();
+            }]
+          }
+        })
+        .when('/admin/topics', {
+          controller: 'AdminTopicsController as adminTopics',
+          templateUrl: 'views/adminTopics.html',
+          resolve: {
+            'currentAuth': ['Auth', function(Auth) {
+              return Auth.$requireSignIn();
+            }]
+          }
+        })
+        .when('/admin/reports', {
+          controller: 'AdminReportsController as adminReports',
+          templateUrl: 'views/adminReports.html',
+          resolve: {
+            'currentAuth': ['Auth', function(Auth) {
+              return Auth.$requireSignIn();
+            }]
+          }
+        })
+        .when('/admin/managers', {
+          controller: 'AdminManagersController as adminManagers',
+          templateUrl: 'views/adminManagers.html',
+          resolve: {
+            'currentAuth': ['Auth', function(Auth) {
               return Auth.$requireSignIn();
             }]
           }
