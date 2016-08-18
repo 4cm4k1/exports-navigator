@@ -3,17 +3,12 @@ var router = express.Router();
 var path = require('path');
 var Pool = require('pg').Pool;
 //securely access heroku postgres configuration
-require('dotenv').config();
-var config = ***REMOVED***
-  host: process.env.DATABASE_HOST, //env var
-  user: process.env.DATABASE_USER, //env var
-  database: process.env.DATABASE_DB, //env var
-  password: process.env.DATABASE_PW, //env var
-  port: process.env.DATABASE_PORT, //env var
-  max: 10, // max number of clients in the pool
-  idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
-  ssl: true
-***REMOVED***;
+var parseDbUrl = require('parse-database-url');
+var config = parseDbUrl(process.env.DATABASE_URL);
+config.max = 10; // max number of clients in the pool
+config.idleTimeoutMillis = 30000; // how long a client is allowed to remain idle before being closed
+config.ssl = true; //use encryption
+
 var pool = new Pool(config);
 
 router.get('/contacts', function(req, res)***REMOVED***
@@ -22,7 +17,7 @@ router.get('/contacts', function(req, res)***REMOVED***
     client.query('SELECT * FROM contacts', [], function(err, queryRes)***REMOVED***
       done();
       if(err) return res.send(err);
-      res.send(queryRes);
+      res.send(queryRes.rows);
     ***REMOVED***);
   ***REMOVED***);
 ***REMOVED***);
