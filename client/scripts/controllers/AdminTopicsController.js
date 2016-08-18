@@ -10,11 +10,11 @@
 
     vm.topicsList;
 
-    vm.update = function() ***REMOVED***
+    vm.update = function(listItem) ***REMOVED***
       console.log('Update clicked');
     ***REMOVED***;
 
-    vm.remove = function() ***REMOVED***
+    vm.remove = function(listItem) ***REMOVED***
       console.log('Remove clicked');
     ***REMOVED***;
 
