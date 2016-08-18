@@ -1,12 +1,16 @@
 <!-- User Topic Search View -->
 <div class="jumbotron text-center">
     <h1>Search by Topic</h1>
-<button type="button" name="back">Back</button>
     <!-- HTML for SEARCH Bar -->
     <div class="tsearchHeader">
         <form class="tsearchGenTopic" action="" method="get">
             <input type="text" name="search" placeholder="Search..">
+            <button type="search" name="search">Search</button>
             <div class="tsearchClear"></div>
         </form>
-<p>{{ tsearch.message }}</p>
+
+        <div class="footer">
+            <p>Don't see your topic listed?</p>
+        </div>
+
     </div>

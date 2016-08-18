@@ -1,6 +1,10 @@
 <!-- User Landing Medical Device, Pharma or Life Sciences View -->
 <div class="jumbotron text-center">
     <h1>Export Help Navigator</h1>
-
-    <p>{{ med.message }}</p>
 </div>
+<body ng-app="exports-navigator" ng-controller="MedDevCtrl as meddev">
+  <div ng-switch="industry_sector">
+  <div ng-switch-when="meddev_pharma_lifesci" ng-include="meddevContact.html">
+     <h1>{{meddev_export.message}}</h1>
+     <p>{{meddev_export.contact}}</p>
+  </div>
