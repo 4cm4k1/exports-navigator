@@ -7,6 +7,8 @@
 
     function NavCtrl($location) {
         var vm = this;
-    }
+
+
+    };
 
 })();
