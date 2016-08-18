@@ -10,4 +10,4 @@
 
     vm.userQueriesFail;
   ***REMOVED***;
-***REMOVED***);
+***REMOVED***)();

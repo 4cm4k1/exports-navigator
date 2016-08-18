@@ -31,4 +31,4 @@
     ***REMOVED***;
   ***REMOVED***;
 
-***REMOVED***);
+***REMOVED***)();

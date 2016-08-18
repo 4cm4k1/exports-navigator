@@ -10,4 +10,4 @@
 
 
   ***REMOVED***;
-***REMOVED***);
+***REMOVED***)();
