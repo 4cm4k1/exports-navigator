@@ -123,7 +123,7 @@ router.get('/topics', function(req, res)***REMOVED***
   'LEFT OUTER JOIN websites AS websites_1 ON topics.website_1=websites_1.id' +
   'LEFT OUTER JOIN websites AS websites_2 ON topics.website_2=websites_2.id' +
   'LEFT OUTER JOIN websites AS websites_3 ON topics.website_3=websites_3.id' +
-  'ORDER BY topics.id;';
+  'ORDER BY topics.id';
   queryDB(query, [], req, res);
 ***REMOVED***);
 //refactored routes to use one function for retrieving or sending data KRQ
