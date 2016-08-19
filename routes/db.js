@@ -15,12 +15,12 @@ var pool = new Pool(config);
 //routes to return each table and related foreign key data KRQ
 router.get('/contacts', function(req, res)***REMOVED***
   var query = 'SELECT * FROM contacts';
-  queryDB(query, []);
+  queryDB(query, [], req, res);
 ***REMOVED***);
 router.get('/countries', function(req, res)***REMOVED***
   var query = 'SELECT * FROM countries JOIN contacts ON' +
   'contacts.id = countries.contact_id';
-  queryDB(query, []);
+  queryDB(query, [], req, res);
 ***REMOVED***);
 router.get('/industries', function(req, res)***REMOVED***
   var query = 'SELECT * FROM industries JOIN contacts ON' +
@@ -28,16 +28,16 @@ router.get('/industries', function(req, res)***REMOVED***
   'contacts.id = industries.contact_3) JOIN websites ON' +
   '(websites.id = industries.website_1 OR websites.id = industries.website_2 OR' +
   'websites.id = industries.website_3)';
-  queryDB(query, []);
+  queryDB(query, [], req, res);
 ***REMOVED***);
 router.get('/topics', function(req, res)***REMOVED***
   var query = 'SELECT * FROM topics JOIN contacts ON' +
   '(contacts.id = topics.contact_1 OR contacts.id = topics.contact_2 OR contacts.id = topics.contact_3)' +
   'JOIN websites ON (websites.id = topics.website_1 OR websites.id = topics.website_2 OR websites.id = topics.website_3)';
-  queryDB(query, []);
+  queryDB(query, [], req, res);
 ***REMOVED***);
 //refactored routes to use one function for retrieving or sending data KRQ
-function queryDB(queryStatement, vars)***REMOVED***
+function queryDB(queryStatement, vars, req, res)***REMOVED***
   pool.connect(function(err, client, done)***REMOVED***
     if(err) return res.send(err.code);
     client.query(queryStatement, vars, function(err, queryRes)***REMOVED***
