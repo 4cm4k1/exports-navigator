@@ -10,7 +10,6 @@
             controller: 'HomeCtrl as home',
             templateUrl: 'views/home.html'
         })
-        .when('')
         .when('/admin', {
           controller: 'AdminHomeController as admin',
           templateUrl: 'views/adminHome.html',
