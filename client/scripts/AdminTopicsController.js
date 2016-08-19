@@ -29,6 +29,6 @@
     vm.import = function() {
       console.log('Import clicked');
     };
-  };
+  }
 
 })();

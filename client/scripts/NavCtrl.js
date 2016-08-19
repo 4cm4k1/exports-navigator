@@ -15,6 +15,6 @@
             console.log('navbar ctrl:', vm.user);
         });
 
-    };
+    }
 
 })();
