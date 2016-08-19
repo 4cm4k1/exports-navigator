@@ -3,9 +3,9 @@
 
   angular.module('exportsNavigator').controller('AdminTopicsController', AdminTopicsController);
 
-  // AdminTopicsController.$inject = [];
+  AdminTopicsController.$inject = ['currentAuth'];
 
-  function AdminTopicsController() {
+  function AdminTopicsController(currentAuth) {
     var vm = this;
 
     vm.topicsList;

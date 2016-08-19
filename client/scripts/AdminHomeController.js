@@ -3,9 +3,9 @@
 
   angular.module('exportsNavigator').controller('AdminHomeController', AdminHomeController);
 
-  // AdminHomeController.$inject = [];
+  AdminHomeController.$inject = ['currentAuth'];
 
-  function AdminHomeController() {
+  function AdminHomeController(currentAuth) {
     var vm = this;
 
     vm.userQueriesFail;

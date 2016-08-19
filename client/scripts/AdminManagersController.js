@@ -3,9 +3,9 @@
 
   angular.module('exportsNavigator').controller('AdminManagersController', AdminManagersController);
 
-  // AdminManagersController.$inject = [];
+  AdminManagersController.$inject = ['currentAuth'];
 
-  function AdminManagersController() {
+  function AdminManagersController(currentAuth) {
     var vm = this;
 
     vm.list;
