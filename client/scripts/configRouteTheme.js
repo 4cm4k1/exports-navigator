@@ -40,6 +40,15 @@
             }]
           }
         })
+        .when('/admin/countries', {
+          controller: 'AdminCountriesController as adminCountries',
+          templateUrl: 'views/adminCountries.html',
+          resolve: {
+            'currentAuth': ['Auth', function(Auth) {
+              return Auth.$requireSignIn();
+            }]
+          }
+        })
         .when('/admin/reports', {
           controller: 'AdminReportsController as adminReports',
           templateUrl: 'views/adminReports.html',
