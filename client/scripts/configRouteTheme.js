@@ -13,7 +13,7 @@
         })
         // route for the Admin Home Page
         .when('/admin', {
-          controller: 'AdminHomeController as admin',
+          controller: 'AdminHomeController as adminHome',
           templateUrl: 'views/adminHome.html',
           resolve: {
             //  This will require the user is logged in
