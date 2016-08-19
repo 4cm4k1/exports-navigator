@@ -2,7 +2,7 @@
 (function() ***REMOVED***
     'use strict';
 
-    angular.module('exportsNavigator', ['ngMaterial']).controller('LandingCtrl', ['$scope', '$http', function($scope, $http) ***REMOVED***
+    angular.module('exportsNavigator').controller('LandingCtrl', ['$scope', '$http', function($scope, $http) ***REMOVED***
     ***REMOVED***]);
 
     function LandingCtrl($scope, $http) ***REMOVED***
