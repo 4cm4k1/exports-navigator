@@ -25,11 +25,52 @@ router.post('/contacts/create', function(req, res)***REMOVED***
   queryDB(query, params, req, res);
 ***REMOVED***);
 
+router.put('/contacts/update', function(req, res)***REMOVED***
+  var query = 'UPDATE contacts SET (first_name, last_name, title, organization, email, phone) = ' +
+  '($1, $2, $3, $4, $5, $6)' +
+  'WHERE id =' + req.body.id;
+  var params = [req.body.first_name, req.body.last_name, req.body.title, req.body.organization, req.body.email, req.body.phone];
+  queryDB(query, params, req, res);
+***REMOVED***);
+
+router.delete('/contacts/delete', function(req, res)***REMOVED***
+  var query = 'DELETE FROM contacts WHERE id =' + req.body.id;
+  queryDB(query, [], req, res);
+***REMOVED***);
+
+
+
 router.get('/countries', function(req, res)***REMOVED***
   var query = 'SELECT * FROM countries JOIN contacts ON' +
   'contacts.id = countries.contact_id';
   queryDB(query, [], req, res);
 ***REMOVED***);
+
+router.post('/countries/create', function(req, res)***REMOVED***
+  var query = 'INSERT INTO countries' +
+'(contact_id, country) VALUES' +
+'($1, $2)';
+var params = [req.body.contact_id, req.body.country];
+  queryDB(query, params, req, res);
+***REMOVED***);
+
+router.put('/countries/update', function(req, res)***REMOVED***
+  var query = 'UPDATE countries SET (contact_id, country) = ' +
+  '($1, $2)' +
+  'WHERE id =' + req.body.id;
+  var params = [req.body.contact_id, req.body.country];
+  queryDB(query, params, req, res);
+***REMOVED***);
+
+router.delete('/countries/delete', function(req, res)***REMOVED***
+  var query = 'DELETE FROM countries WHERE id =' + req.body.id;
+  queryDB(query, [], req, res);
+***REMOVED***);
+
+
+
+
+
 router.get('/industries', function(req, res)***REMOVED***
   var query = 'SELECT industries.id,industry,industries.note_1,industries.note_2,industries.note_3,' +
               'contacts_1.first_name AS first_name_1,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1,' +
@@ -48,6 +89,31 @@ router.get('/industries', function(req, res)***REMOVED***
               'ORDER BY industries.id;';
   queryDB(query, [], req, res);
 ***REMOVED***);
+
+router.post('/industries/create', function(req, res)***REMOVED***
+  var query = 'INSERT INTO industries' +
+'(industry, note_1, note_2, note_3, contact_1, contact_2, contact_3, website_1, website_2, website_3) VALUES' +
+'($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
+var params = [req.body.industry, req.body.note_1, req.body.note_2, req.body.note_3, req.body.contact_1, req.body.contact_2, req.body.contact_3, req.body.website_1, req.body.website_2, req.body.website_3];
+  queryDB(query, params, req, res);
+***REMOVED***);
+
+router.put('/industries/update', function(req, res)***REMOVED***
+  var query = 'UPDATE industries SET (industry, note_1, note_2, note_3, contact_1, contact_2, contact_3, website_1, website_2, website_3) = ' +
+  '($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)' +
+  'WHERE id =' + req.body.id;
+  var params = [req.body.industry, req.body.note_1, req.body.note_2, req.body.note_3, req.body.contact_1, req.body.contact_2, req.body.contact_3, req.body.website_1, req.body.website_2, req.body.website_3];
+  queryDB(query, params, req, res);
+***REMOVED***);
+
+router.delete('/industries/delete', function(req, res)***REMOVED***
+  var query = 'DELETE FROM industries WHERE id =' + req.body.id;
+  queryDB(query, [], req, res);
+***REMOVED***);
+
+
+
+
 router.get('/topics', function(req, res)***REMOVED***
   var query = 'SELECT topics.id,topic,note_1,note_2,note_3,' +
 		          'contacts_1.first_name AS first_name_1,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1,' +
