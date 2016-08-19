@@ -9,7 +9,14 @@
     var vm = this;
 
     $http.get('/db/topics').then(function(response) ***REMOVED***
-      console.log('data:', response);
+
+      var list = [];
+
+      for (var i = 0; i < response.data.rows.length; i++) ***REMOVED***
+        list.push(response.data.rows[i].topic);
+      ***REMOVED***
+
+      console.log('list variable:', list);
     ***REMOVED***);
 
     vm.topicsList = ['this', 'will', 'be', 'a', 'list', 'of', 'topics'];

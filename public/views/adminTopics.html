@@ -1,20 +1,16 @@
-<div>
+<h1>Topics</h1>
 
-  <h1>Topics</h1>
-
-  <p ng-repeat="item in adminTopics.topicsList track by $index">
+<p ng-repeat="item in adminTopics.topicsList track by $index">
     ***REMOVED******REMOVED***item***REMOVED******REMOVED***
     <button ng-click="adminTopics.update(item)">Update item</button>
     <button ng-click="adminTopics.remove(item)">Remove item</button>
-  </p>
+</p>
 
-  <label for="addTopic">Add a topic: </label>
-  <input type="text" name="addTopic" ng-model="adminTopics.new" />
-  <button ng-click="adminTopics.add()">Add</button>
+<label for="addTopic">Add a topic: </label>
+<input type="text" name="addTopic" ng-model="adminTopics.new" />
+<button ng-click="adminTopics.add()">Add</button>
 
-  <br />
+<br />
 
-  <button ng-click="adminTopics.export()">Export Topics</button>
-  <button ng-click="adminTopics.import()">Import Topics</button>
-
-</div>
+<button ng-click="adminTopics.export()">Export Topics</button>
+<button ng-click="adminTopics.import()">Import Topics</button>
