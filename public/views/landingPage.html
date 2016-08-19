@@ -1,0 +1,106 @@
+<body ng-app="exports-navigator">
+      <div id="preQualContainer" ng-controller="LandingCtrl" layout="column" ng-cloak>
+         <p>Selected Value: <span>{{ group }}</span> </p>
+         <md-radio-group ng-model="group" class="md-primary">
+            <md-radio-button ng-repeat="d in prequalData"
+               ng-value="d.value"
+               ng-disabled=" d.isDisabled "
+               ng-class="{'md-align-top-left': $index==1}" >
+               {{ d.label }}<br/>
+            </md-radio-button>
+         </md-radio-group>
+      </div>
+   </body>
+<div>
+  <!-- <form ng-submit="submit()" ng-controller="LandingCtrl" ng-cloak>
+    <p>Selected Value: <span class="radioValue">{{ data.group1 }}</span> </p>
+    <md-radio-group ng-model="data.group1">
+      <md-radio-button value="Food-Aggribusiness" class="md-primary">Food & Aggribusiness</md-radio-button>
+      <md-radio-button value="MedicalDevice_Pharma_Lifeciences"> Medical Device, Pharma & Life Sciences </md-radio-button>
+      <md-radio-button value="Other">Other</md-radio-button>
+    </md-radio-group>
+    <hr />
+    <p>Selected Value: <span class="radioValue">{{ data.group2 }}</span></p>
+    <md-radio-group ng-model="data.group2" class="md-primary">
+        <md-radio-button ng-repeat="d in radioData"
+                         ng-value="d.value"
+                         ng-disabled=" d.isDisabled "
+                         ng-class="{'md-align-top-left': $index==1}" >
+            {{ d.label }}<br/>
+          <span class="ipsum"
+                ng-if="$index == 1">
+            Duis placerat lectus et justo mollis, nec sodales orci congue. Vestibulum semper non urna ac suscipit.
+            Vestibulum tempor, ligula id laoreet hendrerit, massa augue iaculis magna,
+            sit amet dapibus tortor ligula non nibh.
+          </span>
+        </md-radio-button>
+    </md-radio-group>
+    <p>
+      <md-button class="md-raised" ng-click="addItem()" type="button">Add</md-button>
+      <md-button class="md-raised" ng-click="removeItem()" type="button">Remove</md-button>
+    </p>
+    <hr />
+    <p style="margin-bottom: 0;">Graphic radio buttons need to be labeled with the <code>aria-label</code> attribute.</p>
+    <p style="margin-top: 0;">Selected Avatar: <span class="radioValue">{{ data.group3 }}</span></p>
+    <md-radio-group ng-model="data.group3">
+      <md-radio-button ng-repeat="it in avatarData"
+                       ng-value="it.value"
+                       aria-label="{{it.title}}">
+          <md-icon md-svg-icon="{{it.id}}"></md-icon>
+      </md-radio-button>
+    </md-radio-group>
+  </form>
+</div>
+<form name="userForm">
+  <md-input-container>
+<form ng-controller="LandingCtrl as landing">
+  {{landing.message}}
+  <md-radio-group ng-model="selected">
+  <md-radio-button ng-repeat="d in colorOptions" ng-value="d.value" aria-label="{{ d.label }}">
+         {{ d.label }}
+  </md-radio-button>
+</md-radio-group>
+  <input type="radio" ng-model="foodagContact" value="food_aggribusiness">{{food.option}}
+  <input type="radio" ng-model="meddevContact" value="meddev_pharma_lifesci">{{med.option}}
+  <input type="radio" ng-model="other" value="other">{{other.option}}
+</form>
+
+<div ng-switch="industry_sector">
+  <div ng-switch-when="food_aggribusiness">
+     <h1>{{food.message}}</h1>
+     <p>{{food.contact}}</p>
+  </div>
+  <div ng-switch-when="meddev_pharma_lifesci">
+     <h1>{{med.message}}</h1>
+     <p>{{med.contact}}</p>
+  </div>
+<div ng-switch-when="other">
+     <h1>{{other.message}}</h1>
+     <p>{{other.option}}</p>
+  </div>
+</div>
+<form name="userForm">
+  <md-input-container>
+    <label>Last Name</label>
+    <input name="lastName" ng-model="lastName" required md-maxlength="10" minlength="4">
+    <div ng-messages="userForm.lastName.$error" ng-show="userForm.lastName.$dirty">
+      <div ng-message="required">This is required!</div>
+      <div ng-message="md-maxlength">That's too long!</div>
+      <div ng-message="minlength">That's too short!</div>
+    </div>
+  </md-input-container>
+  <md-input-container>
+    <label>Biography</label>
+    <textarea name="bio" ng-model="biography" required md-maxlength="150"></textarea>
+    <div ng-messages="userForm.bio.$error" ng-show="userForm.bio.$dirty">
+      <div ng-message="required">This is required!</div>
+      <div ng-message="md-maxlength">That's too long!</div>
+    </div>
+  </md-input-container>
+  <md-input-container>
+    <input aria-label="title" ng-model="title">
+  </md-input-container>
+  <md-input-container>
+    <input placeholder="title" ng-model="title">
+  </md-input-container>
+</form> -->

@@ -3,11 +3,11 @@
 
   angular.module('exportsNavigator').controller('AdminReportsController', AdminReportsController);
 
-  // AdminReportsController.$inject = [];
+  AdminReportsController.$inject = ['currentAuth'];
 
-  function AdminReportsController() {
+  function AdminReportsController(currentAuth) {
     var vm = this;
 
 
-  };
+  }
 })();

@@ -2,7 +2,7 @@
 
   <h1>Topics</h1>
 
-  <p ng-repeat="item in adminTopics.topicsList">
+  <p ng-repeat="item in adminTopics.topicsList track by $index">
     {{item}}
     <button ng-click="adminTopics.update(item)">Update item</button>
     <button ng-click="adminTopics.remove(item)">Remove item</button>

@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var Pool = require('pg').Pool;
 //securely access heroku postgres configuration
+require('dotenv').config();
 var parseDbUrl = require('parse-database-url');
 var config = parseDbUrl(process.env.DATABASE_URL);
 config.max = 10; // max number of clients in the pool
@@ -11,58 +12,41 @@ config.ssl = true; //use encryption
 
 var pool = new Pool(config);
 
+//routes to return each table and related foreign key data KRQ
 router.get('/contacts', function(req, res){
-  pool.connect(function(err, client, done){
-    if(err) return res.send(err.code);
-    client.query('SELECT * FROM contacts', [], function(err, queryRes){
-      done();
-      if(err) return res.send(err);
-      res.send(queryRes.rows);
-    });
-  });
+  var query = 'SELECT * FROM contacts';
+  queryDB(query, [], req, res);
 });
-
-
-//below is the router for getting all info based on the INDUSTRY SEARCH
-router.get('/industries', function(req, res){
-  pool.connect(function(err, client, done){
-    if(err) return res.send(err.code);
-    client.query('SELECT * FROM industries JOIN contacts ON (contacts.id = industries.contact_1 OR contacts.id = industries.contact_2 OR contacts.id = industries.contact_3) JOIN websites ON (websites.id = industries.website_1 OR websites.id = industries.website_2 OR websites.id = industries.website_3)', [], function(err, queryRes){
-      done();
-      if(err) return res.send(err);
-      res.send(queryRes.rows);
-    });
-  });
-}); //end the router.GET for INDUSTRY SEARCH
-
-
-//below is the route for getting all info based on the TOPIC SEARCH
-router.get('/topics', function(req, res){
-  pool.connect(function(err, client, done){
-    if(err) return res.send(err.code);
-    client.query('SELECT * FROM topics JOIN contacts ON (contacts.id = topics.contact_1 OR contacts.id = topics.contact_2 OR contacts.id = topics.contact_3) JOIN websites ON (websites.id = topics.website_1 OR websites.id = topics.website_2 OR websites.id = topics.website_3)', [], function(err, queryRes){
-      done();
-      if(err) return res.send(err);
-      res.send(queryRes.rows);
-    });
-  });
-}); //end the router.GET for TOPIC SEARCH
-
-
-
-//below is the route for getting all info based on the COUNTRY SEARCH
 router.get('/countries', function(req, res){
+  var query = 'SELECT * FROM countries JOIN contacts ON' +
+  'contacts.id = countries.contact_id';
+  queryDB(query, [], req, res);
+});
+router.get('/industries', function(req, res){
+  var query = 'SELECT * FROM industries JOIN contacts ON' +
+  '(contacts.id = industries.contact_1 OR contacts.id = industries.contact_2 OR' +
+  'contacts.id = industries.contact_3) JOIN websites ON' +
+  '(websites.id = industries.website_1 OR websites.id = industries.website_2 OR' +
+  'websites.id = industries.website_3)';
+  queryDB(query, [], req, res);
+});
+router.get('/topics', function(req, res){
+  var query = 'SELECT * FROM topics JOIN contacts ON' +
+  '(contacts.id = topics.contact_1 OR contacts.id = topics.contact_2 OR contacts.id = topics.contact_3)' +
+  'JOIN websites ON (websites.id = topics.website_1 OR websites.id = topics.website_2 OR websites.id = topics.website_3)';
+  queryDB(query, [], req, res);
+});
+//refactored routes to use one function for retrieving or sending data KRQ
+function queryDB(queryStatement, vars, req, res){
   pool.connect(function(err, client, done){
     if(err) return res.send(err.code);
-    client.query('SELECT * FROM countries JOIN contacts ON contacts.id = countries.contact_id', [], function(err, queryRes){
+    client.query(queryStatement, vars, function(err, queryRes){
       done();
       if(err) return res.send(err);
-      res.send(queryRes.rows);
+      res.send(queryRes);
     });
   });
-}); //end the router.GET for COUNTRY SEARCH
-
-
+}
 
 pool.on('error', function (err, client) {
   // if an error is encountered by a client while it sits idle in the pool
