@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
 (function( window, angular, undefined ){
 "use strict";
@@ -1185,7 +1185,7 @@ function MdTabs ($$mdSvgRegistry) {
                   'md-scope="::tab.parent"></md-tab-item> ' +
               '<md-ink-bar></md-ink-bar> ' +
             '</md-pagination-wrapper> ' +
-            '<md-tabs-dummy-wrapper class="_md-visually-hidden md-dummy-wrapper"> ' +
+            '<md-tabs-dummy-wrapper class="md-visually-hidden md-dummy-wrapper"> ' +
               '<md-dummy-tab ' +
                   'class="md-tab" ' +
                   'tabindex="-1" ' +
@@ -1257,7 +1257,15 @@ function MdTabsDummyWrapper ($mdUtil) {
         ctrl.updatePagination();
         ctrl.updateInkBarStyles();
       });
-      var config = { childList: true, subtree: true };
+
+      var config = {
+        childList: true,
+        subtree: true,
+        // Per https://bugzilla.mozilla.org/show_bug.cgi?id=1138368, browsers will not fire
+        // the childList mutation, once a <span> element's innerText changes.
+        // The characterData of the <span> element will change.
+        characterData: true
+      };
 
       observer.observe(element[0], config);
 
