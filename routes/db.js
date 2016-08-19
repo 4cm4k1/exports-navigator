@@ -12,53 +12,41 @@ config.ssl = true; //use encryption
 
 var pool = new Pool(config);
 
-//get all of the data in the contacts table
+//routes to return each table and related foreign key data KRQ
 router.get('/contacts', function(req, res){
-  pool.connect(function(err, client, done){
-    if(err) return res.send(err.code);
-    client.query('SELECT * FROM contacts', [], function(err, queryRes){
-      done();
-      if(err) return res.send(err);
-      res.send(queryRes.rows);
-    });
-  });
+  var query = 'SELECT * FROM contacts';
+  queryDB(query, []);
 });
-
-//below is the router for getting all info based on the INDUSTRY SEARCH
-router.get('/industries', function(req, res){
-  pool.connect(function(err, client, done){
-    if(err) return res.send(err.code);
-    client.query('SELECT * FROM industries JOIN contacts ON (contacts.id = industries.contact_1 OR contacts.id = industries.contact_2 OR contacts.id = industries.contact_3) JOIN websites ON (websites.id = industries.website_1 OR websites.id = industries.website_2 OR websites.id = industries.website_3)', [], function(err, queryRes){
-      done();
-      if(err) return res.send(err);
-      res.send(queryRes.rows);
-    });
-  });
-}); //end the router.GET for INDUSTRY SEARCH
-
-//below is the route for getting all info based on the TOPIC SEARCH
-router.get('/topics', function(req, res){
-  pool.connect(function(err, client, done){
-    if(err) return res.send(err.code);
-    client.query('SELECT * FROM topics JOIN contacts ON (contacts.id = topics.contact_1 OR contacts.id = topics.contact_2 OR contacts.id = topics.contact_3) JOIN websites ON (websites.id = topics.website_1 OR websites.id = topics.website_2 OR websites.id = topics.website_3)', [], function(err, queryRes){
-      done();
-      if(err) return res.send(err);
-      res.send(queryRes.rows);
-    });
-  });
-}); //end the router.GET for TOPIC SEARCH
-
-//below is the route for getting all info based on the COUNTRY SEARCH
 router.get('/countries', function(req, res){
+  var query = 'SELECT * FROM countries JOIN contacts ON' +
+  'contacts.id = countries.contact_id';
+  queryDB(query, []);
+});
+router.get('/industries', function(req, res){
+  var query = 'SELECT * FROM industries JOIN contacts ON' +
+  '(contacts.id = industries.contact_1 OR contacts.id = industries.contact_2 OR' +
+  'contacts.id = industries.contact_3) JOIN websites ON' +
+  '(websites.id = industries.website_1 OR websites.id = industries.website_2 OR' +
+  'websites.id = industries.website_3)';
+  queryDB(query, []);
+});
+router.get('/topics', function(req, res){
+  var query = 'SELECT * FROM topics JOIN contacts ON' +
+  '(contacts.id = topics.contact_1 OR contacts.id = topics.contact_2 OR contacts.id = topics.contact_3)' +
+  'JOIN websites ON (websites.id = topics.website_1 OR websites.id = topics.website_2 OR websites.id = topics.website_3)';
+  queryDB(query, []);
+});
+//refactored routes to use one function for retrieving or sending data KRQ
+function queryDB(queryStatement, vars){
   pool.connect(function(err, client, done){
     if(err) return res.send(err.code);
-    client.query('SELECT * FROM countries JOIN contacts ON contacts.id = countries.contact_id', [], function(err, queryRes){
+    client.query(queryStatement, vars, function(err, queryRes){
       done();
       if(err) return res.send(err);
-      res.send(queryRes.rows);
+      res.send(queryRes);
     });
   });
-}); //end the router.GET for COUNTRY SEARCH
+};
 
 pool.on('error', function (err, client) {
   // if an error is encountered by a client while it sits idle in the pool
