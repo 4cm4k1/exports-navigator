@@ -40,6 +40,15 @@
             ***REMOVED***]
           ***REMOVED***
         ***REMOVED***)
+        .when('/admin/countries', ***REMOVED***
+          controller: 'AdminCountriesController as adminCountries',
+          templateUrl: 'views/adminCountries.html',
+          resolve: ***REMOVED***
+            'currentAuth': ['Auth', function(Auth) ***REMOVED***
+              return Auth.$requireSignIn();
+            ***REMOVED***]
+          ***REMOVED***
+        ***REMOVED***)
         .when('/admin/reports', ***REMOVED***
           controller: 'AdminReportsController as adminReports',
           templateUrl: 'views/adminReports.html',
