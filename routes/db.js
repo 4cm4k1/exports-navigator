@@ -15,8 +15,7 @@ var pool = new Pool(config);
 //routes to return each table and related foreign key data KRQ
 router.get('/contacts', function(req, res){
   var query = 'SELECT * FROM contacts';
-  var queryResponse = queryDB(query, []);
-  res.send(queryResponse);
+  res.send(queryDB(query, []));
 });
 
 router.post('/contacts/create', function(req, res){
@@ -24,15 +23,13 @@ router.post('/contacts/create', function(req, res){
   '(first_name, last_name, title, organization, email, phone) VALUES' +
   '($1, $2, $3, $4, $5, $6)';
   var params = [req.body.first_name, req.body.last_name, req.body.title, req.body.organization, req.body.email, req.body.phone];
-  var queryResponse = queryDB(query, []);
-  res.send(queryResponse);
+  res.send(queryDB(query, params));
 });
 
 router.get('/countries', function(req, res){
   var query = 'SELECT * FROM countries JOIN contacts ON' +
   'contacts.id = countries.contact_id';
-  var queryResponse = queryDB(query, []);
-  res.send(queryResponse);
+  res.send(queryDB(query, []));
 });
 router.get('/industries', function(req, res){
   var query = 'SELECT * FROM industries JOIN contacts ON' +
@@ -40,15 +37,13 @@ router.get('/industries', function(req, res){
   'contacts.id = industries.contact_3) JOIN websites ON' +
   '(websites.id = industries.website_1 OR websites.id = industries.website_2 OR' +
   'websites.id = industries.website_3)';
-  var queryResponse = queryDB(query, []);
-  res.send(queryResponse);
+  res.send(queryDB(query, []));
 });
 router.get('/topics', function(req, res){
   var query = 'SELECT * FROM topics JOIN contacts ON' +
   '(contacts.id = topics.contact_1 OR contacts.id = topics.contact_2 OR contacts.id = topics.contact_3)' +
   'JOIN websites ON (websites.id = topics.website_1 OR websites.id = topics.website_2 OR websites.id = topics.website_3)';
-  var queryResponse = queryDB(query, []);
-  res.send(queryResponse);
+  res.send(queryDB(query, []));
 });
 //refactored routes to use one function for retrieving or sending data KRQ
 function queryDB(queryStatement, vars, req, res){
