@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var Pool = require('pg').Pool;
 //securely access heroku postgres configuration
+require('dotenv').config();
 var parseDbUrl = require('parse-database-url');
 var config = parseDbUrl(process.env.DATABASE_URL);
 config.max = 10; // max number of clients in the pool
@@ -11,6 +12,7 @@ config.ssl = true; //use encryption
 
 var pool = new Pool(config);
 
+//get all of the data in the contacts table
 router.get('/contacts', function(req, res){
   pool.connect(function(err, client, done){
     if(err) return res.send(err.code);
@@ -21,7 +23,6 @@ router.get('/contacts', function(req, res){
     });
   });
 });
-
 
 //below is the router for getting all info based on the INDUSTRY SEARCH
 router.get('/industries', function(req, res){
@@ -35,7 +36,6 @@ router.get('/industries', function(req, res){
   });
 }); //end the router.GET for INDUSTRY SEARCH
 
-
 //below is the route for getting all info based on the TOPIC SEARCH
 router.get('/topics', function(req, res){
   pool.connect(function(err, client, done){
@@ -48,8 +48,6 @@ router.get('/topics', function(req, res){
   });
 }); //end the router.GET for TOPIC SEARCH
 
-
-
 //below is the route for getting all info based on the COUNTRY SEARCH
 router.get('/countries', function(req, res){
   pool.connect(function(err, client, done){
@@ -61,8 +59,6 @@ router.get('/countries', function(req, res){
     });
   });
 }); //end the router.GET for COUNTRY SEARCH
-
-
 
 pool.on('error', function (err, client) {
   // if an error is encountered by a client while it sits idle in the pool
