@@ -17,6 +17,16 @@ router.get('/contacts', function(req, res){
   var query = 'SELECT * FROM contacts';
   queryDB(query, [], req, res);
 });
+
+router.post('/contacts/create', function(req, res){
+  var query = 'INSERT INTO contacts' +
+'(first_name, last_name, title, organization, email, phone) VALUES' +
+'($1, $2, $3, $4, $5, $6)';
+
+var params = [req.body.first_name, req.body.last_name, req.body.title, req.body.organization, req.body.email, req.body.phone];
+  queryDB(query, params, req, res);
+});
+
 router.get('/countries', function(req, res){
   var query = 'SELECT * FROM countries JOIN contacts ON' +
   'contacts.id = countries.contact_id';
