@@ -3,9 +3,9 @@
 
     angular.module('exportsNavigator').controller('ResultsCtrl', ResultsCtrl);
 
-    ResultsCtrl.$inject = ['$location'];
+    ResultsCtrl.$inject = ['$location', '$routeParams'];
 
-    function ResultsCtrl($location){
+    function ResultsCtrl($location, $routeParams){
         var vm = this;
 
         //  $routeParams.category & $routeParams.searchTerm will be made
