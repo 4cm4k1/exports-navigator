@@ -1,30 +1,26 @@
-<div>
+<h1>Managers</h1>
 
-  <h1>Managers</h1>
+<h2>Current Managers</h2>
 
-  <h2>Current Managers</h2>
-
-  <p ng-repeat="manager in adminManagers.list track by $index">
+<p ng-repeat="manager in adminManagers.list track by $index">
     {{manager}}
     <button ng-click="adminManagers.update(manager)">Update</button>
     <button ng-click="adminManagers.remove(manager)">Remove</button>
-  </p>
+</p>
 
-  <h2>Add a Manager</h2>
+<h2>Add a Manager</h2>
 
-  <label for="username">Username: </label>
-  <input type="text" name="username" ng-model="adminManagers.username" />
+<label for="username">Username: </label>
+<input type="text" name="username" ng-model="adminManagers.username" />
 
-  <label for="password">Password: </label>
-  <input type="password" name="password" ng-model="adminManagers.password" />
+<label for="password">Password: </label>
+<input type="password" name="password" ng-model="adminManagers.password" />
 
-  <label for="passwordConfirm">Confirm password: </label>
-  <input type="password" name="passwordConfirm" ng-model="adminManagers.passwordConfirm" />
+<label for="passwordConfirm">Confirm password: </label>
+<input type="password" name="passwordConfirm" ng-model="adminManagers.passwordConfirm" />
 
-  <button ng-click="adminManagers.addManager()">Add</button>
+<button ng-click="adminManagers.addManager()">Add</button>
 
-  <br />
+<br />
 
-  <p>{{adminManagers.noMatch}}</p>
-
-</div>
+<p>{{adminManagers.noMatch}}</p>
