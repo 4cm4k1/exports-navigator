@@ -4,7 +4,8 @@
   "description": "Web portal for Greater MSP 16-county region businesses to navigate the complicated ecosystem of exports",
   "main": "server.js",
   "scripts": ***REMOVED***
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   ***REMOVED***,
   "repository": ***REMOVED***
     "type": "git",

@@ -9,5 +9,5 @@
     var vm = this;
 
     vm.userQueriesFail;
-  ***REMOVED***;
+  ***REMOVED***
 ***REMOVED***)();
