@@ -3,9 +3,9 @@
 
   angular.module('exportsNavigator').controller('AdminReportsController', AdminReportsController);
 
-  // AdminReportsController.$inject = [];
+  AdminReportsController.$inject = ['currentAuth'];
 
-  function AdminReportsController() ***REMOVED***
+  function AdminReportsController(currentAuth) ***REMOVED***
     var vm = this;
 
 
