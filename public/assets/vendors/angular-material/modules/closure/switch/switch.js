@@ -2,11 +2,11 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-goog.provide('ng.material.components.switch');
-goog.require('ng.material.components.checkbox');
-goog.require('ng.material.core');
+goog.provide('ngmaterial.components.switch');
+goog.require('ngmaterial.components.checkbox');
+goog.require('ngmaterial.core');
 /**
  * @ngdoc module
  * @name material.components.switch
@@ -55,7 +55,7 @@ angular.module('material.components.switch', [
  *
  * </hljs>
  */
-function MdSwitch(mdCheckboxDirective, $mdUtil, $mdConstant, $parse, $$rAF, $mdGesture) ***REMOVED***
+function MdSwitch(mdCheckboxDirective, $mdUtil, $mdConstant, $parse, $$rAF, $mdGesture, $timeout) ***REMOVED***
   var checkboxDirective = mdCheckboxDirective[0];
 
   return ***REMOVED***
@@ -63,21 +63,21 @@ function MdSwitch(mdCheckboxDirective, $mdUtil, $mdConstant, $parse, $$rAF, $mdG
     priority: 210, // Run before ngAria
     transclude: true,
     template:
-      '<div class="_md-container">' +
-        '<div class="_md-bar"></div>' +
-        '<div class="_md-thumb-container">' +
-          '<div class="_md-thumb" md-ink-ripple md-ink-ripple-checkbox></div>' +
+      '<div class="md-container">' +
+        '<div class="md-bar"></div>' +
+        '<div class="md-thumb-container">' +
+          '<div class="md-thumb" md-ink-ripple md-ink-ripple-checkbox></div>' +
         '</div>'+
       '</div>' +
-      '<div ng-transclude class="_md-label"></div>',
+      '<div ng-transclude class="md-label"></div>',
     require: '?ngModel',
     compile: mdSwitchCompile
   ***REMOVED***;
 
   function mdSwitchCompile(element, attr) ***REMOVED***
-    var checkboxLink = checkboxDirective.compile(element, attr);
+    var checkboxLink = checkboxDirective.compile(element, attr).post;
     // No transition on initial load.
-    element.addClass('_md-dragging');
+    element.addClass('md-dragging');
 
     return function (scope, element, attr, ngModel) ***REMOVED***
       ngModel = ngModel || $mdUtil.fakeNgModel();
@@ -89,12 +89,12 @@ function MdSwitch(mdCheckboxDirective, $mdUtil, $mdConstant, $parse, $$rAF, $mdG
         disabledGetter = $parse(attr.ngDisabled);
       ***REMOVED***
 
-      var thumbContainer = angular.element(element[0].querySelector('._md-thumb-container'));
-      var switchContainer = angular.element(element[0].querySelector('._md-container'));
+      var thumbContainer = angular.element(element[0].querySelector('.md-thumb-container'));
+      var switchContainer = angular.element(element[0].querySelector('.md-container'));
 
       // no transition on initial load
       $$rAF(function() ***REMOVED***
-        element.removeClass('_md-dragging');
+        element.removeClass('md-dragging');
       ***REMOVED***);
 
       checkboxLink(scope, element, attr, ngModel);
@@ -118,7 +118,7 @@ function MdSwitch(mdCheckboxDirective, $mdUtil, $mdConstant, $parse, $$rAF, $mdG
         if (disabledGetter && disabledGetter(scope)) return;
         ev.stopPropagation();
 
-        element.addClass('_md-dragging');
+        element.addClass('md-dragging');
         drag = ***REMOVED***width: thumbContainer.prop('offsetWidth')***REMOVED***;
       ***REMOVED***
 
@@ -142,16 +142,22 @@ function MdSwitch(mdCheckboxDirective, $mdUtil, $mdConstant, $parse, $$rAF, $mdG
         if (!drag) return;
         ev.stopPropagation();
 
-        element.removeClass('_md-dragging');
+        element.removeClass('md-dragging');
         thumbContainer.css($mdConstant.CSS.TRANSFORM, '');
 
         // We changed if there is no distance (this is a click a click),
         // or if the drag distance is >50% of the total.
-        var isChanged = ngModel.$viewValue ? drag.translate > 0.5 : drag.translate < 0.5;
+        var isChanged = ngModel.$viewValue ? drag.translate < 0.5 : drag.translate > 0.5;
         if (isChanged) ***REMOVED***
           applyModelValue(!ngModel.$viewValue);
         ***REMOVED***
         drag = null;
+
+        // Wait for incoming mouse click
+        scope.skipToggle = true;
+        $timeout(function() ***REMOVED***
+          scope.skipToggle = false;
+        ***REMOVED***, 1);
       ***REMOVED***
 
       function applyModelValue(newValue) ***REMOVED***
@@ -166,6 +172,6 @@ function MdSwitch(mdCheckboxDirective, $mdUtil, $mdConstant, $parse, $$rAF, $mdG
 
 
 ***REMOVED***
-MdSwitch.$inject = ["mdCheckboxDirective", "$mdUtil", "$mdConstant", "$parse", "$$rAF", "$mdGesture"];
+MdSwitch.$inject = ["mdCheckboxDirective", "$mdUtil", "$mdConstant", "$parse", "$$rAF", "$mdGesture", "$timeout"];
 
-ng.material.components.switch = angular.module("material.components.switch");
+ngmaterial.components.switch = angular.module("material.components.switch");

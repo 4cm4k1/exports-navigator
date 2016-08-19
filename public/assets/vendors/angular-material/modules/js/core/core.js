@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
 (function( window, angular, undefined )***REMOVED***
 "use strict";
@@ -194,7 +194,7 @@ function postLink(scope, element, attrs) ***REMOVED***
 
   // Setup a watcher on the proper attribute to update a class we can check for in $mdUtil
   scope.$watch(attr, function(canAutofocus) ***REMOVED***
-    element.toggleClass('_md-autofocus', canAutofocus);
+    element.toggleClass('md-autofocus', canAutofocus);
   ***REMOVED***);
 ***REMOVED***
 
@@ -278,7 +278,7 @@ angular.module('material.core')
  * Factory function that creates the grab-bag $mdConstant service.
  * ngInject
  */
-function MdConstantFactory($sniffer) ***REMOVED***
+function MdConstantFactory($sniffer, $window, $document) ***REMOVED***
 
   var vendorPrefix = $sniffer.vendorPrefix;
   var isWebkit = /webkit/i.test(vendorPrefix);
@@ -306,7 +306,14 @@ function MdConstantFactory($sniffer) ***REMOVED***
     ***REMOVED***);
   ***REMOVED***
 
-  return ***REMOVED***
+  var self = ***REMOVED***
+    isInputKey : function(e) ***REMOVED*** return (e.keyCode >= 31 && e.keyCode <= 90); ***REMOVED***,
+    isNumPadKey : function (e)***REMOVED*** return (3 === e.location && e.keyCode >= 97 && e.keyCode <= 105); ***REMOVED***,
+    isNavigationKey : function(e) ***REMOVED***
+      var kc = self.KEY_CODE, NAVIGATION_KEYS =  [kc.SPACE, kc.ENTER, kc.UP_ARROW, kc.DOWN_ARROW];
+      return (NAVIGATION_KEYS.indexOf(e.keyCode) != -1);    
+    ***REMOVED***,
+
     KEY_CODE: ***REMOVED***
       COMMA: 188,
       SEMICOLON : 186,
@@ -378,8 +385,10 @@ function MdConstantFactory($sniffer) ***REMOVED***
       'print'
     ]
   ***REMOVED***;
+
+  return self;
 ***REMOVED***
-MdConstantFactory.$inject = ["$sniffer"];
+MdConstantFactory.$inject = ["$sniffer", "$window", "$document"];
 
   angular
     .module('material.core')
@@ -829,7 +838,8 @@ function MdPrefixer(initialAttributes, buildSelector) ***REMOVED***
   return ***REMOVED***
     buildList: _buildList,
     buildSelector: _buildSelector,
-    hasAttribute: _hasAttribute
+    hasAttribute: _hasAttribute,
+    removeAttribute: _removeAttribute
   ***REMOVED***;
 
   function _buildList(attributes) ***REMOVED***
@@ -848,7 +858,7 @@ function MdPrefixer(initialAttributes, buildSelector) ***REMOVED***
     attributes = angular.isArray(attributes) ? attributes : [attributes];
 
     return _buildList(attributes)
-      .map(function (item) ***REMOVED***
+      .map(function(item) ***REMOVED***
         return '[' + item + ']'
       ***REMOVED***)
       .join(',');
@@ -866,6 +876,14 @@ function MdPrefixer(initialAttributes, buildSelector) ***REMOVED***
     ***REMOVED***
 
     return false;
+  ***REMOVED***
+
+  function _removeAttribute(element, attribute) ***REMOVED***
+    element = element[0] || element;
+
+    _buildList(attribute).forEach(function(prefixedAttribute) ***REMOVED***
+      element.removeAttribute(prefixedAttribute);
+    ***REMOVED***);
   ***REMOVED***
 ***REMOVED***
 /*
@@ -889,7 +907,7 @@ angular
 /**
  * ngInject
  */
-function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $interpolate, $log, $rootElement, $window) ***REMOVED***
+function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $interpolate, $log, $rootElement, $window, $$rAF) ***REMOVED***
   // Setup some core variables for the processTemplate method
   var startSymbol = $interpolate.startSymbol(),
     endSymbol = $interpolate.endSymbol(),
@@ -913,6 +931,20 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
     return hasValue;
   ***REMOVED***;
 
+  function validateCssValue(value) ***REMOVED***
+    return !value       ? '0'   :
+      hasPx(value) || hasPercent(value) ? value : value + 'px';
+  ***REMOVED***
+
+  function hasPx(value) ***REMOVED***
+    return String(value).indexOf('px') > -1;
+  ***REMOVED***
+
+  function hasPercent(value) ***REMOVED***
+    return String(value).indexOf('%') > -1;
+
+  ***REMOVED***
+
   var $mdUtil = ***REMOVED***
     dom: ***REMOVED******REMOVED***,
     now: window.performance ?
@@ -931,22 +963,29 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
       if ( arguments.length == 0 ) return ltr ? 'ltr' : 'rtl';
 
       // If mutator
+      var elem = angular.element(element);
+
       if ( ltr && angular.isDefined(lValue)) ***REMOVED***
-        angular.element(element).css(property, validate(lValue));
+        elem.css(property, validateCssValue(lValue));
       ***REMOVED***
       else if ( !ltr && angular.isDefined(rValue)) ***REMOVED***
-        angular.element(element).css(property, validate(rValue) );
+        elem.css(property, validateCssValue(rValue) );
       ***REMOVED***
+    ***REMOVED***,
 
-        // Internal utils
+    bidiProperty: function (element, lProperty, rProperty, value) ***REMOVED***
+      var ltr = !($document[0].dir == 'rtl' || $document[0].body.dir == 'rtl');
 
-        function validate(value) ***REMOVED***
-          return !value       ? '0'   :
-                 hasPx(value) ? value : value + 'px';
-        ***REMOVED***
-        function hasPx(value) ***REMOVED***
-          return String(value).indexOf('px') > -1;
-        ***REMOVED***
+      var elem = angular.element(element);
+
+      if ( ltr && angular.isDefined(lProperty)) ***REMOVED***
+        elem.css(lProperty, validateCssValue(value));
+        elem.css(rProperty, '');
+      ***REMOVED***
+      else if ( !ltr && angular.isDefined(rProperty)) ***REMOVED***
+        elem.css(rProperty, validateCssValue(value) );
+        elem.css(lProperty, '');
+      ***REMOVED***
     ***REMOVED***,
 
     clientRect: function(element, offsetParent, isOffsetRect) ***REMOVED***
@@ -1033,9 +1072,9 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
           items.length && angular.forEach(items, function(it) ***REMOVED***
             it = angular.element(it);
 
-            // Check the element for the _md-autofocus class to ensure any associated expression
+            // Check the element for the md-autofocus class to ensure any associated expression
             // evaluated to true.
-            var isFocusable = it.hasClass('_md-autofocus');
+            var isFocusable = it.hasClass('md-autofocus');
             if (isFocusable) elFound = it;
           ***REMOVED***);
         ***REMOVED***
@@ -1048,8 +1087,11 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
      * @param element Unused
      * @param ***REMOVED***!Element|!angular.JQLite***REMOVED*** parent Element to disable scrolling within.
      *   Defaults to body if none supplied.
+     * @param options Object of options to modify functionality
+     *   - disableScrollMask Boolean of whether or not to create a scroll mask element or
+     *     use the passed parent element.
      */
-    disableScrollAround: function(element, parent) ***REMOVED***
+    disableScrollAround: function(element, parent, options) ***REMOVED***
       $mdUtil.disableScrollAround._count = $mdUtil.disableScrollAround._count || 0;
       ++$mdUtil.disableScrollAround._count;
       if ($mdUtil.disableScrollAround._enableScrolling) return $mdUtil.disableScrollAround._enableScrolling;
@@ -1067,12 +1109,18 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
 
       // Creates a virtual scrolling mask to absorb touchmove, keyboard, scrollbar clicking, and wheel events
       function disableElementScroll(element) ***REMOVED***
-        element = angular.element(element || body)[0];
-        var scrollMask = angular.element(
-          '<div class="md-scroll-mask">' +
-          '  <div class="md-scroll-mask-bar"></div>' +
-          '</div>');
-        element.appendChild(scrollMask[0]);
+        element = angular.element(element || body);
+        var scrollMask;
+        if (options && options.disableScrollMask) ***REMOVED***
+          scrollMask = element;
+        ***REMOVED*** else ***REMOVED***
+          element = element[0];
+          scrollMask = angular.element(
+            '<div class="md-scroll-mask">' +
+            '  <div class="md-scroll-mask-bar"></div>' +
+            '</div>');
+          element.appendChild(scrollMask[0]);
+        ***REMOVED***
 
         scrollMask.on('wheel', preventDefault);
         scrollMask.on('touchmove', preventDefault);
@@ -1089,8 +1137,7 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
         ***REMOVED***
       ***REMOVED***
 
-      // Converts the body to a position fixed block and translate it to the proper scroll
-      // position
+      // Converts the body to a position fixed block and translate it to the proper scroll position
       function disableBodyScroll() ***REMOVED***
         var htmlNode = body.parentNode;
         var restoreHtmlStyle = htmlNode.style.cssText || '';
@@ -1342,19 +1389,29 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
      * getClosest replicates jQuery.closest() to walk up the DOM tree until it finds a matching nodeName
      *
      * @param el Element to start walking the DOM from
-     * @param tagName Tag name to find closest to el, such as 'form'
+     * @param check Either a string or a function. If a string is passed, it will be evaluated against
+     * each of the parent nodes' tag name. If a function is passed, the loop will call it with each of
+     * the parents and will use the return value to determine whether the node is a match.
      * @param onlyParent Only start checking from the parent element, not `el`.
      */
-    getClosest: function getClosest(el, tagName, onlyParent) ***REMOVED***
+    getClosest: function getClosest(el, validateWith, onlyParent) ***REMOVED***
+      if ( angular.isString(validateWith) ) ***REMOVED***
+        var tagName = validateWith.toUpperCase();
+        validateWith = function(el) ***REMOVED***
+          return el.nodeName === tagName;
+        ***REMOVED***;
+      ***REMOVED***
+
       if (el instanceof angular.element) el = el[0];
-      tagName = tagName.toUpperCase();
       if (onlyParent) el = el.parentNode;
       if (!el) return null;
+
       do ***REMOVED***
-        if (el.nodeName === tagName) ***REMOVED***
+        if (validateWith(el)) ***REMOVED***
           return el;
         ***REMOVED***
       ***REMOVED*** while (el = el.parentNode);
+
       return null;
     ***REMOVED***,
 
@@ -1535,6 +1592,34 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
     ***REMOVED***,
 
     /**
+     * Checks if the current browser is natively supporting the `sticky` position.
+     * @returns ***REMOVED***string***REMOVED*** supported sticky property name
+     */
+    checkStickySupport: function() ***REMOVED***
+      var stickyProp;
+      var testEl = angular.element('<div>');
+      $document[0].body.appendChild(testEl[0]);
+
+      var stickyProps = ['sticky', '-webkit-sticky'];
+      for (var i = 0; i < stickyProps.length; ++i) ***REMOVED***
+        testEl.css(***REMOVED***
+          position: stickyProps[i],
+          top: 0,
+          'z-index': 2
+        ***REMOVED***);
+
+        if (testEl.css('position') == stickyProps[i]) ***REMOVED***
+          stickyProp = stickyProps[i];
+          break;
+        ***REMOVED***
+      ***REMOVED***
+
+      testEl.remove();
+
+      return stickyProp;
+    ***REMOVED***,
+
+    /**
      * Parses an attribute value, mostly a string.
      * By default checks for negated values and returns `false´ if present.
      * Negated values are: (native falsy) and negative strings like:
@@ -1547,7 +1632,66 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
       return value === '' || !!value && (negatedCheck === false || value !== 'false' && value !== '0');
     ***REMOVED***,
 
-    hasComputedStyle: hasComputedStyle
+    hasComputedStyle: hasComputedStyle,
+
+    /**
+     * Returns true if the parent form of the element has been submitted.
+     *
+     * @param element An Angular or HTML5 element.
+     *
+     * @returns ***REMOVED***boolean***REMOVED***
+     */
+    isParentFormSubmitted: function(element) ***REMOVED***
+      var parent = $mdUtil.getClosest(element, 'form');
+      var form = parent ? angular.element(parent).controller('form') : null;
+
+      return form ? form.$submitted : false;
+    ***REMOVED***,
+
+    /**
+     * Animate the requested element's scrollTop to the requested scrollPosition with basic easing.
+     *
+     * @param element The element to scroll.
+     * @param scrollEnd The new/final scroll position.
+     */
+    animateScrollTo: function(element, scrollEnd) ***REMOVED***
+      var scrollStart = element.scrollTop;
+      var scrollChange = scrollEnd - scrollStart;
+      var scrollingDown = scrollStart < scrollEnd;
+      var startTime = $mdUtil.now();
+
+      $$rAF(scrollChunk);
+
+      function scrollChunk() ***REMOVED***
+        var newPosition = calculateNewPosition();
+        
+        element.scrollTop = newPosition;
+        
+        if (scrollingDown ? newPosition < scrollEnd : newPosition > scrollEnd) ***REMOVED***
+          $$rAF(scrollChunk);
+        ***REMOVED***
+      ***REMOVED***
+      
+      function calculateNewPosition() ***REMOVED***
+        var duration = 1000;
+        var currentTime = $mdUtil.now() - startTime;
+        
+        return ease(currentTime, scrollStart, scrollChange, duration);
+      ***REMOVED***
+
+      function ease(currentTime, start, change, duration) ***REMOVED***
+        // If the duration has passed (which can occur if our app loses focus due to $$rAF), jump
+        // straight to the proper position
+        if (currentTime > duration) ***REMOVED***
+          return start + change;
+        ***REMOVED***
+        
+        var ts = (currentTime /= duration) * currentTime;
+        var tc = ts * currentTime;
+
+        return start + change * (-2 * tc + 3 * ts);
+      ***REMOVED***
+    ***REMOVED***
   ***REMOVED***;
 
 
@@ -1562,7 +1706,7 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
   ***REMOVED***
 
 ***REMOVED***
-UtilFactory.$inject = ["$document", "$timeout", "$compile", "$rootScope", "$$mdAnimate", "$interpolate", "$log", "$rootElement", "$window"];
+UtilFactory.$inject = ["$document", "$timeout", "$compile", "$rootScope", "$$mdAnimate", "$interpolate", "$log", "$rootElement", "$window", "$$rAF"];
 
 /*
  * Since removing jQuery from the demos, some code that uses `element.focus()` is broken.
@@ -1582,20 +1726,75 @@ angular.element.prototype.blur = angular.element.prototype.blur || function() **
     return this;
   ***REMOVED***;
 
+/**
+ * @ngdoc module
+ * @name material.core.aria
+ * @description
+ * Aria Expectations for ngMaterial components.
+ */
+angular
+  .module('material.core')
+  .provider('$mdAria', MdAriaProvider);
 
+/**
+ * @ngdoc service
+ * @name $mdAriaProvider
+ * @module material.core.aria
+ *
+ * @description
+ *
+ * Modify options of the `$mdAria` service, which will be used by most of the Angular Material components.
+ **
+ *
+ * You are able to disable `$mdAria` warnings, by using the following markup.
+ * <hljs lang="js">
+ *   app.config(function($mdAriaProvider) ***REMOVED***
+ *     // Globally disables all ARIA warnings.
+ *     $mdAriaProvider.disableWarnings();
+ *   ***REMOVED***);
+ * </hljs>
+ *
+ */
+function MdAriaProvider() ***REMOVED***
 
-angular.module('material.core')
-  .service('$mdAria', AriaService);
+  var self = this;
+
+  /**
+   * Whether we should show ARIA warnings in the console, if labels are missing on the element
+   * By default the warnings are enabled
+   */
+  self.showWarnings = true;
+
+  return ***REMOVED***
+    disableWarnings: disableWarnings,
+    $get: ["$$rAF", "$log", "$window", "$interpolate", function($$rAF, $log, $window, $interpolate) ***REMOVED***
+      return MdAriaService.apply(self, arguments);
+    ***REMOVED***]
+  ***REMOVED***;
+
+  /**
+   * @ngdoc method
+   * @name $mdAriaProvider#disableWarnings
+   */
+  function disableWarnings() ***REMOVED***
+    self.showWarnings = false;
+  ***REMOVED***
+***REMOVED***
 
 /*
  * ngInject
  */
-function AriaService($$rAF, $log, $window, $interpolate) ***REMOVED***
+function MdAriaService($$rAF, $log, $window, $interpolate) ***REMOVED***
+
+  // Load the showWarnings option from the current context and store it inside of a scope variable,
+  // because the context will be probably lost in some function calls.
+  var showWarnings = this.showWarnings;
 
   return ***REMOVED***
     expect: expect,
     expectAsync: expectAsync,
-    expectWithText: expectWithText
+    expectWithText: expectWithText,
+    expectWithoutText: expectWithoutText
   ***REMOVED***;
 
   /**
@@ -1617,7 +1816,7 @@ function AriaService($$rAF, $log, $window, $interpolate) ***REMOVED***
       defaultValue = angular.isString(defaultValue) ? defaultValue.trim() : '';
       if (defaultValue.length) ***REMOVED***
         element.attr(attrName, defaultValue);
-      ***REMOVED*** else ***REMOVED***
+      ***REMOVED*** else if (showWarnings) ***REMOVED***
         $log.warn('ARIA: Attribute "', attrName, '", required for accessibility, is missing on node:', node);
       ***REMOVED***
 
@@ -1642,6 +1841,15 @@ function AriaService($$rAF, $log, $window, $interpolate) ***REMOVED***
         return getText(element);
       ***REMOVED***);
     ***REMOVED*** else ***REMOVED***
+      expect(element, attrName, content);
+    ***REMOVED***
+  ***REMOVED***
+
+  function expectWithoutText(element, attrName) ***REMOVED***
+    var content = getText(element);
+    var hasBinding = content.indexOf($interpolate.startSymbol()) > -1;
+
+    if ( !hasBinding && !content) ***REMOVED***
       expect(element, attrName, content);
     ***REMOVED***
   ***REMOVED***
@@ -1693,7 +1901,148 @@ function AriaService($$rAF, $log, $window, $interpolate) ***REMOVED***
     return hasAttr;
   ***REMOVED***
 ***REMOVED***
-AriaService.$inject = ["$$rAF", "$log", "$window", "$interpolate"];
+MdAriaService.$inject = ["$$rAF", "$log", "$window", "$interpolate"];
+
+angular
+  .module('material.core')
+  .service('$mdCompiler', mdCompilerService);
+
+function mdCompilerService($q, $templateRequest, $injector, $compile, $controller) ***REMOVED***
+  /* jshint validthis: true */
+
+  /*
+   * @ngdoc service
+   * @name $mdCompiler
+   * @module material.core
+   * @description
+   * The $mdCompiler service is an abstraction of angular's compiler, that allows the developer
+   * to easily compile an element with a templateUrl, controller, and locals.
+   *
+   * @usage
+   * <hljs lang="js">
+   * $mdCompiler.compile(***REMOVED***
+   *   templateUrl: 'modal.html',
+   *   controller: 'ModalCtrl',
+   *   locals: ***REMOVED***
+   *     modal: myModalInstance;
+   *   ***REMOVED***
+   * ***REMOVED***).then(function(compileData) ***REMOVED***
+   *   compileData.element; // modal.html's template in an element
+   *   compileData.link(myScope); //attach controller & scope to element
+   * ***REMOVED***);
+   * </hljs>
+   */
+
+   /*
+    * @ngdoc method
+    * @name $mdCompiler#compile
+    * @description A helper to compile an HTML template/templateUrl with a given controller,
+    * locals, and scope.
+    * @param ***REMOVED***object***REMOVED*** options An options object, with the following properties:
+    *
+    *    - `controller` - `***REMOVED***(string=|function()=***REMOVED***` Controller fn that should be associated with
+    *      newly created scope or the name of a registered controller if passed as a string.
+    *    - `controllerAs` - `***REMOVED***string=***REMOVED***` A controller alias name. If present the controller will be
+    *      published to scope under the `controllerAs` name.
+    *    - `template` - `***REMOVED***string=***REMOVED***` An html template as a string.
+    *    - `templateUrl` - `***REMOVED***string=***REMOVED***` A path to an html template.
+    *    - `transformTemplate` - `***REMOVED***function(template)=***REMOVED***` A function which transforms the template after
+    *      it is loaded. It will be given the template string as a parameter, and should
+    *      return a a new string representing the transformed template.
+    *    - `resolve` - `***REMOVED***Object.<string, function>=***REMOVED***` - An optional map of dependencies which should
+    *      be injected into the controller. If any of these dependencies are promises, the compiler
+    *      will wait for them all to be resolved, or if one is rejected before the controller is
+    *      instantiated `compile()` will fail..
+    *      * `key` - `***REMOVED***string***REMOVED***`: a name of a dependency to be injected into the controller.
+    *      * `factory` - `***REMOVED***string|function***REMOVED***`: If `string` then it is an alias for a service.
+    *        Otherwise if function, then it is injected and the return value is treated as the
+    *        dependency. If the result is a promise, it is resolved before its value is
+    *        injected into the controller.
+    *
+    * @returns ***REMOVED***object=***REMOVED*** promise A promise, which will be resolved with a `compileData` object.
+    * `compileData` has the following properties:
+    *
+    *   - `element` - `***REMOVED***element***REMOVED***`: an uncompiled element matching the provided template.
+    *   - `link` - `***REMOVED***function(scope)***REMOVED***`: A link function, which, when called, will compile
+    *     the element and instantiate the provided controller (if given).
+    *   - `locals` - `***REMOVED***object***REMOVED***`: The locals which will be passed into the controller once `link` is
+    *     called. If `bindToController` is true, they will be coppied to the ctrl instead
+    *   - `bindToController` - `bool`: bind the locals to the controller, instead of passing them in.
+    */
+  this.compile = function(options) ***REMOVED***
+    var templateUrl = options.templateUrl;
+    var template = options.template || '';
+    var controller = options.controller;
+    var controllerAs = options.controllerAs;
+    var resolve = angular.extend(***REMOVED******REMOVED***, options.resolve || ***REMOVED******REMOVED***);
+    var locals = angular.extend(***REMOVED******REMOVED***, options.locals || ***REMOVED******REMOVED***);
+    var transformTemplate = options.transformTemplate || angular.identity;
+    var bindToController = options.bindToController;
+
+    // Take resolve values and invoke them.
+    // Resolves can either be a string (value: 'MyRegisteredAngularConst'),
+    // or an invokable 'factory' of sorts: (value: function ValueGetter($dependency) ***REMOVED******REMOVED***)
+    angular.forEach(resolve, function(value, key) ***REMOVED***
+      if (angular.isString(value)) ***REMOVED***
+        resolve[key] = $injector.get(value);
+      ***REMOVED*** else ***REMOVED***
+        resolve[key] = $injector.invoke(value);
+      ***REMOVED***
+    ***REMOVED***);
+    //Add the locals, which are just straight values to inject
+    //eg locals: ***REMOVED*** three: 3 ***REMOVED***, will inject three into the controller
+    angular.extend(resolve, locals);
+
+    if (templateUrl) ***REMOVED***
+      resolve.$template = $templateRequest(templateUrl)
+        .then(function(response) ***REMOVED***
+          return response;
+        ***REMOVED***);
+    ***REMOVED*** else ***REMOVED***
+      resolve.$template = $q.when(template);
+    ***REMOVED***
+
+    // Wait for all the resolves to finish if they are promises
+    return $q.all(resolve).then(function(locals) ***REMOVED***
+
+      var compiledData;
+      var template = transformTemplate(locals.$template, options);
+      var element = options.element || angular.element('<div>').html(template.trim()).contents();
+      var linkFn = $compile(element);
+
+      // Return a linking function that can be used later when the element is ready
+      return compiledData = ***REMOVED***
+        locals: locals,
+        element: element,
+        link: function link(scope) ***REMOVED***
+          locals.$scope = scope;
+
+          //Instantiate controller if it exists, because we have scope
+          if (controller) ***REMOVED***
+            var invokeCtrl = $controller(controller, locals, true);
+            if (bindToController) ***REMOVED***
+              angular.extend(invokeCtrl.instance, locals);
+            ***REMOVED***
+            var ctrl = invokeCtrl();
+            //See angular-route source for this logic
+            element.data('$ngControllerController', ctrl);
+            element.children().data('$ngControllerController', ctrl);
+
+            if (controllerAs) ***REMOVED***
+              scope[controllerAs] = ctrl;
+            ***REMOVED***
+
+            // Publish reference to this controller
+            compiledData.controller = ctrl;
+          ***REMOVED***
+          return linkFn(scope);
+        ***REMOVED***
+      ***REMOVED***;
+    ***REMOVED***);
+
+  ***REMOVED***;
+***REMOVED***
+mdCompilerService.$inject = ["$q", "$templateRequest", "$injector", "$compile", "$controller"];
 
 var HANDLERS = ***REMOVED******REMOVED***;
 
@@ -1702,7 +2051,7 @@ var HANDLERS = ***REMOVED******REMOVED***;
  * It contains normalized x and y coordinates from DOM events,
  * as well as other information abstracted from the DOM.
  */
- 
+
 var pointer, lastPointer, forceSkipClickHijack = false;
 
 /**
@@ -1770,11 +2119,14 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
   var userAgent = navigator.userAgent || navigator.vendor || window.opera;
   var isIos = userAgent.match(/ipad|iphone|ipod/i);
   var isAndroid = userAgent.match(/android/i);
+  var touchActionProperty = getTouchAction();
   var hasJQuery =  (typeof window.jQuery !== 'undefined') && (angular.element === window.jQuery);
 
   var self = ***REMOVED***
     handler: addHandler,
     register: register,
+    isIos: isIos,
+    isAndroid: isAndroid,
     // On mobile w/out jQuery, we normally intercept clicks. Should we skip that?
     isHijackingClicks: (isIos || isAndroid) && !hasJQuery && !forceSkipClickHijack
   ***REMOVED***;
@@ -1805,7 +2157,7 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
 
           return (element.getAttribute('tabindex') != '-1') &&
               !element.hasAttribute('DISABLED') &&
-              (element.hasAttribute('tabindex') || element.hasAttribute('href') ||
+              (element.hasAttribute('tabindex') || element.hasAttribute('href') || element.isContentEditable ||
               (focusableElements.indexOf(element.nodeName) != -1));
         ***REMOVED***
       ***REMOVED***
@@ -1866,7 +2218,7 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
    * Register handlers. These listen to touch/start/move events, interpret them,
    * and dispatch gesture events depending on options & conditions. These are all
    * instances of GestureHandler.
-   * @see GestureHandler 
+   * @see GestureHandler
    */
   return self
     /*
@@ -1912,7 +2264,7 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
         // If we don't preventDefault touchmove events here, Android will assume we don't
         // want to listen to anymore touch events. It will start scrolling and stop sending
         // touchmove events.
-        ev.preventDefault();
+        if (!touchActionProperty && ev.type === 'touchmove') ev.preventDefault();
 
         // If the user moves greater than <maxDistance> pixels, stop the hold timer
         // set in onStart
@@ -1931,7 +2283,7 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
      * The drag handler dispatches a drag event if the user holds and moves his finger greater than
      * <minDistance> px in the x or y direction, depending on options.horizontal.
      * The drag will be cancelled if the user moves his finger greater than <minDistance>*<cancelMultiplier> in
-     * the perpindicular direction. Eg if the drag is horizontal and the user moves his finger <minDistance>*<cancelMultiplier>
+     * the perpendicular direction. Eg if the drag is horizontal and the user moves his finger <minDistance>*<cancelMultiplier>
      * pixels vertically, this handler won't consider the move part of a drag.
      */
     .handler('drag', ***REMOVED***
@@ -1939,6 +2291,18 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
         minDistance: 6,
         horizontal: true,
         cancelMultiplier: 1.5
+      ***REMOVED***,
+      onSetup: function(element, options) ***REMOVED***
+        if (touchActionProperty) ***REMOVED***
+          // We check for horizontal to be false, because otherwise we would overwrite the default opts.
+          this.oldTouchAction = element[0].style[touchActionProperty];
+          element[0].style[touchActionProperty] = options.horizontal === false ? 'pan-y' : 'pan-x';
+        ***REMOVED***
+      ***REMOVED***,
+      onCleanup: function(element) ***REMOVED***
+        if (this.oldTouchAction) ***REMOVED***
+          element[0].style[touchActionProperty] = this.oldTouchAction;
+        ***REMOVED***
       ***REMOVED***,
       onStart: function (ev) ***REMOVED***
         // For drag, require a parent to be registered with $mdGesture.register()
@@ -1950,7 +2314,7 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
         // If we don't preventDefault touchmove events here, Android will assume we don't
         // want to listen to anymore touch events. It will start scrolling and stop sending
         // touchmove events.
-        ev.preventDefault();
+        if (!touchActionProperty && ev.type === 'touchmove') ev.preventDefault();
 
         if (!this.state.dragPointer) ***REMOVED***
           if (this.state.options.horizontal) ***REMOVED***
@@ -1974,7 +2338,7 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
           this.dispatchDragMove(ev);
         ***REMOVED***
       ***REMOVED***,
-      // Only dispatch dragmove events every frame; any more is unnecessray
+      // Only dispatch dragmove events every frame; any more is unnecessary
       dispatchDragMove: $$rAF.throttle(function (ev) ***REMOVED***
         // Make sure the drag didn't stop while waiting for the next frame
         if (this.state.isRunning) ***REMOVED***
@@ -2015,6 +2379,19 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
       ***REMOVED***
     ***REMOVED***);
 
+  function getTouchAction() ***REMOVED***
+    var testEl = document.createElement('div');
+    var vendorPrefixes = ['', 'webkit', 'Moz', 'MS', 'ms', 'o'];
+
+    for (var i = 0; i < vendorPrefixes.length; i++) ***REMOVED***
+      var prefix = vendorPrefixes[i];
+      var property = prefix ? prefix + 'TouchAction' : 'touchAction';
+      if (angular.isDefined(testEl.style[property])) ***REMOVED***
+        return property;
+      ***REMOVED***
+    ***REMOVED***
+  ***REMOVED***
+
 ***REMOVED***
 MdGesture.$inject = ["$$MdGestureHandler", "$$rAF", "$timeout"];
 
@@ -2044,6 +2421,8 @@ function MdGestureHandler() ***REMOVED***
     dispatchEvent: hasJQuery ?  jQueryDispatchEvent : nativeDispatchEvent,
 
     // These are overridden by the registered handler
+    onSetup: angular.noop,
+    onCleanup: angular.noop,
     onStart: angular.noop,
     onMove: angular.noop,
     onEnd: angular.noop,
@@ -2093,7 +2472,7 @@ function MdGestureHandler() ***REMOVED***
       return null;
     ***REMOVED***,
 
-    // Called from $mdGesture.register when an element reigsters itself with a handler.
+    // Called from $mdGesture.register when an element registers itself with a handler.
     // Store the options the user gave on the DOMElement itself. These options will
     // be retrieved with getNearestParent when the handler starts.
     registerElement: function (element, options) ***REMOVED***
@@ -2102,11 +2481,15 @@ function MdGestureHandler() ***REMOVED***
       element[0].$mdGesture[this.name] = options || ***REMOVED******REMOVED***;
       element.on('$destroy', onDestroy);
 
+      self.onSetup(element, options || ***REMOVED******REMOVED***);
+
       return onDestroy;
 
       function onDestroy() ***REMOVED***
         delete element[0].$mdGesture[self.name];
         element.off('$destroy', onDestroy);
+
+        self.onCleanup(element, options || ***REMOVED******REMOVED***);
       ***REMOVED***
     ***REMOVED***
   ***REMOVED***;
@@ -2194,7 +2577,7 @@ function attachToDocument( $mdGesture, $$MdGestureHandler ) ***REMOVED***
      * click event will be sent ~400ms after a touchend event happens.
      * The only way to know if this click is real is to prevent any normal
      * click events, and add a flag to events sent by material so we know not to prevent those.
-     * 
+     *
      * Two exceptions to click events that should be prevented are:
      *  - click events sent by the keyboard (eg form submit)
      *  - events that originate from an Ionic app
@@ -2401,147 +2784,6 @@ function getEventPoint(ev) ***REMOVED***
     (ev.changedTouches && ev.changedTouches[0]) ||
     ev;
 ***REMOVED***
-
-angular
-  .module('material.core')
-  .service('$mdCompiler', mdCompilerService);
-
-function mdCompilerService($q, $templateRequest, $injector, $compile, $controller) ***REMOVED***
-  /* jshint validthis: true */
-
-  /*
-   * @ngdoc service
-   * @name $mdCompiler
-   * @module material.core
-   * @description
-   * The $mdCompiler service is an abstraction of angular's compiler, that allows the developer
-   * to easily compile an element with a templateUrl, controller, and locals.
-   *
-   * @usage
-   * <hljs lang="js">
-   * $mdCompiler.compile(***REMOVED***
-   *   templateUrl: 'modal.html',
-   *   controller: 'ModalCtrl',
-   *   locals: ***REMOVED***
-   *     modal: myModalInstance;
-   *   ***REMOVED***
-   * ***REMOVED***).then(function(compileData) ***REMOVED***
-   *   compileData.element; // modal.html's template in an element
-   *   compileData.link(myScope); //attach controller & scope to element
-   * ***REMOVED***);
-   * </hljs>
-   */
-
-   /*
-    * @ngdoc method
-    * @name $mdCompiler#compile
-    * @description A helper to compile an HTML template/templateUrl with a given controller,
-    * locals, and scope.
-    * @param ***REMOVED***object***REMOVED*** options An options object, with the following properties:
-    *
-    *    - `controller` - `***REMOVED***(string=|function()=***REMOVED***` Controller fn that should be associated with
-    *      newly created scope or the name of a registered controller if passed as a string.
-    *    - `controllerAs` - `***REMOVED***string=***REMOVED***` A controller alias name. If present the controller will be
-    *      published to scope under the `controllerAs` name.
-    *    - `template` - `***REMOVED***string=***REMOVED***` An html template as a string.
-    *    - `templateUrl` - `***REMOVED***string=***REMOVED***` A path to an html template.
-    *    - `transformTemplate` - `***REMOVED***function(template)=***REMOVED***` A function which transforms the template after
-    *      it is loaded. It will be given the template string as a parameter, and should
-    *      return a a new string representing the transformed template.
-    *    - `resolve` - `***REMOVED***Object.<string, function>=***REMOVED***` - An optional map of dependencies which should
-    *      be injected into the controller. If any of these dependencies are promises, the compiler
-    *      will wait for them all to be resolved, or if one is rejected before the controller is
-    *      instantiated `compile()` will fail..
-    *      * `key` - `***REMOVED***string***REMOVED***`: a name of a dependency to be injected into the controller.
-    *      * `factory` - `***REMOVED***string|function***REMOVED***`: If `string` then it is an alias for a service.
-    *        Otherwise if function, then it is injected and the return value is treated as the
-    *        dependency. If the result is a promise, it is resolved before its value is
-    *        injected into the controller.
-    *
-    * @returns ***REMOVED***object=***REMOVED*** promise A promise, which will be resolved with a `compileData` object.
-    * `compileData` has the following properties:
-    *
-    *   - `element` - `***REMOVED***element***REMOVED***`: an uncompiled element matching the provided template.
-    *   - `link` - `***REMOVED***function(scope)***REMOVED***`: A link function, which, when called, will compile
-    *     the element and instantiate the provided controller (if given).
-    *   - `locals` - `***REMOVED***object***REMOVED***`: The locals which will be passed into the controller once `link` is
-    *     called. If `bindToController` is true, they will be coppied to the ctrl instead
-    *   - `bindToController` - `bool`: bind the locals to the controller, instead of passing them in.
-    */
-  this.compile = function(options) ***REMOVED***
-    var templateUrl = options.templateUrl;
-    var template = options.template || '';
-    var controller = options.controller;
-    var controllerAs = options.controllerAs;
-    var resolve = angular.extend(***REMOVED******REMOVED***, options.resolve || ***REMOVED******REMOVED***);
-    var locals = angular.extend(***REMOVED******REMOVED***, options.locals || ***REMOVED******REMOVED***);
-    var transformTemplate = options.transformTemplate || angular.identity;
-    var bindToController = options.bindToController;
-
-    // Take resolve values and invoke them.
-    // Resolves can either be a string (value: 'MyRegisteredAngularConst'),
-    // or an invokable 'factory' of sorts: (value: function ValueGetter($dependency) ***REMOVED******REMOVED***)
-    angular.forEach(resolve, function(value, key) ***REMOVED***
-      if (angular.isString(value)) ***REMOVED***
-        resolve[key] = $injector.get(value);
-      ***REMOVED*** else ***REMOVED***
-        resolve[key] = $injector.invoke(value);
-      ***REMOVED***
-    ***REMOVED***);
-    //Add the locals, which are just straight values to inject
-    //eg locals: ***REMOVED*** three: 3 ***REMOVED***, will inject three into the controller
-    angular.extend(resolve, locals);
-
-    if (templateUrl) ***REMOVED***
-      resolve.$template = $templateRequest(templateUrl)
-        .then(function(response) ***REMOVED***
-          return response;
-        ***REMOVED***);
-    ***REMOVED*** else ***REMOVED***
-      resolve.$template = $q.when(template);
-    ***REMOVED***
-
-    // Wait for all the resolves to finish if they are promises
-    return $q.all(resolve).then(function(locals) ***REMOVED***
-
-      var compiledData;
-      var template = transformTemplate(locals.$template, options);
-      var element = options.element || angular.element('<div>').html(template.trim()).contents();
-      var linkFn = $compile(element);
-
-      // Return a linking function that can be used later when the element is ready
-      return compiledData = ***REMOVED***
-        locals: locals,
-        element: element,
-        link: function link(scope) ***REMOVED***
-          locals.$scope = scope;
-
-          //Instantiate controller if it exists, because we have scope
-          if (controller) ***REMOVED***
-            var invokeCtrl = $controller(controller, locals, true);
-            if (bindToController) ***REMOVED***
-              angular.extend(invokeCtrl.instance, locals);
-            ***REMOVED***
-            var ctrl = invokeCtrl();
-            //See angular-route source for this logic
-            element.data('$ngControllerController', ctrl);
-            element.children().data('$ngControllerController', ctrl);
-
-            if (controllerAs) ***REMOVED***
-              scope[controllerAs] = ctrl;
-            ***REMOVED***
-
-            // Publish reference to this controller
-            compiledData.controller = ctrl;
-          ***REMOVED***
-          return linkFn(scope);
-        ***REMOVED***
-      ***REMOVED***;
-    ***REMOVED***);
-
-  ***REMOVED***;
-***REMOVED***
-mdCompilerService.$inject = ["$q", "$templateRequest", "$injector", "$compile", "$controller"];
 
 angular.module('material.core')
   .provider('$$interimElement', InterimElementProvider);
@@ -2973,7 +3215,11 @@ function InterimElementProvider() ***REMOVED***
          * Use optional autoHided and transition-in effects
          */
         function createAndTransitionIn() ***REMOVED***
-          return $q(function(resolve, reject)***REMOVED***
+          return $q(function(resolve, reject) ***REMOVED***
+
+            // Trigger onCompiling callback before the compilation starts.
+            // This is useful, when modifying options, which can be influenced by developers.
+            options.onCompiling && options.onCompiling(options);
 
             compileElement(options)
               .then(function( compiledData ) ***REMOVED***
@@ -3341,8 +3587,25 @@ function InterimElementProvider() ***REMOVED***
 
     // Register other, special directive functions for the Layout features:
     module
-      .directive('mdLayoutCss'  , disableLayoutDirective )
-      .directive('ngCloak'      ,  buildCloakInterceptor('ng-cloak'))
+
+      .provider('$$mdLayout'     , function() ***REMOVED***
+        // Publish internal service for Layouts
+        return ***REMOVED***
+          $get : angular.noop,
+          validateAttributeValue : validateAttributeValue,
+          validateAttributeUsage : validateAttributeUsage,
+          /**
+           * Easy way to disable/enable the Layout API.
+           * When disabled, this stops all attribute-to-classname generations
+           */
+          disableLayouts  : function(isDisabled) ***REMOVED***
+            config.enabled =  (isDisabled !== true);
+          ***REMOVED***
+        ***REMOVED***;
+      ***REMOVED***)
+
+      .directive('mdLayoutCss'        , disableLayoutDirective )
+      .directive('ngCloak'            , buildCloakInterceptor('ng-cloak'))
 
       .directive('layoutWrap'   , attributeWithoutValue('layout-wrap'))
       .directive('layoutNowrap' , attributeWithoutValue('layout-nowrap'))
@@ -3366,7 +3629,10 @@ function InterimElementProvider() ***REMOVED***
       .directive('hideLtMd'       , warnAttrNotSupported('hide-lt-md'))
       .directive('hideLtLg'       , warnAttrNotSupported('hide-lt-lg'))
       .directive('showLtMd'       , warnAttrNotSupported('show-lt-md'))
-      .directive('showLtLg'       , warnAttrNotSupported('show-lt-lg'));
+      .directive('showLtLg'       , warnAttrNotSupported('show-lt-lg'))
+
+      // Determine if
+      .config( detectDisabledLayouts );
 
     /**
      * Converts snake_case to camelCase.
@@ -3382,6 +3648,21 @@ function InterimElementProvider() ***REMOVED***
     ***REMOVED***
 
   ***REMOVED***
+
+
+  /**
+    * Detect if any of the HTML tags has a [md-layouts-disabled] attribute;
+    * If yes, then immediately disable all layout API features
+    *
+    * Note: this attribute should be specified on either the HTML or BODY tags
+    */
+   /**
+    * ngInject
+    */
+   function detectDisabledLayouts() ***REMOVED***
+     var isDisabled = !!document.querySelector('[md-layouts-disabled]');
+     config.enabled = !isDisabled;
+   ***REMOVED***
 
   /**
    * Special directive that will disable ALL Layout conversions of layout
@@ -3404,13 +3685,12 @@ function InterimElementProvider() ***REMOVED***
    *
    */
   function disableLayoutDirective() ***REMOVED***
+    // Return a 1x-only, first-match attribute directive
+    config.enabled = false;
+
     return ***REMOVED***
       restrict : 'A',
-      priority : '900',
-      compile  : function(element, attr) ***REMOVED***
-        config.enabled = false;
-        return angular.noop;
-      ***REMOVED***
+      priority : '900'
     ***REMOVED***;
   ***REMOVED***
 
@@ -4411,6 +4691,7 @@ InkRippleCtrl.prototype.removeRipple = function (ripple) ***REMOVED***
   if (index < 0) return;
   this.ripples.splice(this.ripples.indexOf(ripple), 1);
   ripple.removeClass('md-ripple-active');
+  ripple.addClass('md-ripple-remove');
   if (this.ripples.length === 0) this.container.css(***REMOVED*** backgroundColor: '' ***REMOVED***);
   // use a 2-second timeout in order to allow for the animation to finish
   // we don't actually care how long the animation takes
@@ -4834,6 +5115,8 @@ angular.module('material.core.theming.palette', [])
   ***REMOVED***
 ***REMOVED***);
 
+(function(angular) ***REMOVED***
+  'use strict';
 /**
  * @ngdoc module
  * @name material.core.theming
@@ -4843,8 +5126,23 @@ angular.module('material.core.theming.palette', [])
 angular.module('material.core.theming', ['material.core.theming.palette'])
   .directive('mdTheme', ThemingDirective)
   .directive('mdThemable', ThemableDirective)
+  .directive('mdThemesDisabled', disableThemesDirective )
   .provider('$mdTheming', ThemingProvider)
+  .config( detectDisabledThemes )
   .run(generateAllThemes);
+
+/**
+ * Detect if the HTML or the BODY tags has a [md-themes-disabled] attribute
+ * If yes, then immediately disable all theme stylesheet generation and DOM injection
+ */
+/**
+ * ngInject
+ */
+function detectDisabledThemes($mdThemingProvider) ***REMOVED***
+  var isDisabled = !!document.querySelector('[md-themes-disabled]');
+  $mdThemingProvider.disableTheming(isDisabled);
+***REMOVED***
+detectDisabledThemes.$inject = ["$mdThemingProvider"];
 
 /**
  * @ngdoc service
@@ -4852,13 +5150,79 @@ angular.module('material.core.theming', ['material.core.theming.palette'])
  * @module material.core.theming
  *
  * @description Provider to configure the `$mdTheming` service.
+ *
+ * ### Default Theme
+ * The `$mdThemingProvider` uses by default the following theme configuration:
+ *
+ * - Primary Palette: `Primary`
+ * - Accent Palette: `Pink`
+ * - Warn Palette: `Deep-Orange`
+ * - Background Palette: `Grey`
+ *
+ * If you don't want to use the `md-theme` directive on the elements itself, you may want to overwrite
+ * the default theme.<br/>
+ * This can be done by using the following markup.
+ *
+ * <hljs lang="js">
+ *   myAppModule.config(function($mdThemingProvider) ***REMOVED***
+ *     $mdThemingProvider
+ *       .theme('default')
+ *       .primaryPalette('blue')
+ *       .accentPalette('teal')
+ *       .warnPalette('red')
+ *       .backgroundPalette('grey');
+ *   ***REMOVED***);
+ * </hljs>
+ *
+
+ * ### Dynamic Themes
+ *
+ * By default, if you change a theme at runtime, the `$mdTheming` service will not detect those changes.<br/>
+ * If you have an application, which changes its theme on runtime, you have to enable theme watching.
+ *
+ * <hljs lang="js">
+ *   myAppModule.config(function($mdThemingProvider) ***REMOVED***
+ *     // Enable theme watching.
+ *     $mdThemingProvider.alwaysWatchTheme(true);
+ *   ***REMOVED***);
+ * </hljs>
+ *
+ * ### Custom Theme Styles
+ *
+ * Sometimes you may want to use your own theme styles for some custom components.<br/>
+ * You are able to register your own styles by using the following markup.
+ *
+ * <hljs lang="js">
+ *   myAppModule.config(function($mdThemingProvider) ***REMOVED***
+ *     // Register our custom stylesheet into the theming provider.
+ *     $mdThemingProvider.registerStyles(STYLESHEET);
+ *   ***REMOVED***);
+ * </hljs>
+ *
+ * The `registerStyles` method only accepts strings as value, so you're actually not able to load an external
+ * stylesheet file into the `$mdThemingProvider`.
+ *
+ * If it's necessary to load an external stylesheet, we suggest using a bundler, which supports including raw content,
+ * like [raw-loader](https://github.com/webpack/raw-loader) for `webpack`.
+ *
+ * <hljs lang="js">
+ *   myAppModule.config(function($mdThemingProvider) ***REMOVED***
+ *     // Register your custom stylesheet into the theming provider.
+ *     $mdThemingProvider.registerStyles(require('../styles/my-component.theme.css'));
+ *   ***REMOVED***);
+ * </hljs>
  */
 
 /**
  * @ngdoc method
+ * @name $mdThemingProvider#registerStyles
+ * @param ***REMOVED***string***REMOVED*** styles The styles to be appended to Angular Material's built in theme css.
+ */
+/**
+ * @ngdoc method
  * @name $mdThemingProvider#setNonce
  * @param ***REMOVED***string***REMOVED*** nonceValue The nonce to be added as an attribute to the theme style tags.
- * Setting a value allows the use CSP policy without using the unsafe-inline directive.
+ * Setting a value allows the use of CSP policy without using the unsafe-inline directive.
  */
 
 /**
@@ -4972,20 +5336,24 @@ var VALID_HUE_VALUES = [
   '700', '800', '900', 'A100', 'A200', 'A400', 'A700'
 ];
 
-// Whether or not themes are to be generated on-demand (vs. eagerly).
-var generateOnDemand = false;
+var themeConfig = ***REMOVED***
+  disableTheming : false,   // Generate our themes at run time; also disable stylesheet DOM injection
+  generateOnDemand : false, // Whether or not themes are to be generated on-demand (vs. eagerly).
+  registeredStyles : [],    // Custom styles registered to be used in the theming of custom components.
+  nonce : null              // Nonce to be added as an attribute to the generated themes style tags.
+***REMOVED***;
 
-// Nonce to be added as an attribute to the generated themes style tags.
-var nonce = null;
-var disableTheming = false;
-
+/**
+ *
+ */
 function ThemingProvider($mdColorPalette) ***REMOVED***
   PALETTES = ***REMOVED*** ***REMOVED***;
   var THEMES = ***REMOVED*** ***REMOVED***;
 
   var themingProvider;
-  var defaultTheme = 'default';
+
   var alwaysWatchTheme = false;
+  var defaultTheme = 'default';
 
   // Load JS Defined Palettes
   angular.extend(PALETTES, $mdColorPalette);
@@ -4998,27 +5366,41 @@ function ThemingProvider($mdColorPalette) ***REMOVED***
     extendPalette: extendPalette,
     theme: registerTheme,
 
+    configuration : function() ***REMOVED***
+      // return a read-only clone of the current configuration
+      var locals = ***REMOVED*** defaultTheme : defaultTheme, alwaysWatchTheme : alwaysWatchTheme ***REMOVED***;
+      return angular.extend( ***REMOVED*** ***REMOVED***, config, locals );
+    ***REMOVED***,
+
     /**
      * Easy way to disable theming without having to use
      * `.constant("$MD_THEME_CSS","");` This disables
      * all dynamic theme style sheet generations and injections...
      */
-    disableTheming: function() ***REMOVED***
-      disableTheming = true;
+    disableTheming: function(isDisabled) ***REMOVED***
+      themeConfig.disableTheming = angular.isUndefined(isDisabled) || !!isDisabled;
+    ***REMOVED***,
+
+    registerStyles: function(styles) ***REMOVED***
+      themeConfig.registeredStyles.push(styles);
     ***REMOVED***,
 
     setNonce: function(nonceValue) ***REMOVED***
-      nonce = nonceValue;
+      themeConfig.nonce = nonceValue;
     ***REMOVED***,
+
+    generateThemesOnDemand: function(onDemand) ***REMOVED***
+      themeConfig.generateOnDemand = onDemand;
+    ***REMOVED***,
+
     setDefaultTheme: function(theme) ***REMOVED***
       defaultTheme = theme;
     ***REMOVED***,
+
     alwaysWatchTheme: function(alwaysWatch) ***REMOVED***
       alwaysWatchTheme = alwaysWatch;
     ***REMOVED***,
-    generateThemesOnDemand: function(onDemand) ***REMOVED***
-      generateOnDemand = onDemand;
-    ***REMOVED***,
+
     $get: ThemingService,
     _LIGHT_DEFAULT_HUES: LIGHT_DEFAULT_HUES,
     _DARK_DEFAULT_HUES: DARK_DEFAULT_HUES,
@@ -5200,7 +5582,7 @@ function ThemingProvider($mdColorPalette) ***REMOVED***
     applyTheme.inherit = inheritTheme;
     applyTheme.registered = registered;
     applyTheme.defaultTheme = function() ***REMOVED*** return defaultTheme; ***REMOVED***;
-    applyTheme.generateTheme = function(name) ***REMOVED*** generateTheme(THEMES[name], name, nonce); ***REMOVED***;
+    applyTheme.generateTheme = function(name) ***REMOVED*** generateTheme(THEMES[name], name, themeConfig.nonce); ***REMOVED***;
 
     return applyTheme;
 
@@ -5222,7 +5604,9 @@ function ThemingProvider($mdColorPalette) ***REMOVED***
 
       updateThemeClass(lookupThemeName());
 
-      el.on('$destroy', watchTheme ? $rootScope.$watch(lookupThemeName, updateThemeClass) : angular.noop );
+      if ((alwaysWatchTheme && !registerChangeCallback()) || (!alwaysWatchTheme && watchTheme)) ***REMOVED***
+        el.on('$destroy', $rootScope.$watch(lookupThemeName, updateThemeClass) );
+      ***REMOVED***
 
       /**
        * Find the theme name from the parent controller or element data
@@ -5251,6 +5635,18 @@ function ThemingProvider($mdColorPalette) ***REMOVED***
         if (ctrl) ***REMOVED***
           el.data('$mdThemeController', ctrl);
         ***REMOVED***
+      ***REMOVED***
+
+      /**
+       * Register change callback with parent mdTheme controller
+       */
+      function registerChangeCallback() ***REMOVED***
+        var parentController = parent.controller('mdTheme');
+        if (!parentController) return false;
+        el.on('$destroy', parentController.registerChanges( function() ***REMOVED***
+          updateThemeClass(lookupThemeName());
+        ***REMOVED***));
+        return true;
       ***REMOVED***
     ***REMOVED***
 
@@ -5300,6 +5696,35 @@ function ThemingDirective($mdTheming, $interpolate, $log) ***REMOVED***
 ***REMOVED***
 ThemingDirective.$inject = ["$mdTheming", "$interpolate", "$log"];
 
+/**
+ * Special directive that will disable ALL runtime Theme style generation and DOM injection
+ *
+ * <link rel="stylesheet" href="angular-material.min.css">
+ * <link rel="stylesheet" href="angular-material.themes.css">
+ *
+ * <body md-themes-disabled>
+ *  ...
+ * </body>
+ *
+ * Note: Using md-themes-css directive requires the developer to load external
+ * theme stylesheets; e.g. custom themes from Material-Tools:
+ *
+ *       `angular-material.themes.css`
+ *
+ * Another option is to use the ThemingProvider to configure and disable the attribute
+ * conversions; this would obviate the use of the `md-themes-css` directive
+ *
+ */
+function disableThemesDirective() ***REMOVED***
+  themeConfig.disableTheming = true;
+
+  // Return a 1x-only, first-match attribute directive
+  return ***REMOVED***
+    restrict : 'A',
+    priority : '900'
+  ***REMOVED***;
+***REMOVED***
+
 function ThemableDirective($mdTheming) ***REMOVED***
   return $mdTheming;
 ***REMOVED***
@@ -5312,7 +5737,7 @@ function parseRules(theme, colorType, rules) ***REMOVED***
   var generatedRules = [];
   var color = theme.colors[colorType];
 
-  var themeNameRegex = new RegExp('.md-' + theme.name + '-theme', 'g');
+  var themeNameRegex = new RegExp('\\.md-' + theme.name + '-theme', 'g');
   // Matches '***REMOVED******REMOVED*** primary-color ***REMOVED******REMOVED***', etc
   var hueRegex = new RegExp('(\'|")?***REMOVED******REMOVED***\\s*(' + colorType + ')-(color|contrast)-?(\\d\\.?\\d*)?\\s****REMOVED******REMOVED***(\"|\')?','g');
   var simpleVariableRegex = /'?"?\***REMOVED***\***REMOVED***\s*([a-zA-Z]+)-(A?\d+|hue\-[0-3]|shadow|default)-?(\d\.?\d*)?(contrast)?\s*\***REMOVED***\***REMOVED***'?"?/g;
@@ -5369,7 +5794,10 @@ var rulesByType = ***REMOVED******REMOVED***;
 function generateAllThemes($injector, $mdTheming) ***REMOVED***
   var head = document.head;
   var firstChild = head ? head.firstElementChild : null;
-  var themeCss = !disableTheming && $injector.has('$MD_THEME_CSS') ? $injector.get('$MD_THEME_CSS') : '';
+  var themeCss = !themeConfig.disableTheming && $injector.has('$MD_THEME_CSS') ? $injector.get('$MD_THEME_CSS') : '';
+
+  // Append our custom registered styles to the theme stylesheet.
+  themeCss += themeConfig.registeredStyles.join('');
 
   if ( !firstChild ) return;
   if (themeCss.length === 0) return; // no rules, so no point in running this expensive task
@@ -5383,7 +5811,7 @@ function generateAllThemes($injector, $mdTheming) ***REMOVED***
   // Break the CSS into individual rules
   var rules = themeCss
                   .split(/\***REMOVED***(?!(\***REMOVED***|'|"|;))/)
-                  .filter(function(rule) ***REMOVED*** return rule && rule.length; ***REMOVED***)
+                  .filter(function(rule) ***REMOVED*** return rule && rule.trim().length; ***REMOVED***)
                   .map(function(rule) ***REMOVED*** return rule.trim() + '***REMOVED***'; ***REMOVED***);
 
 
@@ -5418,11 +5846,11 @@ function generateAllThemes($injector, $mdTheming) ***REMOVED***
 
   // If themes are being generated on-demand, quit here. The user will later manually
   // call generateTheme to do this on a theme-by-theme basis.
-  if (generateOnDemand) return;
+  if (themeConfig.generateOnDemand) return;
 
   angular.forEach($mdTheming.THEMES, function(theme) ***REMOVED***
     if (!GENERATED[theme.name] && !($mdTheming.defaultTheme() !== 'default' && theme.name === 'default')) ***REMOVED***
-      generateTheme(theme, theme.name, nonce);
+      generateTheme(theme, theme.name, themeConfig.nonce);
     ***REMOVED***
   ***REMOVED***);
 
@@ -5562,6 +5990,9 @@ function rgba(rgbArray, opacity) ***REMOVED***
     'rgba(' + rgbArray.join(',') + ',' + opacity + ')' :
     'rgb(' + rgbArray.join(',') + ')';
 ***REMOVED***
+
+
+***REMOVED***)(window.angular);
 
 // Polyfill angular < 1.4 (provide $animateCss)
 angular
@@ -5743,6 +6174,9 @@ function AnimateDomUtils($mdUtil, $q, $timeout, $mdConstant, $animateCss) ***REM
               break;
             case 'transformOrigin':
               convertToVendor(key, $mdConstant.CSS.TRANSFORM_ORIGIN, value);
+              break;
+            case 'font-size':
+              css['font-size'] = value; // font sizes aren't always in px
               break;
           ***REMOVED***
         ***REMOVED***
@@ -5949,6 +6383,22 @@ if (angular.version.minor >= 4) ***REMOVED***
           ***REMOVED***);
           this._doneCallbacks.length = 0;
           this._state = DONE_COMPLETE_STATE;
+        ***REMOVED***
+      ***REMOVED***
+    ***REMOVED***;
+
+    // Polyfill AnimateRunner.all which is used by input animations
+    AnimateRunner.all = function(runners, callback) ***REMOVED***
+      var count = 0;
+      var status = true;
+      forEach(runners, function(runner) ***REMOVED***
+        runner.done(onProgress);
+      ***REMOVED***);
+
+      function onProgress(response) ***REMOVED***
+        status = status && response;
+        if (++count === runners.length) ***REMOVED***
+          callback(status);
         ***REMOVED***
       ***REMOVED***
     ***REMOVED***;
@@ -6231,7 +6681,7 @@ if (angular.version.minor >= 4) ***REMOVED***
 ***REMOVED***
 
 (function()***REMOVED*** 
-angular.module("material.core").constant("$MD_THEME_CSS", "/*  Only used with Theme processes */html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***md-autocomplete.md-THEME_NAME-theme ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  md-autocomplete.md-THEME_NAME-theme[disabled]:not([md-floating-label]) ***REMOVED***    background: '***REMOVED******REMOVED***background-100***REMOVED******REMOVED***'; ***REMOVED***  md-autocomplete.md-THEME_NAME-theme button md-icon path ***REMOVED***    fill: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***  md-autocomplete.md-THEME_NAME-theme button:after ***REMOVED***    background: '***REMOVED******REMOVED***background-600-0.3***REMOVED******REMOVED***'; ***REMOVED***.md-autocomplete-suggestions-container.md-THEME_NAME-theme ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  .md-autocomplete-suggestions-container.md-THEME_NAME-theme li ***REMOVED***    color: '***REMOVED******REMOVED***background-900***REMOVED******REMOVED***'; ***REMOVED***    .md-autocomplete-suggestions-container.md-THEME_NAME-theme li .highlight ***REMOVED***      color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***    .md-autocomplete-suggestions-container.md-THEME_NAME-theme li:hover, .md-autocomplete-suggestions-container.md-THEME_NAME-theme li.selected ***REMOVED***      background: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***md-backdrop ***REMOVED***  background-color: '***REMOVED******REMOVED***background-900-0.0***REMOVED******REMOVED***'; ***REMOVED***  md-backdrop.md-opaque.md-THEME_NAME-theme ***REMOVED***    background-color: '***REMOVED******REMOVED***background-900-1.0***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme:not([disabled]):hover ***REMOVED***  background-color: '***REMOVED******REMOVED***background-500-0.2***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme:not([disabled]).md-focused ***REMOVED***  background-color: '***REMOVED******REMOVED***background-500-0.2***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme:not([disabled]).md-icon-button:hover ***REMOVED***  background-color: transparent; ***REMOVED***.md-button.md-THEME_NAME-theme.md-fab ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab md-icon ***REMOVED***    color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]):hover ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]).md-focused ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-primary ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-primary.md-raised, .md-button.md-THEME_NAME-theme.md-primary.md-fab ***REMOVED***    color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***';    background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-primary.md-raised:not([disabled]) md-icon, .md-button.md-THEME_NAME-theme.md-primary.md-fab:not([disabled]) md-icon ***REMOVED***      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-primary.md-raised:not([disabled]):hover, .md-button.md-THEME_NAME-theme.md-primary.md-fab:not([disabled]):hover ***REMOVED***      background-color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-primary.md-raised:not([disabled]).md-focused, .md-button.md-THEME_NAME-theme.md-primary.md-fab:not([disabled]).md-focused ***REMOVED***      background-color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-primary:not([disabled]) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-fab ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]) .md-icon ***REMOVED***    color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]):hover ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]).md-focused ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-raised ***REMOVED***  color: '***REMOVED******REMOVED***background-900***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-raised:not([disabled]) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***background-900***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-raised:not([disabled]):hover ***REMOVED***    background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-raised:not([disabled]).md-focused ***REMOVED***    background-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-warn ***REMOVED***  color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-warn.md-raised, .md-button.md-THEME_NAME-theme.md-warn.md-fab ***REMOVED***    color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***';    background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-warn.md-raised:not([disabled]) md-icon, .md-button.md-THEME_NAME-theme.md-warn.md-fab:not([disabled]) md-icon ***REMOVED***      color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-warn.md-raised:not([disabled]):hover, .md-button.md-THEME_NAME-theme.md-warn.md-fab:not([disabled]):hover ***REMOVED***      background-color: '***REMOVED******REMOVED***warn-600***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-warn.md-raised:not([disabled]).md-focused, .md-button.md-THEME_NAME-theme.md-warn.md-fab:not([disabled]).md-focused ***REMOVED***      background-color: '***REMOVED******REMOVED***warn-600***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-warn:not([disabled]) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-accent ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-accent.md-raised, .md-button.md-THEME_NAME-theme.md-accent.md-fab ***REMOVED***    color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***';    background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-accent.md-raised:not([disabled]) md-icon, .md-button.md-THEME_NAME-theme.md-accent.md-fab:not([disabled]) md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-accent.md-raised:not([disabled]):hover, .md-button.md-THEME_NAME-theme.md-accent.md-fab:not([disabled]):hover ***REMOVED***      background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-accent.md-raised:not([disabled]).md-focused, .md-button.md-THEME_NAME-theme.md-accent.md-fab:not([disabled]).md-focused ***REMOVED***      background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-accent:not([disabled]) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme[disabled], .md-button.md-THEME_NAME-theme.md-raised[disabled], .md-button.md-THEME_NAME-theme.md-fab[disabled], .md-button.md-THEME_NAME-theme.md-accent[disabled], .md-button.md-THEME_NAME-theme.md-warn[disabled] ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';  cursor: default; ***REMOVED***  .md-button.md-THEME_NAME-theme[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-raised[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-fab[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-accent[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-warn[disabled] md-icon ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-raised[disabled], .md-button.md-THEME_NAME-theme.md-fab[disabled] ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme[disabled] ***REMOVED***  background-color: transparent; ***REMOVED***._md a.md-THEME_NAME-theme:not(.md-button).md-primary ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  ._md a.md-THEME_NAME-theme:not(.md-button).md-primary:hover ***REMOVED***    color: '***REMOVED******REMOVED***primary-700***REMOVED******REMOVED***'; ***REMOVED***._md a.md-THEME_NAME-theme:not(.md-button).md-accent ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  ._md a.md-THEME_NAME-theme:not(.md-button).md-accent:hover ***REMOVED***    color: '***REMOVED******REMOVED***accent-700***REMOVED******REMOVED***'; ***REMOVED***._md a.md-THEME_NAME-theme:not(.md-button).md-accent ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  ._md a.md-THEME_NAME-theme:not(.md-button).md-accent:hover ***REMOVED***    color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***._md a.md-THEME_NAME-theme:not(.md-button).md-warn ***REMOVED***  color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  ._md a.md-THEME_NAME-theme:not(.md-button).md-warn:hover ***REMOVED***    color: '***REMOVED******REMOVED***warn-700***REMOVED******REMOVED***'; ***REMOVED***md-bottom-sheet.md-THEME_NAME-theme ***REMOVED***  background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***';  border-top-color: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***'; ***REMOVED***  md-bottom-sheet.md-THEME_NAME-theme.md-list md-list-item ***REMOVED***    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***  md-bottom-sheet.md-THEME_NAME-theme .md-subheader ***REMOVED***    background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***  md-bottom-sheet.md-THEME_NAME-theme .md-subheader ***REMOVED***    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***md-card.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***';  border-radius: 2px; ***REMOVED***  md-card.md-THEME_NAME-theme .md-card-image ***REMOVED***    border-radius: 2px 2px 0 0; ***REMOVED***  md-card.md-THEME_NAME-theme md-card-header md-card-avatar md-icon ***REMOVED***    color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***';    background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-card.md-THEME_NAME-theme md-card-header md-card-header-text .md-subhead ***REMOVED***    color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***  md-card.md-THEME_NAME-theme md-card-title md-card-title-text:not(:only-child) .md-subhead ***REMOVED***    color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked.md-focused ._md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme ._md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked ._md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked ._md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***accent-contrast-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary ._md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked ._md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked.md-focused ._md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked ._md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-contrast-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-indeterminate[disabled] ._md-container ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-600***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn ._md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked ._md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked.md-focused:not([disabled]) ._md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked ._md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled] ._md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled].md-checked ._md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled].md-checked ._md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled] ._md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled] ._md-label ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-chips.md-THEME_NAME-theme .md-chips ***REMOVED***  box-shadow: 0 1px '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme .md-chips.md-focused ***REMOVED***    box-shadow: 0 2px '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme .md-chips ._md-chip-input-container input ***REMOVED***    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips ._md-chip-input-container input::-webkit-input-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips ._md-chip-input-container input:-moz-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips ._md-chip-input-container input::-moz-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips ._md-chip-input-container input:-ms-input-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips ._md-chip-input-container input::-webkit-input-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-chips.md-THEME_NAME-theme md-chip ***REMOVED***  background: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-800***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme md-chip md-icon ***REMOVED***    color: '***REMOVED******REMOVED***background-700***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme md-chip.md-focused ***REMOVED***    background: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';    color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme md-chip.md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme md-chip._md-chip-editing ***REMOVED***    background: transparent;    color: '***REMOVED******REMOVED***background-800***REMOVED******REMOVED***'; ***REMOVED***md-chips.md-THEME_NAME-theme md-chip-remove .md-button md-icon path ***REMOVED***  fill: '***REMOVED******REMOVED***background-500***REMOVED******REMOVED***'; ***REMOVED***.md-contact-suggestion span.md-contact-email ***REMOVED***  color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-content.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-default***REMOVED******REMOVED***'; ***REMOVED***/** Theme styles for mdCalendar. */.md-calendar.md-THEME_NAME-theme ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-A200-0.87***REMOVED******REMOVED***'; ***REMOVED***  .md-calendar.md-THEME_NAME-theme tr:last-child td ***REMOVED***    border-bottom-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-calendar-day-header ***REMOVED***  background: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-A200-0.87***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-calendar-date.md-calendar-date-today .md-calendar-date-selection-indicator ***REMOVED***  border: 1px solid '***REMOVED******REMOVED***primary-500***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-calendar-date.md-calendar-date-today.md-calendar-date-disabled ***REMOVED***  color: '***REMOVED******REMOVED***primary-500-0.6***REMOVED******REMOVED***'; ***REMOVED***.md-calendar-date.md-focus .md-THEME_NAME-theme .md-calendar-date-selection-indicator, .md-THEME_NAME-theme .md-calendar-date-selection-indicator:hover ***REMOVED***  background: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-calendar-date.md-calendar-selected-date .md-calendar-date-selection-indicator,.md-THEME_NAME-theme .md-calendar-date.md-focus.md-calendar-selected-date .md-calendar-date-selection-indicator ***REMOVED***  background: '***REMOVED******REMOVED***primary-500***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***primary-500-contrast***REMOVED******REMOVED***';  border-color: transparent; ***REMOVED***.md-THEME_NAME-theme .md-calendar-date-disabled,.md-THEME_NAME-theme .md-calendar-month-label-disabled ***REMOVED***  color: '***REMOVED******REMOVED***background-A200-0.435***REMOVED******REMOVED***'; ***REMOVED***/** Theme styles for mdDatepicker. */.md-THEME_NAME-theme .md-datepicker-input ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input::-webkit-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input:-moz-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input::-moz-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input:-ms-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input::-webkit-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-input-container ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-focused ***REMOVED***    border-bottom-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-invalid ***REMOVED***    border-bottom-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-calendar-pane ***REMOVED***  border-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-triangle-button .md-datepicker-expand-triangle ***REMOVED***  border-top-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-triangle-button:hover .md-datepicker-expand-triangle ***REMOVED***  border-top-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-open .md-datepicker-calendar-icon ***REMOVED***  fill: '***REMOVED******REMOVED***primary-500***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-open .md-datepicker-input-container,.md-THEME_NAME-theme .md-datepicker-input-mask-opaque ***REMOVED***  background: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-calendar ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***md-dialog.md-THEME_NAME-theme ***REMOVED***  border-radius: 4px;  background-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***'; ***REMOVED***  md-dialog.md-THEME_NAME-theme.md-content-overflow .md-actions, md-dialog.md-THEME_NAME-theme.md-content-overflow md-dialog-actions ***REMOVED***    border-top-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-divider.md-THEME_NAME-theme ***REMOVED***  border-top-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***.layout-row > md-divider.md-THEME_NAME-theme,.layout-xs-row > md-divider.md-THEME_NAME-theme, .layout-gt-xs-row > md-divider.md-THEME_NAME-theme,.layout-sm-row > md-divider.md-THEME_NAME-theme, .layout-gt-sm-row > md-divider.md-THEME_NAME-theme,.layout-md-row > md-divider.md-THEME_NAME-theme, .layout-gt-md-row > md-divider.md-THEME_NAME-theme,.layout-lg-row > md-divider.md-THEME_NAME-theme, .layout-gt-lg-row > md-divider.md-THEME_NAME-theme,.layout-xl-row > md-divider.md-THEME_NAME-theme ***REMOVED***  border-right-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-icon.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***  md-icon.md-THEME_NAME-theme.md-primary ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-icon.md-THEME_NAME-theme.md-accent ***REMOVED***    color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  md-icon.md-THEME_NAME-theme.md-warn ***REMOVED***    color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme .md-input ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';  border-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input::-webkit-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input:-moz-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input::-moz-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input:-ms-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input::-webkit-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme > md-icon ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme label,md-input-container.md-THEME_NAME-theme ._md-placeholder ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme label.md-required:after ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-focused):not(.md-input-invalid) label.md-required:after ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme .md-input-messages-animation, md-input-container.md-THEME_NAME-theme .md-input-message-animation ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input-messages-animation .md-char-counter, md-input-container.md-THEME_NAME-theme .md-input-message-animation .md-char-counter ***REMOVED***    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-has-value label ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused .md-input, md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-resized .md-input ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused label ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused md-icon ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-accent .md-input ***REMOVED***  border-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-accent label ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-warn .md-input ***REMOVED***  border-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-warn label ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme.md-input-invalid .md-input ***REMOVED***  border-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme.md-input-invalid label ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme.md-input-invalid .md-input-message-animation, md-input-container.md-THEME_NAME-theme.md-input-invalid .md-char-counter ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme .md-input[disabled],[disabled] md-input-container.md-THEME_NAME-theme .md-input ***REMOVED***  border-bottom-color: transparent;  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';  background-image: linear-gradient(to right, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 0%, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 33%, transparent 0%);  background-image: -ms-linear-gradient(left, transparent 0%, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 100%); ***REMOVED***md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text h3, md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text h4,md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text h3,md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text h4 ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text p,md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text p ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-list.md-THEME_NAME-theme ._md-proxy-focus.md-focused div._md-no-style ***REMOVED***  background-color: '***REMOVED******REMOVED***background-100***REMOVED******REMOVED***'; ***REMOVED***md-list.md-THEME_NAME-theme md-list-item .md-avatar-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***md-list.md-THEME_NAME-theme md-list-item > md-icon ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***  md-list.md-THEME_NAME-theme md-list-item > md-icon.md-highlight ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***    md-list.md-THEME_NAME-theme md-list-item > md-icon.md-highlight.md-accent ***REMOVED***      color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-menu-content.md-THEME_NAME-theme ***REMOVED***  background-color: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  md-menu-content.md-THEME_NAME-theme md-menu-item ***REMOVED***    color: '***REMOVED******REMOVED***background-A200-0.87***REMOVED******REMOVED***'; ***REMOVED***    md-menu-content.md-THEME_NAME-theme md-menu-item md-icon ***REMOVED***      color: '***REMOVED******REMOVED***background-A200-0.54***REMOVED******REMOVED***'; ***REMOVED***    md-menu-content.md-THEME_NAME-theme md-menu-item .md-button[disabled] ***REMOVED***      color: '***REMOVED******REMOVED***background-A200-0.25***REMOVED******REMOVED***'; ***REMOVED***      md-menu-content.md-THEME_NAME-theme md-menu-item .md-button[disabled] md-icon ***REMOVED***        color: '***REMOVED******REMOVED***background-A200-0.25***REMOVED******REMOVED***'; ***REMOVED***  md-menu-content.md-THEME_NAME-theme md-menu-divider ***REMOVED***    background-color: '***REMOVED******REMOVED***background-A200-0.11***REMOVED******REMOVED***'; ***REMOVED***.md-panel ***REMOVED***  background-color: '***REMOVED******REMOVED***background-900-0.0***REMOVED******REMOVED***'; ***REMOVED***  .md-panel._md-panel-backdrop.md-THEME_NAME-theme ***REMOVED***    background-color: '***REMOVED******REMOVED***background-900-1.0***REMOVED******REMOVED***'; ***REMOVED***md-menu-bar.md-THEME_NAME-theme > button.md-button ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***';  border-radius: 2px; ***REMOVED***md-menu-bar.md-THEME_NAME-theme md-menu._md-open > button, md-menu-bar.md-THEME_NAME-theme md-menu > button:focus ***REMOVED***  outline: none;  background: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***md-menu-bar.md-THEME_NAME-theme._md-open:not(._md-keyboard-mode) md-menu:hover > button ***REMOVED***  background-color: '***REMOVED******REMOVED*** background-500-0.2***REMOVED******REMOVED***'; ***REMOVED***md-menu-bar.md-THEME_NAME-theme:not(._md-keyboard-mode):not(._md-open) md-menu button:hover,md-menu-bar.md-THEME_NAME-theme:not(._md-keyboard-mode):not(._md-open) md-menu button:focus ***REMOVED***  background: transparent; ***REMOVED***md-menu-content.md-THEME_NAME-theme .md-menu > .md-button:after ***REMOVED***  color: '***REMOVED******REMOVED***background-A200-0.54***REMOVED******REMOVED***'; ***REMOVED***md-menu-content.md-THEME_NAME-theme .md-menu._md-open > .md-button ***REMOVED***  background-color: '***REMOVED******REMOVED*** background-500-0.2***REMOVED******REMOVED***'; ***REMOVED***md-toolbar.md-THEME_NAME-theme.md-menu-toolbar ***REMOVED***  background-color: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-A200***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme.md-menu-toolbar md-toolbar-filler ***REMOVED***    background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';    color: '***REMOVED******REMOVED***background-A100-0.87***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-THEME_NAME-theme.md-menu-toolbar md-toolbar-filler md-icon ***REMOVED***      color: '***REMOVED******REMOVED***background-A100-0.87***REMOVED******REMOVED***'; ***REMOVED***md-nav-bar.md-THEME_NAME-theme .md-nav-bar ***REMOVED***  background-color: transparent;  border-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-nav-bar.md-THEME_NAME-theme .md-button._md-nav-button.md-unselected ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-nav-bar.md-THEME_NAME-theme md-nav-ink-bar ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  background: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme ._md-container ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme ._md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme.md-warn ._md-container ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme.md-warn ._md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme.md-accent ._md-container ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme.md-accent ._md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-warn ._md-bar1 ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-warn ._md-dashed:before ***REMOVED***  background: radial-gradient(\"***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***\" 0%, \"***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***\" 16%, transparent 42%); ***REMOVED***md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-accent ._md-bar1 ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-accent ._md-dashed:before ***REMOVED***  background: radial-gradient(\"***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***\" 0%, \"***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***\" 16%, transparent 42%); ***REMOVED***md-radio-button.md-THEME_NAME-theme ._md-off ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-radio-button.md-THEME_NAME-theme ._md-on ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-button.md-THEME_NAME-theme.md-checked ._md-off ***REMOVED***  border-color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-button.md-THEME_NAME-theme.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-button.md-THEME_NAME-theme ._md-container .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary ._md-on, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary ._md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary ._md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary ._md-on ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked ._md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked ._md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked ._md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked ._md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked ._md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked ._md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked ._md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked ._md-off ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary ._md-container .md-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary ._md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary ._md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary ._md-container .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn ._md-on, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn ._md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn ._md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn ._md-on ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked ._md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked ._md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked ._md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked ._md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked ._md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked ._md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked ._md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked ._md-off ***REMOVED***  border-color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn ._md-container .md-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn ._md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn ._md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn ._md-container .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-600***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme[disabled],md-radio-button.md-THEME_NAME-theme[disabled] ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-radio-group.md-THEME_NAME-theme[disabled] ._md-container ._md-off,  md-radio-button.md-THEME_NAME-theme[disabled] ._md-container ._md-off ***REMOVED***    border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-radio-group.md-THEME_NAME-theme[disabled] ._md-container ._md-on,  md-radio-button.md-THEME_NAME-theme[disabled] ._md-container ._md-on ***REMOVED***    border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme .md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme.md-primary .md-checked:not([disabled]) .md-ink-ripple, md-radio-group.md-THEME_NAME-theme .md-checked:not([disabled]).md-primary .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme .md-checked.md-primary .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked ._md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty).md-primary .md-checked ._md-container:before,md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked.md-primary ._md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty).md-warn .md-checked ._md-container:before,md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked.md-warn ._md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-progress-circular.md-THEME_NAME-theme path ***REMOVED***  stroke: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-circular.md-THEME_NAME-theme.md-warn path ***REMOVED***  stroke: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-circular.md-THEME_NAME-theme.md-accent path ***REMOVED***  stroke: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-select.md-THEME_NAME-theme[disabled] ._md-select-value ***REMOVED***  border-bottom-color: transparent;  background-image: linear-gradient(to right, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 0%, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 33%, transparent 0%);  background-image: -ms-linear-gradient(left, transparent 0%, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 100%); ***REMOVED***md-select.md-THEME_NAME-theme ._md-select-value ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***  md-select.md-THEME_NAME-theme ._md-select-value._md-select-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-select.md-THEME_NAME-theme.ng-invalid.ng-dirty ._md-select-value ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***' !important;  border-bottom-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***' !important; ***REMOVED***md-select.md-THEME_NAME-theme:not([disabled]):focus ._md-select-value ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED*** foreground-1 ***REMOVED******REMOVED***'; ***REMOVED***  md-select.md-THEME_NAME-theme:not([disabled]):focus ._md-select-value._md-select-placeholder ***REMOVED***    color: '***REMOVED******REMOVED*** foreground-1 ***REMOVED******REMOVED***'; ***REMOVED***md-select.md-THEME_NAME-theme:not([disabled]):focus.md-accent ._md-select-value ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-select.md-THEME_NAME-theme:not([disabled]):focus.md-warn ._md-select-value ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-select.md-THEME_NAME-theme[disabled] ._md-select-value ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-select.md-THEME_NAME-theme[disabled] ._md-select-value._md-select-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-select-menu.md-THEME_NAME-theme md-content ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  md-select-menu.md-THEME_NAME-theme md-content md-optgroup ***REMOVED***    color: '***REMOVED******REMOVED***background-600-0.87***REMOVED******REMOVED***'; ***REMOVED***  md-select-menu.md-THEME_NAME-theme md-content md-option ***REMOVED***    color: '***REMOVED******REMOVED***background-900-0.87***REMOVED******REMOVED***'; ***REMOVED***    md-select-menu.md-THEME_NAME-theme md-content md-option[disabled] ._md-text ***REMOVED***      color: '***REMOVED******REMOVED***background-400-0.87***REMOVED******REMOVED***'; ***REMOVED***    md-select-menu.md-THEME_NAME-theme md-content md-option:not([disabled]):focus, md-select-menu.md-THEME_NAME-theme md-content md-option:not([disabled]):hover ***REMOVED***      background: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***    md-select-menu.md-THEME_NAME-theme md-content md-option[selected] ***REMOVED***      color: '***REMOVED******REMOVED***primary-500***REMOVED******REMOVED***'; ***REMOVED***      md-select-menu.md-THEME_NAME-theme md-content md-option[selected]:focus ***REMOVED***        color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***      md-select-menu.md-THEME_NAME-theme md-content md-option[selected].md-accent ***REMOVED***        color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***        md-select-menu.md-THEME_NAME-theme md-content md-option[selected].md-accent:focus ***REMOVED***          color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***._md-checkbox-enabled.md-THEME_NAME-theme .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***._md-checkbox-enabled.md-THEME_NAME-theme[selected] .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***._md-checkbox-enabled.md-THEME_NAME-theme .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***._md-checkbox-enabled.md-THEME_NAME-theme[selected] .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***._md-checkbox-enabled.md-THEME_NAME-theme ._md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***._md-checkbox-enabled.md-THEME_NAME-theme[selected] ._md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***._md-checkbox-enabled.md-THEME_NAME-theme[selected].md-focused ._md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***._md-checkbox-enabled.md-THEME_NAME-theme[selected] ._md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-contrast-0.87***REMOVED******REMOVED***'; ***REMOVED***._md-checkbox-enabled.md-THEME_NAME-theme .md-indeterminate[disabled] ._md-container ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***._md-checkbox-enabled.md-THEME_NAME-theme md-option ._md-text ***REMOVED***  color: '***REMOVED******REMOVED***background-900-0.87***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme ._md-track ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme ._md-track-ticks ***REMOVED***  color: '***REMOVED******REMOVED***background-contrast***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme ._md-focus-ring ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-A200-0.2***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme ._md-disabled-thumb ***REMOVED***  border-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme._md-min ._md-thumb:after ***REMOVED***  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***';  border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme._md-min ._md-focus-ring ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3-0.38***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme._md-min[md-discrete] ._md-thumb:after ***REMOVED***  background-color: '***REMOVED******REMOVED***background-contrast***REMOVED******REMOVED***';  border-color: transparent; ***REMOVED***md-slider.md-THEME_NAME-theme._md-min[md-discrete] ._md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme._md-min[md-discrete] ._md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme._md-min[md-discrete][md-vertical] ._md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme ._md-track._md-track-fill ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme ._md-thumb:after ***REMOVED***  border-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme ._md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme ._md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme[md-vertical] ._md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme ._md-thumb-text ***REMOVED***  color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn ._md-focus-ring ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-200-0.38***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn ._md-track._md-track-fill ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn ._md-thumb:after ***REMOVED***  border-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn ._md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme.md-warn ._md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn[md-vertical] ._md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn ._md-thumb-text ***REMOVED***  color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary ._md-focus-ring ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-200-0.38***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary ._md-track._md-track-fill ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary ._md-thumb:after ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary ._md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme.md-primary ._md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary[md-vertical] ._md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary ._md-thumb-text ***REMOVED***  color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled] ._md-thumb:after ***REMOVED***  border-color: transparent; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled]:not(._md-min) ._md-thumb:after, md-slider.md-THEME_NAME-theme[disabled][md-discrete] ._md-thumb:after ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';  border-color: transparent; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled][readonly] ._md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme[disabled][readonly] ._md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled][readonly][md-vertical] ._md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled][readonly] ._md-disabled-thumb ***REMOVED***  border-color: transparent;  background-color: transparent; ***REMOVED***md-slider-container[disabled] > *:first-child:not(md-slider),md-slider-container[disabled] > *:last-child:not(md-slider) ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-sidenav.md-THEME_NAME-theme, md-sidenav.md-THEME_NAME-theme md-content ***REMOVED***  background-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***'; ***REMOVED***.md-subheader.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED*** foreground-2-0.23 ***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-default***REMOVED******REMOVED***'; ***REMOVED***  .md-subheader.md-THEME_NAME-theme.md-primary ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  .md-subheader.md-THEME_NAME-theme.md-accent ***REMOVED***    color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  .md-subheader.md-THEME_NAME-theme.md-warn ***REMOVED***    color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***background-500***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme ._md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme ._md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***background-500***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked ._md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked ._md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.5***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-focused ._md-thumb:before ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-primary .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-primary ._md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-primary ._md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.5***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-primary.md-focused ._md-thumb:before ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-warn .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-warn ._md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-warn ._md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.5***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-warn.md-focused ._md-thumb:before ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme[disabled] ._md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme[disabled] ._md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme md-tabs-wrapper ***REMOVED***  background-color: transparent;  border-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme .md-paginator md-icon ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme md-ink-bar ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  background: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme .md-tab ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme .md-tab[disabled], md-tabs.md-THEME_NAME-theme .md-tab[disabled] md-icon ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme .md-tab.md-active, md-tabs.md-THEME_NAME-theme .md-tab.md-active md-icon, md-tabs.md-THEME_NAME-theme .md-tab.md-focused, md-tabs.md-THEME_NAME-theme .md-tab.md-focused md-icon ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme .md-tab.md-focused ***REMOVED***    background: '***REMOVED******REMOVED***primary-color-0.1***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme .md-tab .md-ripple-container ***REMOVED***    color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***accent-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar ***REMOVED***    color: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***';    background: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***primary-100***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***primary-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***warn-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***primary-100***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***primary-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***accent-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar ***REMOVED***    color: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***';    background: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***'; ***REMOVED***md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***warn-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***md-toast.md-THEME_NAME-theme .md-toast-content ***REMOVED***  background-color: #323232;  color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***  md-toast.md-THEME_NAME-theme .md-toast-content .md-button ***REMOVED***    color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***    md-toast.md-THEME_NAME-theme .md-toast-content .md-button.md-highlight ***REMOVED***      color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***      md-toast.md-THEME_NAME-theme .md-toast-content .md-button.md-highlight.md-primary ***REMOVED***        color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***      md-toast.md-THEME_NAME-theme .md-toast-content .md-button.md-highlight.md-warn ***REMOVED***        color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar) ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***';    fill: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar) .md-button[disabled] md-icon ***REMOVED***    color: '***REMOVED******REMOVED***primary-contrast-0.26***REMOVED******REMOVED***';    fill: '***REMOVED******REMOVED***primary-contrast-0.26***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';    color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent .md-ink-ripple ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***';      fill: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent .md-button[disabled] md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast-0.26***REMOVED******REMOVED***';      fill: '***REMOVED******REMOVED***accent-contrast-0.26***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-warn ***REMOVED***    background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***';    color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***md-tooltip.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  md-tooltip.md-THEME_NAME-theme ._md-content ***REMOVED***    background-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***"); 
+angular.module("material.core").constant("$MD_THEME_CSS", "/*  Only used with Theme processes */html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***md-backdrop ***REMOVED***  background-color: '***REMOVED******REMOVED***background-900-0.0***REMOVED******REMOVED***'; ***REMOVED***  md-backdrop.md-opaque.md-THEME_NAME-theme ***REMOVED***    background-color: '***REMOVED******REMOVED***background-900-1.0***REMOVED******REMOVED***'; ***REMOVED***md-autocomplete.md-THEME_NAME-theme ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  md-autocomplete.md-THEME_NAME-theme[disabled]:not([md-floating-label]) ***REMOVED***    background: '***REMOVED******REMOVED***background-100***REMOVED******REMOVED***'; ***REMOVED***  md-autocomplete.md-THEME_NAME-theme button md-icon path ***REMOVED***    fill: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***  md-autocomplete.md-THEME_NAME-theme button:after ***REMOVED***    background: '***REMOVED******REMOVED***background-600-0.3***REMOVED******REMOVED***'; ***REMOVED***.md-autocomplete-suggestions-container.md-THEME_NAME-theme ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  .md-autocomplete-suggestions-container.md-THEME_NAME-theme li ***REMOVED***    color: '***REMOVED******REMOVED***background-900***REMOVED******REMOVED***'; ***REMOVED***    .md-autocomplete-suggestions-container.md-THEME_NAME-theme li .highlight ***REMOVED***      color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***    .md-autocomplete-suggestions-container.md-THEME_NAME-theme li:hover, .md-autocomplete-suggestions-container.md-THEME_NAME-theme li.selected ***REMOVED***      background: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***md-bottom-sheet.md-THEME_NAME-theme ***REMOVED***  background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***';  border-top-color: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***'; ***REMOVED***  md-bottom-sheet.md-THEME_NAME-theme.md-list md-list-item ***REMOVED***    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***  md-bottom-sheet.md-THEME_NAME-theme .md-subheader ***REMOVED***    background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***  md-bottom-sheet.md-THEME_NAME-theme .md-subheader ***REMOVED***    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme:not([disabled]):hover ***REMOVED***  background-color: '***REMOVED******REMOVED***background-500-0.2***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme:not([disabled]).md-focused ***REMOVED***  background-color: '***REMOVED******REMOVED***background-500-0.2***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme:not([disabled]).md-icon-button:hover ***REMOVED***  background-color: transparent; ***REMOVED***.md-button.md-THEME_NAME-theme.md-fab ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab md-icon ***REMOVED***    color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]):hover ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]).md-focused ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-primary ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-primary.md-raised, .md-button.md-THEME_NAME-theme.md-primary.md-fab ***REMOVED***    color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***';    background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-primary.md-raised:not([disabled]) md-icon, .md-button.md-THEME_NAME-theme.md-primary.md-fab:not([disabled]) md-icon ***REMOVED***      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-primary.md-raised:not([disabled]):hover, .md-button.md-THEME_NAME-theme.md-primary.md-fab:not([disabled]):hover ***REMOVED***      background-color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-primary.md-raised:not([disabled]).md-focused, .md-button.md-THEME_NAME-theme.md-primary.md-fab:not([disabled]).md-focused ***REMOVED***      background-color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-primary:not([disabled]) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-fab ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]) .md-icon ***REMOVED***    color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]):hover ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]).md-focused ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-raised ***REMOVED***  color: '***REMOVED******REMOVED***background-900***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-raised:not([disabled]) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***background-900***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-raised:not([disabled]):hover ***REMOVED***    background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-raised:not([disabled]).md-focused ***REMOVED***    background-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-warn ***REMOVED***  color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-warn.md-raised, .md-button.md-THEME_NAME-theme.md-warn.md-fab ***REMOVED***    color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***';    background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-warn.md-raised:not([disabled]) md-icon, .md-button.md-THEME_NAME-theme.md-warn.md-fab:not([disabled]) md-icon ***REMOVED***      color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-warn.md-raised:not([disabled]):hover, .md-button.md-THEME_NAME-theme.md-warn.md-fab:not([disabled]):hover ***REMOVED***      background-color: '***REMOVED******REMOVED***warn-600***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-warn.md-raised:not([disabled]).md-focused, .md-button.md-THEME_NAME-theme.md-warn.md-fab:not([disabled]).md-focused ***REMOVED***      background-color: '***REMOVED******REMOVED***warn-600***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-warn:not([disabled]) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-accent ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-accent.md-raised, .md-button.md-THEME_NAME-theme.md-accent.md-fab ***REMOVED***    color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***';    background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-accent.md-raised:not([disabled]) md-icon, .md-button.md-THEME_NAME-theme.md-accent.md-fab:not([disabled]) md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-accent.md-raised:not([disabled]):hover, .md-button.md-THEME_NAME-theme.md-accent.md-fab:not([disabled]):hover ***REMOVED***      background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-accent.md-raised:not([disabled]).md-focused, .md-button.md-THEME_NAME-theme.md-accent.md-fab:not([disabled]).md-focused ***REMOVED***      background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-accent:not([disabled]) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme[disabled], .md-button.md-THEME_NAME-theme.md-raised[disabled], .md-button.md-THEME_NAME-theme.md-fab[disabled], .md-button.md-THEME_NAME-theme.md-accent[disabled], .md-button.md-THEME_NAME-theme.md-warn[disabled] ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';  cursor: default; ***REMOVED***  .md-button.md-THEME_NAME-theme[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-raised[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-fab[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-accent[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-warn[disabled] md-icon ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-raised[disabled], .md-button.md-THEME_NAME-theme.md-fab[disabled] ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme[disabled] ***REMOVED***  background-color: transparent; ***REMOVED***._md a.md-THEME_NAME-theme:not(.md-button).md-primary ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  ._md a.md-THEME_NAME-theme:not(.md-button).md-primary:hover ***REMOVED***    color: '***REMOVED******REMOVED***primary-700***REMOVED******REMOVED***'; ***REMOVED***._md a.md-THEME_NAME-theme:not(.md-button).md-accent ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  ._md a.md-THEME_NAME-theme:not(.md-button).md-accent:hover ***REMOVED***    color: '***REMOVED******REMOVED***accent-700***REMOVED******REMOVED***'; ***REMOVED***._md a.md-THEME_NAME-theme:not(.md-button).md-accent ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  ._md a.md-THEME_NAME-theme:not(.md-button).md-accent:hover ***REMOVED***    color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***._md a.md-THEME_NAME-theme:not(.md-button).md-warn ***REMOVED***  color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  ._md a.md-THEME_NAME-theme:not(.md-button).md-warn:hover ***REMOVED***    color: '***REMOVED******REMOVED***warn-700***REMOVED******REMOVED***'; ***REMOVED***md-card.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***';  border-radius: 2px; ***REMOVED***  md-card.md-THEME_NAME-theme .md-card-image ***REMOVED***    border-radius: 2px 2px 0 0; ***REMOVED***  md-card.md-THEME_NAME-theme md-card-header md-card-avatar md-icon ***REMOVED***    color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***';    background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-card.md-THEME_NAME-theme md-card-header md-card-header-text .md-subhead ***REMOVED***    color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***  md-card.md-THEME_NAME-theme md-card-title md-card-title-text:not(:only-child) .md-subhead ***REMOVED***    color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked.md-focused .md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not(.md-checked) .md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked .md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked .md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***accent-contrast-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary:not(.md-checked) .md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked.md-focused .md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-contrast-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-indeterminate[disabled] .md-container ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-600***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn:not(.md-checked) .md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked.md-focused:not([disabled]) .md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled]:not(.md-checked) .md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled].md-checked .md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled].md-checked .md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled] .md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled] .md-label ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-chips.md-THEME_NAME-theme .md-chips ***REMOVED***  box-shadow: 0 1px '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme .md-chips.md-focused ***REMOVED***    box-shadow: 0 2px '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input ***REMOVED***    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input::-webkit-input-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input:-moz-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input::-moz-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input:-ms-input-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input::-webkit-input-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-chips.md-THEME_NAME-theme md-chip ***REMOVED***  background: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-800***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme md-chip md-icon ***REMOVED***    color: '***REMOVED******REMOVED***background-700***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme md-chip.md-focused ***REMOVED***    background: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';    color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme md-chip.md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme md-chip._md-chip-editing ***REMOVED***    background: transparent;    color: '***REMOVED******REMOVED***background-800***REMOVED******REMOVED***'; ***REMOVED***md-chips.md-THEME_NAME-theme md-chip-remove .md-button md-icon path ***REMOVED***  fill: '***REMOVED******REMOVED***background-500***REMOVED******REMOVED***'; ***REMOVED***.md-contact-suggestion span.md-contact-email ***REMOVED***  color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-content.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-default***REMOVED******REMOVED***'; ***REMOVED***/** Theme styles for mdCalendar. */.md-calendar.md-THEME_NAME-theme ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-A200-0.87***REMOVED******REMOVED***'; ***REMOVED***  .md-calendar.md-THEME_NAME-theme tr:last-child td ***REMOVED***    border-bottom-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-calendar-day-header ***REMOVED***  background: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-A200-0.87***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-calendar-date.md-calendar-date-today .md-calendar-date-selection-indicator ***REMOVED***  border: 1px solid '***REMOVED******REMOVED***primary-500***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-calendar-date.md-calendar-date-today.md-calendar-date-disabled ***REMOVED***  color: '***REMOVED******REMOVED***primary-500-0.6***REMOVED******REMOVED***'; ***REMOVED***.md-calendar-date.md-focus .md-THEME_NAME-theme .md-calendar-date-selection-indicator, .md-THEME_NAME-theme .md-calendar-date-selection-indicator:hover ***REMOVED***  background: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-calendar-date.md-calendar-selected-date .md-calendar-date-selection-indicator,.md-THEME_NAME-theme .md-calendar-date.md-focus.md-calendar-selected-date .md-calendar-date-selection-indicator ***REMOVED***  background: '***REMOVED******REMOVED***primary-500***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***primary-500-contrast***REMOVED******REMOVED***';  border-color: transparent; ***REMOVED***.md-THEME_NAME-theme .md-calendar-date-disabled,.md-THEME_NAME-theme .md-calendar-month-label-disabled ***REMOVED***  color: '***REMOVED******REMOVED***background-A200-0.435***REMOVED******REMOVED***'; ***REMOVED***/** Theme styles for mdDatepicker. */.md-THEME_NAME-theme .md-datepicker-input ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input::-webkit-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input:-moz-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input::-moz-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input:-ms-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input::-webkit-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-input-container ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-focused ***REMOVED***    border-bottom-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***    .md-accent .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-focused ***REMOVED***      border-bottom-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***    .md-warn .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-focused ***REMOVED***      border-bottom-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-invalid ***REMOVED***    border-bottom-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-calendar-pane ***REMOVED***  border-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-triangle-button .md-datepicker-expand-triangle ***REMOVED***  border-top-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-triangle-button:hover .md-datepicker-expand-triangle ***REMOVED***  border-top-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-open .md-datepicker-calendar-icon ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-open.md-accent .md-datepicker-calendar-icon, .md-accent .md-THEME_NAME-theme .md-datepicker-open .md-datepicker-calendar-icon ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-open.md-warn .md-datepicker-calendar-icon, .md-warn .md-THEME_NAME-theme .md-datepicker-open .md-datepicker-calendar-icon ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-open .md-datepicker-input-container,.md-THEME_NAME-theme .md-datepicker-input-mask-opaque ***REMOVED***  background: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-calendar ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***md-dialog.md-THEME_NAME-theme ***REMOVED***  border-radius: 4px;  background-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***  md-dialog.md-THEME_NAME-theme.md-content-overflow .md-actions, md-dialog.md-THEME_NAME-theme.md-content-overflow md-dialog-actions ***REMOVED***    border-top-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-divider.md-THEME_NAME-theme ***REMOVED***  border-top-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***.layout-row > md-divider.md-THEME_NAME-theme,.layout-xs-row > md-divider.md-THEME_NAME-theme, .layout-gt-xs-row > md-divider.md-THEME_NAME-theme,.layout-sm-row > md-divider.md-THEME_NAME-theme, .layout-gt-sm-row > md-divider.md-THEME_NAME-theme,.layout-md-row > md-divider.md-THEME_NAME-theme, .layout-gt-md-row > md-divider.md-THEME_NAME-theme,.layout-lg-row > md-divider.md-THEME_NAME-theme, .layout-gt-lg-row > md-divider.md-THEME_NAME-theme,.layout-xl-row > md-divider.md-THEME_NAME-theme ***REMOVED***  border-right-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-icon.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***  md-icon.md-THEME_NAME-theme.md-primary ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-icon.md-THEME_NAME-theme.md-accent ***REMOVED***    color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  md-icon.md-THEME_NAME-theme.md-warn ***REMOVED***    color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme .md-input ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';  border-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input::-webkit-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input:-moz-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input::-moz-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input:-ms-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input::-webkit-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme > md-icon ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme label,md-input-container.md-THEME_NAME-theme .md-placeholder ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme label.md-required:after ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-focused):not(.md-input-invalid) label.md-required:after ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme .md-input-messages-animation, md-input-container.md-THEME_NAME-theme .md-input-message-animation ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input-messages-animation .md-char-counter, md-input-container.md-THEME_NAME-theme .md-input-message-animation .md-char-counter ***REMOVED***    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-has-value label ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused .md-input, md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-resized .md-input ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused label,md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused md-icon ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-accent .md-input ***REMOVED***  border-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-accent label,md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-accent md-icon ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-warn .md-input ***REMOVED***  border-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-warn label,md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-warn md-icon ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme.md-input-invalid .md-input ***REMOVED***  border-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme.md-input-invalid label,md-input-container.md-THEME_NAME-theme.md-input-invalid .md-input-message-animation,md-input-container.md-THEME_NAME-theme.md-input-invalid .md-char-counter ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme .md-input[disabled],[disabled] md-input-container.md-THEME_NAME-theme .md-input ***REMOVED***  border-bottom-color: transparent;  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';  background-image: linear-gradient(to right, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 0%, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 33%, transparent 0%);  background-image: -ms-linear-gradient(left, transparent 0%, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 100%); ***REMOVED***md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text h3, md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text h4,md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text h3,md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text h4 ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text p,md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text p ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-list.md-THEME_NAME-theme .md-proxy-focus.md-focused div.md-no-style ***REMOVED***  background-color: '***REMOVED******REMOVED***background-100***REMOVED******REMOVED***'; ***REMOVED***md-list.md-THEME_NAME-theme md-list-item .md-avatar-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***md-list.md-THEME_NAME-theme md-list-item > md-icon ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***  md-list.md-THEME_NAME-theme md-list-item > md-icon.md-highlight ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***    md-list.md-THEME_NAME-theme md-list-item > md-icon.md-highlight.md-accent ***REMOVED***      color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-menu-content.md-THEME_NAME-theme ***REMOVED***  background-color: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  md-menu-content.md-THEME_NAME-theme md-menu-item ***REMOVED***    color: '***REMOVED******REMOVED***background-A200-0.87***REMOVED******REMOVED***'; ***REMOVED***    md-menu-content.md-THEME_NAME-theme md-menu-item md-icon ***REMOVED***      color: '***REMOVED******REMOVED***background-A200-0.54***REMOVED******REMOVED***'; ***REMOVED***    md-menu-content.md-THEME_NAME-theme md-menu-item .md-button[disabled] ***REMOVED***      color: '***REMOVED******REMOVED***background-A200-0.25***REMOVED******REMOVED***'; ***REMOVED***      md-menu-content.md-THEME_NAME-theme md-menu-item .md-button[disabled] md-icon ***REMOVED***        color: '***REMOVED******REMOVED***background-A200-0.25***REMOVED******REMOVED***'; ***REMOVED***  md-menu-content.md-THEME_NAME-theme md-menu-divider ***REMOVED***    background-color: '***REMOVED******REMOVED***background-A200-0.11***REMOVED******REMOVED***'; ***REMOVED***md-menu-bar.md-THEME_NAME-theme > button.md-button ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***';  border-radius: 2px; ***REMOVED***md-menu-bar.md-THEME_NAME-theme md-menu.md-open > button, md-menu-bar.md-THEME_NAME-theme md-menu > button:focus ***REMOVED***  outline: none;  background: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***md-menu-bar.md-THEME_NAME-theme.md-open:not(.md-keyboard-mode) md-menu:hover > button ***REMOVED***  background-color: '***REMOVED******REMOVED*** background-500-0.2***REMOVED******REMOVED***'; ***REMOVED***md-menu-bar.md-THEME_NAME-theme:not(.md-keyboard-mode):not(.md-open) md-menu button:hover,md-menu-bar.md-THEME_NAME-theme:not(.md-keyboard-mode):not(.md-open) md-menu button:focus ***REMOVED***  background: transparent; ***REMOVED***md-menu-content.md-THEME_NAME-theme .md-menu > .md-button:after ***REMOVED***  color: '***REMOVED******REMOVED***background-A200-0.54***REMOVED******REMOVED***'; ***REMOVED***md-menu-content.md-THEME_NAME-theme .md-menu.md-open > .md-button ***REMOVED***  background-color: '***REMOVED******REMOVED*** background-500-0.2***REMOVED******REMOVED***'; ***REMOVED***md-toolbar.md-THEME_NAME-theme.md-menu-toolbar ***REMOVED***  background-color: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-A200***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme.md-menu-toolbar md-toolbar-filler ***REMOVED***    background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';    color: '***REMOVED******REMOVED***background-A100-0.87***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-THEME_NAME-theme.md-menu-toolbar md-toolbar-filler md-icon ***REMOVED***      color: '***REMOVED******REMOVED***background-A100-0.87***REMOVED******REMOVED***'; ***REMOVED***md-nav-bar.md-THEME_NAME-theme .md-nav-bar ***REMOVED***  background-color: transparent;  border-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-nav-bar.md-THEME_NAME-theme .md-button._md-nav-button.md-unselected ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-nav-bar.md-THEME_NAME-theme md-nav-ink-bar ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  background: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***.md-panel ***REMOVED***  background-color: '***REMOVED******REMOVED***background-900-0.0***REMOVED******REMOVED***'; ***REMOVED***  .md-panel._md-panel-backdrop.md-THEME_NAME-theme ***REMOVED***    background-color: '***REMOVED******REMOVED***background-900-1.0***REMOVED******REMOVED***'; ***REMOVED***md-progress-circular.md-THEME_NAME-theme path ***REMOVED***  stroke: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-circular.md-THEME_NAME-theme.md-warn path ***REMOVED***  stroke: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-circular.md-THEME_NAME-theme.md-accent path ***REMOVED***  stroke: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme .md-container ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme.md-warn .md-container ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme.md-warn .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme.md-accent .md-container ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme.md-accent .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-warn .md-bar1 ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-warn .md-dashed:before ***REMOVED***  background: radial-gradient(\"***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***\" 0%, \"***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***\" 16%, transparent 42%); ***REMOVED***md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-accent .md-bar1 ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-accent .md-dashed:before ***REMOVED***  background: radial-gradient(\"***REMOVED******REMOVED***accent-100***REMOVED******REMOVED***\" 0%, \"***REMOVED******REMOVED***accent-100***REMOVED******REMOVED***\" 16%, transparent 42%); ***REMOVED***md-radio-button.md-THEME_NAME-theme .md-off ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-radio-button.md-THEME_NAME-theme .md-on ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-button.md-THEME_NAME-theme.md-checked .md-off ***REMOVED***  border-color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-button.md-THEME_NAME-theme.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-button.md-THEME_NAME-theme .md-container .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-on, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-on ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-off ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-container .md-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-container .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-on, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-on ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-off ***REMOVED***  border-color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-container .md-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-container .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-600***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme[disabled],md-radio-button.md-THEME_NAME-theme[disabled] ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-radio-group.md-THEME_NAME-theme[disabled] .md-container .md-off,  md-radio-button.md-THEME_NAME-theme[disabled] .md-container .md-off ***REMOVED***    border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-radio-group.md-THEME_NAME-theme[disabled] .md-container .md-on,  md-radio-button.md-THEME_NAME-theme[disabled] .md-container .md-on ***REMOVED***    border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme .md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme.md-primary .md-checked:not([disabled]) .md-ink-ripple, md-radio-group.md-THEME_NAME-theme .md-checked:not([disabled]).md-primary .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme .md-checked.md-primary .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked .md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty).md-primary .md-checked .md-container:before,md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked.md-primary .md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty).md-warn .md-checked .md-container:before,md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked.md-warn .md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-input-container md-select.md-THEME_NAME-theme .md-select-value span:first-child:after ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container:not(.md-input-focused):not(.md-input-invalid) md-select.md-THEME_NAME-theme .md-select-value span:first-child:after ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-input-focused:not(.md-input-has-value) md-select.md-THEME_NAME-theme .md-select-value ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-input-focused:not(.md-input-has-value) md-select.md-THEME_NAME-theme .md-select-value.md-select-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-input-invalid md-select.md-THEME_NAME-theme .md-select-value ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***' !important;  border-bottom-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***' !important; ***REMOVED***md-input-container.md-input-invalid md-select.md-THEME_NAME-theme.md-no-underline .md-select-value ***REMOVED***  border-bottom-color: transparent !important; ***REMOVED***md-select.md-THEME_NAME-theme[disabled] .md-select-value ***REMOVED***  border-bottom-color: transparent;  background-image: linear-gradient(to right, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 0%, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 33%, transparent 0%);  background-image: -ms-linear-gradient(left, transparent 0%, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 100%); ***REMOVED***md-select.md-THEME_NAME-theme .md-select-value ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***  md-select.md-THEME_NAME-theme .md-select-value.md-select-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-select.md-THEME_NAME-theme .md-select-value span:first-child:after ***REMOVED***    color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-select.md-THEME_NAME-theme.md-no-underline .md-select-value ***REMOVED***  border-bottom-color: transparent !important; ***REMOVED***md-select.md-THEME_NAME-theme.ng-invalid.ng-touched .md-select-value ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***' !important;  border-bottom-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***' !important; ***REMOVED***md-select.md-THEME_NAME-theme.ng-invalid.ng-touched.md-no-underline .md-select-value ***REMOVED***  border-bottom-color: transparent !important; ***REMOVED***md-select.md-THEME_NAME-theme:not([disabled]):focus .md-select-value ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED*** foreground-1 ***REMOVED******REMOVED***'; ***REMOVED***  md-select.md-THEME_NAME-theme:not([disabled]):focus .md-select-value.md-select-placeholder ***REMOVED***    color: '***REMOVED******REMOVED*** foreground-1 ***REMOVED******REMOVED***'; ***REMOVED***md-select.md-THEME_NAME-theme:not([disabled]):focus.md-no-underline .md-select-value ***REMOVED***  border-bottom-color: transparent !important; ***REMOVED***md-select.md-THEME_NAME-theme:not([disabled]):focus.md-accent .md-select-value ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-select.md-THEME_NAME-theme:not([disabled]):focus.md-warn .md-select-value ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-select.md-THEME_NAME-theme[disabled] .md-select-value ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-select.md-THEME_NAME-theme[disabled] .md-select-value.md-select-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-select-menu.md-THEME_NAME-theme md-content ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  md-select-menu.md-THEME_NAME-theme md-content md-optgroup ***REMOVED***    color: '***REMOVED******REMOVED***background-600-0.87***REMOVED******REMOVED***'; ***REMOVED***  md-select-menu.md-THEME_NAME-theme md-content md-option ***REMOVED***    color: '***REMOVED******REMOVED***background-900-0.87***REMOVED******REMOVED***'; ***REMOVED***    md-select-menu.md-THEME_NAME-theme md-content md-option[disabled] .md-text ***REMOVED***      color: '***REMOVED******REMOVED***background-400-0.87***REMOVED******REMOVED***'; ***REMOVED***    md-select-menu.md-THEME_NAME-theme md-content md-option:not([disabled]):focus, md-select-menu.md-THEME_NAME-theme md-content md-option:not([disabled]):hover ***REMOVED***      background: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***    md-select-menu.md-THEME_NAME-theme md-content md-option[selected] ***REMOVED***      color: '***REMOVED******REMOVED***primary-500***REMOVED******REMOVED***'; ***REMOVED***      md-select-menu.md-THEME_NAME-theme md-content md-option[selected]:focus ***REMOVED***        color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***      md-select-menu.md-THEME_NAME-theme md-content md-option[selected].md-accent ***REMOVED***        color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***        md-select-menu.md-THEME_NAME-theme md-content md-option[selected].md-accent:focus ***REMOVED***          color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme[selected] .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme[selected] .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme:not(.md-checked) .md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme[selected] .md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme[selected].md-focused .md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme[selected] .md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-contrast-0.87***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme .md-indeterminate[disabled] .md-container ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme md-option .md-text ***REMOVED***  color: '***REMOVED******REMOVED***background-900-0.87***REMOVED******REMOVED***'; ***REMOVED***md-sidenav.md-THEME_NAME-theme, md-sidenav.md-THEME_NAME-theme md-content ***REMOVED***  background-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-track ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-track-ticks ***REMOVED***  color: '***REMOVED******REMOVED***background-contrast***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-focus-ring ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-A200-0.2***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-disabled-thumb ***REMOVED***  border-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-min .md-thumb:after ***REMOVED***  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***';  border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-min .md-focus-ring ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3-0.38***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-min[md-discrete] .md-thumb:after ***REMOVED***  background-color: '***REMOVED******REMOVED***background-contrast***REMOVED******REMOVED***';  border-color: transparent; ***REMOVED***md-slider.md-THEME_NAME-theme.md-min[md-discrete] .md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme.md-min[md-discrete] .md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-min[md-discrete][md-vertical] .md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-track.md-track-fill ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-thumb:after ***REMOVED***  border-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme .md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme[md-vertical] .md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-thumb-text ***REMOVED***  color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn .md-focus-ring ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-200-0.38***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn .md-track.md-track-fill ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn .md-thumb:after ***REMOVED***  border-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn .md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme.md-warn .md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn[md-vertical] .md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn .md-thumb-text ***REMOVED***  color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary .md-focus-ring ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-200-0.38***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary .md-track.md-track-fill ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary .md-thumb:after ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary .md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme.md-primary .md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary[md-vertical] .md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary .md-thumb-text ***REMOVED***  color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled] .md-thumb:after ***REMOVED***  border-color: transparent; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled]:not(.md-min) .md-thumb:after, md-slider.md-THEME_NAME-theme[disabled][md-discrete] .md-thumb:after ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';  border-color: transparent; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled][readonly] .md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme[disabled][readonly] .md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled][readonly][md-vertical] .md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled][readonly] .md-disabled-thumb ***REMOVED***  border-color: transparent;  background-color: transparent; ***REMOVED***md-slider-container[disabled] > *:first-child:not(md-slider),md-slider-container[disabled] > *:last-child:not(md-slider) ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***.md-subheader.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED*** foreground-2-0.23 ***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-default***REMOVED******REMOVED***'; ***REMOVED***  .md-subheader.md-THEME_NAME-theme.md-primary ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  .md-subheader.md-THEME_NAME-theme.md-accent ***REMOVED***    color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  .md-subheader.md-THEME_NAME-theme.md-warn ***REMOVED***    color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***background-500***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme .md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***background-500***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked .md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.5***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-focused .md-thumb:before ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-primary .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-primary .md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-primary .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.5***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-primary.md-focused .md-thumb:before ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-warn .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-warn .md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-warn .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.5***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-warn.md-focused .md-thumb:before ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme[disabled] .md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme[disabled] .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme md-tabs-wrapper ***REMOVED***  background-color: transparent;  border-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme .md-paginator md-icon ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme md-ink-bar ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  background: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme .md-tab ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme .md-tab[disabled], md-tabs.md-THEME_NAME-theme .md-tab[disabled] md-icon ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme .md-tab.md-active, md-tabs.md-THEME_NAME-theme .md-tab.md-active md-icon, md-tabs.md-THEME_NAME-theme .md-tab.md-focused, md-tabs.md-THEME_NAME-theme .md-tab.md-focused md-icon ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme .md-tab.md-focused ***REMOVED***    background: '***REMOVED******REMOVED***primary-color-0.1***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme .md-tab .md-ripple-container ***REMOVED***    color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***accent-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar ***REMOVED***    color: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***';    background: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***primary-100***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***primary-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***warn-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***primary-100***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***primary-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***accent-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar ***REMOVED***    color: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***';    background: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***'; ***REMOVED***md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***warn-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***md-toast.md-THEME_NAME-theme .md-toast-content ***REMOVED***  background-color: #323232;  color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***  md-toast.md-THEME_NAME-theme .md-toast-content .md-button ***REMOVED***    color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***    md-toast.md-THEME_NAME-theme .md-toast-content .md-button.md-highlight ***REMOVED***      color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***      md-toast.md-THEME_NAME-theme .md-toast-content .md-button.md-highlight.md-primary ***REMOVED***        color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***      md-toast.md-THEME_NAME-theme .md-toast-content .md-button.md-highlight.md-warn ***REMOVED***        color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar) ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***';    fill: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar) .md-button[disabled] md-icon ***REMOVED***    color: '***REMOVED******REMOVED***primary-contrast-0.26***REMOVED******REMOVED***';    fill: '***REMOVED******REMOVED***primary-contrast-0.26***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';    color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent .md-ink-ripple ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***';      fill: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent .md-button[disabled] md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast-0.26***REMOVED******REMOVED***';      fill: '***REMOVED******REMOVED***accent-contrast-0.26***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-warn ***REMOVED***    background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***';    color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***md-tooltip.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  md-tooltip.md-THEME_NAME-theme .md-content ***REMOVED***    background-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***"); 
 ***REMOVED***)();
 
 

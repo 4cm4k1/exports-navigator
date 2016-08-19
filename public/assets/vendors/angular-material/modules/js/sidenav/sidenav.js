@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
 (function( window, angular, undefined )***REMOVED***
 "use strict";
@@ -70,6 +70,11 @@ angular
  * // Sync check to whether given sidenav is locked open
  * // If this is true, the sidenav will be open regardless of close()
  * $mdSidenav(componentId).isLockedOpen();
+ * // On close callback to handle close, backdrop click or escape key pressed
+ * // Callback happens BEFORE the close action occurs.
+ * $mdSidenav(componentId).onClose(function () ***REMOVED***
+ *   $log.debug('closing');
+ * ***REMOVED***);
  * </hljs>
  */
 function SidenavService($mdComponentRegistry, $mdUtil, $q, $log) ***REMOVED***
@@ -112,6 +117,7 @@ function SidenavService($mdComponentRegistry, $mdUtil, $q, $log) ***REMOVED***
         toggle       : rejectFn,
         open         : rejectFn,
         close        : rejectFn,
+        onClose      : angular.noop,
         then : function(callback) ***REMOVED***
           return waitForInstance(handle)
             .then(callback || angular.noop);
@@ -237,7 +243,7 @@ function SidenavFocusDirective() ***REMOVED***
  * the sidenav 'locks open': it falls into the content's flow instead
  * of appearing over it. This overrides the `md-is-open` attribute.
  *
-* The $mdMedia() servic  e is exposed to the is-locked-open attribute, which
+* The $mdMedia() service is exposed to the is-locked-open attribute, which
  * can be given a media query or one of the `sm`, `gt-sm`, `md`, `gt-md`, `lg` or `gt-lg` presets.
  * Examples:
  *
@@ -253,7 +259,7 @@ function SidenavDirective($mdMedia, $mdUtil, $mdConstant, $mdTheming, $animate, 
     ***REMOVED***,
     controller: '$mdSidenavController',
     compile: function(element) ***REMOVED***
-      element.addClass('_md-closed');
+      element.addClass('md-closed');
       element.attr('tabIndex', '-1');
       return postLink;
     ***REMOVED***
@@ -281,7 +287,7 @@ function SidenavDirective($mdMedia, $mdUtil, $mdConstant, $mdTheming, $animate, 
 
     // Only create the backdrop if the backdrop isn't disabled.
     if (!angular.isDefined(attr.mdDisableBackdrop)) ***REMOVED***
-      backdrop = $mdUtil.createBackdrop(scope, "_md-sidenav-backdrop md-opaque ng-enter");
+      backdrop = $mdUtil.createBackdrop(scope, "md-sidenav-backdrop md-opaque ng-enter");
     ***REMOVED***
 
     element.addClass('_md');     // private md component indicator for styling
@@ -314,12 +320,12 @@ function SidenavDirective($mdMedia, $mdUtil, $mdConstant, $mdTheming, $animate, 
     function updateIsLocked(isLocked, oldValue) ***REMOVED***
       scope.isLockedOpen = isLocked;
       if (isLocked === oldValue) ***REMOVED***
-        element.toggleClass('_md-locked-open', !!isLocked);
+        element.toggleClass('md-locked-open', !!isLocked);
       ***REMOVED*** else ***REMOVED***
-        $animate[isLocked ? 'addClass' : 'removeClass'](element, '_md-locked-open');
+        $animate[isLocked ? 'addClass' : 'removeClass'](element, 'md-locked-open');
       ***REMOVED***
       if (backdrop) ***REMOVED***
-        backdrop.toggleClass('_md-locked-open', !!isLocked);
+        backdrop.toggleClass('md-locked-open', !!isLocked);
       ***REMOVED***
     ***REMOVED***
 
@@ -347,7 +353,7 @@ function SidenavDirective($mdMedia, $mdUtil, $mdConstant, $mdTheming, $animate, 
       return promise = $q.all([
         isOpen && backdrop ? $animate.enter(backdrop, parent) : backdrop ?
                              $animate.leave(backdrop) : $q.when(true),
-        $animate[isOpen ? 'removeClass' : 'addClass'](element, '_md-closed')
+        $animate[isOpen ? 'removeClass' : 'addClass'](element, 'md-closed')
       ]).then(function() ***REMOVED***
         // Perform focus when animations are ALL done...
         if (scope.isOpen) ***REMOVED***
@@ -375,7 +381,7 @@ function SidenavDirective($mdMedia, $mdUtil, $mdConstant, $mdTheming, $animate, 
         // parent, to increase the performance. Using 100% as height, will impact the performance heavily.
         var positionStyle = ***REMOVED***
           top: scrollTop + 'px',
-          bottom: 'initial',
+          bottom: 'auto',
           height: parent[0].clientHeight + 'px'
         ***REMOVED***;
 
@@ -432,6 +438,8 @@ function SidenavDirective($mdMedia, $mdUtil, $mdConstant, $mdTheming, $animate, 
         return $q.when(true);
 
       ***REMOVED*** else ***REMOVED***
+        if (scope.isOpen && sidenavCtrl.onCloseCb) sidenavCtrl.onCloseCb();
+
         return $q(function(resolve)***REMOVED***
           // Toggle value to force an async `updateIsOpen()` to run
           scope.isOpen = isOpen;
@@ -495,6 +503,12 @@ function SidenavController($scope, $element, $attrs, $mdComponentRegistry, $q) *
   // Synchronous getters
   self.isOpen = function() ***REMOVED*** return !!$scope.isOpen; ***REMOVED***;
   self.isLockedOpen = function() ***REMOVED*** return !!$scope.isLockedOpen; ***REMOVED***;
+
+  // Synchronous setters
+  self.onClose = function (callback) ***REMOVED***
+    self.onCloseCb = callback;
+    return self;
+  ***REMOVED***;
 
   // Async actions
   self.open   = function() ***REMOVED*** return self.$toggleOpen( true );  ***REMOVED***;

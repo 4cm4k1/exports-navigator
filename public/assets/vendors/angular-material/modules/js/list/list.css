@@ -2,13 +2,8 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-/*  Only used with Theme processes */
-html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
-
 md-list ***REMOVED***
   display: block;
   padding: 8px 0px 8px 0px; ***REMOVED***
@@ -18,99 +13,99 @@ md-list ***REMOVED***
     letter-spacing: 0.010em;
     line-height: 1.2em; ***REMOVED***
   md-list.md-dense md-list-item,
-  md-list.md-dense md-list-item ._md-list-item-inner ***REMOVED***
+  md-list.md-dense md-list-item .md-list-item-inner ***REMOVED***
     min-height: 48px; ***REMOVED***
+    md-list.md-dense md-list-item::before,
+    md-list.md-dense md-list-item .md-list-item-inner::before ***REMOVED***
+      content: '';
+      min-height: 48px;
+      visibility: hidden;
+      display: inline-block; ***REMOVED***
     md-list.md-dense md-list-item md-icon:first-child,
-    md-list.md-dense md-list-item ._md-list-item-inner md-icon:first-child ***REMOVED***
+    md-list.md-dense md-list-item .md-list-item-inner md-icon:first-child ***REMOVED***
       width: 20px;
       height: 20px; ***REMOVED***
     md-list.md-dense md-list-item > md-icon:first-child:not(.md-avatar-icon),
-    md-list.md-dense md-list-item ._md-list-item-inner > md-icon:first-child:not(.md-avatar-icon) ***REMOVED***
+    md-list.md-dense md-list-item .md-list-item-inner > md-icon:first-child:not(.md-avatar-icon) ***REMOVED***
       margin-right: 36px; ***REMOVED***
       [dir=rtl] md-list.md-dense md-list-item > md-icon:first-child:not(.md-avatar-icon), [dir=rtl]
-      md-list.md-dense md-list-item ._md-list-item-inner > md-icon:first-child:not(.md-avatar-icon) ***REMOVED***
-        margin-right: 0;
+      md-list.md-dense md-list-item .md-list-item-inner > md-icon:first-child:not(.md-avatar-icon) ***REMOVED***
         margin-right: auto;
-        margin-right: initial;
         margin-left: 36px; ***REMOVED***
     md-list.md-dense md-list-item .md-avatar, md-list.md-dense md-list-item .md-avatar-icon,
-    md-list.md-dense md-list-item ._md-list-item-inner .md-avatar,
-    md-list.md-dense md-list-item ._md-list-item-inner .md-avatar-icon ***REMOVED***
+    md-list.md-dense md-list-item .md-list-item-inner .md-avatar,
+    md-list.md-dense md-list-item .md-list-item-inner .md-avatar-icon ***REMOVED***
       margin-right: 20px; ***REMOVED***
       [dir=rtl] md-list.md-dense md-list-item .md-avatar, [dir=rtl] md-list.md-dense md-list-item .md-avatar-icon, [dir=rtl]
-      md-list.md-dense md-list-item ._md-list-item-inner .md-avatar, [dir=rtl]
-      md-list.md-dense md-list-item ._md-list-item-inner .md-avatar-icon ***REMOVED***
-        margin-right: 0;
+      md-list.md-dense md-list-item .md-list-item-inner .md-avatar, [dir=rtl]
+      md-list.md-dense md-list-item .md-list-item-inner .md-avatar-icon ***REMOVED***
         margin-right: auto;
-        margin-right: initial;
         margin-left: 20px; ***REMOVED***
     md-list.md-dense md-list-item .md-avatar,
-    md-list.md-dense md-list-item ._md-list-item-inner .md-avatar ***REMOVED***
+    md-list.md-dense md-list-item .md-list-item-inner .md-avatar ***REMOVED***
+      -webkit-box-flex: 0;
       -webkit-flex: none;
-          -ms-flex: none;
               flex: none;
       width: 36px;
       height: 36px; ***REMOVED***
-  md-list.md-dense md-list-item.md-2-line .md-list-item-text.md-offset, md-list.md-dense md-list-item.md-2-line > ._md-no-style .md-list-item-text.md-offset, md-list.md-dense md-list-item.md-3-line .md-list-item-text.md-offset, md-list.md-dense md-list-item.md-3-line > ._md-no-style .md-list-item-text.md-offset ***REMOVED***
+  md-list.md-dense md-list-item.md-2-line .md-list-item-text.md-offset, md-list.md-dense md-list-item.md-2-line > .md-no-style .md-list-item-text.md-offset, md-list.md-dense md-list-item.md-3-line .md-list-item-text.md-offset, md-list.md-dense md-list-item.md-3-line > .md-no-style .md-list-item-text.md-offset ***REMOVED***
     margin-left: 56px; ***REMOVED***
-    [dir=rtl] md-list.md-dense md-list-item.md-2-line .md-list-item-text.md-offset, [dir=rtl] md-list.md-dense md-list-item.md-2-line > ._md-no-style .md-list-item-text.md-offset, [dir=rtl] md-list.md-dense md-list-item.md-3-line .md-list-item-text.md-offset, [dir=rtl] md-list.md-dense md-list-item.md-3-line > ._md-no-style .md-list-item-text.md-offset ***REMOVED***
-      margin-left: 0;
+    [dir=rtl] md-list.md-dense md-list-item.md-2-line .md-list-item-text.md-offset, [dir=rtl] md-list.md-dense md-list-item.md-2-line > .md-no-style .md-list-item-text.md-offset, [dir=rtl] md-list.md-dense md-list-item.md-3-line .md-list-item-text.md-offset, [dir=rtl] md-list.md-dense md-list-item.md-3-line > .md-no-style .md-list-item-text.md-offset ***REMOVED***
       margin-left: auto;
-      margin-left: initial;
       margin-right: 56px; ***REMOVED***
   md-list.md-dense md-list-item.md-2-line .md-list-item-text h3,
   md-list.md-dense md-list-item.md-2-line .md-list-item-text h4,
-  md-list.md-dense md-list-item.md-2-line .md-list-item-text p, md-list.md-dense md-list-item.md-2-line > ._md-no-style .md-list-item-text h3,
-  md-list.md-dense md-list-item.md-2-line > ._md-no-style .md-list-item-text h4,
-  md-list.md-dense md-list-item.md-2-line > ._md-no-style .md-list-item-text p, md-list.md-dense md-list-item.md-3-line .md-list-item-text h3,
+  md-list.md-dense md-list-item.md-2-line .md-list-item-text p, md-list.md-dense md-list-item.md-2-line > .md-no-style .md-list-item-text h3,
+  md-list.md-dense md-list-item.md-2-line > .md-no-style .md-list-item-text h4,
+  md-list.md-dense md-list-item.md-2-line > .md-no-style .md-list-item-text p, md-list.md-dense md-list-item.md-3-line .md-list-item-text h3,
   md-list.md-dense md-list-item.md-3-line .md-list-item-text h4,
-  md-list.md-dense md-list-item.md-3-line .md-list-item-text p, md-list.md-dense md-list-item.md-3-line > ._md-no-style .md-list-item-text h3,
-  md-list.md-dense md-list-item.md-3-line > ._md-no-style .md-list-item-text h4,
-  md-list.md-dense md-list-item.md-3-line > ._md-no-style .md-list-item-text p ***REMOVED***
+  md-list.md-dense md-list-item.md-3-line .md-list-item-text p, md-list.md-dense md-list-item.md-3-line > .md-no-style .md-list-item-text h3,
+  md-list.md-dense md-list-item.md-3-line > .md-no-style .md-list-item-text h4,
+  md-list.md-dense md-list-item.md-3-line > .md-no-style .md-list-item-text p ***REMOVED***
     line-height: 1.05;
     font-size: 12px; ***REMOVED***
-  md-list.md-dense md-list-item.md-2-line .md-list-item-text h3, md-list.md-dense md-list-item.md-2-line > ._md-no-style .md-list-item-text h3, md-list.md-dense md-list-item.md-3-line .md-list-item-text h3, md-list.md-dense md-list-item.md-3-line > ._md-no-style .md-list-item-text h3 ***REMOVED***
+  md-list.md-dense md-list-item.md-2-line .md-list-item-text h3, md-list.md-dense md-list-item.md-2-line > .md-no-style .md-list-item-text h3, md-list.md-dense md-list-item.md-3-line .md-list-item-text h3, md-list.md-dense md-list-item.md-3-line > .md-no-style .md-list-item-text h3 ***REMOVED***
     font-size: 13px; ***REMOVED***
-  md-list.md-dense md-list-item.md-2-line, md-list.md-dense md-list-item.md-2-line > ._md-no-style ***REMOVED***
+  md-list.md-dense md-list-item.md-2-line, md-list.md-dense md-list-item.md-2-line > .md-no-style ***REMOVED***
     min-height: 60px; ***REMOVED***
-    md-list.md-dense md-list-item.md-2-line div.md-button:first-child::before, md-list.md-dense md-list-item.md-2-line > ._md-no-style div.md-button:first-child::before ***REMOVED***
+    md-list.md-dense md-list-item.md-2-line::before, md-list.md-dense md-list-item.md-2-line > .md-no-style::before ***REMOVED***
       content: '';
       min-height: 60px;
       visibility: hidden;
       display: inline-block; ***REMOVED***
-    md-list.md-dense md-list-item.md-2-line > .md-avatar, md-list.md-dense md-list-item.md-2-line .md-avatar-icon, md-list.md-dense md-list-item.md-2-line > ._md-no-style > .md-avatar, md-list.md-dense md-list-item.md-2-line > ._md-no-style .md-avatar-icon ***REMOVED***
+    md-list.md-dense md-list-item.md-2-line > .md-avatar, md-list.md-dense md-list-item.md-2-line .md-avatar-icon, md-list.md-dense md-list-item.md-2-line > .md-no-style > .md-avatar, md-list.md-dense md-list-item.md-2-line > .md-no-style .md-avatar-icon ***REMOVED***
       margin-top: 12px; ***REMOVED***
-  md-list.md-dense md-list-item.md-3-line, md-list.md-dense md-list-item.md-3-line > ._md-no-style ***REMOVED***
+  md-list.md-dense md-list-item.md-3-line, md-list.md-dense md-list-item.md-3-line > .md-no-style ***REMOVED***
     min-height: 76px; ***REMOVED***
-    md-list.md-dense md-list-item.md-3-line div.md-button:first-child::before, md-list.md-dense md-list-item.md-3-line > ._md-no-style div.md-button:first-child::before ***REMOVED***
+    md-list.md-dense md-list-item.md-3-line::before, md-list.md-dense md-list-item.md-3-line > .md-no-style::before ***REMOVED***
       content: '';
       min-height: 76px;
       visibility: hidden;
       display: inline-block; ***REMOVED***
     md-list.md-dense md-list-item.md-3-line > md-icon:first-child,
-    md-list.md-dense md-list-item.md-3-line > .md-avatar, md-list.md-dense md-list-item.md-3-line > ._md-no-style > md-icon:first-child,
-    md-list.md-dense md-list-item.md-3-line > ._md-no-style > .md-avatar ***REMOVED***
+    md-list.md-dense md-list-item.md-3-line > .md-avatar, md-list.md-dense md-list-item.md-3-line > .md-no-style > md-icon:first-child,
+    md-list.md-dense md-list-item.md-3-line > .md-no-style > .md-avatar ***REMOVED***
       margin-top: 16px; ***REMOVED***
 
 md-list-item ***REMOVED***
   position: relative; ***REMOVED***
-  md-list-item._md-proxy-focus.md-focused ._md-no-style ***REMOVED***
+  md-list-item.md-proxy-focus.md-focused .md-no-style ***REMOVED***
+    -webkit-transition: background-color 0.15s linear;
     transition: background-color 0.15s linear; ***REMOVED***
   md-list-item._md-button-wrap ***REMOVED***
     position: relative; ***REMOVED***
     md-list-item._md-button-wrap > div.md-button:first-child ***REMOVED***
+      display: -webkit-box;
       display: -webkit-flex;
-      display: -ms-flexbox;
       display: flex;
+      -webkit-box-align: center;
       -webkit-align-items: center;
-          -ms-flex-align: center;
               align-items: center;
+      -webkit-box-pack: start;
       -webkit-justify-content: flex-start;
-          -ms-flex-pack: start;
               justify-content: flex-start;
       padding: 0 16px;
       margin: 0;
-      background-color: initial;
       font-weight: 400;
       text-align: left;
       border: medium none; ***REMOVED***
@@ -123,40 +118,42 @@ md-list-item ***REMOVED***
         height: 100%;
         margin: 0;
         padding: 0; ***REMOVED***
-      md-list-item._md-button-wrap > div.md-button:first-child ._md-list-item-inner ***REMOVED***
+      md-list-item._md-button-wrap > div.md-button:first-child .md-list-item-inner ***REMOVED***
         width: 100%;
-        height: 100%; ***REMOVED***
-  md-list-item._md-no-proxy,
-  md-list-item ._md-no-style ***REMOVED***
+        min-height: inherit; ***REMOVED***
+  md-list-item.md-no-proxy,
+  md-list-item .md-no-style ***REMOVED***
     position: relative;
     padding: 0px 16px;
+    -webkit-box-flex: 1;
     -webkit-flex: 1 1 auto;
-        -ms-flex: 1 1 auto;
             flex: 1 1 auto; ***REMOVED***
-    md-list-item._md-no-proxy.md-button,
-    md-list-item ._md-no-style.md-button ***REMOVED***
+    md-list-item.md-no-proxy.md-button,
+    md-list-item .md-no-style.md-button ***REMOVED***
       font-size: inherit;
       height: inherit;
       text-align: left;
       text-transform: none;
       width: 100%;
       white-space: normal;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
       -webkit-flex-direction: inherit;
-          -ms-flex-direction: inherit;
               flex-direction: inherit;
+      -webkit-box-align: inherit;
       -webkit-align-items: inherit;
-          -ms-flex-align: inherit;
+                  -ms-grid-row-align: inherit;
               align-items: inherit;
       border-radius: 0;
       margin: 0; ***REMOVED***
-      [dir=rtl] md-list-item._md-no-proxy.md-button, [dir=rtl]
-      md-list-item ._md-no-style.md-button ***REMOVED***
+      [dir=rtl] md-list-item.md-no-proxy.md-button, [dir=rtl]
+      md-list-item .md-no-style.md-button ***REMOVED***
         text-align: right; ***REMOVED***
-      md-list-item._md-no-proxy.md-button > .md-ripple-container,
-      md-list-item ._md-no-style.md-button > .md-ripple-container ***REMOVED***
+      md-list-item.md-no-proxy.md-button > .md-ripple-container,
+      md-list-item .md-no-style.md-button > .md-ripple-container ***REMOVED***
         border-radius: 0; ***REMOVED***
-    md-list-item._md-no-proxy:focus,
-    md-list-item ._md-no-style:focus ***REMOVED***
+    md-list-item.md-no-proxy:focus,
+    md-list-item .md-no-style:focus ***REMOVED***
       outline: none; ***REMOVED***
   md-list-item.md-clickable:hover ***REMOVED***
     cursor: pointer; ***REMOVED***
@@ -166,40 +163,42 @@ md-list-item ***REMOVED***
     left: 0;
     width: 100%; ***REMOVED***
     [dir=rtl] md-list-item md-divider ***REMOVED***
-      left: 0;
       left: auto;
-      left: initial;
       right: 0; ***REMOVED***
     md-list-item md-divider[md-inset] ***REMOVED***
       left: 72px;
       width: calc(100% - 72px);
       margin: 0 !important; ***REMOVED***
       [dir=rtl] md-list-item md-divider[md-inset] ***REMOVED***
-        left: 0;
         left: auto;
-        left: initial;
         right: 72px; ***REMOVED***
   md-list-item,
-  md-list-item ._md-list-item-inner ***REMOVED***
+  md-list-item .md-list-item-inner ***REMOVED***
+    display: -webkit-box;
     display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: start;
     -webkit-justify-content: flex-start;
-        -ms-flex-pack: start;
             justify-content: flex-start;
+    -webkit-box-align: center;
     -webkit-align-items: center;
-        -ms-flex-align: center;
             align-items: center;
     min-height: 48px;
     height: auto; ***REMOVED***
+    md-list-item::before,
+    md-list-item .md-list-item-inner::before ***REMOVED***
+      content: '';
+      min-height: 48px;
+      visibility: hidden;
+      display: inline-block; ***REMOVED***
     md-list-item > div.md-primary > md-icon:not(.md-avatar-icon),
     md-list-item > div.md-secondary > md-icon:not(.md-avatar-icon),
     md-list-item > md-icon:first-child:not(.md-avatar-icon),
     md-list-item > md-icon.md-secondary:not(.md-avatar-icon),
-    md-list-item ._md-list-item-inner > div.md-primary > md-icon:not(.md-avatar-icon),
-    md-list-item ._md-list-item-inner > div.md-secondary > md-icon:not(.md-avatar-icon),
-    md-list-item ._md-list-item-inner > md-icon:first-child:not(.md-avatar-icon),
-    md-list-item ._md-list-item-inner > md-icon.md-secondary:not(.md-avatar-icon) ***REMOVED***
+    md-list-item .md-list-item-inner > div.md-primary > md-icon:not(.md-avatar-icon),
+    md-list-item .md-list-item-inner > div.md-secondary > md-icon:not(.md-avatar-icon),
+    md-list-item .md-list-item-inner > md-icon:first-child:not(.md-avatar-icon),
+    md-list-item .md-list-item-inner > md-icon.md-secondary:not(.md-avatar-icon) ***REMOVED***
       width: 24px;
       margin-top: 16px;
       margin-bottom: 12px;
@@ -208,157 +207,147 @@ md-list-item ***REMOVED***
     md-list-item > div.md-secondary > md-checkbox,
     md-list-item > md-checkbox,
     md-list-item md-checkbox.md-secondary,
-    md-list-item ._md-list-item-inner > div.md-primary > md-checkbox,
-    md-list-item ._md-list-item-inner > div.md-secondary > md-checkbox,
-    md-list-item ._md-list-item-inner > md-checkbox,
-    md-list-item ._md-list-item-inner md-checkbox.md-secondary ***REMOVED***
+    md-list-item .md-list-item-inner > div.md-primary > md-checkbox,
+    md-list-item .md-list-item-inner > div.md-secondary > md-checkbox,
+    md-list-item .md-list-item-inner > md-checkbox,
+    md-list-item .md-list-item-inner md-checkbox.md-secondary ***REMOVED***
       -webkit-align-self: center;
-          -ms-flex-item-align: center;
               align-self: center; ***REMOVED***
       md-list-item > div.md-primary > md-checkbox .md-label,
       md-list-item > div.md-secondary > md-checkbox .md-label,
       md-list-item > md-checkbox .md-label,
       md-list-item md-checkbox.md-secondary .md-label,
-      md-list-item ._md-list-item-inner > div.md-primary > md-checkbox .md-label,
-      md-list-item ._md-list-item-inner > div.md-secondary > md-checkbox .md-label,
-      md-list-item ._md-list-item-inner > md-checkbox .md-label,
-      md-list-item ._md-list-item-inner md-checkbox.md-secondary .md-label ***REMOVED***
+      md-list-item .md-list-item-inner > div.md-primary > md-checkbox .md-label,
+      md-list-item .md-list-item-inner > div.md-secondary > md-checkbox .md-label,
+      md-list-item .md-list-item-inner > md-checkbox .md-label,
+      md-list-item .md-list-item-inner md-checkbox.md-secondary .md-label ***REMOVED***
         display: none; ***REMOVED***
     md-list-item > md-icon:first-child:not(.md-avatar-icon),
-    md-list-item ._md-list-item-inner > md-icon:first-child:not(.md-avatar-icon) ***REMOVED***
+    md-list-item .md-list-item-inner > md-icon:first-child:not(.md-avatar-icon) ***REMOVED***
       margin-right: 32px; ***REMOVED***
       [dir=rtl] md-list-item > md-icon:first-child:not(.md-avatar-icon), [dir=rtl]
-      md-list-item ._md-list-item-inner > md-icon:first-child:not(.md-avatar-icon) ***REMOVED***
-        margin-right: 0;
+      md-list-item .md-list-item-inner > md-icon:first-child:not(.md-avatar-icon) ***REMOVED***
         margin-right: auto;
-        margin-right: initial;
         margin-left: 32px; ***REMOVED***
     md-list-item .md-avatar, md-list-item .md-avatar-icon,
-    md-list-item ._md-list-item-inner .md-avatar,
-    md-list-item ._md-list-item-inner .md-avatar-icon ***REMOVED***
+    md-list-item .md-list-item-inner .md-avatar,
+    md-list-item .md-list-item-inner .md-avatar-icon ***REMOVED***
       margin-top: 8px;
       margin-bottom: 8px;
       margin-right: 16px;
       border-radius: 50%;
       box-sizing: content-box; ***REMOVED***
       [dir=rtl] md-list-item .md-avatar, [dir=rtl] md-list-item .md-avatar-icon, [dir=rtl]
-      md-list-item ._md-list-item-inner .md-avatar, [dir=rtl]
-      md-list-item ._md-list-item-inner .md-avatar-icon ***REMOVED***
-        margin-right: 0;
+      md-list-item .md-list-item-inner .md-avatar, [dir=rtl]
+      md-list-item .md-list-item-inner .md-avatar-icon ***REMOVED***
         margin-right: auto;
-        margin-right: initial;
         margin-left: 16px; ***REMOVED***
     md-list-item .md-avatar,
-    md-list-item ._md-list-item-inner .md-avatar ***REMOVED***
+    md-list-item .md-list-item-inner .md-avatar ***REMOVED***
+      -webkit-box-flex: 0;
       -webkit-flex: none;
-          -ms-flex: none;
               flex: none;
       width: 40px;
       height: 40px; ***REMOVED***
     md-list-item .md-avatar-icon,
-    md-list-item ._md-list-item-inner .md-avatar-icon ***REMOVED***
+    md-list-item .md-list-item-inner .md-avatar-icon ***REMOVED***
       padding: 8px; ***REMOVED***
       md-list-item .md-avatar-icon svg,
-      md-list-item ._md-list-item-inner .md-avatar-icon svg ***REMOVED***
+      md-list-item .md-list-item-inner .md-avatar-icon svg ***REMOVED***
         width: 24px;
         height: 24px; ***REMOVED***
     md-list-item > md-checkbox,
-    md-list-item ._md-list-item-inner > md-checkbox ***REMOVED***
+    md-list-item .md-list-item-inner > md-checkbox ***REMOVED***
       width: 24px;
       margin-left: 3px;
       margin-right: 29px;
       margin-top: 16px; ***REMOVED***
       [dir=rtl] md-list-item > md-checkbox, [dir=rtl]
-      md-list-item ._md-list-item-inner > md-checkbox ***REMOVED***
+      md-list-item .md-list-item-inner > md-checkbox ***REMOVED***
         margin-left: 29px; ***REMOVED***
       [dir=rtl] md-list-item > md-checkbox, [dir=rtl]
-      md-list-item ._md-list-item-inner > md-checkbox ***REMOVED***
+      md-list-item .md-list-item-inner > md-checkbox ***REMOVED***
         margin-right: 3px; ***REMOVED***
-    md-list-item ._md-secondary-container,
-    md-list-item ._md-list-item-inner ._md-secondary-container ***REMOVED***
+    md-list-item .md-secondary-container,
+    md-list-item .md-list-item-inner .md-secondary-container ***REMOVED***
+      display: -webkit-box;
       display: -webkit-flex;
-      display: -ms-flexbox;
       display: flex;
+      -webkit-box-align: center;
       -webkit-align-items: center;
-          -ms-flex-align: center;
               align-items: center;
+      -webkit-flex-shrink: 0;
+              flex-shrink: 0;
       margin: auto;
       margin-right: 0;
       margin-left: auto; ***REMOVED***
-      [dir=rtl] md-list-item ._md-secondary-container, [dir=rtl]
-      md-list-item ._md-list-item-inner ._md-secondary-container ***REMOVED***
+      [dir=rtl] md-list-item .md-secondary-container, [dir=rtl]
+      md-list-item .md-list-item-inner .md-secondary-container ***REMOVED***
         margin-right: auto; ***REMOVED***
-      [dir=rtl] md-list-item ._md-secondary-container, [dir=rtl]
-      md-list-item ._md-list-item-inner ._md-secondary-container ***REMOVED***
+      [dir=rtl] md-list-item .md-secondary-container, [dir=rtl]
+      md-list-item .md-list-item-inner .md-secondary-container ***REMOVED***
         margin-left: 0; ***REMOVED***
-      md-list-item ._md-secondary-container .md-button:last-of-type, md-list-item ._md-secondary-container .md-icon-button:last-of-type,
-      md-list-item ._md-list-item-inner ._md-secondary-container .md-button:last-of-type,
-      md-list-item ._md-list-item-inner ._md-secondary-container .md-icon-button:last-of-type ***REMOVED***
-        margin-right: 0px; ***REMOVED***
-        [dir=rtl] md-list-item ._md-secondary-container .md-button:last-of-type, [dir=rtl] md-list-item ._md-secondary-container .md-icon-button:last-of-type, [dir=rtl]
-        md-list-item ._md-list-item-inner ._md-secondary-container .md-button:last-of-type, [dir=rtl]
-        md-list-item ._md-list-item-inner ._md-secondary-container .md-icon-button:last-of-type ***REMOVED***
-          margin-right: 0;
+      md-list-item .md-secondary-container .md-button:last-of-type, md-list-item .md-secondary-container .md-icon-button:last-of-type,
+      md-list-item .md-list-item-inner .md-secondary-container .md-button:last-of-type,
+      md-list-item .md-list-item-inner .md-secondary-container .md-icon-button:last-of-type ***REMOVED***
+        margin-right: 0; ***REMOVED***
+        [dir=rtl] md-list-item .md-secondary-container .md-button:last-of-type, [dir=rtl] md-list-item .md-secondary-container .md-icon-button:last-of-type, [dir=rtl]
+        md-list-item .md-list-item-inner .md-secondary-container .md-button:last-of-type, [dir=rtl]
+        md-list-item .md-list-item-inner .md-secondary-container .md-icon-button:last-of-type ***REMOVED***
           margin-right: auto;
-          margin-right: initial;
-          margin-left: 0px; ***REMOVED***
-      md-list-item ._md-secondary-container md-checkbox,
-      md-list-item ._md-list-item-inner ._md-secondary-container md-checkbox ***REMOVED***
+          margin-left: 0; ***REMOVED***
+      md-list-item .md-secondary-container md-checkbox,
+      md-list-item .md-list-item-inner .md-secondary-container md-checkbox ***REMOVED***
         margin-top: 0;
         margin-bottom: 0; ***REMOVED***
-        md-list-item ._md-secondary-container md-checkbox:last-child,
-        md-list-item ._md-list-item-inner ._md-secondary-container md-checkbox:last-child ***REMOVED***
+        md-list-item .md-secondary-container md-checkbox:last-child,
+        md-list-item .md-list-item-inner .md-secondary-container md-checkbox:last-child ***REMOVED***
           width: 24px;
           margin-right: 0; ***REMOVED***
-          [dir=rtl] md-list-item ._md-secondary-container md-checkbox:last-child, [dir=rtl]
-          md-list-item ._md-list-item-inner ._md-secondary-container md-checkbox:last-child ***REMOVED***
-            margin-right: 0;
+          [dir=rtl] md-list-item .md-secondary-container md-checkbox:last-child, [dir=rtl]
+          md-list-item .md-list-item-inner .md-secondary-container md-checkbox:last-child ***REMOVED***
             margin-right: auto;
-            margin-right: initial;
             margin-left: 0; ***REMOVED***
-      md-list-item ._md-secondary-container md-switch,
-      md-list-item ._md-list-item-inner ._md-secondary-container md-switch ***REMOVED***
+      md-list-item .md-secondary-container md-switch,
+      md-list-item .md-list-item-inner .md-secondary-container md-switch ***REMOVED***
         margin-top: 0;
         margin-bottom: 0;
         margin-right: -6px; ***REMOVED***
-        [dir=rtl] md-list-item ._md-secondary-container md-switch, [dir=rtl]
-        md-list-item ._md-list-item-inner ._md-secondary-container md-switch ***REMOVED***
-          margin-right: 0;
+        [dir=rtl] md-list-item .md-secondary-container md-switch, [dir=rtl]
+        md-list-item .md-list-item-inner .md-secondary-container md-switch ***REMOVED***
           margin-right: auto;
-          margin-right: initial;
           margin-left: -6px; ***REMOVED***
-    md-list-item > p, md-list-item > ._md-list-item-inner > p,
-    md-list-item ._md-list-item-inner > p,
-    md-list-item ._md-list-item-inner > ._md-list-item-inner > p ***REMOVED***
+    md-list-item > p, md-list-item > .md-list-item-inner > p,
+    md-list-item .md-list-item-inner > p,
+    md-list-item .md-list-item-inner > .md-list-item-inner > p ***REMOVED***
+      -webkit-box-flex: 1;
       -webkit-flex: 1 1 auto;
-          -ms-flex: 1 1 auto;
               flex: 1 1 auto;
       margin: 0; ***REMOVED***
-  md-list-item.md-2-line, md-list-item.md-2-line > ._md-no-style, md-list-item.md-3-line, md-list-item.md-3-line > ._md-no-style ***REMOVED***
+  md-list-item.md-2-line, md-list-item.md-2-line > .md-no-style, md-list-item.md-3-line, md-list-item.md-3-line > .md-no-style ***REMOVED***
+    -webkit-box-align: start;
     -webkit-align-items: flex-start;
-        -ms-flex-align: start;
+                -ms-grid-row-align: flex-start;
             align-items: flex-start;
+    -webkit-box-pack: center;
     -webkit-justify-content: center;
-        -ms-flex-pack: center;
             justify-content: center; ***REMOVED***
-    md-list-item.md-2-line.md-long-text, md-list-item.md-2-line > ._md-no-style.md-long-text, md-list-item.md-3-line.md-long-text, md-list-item.md-3-line > ._md-no-style.md-long-text ***REMOVED***
+    md-list-item.md-2-line.md-long-text, md-list-item.md-2-line > .md-no-style.md-long-text, md-list-item.md-3-line.md-long-text, md-list-item.md-3-line > .md-no-style.md-long-text ***REMOVED***
       margin-top: 8px;
       margin-bottom: 8px; ***REMOVED***
-    md-list-item.md-2-line .md-list-item-text, md-list-item.md-2-line > ._md-no-style .md-list-item-text, md-list-item.md-3-line .md-list-item-text, md-list-item.md-3-line > ._md-no-style .md-list-item-text ***REMOVED***
+    md-list-item.md-2-line .md-list-item-text, md-list-item.md-2-line > .md-no-style .md-list-item-text, md-list-item.md-3-line .md-list-item-text, md-list-item.md-3-line > .md-no-style .md-list-item-text ***REMOVED***
+      -webkit-box-flex: 1;
       -webkit-flex: 1 1 auto;
-          -ms-flex: 1 1 auto;
               flex: 1 1 auto;
       margin: auto;
       text-overflow: ellipsis;
       overflow: hidden; ***REMOVED***
-      md-list-item.md-2-line .md-list-item-text.md-offset, md-list-item.md-2-line > ._md-no-style .md-list-item-text.md-offset, md-list-item.md-3-line .md-list-item-text.md-offset, md-list-item.md-3-line > ._md-no-style .md-list-item-text.md-offset ***REMOVED***
+      md-list-item.md-2-line .md-list-item-text.md-offset, md-list-item.md-2-line > .md-no-style .md-list-item-text.md-offset, md-list-item.md-3-line .md-list-item-text.md-offset, md-list-item.md-3-line > .md-no-style .md-list-item-text.md-offset ***REMOVED***
         margin-left: 56px; ***REMOVED***
-        [dir=rtl] md-list-item.md-2-line .md-list-item-text.md-offset, [dir=rtl] md-list-item.md-2-line > ._md-no-style .md-list-item-text.md-offset, [dir=rtl] md-list-item.md-3-line .md-list-item-text.md-offset, [dir=rtl] md-list-item.md-3-line > ._md-no-style .md-list-item-text.md-offset ***REMOVED***
-          margin-left: 0;
+        [dir=rtl] md-list-item.md-2-line .md-list-item-text.md-offset, [dir=rtl] md-list-item.md-2-line > .md-no-style .md-list-item-text.md-offset, [dir=rtl] md-list-item.md-3-line .md-list-item-text.md-offset, [dir=rtl] md-list-item.md-3-line > .md-no-style .md-list-item-text.md-offset ***REMOVED***
           margin-left: auto;
-          margin-left: initial;
           margin-right: 56px; ***REMOVED***
-      md-list-item.md-2-line .md-list-item-text h3, md-list-item.md-2-line > ._md-no-style .md-list-item-text h3, md-list-item.md-3-line .md-list-item-text h3, md-list-item.md-3-line > ._md-no-style .md-list-item-text h3 ***REMOVED***
+      md-list-item.md-2-line .md-list-item-text h3, md-list-item.md-2-line > .md-no-style .md-list-item-text h3, md-list-item.md-3-line .md-list-item-text h3, md-list-item.md-3-line > .md-no-style .md-list-item-text h3 ***REMOVED***
         font-size: 16px;
         font-weight: 400;
         letter-spacing: 0.010em;
@@ -367,7 +356,7 @@ md-list-item ***REMOVED***
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis; ***REMOVED***
-      md-list-item.md-2-line .md-list-item-text h4, md-list-item.md-2-line > ._md-no-style .md-list-item-text h4, md-list-item.md-3-line .md-list-item-text h4, md-list-item.md-3-line > ._md-no-style .md-list-item-text h4 ***REMOVED***
+      md-list-item.md-2-line .md-list-item-text h4, md-list-item.md-2-line > .md-no-style .md-list-item-text h4, md-list-item.md-3-line .md-list-item-text h4, md-list-item.md-3-line > .md-no-style .md-list-item-text h4 ***REMOVED***
         font-size: 14px;
         letter-spacing: 0.010em;
         margin: 3px 0 1px 0;
@@ -376,39 +365,38 @@ md-list-item ***REMOVED***
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis; ***REMOVED***
-      md-list-item.md-2-line .md-list-item-text p, md-list-item.md-2-line > ._md-no-style .md-list-item-text p, md-list-item.md-3-line .md-list-item-text p, md-list-item.md-3-line > ._md-no-style .md-list-item-text p ***REMOVED***
+      md-list-item.md-2-line .md-list-item-text p, md-list-item.md-2-line > .md-no-style .md-list-item-text p, md-list-item.md-3-line .md-list-item-text p, md-list-item.md-3-line > .md-no-style .md-list-item-text p ***REMOVED***
         font-size: 14px;
         font-weight: 500;
         letter-spacing: 0.010em;
         margin: 0 0 0 0;
         line-height: 1.6em; ***REMOVED***
-  md-list-item.md-2-line, md-list-item.md-2-line > ._md-no-style ***REMOVED***
+  md-list-item.md-2-line, md-list-item.md-2-line > .md-no-style ***REMOVED***
     height: auto;
     min-height: 72px; ***REMOVED***
-    md-list-item.md-2-line div.md-button:first-child::before, md-list-item.md-2-line > ._md-no-style div.md-button:first-child::before ***REMOVED***
+    md-list-item.md-2-line::before, md-list-item.md-2-line > .md-no-style::before ***REMOVED***
       content: '';
       min-height: 72px;
       visibility: hidden;
       display: inline-block; ***REMOVED***
-    md-list-item.md-2-line > .md-avatar, md-list-item.md-2-line .md-avatar-icon, md-list-item.md-2-line > ._md-no-style > .md-avatar, md-list-item.md-2-line > ._md-no-style .md-avatar-icon ***REMOVED***
+    md-list-item.md-2-line > .md-avatar, md-list-item.md-2-line .md-avatar-icon, md-list-item.md-2-line > .md-no-style > .md-avatar, md-list-item.md-2-line > .md-no-style .md-avatar-icon ***REMOVED***
       margin-top: 12px; ***REMOVED***
-    md-list-item.md-2-line > md-icon:first-child, md-list-item.md-2-line > ._md-no-style > md-icon:first-child ***REMOVED***
+    md-list-item.md-2-line > md-icon:first-child, md-list-item.md-2-line > .md-no-style > md-icon:first-child ***REMOVED***
       -webkit-align-self: flex-start;
-          -ms-flex-item-align: start;
               align-self: flex-start; ***REMOVED***
-    md-list-item.md-2-line .md-list-item-text, md-list-item.md-2-line > ._md-no-style .md-list-item-text ***REMOVED***
+    md-list-item.md-2-line .md-list-item-text, md-list-item.md-2-line > .md-no-style .md-list-item-text ***REMOVED***
+      -webkit-box-flex: 1;
       -webkit-flex: 1 1 auto;
-          -ms-flex: 1 1 auto;
               flex: 1 1 auto; ***REMOVED***
-  md-list-item.md-3-line, md-list-item.md-3-line > ._md-no-style ***REMOVED***
+  md-list-item.md-3-line, md-list-item.md-3-line > .md-no-style ***REMOVED***
     height: auto;
     min-height: 88px; ***REMOVED***
-    md-list-item.md-3-line div.md-button:first-child::before, md-list-item.md-3-line > ._md-no-style div.md-button:first-child::before ***REMOVED***
+    md-list-item.md-3-line::before, md-list-item.md-3-line > .md-no-style::before ***REMOVED***
       content: '';
       min-height: 88px;
       visibility: hidden;
       display: inline-block; ***REMOVED***
     md-list-item.md-3-line > md-icon:first-child,
-    md-list-item.md-3-line > .md-avatar, md-list-item.md-3-line > ._md-no-style > md-icon:first-child,
-    md-list-item.md-3-line > ._md-no-style > .md-avatar ***REMOVED***
+    md-list-item.md-3-line > .md-avatar, md-list-item.md-3-line > .md-no-style > md-icon:first-child,
+    md-list-item.md-3-line > .md-no-style > .md-avatar ***REMOVED***
       margin-top: 16px; ***REMOVED***

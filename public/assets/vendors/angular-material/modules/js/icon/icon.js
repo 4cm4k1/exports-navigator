@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
 (function( window, angular, undefined )***REMOVED***
 "use strict";
@@ -202,8 +202,13 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
    */
   function postLink(scope, element, attr) ***REMOVED***
     $mdTheming(element);
+    var lastFontIcon = attr.mdFontIcon;
+    var lastFontSet = $mdIcon.fontSet(attr.mdFontSet);
 
     prepareForFontIcon();
+
+    attr.$observe('mdFontIcon', fontIconChanged);
+    attr.$observe('mdFontSet', fontIconChanged);
 
     // Keep track of the content of the svg src so we can compare against it later to see if the
     // attribute is static (and thus safe).
@@ -233,20 +238,13 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
     if (attrName) ***REMOVED***
       // Use either pre-configured SVG or URL source, respectively.
       attr.$observe(attrName, function(attrVal) ***REMOVED***
-
-        // If using svg-src and the value is static (i.e., is exactly equal to the compile-time
-        // `md-svg-src` value), then it is implicitly trusted.
-        if (!isInlineSvg(attrVal) && attrVal === originalSvgSrc) ***REMOVED***
-          attrVal = $sce.trustAsUrl(attrVal);
-        ***REMOVED***
-
         element.empty();
         if (attrVal) ***REMOVED***
           $mdIcon(attrVal)
             .then(function(svg) ***REMOVED***
-              element.empty();
-              element.append(svg);
-            ***REMOVED***);
+            element.empty();
+            element.append(svg);
+          ***REMOVED***);
         ***REMOVED***
 
       ***REMOVED***);
@@ -268,19 +266,30 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
         if (attr.mdFontIcon) ***REMOVED***
           element.addClass('md-font ' + attr.mdFontIcon);
         ***REMOVED***
-        element.addClass($mdIcon.fontSet(attr.mdFontSet));
+
+        element.addClass(lastFontSet);
       ***REMOVED***
     ***REMOVED***
-  ***REMOVED***
 
-  /**
-   * Gets whether the given svg src is an inline ("data:" style) SVG.
-   * @param ***REMOVED***string***REMOVED*** svgSrc The svg src.
-   * @returns ***REMOVED***boolean***REMOVED*** Whether the src is an inline SVG.
-   */
-  function isInlineSvg(svgSrc) ***REMOVED***
-    var dataUrlRegex = /^data:image\/svg\+xml[\s*;\w\-\=]*?(base64)?,(.*)$/i;
-    return dataUrlRegex.test(svgSrc);
+    function fontIconChanged() ***REMOVED***
+      if (!attr.mdSvgIcon && !attr.mdSvgSrc) ***REMOVED***
+        if (attr.mdFontIcon) ***REMOVED***
+          element.removeClass(lastFontIcon);
+          element.addClass(attr.mdFontIcon);
+
+          lastFontIcon = attr.mdFontIcon;
+        ***REMOVED***
+
+        var fontSet = $mdIcon.fontSet(attr.mdFontSet);
+
+        if (lastFontSet !== fontSet) ***REMOVED***
+          element.removeClass(lastFontSet);
+          element.addClass(fontSet);
+
+          lastFontSet = fontSet;
+        ***REMOVED***
+      ***REMOVED***
+    ***REMOVED***
   ***REMOVED***
 ***REMOVED***
 
@@ -312,6 +321,23 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
  * internally by the `$mdIcon` service using the `$templateRequest` service. When an SVG is
  * requested by name/ID, the `$mdIcon` service searches its registry for the associated source URL;
  * that URL is used to on-demand load and parse the SVG dynamically.
+ *
+ * The `$templateRequest` service expects the icons source to be loaded over trusted URLs.<br/>
+ * This means, when loading icons from an external URL, you have to trust the URL in the `$sceDelegateProvider`.
+ *
+ * <hljs lang="js">
+ *   app.config(function($sceDelegateProvider) ***REMOVED***
+ *     $sceDelegateProvider.resourceUrlWhitelist([
+ *       // Adding 'self' to the whitelist, will allow requests from the current origin.
+ *       'self',
+ *       // Using double asterisks here, will allow all URLs to load.
+ *       // We recommend to only specify the given domain you want to allow.
+ *       '**'
+ *     ]);
+ *   ***REMOVED***);
+ * </hljs>
+ *
+ * Read more about the [$sceDelegateProvider](https://docs.angularjs.org/api/ng/provider/$sceDelegateProvider).
  *
  * **Notice:** Most font-icons libraries do not support ligatures (for example `fontawesome`).<br/>
  *  In such cases you are not able to use the icon's ligature name - Like so:
@@ -610,7 +636,7 @@ MdIconProvider.prototype = ***REMOVED***
     return this;
   ***REMOVED***,
 
-  $get: ['$templateRequest', '$q', '$log', '$templateCache', '$mdUtil', '$sce', function($templateRequest, $q, $log, $templateCache, $mdUtil, $sce) ***REMOVED***
+  $get: ['$templateRequest', '$q', '$log', '$mdUtil', '$sce', function($templateRequest, $q, $log, $mdUtil, $sce) ***REMOVED***
     return MdIconService(config, $templateRequest, $q, $log, $mdUtil, $sce);
   ***REMOVED***]
 ***REMOVED***;
@@ -641,7 +667,7 @@ function ConfigurationItem(url, viewBoxSize) ***REMOVED***
  *
  * @returns ***REMOVED***angular.$q.Promise***REMOVED*** A promise that gets resolved to a clone of the initial SVG DOM element; which was
  * created from the SVG markup in the SVG data file. If an error occurs (e.g. the icon cannot be found) the promise
- * will get rejected. 
+ * will get rejected.
  *
  * @usage
  * <hljs lang="js">
@@ -670,6 +696,7 @@ function ConfigurationItem(url, viewBoxSize) ***REMOVED***
 /* ngInject */
 function MdIconService(config, $templateRequest, $q, $log, $mdUtil, $sce) ***REMOVED***
   var iconCache = ***REMOVED******REMOVED***;
+  var svgCache = ***REMOVED******REMOVED***;
   var urlRegex = /[-\w@:%\+.~#?&//=]***REMOVED***2,***REMOVED***\.[a-z]***REMOVED***2,4***REMOVED***\b(\/[-\w@:%\+.~#?&//=]*)?/i;
   var dataUrlRegex = /^data:image\/svg\+xml[\s*;\w\-\=]*?(base64)?,(.*)$/i;
 
@@ -781,7 +808,7 @@ function MdIconService(config, $templateRequest, $q, $log, $mdUtil, $sce) ***REM
     function extractFromSet(set) ***REMOVED***
       var iconName = id.slice(id.lastIndexOf(':') + 1);
       var icon = set.querySelector('#' + iconName);
-      return !icon ? announceIdNotFound(id) : new Icon(icon, iconSetConfig);
+      return icon ? new Icon(icon, iconSetConfig) : announceIdNotFound(id);
     ***REMOVED***
 
     function announceIdNotFound(id) ***REMOVED***
@@ -816,8 +843,10 @@ function MdIconService(config, $templateRequest, $q, $log, $mdUtil, $sce) ***REM
             reject(err);
           ***REMOVED***,
           extractSvg = function(response) ***REMOVED***
-            var svg = angular.element('<div>').append(response).find('svg')[0];
-            resolve(svg);
+            if (!svgCache[url]) ***REMOVED***
+              svgCache[url] = angular.element('<div>').append(response)[0].querySelector('svg');
+            ***REMOVED***
+            resolve(svgCache[url]);
           ***REMOVED***;
 
         $templateRequest(url, true).then(extractSvg, announceAndReject);
@@ -841,7 +870,7 @@ function MdIconService(config, $templateRequest, $q, $log, $mdUtil, $sce) ***REM
    */
   function Icon(el, config) ***REMOVED***
     if (el && el.tagName != 'svg') ***REMOVED***
-      el = angular.element('<svg xmlns="http://www.w3.org/2000/svg">').append(el)[0];
+      el = angular.element('<svg xmlns="http://www.w3.org/2000/svg">').append(el.cloneNode(true))[0];
     ***REMOVED***
 
     // Inject the namespace if not available...
