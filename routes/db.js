@@ -67,10 +67,6 @@ router.delete('/countries/delete', function(req, res)***REMOVED***
   queryDB(query, [], req, res);
 ***REMOVED***);
 
-
-
-
-
 router.get('/industries', function(req, res)***REMOVED***
   var query = 'SELECT industries.id,industry,industries.note_1,industries.note_2,industries.note_3,' +
               'contacts_1.first_name AS first_name_1,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1,' +
