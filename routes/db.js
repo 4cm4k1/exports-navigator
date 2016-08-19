@@ -39,9 +39,21 @@ router.get('/industries', function(req, res)***REMOVED***
   queryDB(query, [], req, res);
 ***REMOVED***);
 router.get('/topics', function(req, res)***REMOVED***
-  var query = 'SELECT * FROM topics JOIN contacts ON' +
-  '(contacts.id = topics.contact_1 OR contacts.id = topics.contact_2 OR contacts.id = topics.contact_3)' +
-  'JOIN websites ON (websites.id = topics.website_1 OR websites.id = topics.website_2 OR websites.id = topics.website_3)';
+  var query = 'SELECT topics.id,topic,note_1,note_2,note_3,' +
+		          'contacts_1.first_name AS first_name_1,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1,' +
+		          'contacts_2.first_name AS first_name_2,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1,' +
+		          'contacts_1.first_name AS first_name_1,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1,' +
+		          'websites_1.website AS website_1,' +
+		          'websites_2.website AS website_2,' +
+		          'websites_3.website AS website_3' +
+              'FROM topics' +
+              'LEFT OUTER JOIN contacts AS contacts_1 ON topics.contact_1=contacts_1.id' +
+              'LEFT OUTER JOIN contacts AS contacts_2 ON topics.contact_2=contacts_2.id' +
+              'LEFT OUTER JOIN contacts AS contacts_3 ON topics.contact_3=contacts_3.id' +
+              'LEFT OUTER JOIN websites AS websites_1 ON topics.website_1=websites_1.id' +
+              'LEFT OUTER JOIN websites AS websites_2 ON topics.website_2=websites_2.id' +
+              'LEFT OUTER JOIN websites AS websites_3 ON topics.website_3=websites_3.id' +
+              'ORDER BY topics.id;';
   queryDB(query, [], req, res);
 ***REMOVED***);
 //refactored routes to use one function for retrieving or sending data KRQ
