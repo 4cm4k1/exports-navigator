@@ -2,20 +2,15 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-/*  Only used with Theme processes */
-html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
-
 md-fab-speed-dial ***REMOVED***
   position: relative;
+  display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
           align-items: center;
   z-index: 20;
   /*
@@ -57,89 +52,104 @@ md-fab-speed-dial ***REMOVED***
   md-fab-speed-dial ._md-css-variables ***REMOVED***
     z-index: 20; ***REMOVED***
   md-fab-speed-dial.md-is-open .md-fab-action-item ***REMOVED***
+    -webkit-box-align: center;
     -webkit-align-items: center;
-        -ms-flex-align: center;
+                -ms-grid-row-align: center;
             align-items: center; ***REMOVED***
   md-fab-speed-dial md-fab-actions ***REMOVED***
+    display: -webkit-box;
     display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
     height: auto; ***REMOVED***
     md-fab-speed-dial md-fab-actions .md-fab-action-item ***REMOVED***
+      -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
       transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2); ***REMOVED***
   md-fab-speed-dial.md-down ***REMOVED***
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
     -webkit-flex-direction: column;
-        -ms-flex-direction: column;
             flex-direction: column; ***REMOVED***
     md-fab-speed-dial.md-down md-fab-trigger ***REMOVED***
+      -webkit-box-ordinal-group: 2;
       -webkit-order: 1;
-          -ms-flex-order: 1;
               order: 1; ***REMOVED***
     md-fab-speed-dial.md-down md-fab-actions ***REMOVED***
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
       -webkit-flex-direction: column;
-          -ms-flex-direction: column;
               flex-direction: column;
+      -webkit-box-ordinal-group: 3;
       -webkit-order: 2;
-          -ms-flex-order: 2;
               order: 2; ***REMOVED***
   md-fab-speed-dial.md-up ***REMOVED***
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
     -webkit-flex-direction: column;
-        -ms-flex-direction: column;
             flex-direction: column; ***REMOVED***
     md-fab-speed-dial.md-up md-fab-trigger ***REMOVED***
+      -webkit-box-ordinal-group: 3;
       -webkit-order: 2;
-          -ms-flex-order: 2;
               order: 2; ***REMOVED***
     md-fab-speed-dial.md-up md-fab-actions ***REMOVED***
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: reverse;
       -webkit-flex-direction: column-reverse;
-          -ms-flex-direction: column-reverse;
               flex-direction: column-reverse;
+      -webkit-box-ordinal-group: 2;
       -webkit-order: 1;
-          -ms-flex-order: 1;
               order: 1; ***REMOVED***
   md-fab-speed-dial.md-left ***REMOVED***
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
     -webkit-flex-direction: row;
-        -ms-flex-direction: row;
             flex-direction: row; ***REMOVED***
     md-fab-speed-dial.md-left md-fab-trigger ***REMOVED***
+      -webkit-box-ordinal-group: 3;
       -webkit-order: 2;
-          -ms-flex-order: 2;
               order: 2; ***REMOVED***
     md-fab-speed-dial.md-left md-fab-actions ***REMOVED***
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: reverse;
       -webkit-flex-direction: row-reverse;
-          -ms-flex-direction: row-reverse;
               flex-direction: row-reverse;
+      -webkit-box-ordinal-group: 2;
       -webkit-order: 1;
-          -ms-flex-order: 1;
               order: 1; ***REMOVED***
       md-fab-speed-dial.md-left md-fab-actions .md-fab-action-item ***REMOVED***
+        -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
         transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2); ***REMOVED***
   md-fab-speed-dial.md-right ***REMOVED***
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
     -webkit-flex-direction: row;
-        -ms-flex-direction: row;
             flex-direction: row; ***REMOVED***
     md-fab-speed-dial.md-right md-fab-trigger ***REMOVED***
+      -webkit-box-ordinal-group: 2;
       -webkit-order: 1;
-          -ms-flex-order: 1;
               order: 1; ***REMOVED***
     md-fab-speed-dial.md-right md-fab-actions ***REMOVED***
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
       -webkit-flex-direction: row;
-          -ms-flex-direction: row;
               flex-direction: row;
+      -webkit-box-ordinal-group: 3;
       -webkit-order: 2;
-          -ms-flex-order: 2;
               order: 2; ***REMOVED***
       md-fab-speed-dial.md-right md-fab-actions .md-fab-action-item ***REMOVED***
+        -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
         transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2); ***REMOVED***
   md-fab-speed-dial.md-fling-remove .md-fab-action-item > *, md-fab-speed-dial.md-scale-remove .md-fab-action-item > * ***REMOVED***
     visibility: hidden; ***REMOVED***
   md-fab-speed-dial.md-fling .md-fab-action-item ***REMOVED***
     opacity: 1; ***REMOVED***
-  md-fab-speed-dial.md-fling._md-animations-waiting .md-fab-action-item ***REMOVED***
+  md-fab-speed-dial.md-fling.md-animations-waiting .md-fab-action-item ***REMOVED***
     opacity: 0;
-    transition-duration: 0s; ***REMOVED***
+    -webkit-transition-duration: 0s;
+            transition-duration: 0s; ***REMOVED***
   md-fab-speed-dial.md-scale .md-fab-action-item ***REMOVED***
     -webkit-transform: scale(0);
             transform: scale(0);
+    -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
     transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
-    transition-duration: 0.14286s; ***REMOVED***
+    -webkit-transition-duration: 0.14286s;
+            transition-duration: 0.14286s; ***REMOVED***

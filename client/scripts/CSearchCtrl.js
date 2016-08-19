@@ -3,7 +3,7 @@
 
     angular.module('exportsNavigator').controller('CSearchCtrl', CSearchCtrl);
 
-    CSearchCtrl.$inject = ['CSearch'];
+    CSearchCtrl.$inject = [];
 
     function CSearchCtrl(CSearch) ***REMOVED***
         var vm = this;

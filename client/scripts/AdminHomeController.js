@@ -3,11 +3,11 @@
 
   angular.module('exportsNavigator').controller('AdminHomeController', AdminHomeController);
 
-  // AdminHomeController.$inject = [];
+  AdminHomeController.$inject = ['currentAuth'];
 
-  function AdminHomeController() ***REMOVED***
+  function AdminHomeController(currentAuth) ***REMOVED***
     var vm = this;
 
-    vm.userQueriesFail;
-  ***REMOVED***;
+    vm.userQueriesFail = '(number goes here)';
+  ***REMOVED***
 ***REMOVED***)();

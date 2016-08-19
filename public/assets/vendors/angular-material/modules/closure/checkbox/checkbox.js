@@ -2,10 +2,10 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-goog.provide('ng.material.components.checkbox');
-goog.require('ng.material.core');
+goog.provide('ngmaterial.components.checkbox');
+goog.require('ngmaterial.core');
 /**
  * @ngdoc module
  * @name material.components.checkbox
@@ -39,10 +39,10 @@ angular
  * @param ***REMOVED***expression=***REMOVED*** md-indeterminate This determines when the checkbox should be rendered as 'indeterminate'.
  *     If a truthy expression or no value is passed in the checkbox renders in the md-indeterminate state.
  *     If falsy expression is passed in it just looks like a normal unchecked checkbox.
- *     The indeterminate, checked, and unchecked states are mutually exclusive. A box cannot be in any two states at the same time. 
- *     Adding the 'md-indeterminate' attribute overrides any checked/unchecked rendering logic. 
+ *     The indeterminate, checked, and unchecked states are mutually exclusive. A box cannot be in any two states at the same time.
+ *     Adding the 'md-indeterminate' attribute overrides any checked/unchecked rendering logic.
  *     When using the 'md-indeterminate' attribute use 'ng-checked' to define rendering logic instead of using 'ng-model'.
- * @param ***REMOVED***expression=***REMOVED*** ng-checked If this expression evaluates as truthy, the 'md-checked' css class is added to the checkbox and it 
+ * @param ***REMOVED***expression=***REMOVED*** ng-checked If this expression evaluates as truthy, the 'md-checked' css class is added to the checkbox and it
  *     will appear checked.
  *
  * @usage
@@ -64,7 +64,6 @@ angular
  */
 function MdCheckboxDirective(inputDirective, $mdAria, $mdConstant, $mdTheming, $mdUtil, $timeout) ***REMOVED***
   inputDirective = inputDirective[0];
-  var CHECKED_CSS = 'md-checked';
 
   return ***REMOVED***
     restrict: 'E',
@@ -72,10 +71,10 @@ function MdCheckboxDirective(inputDirective, $mdAria, $mdConstant, $mdTheming, $
     require: '?ngModel',
     priority: 210, // Run before ngAria
     template:
-      '<div class="_md-container" md-ink-ripple md-ink-ripple-checkbox>' +
-        '<div class="_md-icon"></div>' +
+      '<div class="md-container" md-ink-ripple md-ink-ripple-checkbox>' +
+        '<div class="md-icon"></div>' +
       '</div>' +
-      '<div ng-transclude class="_md-label"></div>',
+      '<div ng-transclude class="md-label"></div>',
     compile: compile
   ***REMOVED***;
 
@@ -84,40 +83,43 @@ function MdCheckboxDirective(inputDirective, $mdAria, $mdConstant, $mdTheming, $
   // **********************************************************
 
   function compile (tElement, tAttrs) ***REMOVED***
-    var container = tElement.children();
-    var mdIndeterminateStateEnabled = $mdUtil.parseAttributeBoolean(tAttrs.mdIndeterminate);
-
     tAttrs.$set('tabindex', tAttrs.tabindex || '0');
     tAttrs.$set('type', 'checkbox');
     tAttrs.$set('role', tAttrs.type);
 
-    // Attach a click handler in compile in order to immediately stop propagation
-    // (especially for ng-click) when the checkbox is disabled.
-    tElement.on('click', function(event) ***REMOVED***
-      if (this.hasAttribute('disabled')) ***REMOVED***
-        event.stopImmediatePropagation();
-      ***REMOVED***
-    ***REMOVED***);
+    return  ***REMOVED***
+      pre: function(scope, element) ***REMOVED***
+        // Attach a click handler during preLink, in order to immediately stop propagation
+        // (especially for ng-click) when the checkbox is disabled.
+        element.on('click', function(e) ***REMOVED***
+          if (this.hasAttribute('disabled')) ***REMOVED***
+            e.stopImmediatePropagation();
+          ***REMOVED***
+        ***REMOVED***);
+      ***REMOVED***,
+      post: postLink
+    ***REMOVED***;
 
-    // Redirect focus events to the root element, because IE11 is always focusing the container element instead
-    // of the md-checkbox element. This causes issues when using ngModelOptions: `updateOnBlur`
-    container.on('focus', function() ***REMOVED***
-      tElement.focus();
-    ***REMOVED***);
-
-    return function postLink(scope, element, attr, ngModelCtrl) ***REMOVED***
+    function postLink(scope, element, attr, ngModelCtrl) ***REMOVED***
       var isIndeterminate;
       ngModelCtrl = ngModelCtrl || $mdUtil.fakeNgModel();
       $mdTheming(element);
-      if (mdIndeterminateStateEnabled) ***REMOVED***
+
+      // Redirect focus events to the root element, because IE11 is always focusing the container element instead
+      // of the md-checkbox element. This causes issues when using ngModelOptions: `updateOnBlur`
+      element.children().on('focus', function() ***REMOVED***
+        element.focus();
+      ***REMOVED***);
+
+      if ($mdUtil.parseAttributeBoolean(attr.mdIndeterminate)) ***REMOVED***
         setIndeterminateState();
         scope.$watch(attr.mdIndeterminate, setIndeterminateState);
       ***REMOVED***
 
       if (attr.ngChecked) ***REMOVED***
         scope.$watch(
-            scope.$eval.bind(scope, attr.ngChecked),
-            ngModelCtrl.$setViewValue.bind(ngModelCtrl)
+          scope.$eval.bind(scope, attr.ngChecked),
+          ngModelCtrl.$setViewValue.bind(ngModelCtrl)
         );
       ***REMOVED***
 
@@ -170,17 +172,15 @@ function MdCheckboxDirective(inputDirective, $mdAria, $mdConstant, $mdTheming, $
         var keyCode = ev.which || ev.keyCode;
         if (keyCode === $mdConstant.KEY_CODE.SPACE || keyCode === $mdConstant.KEY_CODE.ENTER) ***REMOVED***
           ev.preventDefault();
-
-          if (!element.hasClass('md-focused')) ***REMOVED***
-            element.addClass('md-focused');
-          ***REMOVED***
-
+          element.addClass('md-focused');
           listener(ev);
         ***REMOVED***
       ***REMOVED***
 
       function listener(ev) ***REMOVED***
-        if (element[0].hasAttribute('disabled')) ***REMOVED***
+        // skipToggle boolean is used by the switch directive to prevent the click event
+        // when releasing the drag. There will be always a click if releasing the drag over the checkbox
+        if (element[0].hasAttribute('disabled') || scope.skipToggle) ***REMOVED***
           return;
         ***REMOVED***
 
@@ -188,17 +188,14 @@ function MdCheckboxDirective(inputDirective, $mdAria, $mdConstant, $mdTheming, $
           // Toggle the checkbox value...
           var viewValue = attr.ngChecked ? attr.checked : !ngModelCtrl.$viewValue;
 
-          ngModelCtrl.$setViewValue( viewValue, ev && ev.type);
+          ngModelCtrl.$setViewValue(viewValue, ev && ev.type);
           ngModelCtrl.$render();
         ***REMOVED***);
       ***REMOVED***
 
       function render() ***REMOVED***
-        if(ngModelCtrl.$viewValue && !isIndeterminate) ***REMOVED***
-          element.addClass(CHECKED_CSS);
-        ***REMOVED*** else ***REMOVED***
-          element.removeClass(CHECKED_CSS);
-        ***REMOVED***
+        // Cast the $viewValue to a boolean since it could be undefined
+        element.toggleClass('md-checked', !!ngModelCtrl.$viewValue && !isIndeterminate);
       ***REMOVED***
 
       function setIndeterminateState(newValue) ***REMOVED***
@@ -208,9 +205,9 @@ function MdCheckboxDirective(inputDirective, $mdAria, $mdConstant, $mdTheming, $
         ***REMOVED***
         element.toggleClass('md-indeterminate', isIndeterminate);
       ***REMOVED***
-    ***REMOVED***;
+    ***REMOVED***
   ***REMOVED***
 ***REMOVED***
 MdCheckboxDirective.$inject = ["inputDirective", "$mdAria", "$mdConstant", "$mdTheming", "$mdUtil", "$timeout"];
 
-ng.material.components.checkbox = angular.module("material.components.checkbox");
+ngmaterial.components.checkbox = angular.module("material.components.checkbox");

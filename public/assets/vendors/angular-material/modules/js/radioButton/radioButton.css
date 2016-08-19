@@ -2,13 +2,8 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-/*  Only used with Theme processes */
-html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
-
 md-radio-button ***REMOVED***
   box-sizing: border-box;
   display: block;
@@ -18,9 +13,9 @@ md-radio-button ***REMOVED***
   position: relative; ***REMOVED***
   md-radio-button[disabled] ***REMOVED***
     cursor: default; ***REMOVED***
-    md-radio-button[disabled] ._md-container ***REMOVED***
+    md-radio-button[disabled] .md-container ***REMOVED***
       cursor: default; ***REMOVED***
-  md-radio-button ._md-container ***REMOVED***
+  md-radio-button .md-container ***REMOVED***
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -32,11 +27,11 @@ md-radio-button ***REMOVED***
     cursor: pointer;
     left: 0;
     right: auto; ***REMOVED***
-    [dir=rtl] md-radio-button ._md-container ***REMOVED***
+    [dir=rtl] md-radio-button .md-container ***REMOVED***
       left: auto; ***REMOVED***
-    [dir=rtl] md-radio-button ._md-container ***REMOVED***
+    [dir=rtl] md-radio-button .md-container ***REMOVED***
       right: 0; ***REMOVED***
-    md-radio-button ._md-container .md-ripple-container ***REMOVED***
+    md-radio-button .md-container .md-ripple-container ***REMOVED***
       position: absolute;
       display: block;
       width: auto;
@@ -45,7 +40,7 @@ md-radio-button ***REMOVED***
       top: -15px;
       right: -15px;
       bottom: -15px; ***REMOVED***
-    md-radio-button ._md-container:before ***REMOVED***
+    md-radio-button .md-container:before ***REMOVED***
       box-sizing: border-box;
       background-color: transparent;
       border-radius: 50%;
@@ -57,11 +52,12 @@ md-radio-button ***REMOVED***
       top: 0;
       right: 0;
       bottom: 0;
+      -webkit-transition: all 0.5s;
       transition: all 0.5s;
       width: auto; ***REMOVED***
-  md-radio-button.md-align-top-left > div._md-container ***REMOVED***
+  md-radio-button.md-align-top-left > div.md-container ***REMOVED***
     top: 12px; ***REMOVED***
-  md-radio-button ._md-off ***REMOVED***
+  md-radio-button .md-off ***REMOVED***
     box-sizing: border-box;
     position: absolute;
     top: 0;
@@ -71,8 +67,9 @@ md-radio-button ***REMOVED***
     border-style: solid;
     border-width: 2px;
     border-radius: 50%;
+    -webkit-transition: border-color ease 0.28s;
     transition: border-color ease 0.28s; ***REMOVED***
-  md-radio-button ._md-on ***REMOVED***
+  md-radio-button .md-on ***REMOVED***
     box-sizing: border-box;
     position: absolute;
     top: 0;
@@ -80,14 +77,16 @@ md-radio-button ***REMOVED***
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    -webkit-transition: -webkit-transform ease 0.28s;
     transition: -webkit-transform ease 0.28s;
     transition: transform ease 0.28s;
+    transition: transform ease 0.28s, -webkit-transform ease 0.28s;
     -webkit-transform: scale(0);
             transform: scale(0); ***REMOVED***
-  md-radio-button.md-checked ._md-on ***REMOVED***
+  md-radio-button.md-checked .md-on ***REMOVED***
     -webkit-transform: scale(0.5);
             transform: scale(0.5); ***REMOVED***
-  md-radio-button ._md-label ***REMOVED***
+  md-radio-button .md-label ***REMOVED***
     box-sizing: border-box;
     position: relative;
     display: inline-block;
@@ -97,35 +96,38 @@ md-radio-button ***REMOVED***
     white-space: normal;
     pointer-events: none;
     width: auto; ***REMOVED***
-    [dir=rtl] md-radio-button ._md-label ***REMOVED***
+    [dir=rtl] md-radio-button .md-label ***REMOVED***
       margin-left: 0; ***REMOVED***
-    [dir=rtl] md-radio-button ._md-label ***REMOVED***
+    [dir=rtl] md-radio-button .md-label ***REMOVED***
       margin-right: 30px; ***REMOVED***
 
-md-radio-group.layout-column md-radio-button, md-radio-group.layout-xs-column md-radio-button, md-radio-group.layout-gt-xs-column md-radio-button, md-radio-group.layout-sm-column md-radio-button, md-radio-group.layout-gt-sm-column md-radio-button, md-radio-group.layout-md-column md-radio-button, md-radio-group.layout-gt-md-column md-radio-button, md-radio-group.layout-lg-column md-radio-button, md-radio-group.layout-gt-lg-column md-radio-button, md-radio-group.layout-xl-column md-radio-button ***REMOVED***
-  margin-bottom: 16px; ***REMOVED***
-
-md-radio-group.layout-row md-radio-button, md-radio-group.layout-xs-row md-radio-button, md-radio-group.layout-gt-xs-row md-radio-button, md-radio-group.layout-sm-row md-radio-button, md-radio-group.layout-gt-sm-row md-radio-button, md-radio-group.layout-md-row md-radio-button, md-radio-group.layout-gt-md-row md-radio-button, md-radio-group.layout-lg-row md-radio-button, md-radio-group.layout-gt-lg-row md-radio-button, md-radio-group.layout-xl-row md-radio-button ***REMOVED***
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 16px; ***REMOVED***
-  [dir=rtl] md-radio-group.layout-row md-radio-button, [dir=rtl] md-radio-group.layout-xs-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-xs-row md-radio-button, [dir=rtl] md-radio-group.layout-sm-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-sm-row md-radio-button, [dir=rtl] md-radio-group.layout-md-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-md-row md-radio-button, [dir=rtl] md-radio-group.layout-lg-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-lg-row md-radio-button, [dir=rtl] md-radio-group.layout-xl-row md-radio-button ***REMOVED***
-    margin-left: 16px; ***REMOVED***
-  [dir=rtl] md-radio-group.layout-row md-radio-button, [dir=rtl] md-radio-group.layout-xs-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-xs-row md-radio-button, [dir=rtl] md-radio-group.layout-sm-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-sm-row md-radio-button, [dir=rtl] md-radio-group.layout-md-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-md-row md-radio-button, [dir=rtl] md-radio-group.layout-lg-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-lg-row md-radio-button, [dir=rtl] md-radio-group.layout-xl-row md-radio-button ***REMOVED***
-    margin-right: 0; ***REMOVED***
-  md-radio-group.layout-row md-radio-button:last-of-type, md-radio-group.layout-xs-row md-radio-button:last-of-type, md-radio-group.layout-gt-xs-row md-radio-button:last-of-type, md-radio-group.layout-sm-row md-radio-button:last-of-type, md-radio-group.layout-gt-sm-row md-radio-button:last-of-type, md-radio-group.layout-md-row md-radio-button:last-of-type, md-radio-group.layout-gt-md-row md-radio-button:last-of-type, md-radio-group.layout-lg-row md-radio-button:last-of-type, md-radio-group.layout-gt-lg-row md-radio-button:last-of-type, md-radio-group.layout-xl-row md-radio-button:last-of-type ***REMOVED***
+md-radio-group ***REMOVED***
+  /** Layout adjustments for the radio group. */ ***REMOVED***
+  md-radio-group.layout-column md-radio-button, md-radio-group.layout-xs-column md-radio-button, md-radio-group.layout-gt-xs-column md-radio-button, md-radio-group.layout-sm-column md-radio-button, md-radio-group.layout-gt-sm-column md-radio-button, md-radio-group.layout-md-column md-radio-button, md-radio-group.layout-gt-md-column md-radio-button, md-radio-group.layout-lg-column md-radio-button, md-radio-group.layout-gt-lg-column md-radio-button, md-radio-group.layout-xl-column md-radio-button ***REMOVED***
+    margin-bottom: 16px; ***REMOVED***
+  md-radio-group.layout-row md-radio-button, md-radio-group.layout-xs-row md-radio-button, md-radio-group.layout-gt-xs-row md-radio-button, md-radio-group.layout-sm-row md-radio-button, md-radio-group.layout-gt-sm-row md-radio-button, md-radio-group.layout-md-row md-radio-button, md-radio-group.layout-gt-md-row md-radio-button, md-radio-group.layout-lg-row md-radio-button, md-radio-group.layout-gt-lg-row md-radio-button, md-radio-group.layout-xl-row md-radio-button ***REMOVED***
+    margin-top: 0;
+    margin-bottom: 0;
     margin-left: 0;
-    margin-right: 0; ***REMOVED***
-
-md-radio-group:focus ***REMOVED***
-  outline: none; ***REMOVED***
-
-md-radio-group.md-focused .md-checked ._md-container:before ***REMOVED***
-  left: -8px;
-  top: -8px;
-  right: -8px;
-  bottom: -8px; ***REMOVED***
+    margin-right: 16px; ***REMOVED***
+    [dir=rtl] md-radio-group.layout-row md-radio-button, [dir=rtl] md-radio-group.layout-xs-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-xs-row md-radio-button, [dir=rtl] md-radio-group.layout-sm-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-sm-row md-radio-button, [dir=rtl] md-radio-group.layout-md-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-md-row md-radio-button, [dir=rtl] md-radio-group.layout-lg-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-lg-row md-radio-button, [dir=rtl] md-radio-group.layout-xl-row md-radio-button ***REMOVED***
+      margin-left: 16px; ***REMOVED***
+    [dir=rtl] md-radio-group.layout-row md-radio-button, [dir=rtl] md-radio-group.layout-xs-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-xs-row md-radio-button, [dir=rtl] md-radio-group.layout-sm-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-sm-row md-radio-button, [dir=rtl] md-radio-group.layout-md-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-md-row md-radio-button, [dir=rtl] md-radio-group.layout-lg-row md-radio-button, [dir=rtl] md-radio-group.layout-gt-lg-row md-radio-button, [dir=rtl] md-radio-group.layout-xl-row md-radio-button ***REMOVED***
+      margin-right: 0; ***REMOVED***
+    md-radio-group.layout-row md-radio-button:last-of-type, md-radio-group.layout-xs-row md-radio-button:last-of-type, md-radio-group.layout-gt-xs-row md-radio-button:last-of-type, md-radio-group.layout-sm-row md-radio-button:last-of-type, md-radio-group.layout-gt-sm-row md-radio-button:last-of-type, md-radio-group.layout-md-row md-radio-button:last-of-type, md-radio-group.layout-gt-md-row md-radio-button:last-of-type, md-radio-group.layout-lg-row md-radio-button:last-of-type, md-radio-group.layout-gt-lg-row md-radio-button:last-of-type, md-radio-group.layout-xl-row md-radio-button:last-of-type ***REMOVED***
+      margin-left: 0;
+      margin-right: 0; ***REMOVED***
+  md-radio-group:focus ***REMOVED***
+    outline: none; ***REMOVED***
+  md-radio-group.md-focused .md-checked .md-container:before ***REMOVED***
+    left: -8px;
+    top: -8px;
+    right: -8px;
+    bottom: -8px; ***REMOVED***
+  md-radio-group[disabled] md-radio-button ***REMOVED***
+    cursor: default; ***REMOVED***
+    md-radio-group[disabled] md-radio-button .md-container ***REMOVED***
+      cursor: default; ***REMOVED***
 
 .md-inline-form md-radio-group ***REMOVED***
   margin: 18px 0 19px; ***REMOVED***
@@ -138,5 +140,5 @@ md-radio-group.md-focused .md-checked ._md-container:before ***REMOVED***
     margin-bottom: 0; ***REMOVED***
 
 @media screen and (-ms-high-contrast: active) ***REMOVED***
-  md-radio-button.md-default-theme ._md-on ***REMOVED***
+  md-radio-button.md-default-theme .md-on ***REMOVED***
     background-color: #fff; ***REMOVED*** ***REMOVED***

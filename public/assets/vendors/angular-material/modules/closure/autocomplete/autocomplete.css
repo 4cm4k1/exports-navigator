@@ -2,13 +2,8 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-/*  Only used with Theme processes */
-html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
-
 @-webkit-keyframes md-autocomplete-list-out ***REMOVED***
   0% ***REMOVED***
     -webkit-animation-timing-function: linear;
@@ -86,12 +81,25 @@ md-autocomplete ***REMOVED***
       width: 30px;
       height: 30px; ***REMOVED***
   md-autocomplete md-autocomplete-wrap ***REMOVED***
-    display: block;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    box-sizing: border-box;
     position: relative;
     overflow: visible;
     height: 40px; ***REMOVED***
     md-autocomplete md-autocomplete-wrap.md-menu-showing ***REMOVED***
       z-index: 51; ***REMOVED***
+    md-autocomplete md-autocomplete-wrap md-input-container, md-autocomplete md-autocomplete-wrap input ***REMOVED***
+      -webkit-box-flex: 1;
+      -webkit-flex: 1 1 0%;
+              flex: 1 1 0%;
+      box-sizing: border-box;
+      min-width: 0; ***REMOVED***
     md-autocomplete md-autocomplete-wrap md-progress-linear ***REMOVED***
       position: absolute;
       bottom: -2px;
@@ -101,23 +109,27 @@ md-autocomplete ***REMOVED***
         right: 2px;
         left: 2px;
         width: auto; ***REMOVED***
-      md-autocomplete md-autocomplete-wrap md-progress-linear ._md-mode-indeterminate ***REMOVED***
+      md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate ***REMOVED***
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 3px;
+        -webkit-transition: none;
         transition: none; ***REMOVED***
-        md-autocomplete md-autocomplete-wrap md-progress-linear ._md-mode-indeterminate .md-container ***REMOVED***
+        md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate .md-container ***REMOVED***
+          -webkit-transition: none;
           transition: none;
           height: 3px; ***REMOVED***
-        md-autocomplete md-autocomplete-wrap md-progress-linear ._md-mode-indeterminate.ng-enter ***REMOVED***
+        md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate.ng-enter ***REMOVED***
+          -webkit-transition: opacity 0.15s linear;
           transition: opacity 0.15s linear; ***REMOVED***
-          md-autocomplete md-autocomplete-wrap md-progress-linear ._md-mode-indeterminate.ng-enter.ng-enter-active ***REMOVED***
+          md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate.ng-enter.ng-enter-active ***REMOVED***
             opacity: 1; ***REMOVED***
-        md-autocomplete md-autocomplete-wrap md-progress-linear ._md-mode-indeterminate.ng-leave ***REMOVED***
+        md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate.ng-leave ***REMOVED***
+          -webkit-transition: opacity 0.15s linear;
           transition: opacity 0.15s linear; ***REMOVED***
-          md-autocomplete md-autocomplete-wrap md-progress-linear ._md-mode-indeterminate.ng-leave.ng-leave-active ***REMOVED***
+          md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate.ng-leave.ng-leave-active ***REMOVED***
             opacity: 0; ***REMOVED***
   md-autocomplete input:not(.md-input) ***REMOVED***
     font-size: 14px;
@@ -156,6 +168,7 @@ md-autocomplete ***REMOVED***
       -webkit-transform: scale(0);
               transform: scale(0);
       opacity: 0;
+      -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); ***REMOVED***
     md-autocomplete button:focus ***REMOVED***
       outline: none; ***REMOVED***
@@ -174,14 +187,18 @@ md-autocomplete ***REMOVED***
     md-autocomplete button.ng-enter ***REMOVED***
       -webkit-transform: scale(0);
               transform: scale(0);
+      -webkit-transition: -webkit-transform 0.15s ease-out;
       transition: -webkit-transform 0.15s ease-out;
-      transition: transform 0.15s ease-out; ***REMOVED***
+      transition: transform 0.15s ease-out;
+      transition: transform 0.15s ease-out, -webkit-transform 0.15s ease-out; ***REMOVED***
       md-autocomplete button.ng-enter.ng-enter-active ***REMOVED***
         -webkit-transform: scale(1);
                 transform: scale(1); ***REMOVED***
     md-autocomplete button.ng-leave ***REMOVED***
+      -webkit-transition: -webkit-transform 0.15s ease-out;
       transition: -webkit-transform 0.15s ease-out;
-      transition: transform 0.15s ease-out; ***REMOVED***
+      transition: transform 0.15s ease-out;
+      transition: transform 0.15s ease-out, -webkit-transform 0.15s ease-out; ***REMOVED***
       md-autocomplete button.ng-leave.ng-leave-active ***REMOVED***
         -webkit-transform: scale(0);
                 transform: scale(0); ***REMOVED***
@@ -211,6 +228,7 @@ md-autocomplete ***REMOVED***
     padding: 0 15px;
     line-height: 48px;
     height: 48px;
+    -webkit-transition: background 0.15s linear;
     transition: background 0.15s linear;
     margin: 0;
     white-space: nowrap;

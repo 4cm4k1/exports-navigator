@@ -2,11 +2,11 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-goog.provide('ng.material.components.sticky');
-goog.require('ng.material.components.content');
-goog.require('ng.material.core');
+goog.provide('ngmaterial.components.sticky');
+goog.require('ngmaterial.components.content');
+goog.require('ngmaterial.core');
 /**
  * @ngdoc module
  * @name material.components.sticky
@@ -28,6 +28,9 @@ angular
  *
  * @description
  * The `$mdSticky`service provides a mixin to make elements sticky.
+ *
+ * Whenever the current browser supports stickiness natively, the `$mdSticky` service will just
+ * use the native browser stickiness.
  *
  * By default the `$mdSticky` service compiles the cloned element, when not specified through the `elementClone`
  * parameter, in the same scope as the actual element lives.
@@ -77,9 +80,9 @@ angular
  *     when the user starts scrolling past the original element.
  *     If not provided, it will use the result of `element.clone()` and compiles it in the given scope.
  */
-function MdSticky($document, $mdConstant, $$rAF, $mdUtil, $compile) ***REMOVED***
+function MdSticky($mdConstant, $$rAF, $mdUtil, $compile) ***REMOVED***
 
-  var browserStickySupport = checkStickySupport();
+  var browserStickySupport = $mdUtil.checkStickySupport();
 
   /**
    * Registers an element as sticky, used internally by directives to register themselves
@@ -137,7 +140,7 @@ function MdSticky($document, $mdConstant, $$rAF, $mdUtil, $compile) ***REMOVED**
      ***************/
     // Add an element and its sticky clone to this content's sticky collection
     function add(element, stickyClone) ***REMOVED***
-      stickyClone.addClass('_md-sticky-clone');
+      stickyClone.addClass('md-sticky-clone');
 
       var item = ***REMOVED***
         element: element,
@@ -324,23 +327,6 @@ function MdSticky($document, $mdConstant, $$rAF, $mdUtil, $compile) ***REMOVED**
     ***REMOVED***
   ***REMOVED***
 
-  // Function to check for browser sticky support
-  function checkStickySupport($el) ***REMOVED***
-    var stickyProp;
-    var testEl = angular.element('<div>');
-    $document[0].body.appendChild(testEl[0]);
-
-    var stickyProps = ['sticky', '-webkit-sticky'];
-    for (var i = 0; i < stickyProps.length; ++i) ***REMOVED***
-      testEl.css(***REMOVED***position: stickyProps[i], top: 0, 'z-index': 2***REMOVED***);
-      if (testEl.css('position') == stickyProps[i]) ***REMOVED***
-        stickyProp = stickyProps[i];
-        break;
-      ***REMOVED***
-    ***REMOVED***
-    testEl.remove();
-    return stickyProp;
-  ***REMOVED***
 
   // Android 4.4 don't accurately give scroll events.
   // To fix this problem, we setup a fake scroll event. We say:
@@ -373,6 +359,6 @@ function MdSticky($document, $mdConstant, $$rAF, $mdUtil, $compile) ***REMOVED**
   ***REMOVED***
 
 ***REMOVED***
-MdSticky.$inject = ["$document", "$mdConstant", "$$rAF", "$mdUtil", "$compile"];
+MdSticky.$inject = ["$mdConstant", "$$rAF", "$mdUtil", "$compile"];
 
-ng.material.components.sticky = angular.module("material.components.sticky");
+ngmaterial.components.sticky = angular.module("material.components.sticky");

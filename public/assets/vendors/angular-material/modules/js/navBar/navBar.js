@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
 (function( window, angular, undefined )***REMOVED***
 "use strict";
@@ -115,7 +115,7 @@ function MdNavBar($mdAria) ***REMOVED***
     template:
       '<div class="md-nav-bar">' +
         '<nav role="navigation">' +
-          '<ul class="_md-nav-bar-list" layout="row" ng-transclude role="listbox"' +
+          '<ul class="_md-nav-bar-list" ng-transclude role="listbox"' +
             'tabindex="0"' +
             'ng-focus="ctrl.onFocus()"' +
             'ng-blur="ctrl.onBlur()"' +
@@ -218,28 +218,26 @@ MdNavBarController.prototype._initTabs = function() ***REMOVED***
  * @private
  */
 MdNavBarController.prototype._updateTabs = function(newValue, oldValue) ***REMOVED***
+  var self = this;
   var tabs = this._getTabs();
+  var oldIndex = -1;
+  var newIndex = -1;
+  var newTab = this._getTabByName(newValue);
+  var oldTab = this._getTabByName(oldValue);
 
-  var oldIndex;
-  if (oldValue) ***REMOVED***
-    var oldTab = this._getTabByName(oldValue);
-    if (oldTab) ***REMOVED***
-      oldTab.setSelected(false);
-      oldIndex = tabs.indexOf(oldTab);
-    ***REMOVED***
+  if (oldTab) ***REMOVED***
+    oldTab.setSelected(false);
+    oldIndex = tabs.indexOf(oldTab);
   ***REMOVED***
 
-  if (newValue) ***REMOVED***
-    var tab = this._getTabByName(newValue);
-    if (tab) ***REMOVED***
-      tab.setSelected(true);
-      var newIndex = tabs.indexOf(tab);
-      var self = this;
-      this._$timeout(function() ***REMOVED***
-        self._updateInkBarStyles(tab, newIndex, oldIndex);
-      ***REMOVED***);
-    ***REMOVED***
+  if (newTab) ***REMOVED***
+    newTab.setSelected(true);
+    newIndex = tabs.indexOf(newTab);
   ***REMOVED***
+
+  this._$timeout(function() ***REMOVED***
+    self._updateInkBarStyles(newTab, newIndex, oldIndex);
+  ***REMOVED***);
 ***REMOVED***;
 
 /**
@@ -247,12 +245,17 @@ MdNavBarController.prototype._updateTabs = function(newValue, oldValue) ***REMOV
  * @private
  */
 MdNavBarController.prototype._updateInkBarStyles = function(tab, newIndex, oldIndex) ***REMOVED***
-  var tabEl = tab.getButtonEl();
-  var left = tabEl.offsetLeft;
-
   this._inkbar.toggleClass('_md-left', newIndex < oldIndex)
       .toggleClass('_md-right', newIndex > oldIndex);
-  this._inkbar.css(***REMOVED***left: left + 'px', width: tabEl.offsetWidth + 'px'***REMOVED***);
+
+  this._inkbar.css(***REMOVED***display: newIndex < 0 ? 'none' : ''***REMOVED***);
+
+  if(tab)***REMOVED***
+    var tabEl = tab.getButtonEl();
+    var left = tabEl.offsetLeft;
+
+    this._inkbar.css(***REMOVED***left: left + 'px', width: tabEl.offsetWidth + 'px'***REMOVED***);
+  ***REMOVED***
 ***REMOVED***;
 
 /**

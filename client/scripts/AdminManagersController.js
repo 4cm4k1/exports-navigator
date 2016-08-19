@@ -3,12 +3,12 @@
 
   angular.module('exportsNavigator').controller('AdminManagersController', AdminManagersController);
 
-  // AdminManagersController.$inject = [];
+  AdminManagersController.$inject = ['currentAuth'];
 
-  function AdminManagersController() ***REMOVED***
+  function AdminManagersController(currentAuth) ***REMOVED***
     var vm = this;
 
-    vm.list;
+    vm.list = ['this will be a', 'list of managers'];
 
     vm.update = function(manager) ***REMOVED***
       console.log('Update clicked on manager', manager);
@@ -35,5 +35,5 @@
 
       ***REMOVED***
     ***REMOVED***;
-  ***REMOVED***;
+  ***REMOVED***
 ***REMOVED***)();

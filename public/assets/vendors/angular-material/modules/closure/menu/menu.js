@@ -2,11 +2,11 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-goog.provide('ng.material.components.menu');
-goog.require('ng.material.components.backdrop');
-goog.require('ng.material.core');
+goog.provide('ngmaterial.components.menu');
+goog.require('ngmaterial.components.backdrop');
+goog.require('ngmaterial.core');
 /**
  * @ngdoc module
  * @name material.components.menu
@@ -42,7 +42,7 @@ function MenuController($mdMenu, $attrs, $element, $scope, $mdUtil, $timeout, $r
   this.init = function init(setMenuContainer, opts) ***REMOVED***
     opts = opts || ***REMOVED******REMOVED***;
     menuContainer = setMenuContainer;
-    
+
     // Default element for ARIA attributes has the ngClick or ngMouseenter expression
     triggerElement = $element[0].querySelector(prefixer.buildSelector(['ng-click', 'ng-mouseenter']));
     triggerElement.setAttribute('aria-expanded', 'false');
@@ -63,7 +63,11 @@ function MenuController($mdMenu, $attrs, $element, $scope, $mdUtil, $timeout, $r
       'aria-haspopup': 'true'
     ***REMOVED***);
 
-    $scope.$on('$destroy', this.disableHoverListener);
+    $scope.$on('$destroy', angular.bind(this, function() ***REMOVED***
+      this.disableHoverListener();
+      $mdMenu.destroy();
+    ***REMOVED***));
+
     menuContainer.on('$destroy', function() ***REMOVED***
       $mdMenu.destroy();
     ***REMOVED***);
@@ -162,13 +166,13 @@ function MenuController($mdMenu, $attrs, $element, $scope, $mdUtil, $timeout, $r
   this.onIsOpenChanged = function(isOpen) ***REMOVED***
     if (isOpen) ***REMOVED***
       menuContainer.attr('aria-hidden', 'false');
-      $element[0].classList.add('_md-open');
+      $element[0].classList.add('md-open');
       angular.forEach(self.nestedMenus, function(el) ***REMOVED***
-        el.classList.remove('_md-open');
+        el.classList.remove('md-open');
       ***REMOVED***);
     ***REMOVED*** else ***REMOVED***
       menuContainer.attr('aria-hidden', 'true');
-      $element[0].classList.remove('_md-open');
+      $element[0].classList.remove('md-open');
     ***REMOVED***
     $scope.$mdMenuIsOpen = self.isOpen;
   ***REMOVED***;
@@ -467,7 +471,7 @@ function MenuDirective($mdUtil) ***REMOVED***
     var mdMenuCtrl = ctrls[0];
     var isInMenuBar = ctrls[1] != undefined;
     // Move everything into a md-menu-container and pass it to the controller
-    var menuContainer = angular.element( '<div class="_md _md-open-menu-container md-whiteframe-z2"></div>');
+    var menuContainer = angular.element( '<div class="_md md-open-menu-container md-whiteframe-z2"></div>');
     var menuContents = element.children()[1];
 
     element.addClass('_md');     // private md component indicator for styling
@@ -547,7 +551,7 @@ function MenuProvider($$interimElementProvider) ***REMOVED***
       ***REMOVED***
 
       if (options.hasBackdrop) ***REMOVED***
-        options.backdrop = $mdUtil.createBackdrop(scope, "_md-menu-backdrop _md-click-catcher");
+        options.backdrop = $mdUtil.createBackdrop(scope, "md-menu-backdrop md-click-catcher");
 
         $animate.enter(options.backdrop, $document[0].body);
       ***REMOVED***
@@ -566,7 +570,7 @@ function MenuProvider($$interimElementProvider) ***REMOVED***
      * and backdrop
      */
     function onRemove(scope, element, opts) ***REMOVED***
-      opts.cleanupInteraction();
+      opts.cleanupInteraction && opts.cleanupInteraction();
       opts.cleanupResizing();
       opts.hideBackdrop();
 
@@ -580,14 +584,14 @@ function MenuProvider($$interimElementProvider) ***REMOVED***
        * For forced closes (like $destroy events), skip the animations
        */
       function animateRemoval() ***REMOVED***
-        return $animateCss(element, ***REMOVED***addClass: '_md-leave'***REMOVED***).start();
+        return $animateCss(element, ***REMOVED***addClass: 'md-leave'***REMOVED***).start();
       ***REMOVED***
 
       /**
        * Detach the element
        */
       function detachAndClean() ***REMOVED***
-        element.removeClass('_md-active');
+        element.removeClass('md-active');
         detachElement(element, opts);
         opts.alreadyOpen = false;
       ***REMOVED***
@@ -626,12 +630,12 @@ function MenuProvider($$interimElementProvider) ***REMOVED***
         return $q(function(resolve) ***REMOVED***
           var position = calculateMenuPosition(element, opts);
 
-          element.removeClass('_md-leave');
+          element.removeClass('md-leave');
 
           // Animate the menu scaling, and opacity [from its position origin (default == top-left)]
           // to normal scale.
           $animateCss(element, ***REMOVED***
-            addClass: '_md-active',
+            addClass: 'md-active',
             from: animator.toCss(position),
             to: animator.toCss(***REMOVED***transform: ''***REMOVED***)
           ***REMOVED***)
@@ -690,7 +694,7 @@ function MenuProvider($$interimElementProvider) ***REMOVED***
        * clicks, keypresses, backdrop closing, etc.
        */
       function activateInteraction() ***REMOVED***
-        element.addClass('_md-clickable');
+        element.addClass('md-clickable');
 
         // close on backdrop click
         if (opts.backdrop) opts.backdrop.on('click', onBackdropClick);
@@ -715,7 +719,7 @@ function MenuProvider($$interimElementProvider) ***REMOVED***
         focusTarget && focusTarget.focus();
 
         return function cleanupInteraction() ***REMOVED***
-          element.removeClass('_md-clickable');
+          element.removeClass('md-clickable');
           if (opts.backdrop) opts.backdrop.off('click', onBackdropClick);
           opts.menuContentEl.off('keydown', onMenuKeyDown);
           opts.menuContentEl[0].removeEventListener('click', captureClickListener, true);
@@ -929,7 +933,7 @@ function MenuProvider($$interimElementProvider) ***REMOVED***
       ***REMOVED***
 
       var rtl = ($mdUtil.bidi() == 'rtl');
-      
+
       switch (positionMode.left) ***REMOVED***
         case 'target':
           position.left = existingOffsets.left + originNodeRect.left - alignTargetRect.left;
@@ -948,8 +952,17 @@ function MenuProvider($$interimElementProvider) ***REMOVED***
           position.left = willFitRight ? originNodeRect.right - originNode.style.left : originNodeRect.left - originNode.style.left - openMenuNodeRect.width;
           transformOrigin += willFitRight ? 'left' : 'right';
           break;
+        case 'right':
+          if (rtl) ***REMOVED***
+            position.left = originNodeRect.right - originNodeRect.width;
+            transformOrigin += 'left';
+          ***REMOVED*** else ***REMOVED***
+            position.left = originNodeRect.right - openMenuNodeRect.width;
+            transformOrigin += 'right';
+          ***REMOVED***
+          break;
         case 'left':
-          if(rtl) ***REMOVED***
+          if (rtl) ***REMOVED***
             position.left = originNodeRect.right - openMenuNodeRect.width;
             transformOrigin += 'right';
           ***REMOVED*** else ***REMOVED***
@@ -1009,4 +1022,4 @@ function MenuProvider($$interimElementProvider) ***REMOVED***
 ***REMOVED***
 MenuProvider.$inject = ["$$interimElementProvider"];
 
-ng.material.components.menu = angular.module("material.components.menu");
+ngmaterial.components.menu = angular.module("material.components.menu");

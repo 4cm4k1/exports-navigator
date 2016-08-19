@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
 (function( window, angular, undefined )***REMOVED***
 "use strict";
@@ -29,7 +29,7 @@
 angular
   .module('material.components.backdrop', ['material.core'])
   .directive('mdBackdrop', ["$mdTheming", "$mdUtil", "$animate", "$rootElement", "$window", "$log", "$$rAF", "$document", function BackdropDirective($mdTheming, $mdUtil, $animate, $rootElement, $window, $log, $$rAF, $document) ***REMOVED***
-    var ERROR_CSS_POSITION = "<md-backdrop> may not work properly in a scrolled, static-positioned parent container.";
+    var ERROR_CSS_POSITION = '<md-backdrop> may not work properly in a scrolled, static-positioned parent container.';
 
     return ***REMOVED***
       restrict: 'E',
@@ -40,47 +40,53 @@ angular
       // backdrop may be outside the $rootElement, tell ngAnimate to animate regardless
       if ($animate.pin) $animate.pin(element, $rootElement);
 
-      $$rAF(function () ***REMOVED***
+      var bodyStyles;
+
+      $$rAF(function() ***REMOVED***
         // If body scrolling has been disabled using mdUtil.disableBodyScroll(),
         // adjust the 'backdrop' height to account for the fixed 'body' top offset.
         // Note that this can be pretty expensive and is better done inside the $$rAF.
-        var body = $window.getComputedStyle($document[0].body);
-        if (body.position == 'fixed') ***REMOVED***
-          var hViewport = parseInt(body.height, 10) + Math.abs(parseInt(body.top, 10));
-          element.css(***REMOVED***
-            height: hViewport + 'px'
+        bodyStyles = $window.getComputedStyle($document[0].body);
+
+        if (bodyStyles.position === 'fixed') ***REMOVED***
+          var resizeHandler = $mdUtil.debounce(function()***REMOVED***
+            bodyStyles = $window.getComputedStyle($document[0].body);
+            resize();
+          ***REMOVED***, 60, null, false);
+
+          resize();
+          angular.element($window).on('resize', resizeHandler);
+
+          scope.$on('$destroy', function() ***REMOVED***
+            angular.element($window).off('resize', resizeHandler);
           ***REMOVED***);
         ***REMOVED***
 
         // Often $animate.enter() is used to append the backDrop element
         // so let's wait until $animate is done...
-        var parent = element.parent()[0];
-        if (parent) ***REMOVED***
+        var parent = element.parent();
 
-          if ( parent.nodeName == 'BODY' ) ***REMOVED***
-            element.css(***REMOVED***position : 'fixed'***REMOVED***);
+        if (parent.length) ***REMOVED***
+          if (parent[0].nodeName === 'BODY') ***REMOVED***
+            element.css('position', 'fixed');
           ***REMOVED***
 
-          var styles = $window.getComputedStyle(parent);
-          if (styles.position == 'static') ***REMOVED***
+          var styles = $window.getComputedStyle(parent[0]);
+
+          if (styles.position === 'static') ***REMOVED***
             // backdrop uses position:absolute and will not work properly with parent position:static (default)
             $log.warn(ERROR_CSS_POSITION);
           ***REMOVED***
-        ***REMOVED***
 
-        // Only inherit the parent if the backdrop has a parent.
-        if (element.parent().length) ***REMOVED***
-          $mdTheming.inherit(element, element.parent());
+          // Only inherit the parent if the backdrop has a parent.
+          $mdTheming.inherit(element, parent);
         ***REMOVED***
       ***REMOVED***);
 
       function resize() ***REMOVED***
-        var hViewport = parseInt(body.height, 10) + Math.abs(parseInt(body.top, 10));
-        element.css(***REMOVED***
-          height: hViewport + 'px'
-        ***REMOVED***);
+        var viewportHeight = parseInt(bodyStyles.height, 10) + Math.abs(parseInt(bodyStyles.top, 10));
+        element.css('height', viewportHeight + 'px');
       ***REMOVED***
-
     ***REMOVED***
 
   ***REMOVED***]);

@@ -3,12 +3,12 @@
 
   angular.module('exportsNavigator').controller('AdminTopicsController', AdminTopicsController);
 
-  // AdminTopicsController.$inject = [];
+  AdminTopicsController.$inject = ['currentAuth'];
 
-  function AdminTopicsController() ***REMOVED***
+  function AdminTopicsController(currentAuth) ***REMOVED***
     var vm = this;
 
-    vm.topicsList;
+    vm.topicsList = ['this', 'will', 'be', 'a', 'list', 'of', 'topics'];
 
     vm.update = function(listItem) ***REMOVED***
       console.log('Update clicked');
@@ -29,6 +29,6 @@
     vm.import = function() ***REMOVED***
       console.log('Import clicked');
     ***REMOVED***;
-  ***REMOVED***;
+  ***REMOVED***
 
 ***REMOVED***)();

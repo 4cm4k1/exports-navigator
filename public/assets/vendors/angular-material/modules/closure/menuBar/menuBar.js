@@ -2,11 +2,11 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-goog.provide('ng.material.components.menuBar');
-goog.require('ng.material.components.menu');
-goog.require('ng.material.core');
+goog.provide('ngmaterial.components.menuBar');
+goog.require('ngmaterial.components.menu');
+goog.require('ngmaterial.core');
 /**
  * @ngdoc module
  * @name material.components.menu-bar
@@ -56,8 +56,8 @@ MenuBarController.prototype.init = function() ***REMOVED***
 
   deregisterFns.push(this.$rootScope.$on('$mdMenuOpen', function(event, el) ***REMOVED***
     if (self.getMenus().indexOf(el[0]) != -1) ***REMOVED***
-      $element[0].classList.add('_md-open');
-      el[0].classList.add('_md-open');
+      $element[0].classList.add('md-open');
+      el[0].classList.add('md-open');
       self.currentlyOpenMenu = el.controller('mdMenu');
       self.currentlyOpenMenu.registerContainerProxy(self.handleKeyDown);
       self.enableOpenOnHover();
@@ -67,8 +67,8 @@ MenuBarController.prototype.init = function() ***REMOVED***
   deregisterFns.push(this.$rootScope.$on('$mdMenuClose', function(event, el, opts) ***REMOVED***
     var rootMenus = self.getMenus();
     if (rootMenus.indexOf(el[0]) != -1) ***REMOVED***
-      $element[0].classList.remove('_md-open');
-      el[0].classList.remove('_md-open');
+      $element[0].classList.remove('md-open');
+      el[0].classList.remove('md-open');
     ***REMOVED***
 
     if ($element[0].contains(el[0])) ***REMOVED***
@@ -96,8 +96,8 @@ MenuBarController.prototype.init = function() ***REMOVED***
 ***REMOVED***;
 
 MenuBarController.prototype.setKeyboardMode = function(enabled) ***REMOVED***
-  if (enabled) this.$element[0].classList.add('_md-keyboard-mode');
-  else this.$element[0].classList.remove('_md-keyboard-mode');
+  if (enabled) this.$element[0].classList.add('md-keyboard-mode');
+  else this.$element[0].classList.remove('md-keyboard-mode');
 ***REMOVED***;
 
 MenuBarController.prototype.enableOpenOnHover = function() ***REMOVED***
@@ -252,7 +252,7 @@ MenuBarController.prototype.getFocusedMenuIndex = function() ***REMOVED***
 MenuBarController.prototype.getOpenMenuIndex = function() ***REMOVED***
   var menus = this.getMenus();
   for (var i = 0; i < menus.length; ++i) ***REMOVED***
-    if (menus[i].classList.contains('_md-open')) return i;
+    if (menus[i].classList.contains('md-open')) return i;
   ***REMOVED***
   return -1;
 ***REMOVED***;
@@ -374,11 +374,14 @@ function MenuBarDirective($mdUtil, $mdTheming) ***REMOVED***
         if (menuEl.nodeName == 'MD-MENU') ***REMOVED***
           if (!menuEl.hasAttribute('md-position-mode')) ***REMOVED***
             menuEl.setAttribute('md-position-mode', 'left bottom');
-            menuEl.querySelector('button,a').setAttribute('role', 'menuitem');
+
+            // Since we're in the compile function and actual `md-buttons` are not compiled yet,
+            // we need to query for possible `md-buttons` as well.
+            menuEl.querySelector('button, a, md-button').setAttribute('role', 'menuitem');
           ***REMOVED***
           var contentEls = $mdUtil.nodesToArray(menuEl.querySelectorAll('md-menu-content'));
           angular.forEach(contentEls, function(contentEl) ***REMOVED***
-            contentEl.classList.add('_md-menu-bar-menu');
+            contentEl.classList.add('md-menu-bar-menu');
             contentEl.classList.add('md-dense');
             if (!contentEl.hasAttribute('width')) ***REMOVED***
               contentEl.setAttribute('width', 5);
@@ -386,6 +389,13 @@ function MenuBarDirective($mdUtil, $mdTheming) ***REMOVED***
           ***REMOVED***);
         ***REMOVED***
       ***REMOVED***);
+
+      // Mark the child menu items that they're inside a menu bar. This is necessary,
+      // because mnMenuItem has special behaviour during compilation, depending on
+      // whether it is inside a mdMenuBar. We can usually figure this out via the DOM,
+      // however if a directive that uses documentFragment is applied to the child (e.g. ngRepeat),
+      // the element won't have a parent and won't compile properly.
+      templateEl.find('md-menu-item').addClass('md-in-menu-bar');
 
       return function postLink(scope, el, attr, ctrl) ***REMOVED***
         el.addClass('_md');     // private md component indicator for styling
@@ -529,12 +539,16 @@ angular
  /* ngInject */
 function MenuItemDirective($mdUtil) ***REMOVED***
   return ***REMOVED***
+    controller: 'MenuItemController',
     require: ['mdMenuItem', '?ngModel'],
     priority: 210, // ensure that our post link runs after ngAria
     compile: function(templateEl, templateAttrs) ***REMOVED***
+      var type = templateAttrs.type;
+      var inMenuBarClass = 'md-in-menu-bar';
 
       // Note: This allows us to show the `check` icon for the md-menu-bar items.
-      if (isInsideMenuBar() && (templateAttrs.type == 'checkbox' || templateAttrs.type == 'radio')) ***REMOVED***
+      // The `md-in-menu-bar` class is set by the mdMenuBar directive.
+      if ((type == 'checkbox' || type == 'radio') && templateEl.hasClass(inMenuBarClass)) ***REMOVED***
         var text = templateEl[0].textContent;
         var buttonEl = angular.element('<md-button type="button"></md-button>');
             buttonEl.html(text);
@@ -543,10 +557,10 @@ function MenuItemDirective($mdUtil) ***REMOVED***
         templateEl.html('');
         templateEl.append(angular.element('<md-icon md-svg-icon="check"></md-icon>'));
         templateEl.append(buttonEl);
-        templateEl[0].classList.add('md-indent');
+        templateEl.addClass('md-indent').removeClass(inMenuBarClass);
 
-        setDefault('role', (templateAttrs.type == 'checkbox') ? 'menuitemcheckbox' : 'menuitemradio', buttonEl);
-        angular.forEach(['ng-disabled'], moveAttrToButton);
+        setDefault('role', type == 'checkbox' ? 'menuitemcheckbox' : 'menuitemradio', buttonEl);
+        moveAttrToButton('ng-disabled');
 
       ***REMOVED*** else ***REMOVED***
         setDefault('role', 'menuitem', templateEl[0].querySelector('md-button, button, a'));
@@ -569,21 +583,20 @@ function MenuItemDirective($mdUtil) ***REMOVED***
         ***REMOVED***
       ***REMOVED***
 
-      function moveAttrToButton(attr) ***REMOVED***
-        if (templateEl[0].hasAttribute(attr)) ***REMOVED***
-          var val = templateEl[0].getAttribute(attr);
-          buttonEl[0].setAttribute(attr, val);
-          templateEl[0].removeAttribute(attr);
-        ***REMOVED***
-      ***REMOVED***
+      function moveAttrToButton(attribute) ***REMOVED***
+        var attributes = $mdUtil.prefixer(attribute);
 
-      function isInsideMenuBar() ***REMOVED***
-        return !!$mdUtil.getClosest(templateEl, 'md-menu-bar', true);
+        angular.forEach(attributes, function(attr) ***REMOVED***
+          if (templateEl[0].hasAttribute(attr)) ***REMOVED***
+            var val = templateEl[0].getAttribute(attr);
+            buttonEl[0].setAttribute(attr, val);
+            templateEl[0].removeAttribute(attr);
+          ***REMOVED***
+        ***REMOVED***);
       ***REMOVED***
-    ***REMOVED***,
-    controller: 'MenuItemController'
+    ***REMOVED***
   ***REMOVED***;
 ***REMOVED***
 MenuItemDirective.$inject = ["$mdUtil"];
 
-ng.material.components.menuBar = angular.module("material.components.menuBar");
+ngmaterial.components.menuBar = angular.module("material.components.menuBar");

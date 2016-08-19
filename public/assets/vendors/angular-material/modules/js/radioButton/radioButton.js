@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
 (function( window, angular, undefined )***REMOVED***
 "use strict";
@@ -78,21 +78,27 @@ function mdRadioGroupDirective($mdUtil, $mdConstant, $mdTheming, $timeout) ***RE
     rgCtrl.init(ngModelCtrl);
 
     scope.mouseActive = false;
-    element.attr(***REMOVED***
-              'role': 'radiogroup',
-              'tabIndex': element.attr('tabindex') || '0'
-            ***REMOVED***)
-            .on('keydown', keydownListener)
-            .on('mousedown', function(event) ***REMOVED***
-              scope.mouseActive = true;
-              $timeout(function() ***REMOVED***
-                scope.mouseActive = false;
-              ***REMOVED***, 100);
-            ***REMOVED***)
-            .on('focus', function() ***REMOVED***
-              if(scope.mouseActive === false) ***REMOVED*** rgCtrl.$element.addClass('md-focused'); ***REMOVED***
-            ***REMOVED***)
-            .on('blur', function() ***REMOVED*** rgCtrl.$element.removeClass('md-focused'); ***REMOVED***);
+
+    element
+      .attr(***REMOVED***
+        'role': 'radiogroup',
+        'tabIndex': element.attr('tabindex') || '0'
+      ***REMOVED***)
+      .on('keydown', keydownListener)
+      .on('mousedown', function(event) ***REMOVED***
+        scope.mouseActive = true;
+        $timeout(function() ***REMOVED***
+          scope.mouseActive = false;
+        ***REMOVED***, 100);
+      ***REMOVED***)
+      .on('focus', function() ***REMOVED***
+        if(scope.mouseActive === false) ***REMOVED***
+          rgCtrl.$element.addClass('md-focused');
+        ***REMOVED***
+      ***REMOVED***)
+      .on('blur', function() ***REMOVED***
+        rgCtrl.$element.removeClass('md-focused');
+      ***REMOVED***);
 
     /**
      *
@@ -183,6 +189,9 @@ function mdRadioGroupDirective($mdUtil, $mdConstant, $mdTheming, $timeout) ***RE
       ***REMOVED***,
       setActiveDescendant: function (radioId) ***REMOVED***
         this.$element.attr('aria-activedescendant', radioId);
+      ***REMOVED***,
+      isDisabled: function() ***REMOVED***
+        return this.$element[0].hasAttribute('disabled');
       ***REMOVED***
     ***REMOVED***;
   ***REMOVED***
@@ -259,11 +268,11 @@ function mdRadioButtonDirective($mdAria, $mdUtil, $mdTheming) ***REMOVED***
     restrict: 'E',
     require: '^mdRadioGroup',
     transclude: true,
-    template: '<div class="_md-container" md-ink-ripple md-ink-ripple-checkbox>' +
-                '<div class="_md-off"></div>' +
-                '<div class="_md-on"></div>' +
+    template: '<div class="md-container" md-ink-ripple md-ink-ripple-checkbox>' +
+                '<div class="md-off"></div>' +
+                '<div class="md-on"></div>' +
               '</div>' +
-              '<div ng-transclude class="_md-label"></div>',
+              '<div ng-transclude class="md-label"></div>',
     link: link
   ***REMOVED***;
 
@@ -278,9 +287,9 @@ function mdRadioButtonDirective($mdAria, $mdUtil, $mdTheming) ***REMOVED***
     /**
      *
      */
-    function initialize(controller) ***REMOVED***
-      if ( !rgCtrl ) ***REMOVED***
-        throw 'RadioGroupController not found.';
+    function initialize() ***REMOVED***
+      if (!rgCtrl) ***REMOVED***
+        throw 'RadioButton: No RadioGroupController could be found.';
       ***REMOVED***
 
       rgCtrl.add(render);
@@ -297,7 +306,7 @@ function mdRadioButtonDirective($mdAria, $mdUtil, $mdTheming) ***REMOVED***
      *
      */
     function listener(ev) ***REMOVED***
-      if (element[0].hasAttribute('disabled')) return;
+      if (element[0].hasAttribute('disabled') || rgCtrl.isDisabled()) return;
 
       scope.$apply(function() ***REMOVED***
         rgCtrl.setViewValue(attr.value, ev && ev.type);

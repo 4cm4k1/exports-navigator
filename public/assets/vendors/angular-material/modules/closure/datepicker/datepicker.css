@@ -2,13 +2,8 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-/*  Only used with Theme processes */
-html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
-
 /** Styles for mdCalendar. */
 md-calendar ***REMOVED***
   font-size: 13px;
@@ -46,20 +41,17 @@ md-calendar ***REMOVED***
     padding-left: 16px; ***REMOVED***
     [dir=rtl] .md-calendar-date:first-child ***REMOVED***
       padding-left: 0;
-      padding-left: auto;
-      padding-left: initial;
       padding-right: 16px; ***REMOVED***
   .md-calendar-date:last-child ***REMOVED***
     padding-right: 16px; ***REMOVED***
     [dir=rtl] .md-calendar-date:last-child ***REMOVED***
       padding-right: 0;
-      padding-right: auto;
-      padding-right: initial;
       padding-left: 16px; ***REMOVED***
   .md-calendar-date.md-calendar-date-disabled ***REMOVED***
     cursor: default; ***REMOVED***
 
 .md-calendar-date-selection-indicator ***REMOVED***
+  -webkit-transition: background-color, color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: background-color, color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   border-radius: 50%;
   display: inline-block;
@@ -78,13 +70,17 @@ md-calendar ***REMOVED***
     padding: 0 24px 0 0; ***REMOVED***
   md-calendar-month .md-calendar-month-label:not(.md-calendar-month-label-disabled) ***REMOVED***
     cursor: pointer; ***REMOVED***
+  .md-calendar-month-label md-icon ***REMOVED***
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg); ***REMOVED***
+  .md-calendar-month-label span ***REMOVED***
+    vertical-align: middle; ***REMOVED***
 
 .md-calendar-day-header ***REMOVED***
   table-layout: fixed;
   border-spacing: 0;
   border-collapse: collapse; ***REMOVED***
   .md-calendar-day-header th ***REMOVED***
-    height: 44px;
     width: 44px;
     text-align: center;
     padding: 0;
@@ -96,15 +92,11 @@ md-calendar ***REMOVED***
       padding-left: 16px; ***REMOVED***
       [dir=rtl] .md-calendar-day-header th:first-child ***REMOVED***
         padding-left: 0;
-        padding-left: auto;
-        padding-left: initial;
         padding-right: 16px; ***REMOVED***
     .md-calendar-day-header th:last-child ***REMOVED***
       padding-right: 16px; ***REMOVED***
       [dir=rtl] .md-calendar-day-header th:last-child ***REMOVED***
         padding-right: 0;
-        padding-right: auto;
-        padding-right: initial;
         padding-left: 16px; ***REMOVED***
 
 .md-calendar ***REMOVED***
@@ -120,11 +112,6 @@ md-calendar ***REMOVED***
     vertical-align: middle;
     box-sizing: content-box; ***REMOVED***
 
-/*  Only used with Theme processes */
-html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
-
 /** Styles for mdDatepicker. */
 md-datepicker ***REMOVED***
   white-space: nowrap;
@@ -134,13 +121,9 @@ md-datepicker ***REMOVED***
   vertical-align: middle; ***REMOVED***
   [dir=rtl] md-datepicker ***REMOVED***
     padding-right: 0;
-    padding-right: auto;
-    padding-right: initial;
     padding-left: 18px; ***REMOVED***
   [dir=rtl] md-datepicker ***REMOVED***
-    margin-right: 0;
     margin-right: auto;
-    margin-right: initial;
     margin-left: -18px; ***REMOVED***
 
 .md-inline-form md-datepicker ***REMOVED***
@@ -149,7 +132,17 @@ md-datepicker ***REMOVED***
 .md-datepicker-button ***REMOVED***
   display: inline-block;
   box-sizing: border-box;
-  background: none; ***REMOVED***
+  background: none;
+  vertical-align: middle;
+  position: relative; ***REMOVED***
+  .md-datepicker-button:before ***REMOVED***
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    content: '';
+    speak: none; ***REMOVED***
 
 .md-datepicker-input ***REMOVED***
   font-size: 14px;
@@ -163,19 +156,43 @@ md-datepicker ***REMOVED***
   .md-datepicker-input::-ms-clear ***REMOVED***
     display: none; ***REMOVED***
 
+._md-datepicker-floating-label > md-datepicker ***REMOVED***
+  overflow: visible; ***REMOVED***
+  ._md-datepicker-floating-label > md-datepicker .md-datepicker-input-container ***REMOVED***
+    border: none; ***REMOVED***
+  ._md-datepicker-floating-label > md-datepicker .md-datepicker-button ***REMOVED***
+    float: left;
+    margin-top: -2.5px; ***REMOVED***
+    [dir=rtl] ._md-datepicker-floating-label > md-datepicker .md-datepicker-button ***REMOVED***
+      float: right; ***REMOVED***
+
+._md-datepicker-floating-label._md-datepicker-has-calendar-icon > label:not(.md-no-float):not(.md-container-ignore) ***REMOVED***
+  right: 18px;
+  left: auto;
+  width: calc(100% - 84px); ***REMOVED***
+  [dir=rtl] ._md-datepicker-floating-label._md-datepicker-has-calendar-icon > label:not(.md-no-float):not(.md-container-ignore) ***REMOVED***
+    right: auto; ***REMOVED***
+  [dir=rtl] ._md-datepicker-floating-label._md-datepicker-has-calendar-icon > label:not(.md-no-float):not(.md-container-ignore) ***REMOVED***
+    left: 18px; ***REMOVED***
+
+._md-datepicker-floating-label._md-datepicker-has-calendar-icon .md-input-message-animation ***REMOVED***
+  margin-left: 64px; ***REMOVED***
+  [dir=rtl] ._md-datepicker-floating-label._md-datepicker-has-calendar-icon .md-input-message-animation ***REMOVED***
+    margin-left: auto;
+    margin-right: 64px; ***REMOVED***
+
 .md-datepicker-input-container ***REMOVED***
   position: relative;
   padding-bottom: 5px;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   display: inline-block;
-  width: auto;
-  margin-left: 12px; ***REMOVED***
-  [dir=rtl] .md-datepicker-input-container ***REMOVED***
-    margin-left: 0;
-    margin-left: auto;
-    margin-left: initial;
-    margin-right: 12px; ***REMOVED***
+  width: auto; ***REMOVED***
+  .md-icon-button + .md-datepicker-input-container ***REMOVED***
+    margin-left: 12px; ***REMOVED***
+    [dir=rtl] .md-icon-button + .md-datepicker-input-container ***REMOVED***
+      margin-left: auto;
+      margin-right: 12px; ***REMOVED***
   .md-datepicker-input-container.md-datepicker-focused ***REMOVED***
     border-bottom-width: 2px; ***REMOVED***
 
@@ -185,7 +202,7 @@ md-datepicker ***REMOVED***
 .md-datepicker-calendar-pane ***REMOVED***
   position: absolute;
   top: 0;
-  left: 0;
+  left: -100%;
   z-index: 100;
   border-width: 1px;
   border-style: solid;
@@ -194,14 +211,16 @@ md-datepicker ***REMOVED***
           transform: scale(0);
   -webkit-transform-origin: 0 0;
           transform-origin: 0 0;
+  -webkit-transition: -webkit-transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: -webkit-transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-  transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); ***REMOVED***
+  transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), -webkit-transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); ***REMOVED***
   .md-datepicker-calendar-pane.md-pane-open ***REMOVED***
     -webkit-transform: scale(1);
             transform: scale(1); ***REMOVED***
 
 .md-datepicker-input-mask ***REMOVED***
-  height: 40px;
+  height: 39px;
   width: 340px;
   position: relative;
   background: transparent;
@@ -217,6 +236,7 @@ md-datepicker ***REMOVED***
 
 .md-datepicker-calendar ***REMOVED***
   opacity: 0;
+  -webkit-transition: opacity 0.2s cubic-bezier(0.5, 0, 0.25, 1);
   transition: opacity 0.2s cubic-bezier(0.5, 0, 0.25, 1); ***REMOVED***
   .md-pane-open .md-datepicker-calendar ***REMOVED***
     opacity: 1; ***REMOVED***
@@ -238,22 +258,21 @@ md-datepicker ***REMOVED***
 .md-datepicker-triangle-button ***REMOVED***
   position: absolute;
   right: 0;
-  top: 0;
+  top: 5px;
   -webkit-transform: translateY(-25%) translateX(45%);
           transform: translateY(-25%) translateX(45%); ***REMOVED***
   [dir=rtl] .md-datepicker-triangle-button ***REMOVED***
-    right: 0;
     right: auto;
-    right: initial;
     left: 0; ***REMOVED***
   [dir=rtl] .md-datepicker-triangle-button ***REMOVED***
     -webkit-transform: translateY(-25%) translateX(-45%);
             transform: translateY(-25%) translateX(-45%); ***REMOVED***
 
 .md-datepicker-triangle-button.md-button.md-icon-button ***REMOVED***
-  height: 100%;
+  height: 36px;
   width: 36px;
-  position: absolute; ***REMOVED***
+  position: absolute;
+  padding: 8px; ***REMOVED***
 
 md-datepicker[disabled] .md-datepicker-input-container ***REMOVED***
   border-bottom-color: transparent; ***REMOVED***
@@ -261,27 +280,29 @@ md-datepicker[disabled] .md-datepicker-input-container ***REMOVED***
 md-datepicker[disabled] .md-datepicker-triangle-button ***REMOVED***
   display: none; ***REMOVED***
 
-.md-datepicker-open .md-datepicker-input-container ***REMOVED***
-  margin-left: -12px;
-  margin-bottom: -5px;
-  border: none; ***REMOVED***
-  [dir=rtl] .md-datepicker-open .md-datepicker-input-container ***REMOVED***
-    margin-left: 0;
-    margin-left: auto;
-    margin-left: initial;
-    margin-right: -12px; ***REMOVED***
-
-.md-datepicker-open .md-datepicker-input ***REMOVED***
-  margin-left: 24px;
-  height: 40px; ***REMOVED***
-  [dir=rtl] .md-datepicker-open .md-datepicker-input ***REMOVED***
-    margin-left: 0;
-    margin-left: auto;
-    margin-left: initial;
-    margin-right: 24px; ***REMOVED***
-
-.md-datepicker-open .md-datepicker-triangle-button ***REMOVED***
-  display: none; ***REMOVED***
+.md-datepicker-open ***REMOVED***
+  overflow: hidden; ***REMOVED***
+  .md-datepicker-open .md-datepicker-input-container ***REMOVED***
+    margin-bottom: -5px; ***REMOVED***
+  .md-datepicker-open .md-icon-button + .md-datepicker-input-container ***REMOVED***
+    margin-left: -12px; ***REMOVED***
+    [dir=rtl] .md-datepicker-open .md-icon-button + .md-datepicker-input-container ***REMOVED***
+      margin-left: auto;
+      margin-right: -12px; ***REMOVED***
+  .md-datepicker-open .md-datepicker-input,
+  .md-datepicker-open label:not(.md-no-float):not(.md-container-ignore) ***REMOVED***
+    margin-bottom: -5px; ***REMOVED***
+  .md-datepicker-open input.md-datepicker-input ***REMOVED***
+    margin-left: 24px;
+    height: 40px;
+    border-bottom-color: transparent; ***REMOVED***
+    [dir=rtl] .md-datepicker-open input.md-datepicker-input ***REMOVED***
+      margin-left: auto;
+      margin-right: 24px; ***REMOVED***
+  .md-datepicker-open .md-datepicker-triangle-button,
+  .md-datepicker-open.md-input-has-value > label,
+  .md-datepicker-open.md-input-has-placeholder > label ***REMOVED***
+    display: none; ***REMOVED***
 
 .md-datepicker-pos-adjusted .md-datepicker-input-mask ***REMOVED***
   display: none; ***REMOVED***
@@ -289,9 +310,12 @@ md-datepicker[disabled] .md-datepicker-triangle-button ***REMOVED***
 .md-datepicker-calendar-pane .md-calendar ***REMOVED***
   -webkit-transform: translateY(-85px);
           transform: translateY(-85px);
+  -webkit-transition: -webkit-transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: -webkit-transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1);
-  transition-delay: 0.125s; ***REMOVED***
+  transition: transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1), -webkit-transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1);
+  -webkit-transition-delay: 0.125s;
+          transition-delay: 0.125s; ***REMOVED***
 
 .md-datepicker-calendar-pane.md-pane-open .md-calendar ***REMOVED***
   -webkit-transform: translateY(0);

@@ -2,11 +2,11 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-goog.provide('ng.material.components.toast');
-goog.require('ng.material.components.button');
-goog.require('ng.material.core');
+goog.provide('ngmaterial.components.toast');
+goog.require('ngmaterial.components.button');
+goog.require('ngmaterial.core');
 /**
   * @ngdoc module
   * @name material.components.toast
@@ -54,11 +54,40 @@ MdToastDirective.$inject = ["$mdToast"];
   * - For a toast action, use element with class `md-action`.
   * - Add the class `md-capsule` for curved corners.
   *
+  * ### Custom Presets
+  * Developers are also able to create their own preset, which can be easily used without repeating
+  * their options each time.
+  *
+  * <hljs lang="js">
+  *   $mdToastProvider.addPreset('testPreset', ***REMOVED***
+  *     options: function() ***REMOVED***
+  *       return ***REMOVED***
+  *         template:
+  *           '<md-toast>' +
+  *             '<div class="md-toast-content">' +
+  *               'This is a custom preset' +
+  *             '</div>' +
+  *           '</md-toast>',
+  *         controllerAs: 'toast',
+  *         bindToController: true
+  *       ***REMOVED***;
+  *     ***REMOVED***
+  *   ***REMOVED***);
+  * </hljs>
+  *
+  * After you created your preset at config phase, you can easily access it.
+  *
+  * <hljs lang="js">
+  *   $mdToast.show(
+  *     $mdToast.testPreset()
+  *   );
+  * </hljs>
+  *
   * ## Parent container notes
   *
-  * The toast is positioned using absolute positioning relative to it's first non-static parent
+  * The toast is positioned using absolute positioning relative to its first non-static parent
   * container. Thus, if the requested parent container uses static positioning, we will temporarily
-  * set it's positioning to `relative` while the toast is visible and reset it when the toast is
+  * set its positioning to `relative` while the toast is visible and reset it when the toast is
   * hidden.
   *
   * Because of this, it is usually best to ensure that the parent container has a fixed height and
@@ -165,6 +194,10 @@ MdToastDirective.$inject = ["$mdToast"];
   *        <td>`.theme(string)`</td>
   *        <td>Sets the theme on the toast to the requested theme. Default is `$mdThemingProvider`'s default.</td>
   *      </tr>
+  *      <tr>
+  *        <td>`.toastClass(string)`</td>
+  *        <td>Sets a class on the toast element</td>
+  *      </tr>
   *    </tbody>
   * </table>
   *
@@ -216,6 +249,7 @@ MdToastDirective.$inject = ["$mdToast"];
   *     Available: any combination of `'bottom'`, `'left'`, `'top'`, `'right'`, `'end'` and `'start'`.
   *     The properties `'end'` and `'start'` are dynamic and can be used for RTL support.<br/>
   *     Default combination: `'bottom left'`.
+  *   - `toastClass` - `***REMOVED***string=***REMOVED***`: A class to set on the toast element.
   *   - `controller` - `***REMOVED***string=***REMOVED***`: The controller to associate with this toast.
   *     The controller will be injected the local `$mdToast.hide( )`, which is a function
   *     used to hide the toast.
@@ -277,7 +311,7 @@ function MdToastProvider($$interimElementProvider) ***REMOVED***
   var activeToastContent;
   var $mdToast = $$interimElementProvider('$mdToast')
     .setDefaults(***REMOVED***
-      methods: ['position', 'hideDelay', 'capsule', 'parent', 'position' ],
+      methods: ['position', 'hideDelay', 'capsule', 'parent', 'position', 'toastClass'],
       options: toastDefaultOptions
     ***REMOVED***)
     .addPreset('simple', ***REMOVED***
@@ -288,7 +322,7 @@ function MdToastProvider($$interimElementProvider) ***REMOVED***
           template:
             '<md-toast md-theme="***REMOVED******REMOVED*** toast.theme ***REMOVED******REMOVED***" ng-class="***REMOVED***\'md-capsule\': toast.capsule***REMOVED***">' +
             '  <div class="md-toast-content">' +
-            '    <span flex class="md-toast-text" role="alert" aria-relevant="all" aria-atomic="true">' +
+            '    <span class="md-toast-text" role="alert" aria-relevant="all" aria-atomic="true">' +
             '      ***REMOVED******REMOVED*** toast.content ***REMOVED******REMOVED***' +
             '    </span>' +
             '    <md-button class="md-action" ng-if="toast.action" ng-click="toast.resolve()" ' +
@@ -337,6 +371,7 @@ function MdToastProvider($$interimElementProvider) ***REMOVED***
     return ***REMOVED***
       onShow: onShow,
       onRemove: onRemove,
+      toastClass: '',
       position: 'bottom left',
       themable: true,
       hideDelay: 3000,
@@ -365,8 +400,9 @@ function MdToastProvider($$interimElementProvider) ***REMOVED***
             ***REMOVED***
           ***REMOVED***
 
-
-          return templateRoot.outerHTML;
+          // We have to return the innerHTMl, because we do not want to have the `md-template` element to be
+          // the root element of our interimElement.
+          return templateRoot.innerHTML;
         ***REMOVED***
 
         return template || '';
@@ -397,11 +433,12 @@ function MdToastProvider($$interimElementProvider) ***REMOVED***
           return;
         ***REMOVED***
 
-        element.addClass('_md-' + swipe);
+        element.addClass('md-' + swipe);
         $mdUtil.nextTick($mdToast.cancel);
       ***REMOVED***;
       options.openClass = toastOpenClass(options.position);
 
+      element.addClass(options.toastClass);
 
       // 'top left' -> 'md-top md-left'
       options.parent.addClass(options.openClass);
@@ -412,24 +449,24 @@ function MdToastProvider($$interimElementProvider) ***REMOVED***
       ***REMOVED***
 
       element.on(SWIPE_EVENTS, options.onSwipe);
-      element.addClass(isSmScreen ? '_md-bottom' : options.position.split(' ').map(function(pos) ***REMOVED***
-        return '_md-' + pos;
+      element.addClass(isSmScreen ? 'md-bottom' : options.position.split(' ').map(function(pos) ***REMOVED***
+        return 'md-' + pos;
       ***REMOVED***).join(' '));
 
-      if (options.parent) options.parent.addClass('_md-toast-animating');
+      if (options.parent) options.parent.addClass('md-toast-animating');
       return $animate.enter(element, options.parent).then(function() ***REMOVED***
-        if (options.parent) options.parent.removeClass('_md-toast-animating');
+        if (options.parent) options.parent.removeClass('md-toast-animating');
       ***REMOVED***);
     ***REMOVED***
 
     function onRemove(scope, element, options) ***REMOVED***
       element.off(SWIPE_EVENTS, options.onSwipe);
-      if (options.parent) options.parent.addClass('_md-toast-animating');
+      if (options.parent) options.parent.addClass('md-toast-animating');
       if (options.openClass) options.parent.removeClass(options.openClass);
 
       return ((options.$destroy == true) ? element.remove() : $animate.leave(element))
         .then(function () ***REMOVED***
-          if (options.parent) options.parent.removeClass('_md-toast-animating');
+          if (options.parent) options.parent.removeClass('md-toast-animating');
           if ($mdUtil.hasComputedStyle(options.parent, 'position', 'static')) ***REMOVED***
             options.parent.css('position', '');
           ***REMOVED***
@@ -439,10 +476,10 @@ function MdToastProvider($$interimElementProvider) ***REMOVED***
     function toastOpenClass(position) ***REMOVED***
       // For mobile, always open full-width on bottom
       if (!$mdMedia('gt-xs')) ***REMOVED***
-        return '_md-toast-open-bottom';
+        return 'md-toast-open-bottom';
       ***REMOVED***
 
-      return '_md-toast-open-' +
+      return 'md-toast-open-' +
         (position.indexOf('top') > -1 ? 'top' : 'bottom');
     ***REMOVED***
   ***REMOVED***
@@ -450,4 +487,4 @@ function MdToastProvider($$interimElementProvider) ***REMOVED***
 ***REMOVED***
 MdToastProvider.$inject = ["$$interimElementProvider"];
 
-ng.material.components.toast = angular.module("material.components.toast");
+ngmaterial.components.toast = angular.module("material.components.toast");

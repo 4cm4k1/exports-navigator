@@ -2,13 +2,8 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-/*  Only used with Theme processes */
-html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
-
 @-webkit-keyframes indeterminate-rotate ***REMOVED***
   0% ***REMOVED***
     -webkit-transform: rotate(0deg);
@@ -26,10 +21,11 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
             transform: rotate(360deg); ***REMOVED*** ***REMOVED***
 
 md-progress-circular ***REMOVED***
-  position: relative; ***REMOVED***
+  position: relative;
+  display: block; ***REMOVED***
   md-progress-circular._md-progress-circular-disabled ***REMOVED***
     visibility: hidden; ***REMOVED***
-  md-progress-circular._md-mode-indeterminate svg ***REMOVED***
+  md-progress-circular.md-mode-indeterminate svg ***REMOVED***
     -webkit-animation: indeterminate-rotate 2.9s linear infinite;
             animation: indeterminate-rotate 2.9s linear infinite; ***REMOVED***
   md-progress-circular svg ***REMOVED***

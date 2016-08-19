@@ -6,10 +6,12 @@
     function configRouteTheme($routeProvider, $locationProvider, $mdThemingProvider) ***REMOVED***
         //  Route config (with authentication checks)
         $routeProvider
+        // route for the User Landing Page View
         .when('/', ***REMOVED***
-            controller: 'HomeCtrl as home',
-            templateUrl: 'views/home.html'
+            controller: 'LandingCtrl as landing',
+            templateUrl: 'views/landingPage.html'
         ***REMOVED***)
+        // route for the Admin Home Page
         .when('/admin', ***REMOVED***
           controller: 'AdminHomeController as admin',
           templateUrl: 'views/adminHome.html',
@@ -48,6 +50,33 @@
             ***REMOVED***]
           ***REMOVED***
         ***REMOVED***)
+
+        // route for the User Food-Aggribusiness View
+        .when('/user/food-aggribusiness', ***REMOVED***
+            controller: 'FoodAgCtrl as foodAg',
+            templateUrl: 'views/foodAg.html'
+        ***REMOVED***)
+        // route for the User Medical Device, Pharma, Life Sciences View
+        .when('/user/meddev_pharma_lifescience', ***REMOVED***
+            controller: 'MedDevCtrl as medDev',
+            templateUrl: 'views/medDev.html'
+        ***REMOVED***)
+        // route for the User Other View
+        .when('/user/other', ***REMOVED***
+            controller: 'OtherCtrl as other',
+            templateUrl: 'views/other.html'
+        ***REMOVED***)
+        // route for the User General Topic Search View
+        .when('/user/topic-search', ***REMOVED***
+            controller: 'TSearchCtrl as topics',
+            templateUrl: 'views/topicSearch.html'
+        ***REMOVED***)
+        // route for the User Country Search View
+        .when('/user/country-search', ***REMOVED***
+            controller: 'CSearchCtrl as country',
+            templateUrl: 'views/countrySearch.html'
+        ***REMOVED***)
+        // route for the User Home Page View
         .otherwise(***REMOVED***
           controller: 'HomeCtrl as home',
           templateUrl: 'views/home.html'

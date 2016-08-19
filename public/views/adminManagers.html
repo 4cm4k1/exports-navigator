@@ -4,7 +4,7 @@
 
   <h2>Current Managers</h2>
 
-  <p ng-repeat="manager in adminManagers.list">
+  <p ng-repeat="manager in adminManagers.list track by $index">
     ***REMOVED******REMOVED***manager***REMOVED******REMOVED***
     <button ng-click="adminManagers.update(manager)">Update</button>
     <button ng-click="adminManagers.remove(manager)">Remove</button>
