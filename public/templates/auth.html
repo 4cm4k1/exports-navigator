@@ -1,4 +1,4 @@
-<md-content flex="33" layout="column" layout-align="space-around stretch" layout-padding>
+<!-- <md-content flex="33" layout="column" layout-align="space-around stretch" layout-padding>
     <h2 class="md-headline">Export Help Navigator Sign In</h2>
     <div>
         <md-input-container class="md-icon-float md-block" flex-gt-sm>
@@ -16,4 +16,48 @@
     </div>
 
     <md-button class="md-primary md-raised" ng-click="auth.signIn()">Sign In</md-button>
-</md-content>
+</md-content> -->
+
+<md-dialog aria-label="Admin Sign In">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Admin Sign In</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="auth.cancel()">
+          <md-icon class="md-primary" aria-label="Close sign in window">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div>
+            <md-input-container class="md-icon-float md-block" flex-gt-sm>
+                <label>Email Address</label>
+                <md-icon class="md-primary" aria-label="Email address">email</md-icon>
+                <input type="email" ng-model="auth.user.email" />
+            </md-input-container>
+        </div>
+        <div>
+            <md-input-container class="md-icon-float md-block" flex-gt-sm>
+                <label>Password</label>
+                <md-icon class="md-primary" aria-label="Password">lock</md-icon>
+                <input type="password" ng-model="auth.user.password" />
+            </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="auth.cancel()">
+        Exit
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="auth.forgotPassword()">
+        Forgot Password?
+      </md-button>
+      <md-button ng-click="auth.signIn()" md-autofocus>
+        Sign In
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

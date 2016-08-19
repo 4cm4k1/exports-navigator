@@ -54,7 +54,7 @@ function queryDB(queryStatement, vars, req, res)***REMOVED***
       res.send(queryRes);
     ***REMOVED***);
   ***REMOVED***);
-***REMOVED***;
+***REMOVED***
 
 pool.on('error', function (err, client) ***REMOVED***
   // if an error is encountered by a client while it sits idle in the pool

@@ -20,6 +20,9 @@ module.exports = function(grunt) ***REMOVED***
             ***REMOVED***,
         ***REMOVED***,
         uglify: ***REMOVED***
+            options: ***REMOVED***
+                mangle: false
+            ***REMOVED***,
             my_target: ***REMOVED***
                 files: ***REMOVED***
                     'public/assets/scripts/client.min.js': ['client/scripts/*.js']
