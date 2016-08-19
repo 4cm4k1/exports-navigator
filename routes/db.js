@@ -31,18 +31,29 @@ router.get('/countries', function(req, res){
   queryDB(query, [], req, res);
 });
 router.get('/industries', function(req, res){
-  var query = 'SELECT * FROM industries JOIN contacts ON' +
-  '(contacts.id = industries.contact_1 OR contacts.id = industries.contact_2 OR' +
-  'contacts.id = industries.contact_3) JOIN websites ON' +
-  '(websites.id = industries.website_1 OR websites.id = industries.website_2 OR' +
-  'websites.id = industries.website_3)';
+  var query = 'SELECT industries.id,industry,note_1,note_2,note_3,' +
+              'contacts_1.first_name AS first_name_1,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1,' +
+              'contacts_2.first_name AS first_name_2,contacts_2.last_name AS last_name_2,contacts_2.title AS title_2,contacts_2.organization AS organization_2,contacts_2.email AS email_2,contacts_2.phone AS phone_2,' +
+              'contacts_3.first_name AS first_name_3,contacts_3.last_name AS last_name_3,contacts_3.title AS title_3,contacts_3.organization AS organization_3,contacts_3.email AS email_3,contacts_3.phone AS phone_3,' +
+              'websites_1.website AS website_1,' +
+              'websites_2.website AS website_2,' +
+              'websites_3.website AS website_3' +
+              'FROM industries' +
+              'LEFT OUTER JOIN contacts AS contacts_1 ON topics.contact_1=contacts_1.id' +
+              'LEFT OUTER JOIN contacts AS contacts_2 ON topics.contact_2=contacts_2.id' +
+              'LEFT OUTER JOIN contacts AS contacts_3 ON topics.contact_3=contacts_3.id' +
+              'LEFT OUTER JOIN websites AS websites_1 ON topics.website_1=websites_1.id' +
+              'LEFT OUTER JOIN websites AS websites_2 ON topics.website_2=websites_2.id' +
+              'LEFT OUTER JOIN websites AS websites_3 ON topics.website_3=websites_3.id' +
+              'ORDER BY industries.id;';
+
   queryDB(query, [], req, res);
 });
 router.get('/topics', function(req, res){
   var query = 'SELECT topics.id,topic,note_1,note_2,note_3,' +
 		          'contacts_1.first_name AS first_name_1,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1,' +
-		          'contacts_2.first_name AS first_name_2,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1,' +
-		          'contacts_1.first_name AS first_name_1,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1,' +
+		          'contacts_2.first_name AS first_name_2,contacts_2.last_name AS last_name_2,contacts_2.title AS title_2,contacts_2.organization AS organization_2,contacts_2.email AS email_2,contacts_2.phone AS phone_2,' +
+		          'contacts_3.first_name AS first_name_3,contacts_3.last_name AS last_name_3,contacts_3.title AS title_3,contacts_3.organization AS organization_3,contacts_3.email AS email_3,contacts_3.phone AS phone_3,' +
 		          'websites_1.website AS website_1,' +
 		          'websites_2.website AS website_2,' +
 		          'websites_3.website AS website_3' +
