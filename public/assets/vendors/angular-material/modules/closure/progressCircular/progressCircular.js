@@ -2,10 +2,10 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-goog.provide('ng.material.components.progressCircular');
-goog.require('ng.material.core');
+goog.provide('ngmaterial.components.progressCircular');
+goog.require('ngmaterial.core');
 /**
  * @ngdoc module
  * @name material.components.progressCircular
@@ -75,7 +75,7 @@ function MdProgressCircularDirective($window, $mdProgressCircular, $mdTheming,
   var MODE_DETERMINATE = 'determinate';
   var MODE_INDETERMINATE = 'indeterminate';
   var DISABLED_CLASS = '_md-progress-circular-disabled';
-  var INDETERMINATE_CLASS = '_md-mode-indeterminate';
+  var INDETERMINATE_CLASS = 'md-mode-indeterminate';
 
   return {
     restrict: 'E',
@@ -456,4 +456,4 @@ function MdProgressCircularProvider() {
   }
 }
 
-ng.material.components.progressCircular = angular.module("material.components.progressCircular");
+ngmaterial.components.progressCircular = angular.module("material.components.progressCircular");
