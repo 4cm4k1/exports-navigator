@@ -24,31 +24,38 @@
     <!-- WRAPPER -->
     <div layout="column" flex="66">
 
-      <!-- HEADER -->
-      <header layout="row">
-        <h1 class="md-display-1">Export Help Navigator</h1>
-      </header>
+        <!-- HEADER -->
+        <header layout="row">
+            <h1 class="md-display-1">Export Help Navigator</h1>
+        </header>
 
-      <!-- MAIN SECTION -->
-      <main layout="column">
+        <!-- MAIN SECTION -->
+        <main layout="column">
 
-          <!-- NAV BAR -->
-          <md-content ng-include="'templates/navBar.html'" ng-controller="NavCtrl as nav"></md-content>
+            <!-- NAV BAR -->
+            <md-content ng-include="'templates/navBar.html'" ng-controller="NavCtrl as nav"></md-content>
 
-          <!-- CONTENT SECTION -->
-          <section layout="row" layout-align="center" layout-padding>
-            <ng-view></ng-view>
-          </section>
+            <!-- CONTENT SECTION -->
+            <section layout="row" layout-align="center" layout-padding>
+                <ng-view></ng-view>
+            </section>
 
-      </main>
+        </main>
 
-      <!-- FOOTER -->
-      <footer layout="row">
-          &copy; 2016 GREATER MSP.
-      </footer>
+        <!-- FOOTER -->
+        <footer layout="row" layout-align="center center" ng-controller="FooterCtrl as footer">
+            <span>&copy; 2016 GREATER MSP.</span>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="footer.showSignInModal($event)">
+                <md-tooltip md-direction="top">
+                    Admin Sign In
+                </md-tooltip>
+                <md-icon aria-label="Admin sign in">settings</md-icon>
+            </md-button>
+        </footer>
 
 
-          <section ng-include="'/templates/auth.html'" ng-controller="AuthCtrl as auth" layout="row" layout-align="center"></section>
+        <!-- <section ng-include="'/templates/auth.html'" ng-controller="AuthCtrl as auth" layout="row" layout-align="center"></section> -->
     </div>
 
 

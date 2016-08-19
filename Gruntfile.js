@@ -20,6 +20,9 @@ module.exports = function(grunt) {
             },
         },
         uglify: {
+            options: {
+                mangle: false
+            },
             my_target: {
                 files: {
                     'public/assets/scripts/client.min.js': ['client/scripts/*.js']

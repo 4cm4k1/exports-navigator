@@ -54,7 +54,7 @@ function queryDB(queryStatement, vars, req, res){
       res.send(queryRes);
     });
   });
-};
+}
 
 pool.on('error', function (err, client) {
   // if an error is encountered by a client while it sits idle in the pool

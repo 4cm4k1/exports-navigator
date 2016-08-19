@@ -3,9 +3,9 @@
 
     angular.module('exportsNavigator').controller('AuthCtrl', AuthCtrl);
 
-    AuthCtrl.$inject = ['Auth', '$location'];
+    AuthCtrl.$inject = ['Auth', '$location', '$mdDialog'];
 
-    function AuthCtrl(Auth, $location) {
+    function AuthCtrl(Auth, $location, $mdDialog) {
         var vm = this;
 
         //  This will redirect the user to the admin dashboard
@@ -35,5 +35,16 @@
                     // toast to indicate failure goes here
                 });
         };
+
+        vm.hide = function() {
+            $mdDialog.hide();
+        };
+        vm.cancel = function() {
+            $mdDialog.cancel();
+        };
+        vm.answer = function(answer) {
+            $mdDialog.hide(answer);
+        };
+
     }
 })();
