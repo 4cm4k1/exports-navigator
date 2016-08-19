@@ -3,10 +3,14 @@
 
   angular.module('exportsNavigator').controller('AdminTopicsController', AdminTopicsController);
 
-  AdminTopicsController.$inject = ['currentAuth'];
+  AdminTopicsController.$inject = ['currentAuth', '$http'];
 
-  function AdminTopicsController(currentAuth) ***REMOVED***
+  function AdminTopicsController(currentAuth, $http) ***REMOVED***
     var vm = this;
+
+    $http.get('/db/topics').then(function(response) ***REMOVED***
+      console.log('data:', response);
+    ***REMOVED***);
 
     vm.topicsList = ['this', 'will', 'be', 'a', 'list', 'of', 'topics'];
 
