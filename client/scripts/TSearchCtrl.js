@@ -3,7 +3,7 @@
 
     angular.module('exportsNavigator').controller('TSearchCtrl', TSearchCtrl);
 
-    TSearchCtrl.$inject = ['TSearch'];
+    TSearchCtrl.$inject = [];
 
     function TSearchCtrl(TSearch) ***REMOVED***
         var vm = this;

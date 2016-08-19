@@ -3,7 +3,7 @@
 
     angular.module('exportsNavigator').controller('MedDevCtrl', MedDevCtrl);
 
-    MedDevCtrl.$inject = ['MedDev'];
+    MedDevCtrl.$inject = [];
 
     function MedDevCtrl(MedDev) ***REMOVED***
         var vm = this;

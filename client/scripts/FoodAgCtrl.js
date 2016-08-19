@@ -3,7 +3,7 @@
 
     angular.module('exportsNavigator').controller('FoodAgCtrl', FoodAgCtrl);
 
-    FoodAgCtrl.$inject = ['FoodAg'];
+    FoodAgCtrl.$inject = [];
 
     function FoodAgCtrl(FoodAg) ***REMOVED***
         var vm = this;
