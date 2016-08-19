@@ -2,50 +2,50 @@
   "_args": [
     [
       ***REMOVED***
-        "raw": "angular-material",
+        "raw": "angular-material@1.1.0",
         "scope": null,
         "escapedName": "angular-material",
         "name": "angular-material",
-        "rawSpec": "",
-        "spec": "latest",
-        "type": "tag"
+        "rawSpec": "1.1.0",
+        "spec": "1.1.0",
+        "type": "version"
       ***REMOVED***,
       "/Users/4cm4k1/GitHub/exports-navigator"
     ]
   ],
-  "_from": "angular-material@latest",
-  "_id": "angular-material@1.1.0-rc.5",
+  "_from": "angular-material@1.1.0",
+  "_id": "angular-material@1.1.0",
   "_inCache": true,
   "_installable": true,
   "_location": "/angular-material",
-  "_nodeVersion": "5.6.0",
+  "_nodeVersion": "5.7.0",
   "_npmOperationalInternal": ***REMOVED***
     "host": "packages-16-east.internal.npmjs.com",
-    "tmp": "tmp/angular-material-1.1.0-rc.5.tgz_1464976924021_0.0057348147965967655"
+    "tmp": "tmp/angular-material-1.1.0.tgz_1471454923336_0.17559621226973832"
   ***REMOVED***,
   "_npmUser": ***REMOVED***
     "name": "angularcore",
     "email": "angular-core+npm@google.com"
   ***REMOVED***,
-  "_npmVersion": "3.6.0",
+  "_npmVersion": "3.7.5",
   "_phantomChildren": ***REMOVED******REMOVED***,
   "_requested": ***REMOVED***
-    "raw": "angular-material",
+    "raw": "angular-material@1.1.0",
     "scope": null,
     "escapedName": "angular-material",
     "name": "angular-material",
-    "rawSpec": "",
-    "spec": "latest",
-    "type": "tag"
+    "rawSpec": "1.1.0",
+    "spec": "1.1.0",
+    "type": "version"
   ***REMOVED***,
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/angular-material/-/angular-material-1.1.0-rc.5.tgz",
-  "_shasum": "699dbf4bca1cfee9bdb368f7c2b4e8880a2d7896",
+  "_resolved": "https://registry.npmjs.org/angular-material/-/angular-material-1.1.0.tgz",
+  "_shasum": "09062ed64e6f257f62f194b06a06c8b95fcb2b65",
   "_shrinkwrap": null,
-  "_spec": "angular-material",
+  "_spec": "angular-material@1.1.0",
   "_where": "/Users/4cm4k1/GitHub/exports-navigator",
   "bugs": ***REMOVED***
     "url": "https://github.com/angular/material/issues"
@@ -55,11 +55,11 @@
   "devDependencies": ***REMOVED******REMOVED***,
   "directories": ***REMOVED******REMOVED***,
   "dist": ***REMOVED***
-    "shasum": "699dbf4bca1cfee9bdb368f7c2b4e8880a2d7896",
-    "tarball": "https://registry.npmjs.org/angular-material/-/angular-material-1.1.0-rc.5.tgz"
+    "shasum": "09062ed64e6f257f62f194b06a06c8b95fcb2b65",
+    "tarball": "https://registry.npmjs.org/angular-material/-/angular-material-1.1.0.tgz"
   ***REMOVED***,
   "format": "cjs",
-  "gitHead": "c288f5937cec8bcffe73fb02b7f0f00e215b05f8",
+  "gitHead": "83d2db73af7c04355b03299b0d369312febea0ae",
   "homepage": "https://material.angularjs.org",
   "jspm": ***REMOVED***
     "dependencies": ***REMOVED***
@@ -109,5 +109,5 @@
     "url": "git://github.com/angular/material.git"
   ***REMOVED***,
   "scripts": ***REMOVED******REMOVED***,
-  "version": "1.1.0-rc.5"
+  "version": "1.1.0"
 ***REMOVED***

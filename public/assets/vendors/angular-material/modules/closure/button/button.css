@@ -2,39 +2,41 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-/*  Only used with Theme processes */
-html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
-
 button.md-button::-moz-focus-inner ***REMOVED***
   border: 0; ***REMOVED***
 
 .md-button ***REMOVED***
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  /** Alignment adjustments */
+  min-height: 36px;
+  min-width: 88px;
+  line-height: 36px;
+  vertical-align: middle;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+              -ms-grid-row-align: center;
+          align-items: center;
+  text-align: center;
   border-radius: 3px;
   box-sizing: border-box;
-  color: currentColor;
+  /* Reset default button appearance */
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  position: relative;
   outline: none;
   border: 0;
-  display: inline-block;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  /** Custom styling for button */
   padding: 0 6px;
   margin: 6px 8px;
-  line-height: 36px;
-  min-height: 36px;
   background: transparent;
+  color: currentColor;
   white-space: nowrap;
-  min-width: 88px;
-  text-align: center;
+  /* Uppercase text content */
   text-transform: uppercase;
   font-weight: 500;
   font-size: 14px;
@@ -42,14 +44,15 @@ button.md-button::-moz-focus-inner ***REMOVED***
   font-variant: inherit;
   font-family: inherit;
   text-decoration: none;
-  cursor: pointer;
   overflow: hidden;
+  -webkit-transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); ***REMOVED***
   .md-button:focus ***REMOVED***
     outline: none; ***REMOVED***
   .md-button:hover, .md-button:focus ***REMOVED***
     text-decoration: none; ***REMOVED***
   .md-button.ng-hide, .md-button.ng-leave ***REMOVED***
+    -webkit-transition: none;
     transition: none; ***REMOVED***
   .md-button.md-cornered ***REMOVED***
     border-radius: 0; ***REMOVED***
@@ -82,9 +85,12 @@ button.md-button::-moz-focus-inner ***REMOVED***
     border-radius: 50%;
     background-clip: padding-box;
     overflow: hidden;
+    -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
     transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+    -webkit-transition-property: background-color, box-shadow, -webkit-transform;
     transition-property: background-color, box-shadow, -webkit-transform;
-    transition-property: background-color, box-shadow, transform; ***REMOVED***
+    transition-property: background-color, box-shadow, transform;
+    transition-property: background-color, box-shadow, transform, -webkit-transform; ***REMOVED***
     .md-button.md-fab.md-fab-bottom-right ***REMOVED***
       top: auto;
       right: 20px;
@@ -119,6 +125,7 @@ button.md-button::-moz-focus-inner ***REMOVED***
       width: 40px;
       height: 40px; ***REMOVED***
     .md-button.md-fab.ng-hide, .md-button.md-fab.ng-leave ***REMOVED***
+      -webkit-transition: none;
       transition: none; ***REMOVED***
   .md-button:not([disabled]).md-raised.md-focused, .md-button:not([disabled]).md-fab.md-focused ***REMOVED***
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); ***REMOVED***
@@ -134,39 +141,41 @@ button.md-button::-moz-focus-inner ***REMOVED***
 button.md-button.md-fab md-icon ***REMOVED***
   display: block; ***REMOVED***
 
-._md-toast-open-top .md-button.md-fab-top-left,
-._md-toast-open-top .md-button.md-fab-top-right ***REMOVED***
+.md-toast-open-top .md-button.md-fab-top-left,
+.md-toast-open-top .md-button.md-fab-top-right ***REMOVED***
+  -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   -webkit-transform: translate3d(0, 42px, 0);
           transform: translate3d(0, 42px, 0); ***REMOVED***
-  ._md-toast-open-top .md-button.md-fab-top-left:not([disabled]).md-focused, ._md-toast-open-top .md-button.md-fab-top-left:not([disabled]):hover,
-  ._md-toast-open-top .md-button.md-fab-top-right:not([disabled]).md-focused,
-  ._md-toast-open-top .md-button.md-fab-top-right:not([disabled]):hover ***REMOVED***
+  .md-toast-open-top .md-button.md-fab-top-left:not([disabled]).md-focused, .md-toast-open-top .md-button.md-fab-top-left:not([disabled]):hover,
+  .md-toast-open-top .md-button.md-fab-top-right:not([disabled]).md-focused,
+  .md-toast-open-top .md-button.md-fab-top-right:not([disabled]):hover ***REMOVED***
     -webkit-transform: translate3d(0, 41px, 0);
             transform: translate3d(0, 41px, 0); ***REMOVED***
 
-._md-toast-open-bottom .md-button.md-fab-bottom-left,
-._md-toast-open-bottom .md-button.md-fab-bottom-right ***REMOVED***
+.md-toast-open-bottom .md-button.md-fab-bottom-left,
+.md-toast-open-bottom .md-button.md-fab-bottom-right ***REMOVED***
+  -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   -webkit-transform: translate3d(0, -42px, 0);
           transform: translate3d(0, -42px, 0); ***REMOVED***
-  ._md-toast-open-bottom .md-button.md-fab-bottom-left:not([disabled]).md-focused, ._md-toast-open-bottom .md-button.md-fab-bottom-left:not([disabled]):hover,
-  ._md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]).md-focused,
-  ._md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]):hover ***REMOVED***
+  .md-toast-open-bottom .md-button.md-fab-bottom-left:not([disabled]).md-focused, .md-toast-open-bottom .md-button.md-fab-bottom-left:not([disabled]):hover,
+  .md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]).md-focused,
+  .md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]):hover ***REMOVED***
     -webkit-transform: translate3d(0, -43px, 0);
             transform: translate3d(0, -43px, 0); ***REMOVED***
 
 .md-button-group ***REMOVED***
+  display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
+  -webkit-box-flex: 1;
   -webkit-flex: 1;
-      -ms-flex: 1;
           flex: 1;
   width: 100%; ***REMOVED***
   .md-button-group > .md-button ***REMOVED***
+    -webkit-box-flex: 1;
     -webkit-flex: 1;
-        -ms-flex: 1;
             flex: 1;
     display: block;
     overflow: hidden;

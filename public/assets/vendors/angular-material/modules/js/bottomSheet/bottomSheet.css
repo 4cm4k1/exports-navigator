@@ -2,13 +2,8 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-/*  Only used with Theme processes */
-html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
-
 md-bottom-sheet ***REMOVED***
   position: absolute;
   left: 0;
@@ -20,9 +15,12 @@ md-bottom-sheet ***REMOVED***
   border-top-style: solid;
   -webkit-transform: translate3d(0, 80px, 0);
           transform: translate3d(0, 80px, 0);
+  -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  -webkit-transition-property: -webkit-transform;
   transition-property: -webkit-transform;
-  transition-property: transform; ***REMOVED***
+  transition-property: transform;
+  transition-property: transform, -webkit-transform; ***REMOVED***
   md-bottom-sheet.md-has-header ***REMOVED***
     padding-top: 0; ***REMOVED***
   md-bottom-sheet.ng-enter ***REMOVED***
@@ -37,6 +35,7 @@ md-bottom-sheet ***REMOVED***
   md-bottom-sheet.ng-leave-active ***REMOVED***
     -webkit-transform: translate3d(0, 100%, 0) !important;
             transform: translate3d(0, 100%, 0) !important;
+    -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
     transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2); ***REMOVED***
   md-bottom-sheet .md-subheader ***REMOVED***
     background-color: transparent;
@@ -50,16 +49,17 @@ md-bottom-sheet ***REMOVED***
     width: 24px;
     fill: #444; ***REMOVED***
   md-bottom-sheet md-list-item ***REMOVED***
+    display: -webkit-box;
     display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
     outline: none; ***REMOVED***
     md-bottom-sheet md-list-item:hover ***REMOVED***
       cursor: pointer; ***REMOVED***
   md-bottom-sheet.md-list md-list-item ***REMOVED***
     padding: 0;
+    -webkit-box-align: center;
     -webkit-align-items: center;
-        -ms-flex-align: center;
+                -ms-grid-row-align: center;
             align-items: center;
     height: 48px; ***REMOVED***
   md-bottom-sheet.md-grid ***REMOVED***
@@ -67,26 +67,30 @@ md-bottom-sheet ***REMOVED***
     padding-right: 24px;
     padding-top: 0; ***REMOVED***
     md-bottom-sheet.md-grid md-list ***REMOVED***
+      display: -webkit-box;
       display: -webkit-flex;
-      display: -ms-flexbox;
       display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
       -webkit-flex-direction: row;
-          -ms-flex-direction: row;
               flex-direction: row;
       -webkit-flex-wrap: wrap;
-          -ms-flex-wrap: wrap;
               flex-wrap: wrap;
+      -webkit-transition: all 0.5s;
       transition: all 0.5s;
+      -webkit-box-align: center;
       -webkit-align-items: center;
-          -ms-flex-align: center;
               align-items: center; ***REMOVED***
     md-bottom-sheet.md-grid md-list-item ***REMOVED***
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
       -webkit-flex-direction: column;
-          -ms-flex-direction: column;
               flex-direction: column;
+      -webkit-box-align: center;
       -webkit-align-items: center;
-          -ms-flex-align: center;
+                  -ms-grid-row-align: center;
               align-items: center;
+      -webkit-transition: all 0.5s;
       transition: all 0.5s;
       height: 96px;
       margin-top: 8px;
@@ -94,58 +98,64 @@ md-bottom-sheet ***REMOVED***
       /* Mixin for how many grid items to show per row */ ***REMOVED***
       @media (max-width: 960px) ***REMOVED***
         md-bottom-sheet.md-grid md-list-item ***REMOVED***
+          -webkit-box-flex: 1;
           -webkit-flex: 1 1 33.33333%;
-              -ms-flex: 1 1 33.33333%;
                   flex: 1 1 33.33333%;
           max-width: 33.33333%; ***REMOVED***
           md-bottom-sheet.md-grid md-list-item:nth-of-type(3n + 1) ***REMOVED***
+            -webkit-box-align: start;
             -webkit-align-items: flex-start;
-                -ms-flex-align: start;
+                        -ms-grid-row-align: flex-start;
                     align-items: flex-start; ***REMOVED***
           md-bottom-sheet.md-grid md-list-item:nth-of-type(3n) ***REMOVED***
+            -webkit-box-align: end;
             -webkit-align-items: flex-end;
-                -ms-flex-align: end;
+                        -ms-grid-row-align: flex-end;
                     align-items: flex-end; ***REMOVED*** ***REMOVED***
       @media (min-width: 960px) and (max-width: 1279px) ***REMOVED***
         md-bottom-sheet.md-grid md-list-item ***REMOVED***
+          -webkit-box-flex: 1;
           -webkit-flex: 1 1 25%;
-              -ms-flex: 1 1 25%;
                   flex: 1 1 25%;
           max-width: 25%; ***REMOVED*** ***REMOVED***
       @media (min-width: 1280px) and (max-width: 1919px) ***REMOVED***
         md-bottom-sheet.md-grid md-list-item ***REMOVED***
+          -webkit-box-flex: 1;
           -webkit-flex: 1 1 16.66667%;
-              -ms-flex: 1 1 16.66667%;
                   flex: 1 1 16.66667%;
           max-width: 16.66667%; ***REMOVED*** ***REMOVED***
       @media (min-width: 1920px) ***REMOVED***
         md-bottom-sheet.md-grid md-list-item ***REMOVED***
+          -webkit-box-flex: 1;
           -webkit-flex: 1 1 14.28571%;
-              -ms-flex: 1 1 14.28571%;
                   flex: 1 1 14.28571%;
           max-width: 14.28571%; ***REMOVED*** ***REMOVED***
+      md-bottom-sheet.md-grid md-list-item::before ***REMOVED***
+        display: none; ***REMOVED***
       md-bottom-sheet.md-grid md-list-item .md-list-item-content ***REMOVED***
+        display: -webkit-box;
         display: -webkit-flex;
-        display: -ms-flexbox;
         display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
         -webkit-flex-direction: column;
-            -ms-flex-direction: column;
                 flex-direction: column;
+        -webkit-box-align: center;
         -webkit-align-items: center;
-            -ms-flex-align: center;
                 align-items: center;
         width: 48px;
         padding-bottom: 16px; ***REMOVED***
       md-bottom-sheet.md-grid md-list-item .md-grid-item-content ***REMOVED***
         border: 1px solid transparent;
+        display: -webkit-box;
         display: -webkit-flex;
-        display: -ms-flexbox;
         display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
         -webkit-flex-direction: column;
-            -ms-flex-direction: column;
                 flex-direction: column;
+        -webkit-box-align: center;
         -webkit-align-items: center;
-            -ms-flex-align: center;
                 align-items: center;
         width: 80px; ***REMOVED***
       md-bottom-sheet.md-grid md-list-item .md-grid-text ***REMOVED***

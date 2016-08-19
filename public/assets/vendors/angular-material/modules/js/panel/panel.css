@@ -2,13 +2,8 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-/*  Only used with Theme processes */
-html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
-
 .md-panel-outer-wrapper ***REMOVED***
   height: 100%;
   left: 0;
@@ -29,6 +24,7 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
 
 ._md-panel-shown .md-panel ***REMOVED***
   opacity: 1;
+  -webkit-transition: none;
   transition: none; ***REMOVED***
 
 .md-panel ***REMOVED***
@@ -36,12 +32,15 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
   position: fixed; ***REMOVED***
   .md-panel._md-panel-shown ***REMOVED***
     opacity: 1;
+    -webkit-transition: none;
     transition: none; ***REMOVED***
   .md-panel._md-panel-animate-enter ***REMOVED***
     opacity: 1;
+    -webkit-transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
     transition: all 0.3s cubic-bezier(0, 0, 0.2, 1); ***REMOVED***
   .md-panel._md-panel-animate-leave ***REMOVED***
     opacity: 1;
+    -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
     transition: all 0.3s cubic-bezier(0.4, 0, 1, 1); ***REMOVED***
   .md-panel._md-panel-animate-scale-out, .md-panel._md-panel-animate-fade-out ***REMOVED***
     opacity: 0; ***REMOVED***
@@ -51,6 +50,8 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
     width: 100%; ***REMOVED***
   .md-panel._md-opaque-enter ***REMOVED***
     opacity: .48;
+    -webkit-transition: opacity 0.3s cubic-bezier(0, 0, 0.2, 1);
     transition: opacity 0.3s cubic-bezier(0, 0, 0.2, 1); ***REMOVED***
   .md-panel._md-opaque-leave ***REMOVED***
+    -webkit-transition: opacity 0.3s cubic-bezier(0.4, 0, 1, 1);
     transition: opacity 0.3s cubic-bezier(0.4, 0, 1, 1); ***REMOVED***

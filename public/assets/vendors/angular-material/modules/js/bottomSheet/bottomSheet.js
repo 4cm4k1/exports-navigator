@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
 (function( window, angular, undefined )***REMOVED***
 "use strict";
@@ -142,7 +142,7 @@ function MdBottomSheetProvider($$interimElementProvider) ***REMOVED***
   var CLOSING_VELOCITY = 0.5;
   var PADDING = 80; // same as css
 
-  bottomSheetDefaults.$inject = ["$animate", "$mdConstant", "$mdUtil", "$mdTheming", "$mdBottomSheet", "$rootElement", "$mdGesture"];
+  bottomSheetDefaults.$inject = ["$animate", "$mdConstant", "$mdUtil", "$mdTheming", "$mdBottomSheet", "$rootElement", "$mdGesture", "$log"];
   return $$interimElementProvider('$mdBottomSheet')
     .setDefaults(***REMOVED***
       methods: ['disableParentScroll', 'escapeToClose', 'clickOutsideToClose'],
@@ -150,7 +150,8 @@ function MdBottomSheetProvider($$interimElementProvider) ***REMOVED***
     ***REMOVED***);
 
   /* ngInject */
-  function bottomSheetDefaults($animate, $mdConstant, $mdUtil, $mdTheming, $mdBottomSheet, $rootElement, $mdGesture) ***REMOVED***
+  function bottomSheetDefaults($animate, $mdConstant, $mdUtil, $mdTheming, $mdBottomSheet, $rootElement,
+                               $mdGesture, $log) ***REMOVED***
     var backdrop;
 
     return ***REMOVED***
@@ -171,9 +172,16 @@ function MdBottomSheetProvider($$interimElementProvider) ***REMOVED***
       // prevent tab focus or click focus on the bottom-sheet container
       element.attr('tabindex',"-1");
 
+      // Once the md-bottom-sheet has `ng-cloak` applied on his template the opening animation will not work properly.
+      // This is a very common problem, so we have to notify the developer about this.
+      if (element.hasClass('ng-cloak')) ***REMOVED***
+        var message = '$mdBottomSheet: using `<md-bottom-sheet ng-cloak >` will affect the bottom-sheet opening animations.';
+        $log.warn( message, element[0] );
+      ***REMOVED***
+
       if (!options.disableBackdrop) ***REMOVED***
         // Add a backdrop that will close on click
-        backdrop = $mdUtil.createBackdrop(scope, "_md-bottom-sheet-backdrop md-opaque");
+        backdrop = $mdUtil.createBackdrop(scope, "md-bottom-sheet-backdrop md-opaque");
 
         // Prevent mouse focus on backdrop; ONLY programatic focus allowed.
         // This allows clicks on backdrop to propogate to the $rootElement and

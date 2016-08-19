@@ -2,10 +2,10 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-goog.provide('ng.material.components.tooltip');
-goog.require('ng.material.core');
+goog.provide('ngmaterial.components.tooltip');
+goog.require('ngmaterial.core');
 /**
  * @ngdoc module
  * @name material.components.tooltip
@@ -36,21 +36,25 @@ angular
  * </hljs>
  *
  * @param ***REMOVED***expression=***REMOVED*** md-visible Boolean bound to whether the tooltip is currently visible.
- * @param ***REMOVED***number=***REMOVED*** md-delay How many milliseconds to wait to show the tooltip after the user focuses, hovers, or touches the parent. Defaults to 0ms.
+ * @param ***REMOVED***number=***REMOVED*** md-delay How many milliseconds to wait to show the tooltip after the user focuses, hovers, or touches the
+ * parent. Defaults to 0ms on non-touch devices and 75ms on touch.
  * @param ***REMOVED***boolean=***REMOVED*** md-autohide If present or provided with a boolean value, the tooltip will hide on mouse leave, regardless of focus
  * @param ***REMOVED***string=***REMOVED*** md-direction Which direction would you like the tooltip to go?  Supports left, right, top, and bottom.  Defaults to bottom.
  */
 function MdTooltipDirective($timeout, $window, $$rAF, $document, $mdUtil, $mdTheming, $rootElement,
                             $animate, $q, $interpolate) ***REMOVED***
 
+  var ENTER_EVENTS = 'focus touchstart mouseenter';
+  var LEAVE_EVENTS = 'blur touchcancel mouseleave';
+  var SHOW_CLASS = 'md-show';
   var TOOLTIP_SHOW_DELAY = 0;
   var TOOLTIP_WINDOW_EDGE_SPACE = 8;
 
   return ***REMOVED***
     restrict: 'E',
     transclude: true,
-    priority:210, // Before ngAria
-    template: '<div class="_md-content _md" ng-transclude></div>',
+    priority: 210, // Before ngAria
+    template: '<div class="md-content _md" ng-transclude></div>',
     scope: ***REMOVED***
       delay: '=?mdDelay',
       visible: '=?mdVisible',
@@ -71,7 +75,7 @@ function MdTooltipDirective($timeout, $window, $$rAF, $document, $mdUtil, $mdThe
     $mdTheming(element);
 
     var parent        = $mdUtil.getParentWithPointerEvents(element),
-        content       = angular.element(element[0].getElementsByClassName('_md-content')[0]),
+        content       = angular.element(element[0].getElementsByClassName('md-content')[0]),
         tooltipParent = angular.element(document.body),
         showTimeout   = null,
         debouncedOnResize = $$rAF.throttle(function () ***REMOVED*** updatePosition(); ***REMOVED***);
@@ -223,8 +227,8 @@ function MdTooltipDirective($timeout, $window, $$rAF, $document, $mdUtil, $mdThe
           .off('resize', debouncedOnResize);
 
         parent
-          .off('focus mouseenter touchstart', enterHandler)
-          .off('blur mouseleave touchend touchcancel', leaveHandler)
+          .off(ENTER_EVENTS, enterHandler)
+          .off(LEAVE_EVENTS, leaveHandler)
           .off('mousedown', mousedownHandler);
 
         // Trigger the handler in case any the tooltip was still visible.
@@ -237,16 +241,25 @@ function MdTooltipDirective($timeout, $window, $$rAF, $document, $mdUtil, $mdThe
         // Prevent the tooltip from showing when the window is receiving focus.
         if (e.type === 'focus' && elementFocusedOnWindowBlur) ***REMOVED***
           elementFocusedOnWindowBlur = false;
-          return;
+        ***REMOVED*** else if (!scope.visible) ***REMOVED***
+          parent.on(LEAVE_EVENTS, leaveHandler);
+          setVisible(true);
+
+          // If the user is on a touch device, we should bind the tap away after
+          // the `touched` in order to prevent the tooltip being removed immediately.
+          if (e.type === 'touchstart') ***REMOVED***
+            parent.one('touchend', function() ***REMOVED***
+              $mdUtil.nextTick(function() ***REMOVED***
+                $document.one('touchend', leaveHandler);
+              ***REMOVED***, false);
+            ***REMOVED***);
+          ***REMOVED***
         ***REMOVED***
-        parent.on('blur mouseleave touchend touchcancel', leaveHandler );
-        setVisible(true);
       ***REMOVED***;
       var leaveHandler = function () ***REMOVED***
         var autohide = scope.hasOwnProperty('autohide') ? scope.autohide : attr.hasOwnProperty('mdAutohide');
 
-        if (autohide || mouseActive || ($document[0].activeElement !== parent[0]) ) ***REMOVED***
-
+        if (autohide || mouseActive || $document[0].activeElement !== parent[0]) ***REMOVED***
           // When a show timeout is currently in progress, then we have to cancel it.
           // Otherwise the tooltip will remain showing without focus or hover.
           if (showTimeout) ***REMOVED***
@@ -255,8 +268,8 @@ function MdTooltipDirective($timeout, $window, $$rAF, $document, $mdUtil, $mdThe
             showTimeout = null;
           ***REMOVED***
 
-          parent.off('blur mouseleave touchend touchcancel', leaveHandler );
-          parent.triggerHandler("blur");
+          parent.off(LEAVE_EVENTS, leaveHandler);
+          parent.triggerHandler('blur');
           setVisible(false);
         ***REMOVED***
         mouseActive = false;
@@ -267,7 +280,7 @@ function MdTooltipDirective($timeout, $window, $$rAF, $document, $mdUtil, $mdThe
 
       // to avoid `synthetic clicks` we listen to mousedown instead of `click`
       parent.on('mousedown', mousedownHandler);
-      parent.on('focus mouseenter touchstart', enterHandler );
+      parent.on(ENTER_EVENTS, enterHandler);
     ***REMOVED***
 
     function setVisible (value) ***REMOVED***
@@ -316,23 +329,16 @@ function MdTooltipDirective($timeout, $window, $$rAF, $document, $mdUtil, $mdThe
 
       updatePosition();
 
-      angular.forEach([element, content], function (element) ***REMOVED***
-        $animate.addClass(element, '_md-show');
+      $animate.addClass(content, SHOW_CLASS).then(function() ***REMOVED***
+        element.addClass(SHOW_CLASS);
       ***REMOVED***);
     ***REMOVED***
 
     function hideTooltip() ***REMOVED***
-        var promises = [];
-        angular.forEach([element, content], function (it) ***REMOVED***
-          if (it.parent() && it.hasClass('_md-show')) ***REMOVED***
-            promises.push($animate.removeClass(it, '_md-show'));
-          ***REMOVED***
-        ***REMOVED***);
-
-        $q.all(promises)
-          .then(function () ***REMOVED***
-            if (!scope.visible) element.detach();
-          ***REMOVED***);
+      $animate.removeClass(content, SHOW_CLASS).then(function()***REMOVED***
+        element.removeClass(SHOW_CLASS);
+        if (!scope.visible) element.detach();
+      ***REMOVED***);
     ***REMOVED***
 
     function updatePosition() ***REMOVED***
@@ -390,4 +396,4 @@ function MdTooltipDirective($timeout, $window, $$rAF, $document, $mdUtil, $mdThe
 ***REMOVED***
 MdTooltipDirective.$inject = ["$timeout", "$window", "$$rAF", "$document", "$mdUtil", "$mdTheming", "$rootElement", "$animate", "$q", "$interpolate"];
 
-ng.material.components.tooltip = angular.module("material.components.tooltip");
+ngmaterial.components.tooltip = angular.module("material.components.tooltip");

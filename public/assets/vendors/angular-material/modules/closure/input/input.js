@@ -2,15 +2,14 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-goog.provide('ng.material.components.input');
-goog.require('ng.material.core');
+goog.provide('ngmaterial.components.input');
+goog.require('ngmaterial.core');
 /**
  * @ngdoc module
  * @name material.components.input
  */
-
 angular.module('material.components.input', [
     'material.core'
   ])
@@ -27,7 +26,12 @@ angular.module('material.components.input', [
 
   .animation('.md-input-invalid', mdInputInvalidMessagesAnimation)
   .animation('.md-input-messages-animation', ngMessagesAnimation)
-  .animation('.md-input-message-animation', ngMessageAnimation);
+  .animation('.md-input-message-animation', ngMessageAnimation)
+
+  // Register a service for each animation so that we can easily inject them into unit tests
+  .service('mdInputInvalidAnimation', mdInputInvalidMessagesAnimation)
+  .service('mdInputMessagesAnimation', ngMessagesAnimation)
+  .service('mdInputMessageAnimation', ngMessageAnimation);
 
 /**
  * @ngdoc directive
@@ -46,6 +50,10 @@ angular.module('material.components.input', [
  *
  * <b>Exception:</b> Hidden inputs (`<input type="hidden" />`) are ignored and will not throw an error, so
  * you may combine these with other inputs.
+ *
+ * <b>Note:</b> When using `ngMessages` with your input element, make sure the message and container elements
+ * are *block* elements, otherwise animations applied to the messages will not look as intended. Either use a `div` and
+ * apply the `ng-message` and `ng-messages` classes respectively, or use the `md-block` class on your element.
  *
  * @param md-is-error ***REMOVED***expression=***REMOVED*** When the given expression evaluates to true, the input container
  *   will go into error state. Defaults to erroring if the input has been touched and is invalid.
@@ -147,7 +155,7 @@ function labelDirective() ***REMOVED***
     restrict: 'E',
     require: '^?mdInputContainer',
     link: function(scope, element, attr, containerCtrl) ***REMOVED***
-      if (!containerCtrl || attr.mdNoFloat || element.hasClass('_md-container-ignore')) return;
+      if (!containerCtrl || attr.mdNoFloat || element.hasClass('md-container-ignore')) return;
 
       containerCtrl.label = element;
       scope.$on('$destroy', function() ***REMOVED***
@@ -213,7 +221,7 @@ function labelDirective() ***REMOVED***
  *   <md-input-container>
  *     <label>Favorite Color</label>
  *     <input name="favoriteColor" ng-model="favoriteColor" required>
- *     <div ng-messages="userForm.lastName.$error">
+ *     <div ng-messages="colorForm.favoriteColor.$error">
  *       <div ng-message="required">This is required!</div>
  *     </div>
  *   </md-input-container>
@@ -279,6 +287,9 @@ function labelDirective() ***REMOVED***
  * - If a `textarea` has the `rows` attribute, it will treat the `rows` as the minimum height and will
  * continue growing as the user types. For example a textarea with `rows="3"` will be 3 lines of text
  * high initially. If no rows are specified, the directive defaults to 1.
+ * - The textarea's height gets set on initialization, as well as while the user is typing. In certain situations
+ * (e.g. while animating) the directive might have been initialized, before the element got it's final height. In
+ * those cases, you can trigger a resize manually by broadcasting a `md-resize-textarea` event on the scope.
  * - If you wan't a `textarea` to stop growing at a certain point, you can specify the `max-rows` attribute.
  * - The textarea's bottom border acts as a handle which users can drag, in order to resize the element vertically.
  * Once the user has resized a `textarea`, the autogrowing functionality becomes disabled. If you don't want a
@@ -288,7 +299,7 @@ function labelDirective() ***REMOVED***
 function inputTextareaDirective($mdUtil, $window, $mdAria, $timeout, $mdGesture) ***REMOVED***
   return ***REMOVED***
     restrict: 'E',
-    require: ['^?mdInputContainer', '?ngModel'],
+    require: ['^?mdInputContainer', '?ngModel', '?^form'],
     link: postLink
   ***REMOVED***;
 
@@ -297,6 +308,7 @@ function inputTextareaDirective($mdUtil, $window, $mdAria, $timeout, $mdGesture)
     var containerCtrl = ctrls[0];
     var hasNgModel = !!ctrls[1];
     var ngModelCtrl = ctrls[1] || $mdUtil.fakeNgModel();
+    var parentForm = ctrls[2];
     var isReadonly = angular.isDefined(attr.readonly);
     var mdNoAsterisk = $mdUtil.parseAttributeBoolean(attr.mdNoAsterisk);
     var tagName = element[0].tagName.toLowerCase();
@@ -307,7 +319,11 @@ function inputTextareaDirective($mdUtil, $window, $mdAria, $timeout, $mdGesture)
       element.attr('aria-hidden', 'true');
       return;
     ***REMOVED*** else if (containerCtrl.input) ***REMOVED***
-      throw new Error("<md-input-container> can only have *one* <input>, <textarea> or <md-select> child element!");
+      if (containerCtrl.input[0].contains(element[0])) ***REMOVED***
+        return;
+      ***REMOVED*** else ***REMOVED***
+        throw new Error("<md-input-container> can only have *one* <input>, <textarea> or <md-select> child element!");
+      ***REMOVED***
     ***REMOVED***
     containerCtrl.input = element;
 
@@ -318,7 +334,7 @@ function inputTextareaDirective($mdUtil, $window, $mdAria, $timeout, $mdGesture)
     element.after(errorsSpacer);
 
     if (!containerCtrl.label) ***REMOVED***
-      $mdAria.expect(element, 'aria-label', element.attr('placeholder'));
+      $mdAria.expect(element, 'aria-label', attr.placeholder);
     ***REMOVED***
 
     element.addClass('md-input');
@@ -344,17 +360,16 @@ function inputTextareaDirective($mdUtil, $window, $mdAria, $timeout, $mdGesture)
     ***REMOVED***
 
     var isErrorGetter = containerCtrl.isErrorGetter || function() ***REMOVED***
-      return ngModelCtrl.$invalid && (ngModelCtrl.$touched || isParentFormSubmitted());
-    ***REMOVED***;
-
-    var isParentFormSubmitted = function () ***REMOVED***
-      var parent = $mdUtil.getClosest(element, 'form');
-      var form = parent ? angular.element(parent).controller('form') : null;
-
-      return form ? form.$submitted : false;
+      return ngModelCtrl.$invalid && (ngModelCtrl.$touched || (parentForm && parentForm.$submitted));
     ***REMOVED***;
 
     scope.$watch(isErrorGetter, containerCtrl.setInvalid);
+
+    // When the developer uses the ngValue directive for the input, we have to observe the attribute, because
+    // Angular's ngValue directive is just setting the `value` attribute.
+    if (attr.ngValue) ***REMOVED***
+      attr.$observe('value', inputCheckValue);
+    ***REMOVED***
 
     ngModelCtrl.$parsers.push(ngModelPipelineCheckValue);
     ngModelCtrl.$formatters.push(ngModelPipelineCheckValue);
@@ -376,18 +391,13 @@ function inputTextareaDirective($mdUtil, $window, $mdAria, $timeout, $mdGesture)
         ***REMOVED***);
     ***REMOVED***
 
-    //ngModelCtrl.$setTouched();
-    //if( ngModelCtrl.$invalid ) containerCtrl.setInvalid();
-
     scope.$on('$destroy', function() ***REMOVED***
       containerCtrl.setFocused(false);
       containerCtrl.setHasValue(false);
       containerCtrl.input = null;
     ***REMOVED***);
 
-    /**
-     *
-     */
+    /** Gets run through ngModel's pipeline and set the `has-value` class on the container. */
     function ngModelPipelineCheckValue(arg) ***REMOVED***
       containerCtrl.setHasValue(!ngModelCtrl.$isEmpty(arg));
       return arg;
@@ -420,6 +430,7 @@ function inputTextareaDirective($mdUtil, $window, $mdAria, $timeout, $mdGesture)
       // so rows attribute will take precedence if present
       var minRows = attr.hasOwnProperty('rows') ? parseInt(attr.rows) : NaN;
       var maxRows = attr.hasOwnProperty('maxRows') ? parseInt(attr.maxRows) : NaN;
+      var scopeResizeListener = scope.$on('md-resize-textarea', growTextarea);
       var lineHeight = null;
       var node = element[0];
 
@@ -459,8 +470,9 @@ function inputTextareaDirective($mdUtil, $window, $mdAria, $timeout, $mdGesture)
 
         if (!lineHeight) ***REMOVED***
           // offsetHeight includes padding which can throw off our value
+          var originalPadding = element[0].style.padding || '';
           lineHeight = element.css('padding', 0).prop('offsetHeight');
-          element.css('padding', null);
+          element[0].style.padding = originalPadding;
         ***REMOVED***
 
         if (minRows && lineHeight) ***REMOVED***
@@ -503,6 +515,7 @@ function inputTextareaDirective($mdUtil, $window, $mdAria, $timeout, $mdGesture)
 
         isAutogrowing = false;
         angular.element($window).off('resize', growTextarea);
+        scopeResizeListener && scopeResizeListener();
         element
           .attr('md-no-autogrow', '')
           .off('input', growTextarea);
@@ -566,7 +579,7 @@ function inputTextareaDirective($mdUtil, $window, $mdAria, $timeout, $mdGesture)
 
         function onDrag(ev) ***REMOVED***
           if (!isDragging) return;
-          element.css('height', startHeight + (ev.pointer.y - dragStart) + 'px');
+          element.css('height', startHeight + (ev.pointer.y - dragStart) - $mdUtil.scrollTop() + 'px');
         ***REMOVED***
 
         function onDragEnd(ev) ***REMOVED***
@@ -665,22 +678,29 @@ function mdMaxlengthDirective($animate, $mdUtil) ***REMOVED***
 
       // Force the value into a string since it may be a number,
       // which does not have a length property.
-      charCountEl.text(String(element.val() || value || '').length + '/' + maxlength);
+      charCountEl.text(String(element.val() || value || '').length + ' / ' + maxlength);
       return value;
     ***REMOVED***
   ***REMOVED***
 ***REMOVED***
 mdMaxlengthDirective.$inject = ["$animate", "$mdUtil"];
 
-function placeholderDirective($log) ***REMOVED***
+function placeholderDirective($compile) ***REMOVED***
   return ***REMOVED***
     restrict: 'A',
     require: '^^?mdInputContainer',
     priority: 200,
-    link: postLink
+    link: ***REMOVED***
+      // Note that we need to do this in the pre-link, as opposed to the post link, if we want to
+      // support data bindings in the placeholder. This is necessary, because we have a case where
+      // we transfer the placeholder value to the `<label>` and we remove it from the original `<input>`.
+      // If we did this in the post-link, Angular would have set up the observers already and would be
+      // re-adding the attribute, even though we removed it from the element.
+      pre: preLink
+    ***REMOVED***
   ***REMOVED***;
 
-  function postLink(scope, element, attr, inputContainer) ***REMOVED***
+  function preLink(scope, element, attr, inputContainer) ***REMOVED***
     // If there is no input container, just return
     if (!inputContainer) return;
 
@@ -694,20 +714,29 @@ function placeholderDirective($log) ***REMOVED***
       return;
     ***REMOVED***
 
-    // Otherwise, grab/remove the placeholder
-    var placeholderText = attr.placeholder;
-    element.removeAttr('placeholder');
+    // md-select handles placeholders on it's own
+    if (element[0].nodeName != 'MD-SELECT') ***REMOVED***
+      // Move the placeholder expression to the label
+      var newLabel = angular.element('<label ng-click="delegateClick()" tabindex="-1">' + attr.placeholder + '</label>');
 
-    // And add the placeholder text as a separate label
-    if (inputContainer.input && inputContainer.input[0].nodeName != 'MD-SELECT') ***REMOVED***
-      var placeholder = '<label ng-click="delegateClick()">' + placeholderText + '</label>';
+      // Note that we unset it via `attr`, in order to get Angular
+      // to remove any observers that it might have set up. Otherwise
+      // the attribute will be added on the next digest.
+      attr.$set('placeholder', null);
 
-      inputContainer.element.addClass('md-icon-float');
-      inputContainer.element.prepend(placeholder);
+      // We need to compile the label manually in case it has any bindings.
+      // A gotcha here is that we first add the element to the DOM and we compile
+      // it later. This is necessary, because if we compile the element beforehand,
+      // it won't be able to find the `mdInputContainer` controller.
+      inputContainer.element
+        .addClass('md-icon-float')
+        .prepend(newLabel);
+
+      $compile(newLabel)(scope);
     ***REMOVED***
   ***REMOVED***
 ***REMOVED***
-placeholderDirective.$inject = ["$log"];
+placeholderDirective.$inject = ["$compile"];
 
 /**
  * @ngdoc directive
@@ -873,36 +902,36 @@ function ngMessageDirective($mdUtil) ***REMOVED***
 ***REMOVED***
 ngMessageDirective.$inject = ["$mdUtil"];
 
-function mdInputInvalidMessagesAnimation($q, $animateCss) ***REMOVED***
+var $$AnimateRunner, $animateCss, $mdUtil;
+
+function mdInputInvalidMessagesAnimation($$AnimateRunner, $animateCss, $mdUtil) ***REMOVED***
+  saveSharedServices($$AnimateRunner, $animateCss, $mdUtil);
+
   return ***REMOVED***
     addClass: function(element, className, done) ***REMOVED***
-      var messages = getMessagesElement(element);
-
-      if (className == "md-input-invalid" && messages.hasClass('md-auto-hide')) ***REMOVED***
-        showInputMessages(element, $animateCss, $q).finally(done);
-      ***REMOVED*** else ***REMOVED***
-        done();
-      ***REMOVED***
+      showInputMessages(element, done);
     ***REMOVED***
 
     // NOTE: We do not need the removeClass method, because the message ng-leave animation will fire
   ***REMOVED***;
 ***REMOVED***
-mdInputInvalidMessagesAnimation.$inject = ["$q", "$animateCss"];
+mdInputInvalidMessagesAnimation.$inject = ["$$AnimateRunner", "$animateCss", "$mdUtil"];
 
-function ngMessagesAnimation($q, $animateCss) ***REMOVED***
+function ngMessagesAnimation($$AnimateRunner, $animateCss, $mdUtil) ***REMOVED***
+  saveSharedServices($$AnimateRunner, $animateCss, $mdUtil);
+
   return ***REMOVED***
     enter: function(element, done) ***REMOVED***
-      showInputMessages(element, $animateCss, $q).finally(done);
+      showInputMessages(element, done);
     ***REMOVED***,
 
     leave: function(element, done) ***REMOVED***
-      hideInputMessages(element, $animateCss, $q).finally(done);
+      hideInputMessages(element, done);
     ***REMOVED***,
 
     addClass: function(element, className, done) ***REMOVED***
       if (className == "ng-hide") ***REMOVED***
-        hideInputMessages(element, $animateCss, $q).finally(done);
+        hideInputMessages(element, done);
       ***REMOVED*** else ***REMOVED***
         done();
       ***REMOVED***
@@ -910,64 +939,70 @@ function ngMessagesAnimation($q, $animateCss) ***REMOVED***
 
     removeClass: function(element, className, done) ***REMOVED***
       if (className == "ng-hide") ***REMOVED***
-        showInputMessages(element, $animateCss, $q).finally(done);
+        showInputMessages(element, done);
       ***REMOVED*** else ***REMOVED***
         done();
       ***REMOVED***
     ***REMOVED***
   ***REMOVED***
 ***REMOVED***
-ngMessagesAnimation.$inject = ["$q", "$animateCss"];
+ngMessagesAnimation.$inject = ["$$AnimateRunner", "$animateCss", "$mdUtil"];
 
-function ngMessageAnimation($animateCss) ***REMOVED***
+function ngMessageAnimation($$AnimateRunner, $animateCss, $mdUtil) ***REMOVED***
+  saveSharedServices($$AnimateRunner, $animateCss, $mdUtil);
+
   return ***REMOVED***
     enter: function(element, done) ***REMOVED***
-      var messages = getMessagesElement(element);
-
-      // If we have the md-auto-hide class, the md-input-invalid animation will fire, so we can skip
-      if (messages.hasClass('md-auto-hide')) ***REMOVED***
-        done();
-        return;
-      ***REMOVED***
-
-      return showMessage(element, $animateCss);
+      return showMessage(element);
     ***REMOVED***,
 
     leave: function(element, done) ***REMOVED***
-      return hideMessage(element, $animateCss);
+      return hideMessage(element);
     ***REMOVED***
   ***REMOVED***
 ***REMOVED***
-ngMessageAnimation.$inject = ["$animateCss"];
+ngMessageAnimation.$inject = ["$$AnimateRunner", "$animateCss", "$mdUtil"];
 
-function showInputMessages(element, $animateCss, $q) ***REMOVED***
+function showInputMessages(element, done) ***REMOVED***
   var animators = [], animator;
   var messages = getMessagesElement(element);
 
   angular.forEach(messages.children(), function(child) ***REMOVED***
-    animator = showMessage(angular.element(child), $animateCss);
+    animator = showMessage(angular.element(child));
 
     animators.push(animator.start());
   ***REMOVED***);
 
-  return $q.all(animators);
+  $$AnimateRunner.all(animators, done);
 ***REMOVED***
 
-function hideInputMessages(element, $animateCss, $q) ***REMOVED***
+function hideInputMessages(element, done) ***REMOVED***
   var animators = [], animator;
   var messages = getMessagesElement(element);
 
   angular.forEach(messages.children(), function(child) ***REMOVED***
-    animator = hideMessage(angular.element(child), $animateCss);
+    animator = hideMessage(angular.element(child));
 
     animators.push(animator.start());
   ***REMOVED***);
 
-  return $q.all(animators);
+  $$AnimateRunner.all(animators, done);
 ***REMOVED***
 
-function showMessage(element, $animateCss) ***REMOVED***
-  var height = element[0].offsetHeight;
+function showMessage(element) ***REMOVED***
+  var height = parseInt(window.getComputedStyle(element[0]).height);
+  var topMargin = parseInt(window.getComputedStyle(element[0]).marginTop);
+
+  var messages = getMessagesElement(element);
+  var container = getInputElement(element);
+
+  // Check to see if the message is already visible so we can skip
+  var alreadyVisible = (topMargin > -height);
+
+  // If we have the md-auto-hide class, the md-input-invalid animation will fire, so we can skip
+  if (alreadyVisible || (messages.hasClass('md-auto-hide') && !container.hasClass('md-input-invalid'))) ***REMOVED***
+    return $animateCss(element, ***REMOVED******REMOVED***);
+  ***REMOVED***
 
   return $animateCss(element, ***REMOVED***
     event: 'enter',
@@ -978,9 +1013,10 @@ function showMessage(element, $animateCss) ***REMOVED***
   ***REMOVED***);
 ***REMOVED***
 
-function hideMessage(element, $animateCss) ***REMOVED***
+function hideMessage(element) ***REMOVED***
   var height = element[0].offsetHeight;
   var styles = window.getComputedStyle(element[0]);
+  //var styles = ***REMOVED*** opacity: element.css('opacity') ***REMOVED***;
 
   // If we are already hidden, just return an empty animation
   if (styles.opacity == 0) ***REMOVED***
@@ -1004,9 +1040,21 @@ function getInputElement(element) ***REMOVED***
 ***REMOVED***
 
 function getMessagesElement(element) ***REMOVED***
-  var input = getInputElement(element);
+  // If we are a ng-message element, we need to traverse up the DOM tree
+  if (element.hasClass('md-input-message-animation')) ***REMOVED***
+    return angular.element($mdUtil.getClosest(element, function(node) ***REMOVED***
+      return node.classList.contains('md-input-messages-animation');
+    ***REMOVED***));
+  ***REMOVED***
 
-  return angular.element(input[0].querySelector('.md-input-messages-animation'));
+  // Otherwise, we can traverse down
+  return angular.element(element[0].querySelector('.md-input-messages-animation'));
 ***REMOVED***
 
-ng.material.components.input = angular.module("material.components.input");
+function saveSharedServices(_$$AnimateRunner_, _$animateCss_, _$mdUtil_) ***REMOVED***
+  $$AnimateRunner = _$$AnimateRunner_;
+  $animateCss = _$animateCss_;
+  $mdUtil = _$mdUtil_;
+***REMOVED***
+
+ngmaterial.components.input = angular.module("material.components.input");

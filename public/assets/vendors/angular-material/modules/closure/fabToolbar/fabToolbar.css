@@ -2,13 +2,8 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-/*  Only used with Theme processes */
-html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
-
 md-fab-toolbar ***REMOVED***
   display: block;
   /*
@@ -41,7 +36,7 @@ md-fab-toolbar ***REMOVED***
     bottom: auto;
     left: 20px;
     position: absolute; ***REMOVED***
-  md-fab-toolbar ._md-fab-toolbar-wrapper ***REMOVED***
+  md-fab-toolbar .md-fab-toolbar-wrapper ***REMOVED***
     display: block;
     position: relative;
     overflow: hidden;
@@ -51,59 +46,53 @@ md-fab-toolbar ***REMOVED***
     z-index: 20; ***REMOVED***
     md-fab-toolbar md-fab-trigger button ***REMOVED***
       overflow: visible !important; ***REMOVED***
-    md-fab-toolbar md-fab-trigger ._md-fab-toolbar-background ***REMOVED***
+    md-fab-toolbar md-fab-trigger .md-fab-toolbar-background ***REMOVED***
       display: block;
       position: absolute;
       z-index: 21;
       opacity: 1;
+      -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
       transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2); ***REMOVED***
     md-fab-toolbar md-fab-trigger md-icon ***REMOVED***
       position: relative;
       z-index: 22;
       opacity: 1;
+      -webkit-transition: all 200ms ease-in;
       transition: all 200ms ease-in; ***REMOVED***
   md-fab-toolbar.md-left md-fab-trigger ***REMOVED***
     right: 0; ***REMOVED***
     [dir=rtl] md-fab-toolbar.md-left md-fab-trigger ***REMOVED***
-      right: 0;
       right: auto;
-      right: initial;
       left: 0; ***REMOVED***
   md-fab-toolbar.md-left .md-toolbar-tools ***REMOVED***
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
     -webkit-flex-direction: row-reverse;
-        -ms-flex-direction: row-reverse;
             flex-direction: row-reverse; ***REMOVED***
     md-fab-toolbar.md-left .md-toolbar-tools > .md-button:first-child ***REMOVED***
       margin-right: 0.6rem; ***REMOVED***
       [dir=rtl] md-fab-toolbar.md-left .md-toolbar-tools > .md-button:first-child ***REMOVED***
-        margin-right: 0;
         margin-right: auto;
-        margin-right: initial;
         margin-left: 0.6rem; ***REMOVED***
     md-fab-toolbar.md-left .md-toolbar-tools > .md-button:first-child ***REMOVED***
       margin-left: -0.8rem; ***REMOVED***
       [dir=rtl] md-fab-toolbar.md-left .md-toolbar-tools > .md-button:first-child ***REMOVED***
-        margin-left: 0;
         margin-left: auto;
-        margin-left: initial;
         margin-right: -0.8rem; ***REMOVED***
     md-fab-toolbar.md-left .md-toolbar-tools > .md-button:last-child ***REMOVED***
       margin-right: 8px; ***REMOVED***
       [dir=rtl] md-fab-toolbar.md-left .md-toolbar-tools > .md-button:last-child ***REMOVED***
-        margin-right: 0;
         margin-right: auto;
-        margin-right: initial;
         margin-left: 8px; ***REMOVED***
   md-fab-toolbar.md-right md-fab-trigger ***REMOVED***
     left: 0; ***REMOVED***
     [dir=rtl] md-fab-toolbar.md-right md-fab-trigger ***REMOVED***
-      left: 0;
       left: auto;
-      left: initial;
       right: 0; ***REMOVED***
   md-fab-toolbar.md-right .md-toolbar-tools ***REMOVED***
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
     -webkit-flex-direction: row;
-        -ms-flex-direction: row;
             flex-direction: row; ***REMOVED***
   md-fab-toolbar md-toolbar ***REMOVED***
     background-color: transparent !important;
@@ -116,8 +105,10 @@ md-fab-toolbar ***REMOVED***
       opacity: 0;
       -webkit-transform: scale(0);
               transform: scale(0);
+      -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
       transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
-      transition-duration: 0.15s; ***REMOVED***
+      -webkit-transition-duration: 0.15s;
+              transition-duration: 0.15s; ***REMOVED***
   md-fab-toolbar.md-is-open md-fab-trigger > button ***REMOVED***
     box-shadow: none; ***REMOVED***
     md-fab-toolbar.md-is-open md-fab-trigger > button md-icon ***REMOVED***

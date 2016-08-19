@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
 (function( window, angular, undefined )***REMOVED***
 "use strict";
@@ -23,7 +23,7 @@ angular.module('material.components.showHide', [
 
 
 function createDirective(name, targetValue) ***REMOVED***
-  return ['$mdUtil', function($mdUtil) ***REMOVED***
+  return ['$mdUtil', '$window', function($mdUtil, $window) ***REMOVED***
     return ***REMOVED***
       restrict: 'A',
       multiElement: true,
@@ -31,7 +31,9 @@ function createDirective(name, targetValue) ***REMOVED***
         var unregister = $scope.$on('$md-resize-enable', function() ***REMOVED***
           unregister();
 
-          var cachedTransitionStyles = window.getComputedStyle($element[0]);
+          var node = $element[0];
+          var cachedTransitionStyles = node.nodeType === $window.Node.ELEMENT_NODE ?
+            $window.getComputedStyle(node) : ***REMOVED******REMOVED***;
 
           $scope.$watch($attr[name], function(value) ***REMOVED***
             if (!!value === targetValue) ***REMOVED***
@@ -53,4 +55,5 @@ function createDirective(name, targetValue) ***REMOVED***
     ***REMOVED***;
   ***REMOVED***];
 ***REMOVED***
+
 ***REMOVED***)(window, window.angular);

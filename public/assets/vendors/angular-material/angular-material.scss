@@ -190,7 +190,7 @@ $checkbox-border-width: 2px !default;
   outline: none;
   background: transparent;
 
-  // The the "clear X" that IE adds to input[type="search"]
+  // The "clear X" that IE adds to input[type="search"]
   &::-ms-clear ***REMOVED***
     display: none;
   ***REMOVED***
@@ -261,15 +261,10 @@ $checkbox-border-width: 2px !default;
   ***REMOVED***
 ***REMOVED***
 
-@mixin rtl-prop($ltr-prop, $rtl-prop, $value) ***REMOVED***
+@mixin rtl-prop($ltr-prop, $rtl-prop, $value, $reset-value) ***REMOVED***
   #***REMOVED***$ltr-prop***REMOVED***: $value;
   [dir=rtl] & ***REMOVED***
-    // fallback for auto
-    #***REMOVED***$ltr-prop***REMOVED***: 0;
-    // fallback for IE
-    #***REMOVED***$ltr-prop***REMOVED***: auto;
-    #***REMOVED***$ltr-prop***REMOVED***: initial;
-
+    #***REMOVED***$ltr-prop***REMOVED***: $reset-value;
     #***REMOVED***$rtl-prop***REMOVED***: $value;
   ***REMOVED***
 ***REMOVED***
@@ -312,7 +307,7 @@ $checkbox-border-width: 2px !default;
   $height: $checkbox-height,
   $border-width: $checkbox-border-width,
   $border-radius: $checkbox-border-radius) ***REMOVED***
-  ._md-container ***REMOVED***
+  .md-container ***REMOVED***
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -364,7 +359,7 @@ $checkbox-border-width: 2px !default;
   ***REMOVED***
 
   // unchecked
-  ._md-icon ***REMOVED***
+  .md-icon ***REMOVED***
     box-sizing: border-box;
     transition: 240ms;
     position: absolute;
@@ -377,15 +372,15 @@ $checkbox-border-width: 2px !default;
     border-radius: $border-radius;
   ***REMOVED***
 
-  &#***REMOVED***$checkedSelector***REMOVED*** ._md-icon ***REMOVED***
-    border: none;
+  &#***REMOVED***$checkedSelector***REMOVED*** .md-icon ***REMOVED***
+    border-color: transparent;
 
     &:after ***REMOVED***
       box-sizing: border-box;
       transform: rotate(45deg);
       position: absolute;
-      left: $width / 3;
-      top: $width / 9;
+      left: $width / 3 - $border-width;
+      top: $width / 9 - $border-width;
       display: table;
       width: $width / 3;
       height: $width * 2 / 3;
@@ -402,7 +397,7 @@ $checkbox-border-width: 2px !default;
     cursor: default;
   ***REMOVED***
 
-  &.md-indeterminate ._md-icon ***REMOVED***
+  &.md-indeterminate .md-icon ***REMOVED***
     &:after ***REMOVED***
       box-sizing: border-box;
       position: absolute;
@@ -417,6 +412,48 @@ $checkbox-border-width: 2px !default;
       border-top: 0;
       border-left: 0;
       content: '';
+    ***REMOVED***
+  ***REMOVED***
+***REMOVED***
+
+// Mixin to create a primary checkbox.
+// Used by the checkbox and select component.
+@mixin checkbox-primary($checkedSelector: '.md-checked') ***REMOVED***
+  .md-ripple ***REMOVED***
+    color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  &#***REMOVED***$checkedSelector***REMOVED*** .md-ripple ***REMOVED***
+    color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  .md-ink-ripple ***REMOVED***
+    color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  &#***REMOVED***$checkedSelector***REMOVED*** .md-ink-ripple ***REMOVED***
+    color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  &:not(.md-checked) .md-icon ***REMOVED***
+    border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  &#***REMOVED***$checkedSelector***REMOVED*** .md-icon ***REMOVED***
+    background-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  &#***REMOVED***$checkedSelector***REMOVED***.md-focused .md-container:before ***REMOVED***
+    background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  &#***REMOVED***$checkedSelector***REMOVED*** .md-icon:after ***REMOVED***
+    border-color: '***REMOVED******REMOVED***primary-contrast-0.87***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  & .md-indeterminate[disabled] ***REMOVED***
+    .md-container ***REMOVED***
+      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';
     ***REMOVED***
   ***REMOVED***
 ***REMOVED***
@@ -438,8 +475,8 @@ body ***REMOVED***
   padding: 10px;
 ***REMOVED***
 
-a._md-no-style,
-button._md-no-style ***REMOVED***
+a.md-no-style,
+button.md-no-style ***REMOVED***
   font-weight: normal;
   background-color: inherit;
   text-align: left;
@@ -489,7 +526,7 @@ input ***REMOVED***
   ***REMOVED***
 ***REMOVED***
 
-._md-visually-hidden ***REMOVED***
+.md-visually-hidden ***REMOVED***
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px;
@@ -538,13 +575,13 @@ input ***REMOVED***
 ***REMOVED***
 
 .md-ripple ***REMOVED***
+  $sizeDuration: 0.45s * 2;
   position: absolute;
   transform: translate(-50%, -50%) scale(0);
   transform-origin: 50% 50%;
   opacity: 0;
   border-radius: 50%;
   &.md-ripple-placed ***REMOVED***
-    $sizeDuration: 0.45s * 2;
     transition: margin $sizeDuration $swift-ease-out-timing-function,
                 border $sizeDuration $swift-ease-out-timing-function,
                 width $sizeDuration $swift-ease-out-timing-function,
@@ -558,6 +595,15 @@ input ***REMOVED***
   &.md-ripple-active, &.md-ripple-full, &.md-ripple-visible ***REMOVED***
     opacity: 0.20;
   ***REMOVED***
+  &.md-ripple-remove ***REMOVED***
+    animation: md-remove-ripple $sizeDuration $swift-ease-out-timing-function;
+  ***REMOVED***
+***REMOVED***
+
+// Fix issue causing ripple disappear suddenly in Chrome version 51, opacity .15 is close to the opacity when a normal click mouseup
+@keyframes md-remove-ripple ***REMOVED***
+  0% ***REMOVED*** opacity: .15; ***REMOVED***
+  100% ***REMOVED*** opacity: 0; ***REMOVED***
 ***REMOVED***
 
 .md-padding ***REMOVED***
@@ -587,6 +633,18 @@ input ***REMOVED***
     z-index: $z-index-scroll-mask-bar;
     box-shadow: inset 0px 0px 1px rgba(0, 0, 0, 0.3)
   ***REMOVED***
+***REMOVED***
+
+// For iOS allow disabling of momentum scrolling
+// @see issue #2640
+.md-no-momentum ***REMOVED***
+  -webkit-overflow-scrolling: auto;
+***REMOVED***
+
+// Add a class to help reduce flicker
+// @see issue #7078 and #8649
+.md-no-flicker ***REMOVED***
+  -webkit-filter: blur(0px);
 ***REMOVED***
 
 @media (min-width: $layout-breakpoint-sm) ***REMOVED***
@@ -765,8 +823,8 @@ input ***REMOVED***
     ***REMOVED***
 
     #***REMOVED***$offsets***REMOVED*** ***REMOVED***
-      @if $i != 0 ***REMOVED*** @include rtl-prop(margin-left, margin-right, #***REMOVED***$i * 5 + '%'***REMOVED***); ***REMOVED***
-      @else ***REMOVED*** @include rtl-prop(margin-left, margin-right, 0); ***REMOVED***
+      @if $i != 0 ***REMOVED*** @include rtl-prop(margin-left, margin-right, #***REMOVED***$i * 5 + '%'***REMOVED***, auto); ***REMOVED***
+      @else ***REMOVED*** @include rtl-prop(margin-left, margin-right, 0, auto); ***REMOVED***
     ***REMOVED***
   ***REMOVED***
 
@@ -798,7 +856,7 @@ input ***REMOVED***
     ***REMOVED***
 
     #***REMOVED***$offsets***REMOVED*** ***REMOVED***
-      @include rtl-prop(margin-left, margin-right, calc(200% / 3));
+      @include rtl-prop(margin-left, margin-right, calc(200% / 3), auto);
     ***REMOVED***
   ***REMOVED***
 ***REMOVED***
@@ -848,7 +906,33 @@ input ***REMOVED***
       box-sizing: border-box;
     ***REMOVED***
 
-    .layout-row > .#***REMOVED***$flexName***REMOVED***-#***REMOVED***$i * 5***REMOVED***,
+    .layout-row > .#***REMOVED***$flexName***REMOVED***-#***REMOVED***$i * 5***REMOVED*** ***REMOVED***
+      flex: 1 1 #***REMOVED***$value***REMOVED***;
+      max-width: #***REMOVED***$value***REMOVED***;
+      max-height: 100%;
+      box-sizing: border-box;
+
+      // Bug workaround for http://crbug.com/546034 - flex issues on Chrome 48
+      @if $i == 0 ***REMOVED***  min-width: 0;  ***REMOVED***
+    ***REMOVED***
+
+    .layout-column > .#***REMOVED***$flexName***REMOVED***-#***REMOVED***$i * 5***REMOVED*** ***REMOVED***
+      flex: 1 1 #***REMOVED***$value***REMOVED***;
+      max-width: 100%;
+      max-height: #***REMOVED***$value***REMOVED***;
+      box-sizing: border-box;
+    ***REMOVED***
+
+    .layout-row ***REMOVED***
+	    > .#***REMOVED***$flexName***REMOVED***-33   , > .#***REMOVED***$flexName***REMOVED***-33     ***REMOVED***  flex: 1 1 33.33%;  max-width: 33.33%;  max-height: 100%; box-sizing: border-box; ***REMOVED***
+	    > .#***REMOVED***$flexName***REMOVED***-66   , > .#***REMOVED***$flexName***REMOVED***-66     ***REMOVED***  flex: 1 1 66.66%;  max-width: 66.66%;  max-height: 100%; box-sizing: border-box; ***REMOVED***
+	  ***REMOVED***
+
+	  .layout-column ***REMOVED***
+	    > .#***REMOVED***$flexName***REMOVED***-33   , > .#***REMOVED***$flexName***REMOVED***-33     ***REMOVED***  flex: 1 1 33.33%;  max-width: 100%;  max-height: 33.33%; box-sizing: border-box; ***REMOVED***
+	    > .#***REMOVED***$flexName***REMOVED***-66   , > .#***REMOVED***$flexName***REMOVED***-66     ***REMOVED***  flex: 1 1 66.66%;  max-width: 100%;  max-height: 66.66%; box-sizing: border-box; ***REMOVED***
+	  ***REMOVED***
+
     .layout#***REMOVED***$name***REMOVED***-row > .#***REMOVED***$flexName***REMOVED***-#***REMOVED***$i * 5***REMOVED*** ***REMOVED***
       flex: 1 1 #***REMOVED***$value***REMOVED***;
       max-width: #***REMOVED***$value***REMOVED***;
@@ -859,7 +943,6 @@ input ***REMOVED***
       @if $i == 0 ***REMOVED***  min-width: 0;  ***REMOVED***
     ***REMOVED***
 
-    .layout-column > .#***REMOVED***$flexName***REMOVED***-#***REMOVED***$i * 5***REMOVED***,
     .layout#***REMOVED***$name***REMOVED***-column > .#***REMOVED***$flexName***REMOVED***-#***REMOVED***$i * 5***REMOVED*** ***REMOVED***
       flex: 1 1 #***REMOVED***$value***REMOVED***;
       max-width: 100%;
@@ -872,7 +955,7 @@ input ***REMOVED***
 
   ***REMOVED***
 
-  .layout-row, .layout#***REMOVED***$name***REMOVED***-row ***REMOVED***
+  .layout#***REMOVED***$name***REMOVED***-row ***REMOVED***
     > .#***REMOVED***$flexName***REMOVED***-33   , > .#***REMOVED***$flexName***REMOVED***-33     ***REMOVED***  flex: 1 1 33.33%;  max-width: 33.33%;  max-height: 100%; box-sizing: border-box; ***REMOVED***
     > .#***REMOVED***$flexName***REMOVED***-66   , > .#***REMOVED***$flexName***REMOVED***-66     ***REMOVED***  flex: 1 1 66.66%;  max-width: 66.66%;  max-height: 100%; box-sizing: border-box; ***REMOVED***
 
@@ -880,7 +963,8 @@ input ***REMOVED***
     > .flex                                       ***REMOVED*** min-width: 0;   ***REMOVED***
 
   ***REMOVED***
-  .layout-column, .layout#***REMOVED***$name***REMOVED***-column ***REMOVED***
+
+  .layout#***REMOVED***$name***REMOVED***-column ***REMOVED***
     > .#***REMOVED***$flexName***REMOVED***-33   , > .#***REMOVED***$flexName***REMOVED***-33     ***REMOVED***  flex: 1 1 33.33%;  max-width: 100%;  max-height: 33.33%; box-sizing: border-box; ***REMOVED***
     > .#***REMOVED***$flexName***REMOVED***-66   , > .#***REMOVED***$flexName***REMOVED***-66     ***REMOVED***  flex: 1 1 66.66%;  max-width: 100%;  max-height: 66.66%; box-sizing: border-box; ***REMOVED***
 
@@ -1195,13 +1279,26 @@ md-autocomplete ***REMOVED***
     ***REMOVED***
   ***REMOVED***
   md-autocomplete-wrap ***REMOVED***
-    display: block;
+
+    // Layout [layout='row']
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+
     position: relative;
     overflow: visible;
     height: 40px;
     &.md-menu-showing ***REMOVED***
       z-index: $z-index-backdrop + 1;
     ***REMOVED***
+
+    md-input-container, input ***REMOVED***
+      // Layout [flex]
+      flex:1 1 0%;
+      box-sizing:border-box;
+      min-width :0;
+    ***REMOVED***
+
     md-progress-linear ***REMOVED***
       position: absolute;
       bottom: -2px;
@@ -1213,7 +1310,7 @@ md-autocomplete ***REMOVED***
         left: 2px;
         width: auto;
       ***REMOVED***
-      ._md-mode-indeterminate ***REMOVED***
+      .md-mode-indeterminate ***REMOVED***
         position: absolute;
         top: 0;
         left: 0;
@@ -1375,26 +1472,26 @@ md-backdrop ***REMOVED***
 
   z-index: $z-index-backdrop;
 
-  &._md-menu-backdrop ***REMOVED***
+  &.md-menu-backdrop ***REMOVED***
     position: fixed !important;
     z-index: $z-index-menu - 1;
   ***REMOVED***
-  &._md-select-backdrop ***REMOVED***
+  &.md-select-backdrop ***REMOVED***
     z-index: $z-index-dialog + 1;
     transition-duration: 0;
   ***REMOVED***
-  &._md-dialog-backdrop ***REMOVED***
+  &.md-dialog-backdrop ***REMOVED***
     z-index: $z-index-dialog - 1;
   ***REMOVED***
-  &._md-bottom-sheet-backdrop ***REMOVED***
+  &.md-bottom-sheet-backdrop ***REMOVED***
     z-index: $z-index-bottom-sheet - 1;
   ***REMOVED***
-  &._md-sidenav-backdrop ***REMOVED***
+  &.md-sidenav-backdrop ***REMOVED***
     z-index: $z-index-sidenav - 1;
   ***REMOVED***
 
 
-  &._md-click-catcher ***REMOVED***
+  &.md-click-catcher ***REMOVED***
     position: absolute;
   ***REMOVED***
 
@@ -1419,6 +1516,183 @@ md-backdrop ***REMOVED***
 
 ***REMOVED***
 
+
+$bottom-sheet-horizontal-padding: 2 * $baseline-grid !default;
+$bottom-sheet-vertical-padding: 1 * $baseline-grid !default;
+$bottom-sheet-icon-after-margin: 4 * $baseline-grid !default;
+$bottom-sheet-list-item-height: 6 * $baseline-grid !default;
+$bottom-sheet-hidden-bottom-padding: 80px !default;
+$bottom-sheet-header-height: 7 * $baseline-grid !default;
+$bottom-sheet-grid-font-weight: 400 !default;
+
+md-bottom-sheet ***REMOVED***
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: $bottom-sheet-vertical-padding $bottom-sheet-horizontal-padding $bottom-sheet-vertical-padding + $bottom-sheet-hidden-bottom-padding $bottom-sheet-horizontal-padding;
+  z-index: $z-index-bottom-sheet;
+
+  border-top-width: 1px;
+  border-top-style: solid;
+
+  transform: translate3d(0, $bottom-sheet-hidden-bottom-padding, 0);
+  transition: $swift-ease-out;
+  transition-property: transform;
+
+  &.md-has-header ***REMOVED***
+    padding-top: 0;
+  ***REMOVED***
+
+  &.ng-enter ***REMOVED***
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  ***REMOVED***
+
+  &.ng-enter-active ***REMOVED***
+    opacity: 1;
+    display: block;
+    transform: translate3d(0, $bottom-sheet-hidden-bottom-padding, 0) !important;
+  ***REMOVED***
+
+
+  &.ng-leave-active ***REMOVED***
+    transform: translate3d(0, 100%, 0) !important;
+    transition: $swift-ease-in;
+  ***REMOVED***
+
+  .md-subheader ***REMOVED***
+    background-color: transparent;
+    font-family: $font-family;
+    line-height: $bottom-sheet-header-height;
+    padding: 0;
+    white-space: nowrap;
+  ***REMOVED***
+
+  md-inline-icon ***REMOVED***
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    fill: #444;
+  ***REMOVED***
+
+  md-list-item ***REMOVED***
+    display: flex;
+    outline: none;
+
+    &:hover ***REMOVED***
+      cursor: pointer;
+    ***REMOVED***
+  ***REMOVED***
+
+  &.md-list ***REMOVED***
+    md-list-item ***REMOVED***
+      padding: 0;
+      align-items: center;
+      height: $bottom-sheet-list-item-height;
+
+    ***REMOVED***
+  ***REMOVED***
+
+
+
+  &.md-grid ***REMOVED***
+    padding-left: 3 * $baseline-grid;
+    padding-right: 3 * $baseline-grid;
+    padding-top: 0;
+
+    md-list ***REMOVED***
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      transition: all 0.5s;
+      align-items: center;
+    ***REMOVED***
+
+    md-list-item ***REMOVED***
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.5s;
+
+      height: 12 * $baseline-grid;
+
+      margin-top: $baseline-grid;
+      margin-bottom: $baseline-grid;
+
+      /* Mixin for how many grid items to show per row */
+      @mixin grid-items-per-row($num, $alignEdges: false) ***REMOVED***
+        $width: 100% / $num;
+        flex: 1 1 $width;
+        max-width: $width;
+
+        @if $alignEdges ***REMOVED***
+          &:nth-of-type(#***REMOVED***$num***REMOVED***n + 1) ***REMOVED***
+            align-items: flex-start;
+          ***REMOVED***
+          &:nth-of-type(#***REMOVED***$num***REMOVED***n) ***REMOVED***
+            align-items: flex-end;
+          ***REMOVED***
+        ***REMOVED***
+      ***REMOVED***
+
+      @media (max-width: $layout-breakpoint-sm) ***REMOVED***
+        @include grid-items-per-row(3, true);
+      ***REMOVED***
+
+      @media (min-width: $layout-breakpoint-sm) and (max-width: $layout-breakpoint-md - 1) ***REMOVED***
+        @include grid-items-per-row(4);
+      ***REMOVED***
+
+      @media (min-width: $layout-breakpoint-md) and (max-width: $layout-breakpoint-lg - 1) ***REMOVED***
+        @include grid-items-per-row(6);
+      ***REMOVED***
+
+      @media (min-width: $layout-breakpoint-lg) ***REMOVED***
+        @include grid-items-per-row(7);
+      ***REMOVED***
+
+      // Override of the IE11 fix from @mixin ie11-min-height-flexbug, line 109 mixins.scss
+      &::before ***REMOVED***
+        display: none;
+      ***REMOVED***
+
+      .md-list-item-content ***REMOVED***
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 6 * $baseline-grid;
+        padding-bottom: 2 * $baseline-grid;
+      ***REMOVED***
+
+      .md-grid-item-content ***REMOVED***
+        border: 1px solid transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 10 * $baseline-grid;
+      ***REMOVED***
+
+      .md-grid-text ***REMOVED***
+        font-weight: $bottom-sheet-grid-font-weight;
+        line-height: 2 * $baseline-grid;
+        font-size: 2 * $baseline-grid - 3;
+        margin: 0;
+        white-space: nowrap;
+        width: 8 * $baseline-grid;
+        text-align: center;
+        text-transform: none;
+        padding-top: 1 * $baseline-grid;
+      ***REMOVED***
+    ***REMOVED***
+  ***REMOVED***
+***REMOVED***
+
+// IE only
+@media screen and (-ms-high-contrast: active) ***REMOVED***
+  md-bottom-sheet ***REMOVED***
+    border: 1px solid #fff;
+  ***REMOVED***
+***REMOVED***
 
 $button-border-radius: 3px !default;
 $button-fab-border-radius: 50% !default;
@@ -1448,29 +1722,36 @@ button.md-button::-moz-focus-inner ***REMOVED***
 ***REMOVED***
 
 .md-button ***REMOVED***
-  border-radius: $button-border-radius;
-  box-sizing: border-box;
-  color: currentColor;
-
-  user-select: none;
-  position: relative; //for child absolute-positioned <canvas>
-
-  outline: none;
-  border: 0;
   display: inline-block;
-  align-items: center;
-  padding: $button-padding;
-  margin: $button-margin;
-  line-height: $button-line-height;
-  min-height: $button-line-height;
-  background: transparent;
-  white-space: nowrap;
-  // override for FAB, icon buttons, etc.
-  min-width: $button-min-width;
+  position: relative; // Required for absolute canvas child elements.
+  cursor: pointer;
 
+  /** Alignment adjustments */
+  min-height: $button-line-height;
+  min-width: $button-min-width;
+  line-height: $button-line-height;
+
+  vertical-align: middle;
+  align-items: center;
   text-align: center;
 
-  // Always uppercase buttons
+  border-radius: $button-border-radius;
+  box-sizing: border-box;
+
+  /* Reset default button appearance */
+  user-select: none;
+  outline: none;
+  border: 0;
+
+  /** Custom styling for button */
+  padding: $button-padding;
+  margin: $button-margin;
+
+  background: transparent;
+  color: currentColor;
+  white-space: nowrap;
+
+  /* Uppercase text content */
   text-transform: uppercase;
   font-weight: 500;
   font-size: $body-font-size-base;
@@ -1479,8 +1760,8 @@ button.md-button::-moz-focus-inner ***REMOVED***
   font-family: inherit;
   text-decoration: none;
 
-  cursor: pointer;
-  overflow: hidden;   // for ink containment
+  // Ink Ripple should not create any overflow.
+  overflow: hidden;
 
   transition: box-shadow $swift-ease-out-duration $swift-ease-out-timing-function,
               background-color $swift-ease-out-duration $swift-ease-out-timing-function;
@@ -1602,7 +1883,7 @@ button.md-button.md-fab ***REMOVED***
   ***REMOVED***
 ***REMOVED***
 
-._md-toast-open-top ***REMOVED***
+.md-toast-open-top ***REMOVED***
   .md-button.md-fab-top-left,
   .md-button.md-fab-top-right ***REMOVED***
     transition: $swift-ease-out;
@@ -1616,7 +1897,7 @@ button.md-button.md-fab ***REMOVED***
   ***REMOVED***
 ***REMOVED***
 
-._md-toast-open-bottom ***REMOVED***
+.md-toast-open-bottom ***REMOVED***
   .md-button.md-fab-bottom-left,
   .md-button.md-fab-bottom-right ***REMOVED***
     transition: $swift-ease-out;
@@ -1668,180 +1949,6 @@ button.md-button.md-fab ***REMOVED***
   ***REMOVED***
 ***REMOVED***
 
-$bottom-sheet-horizontal-padding: 2 * $baseline-grid !default;
-$bottom-sheet-vertical-padding: 1 * $baseline-grid !default;
-$bottom-sheet-icon-after-margin: 4 * $baseline-grid !default;
-$bottom-sheet-list-item-height: 6 * $baseline-grid !default;
-$bottom-sheet-hidden-bottom-padding: 80px !default;
-$bottom-sheet-header-height: 7 * $baseline-grid !default;
-$bottom-sheet-grid-font-weight: 400 !default;
-
-md-bottom-sheet ***REMOVED***
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: $bottom-sheet-vertical-padding $bottom-sheet-horizontal-padding $bottom-sheet-vertical-padding + $bottom-sheet-hidden-bottom-padding $bottom-sheet-horizontal-padding;
-  z-index: $z-index-bottom-sheet;
-
-  border-top-width: 1px;
-  border-top-style: solid;
-
-  transform: translate3d(0, $bottom-sheet-hidden-bottom-padding, 0);
-  transition: $swift-ease-out;
-  transition-property: transform;
-
-  &.md-has-header ***REMOVED***
-    padding-top: 0;
-  ***REMOVED***
-
-  &.ng-enter ***REMOVED***
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-  ***REMOVED***
-
-  &.ng-enter-active ***REMOVED***
-    opacity: 1;
-    display: block;
-    transform: translate3d(0, $bottom-sheet-hidden-bottom-padding, 0) !important;
-  ***REMOVED***
-
-
-  &.ng-leave-active ***REMOVED***
-    transform: translate3d(0, 100%, 0) !important;
-    transition: $swift-ease-in;
-  ***REMOVED***
-
-  .md-subheader ***REMOVED***
-    background-color: transparent;
-    font-family: $font-family;
-    line-height: $bottom-sheet-header-height;
-    padding: 0;
-    white-space: nowrap;
-  ***REMOVED***
-
-  md-inline-icon ***REMOVED***
-    display: inline-block;
-    height: 24px;
-    width: 24px;
-    fill: #444;
-  ***REMOVED***
-
-  md-list-item ***REMOVED***
-    display: flex;
-    outline: none;
-
-    &:hover ***REMOVED***
-      cursor: pointer;
-    ***REMOVED***
-  ***REMOVED***
-
-  &.md-list ***REMOVED***
-    md-list-item ***REMOVED***
-      padding: 0;
-      align-items: center;
-      height: $bottom-sheet-list-item-height;
-
-    ***REMOVED***
-  ***REMOVED***
-
-
-
-  &.md-grid ***REMOVED***
-    padding-left: 3 * $baseline-grid;
-    padding-right: 3 * $baseline-grid;
-    padding-top: 0;
-
-    md-list ***REMOVED***
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      transition: all 0.5s;
-      align-items: center;
-    ***REMOVED***
-
-    md-list-item ***REMOVED***
-      flex-direction: column;
-      align-items: center;
-      transition: all 0.5s;
-
-      height: 12 * $baseline-grid;
-
-      margin-top: $baseline-grid;
-      margin-bottom: $baseline-grid;
-
-      /* Mixin for how many grid items to show per row */
-      @mixin grid-items-per-row($num, $alignEdges: false) ***REMOVED***
-        $width: 100% / $num;
-        flex: 1 1 $width;
-        max-width: $width;
-
-        @if $alignEdges ***REMOVED***
-          &:nth-of-type(#***REMOVED***$num***REMOVED***n + 1) ***REMOVED***
-            align-items: flex-start;
-          ***REMOVED***
-          &:nth-of-type(#***REMOVED***$num***REMOVED***n) ***REMOVED***
-            align-items: flex-end;
-          ***REMOVED***
-        ***REMOVED***
-      ***REMOVED***
-      
-      @media (max-width: $layout-breakpoint-sm) ***REMOVED***
-        @include grid-items-per-row(3, true);
-      ***REMOVED***
-
-      @media (min-width: $layout-breakpoint-sm) and (max-width: $layout-breakpoint-md - 1) ***REMOVED***
-        @include grid-items-per-row(4);
-      ***REMOVED***
-
-      @media (min-width: $layout-breakpoint-md) and (max-width: $layout-breakpoint-lg - 1) ***REMOVED***
-        @include grid-items-per-row(6);
-      ***REMOVED***
-
-      @media (min-width: $layout-breakpoint-lg) ***REMOVED***
-        @include grid-items-per-row(7);
-      ***REMOVED***
-
-
-
-      .md-list-item-content ***REMOVED***
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 6 * $baseline-grid;
-        padding-bottom: 2 * $baseline-grid;
-      ***REMOVED***
-
-      .md-grid-item-content ***REMOVED***
-        border: 1px solid transparent;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 10 * $baseline-grid;
-      ***REMOVED***
-
-      .md-grid-text ***REMOVED***
-        font-weight: $bottom-sheet-grid-font-weight;
-        line-height: 2 * $baseline-grid;
-        font-size: 2 * $baseline-grid - 3;
-        margin: 0;
-        white-space: nowrap;
-        width: 8 * $baseline-grid;
-        text-align: center;
-        text-transform: none;
-        padding-top: 1 * $baseline-grid;
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
-***REMOVED***
-
-// IE only
-@media screen and (-ms-high-contrast: active) ***REMOVED***
-  md-bottom-sheet ***REMOVED***
-    border: 1px solid #fff;
-  ***REMOVED***
-***REMOVED***
-
 $card-padding: 16px !default;
 $card-box-shadow: $whiteframe-shadow-1dp !default;
 
@@ -1860,13 +1967,13 @@ md-card ***REMOVED***
 
     &:first-child ***REMOVED***
       md-card-avatar ***REMOVED***
-       @include rtl-prop(margin-right, margin-left, 12px);
+       @include rtl-prop(margin-right, margin-left, 12px, auto);
       ***REMOVED***
     ***REMOVED***
 
     &:last-child ***REMOVED***
       md-card-avatar ***REMOVED***
-        @include rtl-prop(margin-left, margin-right, 12px);
+        @include rtl-prop(margin-left, margin-right, 12px, auto);
       ***REMOVED***
     ***REMOVED***
 
@@ -1904,12 +2011,12 @@ md-card ***REMOVED***
   ***REMOVED***
 
   > img,
-  > :not(md-card-content) img ***REMOVED***
+  > md-card-header img ***REMOVED***
     box-sizing: border-box;
     display: flex;
     flex: 0 0 auto;
     width: 100%;
-    height: 100% !important;
+    height: auto;
   ***REMOVED***
 
   md-card-title ***REMOVED***
@@ -2013,11 +2120,11 @@ md-card ***REMOVED***
         margin: 0 $baseline-grid * .5;
 
         &:first-of-type ***REMOVED***
-          @include rtl-prop(margin-left, margin-right, 0);
+          @include rtl-prop(margin-left, margin-right, 0, auto);
         ***REMOVED***
 
         &:last-of-type ***REMOVED***
-          @include rtl-prop(margin-right, margin-left, 0);
+          @include rtl-prop(margin-right, margin-left, 0, auto);
         ***REMOVED***
       ***REMOVED***
 
@@ -2026,11 +2133,11 @@ md-card ***REMOVED***
         margin-right: 3 * $baseline-grid / 4;
 
         &:first-of-type ***REMOVED***
-          @include rtl-prop(margin-left, margin-right, 3 * $baseline-grid / 2);
+          @include rtl-prop(margin-left, margin-right, 3 * $baseline-grid / 2, auto);
         ***REMOVED***
 
         &:last-of-type ***REMOVED***
-          @include rtl-prop(margin-right, margin-left, 3 * $baseline-grid / 2);
+          @include rtl-prop(margin-right, margin-left, 3 * $baseline-grid / 2, auto);
         ***REMOVED***
       ***REMOVED***
 
@@ -2052,6 +2159,13 @@ md-card ***REMOVED***
 @media screen and (-ms-high-contrast: active) ***REMOVED***
   md-card ***REMOVED***
     border: 1px solid #fff;
+  ***REMOVED***
+***REMOVED***
+
+.md-image-no-fill ***REMOVED***
+  > img ***REMOVED***
+    width: auto;
+    height: auto;
   ***REMOVED***
 ***REMOVED***
 
@@ -2093,7 +2207,7 @@ md-checkbox ***REMOVED***
   ***REMOVED***
 
   &.md-focused:not([disabled]) ***REMOVED***
-    ._md-container:before ***REMOVED***
+    .md-container:before ***REMOVED***
       left: -8px;
       top: -8px;
       right: -8px;
@@ -2101,19 +2215,19 @@ md-checkbox ***REMOVED***
     ***REMOVED***
 
     &:not(.md-checked) ***REMOVED***
-      ._md-container:before ***REMOVED***
+      .md-container:before ***REMOVED***
         background-color: rgba(0, 0, 0, 0.12);
       ***REMOVED***
     ***REMOVED***
   ***REMOVED***
 
-  &.md-align-top-left > div._md-container ***REMOVED***
+  &.md-align-top-left > div.md-container ***REMOVED***
     top: $checkbox-top;
   ***REMOVED***
 
   @include checkbox-container;
 
-  ._md-label ***REMOVED***
+  .md-label ***REMOVED***
     box-sizing: border-box;
     position: relative;
     display: inline-block;
@@ -2155,7 +2269,7 @@ $contact-chip-name-width: rem(12) !default;
       .md-contact-name ***REMOVED***
         display: inline-block;
         height: $chip-height;
-        @include rtl-prop(margin-left, margin-right, rem(0.8));
+        @include rtl-prop(margin-left, margin-right, rem(0.8), auto);
       ***REMOVED***
     ***REMOVED***
   ***REMOVED***
@@ -2168,7 +2282,7 @@ $contact-chip-name-width: rem(12) !default;
     margin-top: $contact-chip-suggestion-margin;
   ***REMOVED***
   .md-contact-name ***REMOVED***
-    @include rtl-prop(margin-left, margin-right, $contact-chip-suggestion-margin);
+    @include rtl-prop(margin-left, margin-right, $contact-chip-suggestion-margin, auto);
     width: $contact-chip-name-width;
   ***REMOVED***
   .md-contact-name, .md-contact-email ***REMOVED***
@@ -2189,20 +2303,24 @@ $contact-chip-name-width: rem(12) !default;
   @include rtl(padding, $chip-wrap-padding, rtl-value($chip-wrap-padding));
   vertical-align: middle;
 
-  &.md-readonly ._md-chip-input-container ***REMOVED***
+  &.md-readonly .md-chip-input-container ***REMOVED***
     min-height: $chip-height;
   ***REMOVED***
 
   &:not(.md-readonly) ***REMOVED***
     cursor: text;
+  ***REMOVED***
 
-    md-chip:not(.md-readonly) ***REMOVED***
-      @include rtl-prop(padding-right, padding-left, $chip-remove-padding-right);
+  &.md-removable ***REMOVED***
 
-      ._md-chip-content ***REMOVED***
-        @include rtl-prop(padding-right, padding-left, rem(0.4));
+    md-chip ***REMOVED***
+      @include rtl-prop(padding-right, padding-left, $chip-remove-padding-right, 0);
+
+      .md-chip-content ***REMOVED***
+        @include rtl-prop(padding-right, padding-left, rem(0.4), 0);
       ***REMOVED***
     ***REMOVED***
+
   ***REMOVED***
 
   md-chip ***REMOVED***
@@ -2218,7 +2336,7 @@ $contact-chip-name-width: rem(12) !default;
     max-width: 100%;
     position: relative;
 
-    ._md-chip-content ***REMOVED***
+    .md-chip-content ***REMOVED***
       display: block;
       @include rtl(float, left, right);
       white-space: nowrap;
@@ -2235,12 +2353,12 @@ $contact-chip-name-width: rem(12) !default;
       -khtml-user-select: none; /* webkit (konqueror) browsers */
       -ms-user-select: none; /* IE10+ */
     ***REMOVED***
-    ._md-chip-remove-container ***REMOVED***
+    .md-chip-remove-container ***REMOVED***
       position: absolute;
-      @include rtl-prop(right, left, 0);
+      @include rtl-prop(right, left, 0, auto);
       line-height: $chip-remove-line-height;
     ***REMOVED***
-    ._md-chip-remove ***REMOVED***
+    .md-chip-remove ***REMOVED***
       text-align: center;
       width: $chip-height;
       height: $chip-height;
@@ -2261,7 +2379,7 @@ $contact-chip-name-width: rem(12) !default;
       ***REMOVED***
     ***REMOVED***
   ***REMOVED***
-  ._md-chip-input-container ***REMOVED***
+  .md-chip-input-container ***REMOVED***
     display: block;
     line-height: $chip-height;
     @include rtl(margin, $chip-margin, rtl-value($chip-margin));
@@ -2324,11 +2442,11 @@ $contact-chip-name-width: rem(12) !default;
 ***REMOVED***
 // IE only
 @media screen and (-ms-high-contrast: active) ***REMOVED***
-  ._md-chip-input-container,
+  .md-chip-input-container,
   md-chip ***REMOVED***
     border: 1px solid #fff;
   ***REMOVED***
-  ._md-chip-input-container md-autocomplete ***REMOVED***
+  .md-chip-input-container md-autocomplete ***REMOVED***
     border: none;
   ***REMOVED***
 ***REMOVED***
@@ -2350,13 +2468,6 @@ md-content ***REMOVED***
     overflow-y: hidden;
   ***REMOVED***
   &[md-scroll-xy] ***REMOVED***
-  ***REMOVED***
-
-  // For iOS allow disabling of momentum scrolling
-  // @see issue #2640.
-
-  &.md-no-momentum ***REMOVED***
-    -webkit-overflow-scrolling: auto;
   ***REMOVED***
 
   @media print ***REMOVED***
@@ -2401,11 +2512,11 @@ $md-calendar-height:
   // because we want the header background and the month dividing border to
   // extend the entire width of the calendar.
   &:first-child ***REMOVED***
-    @include rtl-prop(padding-left, padding-right, $md-calendar-side-padding);
+    @include rtl-prop(padding-left, padding-right, $md-calendar-side-padding, 0);
   ***REMOVED***
 
   &:last-child ***REMOVED***
-    @include rtl-prop(padding-right, padding-left, $md-calendar-side-padding);
+    @include rtl-prop(padding-right, padding-left, $md-calendar-side-padding, 0);
   ***REMOVED***
 ***REMOVED***
 
@@ -2499,6 +2610,14 @@ md-calendar ***REMOVED***
   md-calendar-month &:not(.md-calendar-month-label-disabled) ***REMOVED***
     cursor: pointer;
   ***REMOVED***
+
+  md-icon ***REMOVED***
+    transform: rotate(180deg);
+  ***REMOVED***
+
+  span ***REMOVED***
+    vertical-align: middle;
+  ***REMOVED***
 ***REMOVED***
 
 // Table containing the day-of-the-week header.
@@ -2542,17 +2661,22 @@ md-calendar ***REMOVED***
 /** Styles for mdDatepicker. */
 $md-datepicker-button-gap: 12px !default;  // Space between the text input and the calendar-icon button.
 $md-datepicker-border-bottom-gap: 5px !default;  // Space between input and the grey underline.
+$md-date-arrow-size: 5px !default; // Size of the triangle on the right side of the input.
 $md-datepicker-open-animation-duration: 0.2s !default;
 $md-datepicker-triangle-button-width: 36px !default;
+$md-datepicker-input-mask-height: 40px !default;
+$md-datepicker-button-padding: 8px !default;
+
 
 md-datepicker ***REMOVED***
   // Don't let linebreaks happen between the open icon-button and the input.
   white-space: nowrap;
   overflow: hidden;
 
-  // Leave room for the down-triangle button to "overflow" it's parent without modifying scrollLeft
-  @include rtl-prop(padding-right, padding-left, $md-datepicker-triangle-button-width / 2);
-  @include rtl-prop(margin-right, margin-left, -$md-datepicker-triangle-button-width / 2);
+  // Leave room for the down-triangle button to "overflow" it's parent without modifying scrollLeft.
+  // This prevents the element from shifting right when opening via the triangle button.
+  @include rtl-prop(padding-right, padding-left, $md-datepicker-triangle-button-width / 2, 0);
+  @include rtl-prop(margin-right, margin-left, -$md-datepicker-triangle-button-width / 2, auto);
 
   vertical-align: middle;
 ***REMOVED***
@@ -2568,6 +2692,20 @@ md-datepicker ***REMOVED***
   display: inline-block;
   box-sizing: border-box;
   background: none;
+  vertical-align: middle;
+  position: relative;
+
+  // Captures any of the click events. This is necessary, because the button has a SVG
+  // icon which doesn't propagate the focus event, causing inconsistent behaviour.
+  &:before ***REMOVED***
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    content: '';
+    speak: none;
+  ***REMOVED***
 ***REMOVED***
 
 // The input into which the user can type the date.
@@ -2576,6 +2714,40 @@ md-datepicker ***REMOVED***
   min-width: 120px;
   max-width: $md-calendar-width - $md-datepicker-button-gap;
 ***REMOVED***
+
+// If the datepicker is inside of a md-input-container
+._md-datepicker-floating-label ***REMOVED***
+  > md-datepicker ***REMOVED***
+    // Prevents the ripple on the triangle from being clipped.
+    overflow: visible;
+
+    .md-datepicker-input-container ***REMOVED***
+      border: none;
+    ***REMOVED***
+
+    .md-datepicker-button ***REMOVED***
+      // Prevents the button from wrapping around.
+      @include rtl(float, left, right);
+      margin-top: -$md-datepicker-border-bottom-gap / 2;
+    ***REMOVED***
+  ***REMOVED***
+
+  &._md-datepicker-has-calendar-icon ***REMOVED***
+    > label:not(.md-no-float):not(.md-container-ignore) ***REMOVED***
+      $width-offset: $md-datepicker-triangle-button-width * 2 + $md-datepicker-button-gap;
+      $offset: $md-datepicker-triangle-button-width / 2;
+      @include rtl(right, $offset, auto);
+      @include rtl(left, auto, $offset);
+      width: calc(100% - #***REMOVED***$width-offset***REMOVED***);
+    ***REMOVED***
+
+    .md-input-message-animation ***REMOVED***
+      $margin: $md-datepicker-triangle-button-width + $md-datepicker-button-padding * 2 + $md-datepicker-button-gap;
+      @include rtl-prop(margin-left, margin-right, $margin, auto);
+    ***REMOVED***
+  ***REMOVED***
+***REMOVED***
+
 
 // Container for the datepicker input.
 .md-datepicker-input-container ***REMOVED***
@@ -2588,7 +2760,10 @@ md-datepicker ***REMOVED***
 
   display: inline-block;
   width: auto;
-  @include rtl-prop(margin-left, margin-right, $md-datepicker-button-gap);
+
+  .md-icon-button + & ***REMOVED***
+    @include rtl-prop(margin-left, margin-right, $md-datepicker-button-gap, auto);
+  ***REMOVED***
 
   &.md-datepicker-focused ***REMOVED***
     border-bottom-width: 2px;
@@ -2601,11 +2776,14 @@ md-datepicker ***REMOVED***
 
 // Floating pane that contains the calendar at the bottom of the input.
 .md-datepicker-calendar-pane ***REMOVED***
+  // On most browsers the `scale(0)` below prevents this element from
+  // overflowing it's parent, however IE and Edge seem to disregard it.
+  // The `left: -100%` pulls the element back in order to ensure that
+  // it doesn't cause an overflow.
   position: absolute;
   top: 0;
-  left: 0;
+  left: -100%;
   z-index: $z-index-calendar-pane;
-
   border-width: 1px;
   border-style: solid;
   background: transparent;
@@ -2621,7 +2799,9 @@ md-datepicker ***REMOVED***
 
 // Portion of the floating panel that sits, invisibly, on top of the input.
 .md-datepicker-input-mask ***REMOVED***
-  height: 40px;
+  // It needs to be 1px shorter because of the datepicker-input-container's bottom border,
+  // which can cause a slight hole in the mask when it's inside a md-input-container.
+  height: $md-datepicker-input-mask-height - 1px;
   width: $md-calendar-width;
   position: relative;
 
@@ -2662,7 +2842,6 @@ md-datepicker ***REMOVED***
 // Down triangle/arrow indicating that the datepicker can be opened.
 // We can do this entirely with CSS without needing to load an icon.
 // See https://css-tricks.com/snippets/css/css-triangle/
-$md-date-arrow-size: 5px !default;
 .md-datepicker-expand-triangle ***REMOVED***
   // Center the triangle inside of the button so that the
   // ink ripple origin looks correct.
@@ -2681,8 +2860,8 @@ $md-date-arrow-size: 5px !default;
 // Button containing the down "disclosure" triangle/arrow.
 .md-datepicker-triangle-button ***REMOVED***
   position: absolute;
-  @include rtl-prop(right, left, 0);
-  top: 0;
+  @include rtl-prop(right, left, 0, auto);
+  top: $md-date-arrow-size;
 
   // TODO(jelbourn): This position isn't great on all platforms.
   @include rtl(transform, translateY(-25%) translateX(45%), translateY(-25%) translateX(-45%));
@@ -2691,9 +2870,10 @@ $md-date-arrow-size: 5px !default;
 // Need crazy specificity to override .md-button.md-icon-button.
 // Only apply this high specifiy to the property we need to override.
 .md-datepicker-triangle-button.md-button.md-icon-button ***REMOVED***
-  height: 100%;
+  height: $md-datepicker-triangle-button-width;
   width: $md-datepicker-triangle-button-width;
   position: absolute;
+  padding: $md-datepicker-button-padding;
 ***REMOVED***
 
 // Disabled state for all elements of the picker.
@@ -2709,21 +2889,34 @@ md-datepicker[disabled] ***REMOVED***
 
 // Open state for all of the elements of the picker.
 .md-datepicker-open ***REMOVED***
-  .md-datepicker-input-container ***REMOVED***
-    @include rtl-prop(margin-left, margin-right, -$md-datepicker-button-gap);
+  overflow: hidden;
 
+  .md-datepicker-input-container ***REMOVED***
     // The negative bottom margin prevents the content around the datepicker
     // from jumping when it gets opened.
     margin-bottom: -$md-datepicker-border-bottom-gap;
-    border: none;
   ***REMOVED***
 
-  .md-datepicker-input ***REMOVED***
-    @include rtl-prop(margin-left, margin-right, 24px);
-    height: 40px;
+  .md-icon-button + .md-datepicker-input-container ***REMOVED***
+    @include rtl-prop(margin-left, margin-right, -$md-datepicker-button-gap, auto);
   ***REMOVED***
 
-  .md-datepicker-triangle-button ***REMOVED***
+  .md-datepicker-input,
+  label:not(.md-no-float):not(.md-container-ignore) ***REMOVED***
+    margin-bottom: -$md-datepicker-border-bottom-gap;
+  ***REMOVED***
+
+  // This needs some extra specificity in order to override
+  // the focused/invalid border colors.
+  input.md-datepicker-input ***REMOVED***
+    @include rtl-prop(margin-left, margin-right, 24px, auto);
+    height: $md-datepicker-input-mask-height;
+    border-bottom-color: transparent;
+  ***REMOVED***
+
+  .md-datepicker-triangle-button,
+  &.md-input-has-value > label,
+  &.md-input-has-placeholder > label ***REMOVED***
     display: none;
   ***REMOVED***
 ***REMOVED***
@@ -2770,12 +2963,12 @@ $dialog-padding: $baseline-grid * 3 !default;
 
 md-dialog ***REMOVED***
 
-  &._md-transition-in ***REMOVED***
+  &.md-transition-in ***REMOVED***
     opacity: 1;
     transition: $swift-ease-out;
     transform: translate(0,0) scale(1.0);
   ***REMOVED***
-  &._md-transition-out ***REMOVED***
+  &.md-transition-out ***REMOVED***
     opacity: 0;
     transition: $swift-ease-out;
     transform: translate(0,100%) scale(0.2);
@@ -2821,7 +3014,7 @@ md-dialog ***REMOVED***
       margin: 0;
     ***REMOVED***
 
-    ._md-dialog-content-body ***REMOVED***
+    .md-dialog-content-body ***REMOVED***
       width:100%;
     ***REMOVED***
 
@@ -2880,7 +3073,7 @@ md-divider ***REMOVED***
   margin: 0;
 
   &[md-inset] ***REMOVED***
-    @include rtl-prop(margin-left, margin-right, $baseline-grid * 10);
+    @include rtl-prop(margin-left, margin-right, $baseline-grid * 10, auto);
   ***REMOVED***
 ***REMOVED***
 
@@ -2896,6 +3089,7 @@ md-divider ***REMOVED***
     border-right-style: solid;
   ***REMOVED***
 ***REMOVED***
+
 md-fab-speed-dial ***REMOVED***
   position: relative;
   display: flex;
@@ -3023,7 +3217,7 @@ md-fab-speed-dial ***REMOVED***
   ***REMOVED***
 
   // For the initial animation, set the duration to be instant
-  &.md-fling._md-animations-waiting ***REMOVED***
+  &.md-fling.md-animations-waiting ***REMOVED***
     .md-fab-action-item ***REMOVED***
       opacity: 0;
       transition-duration: 0s;
@@ -3055,7 +3249,7 @@ md-fab-toolbar ***REMOVED***
   /*
    * Closed styling
    */
-  ._md-fab-toolbar-wrapper ***REMOVED***
+  .md-fab-toolbar-wrapper ***REMOVED***
     display: block;
     position: relative;
     overflow: hidden;
@@ -3072,7 +3266,7 @@ md-fab-toolbar ***REMOVED***
       overflow: visible !important;
     ***REMOVED***
 
-    ._md-fab-toolbar-background ***REMOVED***
+    .md-fab-toolbar-background ***REMOVED***
       display: block;
       position: absolute;
       z-index: $z-index-fab + 1;
@@ -3094,23 +3288,23 @@ md-fab-toolbar ***REMOVED***
 
   &.md-left ***REMOVED***
     md-fab-trigger ***REMOVED***
-      @include rtl-prop(right, left, 0);
+      @include rtl-prop(right, left, 0, auto);
     ***REMOVED***
 
     .md-toolbar-tools ***REMOVED***
       flex-direction: row-reverse;
 
       > .md-button:first-child ***REMOVED***
-        @include rtl-prop(margin-right, margin-left, 0.6rem)
+        @include rtl-prop(margin-right, margin-left, 0.6rem, auto)
       ***REMOVED***
 
       > .md-button:first-child ***REMOVED***
-        @include rtl-prop(margin-left, margin-right, -0.8rem);
+        @include rtl-prop(margin-left, margin-right, -0.8rem, auto);
       ***REMOVED***
 
 
       > .md-button:last-child ***REMOVED***
-        @include rtl-prop(margin-right, margin-left, 8px);
+        @include rtl-prop(margin-right, margin-left, 8px, auto);
       ***REMOVED***
 
     ***REMOVED***
@@ -3118,7 +3312,7 @@ md-fab-toolbar ***REMOVED***
 
   &.md-right ***REMOVED***
     md-fab-trigger ***REMOVED***
-      @include rtl-prop(left, right, 0);
+      @include rtl-prop(left, right, 0, auto);
     ***REMOVED***
 
     .md-toolbar-tools ***REMOVED***
@@ -3308,427 +3502,6 @@ md-icon ***REMOVED***
 //  -moz-osx-font-smoothing:grayscale;
 //***REMOVED***
 
-$dense-baseline-grid: $baseline-grid / 2 !default;
-
-$list-h3-margin: 0 0 0px 0 !default;
-$list-h4-margin: 3px 0 1px 0 !default;
-$list-h4-font-weight: 400 !default;
-$list-header-line-height: 1.2em !default;
-$list-p-margin: 0 0 0 0 !default;
-$list-p-line-height: 1.6em !default;
-
-$list-padding-top: $baseline-grid !default;
-$list-padding-right: 0px !default;
-$list-padding-left: 0px !default;
-$list-padding-bottom: $baseline-grid !default;
-
-$item-padding-top: 0px !default;
-$item-padding-right: 0px !default;
-$item-padding-left: 0px !default;
-$item-padding-bottom: 0px !default;
-$list-item-padding-vertical: 0px !default;
-$list-item-padding-horizontal: $baseline-grid * 2 !default;
-$list-item-primary-width: $baseline-grid * 7 !default;
-$list-item-primary-avatar-width: $baseline-grid * 5 !default;
-$list-item-primary-icon-width: $baseline-grid * 3 !default;
-$list-item-secondary-left-margin: $baseline-grid * 2 !default;
-$list-item-secondary-button-width: $baseline-grid * 6 !default;
-$list-item-inset-divider-offset: 9 * $baseline-grid !default;
-$list-item-height: 6 * $baseline-grid !default;
-$list-item-two-line-height: 9 * $baseline-grid !default;
-$list-item-three-line-height: 11 * $baseline-grid !default;
-
-$list-item-dense-height: 12 * $dense-baseline-grid !default;
-$list-item-dense-two-line-height: 15 * $dense-baseline-grid !default;
-$list-item-dense-three-line-height: 19 * $dense-baseline-grid !default;
-$list-item-dense-primary-icon-width: $dense-baseline-grid * 5 !default;
-$list-item-dense-primary-avatar-width: $dense-baseline-grid * 9 !default;
-$list-item-dense-header-font-size: round($subhead-font-size-base * 0.8) !default;
-$list-item-dense-font-size: round($body-font-size-base * 0.85) !default;
-$list-item-dense-line-height: 1.05 !default;
-
-md-list ***REMOVED***
-  display: block;
-  padding: $list-padding-top $list-padding-right $list-padding-bottom $list-padding-left;
-
-  .md-subheader ***REMOVED***
-    font-size: $body-font-size-base;
-    font-weight: 500;
-    letter-spacing: 0.010em;
-    line-height: $list-header-line-height;
-  ***REMOVED***
-
-  &.md-dense ***REMOVED***
-    md-list-item ***REMOVED***
-      &,
-      ._md-list-item-inner ***REMOVED***
-        min-height: $list-item-dense-height;
-
-        // Layout for controls in primary or secondary divs, or auto-infered first child
-
-        md-icon:first-child ***REMOVED***
-          width: $list-item-dense-primary-icon-width;
-          height: $list-item-dense-primary-icon-width;
-        ***REMOVED***
-
-        > md-icon:first-child:not(.md-avatar-icon) ***REMOVED***
-          @include rtl-prop(margin-right, margin-left, $list-item-primary-width - $list-item-dense-primary-icon-width);
-        ***REMOVED***
-        .md-avatar, .md-avatar-icon ***REMOVED***
-          @include rtl-prop(margin-right, margin-left, $list-item-primary-width - $list-item-dense-primary-avatar-width);
-        ***REMOVED***
-        .md-avatar ***REMOVED***
-          flex: none;
-          width: $list-item-dense-primary-avatar-width;
-          height: $list-item-dense-primary-avatar-width;
-        ***REMOVED***
-      ***REMOVED***
-
-      &.md-2-line,
-      &.md-3-line ***REMOVED***
-        &, & > ._md-no-style ***REMOVED***
-          .md-list-item-text ***REMOVED***
-            &.md-offset ***REMOVED***
-              @include rtl-prop(margin-left, margin-right, $list-item-primary-width);
-            ***REMOVED***
-
-            h3,
-            h4,
-            p ***REMOVED***
-              line-height: $list-item-dense-line-height;
-              font-size: $list-item-dense-font-size;
-            ***REMOVED***
-
-            h3 ***REMOVED***
-              font-size: $list-item-dense-header-font-size;
-            ***REMOVED***
-          ***REMOVED***
-        ***REMOVED***
-      ***REMOVED***
-
-      &.md-2-line ***REMOVED***
-        &, & > ._md-no-style ***REMOVED***
-          min-height: $list-item-dense-two-line-height;
-
-          div.md-button:first-child ***REMOVED***
-            @include ie11-min-height-flexbug($list-item-dense-two-line-height);
-          ***REMOVED***
-
-          > .md-avatar, .md-avatar-icon ***REMOVED***
-            margin-top: $baseline-grid * 1.5;
-          ***REMOVED***
-        ***REMOVED***
-      ***REMOVED***
-
-      &.md-3-line ***REMOVED***
-        &, & > ._md-no-style ***REMOVED***
-          min-height: $list-item-dense-three-line-height;
-
-          div.md-button:first-child ***REMOVED***
-            @include ie11-min-height-flexbug($list-item-dense-three-line-height);
-          ***REMOVED***
-
-          > md-icon:first-child,
-          > .md-avatar ***REMOVED***
-            margin-top: $baseline-grid * 2;
-          ***REMOVED***
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
-***REMOVED***
-
-md-list-item ***REMOVED***
-  // Ensure nested dividers are properly positioned
-  position: relative;
-
-  &._md-proxy-focus.md-focused ._md-no-style ***REMOVED***
-    transition: background-color 0.15s linear;
-  ***REMOVED***
-
-  &._md-button-wrap ***REMOVED***
-    position: relative;
-
-    > div.md-button:first-child ***REMOVED***
-      // Vertically align the item content.
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-
-      padding: 0 16px;
-      margin: 0;
-
-      // The button should not inherit the parents background color.
-      background-color: initial;
-
-      font-weight: 400;
-      @include rtl(text-align, left, right);
-      border: medium none;
-
-      // The button executor should fill the whole list item.
-      > .md-button:first-child ***REMOVED***
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-
-        margin: 0;
-        padding: 0;
-      ***REMOVED***
-
-      ._md-list-item-inner ***REMOVED***
-        // The list item content should fill the complete width.
-        width: 100%;
-        height: 100%;
-      ***REMOVED***
-
-    ***REMOVED***
-
-  ***REMOVED***
-
-  &._md-no-proxy,
-  ._md-no-style ***REMOVED***
-    position: relative;
-    padding: $list-item-padding-vertical $list-item-padding-horizontal;
-    flex: 1 1 auto;
-
-    &.md-button ***REMOVED***
-      font-size: inherit;
-      height: inherit;
-      @include rtl(text-align, left, right);
-      text-transform: none;
-      width: 100%;
-      white-space: normal;
-      flex-direction: inherit;
-      align-items: inherit;
-      border-radius: 0;
-      margin: 0;
-
-      & > .md-ripple-container ***REMOVED***
-        border-radius: 0;
-      ***REMOVED***
-    ***REMOVED***
-    &:focus ***REMOVED***
-      outline: none
-    ***REMOVED***
-  ***REMOVED***
-  &.md-clickable:hover ***REMOVED***
-    cursor: pointer;
-  ***REMOVED***
-
-  md-divider ***REMOVED***
-    position: absolute;
-    bottom: 0;
-    @include rtl-prop(left, right, 0);
-    width: 100%;
-    &[md-inset] ***REMOVED***
-      @include rtl-prop(left, right, $list-item-inset-divider-offset);
-      width: calc(100% - #***REMOVED***$list-item-inset-divider-offset***REMOVED***);
-      margin: 0 !important;
-    ***REMOVED***
-  ***REMOVED***
-
-  &,
-  ._md-list-item-inner ***REMOVED***
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    min-height: $list-item-height;
-    height: auto;
-
-    // Layout for controls in primary or secondary divs, or auto-infered first child
-    & > div.md-primary > md-icon:not(.md-avatar-icon),
-    & > div.md-secondary > md-icon:not(.md-avatar-icon),
-    & > md-icon:first-child:not(.md-avatar-icon),
-    > md-icon.md-secondary:not(.md-avatar-icon) ***REMOVED***
-      width: $list-item-primary-icon-width;
-      margin-top: 16px;
-      margin-bottom: 12px;
-      box-sizing: content-box;
-    ***REMOVED***
-    & > div.md-primary > md-checkbox,
-    & > div.md-secondary > md-checkbox,
-    & > md-checkbox,
-    md-checkbox.md-secondary ***REMOVED***
-      align-self: center;
-      .md-label ***REMOVED***
-        display: none;
-      ***REMOVED***
-    ***REMOVED***
-
-    & > md-icon:first-child:not(.md-avatar-icon) ***REMOVED***
-      @include rtl-prop(margin-right, margin-left, $list-item-primary-width - $list-item-primary-icon-width);
-    ***REMOVED***
-
-    & .md-avatar, .md-avatar-icon ***REMOVED***
-      margin-top: $baseline-grid;
-      margin-bottom: $baseline-grid;
-      @include rtl-prop(margin-right, margin-left, $list-item-primary-width - $list-item-primary-avatar-width);
-      border-radius: 50%;
-      box-sizing: content-box;
-    ***REMOVED***
-    & .md-avatar ***REMOVED***
-      flex: none;
-      width: $list-item-primary-avatar-width;
-      height: $list-item-primary-avatar-width;
-    ***REMOVED***
-    & .md-avatar-icon ***REMOVED***
-      padding: 8px;
-
-      // Set the width/height to the same as the icon to fix issue on iOS Safari where the
-      // height: 100% was causing it to be larger than it's parent
-      svg ***REMOVED***
-        width: $icon-size;
-        height: $icon-size;
-      ***REMOVED***
-    ***REMOVED***
-
-    & > md-checkbox ***REMOVED***
-      width: 3 * $baseline-grid;
-      @include rtl(margin-left, 3px, 29px);
-      @include rtl(margin-right, 29px, 3px);
-      margin-top: 16px;
-    ***REMOVED***
-
-    ._md-secondary-container ***REMOVED***
-      display: flex;
-      align-items: center;
-
-      // The secondary container is now static and needs to be aligned at the end of its parent.
-      // - Using an absolute position will cause much issues with the overflow.
-      // - Using a flex-filler, which pushes the container to the end of the parent is working
-      //   but breaks the users list-item layout.
-      // Using margin auto to move them to the end of the list item is more elegant, because it has
-      // a lower priority than the flex filler and isn't introducing overflow issues again.
-      // The margin on the top is also important to align multiple secondary items vertical correctly.
-      margin: auto;
-
-      @include rtl(margin-right, 0, auto);
-      @include rtl(margin-left, auto, 0);
-
-      .md-button, .md-icon-button ***REMOVED***
-        &:last-of-type ***REMOVED***
-          // Reset 6px margin for the button.
-          @include rtl-prop(margin-right, margin-left, 0px);
-        ***REMOVED***
-      ***REMOVED***
-
-      md-checkbox ***REMOVED***
-        margin-top: 0;
-        margin-bottom: 0;
-
-        &:last-child ***REMOVED***
-          width: 3 * $baseline-grid;
-          @include rtl-prop(margin-right, margin-left, 0);
-        ***REMOVED***
-      ***REMOVED***
-
-      md-switch ***REMOVED***
-        margin-top: 0;
-        margin-bottom: 0;
-
-        @include rtl-prop(margin-right, margin-left, -6px);
-      ***REMOVED***
-    ***REMOVED***
-
-    & > p, & > ._md-list-item-inner > p ***REMOVED***
-      flex: 1 1 auto;
-      margin: 0;
-    ***REMOVED***
-  ***REMOVED***
-
-  &.md-2-line,
-  &.md-3-line ***REMOVED***
-    &, & > ._md-no-style ***REMOVED***
-      align-items: flex-start;
-      justify-content: center;
-
-      &.md-long-text ***REMOVED***
-        margin-top: $baseline-grid;
-        margin-bottom: $baseline-grid;
-      ***REMOVED***
-
-      .md-list-item-text ***REMOVED***
-        flex: 1 1 auto;
-        margin: auto;
-        text-overflow: ellipsis;
-        overflow: hidden;
-
-        &.md-offset ***REMOVED***
-          @include rtl-prop(margin-left, margin-right, $list-item-primary-width);
-        ***REMOVED***
-
-        h3 ***REMOVED***
-          font-size: $subhead-font-size-base;
-          font-weight: 400;
-          letter-spacing: 0.010em;
-          margin: $list-h3-margin;
-          line-height: $list-header-line-height;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-        ***REMOVED***
-        h4 ***REMOVED***
-          font-size: $body-font-size-base;
-          letter-spacing: 0.010em;
-          margin: $list-h4-margin;
-          font-weight: $list-h4-font-weight;
-          line-height: $list-header-line-height;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-        ***REMOVED***
-        p ***REMOVED***
-          font-size: $body-font-size-base;
-          font-weight: 500;
-          letter-spacing: 0.010em;
-          margin: $list-p-margin;
-          line-height: $list-p-line-height;
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
-
-  &.md-2-line ***REMOVED***
-    &, & > ._md-no-style ***REMOVED***
-      height: auto;
-      min-height: $list-item-two-line-height;
-
-      div.md-button:first-child ***REMOVED***
-        @include ie11-min-height-flexbug($list-item-two-line-height);
-      ***REMOVED***
-
-      > .md-avatar, .md-avatar-icon ***REMOVED***
-        margin-top: $baseline-grid * 1.5;
-      ***REMOVED***
-
-      > md-icon:first-child ***REMOVED***
-        align-self: flex-start;
-      ***REMOVED***
-
-      .md-list-item-text ***REMOVED***
-        flex: 1 1 auto;
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
-
-  &.md-3-line ***REMOVED***
-    &, & > ._md-no-style ***REMOVED***
-      height: auto;
-      min-height: $list-item-three-line-height;
-
-      div.md-button:first-child ***REMOVED***
-        @include ie11-min-height-flexbug($list-item-three-line-height);
-      ***REMOVED***
-
-      > md-icon:first-child,
-      > .md-avatar ***REMOVED***
-        margin-top: $baseline-grid * 2;
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
-***REMOVED***
-
 $input-container-padding: 2px !default;
 
 $input-label-default-offset: 24px !default;
@@ -3838,7 +3611,7 @@ md-input-container ***REMOVED***
     ***REMOVED***
   ***REMOVED***
 
-  label:not(._md-container-ignore) ***REMOVED***
+  label:not(.md-container-ignore) ***REMOVED***
     position: absolute;
     bottom: 100%;
     @include rtl(left, 0, auto);
@@ -3851,8 +3624,8 @@ md-input-container ***REMOVED***
     ***REMOVED***
   ***REMOVED***
 
-  label:not(.md-no-float):not(._md-container-ignore),
-  ._md-placeholder ***REMOVED***
+  label:not(.md-no-float):not(.md-container-ignore),
+  .md-placeholder ***REMOVED***
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -3872,19 +3645,19 @@ md-input-container ***REMOVED***
 
     @include rtl(transform-origin, left top, right top);
   ***REMOVED***
-  ._md-placeholder ***REMOVED***
+  .md-placeholder ***REMOVED***
     position: absolute;
     top: 0;
     opacity: 0;
     transition-property: opacity, transform;
     transform: translate3d(0, $input-placeholder-offset + $baseline-grid * 0.75, 0);
   ***REMOVED***
-  &.md-input-focused ._md-placeholder ***REMOVED***
+  &.md-input-focused .md-placeholder ***REMOVED***
     opacity: 1;
     transform: translate3d(0, $input-placeholder-offset, 0);
   ***REMOVED***
   // Placeholder should immediately disappear when the user starts typing
-  &.md-input-has-value ._md-placeholder ***REMOVED***
+  &.md-input-has-value .md-placeholder ***REMOVED***
     transition: none;
     opacity: 0;
   ***REMOVED***
@@ -4001,12 +3774,10 @@ md-input-container ***REMOVED***
   ***REMOVED***
 
   // Note: This is a workaround to fix an ng-enter flicker bug
-  .md-auto-hide ***REMOVED***
-    .md-input-message-animation ***REMOVED***
-      &:not(.ng-animate) ***REMOVED***
-        opacity: 0;
-        margin-top: -100px;
-      ***REMOVED***
+  .md-input-message-animation ***REMOVED***
+    &:not(.ng-animate) ***REMOVED***
+      opacity: 0;
+      margin-top: -100px;
     ***REMOVED***
   ***REMOVED***
 
@@ -4076,7 +3847,7 @@ md-input-container ***REMOVED***
   &.md-icon-left,
   &.md-icon-right ***REMOVED***
     > label ***REMOVED***
-      &:not(.md-no-float):not(._md-container-ignore),
+      &:not(.md-no-float):not(.md-container-ignore),
       .md-placeholder ***REMOVED***
         width: calc(100% - #***REMOVED***$icon-offset***REMOVED*** - #***REMOVED***$input-label-float-width***REMOVED***);
       ***REMOVED***
@@ -4110,7 +3881,7 @@ md-input-container ***REMOVED***
     padding-right: $icon-offset;
 
     > label ***REMOVED***
-      &:not(.md-no-float):not(._md-container-ignore),
+      &:not(.md-no-float):not(.md-container-ignore),
       .md-placeholder ***REMOVED***
         width: calc(100% - (#***REMOVED***$icon-offset***REMOVED*** * 2));
       ***REMOVED***
@@ -4124,95 +3895,421 @@ md-input-container ***REMOVED***
   ***REMOVED***
 ***REMOVED***
 
-md-toolbar.md-menu-toolbar ***REMOVED***
-  h2.md-toolbar-tools ***REMOVED***
-    line-height: 1rem;
-    height: auto;
-    padding: 3.5 * $baseline-grid;
-    padding-bottom: 1.5 * $baseline-grid;
-  ***REMOVED***
-***REMOVED***
+$dense-baseline-grid: $baseline-grid / 2 !default;
 
-md-menu-bar ***REMOVED***
-  padding: 0 2.5 * $baseline-grid;
+$list-h3-margin: 0 0 0px 0 !default;
+$list-h4-margin: 3px 0 1px 0 !default;
+$list-h4-font-weight: 400 !default;
+$list-header-line-height: 1.2em !default;
+$list-p-margin: 0 0 0 0 !default;
+$list-p-line-height: 1.6em !default;
+
+$list-padding-top: $baseline-grid !default;
+$list-padding-right: 0px !default;
+$list-padding-left: 0px !default;
+$list-padding-bottom: $baseline-grid !default;
+
+$item-padding-top: 0px !default;
+$item-padding-right: 0px !default;
+$item-padding-left: 0px !default;
+$item-padding-bottom: 0px !default;
+$list-item-padding-vertical: 0px !default;
+$list-item-padding-horizontal: $baseline-grid * 2 !default;
+$list-item-primary-width: $baseline-grid * 7 !default;
+$list-item-primary-avatar-width: $baseline-grid * 5 !default;
+$list-item-primary-icon-width: $baseline-grid * 3 !default;
+$list-item-secondary-left-margin: $baseline-grid * 2 !default;
+$list-item-secondary-button-width: $baseline-grid * 6 !default;
+$list-item-inset-divider-offset: 9 * $baseline-grid !default;
+$list-item-height: 6 * $baseline-grid !default;
+$list-item-two-line-height: 9 * $baseline-grid !default;
+$list-item-three-line-height: 11 * $baseline-grid !default;
+
+$list-item-dense-height: 12 * $dense-baseline-grid !default;
+$list-item-dense-two-line-height: 15 * $dense-baseline-grid !default;
+$list-item-dense-three-line-height: 19 * $dense-baseline-grid !default;
+$list-item-dense-primary-icon-width: $dense-baseline-grid * 5 !default;
+$list-item-dense-primary-avatar-width: $dense-baseline-grid * 9 !default;
+$list-item-dense-header-font-size: round($subhead-font-size-base * 0.8) !default;
+$list-item-dense-font-size: round($body-font-size-base * 0.85) !default;
+$list-item-dense-line-height: 1.05 !default;
+
+md-list ***REMOVED***
   display: block;
-  position: relative;
-  z-index: 2;
-  .md-menu ***REMOVED***
-    display: inline-block;
-    padding: 0;
-    position: relative;
-  ***REMOVED***
-  button ***REMOVED***
-    font-size: rem(1.4);
-    padding: 0 1.25 * $baseline-grid;
-    margin: 0;
-    border: 0;
-    background-color: transparent;
-    height: 5 * $baseline-grid;
+  padding: $list-padding-top $list-padding-right $list-padding-bottom $list-padding-left;
+
+  .md-subheader ***REMOVED***
+    font-size: $body-font-size-base;
+    font-weight: 500;
+    letter-spacing: 0.010em;
+    line-height: $list-header-line-height;
   ***REMOVED***
 
-  md-backdrop._md-menu-backdrop ***REMOVED***
-    z-index: -2;
+  &.md-dense ***REMOVED***
+    md-list-item ***REMOVED***
+      &,
+      .md-list-item-inner ***REMOVED***
+        min-height: $list-item-dense-height;
+        @include ie11-min-height-flexbug($list-item-dense-height);
+
+
+        // Layout for controls in primary or secondary divs, or auto-infered first child
+
+        md-icon:first-child ***REMOVED***
+          width: $list-item-dense-primary-icon-width;
+          height: $list-item-dense-primary-icon-width;
+        ***REMOVED***
+
+        > md-icon:first-child:not(.md-avatar-icon) ***REMOVED***
+          @include rtl-prop(margin-right, margin-left, $list-item-primary-width - $list-item-dense-primary-icon-width, auto);
+        ***REMOVED***
+        .md-avatar, .md-avatar-icon ***REMOVED***
+          @include rtl-prop(margin-right, margin-left, $list-item-primary-width - $list-item-dense-primary-avatar-width, auto);
+        ***REMOVED***
+        .md-avatar ***REMOVED***
+          flex: none;
+          width: $list-item-dense-primary-avatar-width;
+          height: $list-item-dense-primary-avatar-width;
+        ***REMOVED***
+      ***REMOVED***
+
+      &.md-2-line,
+      &.md-3-line ***REMOVED***
+        &, & > .md-no-style ***REMOVED***
+          .md-list-item-text ***REMOVED***
+            &.md-offset ***REMOVED***
+              @include rtl-prop(margin-left, margin-right, $list-item-primary-width, auto);
+            ***REMOVED***
+
+            h3,
+            h4,
+            p ***REMOVED***
+              line-height: $list-item-dense-line-height;
+              font-size: $list-item-dense-font-size;
+            ***REMOVED***
+
+            h3 ***REMOVED***
+              font-size: $list-item-dense-header-font-size;
+            ***REMOVED***
+          ***REMOVED***
+        ***REMOVED***
+      ***REMOVED***
+
+      &.md-2-line ***REMOVED***
+        &, & > .md-no-style ***REMOVED***
+          min-height: $list-item-dense-two-line-height;
+          @include ie11-min-height-flexbug($list-item-dense-two-line-height);
+
+          > .md-avatar, .md-avatar-icon ***REMOVED***
+            margin-top: $baseline-grid * 1.5;
+          ***REMOVED***
+        ***REMOVED***
+      ***REMOVED***
+
+      &.md-3-line ***REMOVED***
+        &, & > .md-no-style ***REMOVED***
+
+          min-height: $list-item-dense-three-line-height;
+          @include ie11-min-height-flexbug($list-item-dense-three-line-height);
+
+          > md-icon:first-child,
+          > .md-avatar ***REMOVED***
+            margin-top: $baseline-grid * 2;
+          ***REMOVED***
+        ***REMOVED***
+      ***REMOVED***
+    ***REMOVED***
   ***REMOVED***
 ***REMOVED***
 
-md-menu-content._md-menu-bar-menu.md-dense ***REMOVED***
-  max-height: none;
-  padding: 2 * $baseline-grid 0;
-  md-menu-item.md-indent ***REMOVED***
+md-list-item ***REMOVED***
+  // Ensure nested dividers are properly positioned
+  position: relative;
+
+  &.md-proxy-focus.md-focused .md-no-style ***REMOVED***
+    transition: background-color 0.15s linear;
+  ***REMOVED***
+
+  &._md-button-wrap ***REMOVED***
     position: relative;
-    > md-icon ***REMOVED***
-      position: absolute;
-      padding: 0;
-      width: 24px;
-      top: 0.75 * $baseline-grid;
-      @include rtl-prop(left, right, 3 * $baseline-grid);
-    ***REMOVED***
-    > .md-button, .md-menu > .md-button ***REMOVED***
-      @include rtl(padding, 0 4 * $baseline-grid 0 8 * $baseline-grid, 0 8 * $baseline-grid 0 4 * $baseline-grid);
-    ***REMOVED***
-  ***REMOVED***
-  .md-button ***REMOVED***
-    min-height: 0;
-    height: 4 * $baseline-grid;
-    display: flex;
-    span ***REMOVED***
-      flex-grow: 1;
-    ***REMOVED***
-    span.md-alt-text ***REMOVED***
-      flex-grow: 0;
-      align-self: flex-end;
-      margin: 0 $baseline-grid;
-    ***REMOVED***
-  ***REMOVED***
-  md-menu-divider ***REMOVED***
-    margin: $baseline-grid 0;
-  ***REMOVED***
 
-  md-menu-item > .md-button, .md-menu > .md-button ***REMOVED***
-    @include rtl(text-align, left, right);
-    text-align: start;
-  ***REMOVED***
+    > div.md-button:first-child ***REMOVED***
+      // Layout - Vertically align the item content.
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
 
-  .md-menu ***REMOVED***
-    padding: 0;
-    > .md-button ***REMOVED***
-      position: relative;
+      padding: 0 16px;
       margin: 0;
-      width: 100%;
-      text-transform: none;
-      font-weight: normal;
-      border-radius: 0px;
-      @include rtl-prop(padding-left, padding-right, 2 * $baseline-grid);
-      &:after ***REMOVED***
-        display: block;
-        content: '\25BC';
+
+      font-weight: 400;
+      @include rtl(text-align, left, right);
+      border: medium none;
+
+      // The button executor should fill the whole list item.
+      > .md-button:first-child ***REMOVED***
         position: absolute;
-        top: 0px;
-        speak: none;
-        @include rtl(transform, rotate(270deg) scaleY(0.45) scaleX(0.9), rotate(90deg) scaleY(0.45) scaleX(0.9));
-        @include rtl-prop(right, left, 3.5 * $baseline-grid);
+        top: 0;
+        left: 0;
+        height: 100%;
+
+        margin: 0;
+        padding: 0;
+      ***REMOVED***
+
+      .md-list-item-inner ***REMOVED***
+        // The list item content should fill the complete width.
+        width: 100%;
+        min-height: inherit;
+      ***REMOVED***
+
+    ***REMOVED***
+
+  ***REMOVED***
+
+  &.md-no-proxy,
+  .md-no-style ***REMOVED***
+    position: relative;
+    padding: $list-item-padding-vertical $list-item-padding-horizontal;
+
+    // Layout [flex='auto']
+    flex: 1 1 auto;
+
+    &.md-button ***REMOVED***
+      font-size: inherit;
+      height: inherit;
+      @include rtl(text-align, left, right);
+      text-transform: none;
+      width: 100%;
+      white-space: normal;
+      flex-direction: inherit;
+      align-items: inherit;
+      border-radius: 0;
+      margin: 0;
+
+      & > .md-ripple-container ***REMOVED***
+        border-radius: 0;
+      ***REMOVED***
+    ***REMOVED***
+    &:focus ***REMOVED***
+      outline: none
+    ***REMOVED***
+  ***REMOVED***
+  &.md-clickable:hover ***REMOVED***
+    cursor: pointer;
+  ***REMOVED***
+
+  md-divider ***REMOVED***
+    position: absolute;
+    bottom: 0;
+    @include rtl-prop(left, right, 0, auto);
+    width: 100%;
+    &[md-inset] ***REMOVED***
+      @include rtl-prop(left, right, $list-item-inset-divider-offset, auto);
+      width: calc(100% - #***REMOVED***$list-item-inset-divider-offset***REMOVED***);
+      margin: 0 !important;
+    ***REMOVED***
+  ***REMOVED***
+
+  &,
+  .md-list-item-inner ***REMOVED***
+
+    // Layout [flex layout-align='start center']
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    min-height: $list-item-height;
+    @include ie11-min-height-flexbug($list-item-height);
+
+    height: auto;
+
+    // Layout for controls in primary or secondary divs, or auto-infered first child
+    & > div.md-primary > md-icon:not(.md-avatar-icon),
+    & > div.md-secondary > md-icon:not(.md-avatar-icon),
+    & > md-icon:first-child:not(.md-avatar-icon),
+    > md-icon.md-secondary:not(.md-avatar-icon) ***REMOVED***
+      width: $list-item-primary-icon-width;
+      margin-top: 16px;
+      margin-bottom: 12px;
+      box-sizing: content-box;
+    ***REMOVED***
+    & > div.md-primary > md-checkbox,
+    & > div.md-secondary > md-checkbox,
+    & > md-checkbox,
+    md-checkbox.md-secondary ***REMOVED***
+      align-self: center;
+      .md-label ***REMOVED***
+        display: none;
+      ***REMOVED***
+    ***REMOVED***
+
+    & > md-icon:first-child:not(.md-avatar-icon) ***REMOVED***
+      @include rtl-prop(margin-right, margin-left, $list-item-primary-width - $list-item-primary-icon-width, auto);
+    ***REMOVED***
+
+    & .md-avatar, .md-avatar-icon ***REMOVED***
+      margin-top: $baseline-grid;
+      margin-bottom: $baseline-grid;
+      @include rtl-prop(margin-right, margin-left, $list-item-primary-width - $list-item-primary-avatar-width, auto);
+      border-radius: 50%;
+      box-sizing: content-box;
+    ***REMOVED***
+    & .md-avatar ***REMOVED***
+      flex: none;
+      width: $list-item-primary-avatar-width;
+      height: $list-item-primary-avatar-width;
+    ***REMOVED***
+    & .md-avatar-icon ***REMOVED***
+      padding: 8px;
+
+      // Set the width/height to the same as the icon to fix issue on iOS Safari where the
+      // height: 100% was causing it to be larger than it's parent
+      svg ***REMOVED***
+        width: $icon-size;
+        height: $icon-size;
+      ***REMOVED***
+    ***REMOVED***
+
+    & > md-checkbox ***REMOVED***
+      width: 3 * $baseline-grid;
+      @include rtl(margin-left, 3px, 29px);
+      @include rtl(margin-right, 29px, 3px);
+      margin-top: 16px;
+    ***REMOVED***
+
+    .md-secondary-container ***REMOVED***
+      display: flex;
+      align-items: center;
+
+      // Per W3C: https://www.w3.org/TR/css-flexbox/#flex-common
+      // By default, flex items won’t shrink below their minimum content size.
+      // Safari doesn't follow that specification due to a bug and expects the developer to
+      // explicitly disable flex shrinking.
+      flex-shrink: 0;
+
+      // Using margin auto to move them to the end of the list item is more elegant, because it has
+      // a lower priority than a flex filler and isn't introducing any overflow issues.
+      // The margin on the top is important to align multiple secondary items vertically.
+      margin: auto;
+
+      @include rtl(margin-right, 0, auto);
+      @include rtl(margin-left, auto, 0);
+
+      .md-button, .md-icon-button ***REMOVED***
+        &:last-of-type ***REMOVED***
+          // Reset 6px margin for the button.
+          @include rtl-prop(margin-right, margin-left, 0, auto);
+        ***REMOVED***
+      ***REMOVED***
+
+      md-checkbox ***REMOVED***
+        margin-top: 0;
+        margin-bottom: 0;
+
+        &:last-child ***REMOVED***
+          width: 3 * $baseline-grid;
+          @include rtl-prop(margin-right, margin-left, 0, auto);
+        ***REMOVED***
+      ***REMOVED***
+
+      md-switch ***REMOVED***
+        margin-top: 0;
+        margin-bottom: 0;
+
+        @include rtl-prop(margin-right, margin-left, -6px, auto);
+      ***REMOVED***
+    ***REMOVED***
+
+    & > p, & > .md-list-item-inner > p ***REMOVED***
+      flex: 1 1 auto;
+      margin: 0;
+    ***REMOVED***
+  ***REMOVED***
+
+  &.md-2-line,
+  &.md-3-line ***REMOVED***
+    &, & > .md-no-style ***REMOVED***
+      align-items: flex-start;
+      justify-content: center;
+
+      &.md-long-text ***REMOVED***
+        margin-top: $baseline-grid;
+        margin-bottom: $baseline-grid;
+      ***REMOVED***
+
+      .md-list-item-text ***REMOVED***
+        flex: 1 1 auto;
+        margin: auto;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        &.md-offset ***REMOVED***
+          @include rtl-prop(margin-left, margin-right, $list-item-primary-width, auto);
+        ***REMOVED***
+
+        h3 ***REMOVED***
+          font-size: $subhead-font-size-base;
+          font-weight: 400;
+          letter-spacing: 0.010em;
+          margin: $list-h3-margin;
+          line-height: $list-header-line-height;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        ***REMOVED***
+        h4 ***REMOVED***
+          font-size: $body-font-size-base;
+          letter-spacing: 0.010em;
+          margin: $list-h4-margin;
+          font-weight: $list-h4-font-weight;
+          line-height: $list-header-line-height;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        ***REMOVED***
+        p ***REMOVED***
+          font-size: $body-font-size-base;
+          font-weight: 500;
+          letter-spacing: 0.010em;
+          margin: $list-p-margin;
+          line-height: $list-p-line-height;
+        ***REMOVED***
+      ***REMOVED***
+    ***REMOVED***
+  ***REMOVED***
+
+  &.md-2-line ***REMOVED***
+    &, & > .md-no-style ***REMOVED***
+      height: auto;
+
+      min-height: $list-item-two-line-height;
+      @include ie11-min-height-flexbug($list-item-two-line-height);
+
+      > .md-avatar, .md-avatar-icon ***REMOVED***
+        margin-top: $baseline-grid * 1.5;
+      ***REMOVED***
+
+      > md-icon:first-child ***REMOVED***
+        align-self: flex-start;
+      ***REMOVED***
+
+      .md-list-item-text ***REMOVED***
+        flex: 1 1 auto;
+      ***REMOVED***
+    ***REMOVED***
+  ***REMOVED***
+
+  &.md-3-line ***REMOVED***
+    &, & > .md-no-style ***REMOVED***
+      height: auto;
+
+      min-height: $list-item-three-line-height;
+      @include ie11-min-height-flexbug($list-item-three-line-height);
+
+      > md-icon:first-child,
+      > .md-avatar ***REMOVED***
+        margin-top: $baseline-grid * 2;
       ***REMOVED***
     ***REMOVED***
   ***REMOVED***
@@ -4225,7 +4322,7 @@ $dense-menu-item-height: 4 * $baseline-grid !default;
 $max-menu-height: 2 * $baseline-grid + $max-visible-items * $menu-item-height !default;
 $max-dense-menu-height: 2 * $baseline-grid + $max-visible-items * $dense-menu-item-height !default;
 
-._md-open-menu-container ***REMOVED***
+.md-open-menu-container ***REMOVED***
   position: fixed;
   left: 0;
   top: 0;
@@ -4247,12 +4344,12 @@ $max-dense-menu-height: 2 * $baseline-grid + $max-visible-items * $dense-menu-it
   ***REMOVED***
 
   // Don't let the user click something until it's animated
-  &:not(._md-clickable) ***REMOVED***
+  &:not(.md-clickable) ***REMOVED***
     pointer-events: none;
   ***REMOVED***
 
   // enter: menu scales in, then list fade in.
-  &._md-active ***REMOVED***
+  &.md-active ***REMOVED***
     opacity: 1;
     transition: $swift-ease-out;
     transition-duration: 200ms;
@@ -4264,7 +4361,7 @@ $max-dense-menu-height: 2 * $baseline-grid + $max-visible-items * $dense-menu-it
     ***REMOVED***
   ***REMOVED***
   // leave: the container fades out
-  &._md-leave ***REMOVED***
+  &.md-leave ***REMOVED***
     opacity: 0;
     transition: $swift-ease-in;
     transition-duration: 250ms;
@@ -4301,7 +4398,25 @@ md-menu-item ***REMOVED***
     padding-right: 2*$baseline-grid;
   ***REMOVED***
 
+  /*
+   * We cannot use flex on <button> elements due to a bug in Firefox, so we also can't use it on
+   * <a> elements. Add some top padding to fix alignment since buttons automatically align their
+   * text vertically.
+   */
+  > a.md-button ***REMOVED***
+    padding-top: 5px;
+  ***REMOVED***
+
   > .md-button ***REMOVED***
+    // Firefox-specific reset styling to fix alignment issues (see #8464)
+    &::-moz-focus-inner ***REMOVED***
+      padding: 0;
+      border: 0
+    ***REMOVED***
+
+    @include rtl(text-align, left, right);
+
+    display: inline-block;
     border-radius: 0;
     margin: auto 0;
     font-size: (2*$baseline-grid) - 1;
@@ -4310,10 +4425,6 @@ md-menu-item ***REMOVED***
     height: 100%;
     padding-left: 2*$baseline-grid;
     padding-right: 2*$baseline-grid;
-    @include rtl(text-align, left, right);
-    display: flex;
-    align-items: baseline;
-    align-content: flex-start;
     width:100%;
     md-icon ***REMOVED***
       @include rtl(margin, auto 2*$baseline-grid auto 0,  auto 0 auto 2*$baseline-grid);
@@ -4330,10 +4441,6 @@ md-menu-item ***REMOVED***
       border-radius: inherit;
     ***REMOVED***
   ***REMOVED***
-***REMOVED***
-
-.md-menu ***REMOVED***
-  padding: $baseline-grid 0;
 ***REMOVED***
 
 md-toolbar ***REMOVED***
@@ -4367,6 +4474,100 @@ md-toolbar ***REMOVED***
 ***REMOVED***
 
 
+md-toolbar.md-menu-toolbar ***REMOVED***
+  h2.md-toolbar-tools ***REMOVED***
+    line-height: 1rem;
+    height: auto;
+    padding: 3.5 * $baseline-grid;
+    padding-bottom: 1.5 * $baseline-grid;
+  ***REMOVED***
+***REMOVED***
+
+md-menu-bar ***REMOVED***
+  padding: 0 2.5 * $baseline-grid;
+  display: block;
+  position: relative;
+  z-index: 2;
+  .md-menu ***REMOVED***
+    display: inline-block;
+    padding: 0;
+    position: relative;
+  ***REMOVED***
+  button ***REMOVED***
+    font-size: rem(1.4);
+    padding: 0 1.25 * $baseline-grid;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+    height: 5 * $baseline-grid;
+  ***REMOVED***
+
+  md-backdrop.md-menu-backdrop ***REMOVED***
+    z-index: -2;
+  ***REMOVED***
+***REMOVED***
+
+md-menu-content.md-menu-bar-menu.md-dense ***REMOVED***
+  max-height: none;
+  padding: 2 * $baseline-grid 0;
+  md-menu-item.md-indent ***REMOVED***
+    position: relative;
+    > md-icon ***REMOVED***
+      position: absolute;
+      padding: 0;
+      width: 24px;
+      top: 0.75 * $baseline-grid;
+      @include rtl-prop(left, right, 3 * $baseline-grid, auto);
+    ***REMOVED***
+    > .md-button, .md-menu > .md-button ***REMOVED***
+      @include rtl(padding, 0 4 * $baseline-grid 0 8 * $baseline-grid, 0 8 * $baseline-grid 0 4 * $baseline-grid);
+    ***REMOVED***
+  ***REMOVED***
+  .md-button ***REMOVED***
+    min-height: 0;
+    height: 4 * $baseline-grid;
+    display: flex;
+    span ***REMOVED***
+      flex-grow: 1;
+    ***REMOVED***
+    span.md-alt-text ***REMOVED***
+      flex-grow: 0;
+      align-self: flex-end;
+      margin: 0 $baseline-grid;
+    ***REMOVED***
+  ***REMOVED***
+  md-menu-divider ***REMOVED***
+    margin: $baseline-grid 0;
+  ***REMOVED***
+
+  md-menu-item > .md-button, .md-menu > .md-button ***REMOVED***
+    @include rtl(text-align, left, right);
+    text-align: start;
+  ***REMOVED***
+
+  .md-menu ***REMOVED***
+    padding: 0;
+    > .md-button ***REMOVED***
+      position: relative;
+      margin: 0;
+      width: 100%;
+      text-transform: none;
+      font-weight: normal;
+      border-radius: 0px;
+      @include rtl-prop(padding-left, padding-right, 2 * $baseline-grid, 0);
+      &:after ***REMOVED***
+        display: block;
+        content: '\25BC';
+        position: absolute;
+        top: 0px;
+        speak: none;
+        @include rtl(transform, rotate(270deg) scaleY(0.45) scaleX(0.9), rotate(90deg) scaleY(0.45) scaleX(0.9));
+        @include rtl-prop(right, left, 3.5 * $baseline-grid, auto);
+      ***REMOVED***
+    ***REMOVED***
+  ***REMOVED***
+***REMOVED***
+
 /** Matches "md-tabs md-tabs-wrapper" style. */
 $md-nav-bar-height: 48px;
 
@@ -4382,6 +4583,11 @@ $md-nav-bar-height: 48px;
   list-style: none;
   margin: 0;
   padding: 0;
+
+  // Layout [layout='row']
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
 ***REMOVED***
 
 .md-nav-item:first-of-type ***REMOVED***
@@ -4508,12 +4714,13 @@ $progress-circular-indeterminate-duration: 2.9s !default;
 // Used to avoid unnecessary layout
 md-progress-circular ***REMOVED***
     position: relative;
+    display: block;
 
     &._md-progress-circular-disabled ***REMOVED***
         visibility: hidden;
     ***REMOVED***
 
-    &._md-mode-indeterminate svg ***REMOVED***
+    &.md-mode-indeterminate svg ***REMOVED***
         animation: indeterminate-rotate $progress-circular-indeterminate-duration linear infinite;
     ***REMOVED***
 
@@ -4540,7 +4747,7 @@ md-progress-linear ***REMOVED***
     visibility: hidden;
   ***REMOVED***
 
-  ._md-container ***REMOVED***
+  .md-container ***REMOVED***
     display:block;
     position: relative;
     overflow: hidden;
@@ -4550,7 +4757,7 @@ md-progress-linear ***REMOVED***
 
     transform: translate(0, 0) scale(1, 1);
 
-    ._md-bar ***REMOVED***
+    .md-bar ***REMOVED***
       position: absolute;
 
       left: 0;
@@ -4561,7 +4768,7 @@ md-progress-linear ***REMOVED***
       height: $progress-linear-bar-height;
     ***REMOVED***
 
-    ._md-dashed:before ***REMOVED***
+    .md-dashed:before ***REMOVED***
       content: "";
       display: none;
       position: absolute;
@@ -4575,7 +4782,7 @@ md-progress-linear ***REMOVED***
       background-position: 0px -23px;
     ***REMOVED***
 
-    ._md-bar1, ._md-bar2 ***REMOVED***
+    .md-bar1, .md-bar2 ***REMOVED***
 
       // Just set the transition information here.
       // Note: the actual transform values are calculated in JS
@@ -4587,28 +4794,28 @@ md-progress-linear ***REMOVED***
     // Animations for modes: Determinate, InDeterminate, and Query
     // ************************************************************
 
-    &._md-mode-query ***REMOVED***
-        ._md-bar1 ***REMOVED***
+    &.md-mode-query ***REMOVED***
+        .md-bar1 ***REMOVED***
           display: none;
         ***REMOVED***
-        ._md-bar2 ***REMOVED***
+        .md-bar2 ***REMOVED***
           transition: all 0.2s linear;
           animation: query .8s infinite cubic-bezier(0.390, 0.575, 0.565, 1.000);
         ***REMOVED***
       ***REMOVED***
 
-    &._md-mode-determinate ***REMOVED***
-      ._md-bar1 ***REMOVED***
+    &.md-mode-determinate ***REMOVED***
+      .md-bar1 ***REMOVED***
         display: none;
       ***REMOVED***
     ***REMOVED***
 
-    &._md-mode-indeterminate ***REMOVED***
-      ._md-bar1 ***REMOVED***
+    &.md-mode-indeterminate ***REMOVED***
+      .md-bar1 ***REMOVED***
         animation: md-progress-linear-indeterminate-scale-1 4s infinite,
                    md-progress-linear-indeterminate-1 4s infinite;
       ***REMOVED***
-      ._md-bar2 ***REMOVED***
+      .md-bar2 ***REMOVED***
         animation: md-progress-linear-indeterminate-scale-2 4s infinite,
                    md-progress-linear-indeterminate-2 4s infinite;
       ***REMOVED***
@@ -4618,10 +4825,10 @@ md-progress-linear ***REMOVED***
     ._md-progress-linear-disabled & ***REMOVED***
       animation: none;
 
-      ._md-bar1 ***REMOVED***
+      .md-bar1 ***REMOVED***
         animation-name: none;
       ***REMOVED***
-      ._md-bar2 ***REMOVED***
+      .md-bar2 ***REMOVED***
         animation-name: none;
       ***REMOVED***
     ***REMOVED***
@@ -4629,12 +4836,12 @@ md-progress-linear ***REMOVED***
 
   // Special animations for the `buffer` mode
 
-  ._md-container._md-mode-buffer ***REMOVED***
+  .md-container.md-mode-buffer ***REMOVED***
     background-color: transparent !important;
 
     transition: all 0.2s linear;
 
-    ._md-dashed:before ***REMOVED***
+    .md-dashed:before ***REMOVED***
       display: block;
       animation: buffer 3s infinite linear;
     ***REMOVED***
@@ -4741,6 +4948,14 @@ $radio-text-margin: 10px !default;
 $radio-top-left: 12px !default;
 $radio-margin: 16px !default;
 
+@mixin md-radio-button-disabled ***REMOVED***
+  cursor: default;
+
+  .md-container ***REMOVED***
+    cursor: default;
+  ***REMOVED***
+***REMOVED***
+
 md-radio-button ***REMOVED***
   box-sizing: border-box;
   display: block;
@@ -4749,16 +4964,12 @@ md-radio-button ***REMOVED***
   cursor: pointer;
   position: relative;
 
-  // disabled
+  // When the radio-button is disabled.
   &[disabled] ***REMOVED***
-    cursor: default;
-
-    ._md-container ***REMOVED***
-      cursor: default;
-    ***REMOVED***
+    @include md-radio-button-disabled();
   ***REMOVED***
 
-  ._md-container ***REMOVED***
+  .md-container ***REMOVED***
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -4798,11 +5009,11 @@ md-radio-button ***REMOVED***
     ***REMOVED***
   ***REMOVED***
 
-  &.md-align-top-left > div._md-container ***REMOVED***
+  &.md-align-top-left > div.md-container ***REMOVED***
      top: $radio-top-left;
    ***REMOVED***
 
-  ._md-off ***REMOVED***
+  .md-off ***REMOVED***
     box-sizing: border-box;
     position: absolute;
     top: 0;
@@ -4815,7 +5026,7 @@ md-radio-button ***REMOVED***
     transition: border-color ease 0.28s;
   ***REMOVED***
 
-  ._md-on ***REMOVED***
+  .md-on ***REMOVED***
     box-sizing: border-box;
     position: absolute;
     top: 0;
@@ -4827,11 +5038,11 @@ md-radio-button ***REMOVED***
     transform: scale(0);
   ***REMOVED***
 
-  &.md-checked ._md-on ***REMOVED***
+  &.md-checked .md-on ***REMOVED***
     transform: scale(0.50);
   ***REMOVED***
 
-  ._md-label ***REMOVED***
+  .md-label ***REMOVED***
     box-sizing: border-box;
     position: relative;
     display: inline-block;
@@ -4847,6 +5058,7 @@ md-radio-button ***REMOVED***
 ***REMOVED***
 
 md-radio-group ***REMOVED***
+  /** Layout adjustments for the radio group. */
   &.layout-column,
   &.layout-xs-column, &.layout-gt-xs-column,
   &.layout-sm-column, &.layout-gt-sm-column,
@@ -4876,16 +5088,22 @@ md-radio-group ***REMOVED***
       ***REMOVED***
     ***REMOVED***
   ***REMOVED***
+
   &:focus ***REMOVED***
     outline: none;
   ***REMOVED***
+
   &.md-focused ***REMOVED***
-    .md-checked ._md-container:before ***REMOVED***
+    .md-checked .md-container:before ***REMOVED***
       left: -8px;
       top: -8px;
       right: -8px;
       bottom: -8px;
     ***REMOVED***
+  ***REMOVED***
+
+  &[disabled] md-radio-button ***REMOVED***
+    @include md-radio-button-disabled();
   ***REMOVED***
 ***REMOVED***
 
@@ -4904,127 +5122,8 @@ md-radio-group ***REMOVED***
 ***REMOVED***
 
 @media screen and (-ms-high-contrast: active) ***REMOVED***
-  md-radio-button.md-default-theme ._md-on ***REMOVED***
+  md-radio-button.md-default-theme .md-on ***REMOVED***
     background-color: #fff;
-  ***REMOVED***
-***REMOVED***
-
-$sidenav-mobile-width: 320px !default;
-$sidenav-desktop-width: 400px !default;
-$sidenav-min-space: 56px !default;
-
-md-sidenav ***REMOVED***
-  box-sizing: border-box;
-  position: absolute;
-  flex-direction: column;
-  z-index: $z-index-sidenav;
-
-  width: $sidenav-mobile-width;
-  max-width: $sidenav-mobile-width;
-  bottom: 0;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-
-  ul ***REMOVED***
-    list-style: none;
-  ***REMOVED***
-
-  &._md-closed ***REMOVED***
-    display: none;
-  ***REMOVED***
-  &._md-closed-add,
-  &._md-closed-remove ***REMOVED***
-    display: flex;
-    transition: 0.2s ease-in all;
-  ***REMOVED***
-
-  &._md-closed-add._md-closed-add-active,
-  &._md-closed-remove._md-closed-remove-active ***REMOVED***
-    transition: $swift-ease-out;
-  ***REMOVED***
-
-  &._md-locked-open-add,
-  &._md-locked-open-remove ***REMOVED***
-    position: static;
-    display: flex;
-    transform: translate3d(0, 0, 0);
-  ***REMOVED***
-
-  &._md-locked-open,
-  &._md-locked-open._md-closed,
-  &._md-locked-open._md-closed.md-sidenav-left,
-  &._md-locked-open._md-closed.md-sidenav-right,
-  &._md-locked-open-remove._md-closed ***REMOVED***
-    position: static;
-    display: flex;
-    transform: translate3d(0, 0, 0);
-  ***REMOVED***
-  &._md-locked-open-remove-active ***REMOVED***
-    transition: width $swift-ease-in-duration $swift-ease-in-timing-function,
-                min-width $swift-ease-in-duration $swift-ease-in-timing-function;
-    width: 0 !important;
-    min-width: 0 !important;
-  ***REMOVED***
-
-  &._md-closed._md-locked-open-add ***REMOVED***
-    width: 0 !important;
-    min-width: 0 !important;
-    transform: translate3d(0%, 0, 0);
-  ***REMOVED***
-
-  &._md-closed._md-locked-open-add-active ***REMOVED***
-    transition: width $swift-ease-in-duration $swift-ease-in-timing-function,
-                min-width $swift-ease-in-duration $swift-ease-in-timing-function;
-    width: $sidenav-mobile-width;
-    min-width: $sidenav-mobile-width;
-    transform: translate3d(0%, 0, 0);
-  ***REMOVED***
-
-  @extend .md-sidenav-left;
-***REMOVED***
-._md-sidenav-backdrop._md-locked-open ***REMOVED***
-  display: none;
-***REMOVED***
-
-.md-sidenav-left ***REMOVED***
-  left: 0;
-  top: 0;
-  transform: translate3d(0%, 0, 0);
-  &._md-closed ***REMOVED***
-    transform: translate3d(-100%, 0, 0);
-  ***REMOVED***
-***REMOVED***
-
-.md-sidenav-right ***REMOVED***
-  left: 100%;
-  top: 0;
-  transform: translate(-100%, 0);
-  &._md-closed ***REMOVED***
-    transform: translate(0%, 0);
-  ***REMOVED***
-***REMOVED***
-
-@media (min-width: $layout-breakpoint-xs) ***REMOVED***
-  md-sidenav ***REMOVED***
-    max-width: $sidenav-desktop-width;
-  ***REMOVED***
-***REMOVED***
-
-@media (max-width: $sidenav-desktop-width + $sidenav-min-space) ***REMOVED***
-  md-sidenav ***REMOVED***
-    width: calc(100% - #***REMOVED***$sidenav-min-space***REMOVED***);
-    min-width: calc(100% - #***REMOVED***$sidenav-min-space***REMOVED***);
-    max-width: calc(100% - #***REMOVED***$sidenav-min-space***REMOVED***);
-  ***REMOVED***
-***REMOVED***
-
-// IE Only
-@media screen and (-ms-high-contrast: active) ***REMOVED***
-  .md-sidenav-left ***REMOVED***
-    border-right: 1px solid #fff;
-  ***REMOVED***
-  .md-sidenav-right ***REMOVED***
-    border-left: 1px solid #fff;
   ***REMOVED***
 ***REMOVED***
 
@@ -5038,7 +5137,24 @@ $select-container-transition-duration: 350ms !default;
 
 $select-max-visible-options: 5 !default;
 
-._md-select-menu-container ***REMOVED***
+// Fixes the animations with the floating label when select is inside an input container
+md-input-container ***REMOVED***
+  &:not([md-no-float]) ***REMOVED***
+    .md-select-placeholder span:first-child ***REMOVED***
+      transition: transform $swift-ease-out-duration $swift-ease-out-timing-function;
+      @include rtl(transform-origin, left top, right top);
+    ***REMOVED***
+  ***REMOVED***
+  &.md-input-focused ***REMOVED***
+    &:not([md-no-float]) ***REMOVED***
+      .md-select-placeholder span:first-child ***REMOVED***
+        transform: translateY(-22px) translateX(-2px) scale(0.75);
+      ***REMOVED***
+    ***REMOVED***
+  ***REMOVED***
+***REMOVED***
+
+.md-select-menu-container ***REMOVED***
   position: fixed;
   left: 0;
   top: 0;
@@ -5046,8 +5162,11 @@ $select-max-visible-options: 5 !default;
   opacity: 0;
   display: none;
 
+  // Fix 1px alignment issue to line up with text inputs (and spec)
+  transform: translateY(-1px);
+
   // Don't let the user select a new choice while it's animating
-  &:not(._md-clickable) ***REMOVED***
+  &:not(.md-clickable) ***REMOVED***
     pointer-events: none;
   ***REMOVED***
 
@@ -5058,7 +5177,7 @@ $select-max-visible-options: 5 !default;
 
 
   // enter: md-select scales in, then options fade in.
-  &._md-active ***REMOVED***
+  &.md-active ***REMOVED***
     display: block;
     opacity: 1;
     md-select-menu ***REMOVED***
@@ -5074,7 +5193,7 @@ $select-max-visible-options: 5 !default;
   ***REMOVED***
 
   // leave: the container fades out
-  &._md-leave ***REMOVED***
+  &.md-leave ***REMOVED***
     opacity: 0;
     transition: $swift-ease-in;
     transition-duration: 250ms;
@@ -5086,10 +5205,45 @@ md-input-container > md-select ***REMOVED***
   order: 2;
 ***REMOVED***
 
+
+// Show the asterisk on the placeholder if the element is required
+//
+// NOTE: When the input has a value and uses a floating label, the floating label will show the
+// asterisk denoting that it is required
+md-input-container:not(.md-input-has-value) ***REMOVED***
+  md-select[required], md-select.ng-required ***REMOVED***
+    .md-select-value span:first-child:after ***REMOVED***
+      content: ' *';
+      font-size: 13px;
+      vertical-align: top;
+    ***REMOVED***
+  ***REMOVED***
+***REMOVED***
+
+md-input-container.md-input-invalid ***REMOVED***
+  md-select ***REMOVED***
+    .md-select-value ***REMOVED***
+      border-bottom-style: solid;
+      padding-bottom: 1px;
+    ***REMOVED***
+  ***REMOVED***
+***REMOVED***
+
 md-select ***REMOVED***
   display: flex;
   margin: 2.5*$baseline-grid 0 3*$baseline-grid + 2 0;
-  &[disabled] ._md-select-value ***REMOVED***
+
+  &[required], &.ng-required ***REMOVED***
+    &.ng-invalid ***REMOVED***
+      .md-select-value span:first-child:after ***REMOVED***
+        content: ' *';
+        font-size: 13px;
+        vertical-align: top;
+      ***REMOVED***
+    ***REMOVED***
+  ***REMOVED***
+
+  &[disabled] .md-select-value ***REMOVED***
     background-position: 0 bottom;
     // This background-size is coordinated with a linear-gradient set in select-theme.scss
     // to create a dotted line under the input.
@@ -5097,6 +5251,7 @@ md-select ***REMOVED***
     background-repeat: repeat-x;
     margin-bottom: -1px; // Shift downward so dotted line is positioned the same as other bottom borders
   ***REMOVED***
+
   &:focus ***REMOVED***
     outline: none;
   ***REMOVED***
@@ -5107,24 +5262,35 @@ md-select ***REMOVED***
     &:hover ***REMOVED***
       cursor: pointer
     ***REMOVED***
-    &.ng-invalid.ng-dirty ***REMOVED***
-      ._md-select-value ***REMOVED***
-        border-bottom: 2px solid;
-        padding-bottom: 0;
+    &.ng-invalid.ng-touched ***REMOVED***
+      .md-select-value ***REMOVED***
+        border-bottom-style: solid;
+        padding-bottom: 1px;
       ***REMOVED***
     ***REMOVED***
     &:focus ***REMOVED***
-      ._md-select-value ***REMOVED***
+      .md-select-value ***REMOVED***
         border-bottom-width: 2px;
         border-bottom-style: solid;
         padding-bottom: 0;
+      ***REMOVED***
+      &.ng-invalid.ng-touched ***REMOVED***
+        .md-select-value ***REMOVED***
+          padding-bottom: 0;
+        ***REMOVED***
       ***REMOVED***
     ***REMOVED***
   ***REMOVED***
 ***REMOVED***
 
+// Fix value by 1px to align with standard text inputs (and spec)
+md-input-container.md-input-has-value .md-select-value ***REMOVED***
+  > span:not(.md-select-icon) ***REMOVED***
+    transform: translate3d(0, 1px, 0);
+  ***REMOVED***
+***REMOVED***
 
-._md-select-value ***REMOVED***
+.md-select-value ***REMOVED***
   display: flex;
   align-items: center;
   padding: 2px 2px 1px;
@@ -5138,38 +5304,39 @@ md-select ***REMOVED***
   flex-grow: 1;
 
 
-  > span:not(._md-select-icon) ***REMOVED***
+  > span:not(.md-select-icon) ***REMOVED***
     max-width: 100%;
     flex: 1 1 auto;
-    transform: translate3d(0, 2px, 0);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 
-    ._md-text ***REMOVED***
+    .md-text ***REMOVED***
       display: inline;
     ***REMOVED***
   ***REMOVED***
 
-  ._md-select-icon ***REMOVED***
+  .md-select-icon ***REMOVED***
     display: block;
     align-items: flex-end;
     text-align: end;
     width: 3 * $baseline-grid;
     margin: 0 .5 * $baseline-grid;
-    transform: translate3d(0, 1px, 0);
+    transform: translate3d(0, -2px, 0);
+    font-size: 1.2rem;
   ***REMOVED***
 
-  ._md-select-icon:after ***REMOVED***
+  .md-select-icon:after ***REMOVED***
     display: block;
     content: '\25BC';
     position: relative;
     top: 2px;
     speak: none;
-    transform: scaleY(0.6) scaleX(1);
+    font-size: 13px;
+    transform: scaleY(0.5) scaleX(1);
   ***REMOVED***
 
-  &._md-select-placeholder ***REMOVED***
+  &.md-select-placeholder ***REMOVED***
     display: flex;
     order: 1;
     pointer-events: none;
@@ -5186,7 +5353,7 @@ md-select-menu ***REMOVED***
     flex-direction: column-reverse;
   ***REMOVED***
 
-  &:not(._md-overflow) ***REMOVED***
+  &:not(.md-overflow) ***REMOVED***
     md-content ***REMOVED***
       padding-top: $baseline-grid;
       padding-bottom: $baseline-grid;
@@ -5229,13 +5396,12 @@ md-option ***REMOVED***
     outline: none;
   ***REMOVED***
 
-  ._md-text ***REMOVED***
+  .md-text ***REMOVED***
     @include not-selectable();
     width: auto;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: rem(1.6);
   ***REMOVED***
   padding: 0 $select-option-padding 0 $select-option-padding;
   height: $select-option-height;
@@ -5257,7 +5423,7 @@ md-optgroup ***REMOVED***
 ***REMOVED***
 
 @media screen and (-ms-high-contrast: active) ***REMOVED***
-  ._md-select-backdrop ***REMOVED***
+  .md-select-backdrop ***REMOVED***
     background-color: transparent;
   ***REMOVED***
   md-select-menu ***REMOVED***
@@ -5266,16 +5432,135 @@ md-optgroup ***REMOVED***
 ***REMOVED***
 
 md-select-menu[multiple] ***REMOVED***
-  md-option._md-checkbox-enabled ***REMOVED***
+  md-option.md-checkbox-enabled ***REMOVED***
     @include rtl(padding-left, $select-option-padding * 2.5, $select-option-padding);
     @include rtl(padding-right, $select-option-padding, $select-option-padding * 2.5);
 
     @include checkbox-container('[selected]');
 
-    ._md-container ***REMOVED***
+    .md-container ***REMOVED***
       @include rtl(margin-left, $select-option-padding * (2 / 3), auto);
       @include rtl(margin-right, auto, $select-option-padding * (2 / 3));
     ***REMOVED***
+  ***REMOVED***
+***REMOVED***
+
+$sidenav-mobile-width: 320px !default;
+$sidenav-desktop-width: 400px !default;
+$sidenav-min-space: 56px !default;
+
+md-sidenav ***REMOVED***
+  box-sizing: border-box;
+  position: absolute;
+  flex-direction: column;
+  z-index: $z-index-sidenav;
+
+  width: $sidenav-mobile-width;
+  max-width: $sidenav-mobile-width;
+  bottom: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+  ul ***REMOVED***
+    list-style: none;
+  ***REMOVED***
+
+  &.md-closed ***REMOVED***
+    display: none;
+  ***REMOVED***
+  &.md-closed-add,
+  &.md-closed-remove ***REMOVED***
+    display: flex;
+    transition: 0.2s ease-in all;
+  ***REMOVED***
+
+  &.md-closed-add.md-closed-add-active,
+  &.md-closed-remove.md-closed-remove-active ***REMOVED***
+    transition: $swift-ease-out;
+  ***REMOVED***
+
+  &.md-locked-open-add,
+  &.md-locked-open-remove ***REMOVED***
+    position: static;
+    display: flex;
+    transform: translate3d(0, 0, 0);
+  ***REMOVED***
+
+  &.md-locked-open,
+  &.md-locked-open.md-closed,
+  &.md-locked-open.md-closed.md-sidenav-left,
+  &.md-locked-open.md-closed.md-sidenav-right,
+  &.md-locked-open-remove.md-closed ***REMOVED***
+    position: static;
+    display: flex;
+    transform: translate3d(0, 0, 0);
+  ***REMOVED***
+  &.md-locked-open-remove-active ***REMOVED***
+    transition: width $swift-ease-in-duration $swift-ease-in-timing-function,
+                min-width $swift-ease-in-duration $swift-ease-in-timing-function;
+    width: 0 !important;
+    min-width: 0 !important;
+  ***REMOVED***
+
+  &.md-closed.md-locked-open-add ***REMOVED***
+    width: 0 !important;
+    min-width: 0 !important;
+    transform: translate3d(0%, 0, 0);
+  ***REMOVED***
+
+  &.md-closed.md-locked-open-add-active ***REMOVED***
+    transition: width $swift-ease-in-duration $swift-ease-in-timing-function,
+                min-width $swift-ease-in-duration $swift-ease-in-timing-function;
+    width: $sidenav-mobile-width;
+    min-width: $sidenav-mobile-width;
+    transform: translate3d(0%, 0, 0);
+  ***REMOVED***
+
+  @extend .md-sidenav-left;
+***REMOVED***
+.md-sidenav-backdrop.md-locked-open ***REMOVED***
+  display: none;
+***REMOVED***
+
+.md-sidenav-left ***REMOVED***
+  left: 0;
+  top: 0;
+  transform: translate3d(0%, 0, 0);
+  &.md-closed ***REMOVED***
+    transform: translate3d(-100%, 0, 0);
+  ***REMOVED***
+***REMOVED***
+
+.md-sidenav-right ***REMOVED***
+  left: 100%;
+  top: 0;
+  transform: translate(-100%, 0);
+  &.md-closed ***REMOVED***
+    transform: translate(0%, 0);
+  ***REMOVED***
+***REMOVED***
+
+@media (min-width: $layout-breakpoint-xs) ***REMOVED***
+  md-sidenav ***REMOVED***
+    max-width: $sidenav-desktop-width;
+  ***REMOVED***
+***REMOVED***
+
+@media (max-width: $sidenav-desktop-width + $sidenav-min-space) ***REMOVED***
+  md-sidenav ***REMOVED***
+    width: calc(100% - #***REMOVED***$sidenav-min-space***REMOVED***);
+    min-width: calc(100% - #***REMOVED***$sidenav-min-space***REMOVED***);
+    max-width: calc(100% - #***REMOVED***$sidenav-min-space***REMOVED***);
+  ***REMOVED***
+***REMOVED***
+
+// IE Only
+@media screen and (-ms-high-contrast: active) ***REMOVED***
+  .md-sidenav-left ***REMOVED***
+    border-right: 1px solid #fff;
+  ***REMOVED***
+  .md-sidenav-right ***REMOVED***
+    border-left: 1px solid #fff;
   ***REMOVED***
 ***REMOVED***
 
@@ -5345,7 +5630,7 @@ $slider-sign-top: ($slider-size / 2) - ($slider-thumb-default-scale * $slider-th
 
 @mixin slider-thumb-position($width: $slider-thumb-width, $height: $slider-thumb-height) ***REMOVED***
   position: absolute;
-  left: -$width / 2;
+  @include rtl-prop(left, right, (-$width / 2), auto);
   top: ($slider-size / 2) - ($height / 2);
   width: $width;
   height: $height;
@@ -5366,42 +5651,42 @@ md-slider ***REMOVED***
     box-sizing: border-box;
   ***REMOVED***
 
-  ._md-slider-wrapper ***REMOVED***
+  .md-slider-wrapper ***REMOVED***
     outline: none;
     width: 100%;
     height: 100%;
   ***REMOVED***
 
-  ._md-slider-content ***REMOVED***
+  .md-slider-content ***REMOVED***
     position: relative;
   ***REMOVED***
 
   /**
    * Track
    */
-  ._md-track-container ***REMOVED***
+  .md-track-container ***REMOVED***
     width: 100%;
     position: absolute;
     top: ($slider-size / 2) - ($slider-track-height) / 2;
     height: $slider-track-height;
   ***REMOVED***
-  ._md-track ***REMOVED***
+  .md-track ***REMOVED***
     position: absolute;
     left: 0;
     right: 0;
     height: 100%;
   ***REMOVED***
-  ._md-track-fill ***REMOVED***
+  .md-track-fill ***REMOVED***
     transition: all .4s cubic-bezier(.25,.8,.25,1);
     transition-property: width, height;
   ***REMOVED***
-  ._md-track-ticks ***REMOVED***
+  .md-track-ticks ***REMOVED***
     position: absolute;
     left: 0;
     right: 0;
     height: 100%;
   ***REMOVED***
-  ._md-track-ticks canvas ***REMOVED***
+  .md-track-ticks canvas ***REMOVED***
     // Restrict the width and the height of the canvas so that ticks are rendered correctly
     // when parent elements are resized. Else, the position of the ticks might
     // be incorrect as we only update the canvas width attribute on window resize.
@@ -5412,17 +5697,17 @@ md-slider ***REMOVED***
   /**
    * Slider thumb
    */
-  ._md-thumb-container ***REMOVED***
+  .md-thumb-container ***REMOVED***
     position: absolute;
-    left: 0;
+    @include rtl-prop(left, right, 0, auto);
     top: 50%;
     transform: translate3d(-50%,-50%,0);
     transition: all .4s cubic-bezier(.25,.8,.25,1);
-    transition-property: left, bottom;
+    transition-property: left, right, bottom;
   ***REMOVED***
-  ._md-thumb ***REMOVED***
+  .md-thumb ***REMOVED***
     z-index: 1;
-    
+
     @include slider-thumb-position($slider-thumb-width, $slider-thumb-height);
 
     // We render thumb in an :after selector to fix an obscure problem with the
@@ -5444,7 +5729,7 @@ md-slider ***REMOVED***
   ***REMOVED***
 
   /* The sign that's focused in discrete mode */
-  ._md-sign ***REMOVED***
+  .md-sign ***REMOVED***
 
     /* Center the children (slider-thumb-text) */
     display: flex;
@@ -5465,7 +5750,7 @@ md-slider ***REMOVED***
     &:after ***REMOVED***
       position: absolute;
       content: '';
-      left: -($slider-sign-width / 2 - $slider-arrow-width / 2);
+      @include rtl-prop(left, right, -($slider-sign-width / 2 - $slider-arrow-width / 2), auto);
       border-radius: $slider-arrow-height;
       top: 19px;
       border-left: $slider-arrow-width / 2 solid transparent;
@@ -5478,7 +5763,7 @@ md-slider ***REMOVED***
       transition: all 0.2s $swift-ease-in-out-timing-function;
     ***REMOVED***
 
-    ._md-thumb-text ***REMOVED***
+    .md-thumb-text ***REMOVED***
       z-index: 1;
       font-size: 12px;
       font-weight: bold;
@@ -5488,14 +5773,14 @@ md-slider ***REMOVED***
   /**
    * The border/background that comes in when focused in non-discrete mode
    */
-  ._md-focus-ring ***REMOVED***
+  .md-focus-ring ***REMOVED***
     @include slider-thumb-position($slider-focus-thumb-width, $slider-focus-thumb-height);
     transform: scale(.7);
     opacity: 0;
     // using a custom duration to match the spec example video
     transition: all ($slider-thumb-focus-duration / 2) $swift-ease-in-out-timing-function;
   ***REMOVED***
-  ._md-disabled-thumb ***REMOVED***
+  .md-disabled-thumb ***REMOVED***
     @include slider-thumb-position(
       $slider-thumb-width + $slider-thumb-disabled-border * 2,
       $slider-thumb-height + $slider-thumb-disabled-border * 2
@@ -5506,8 +5791,8 @@ md-slider ***REMOVED***
     display: none;
   ***REMOVED***
 
-  &._md-min ***REMOVED***
-    ._md-sign ***REMOVED***
+  &.md-min ***REMOVED***
+    .md-sign ***REMOVED***
       opacity: 0;
     ***REMOVED***
   ***REMOVED***
@@ -5517,40 +5802,40 @@ md-slider ***REMOVED***
   ***REMOVED***
 
   /* Don't animate left/right while panning */
-  &._md-dragging ***REMOVED***
-    ._md-thumb-container,
-    ._md-track-fill ***REMOVED***
+  &.md-dragging ***REMOVED***
+    .md-thumb-container,
+    .md-track-fill ***REMOVED***
       transition: none;
     ***REMOVED***
   ***REMOVED***
 
   &:not([md-discrete]) ***REMOVED***
     /* Hide the sign and ticks in non-discrete mode */
-    ._md-track-ticks,
-    ._md-sign ***REMOVED***
+    .md-track-ticks,
+    .md-sign ***REMOVED***
       display: none;
     ***REMOVED***
 
     &:not([disabled]) ***REMOVED***
-      ._md-slider-wrapper ***REMOVED***
-        ._md-thumb:hover ***REMOVED***
+      .md-slider-wrapper ***REMOVED***
+        .md-thumb:hover ***REMOVED***
           transform: scale($slider-thumb-hover-scale);
         ***REMOVED***
 
         &.md-focused ***REMOVED***
-          ._md-focus-ring ***REMOVED***
+          .md-focus-ring ***REMOVED***
             transform: scale(1);
             opacity: 1;
           ***REMOVED***
-          ._md-thumb ***REMOVED***
+          .md-thumb ***REMOVED***
             animation: sliderFocusThumb $slider-thumb-focus-duration $swift-ease-in-out-timing-function;
           ***REMOVED***
         ***REMOVED***
       ***REMOVED***
 
-      &._md-active ***REMOVED***
-        ._md-slider-wrapper ***REMOVED***
-          ._md-thumb ***REMOVED***
+      &.md-active ***REMOVED***
+        .md-slider-wrapper ***REMOVED***
+          .md-thumb ***REMOVED***
             transform: scale($slider-thumb-focus-scale);
           ***REMOVED***
         ***REMOVED***
@@ -5560,24 +5845,24 @@ md-slider ***REMOVED***
 
   &[md-discrete] ***REMOVED***
     &:not([disabled]) ***REMOVED***
-      ._md-slider-wrapper ***REMOVED***
+      .md-slider-wrapper ***REMOVED***
         &.md-focused ***REMOVED***
-          ._md-focus-ring ***REMOVED***
+          .md-focus-ring ***REMOVED***
             transform: scale(0);
             animation: sliderDiscreteFocusRing .5s $swift-ease-in-out-timing-function;
           ***REMOVED***
-          ._md-thumb ***REMOVED***
+          .md-thumb ***REMOVED***
             animation: sliderDiscreteFocusThumb .5s $swift-ease-in-out-timing-function;
           ***REMOVED***
         ***REMOVED***
       ***REMOVED***
-      ._md-slider-wrapper.md-focused,
-      &._md-active ***REMOVED***
-        ._md-thumb ***REMOVED***
+      .md-slider-wrapper.md-focused,
+      &.md-active ***REMOVED***
+        .md-thumb ***REMOVED***
           transform: scale(0);
         ***REMOVED***
-        ._md-sign,
-        ._md-sign:after ***REMOVED***
+        .md-sign,
+        .md-sign:after ***REMOVED***
           opacity: 1;
           transform: translate3d(0,0,0) scale(1.0);
         ***REMOVED***
@@ -5585,11 +5870,11 @@ md-slider ***REMOVED***
     ***REMOVED***
 
     &[disabled][readonly] ***REMOVED***
-      ._md-thumb ***REMOVED***
+      .md-thumb ***REMOVED***
         transform: scale(0);
       ***REMOVED***
-      ._md-sign,
-      ._md-sign:after ***REMOVED***
+      .md-sign,
+      .md-sign:after ***REMOVED***
         opacity: 1;
         transform: translate3d(0,0,0) scale(1.0);
       ***REMOVED***
@@ -5597,19 +5882,19 @@ md-slider ***REMOVED***
   ***REMOVED***
 
   &[disabled] ***REMOVED***
-    ._md-track-fill ***REMOVED***
+    .md-track-fill ***REMOVED***
       display: none;
     ***REMOVED***
-    ._md-track-ticks ***REMOVED***
+    .md-track-ticks ***REMOVED***
       opacity: 0;
     ***REMOVED***
-    &:not([readonly]) ._md-sign ***REMOVED***
+    &:not([readonly]) .md-sign ***REMOVED***
       opacity: 0;
     ***REMOVED***
-    ._md-thumb ***REMOVED***
+    .md-thumb ***REMOVED***
       transform: scale($slider-thumb-disabled-scale);
     ***REMOVED***
-    ._md-disabled-thumb ***REMOVED***
+    .md-disabled-thumb ***REMOVED***
       display: block;
     ***REMOVED***
   ***REMOVED***
@@ -5618,8 +5903,8 @@ md-slider ***REMOVED***
     flex-direction: column;
     min-height: $slider-min-size;
     min-width: 0;
-    
-    ._md-slider-wrapper ***REMOVED***
+
+    .md-slider-wrapper ***REMOVED***
       flex: 1;
       padding-top: 12px;
       padding-bottom: 12px;
@@ -5629,34 +5914,34 @@ md-slider ***REMOVED***
       justify-content: center;
     ***REMOVED***
 
-    ._md-track-container ***REMOVED***
+    .md-track-container ***REMOVED***
       height: 100%;
       width: $slider-track-height;
       top: 0;
       left: calc(50% - (#***REMOVED***$slider-track-height***REMOVED*** / 2));
     ***REMOVED***
 
-    ._md-thumb-container ***REMOVED***
+    .md-thumb-container ***REMOVED***
       top: auto;
       margin-bottom: ($slider-size / 2) - ($slider-track-height) / 2;
       left: calc(50% - 1px);
       bottom: 0;
 
-      ._md-thumb:after ***REMOVED***
+      .md-thumb:after ***REMOVED***
         left: 1px;
       ***REMOVED***
 
-      ._md-focus-ring ***REMOVED***
+      .md-focus-ring ***REMOVED***
         left: -(($slider-focus-thumb-width / 2) - ($slider-track-height / 2));
       ***REMOVED***
     ***REMOVED***
 
-    ._md-track-fill ***REMOVED***
+    .md-track-fill ***REMOVED***
       bottom: 0;
     ***REMOVED***
 
     &[md-discrete] ***REMOVED***
-      ._md-sign ***REMOVED***
+      .md-sign ***REMOVED***
         $sign-top: -($slider-sign-top / 2) + 1;
 
         left: -$slider-sign-height - 12;
@@ -5679,40 +5964,40 @@ md-slider ***REMOVED***
           transition: all 0.2s ease-in-out;
         ***REMOVED***
 
-        ._md-thumb-text ***REMOVED***
+        .md-thumb-text ***REMOVED***
           z-index: 1;
           font-size: 12px;
           font-weight: bold;
         ***REMOVED***
       ***REMOVED***
 
-      &._md-active,
+      &.md-active,
       .md-focused,
       &[disabled][readonly]***REMOVED***
-        ._md-sign:after ***REMOVED***
+        .md-sign:after ***REMOVED***
           top: 0;
         ***REMOVED***
       ***REMOVED***
     ***REMOVED***
 
     &[disabled][readonly] ***REMOVED***
-      ._md-thumb ***REMOVED***
+      .md-thumb ***REMOVED***
         transform: scale(0);
       ***REMOVED***
-      ._md-sign,
-      ._md-sign:after ***REMOVED***
+      .md-sign,
+      .md-sign:after ***REMOVED***
         opacity: 1;
         transform: translate3d(0,0,0) scale(1.0);
       ***REMOVED***
     ***REMOVED***
   ***REMOVED***
   &[md-invert] ***REMOVED***
-    &:not([md-vertical]) ._md-track-fill ***REMOVED***
-      left: auto;
-      right: 0;
+    &:not([md-vertical]) .md-track-fill ***REMOVED***
+      @include rtl-prop(left, right, auto, auto);
+      @include rtl-prop(right, left, 0, auto);
     ***REMOVED***
     &[md-vertical] ***REMOVED***
-      ._md-track-fill ***REMOVED***
+      .md-track-fill ***REMOVED***
         bottom: auto;
         top: 0;
       ***REMOVED***
@@ -5741,11 +6026,11 @@ md-slider-container ***REMOVED***
   ***REMOVED***
 
   & > *:first-child:not(md-slider) ***REMOVED***
-    margin-right: $items-margin;
+    @include rtl-prop(margin-right, margin-left, $items-margin, auto);
   ***REMOVED***
 
   & > *:last-child:not(md-slider) ***REMOVED***
-    margin-left: $items-margin;
+    @include rtl-prop(margin-left, margin-right, $items-margin, auto);
   ***REMOVED***
 
   &[md-vertical] ***REMOVED***
@@ -5762,7 +6047,7 @@ md-slider-container ***REMOVED***
   md-input-container ***REMOVED***
     input[type="number"] ***REMOVED***
       text-align: center;
-      padding-left: 15px; // size of arrows
+      @include rtl-prop(padding-left, padding-right, 15px, 0); // size of arrows
       height: $items-height * 2;
       margin-top: -$items-height;
     ***REMOVED***
@@ -5770,13 +6055,13 @@ md-slider-container ***REMOVED***
 ***REMOVED***
 
 @media screen and (-ms-high-contrast: active) ***REMOVED***
-  md-slider.md-default-theme ._md-track ***REMOVED***
+  md-slider.md-default-theme .md-track ***REMOVED***
     border-bottom: 1px solid #fff;
   ***REMOVED***
 ***REMOVED***
 
 
-._md-sticky-clone ***REMOVED***
+.md-sticky-clone ***REMOVED***
   z-index: 2;
   top: 0;
   left: 0;
@@ -5787,9 +6072,77 @@ md-slider-container ***REMOVED***
 
   &[sticky-state="active"] ***REMOVED***
     transform: translate3d(0, 0, 0);
-    &:not(.md-sticky-no-effect) ._md-subheader-inner ***REMOVED***
+    &:not(.md-sticky-no-effect) .md-subheader-inner ***REMOVED***
       animation: subheaderStickyHoverIn 0.3s ease-out both;
     ***REMOVED***
+  ***REMOVED***
+***REMOVED***
+
+$subheader-line-height: 1em !default;
+$subheader-font-size: rem(1.4) !default;
+$subheader-padding: ($baseline-grid * 2) !default;
+$subheader-font-weight: 500 !default;
+$subheader-margin: 0 0 0 0 !default;
+$subheader-sticky-shadow: 0px 2px 4px 0 rgba(0,0,0,0.16) !default;
+
+@keyframes subheaderStickyHoverIn ***REMOVED***
+  0% ***REMOVED***
+    box-shadow: 0 0 0 0 transparent;
+  ***REMOVED***
+  100% ***REMOVED***
+    box-shadow: $subheader-sticky-shadow;
+  ***REMOVED***
+***REMOVED***
+@keyframes subheaderStickyHoverOut ***REMOVED***
+  0% ***REMOVED***
+    box-shadow: $subheader-sticky-shadow;
+  ***REMOVED***
+  100% ***REMOVED***
+    box-shadow: 0 0 0 0 transparent;
+  ***REMOVED***
+***REMOVED***
+
+.md-subheader-wrapper ***REMOVED***
+
+  &:not(.md-sticky-no-effect) ***REMOVED***
+    .md-subheader ***REMOVED***
+      margin: 0;
+    ***REMOVED***
+
+    transition: 0.2s ease-out margin;
+
+    &.md-sticky-clone ***REMOVED***
+      z-index: 2;
+    ***REMOVED***
+
+    &[sticky-state="active"] ***REMOVED***
+      margin-top: -2px;
+    ***REMOVED***
+
+    &:not(.md-sticky-clone)[sticky-prev-state="active"] .md-subheader-inner:after ***REMOVED***
+      animation: subheaderStickyHoverOut 0.3s ease-out both;
+    ***REMOVED***
+  ***REMOVED***
+
+***REMOVED***
+
+.md-subheader ***REMOVED***
+  display: block;
+  font-size: $subheader-font-size;
+  font-weight: $subheader-font-weight;
+  line-height: $subheader-line-height;
+  margin: $subheader-margin;
+  position: relative;
+
+  .md-subheader-inner ***REMOVED***
+    display: block;
+    padding: $subheader-padding;
+  ***REMOVED***
+
+  .md-subheader-content ***REMOVED***
+    display: block;
+    z-index: 1;
+    position: relative;
   ***REMOVED***
 ***REMOVED***
 
@@ -5824,35 +6177,35 @@ md-switch ***REMOVED***
     @include rtl(margin-left, inherit, 0);
     @include rtl(margin-right, 0, inherit);
   ***REMOVED***
-  
+
   &[disabled] ***REMOVED***
     cursor: default;
 
-    ._md-container ***REMOVED***
+    .md-container ***REMOVED***
       cursor: default;
     ***REMOVED***
   ***REMOVED***
 
-  ._md-container ***REMOVED***
+  .md-container ***REMOVED***
     cursor: grab;
     width: $switch-width;
     height: $switch-height;
     position: relative;
     user-select: none;
-    @include rtl-prop(margin-right, margin-left, 8px);
+    @include rtl-prop(margin-right, margin-left, 8px, auto);
     float: left;
   ***REMOVED***
 
   // If the user moves his mouse off the switch, stil display grabbing cursor
   &:not([disabled]) ***REMOVED***
-    ._md-dragging,
-    &._md-dragging ._md-container ***REMOVED***
+    .md-dragging,
+    &.md-dragging .md-container ***REMOVED***
       cursor: grabbing;
     ***REMOVED***
   ***REMOVED***
 
   &.md-focused:not([disabled]) ***REMOVED***
-    ._md-thumb:before ***REMOVED***
+    .md-thumb:before ***REMOVED***
       left: -8px;
       top: -8px;
       right: -8px;
@@ -5860,19 +6213,19 @@ md-switch ***REMOVED***
     ***REMOVED***
 
     &:not(.md-checked) ***REMOVED***
-      ._md-thumb:before ***REMOVED***
+      .md-thumb:before ***REMOVED***
         background-color: rgba(0, 0, 0, 0.12);
       ***REMOVED***
     ***REMOVED***
   ***REMOVED***
 
-  ._md-label ***REMOVED***
+  .md-label ***REMOVED***
     border-color: transparent;
     border-width: 0;
     float: left;
   ***REMOVED***
 
-  ._md-bar ***REMOVED***
+  .md-bar ***REMOVED***
     left: 1px;
     width: $switch-width - 2px;
     top: $switch-height / 2 - $switch-bar-height / 2;
@@ -5881,7 +6234,7 @@ md-switch ***REMOVED***
     position: absolute;
   ***REMOVED***
 
-  ._md-thumb-container ***REMOVED***
+  .md-thumb-container ***REMOVED***
     top: $switch-height / 2 - $switch-thumb-size / 2;
     left: 0;
     width: $switch-width - $switch-thumb-size;
@@ -5889,11 +6242,11 @@ md-switch ***REMOVED***
     transform: translate3d(0,0,0);
     z-index: 1;
   ***REMOVED***
-  &.md-checked ._md-thumb-container ***REMOVED***
+  &.md-checked .md-thumb-container ***REMOVED***
     transform: translate3d(100%,0,0);
   ***REMOVED***
 
-  ._md-thumb ***REMOVED***
+  .md-thumb ***REMOVED***
     position: absolute;
     margin: 0;
     left: 0;
@@ -5931,15 +6284,15 @@ md-switch ***REMOVED***
     ***REMOVED***
   ***REMOVED***
 
-  &:not(._md-dragging) ***REMOVED***
-    ._md-bar,
-    ._md-thumb-container,
-    ._md-thumb ***REMOVED***
+  &:not(.md-dragging) ***REMOVED***
+    .md-bar,
+    .md-thumb-container,
+    .md-thumb ***REMOVED***
       transition: $swift-linear;
       transition-property: transform, background-color;
     ***REMOVED***
-    ._md-bar,
-    ._md-thumb ***REMOVED***
+    .md-bar,
+    .md-thumb ***REMOVED***
       transition-delay: 0.05s;
     ***REMOVED***
   ***REMOVED***
@@ -5947,82 +6300,14 @@ md-switch ***REMOVED***
 ***REMOVED***
 
 @media screen and (-ms-high-contrast: active) ***REMOVED***
-  md-switch.md-default-theme ._md-bar ***REMOVED***
+  md-switch.md-default-theme .md-bar ***REMOVED***
     background-color: #666;
   ***REMOVED***
-  md-switch.md-default-theme.md-checked ._md-bar ***REMOVED***
+  md-switch.md-default-theme.md-checked .md-bar ***REMOVED***
     background-color: #9E9E9E;
   ***REMOVED***
-  md-switch.md-default-theme ._md-thumb ***REMOVED***
+  md-switch.md-default-theme .md-thumb ***REMOVED***
     background-color: #fff;
-  ***REMOVED***
-***REMOVED***
-
-$subheader-line-height: 1em !default;
-$subheader-font-size: rem(1.4) !default;
-$subheader-padding: ($baseline-grid * 2) !default;
-$subheader-font-weight: 500 !default;
-$subheader-margin: 0 0 0 0 !default;
-$subheader-sticky-shadow: 0px 2px 4px 0 rgba(0,0,0,0.16) !default;
-
-@keyframes subheaderStickyHoverIn ***REMOVED***
-  0% ***REMOVED***
-    box-shadow: 0 0 0 0 transparent;
-  ***REMOVED***
-  100% ***REMOVED***
-    box-shadow: $subheader-sticky-shadow;
-  ***REMOVED***
-***REMOVED***
-@keyframes subheaderStickyHoverOut ***REMOVED***
-  0% ***REMOVED***
-    box-shadow: $subheader-sticky-shadow;
-  ***REMOVED***
-  100% ***REMOVED***
-    box-shadow: 0 0 0 0 transparent;
-  ***REMOVED***
-***REMOVED***
-
-._md-subheader-wrapper ***REMOVED***
-
-  &:not(.md-sticky-no-effect) ***REMOVED***
-    .md-subheader ***REMOVED***
-      margin: 0;
-    ***REMOVED***
-
-    transition: 0.2s ease-out margin;
-
-    &.md-sticky-clone ***REMOVED***
-      z-index: 2;
-    ***REMOVED***
-
-    &[sticky-state="active"] ***REMOVED***
-      margin-top: -2px;
-    ***REMOVED***
-
-    &:not(.md-sticky-clone)[sticky-prev-state="active"] ._md-subheader-inner:after ***REMOVED***
-      animation: subheaderStickyHoverOut 0.3s ease-out both;
-    ***REMOVED***
-  ***REMOVED***
-
-***REMOVED***
-
-.md-subheader ***REMOVED***
-  display: block;
-  font-size: $subheader-font-size;
-  font-weight: $subheader-font-weight;
-  line-height: $subheader-line-height;
-  margin: $subheader-margin;
-  position: relative;
-
-  ._md-subheader-inner ***REMOVED***
-    display: block;
-    padding: $subheader-padding;
-  ***REMOVED***
-
-  ._md-subheader-content ***REMOVED***
-    display: block;
-    z-index: 1;
-    position: relative;
   ***REMOVED***
 ***REMOVED***
 
@@ -6135,11 +6420,11 @@ md-tabs-wrapper ***REMOVED***
     ***REMOVED***
   ***REMOVED***
   md-prev-button ***REMOVED***
-    @include rtl-prop(left, right, 0);
+    @include rtl-prop(left, right, 0, auto);
     background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE3LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPiA8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPiA8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPiA8ZyBpZD0iSGVhZGVyIj4gPGc+IDxyZWN0IHg9Ii02MTgiIHk9Ii0xMjA4IiBmaWxsPSJub25lIiB3aWR0aD0iMTQwMCIgaGVpZ2h0PSIzNjAwIi8+IDwvZz4gPC9nPiA8ZyBpZD0iTGFiZWwiPiA8L2c+IDxnIGlkPSJJY29uIj4gPGc+IDxwb2x5Z29uIHBvaW50cz0iMTUuNCw3LjQgMTQsNiA4LDEyIDE0LDE4IDE1LjQsMTYuNiAxMC44LDEyIAkJIiBzdHlsZT0iZmlsbDp3aGl0ZTsiLz4gPHJlY3QgZmlsbD0ibm9uZSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ii8+IDwvZz4gPC9nPiA8ZyBpZD0iR3JpZCIgZGlzcGxheT0ibm9uZSI+IDxnIGRpc3BsYXk9ImlubGluZSI+IDwvZz4gPC9nPiA8L3N2Zz4NCg==');
   ***REMOVED***
   md-next-button ***REMOVED***
-    @include rtl-prop(right, left, 0);
+    @include rtl-prop(right, left, 0, auto);
     background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE3LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPiA8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPiA8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPiA8ZyBpZD0iSGVhZGVyIj4gPGc+IDxyZWN0IHg9Ii02MTgiIHk9Ii0xMzM2IiBmaWxsPSJub25lIiB3aWR0aD0iMTQwMCIgaGVpZ2h0PSIzNjAwIi8+IDwvZz4gPC9nPiA8ZyBpZD0iTGFiZWwiPiA8L2c+IDxnIGlkPSJJY29uIj4gPGc+IDxwb2x5Z29uIHBvaW50cz0iMTAsNiA4LjYsNy40IDEzLjIsMTIgOC42LDE2LjYgMTAsMTggMTYsMTIgCQkiIHN0eWxlPSJmaWxsOndoaXRlOyIvPiA8cmVjdCBmaWxsPSJub25lIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiLz4gPC9nPiA8L2c+IDxnIGlkPSJHcmlkIiBkaXNwbGF5PSJub25lIj4gPGcgZGlzcGxheT0iaW5saW5lIj4gPC9nPiA8L2c+IDwvc3ZnPg0K');
     md-icon ***REMOVED***
       transform: translate3d(-50%, -50%, 0) rotate(180deg);
@@ -6166,7 +6451,7 @@ md-tabs-canvas ***REMOVED***
   .md-dummy-wrapper ***REMOVED***
     position: absolute;
     top: 0;
-    @include rtl-prop(left, right, 0);
+    @include rtl-prop(left, right, 0, auto);
   ***REMOVED***
   &.md-paginated ***REMOVED***
     margin: 0 $tabs-paginator-width;
@@ -6189,11 +6474,11 @@ md-pagination-wrapper ***REMOVED***
   transition: transform $swift-ease-in-out-duration $swift-ease-in-out-timing-function;
   position: absolute;
   width: 999999px;
-  @include rtl-prop(left, right, 0);
+  @include rtl-prop(left, right, 0, auto);
   transform: translate3d(0, 0, 0);
   &.md-center-tabs ***REMOVED***
     position: relative;
-    width: initial;
+    width: auto;
     margin: 0 auto;
   ***REMOVED***
 ***REMOVED***
@@ -6343,6 +6628,7 @@ md-toast ***REMOVED***
 
   .md-toast-content ***REMOVED***
     display: flex;
+    direction: row;
     align-items: center;
 
     max-height: 7 * $toast-height;
@@ -6366,6 +6652,13 @@ md-toast ***REMOVED***
     transition: $swift-ease-out;
 
     @include rtl(justify-content, flex-start, flex-end);
+
+    span ***REMOVED***
+      // Layout  [flex]
+      flex:1 1 0%;
+      box-sizing:border-box;
+      min-width :0;
+    ***REMOVED***
   ***REMOVED***
 
   &.md-capsule ***REMOVED***
@@ -6383,10 +6676,10 @@ md-toast ***REMOVED***
   ***REMOVED***
 
   /* Transition differently when swiping */
-  &._md-swipeleft,
-  &._md-swiperight,
-  &._md-swipeup,
-  &._md-swipedown ***REMOVED***
+  &.md-swipeleft,
+  &.md-swiperight,
+  &.md-swipeup,
+  &.md-swipedown ***REMOVED***
     .md-toast-content ***REMOVED***
       transition: $swift-ease-out;
     ***REMOVED***
@@ -6397,7 +6690,7 @@ md-toast ***REMOVED***
     .md-toast-content ***REMOVED***
       transform: translate3d(0, 100%, 0);
     ***REMOVED***
-    &._md-top ***REMOVED***
+    &.md-top ***REMOVED***
       .md-toast-content ***REMOVED***
         transform: translate3d(0, -100%, 0);
       ***REMOVED***
@@ -6419,17 +6712,17 @@ md-toast ***REMOVED***
       transform: translate3d(0, 100%, 0);
     ***REMOVED***
 
-    &._md-swipeup ***REMOVED***
+    &.md-swipeup ***REMOVED***
       .md-toast-content ***REMOVED***
         transform: translate3d(0, -50%, 0);
       ***REMOVED***
     ***REMOVED***
-    &._md-swipedown ***REMOVED***
+    &.md-swipedown ***REMOVED***
       .md-toast-content ***REMOVED***
         transform: translate3d(0, 50%, 0);
       ***REMOVED***
     ***REMOVED***
-    &._md-top ***REMOVED***
+    &.md-top ***REMOVED***
       .md-toast-content ***REMOVED***
         transform: translate3d(0, -100%, 0);
       ***REMOVED***
@@ -6464,12 +6757,12 @@ md-toast ***REMOVED***
     padding: 0;
 
     &.ng-leave.ng-leave-active ***REMOVED***
-      &._md-swipeup ***REMOVED***
+      &.md-swipeup ***REMOVED***
         .md-toast-content ***REMOVED***
           transform: translate3d(0, -50%, 0);
         ***REMOVED***
       ***REMOVED***
-      &._md-swipedown ***REMOVED***
+      &.md-swipedown ***REMOVED***
         .md-toast-content ***REMOVED***
           transform: translate3d(0, 50%, 0);
         ***REMOVED***
@@ -6481,26 +6774,26 @@ md-toast ***REMOVED***
 @media (min-width: $layout-breakpoint-sm) ***REMOVED***
   md-toast ***REMOVED***
     min-width: 288px + $toast-margin * 2;
-    &._md-bottom ***REMOVED***
+    &.md-bottom ***REMOVED***
       bottom: 0;
     ***REMOVED***
-    &._md-left ***REMOVED***
+    &.md-left ***REMOVED***
       left: 0;
     ***REMOVED***
-    &._md-right ***REMOVED***
+    &.md-right ***REMOVED***
       right: 0;
     ***REMOVED***
-    &._md-top ***REMOVED***
+    &.md-top ***REMOVED***
       top: 0;
     ***REMOVED***
 
     // Support for RTL alignment
     &._md-start ***REMOVED***
-      @include rtl-prop(left, right, 0);
+      @include rtl-prop(left, right, 0, auto);
     ***REMOVED***
 
     &._md-end ***REMOVED***
-      @include rtl-prop(right, left, 0);
+      @include rtl-prop(right, left, 0, auto);
     ***REMOVED***
 
     /*
@@ -6508,12 +6801,12 @@ md-toast ***REMOVED***
    * make it rotate when the user swipes it away
    */
     &.ng-leave.ng-leave-active ***REMOVED***
-      &._md-swipeleft ***REMOVED***
+      &.md-swipeleft ***REMOVED***
         .md-toast-content ***REMOVED***
           transform: translate3d(-50%, 0, 0);
         ***REMOVED***
       ***REMOVED***
-      &._md-swiperight ***REMOVED***
+      &.md-swiperight ***REMOVED***
         .md-toast-content ***REMOVED***
           transform: translate3d(50%, 0, 0);
         ***REMOVED***
@@ -6538,27 +6831,21 @@ md-toast ***REMOVED***
 
 
 // While animating, set the toast parent's overflow to hidden so scrollbars do not appear
-._md-toast-animating ***REMOVED***
+.md-toast-animating ***REMOVED***
   overflow: hidden !important;
 ***REMOVED***
 
 // Standard/Desktop Heights
-$toolbar-tools-height: 64px !default;
-$toolbar-height: 64px !default;
-$toolbar-medium-tall-height: 88px !default;
-$toolbar-tall-height: 128px !default;
+$md-toolbar-height: $baseline-grid * 8 !default;
+$md-toolbar-medium-tall-height: 88px !default;
+$md-toolbar-tall-height: 128px !default;
 
-// Mobile portrait heights
-$toolbar-tools-height-mobile-portrait: 56px !default;
-$toolbar-height-mobile-portrait: 56px !default;
+// Mobile device heights
+$md-toolbar-height-mobile-portrait: 56px !default;
+$md-toolbar-height-mobile-landscape: 48px !default;
 
-// Mobile landscape heights
-$toolbar-tools-height-mobile-landscape: 48px !default;
-$toolbar-height-mobile-landscape: 48px !default;
-
-
-$toolbar-indent-margin: 64px !default;
-$toolbar-padding: 16px !default;
+$md-toolbar-indent-margin: 64px !default;
+$md-toolbar-padding: 16px !default;
 
 $icon-button-margin-offset: rem(-0.800) !default;
 
@@ -6571,12 +6858,14 @@ md-toolbar ***REMOVED***
   z-index: 2;
 
   font-size: rem(2.0);
-  min-height: $baseline-grid * 8;
+  min-height: $md-toolbar-height;
   width: 100%;
 
-  transition-duration: $swift-ease-in-out-duration;
-  transition-timing-function: $swift-ease-in-out-timing-function;
-  transition-property: background-color, fill, color;
+  &._md-toolbar-transitions ***REMOVED***
+    transition-duration: $swift-ease-in-out-duration;
+    transition-timing-function: $swift-ease-in-out-timing-function;
+    transition-property: background-color, fill, color;
+  ***REMOVED***
 
   &.md-whiteframe-z1-add, &.md-whiteframe-z1-remove ***REMOVED***
     transition: box-shadow $swift-ease-in-out-duration linear;
@@ -6600,15 +6889,15 @@ md-toolbar ***REMOVED***
   ***REMOVED***
 
   &.md-tall ***REMOVED***
-    height: $toolbar-tall-height;
-    min-height: $toolbar-tall-height;
-    max-height: $toolbar-tall-height;
+    height: $md-toolbar-tall-height;
+    min-height: $md-toolbar-tall-height;
+    max-height: $md-toolbar-tall-height;
   ***REMOVED***
 
   &.md-medium-tall ***REMOVED***
-    height: $toolbar-medium-tall-height;
-    min-height: $toolbar-medium-tall-height;
-    max-height: $toolbar-medium-tall-height;
+    height: $md-toolbar-medium-tall-height;
+    min-height: $md-toolbar-medium-tall-height;
+    max-height: $md-toolbar-medium-tall-height;
 
     .md-toolbar-tools ***REMOVED***
       height: 48px;
@@ -6618,7 +6907,7 @@ md-toolbar ***REMOVED***
   ***REMOVED***
 
   > .md-indent ***REMOVED***
-    @include rtl-prop(margin-left, margin-right, $toolbar-indent-margin);
+    @include rtl-prop(margin-left, margin-right, $md-toolbar-indent-margin, auto);
   ***REMOVED***
 
   ~ md-content ***REMOVED***
@@ -6644,9 +6933,9 @@ md-toolbar ***REMOVED***
   flex-direction: row;
 
   width: 100%;
-  height: $toolbar-tools-height;
-  max-height: $toolbar-tools-height;
-  padding: 0 $toolbar-padding;
+  height: $md-toolbar-height;
+  max-height: $md-toolbar-height;
+  padding: 0 $md-toolbar-padding;
   margin: 0;
 
   h1, h2, h3 ***REMOVED***
@@ -6681,16 +6970,16 @@ md-toolbar ***REMOVED***
     ***REMOVED***
   ***REMOVED***
   &> .md-button:first-child ***REMOVED***
-    @include rtl-prop(margin-left, margin-right, $icon-button-margin-offset);
+    @include rtl-prop(margin-left, margin-right, $icon-button-margin-offset, auto);
   ***REMOVED***
   &> .md-button:last-child ***REMOVED***
-    @include rtl-prop(margin-right, margin-left, $icon-button-margin-offset);
+    @include rtl-prop(margin-right, margin-left, $icon-button-margin-offset, auto);
   ***REMOVED***
 
   &> md-menu:last-child ***REMOVED***
-    @include rtl-prop(margin-right, margin-left, $icon-button-margin-offset);
+    @include rtl-prop(margin-right, margin-left, $icon-button-margin-offset, auto);
     & > .md-button ***REMOVED***
-      @include rtl-prop(margin-right, margin-left, 0);
+      @include rtl-prop(margin-right, margin-left, 0, auto);
     ***REMOVED***
   ***REMOVED***
 
@@ -6702,24 +6991,24 @@ md-toolbar ***REMOVED***
 // Handle mobile portrait
 @media (min-width: 0) and (max-width: $layout-breakpoint-sm - 1) and (orientation: portrait) ***REMOVED***
   md-toolbar ***REMOVED***
-    min-height: $toolbar-height-mobile-portrait;
+    min-height: $md-toolbar-height-mobile-portrait;
   ***REMOVED***
 
   .md-toolbar-tools ***REMOVED***
-    height: $toolbar-height-mobile-portrait;
-    max-height: $toolbar-height-mobile-portrait;
+    height: $md-toolbar-height-mobile-portrait;
+    max-height: $md-toolbar-height-mobile-portrait;
   ***REMOVED***
 ***REMOVED***
 
 // Handle mobile landscape
 @media (min-width: 0) and (max-width: $layout-breakpoint-sm - 1) and (orientation: landscape) ***REMOVED***
   md-toolbar ***REMOVED***
-    min-height: $toolbar-height-mobile-landscape;
+    min-height: $md-toolbar-height-mobile-landscape;
   ***REMOVED***
 
   .md-toolbar-tools ***REMOVED***
-    height: $toolbar-height-mobile-landscape;
-    max-height: $toolbar-height-mobile-landscape;
+    height: $md-toolbar-height-mobile-landscape;
+    max-height: $md-toolbar-height-mobile-landscape;
   ***REMOVED***
 ***REMOVED***
 
@@ -6747,7 +7036,7 @@ md-tooltip ***REMOVED***
     font-size: $tooltip-fontsize-lg;
   ***REMOVED***
 
-  ._md-content ***REMOVED***
+  .md-content ***REMOVED***
     position: relative;
     white-space: nowrap;
     overflow: hidden;
@@ -6765,32 +7054,32 @@ md-tooltip ***REMOVED***
       padding-left: $tooltip-lr-padding-lg;
       padding-right: $tooltip-lr-padding-lg;
     ***REMOVED***
-    &._md-show-add ***REMOVED***
+    &.md-show-add ***REMOVED***
       transition: $swift-ease-out;
       transition-duration: .2s;
       transform: scale(0);
       opacity: 0;
     ***REMOVED***
-    &._md-show, &._md-show-add-active ***REMOVED***
+    &.md-show, &.md-show-add-active ***REMOVED***
       transform: scale(1);
       opacity: 1;
       transform-origin: center top;
     ***REMOVED***
-    &._md-show-remove ***REMOVED***
+    &.md-show-remove ***REMOVED***
       transition: $swift-ease-out;
       transition-duration: .2s;
-      &._md-show-remove-active ***REMOVED***
+      &.md-show-remove-active ***REMOVED***
         transform: scale(0);
         opacity: 0;
       ***REMOVED***
     ***REMOVED***
   ***REMOVED***
 
-  &._md-hide ***REMOVED***
+  &.md-hide ***REMOVED***
     transition: $swift-ease-in;
   ***REMOVED***
 
-  &._md-show ***REMOVED***
+  &.md-show ***REMOVED***
     transition: $swift-ease-out;
     pointer-events: auto;
   ***REMOVED***
@@ -6816,6 +7105,7 @@ $virtual-repeat-scrollbar-width: 16px !default;
     position: absolute;
     right: 0;
     top: 0;
+    -webkit-overflow-scrolling: touch;
   ***REMOVED***
 
   .md-virtual-repeat-sizer ***REMOVED***
@@ -6848,7 +7138,7 @@ $virtual-repeat-scrollbar-width: 16px !default;
     // Leave room for the scroll bar.
     // TODO: Will probably need to perform measurements at runtime.
     bottom: $virtual-repeat-scrollbar-width;
-    @include rtl-prop(right, left, auto);
+    @include rtl-prop(right, left, auto, auto);
     white-space: nowrap;
   ***REMOVED***
 ***REMOVED***

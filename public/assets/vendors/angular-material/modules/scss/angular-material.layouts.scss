@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc4-master-88f2e3f
+ * v1.1.0-rc.5-master-c447c12
  */
 $font-family: Roboto, 'Helvetica Neue', sans-serif !default;
 $font-size:   10px !default;
@@ -196,7 +196,7 @@ $checkbox-border-width: 2px !default;
   outline: none;
   background: transparent;
 
-  // The the "clear X" that IE adds to input[type="search"]
+  // The "clear X" that IE adds to input[type="search"]
   &::-ms-clear ***REMOVED***
     display: none;
   ***REMOVED***
@@ -267,15 +267,10 @@ $checkbox-border-width: 2px !default;
   ***REMOVED***
 ***REMOVED***
 
-@mixin rtl-prop($ltr-prop, $rtl-prop, $value) ***REMOVED***
+@mixin rtl-prop($ltr-prop, $rtl-prop, $value, $reset-value) ***REMOVED***
   #***REMOVED***$ltr-prop***REMOVED***: $value;
   [dir=rtl] & ***REMOVED***
-    // fallback for auto
-    #***REMOVED***$ltr-prop***REMOVED***: 0;
-    // fallback for IE
-    #***REMOVED***$ltr-prop***REMOVED***: auto;
-    #***REMOVED***$ltr-prop***REMOVED***: initial;
-
+    #***REMOVED***$ltr-prop***REMOVED***: $reset-value;
     #***REMOVED***$rtl-prop***REMOVED***: $value;
   ***REMOVED***
 ***REMOVED***
@@ -318,7 +313,7 @@ $checkbox-border-width: 2px !default;
   $height: $checkbox-height,
   $border-width: $checkbox-border-width,
   $border-radius: $checkbox-border-radius) ***REMOVED***
-  ._md-container ***REMOVED***
+  .md-container ***REMOVED***
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -370,7 +365,7 @@ $checkbox-border-width: 2px !default;
   ***REMOVED***
 
   // unchecked
-  ._md-icon ***REMOVED***
+  .md-icon ***REMOVED***
     box-sizing: border-box;
     transition: 240ms;
     position: absolute;
@@ -383,15 +378,15 @@ $checkbox-border-width: 2px !default;
     border-radius: $border-radius;
   ***REMOVED***
 
-  &#***REMOVED***$checkedSelector***REMOVED*** ._md-icon ***REMOVED***
-    border: none;
+  &#***REMOVED***$checkedSelector***REMOVED*** .md-icon ***REMOVED***
+    border-color: transparent;
 
     &:after ***REMOVED***
       box-sizing: border-box;
       transform: rotate(45deg);
       position: absolute;
-      left: $width / 3;
-      top: $width / 9;
+      left: $width / 3 - $border-width;
+      top: $width / 9 - $border-width;
       display: table;
       width: $width / 3;
       height: $width * 2 / 3;
@@ -408,7 +403,7 @@ $checkbox-border-width: 2px !default;
     cursor: default;
   ***REMOVED***
 
-  &.md-indeterminate ._md-icon ***REMOVED***
+  &.md-indeterminate .md-icon ***REMOVED***
     &:after ***REMOVED***
       box-sizing: border-box;
       position: absolute;
@@ -423,6 +418,48 @@ $checkbox-border-width: 2px !default;
       border-top: 0;
       border-left: 0;
       content: '';
+    ***REMOVED***
+  ***REMOVED***
+***REMOVED***
+
+// Mixin to create a primary checkbox.
+// Used by the checkbox and select component.
+@mixin checkbox-primary($checkedSelector: '.md-checked') ***REMOVED***
+  .md-ripple ***REMOVED***
+    color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  &#***REMOVED***$checkedSelector***REMOVED*** .md-ripple ***REMOVED***
+    color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  .md-ink-ripple ***REMOVED***
+    color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  &#***REMOVED***$checkedSelector***REMOVED*** .md-ink-ripple ***REMOVED***
+    color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  &:not(.md-checked) .md-icon ***REMOVED***
+    border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  &#***REMOVED***$checkedSelector***REMOVED*** .md-icon ***REMOVED***
+    background-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  &#***REMOVED***$checkedSelector***REMOVED***.md-focused .md-container:before ***REMOVED***
+    background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  &#***REMOVED***$checkedSelector***REMOVED*** .md-icon:after ***REMOVED***
+    border-color: '***REMOVED******REMOVED***primary-contrast-0.87***REMOVED******REMOVED***';
+  ***REMOVED***
+
+  & .md-indeterminate[disabled] ***REMOVED***
+    .md-container ***REMOVED***
+      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';
     ***REMOVED***
   ***REMOVED***
 ***REMOVED***
@@ -482,8 +519,8 @@ $checkbox-border-width: 2px !default;
     ***REMOVED***
 
     #***REMOVED***$offsets***REMOVED*** ***REMOVED***
-      @if $i != 0 ***REMOVED*** @include rtl-prop(margin-left, margin-right, #***REMOVED***$i * 5 + '%'***REMOVED***); ***REMOVED***
-      @else ***REMOVED*** @include rtl-prop(margin-left, margin-right, 0); ***REMOVED***
+      @if $i != 0 ***REMOVED*** @include rtl-prop(margin-left, margin-right, #***REMOVED***$i * 5 + '%'***REMOVED***, auto); ***REMOVED***
+      @else ***REMOVED*** @include rtl-prop(margin-left, margin-right, 0, auto); ***REMOVED***
     ***REMOVED***
   ***REMOVED***
 
@@ -515,7 +552,7 @@ $checkbox-border-width: 2px !default;
     ***REMOVED***
 
     #***REMOVED***$offsets***REMOVED*** ***REMOVED***
-      @include rtl-prop(margin-left, margin-right, calc(200% / 3));
+      @include rtl-prop(margin-left, margin-right, calc(200% / 3), auto);
     ***REMOVED***
   ***REMOVED***
 ***REMOVED***
@@ -565,7 +602,33 @@ $checkbox-border-width: 2px !default;
       box-sizing: border-box;
     ***REMOVED***
 
-    .layout-row > .#***REMOVED***$flexName***REMOVED***-#***REMOVED***$i * 5***REMOVED***,
+    .layout-row > .#***REMOVED***$flexName***REMOVED***-#***REMOVED***$i * 5***REMOVED*** ***REMOVED***
+      flex: 1 1 #***REMOVED***$value***REMOVED***;
+      max-width: #***REMOVED***$value***REMOVED***;
+      max-height: 100%;
+      box-sizing: border-box;
+
+      // Bug workaround for http://crbug.com/546034 - flex issues on Chrome 48
+      @if $i == 0 ***REMOVED***  min-width: 0;  ***REMOVED***
+    ***REMOVED***
+
+    .layout-column > .#***REMOVED***$flexName***REMOVED***-#***REMOVED***$i * 5***REMOVED*** ***REMOVED***
+      flex: 1 1 #***REMOVED***$value***REMOVED***;
+      max-width: 100%;
+      max-height: #***REMOVED***$value***REMOVED***;
+      box-sizing: border-box;
+    ***REMOVED***
+
+    .layout-row ***REMOVED***
+	    > .#***REMOVED***$flexName***REMOVED***-33   , > .#***REMOVED***$flexName***REMOVED***-33     ***REMOVED***  flex: 1 1 33.33%;  max-width: 33.33%;  max-height: 100%; box-sizing: border-box; ***REMOVED***
+	    > .#***REMOVED***$flexName***REMOVED***-66   , > .#***REMOVED***$flexName***REMOVED***-66     ***REMOVED***  flex: 1 1 66.66%;  max-width: 66.66%;  max-height: 100%; box-sizing: border-box; ***REMOVED***
+	  ***REMOVED***
+
+	  .layout-column ***REMOVED***
+	    > .#***REMOVED***$flexName***REMOVED***-33   , > .#***REMOVED***$flexName***REMOVED***-33     ***REMOVED***  flex: 1 1 33.33%;  max-width: 100%;  max-height: 33.33%; box-sizing: border-box; ***REMOVED***
+	    > .#***REMOVED***$flexName***REMOVED***-66   , > .#***REMOVED***$flexName***REMOVED***-66     ***REMOVED***  flex: 1 1 66.66%;  max-width: 100%;  max-height: 66.66%; box-sizing: border-box; ***REMOVED***
+	  ***REMOVED***
+
     .layout#***REMOVED***$name***REMOVED***-row > .#***REMOVED***$flexName***REMOVED***-#***REMOVED***$i * 5***REMOVED*** ***REMOVED***
       flex: 1 1 #***REMOVED***$value***REMOVED***;
       max-width: #***REMOVED***$value***REMOVED***;
@@ -576,7 +639,6 @@ $checkbox-border-width: 2px !default;
       @if $i == 0 ***REMOVED***  min-width: 0;  ***REMOVED***
     ***REMOVED***
 
-    .layout-column > .#***REMOVED***$flexName***REMOVED***-#***REMOVED***$i * 5***REMOVED***,
     .layout#***REMOVED***$name***REMOVED***-column > .#***REMOVED***$flexName***REMOVED***-#***REMOVED***$i * 5***REMOVED*** ***REMOVED***
       flex: 1 1 #***REMOVED***$value***REMOVED***;
       max-width: 100%;
@@ -589,7 +651,7 @@ $checkbox-border-width: 2px !default;
 
   ***REMOVED***
 
-  .layout-row, .layout#***REMOVED***$name***REMOVED***-row ***REMOVED***
+  .layout#***REMOVED***$name***REMOVED***-row ***REMOVED***
     > .#***REMOVED***$flexName***REMOVED***-33   , > .#***REMOVED***$flexName***REMOVED***-33     ***REMOVED***  flex: 1 1 33.33%;  max-width: 33.33%;  max-height: 100%; box-sizing: border-box; ***REMOVED***
     > .#***REMOVED***$flexName***REMOVED***-66   , > .#***REMOVED***$flexName***REMOVED***-66     ***REMOVED***  flex: 1 1 66.66%;  max-width: 66.66%;  max-height: 100%; box-sizing: border-box; ***REMOVED***
 
@@ -597,7 +659,8 @@ $checkbox-border-width: 2px !default;
     > .flex                                       ***REMOVED*** min-width: 0;   ***REMOVED***
 
   ***REMOVED***
-  .layout-column, .layout#***REMOVED***$name***REMOVED***-column ***REMOVED***
+
+  .layout#***REMOVED***$name***REMOVED***-column ***REMOVED***
     > .#***REMOVED***$flexName***REMOVED***-33   , > .#***REMOVED***$flexName***REMOVED***-33     ***REMOVED***  flex: 1 1 33.33%;  max-width: 100%;  max-height: 33.33%; box-sizing: border-box; ***REMOVED***
     > .#***REMOVED***$flexName***REMOVED***-66   , > .#***REMOVED***$flexName***REMOVED***-66     ***REMOVED***  flex: 1 1 66.66%;  max-width: 100%;  max-height: 66.66%; box-sizing: border-box; ***REMOVED***
 

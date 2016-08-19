@@ -2,12 +2,37 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-/*  Only used with Theme processes */
-html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
+/** Theme styles for mdCalendar. */
+.md-calendar.md-THEME_NAME-theme ***REMOVED***
+  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***';
+  color: '***REMOVED******REMOVED***background-A200-0.87***REMOVED******REMOVED***'; ***REMOVED***
+  .md-calendar.md-THEME_NAME-theme tr:last-child td ***REMOVED***
+    border-bottom-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***
+
+.md-THEME_NAME-theme .md-calendar-day-header ***REMOVED***
+  background: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***';
+  color: '***REMOVED******REMOVED***background-A200-0.87***REMOVED******REMOVED***'; ***REMOVED***
+
+.md-THEME_NAME-theme .md-calendar-date.md-calendar-date-today .md-calendar-date-selection-indicator ***REMOVED***
+  border: 1px solid '***REMOVED******REMOVED***primary-500***REMOVED******REMOVED***'; ***REMOVED***
+
+.md-THEME_NAME-theme .md-calendar-date.md-calendar-date-today.md-calendar-date-disabled ***REMOVED***
+  color: '***REMOVED******REMOVED***primary-500-0.6***REMOVED******REMOVED***'; ***REMOVED***
+
+.md-calendar-date.md-focus .md-THEME_NAME-theme .md-calendar-date-selection-indicator, .md-THEME_NAME-theme .md-calendar-date-selection-indicator:hover ***REMOVED***
+  background: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***'; ***REMOVED***
+
+.md-THEME_NAME-theme .md-calendar-date.md-calendar-selected-date .md-calendar-date-selection-indicator,
+.md-THEME_NAME-theme .md-calendar-date.md-focus.md-calendar-selected-date .md-calendar-date-selection-indicator ***REMOVED***
+  background: '***REMOVED******REMOVED***primary-500***REMOVED******REMOVED***';
+  color: '***REMOVED******REMOVED***primary-500-contrast***REMOVED******REMOVED***';
+  border-color: transparent; ***REMOVED***
+
+.md-THEME_NAME-theme .md-calendar-date-disabled,
+.md-THEME_NAME-theme .md-calendar-month-label-disabled ***REMOVED***
+  color: '***REMOVED******REMOVED***background-A200-0.435***REMOVED******REMOVED***'; ***REMOVED***
 
 /** Theme styles for mdDatepicker. */
 .md-THEME_NAME-theme .md-datepicker-input ***REMOVED***
@@ -27,6 +52,10 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
   border-bottom-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***
   .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-focused ***REMOVED***
     border-bottom-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***
+    .md-accent .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-focused ***REMOVED***
+      border-bottom-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***
+    .md-warn .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-focused ***REMOVED***
+      border-bottom-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***
   .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-invalid ***REMOVED***
     border-bottom-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***
 
@@ -40,7 +69,13 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
   border-top-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
 
 .md-THEME_NAME-theme .md-datepicker-open .md-datepicker-calendar-icon ***REMOVED***
-  fill: '***REMOVED******REMOVED***primary-500***REMOVED******REMOVED***'; ***REMOVED***
+  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***
+
+.md-THEME_NAME-theme .md-datepicker-open.md-accent .md-datepicker-calendar-icon, .md-accent .md-THEME_NAME-theme .md-datepicker-open .md-datepicker-calendar-icon ***REMOVED***
+  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***
+
+.md-THEME_NAME-theme .md-datepicker-open.md-warn .md-datepicker-calendar-icon, .md-warn .md-THEME_NAME-theme .md-datepicker-open .md-datepicker-calendar-icon ***REMOVED***
+  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***
 
 .md-THEME_NAME-theme .md-datepicker-open .md-datepicker-input-container,
 .md-THEME_NAME-theme .md-datepicker-input-mask-opaque ***REMOVED***

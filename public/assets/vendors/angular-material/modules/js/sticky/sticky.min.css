@@ -2,5 +2,5 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc4-master-88f2e3f
- */body.md-THEME_NAME-theme,html.md-THEME_NAME-theme***REMOVED***color:'***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';background-color:'***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'***REMOVED***._md-sticky-clone***REMOVED***z-index:2;top:0;left:0;right:0;position:absolute!important;-webkit-transform:translate3d(-9999px,-9999px,0);transform:translate3d(-9999px,-9999px,0)***REMOVED***._md-sticky-clone[sticky-state=active]***REMOVED***-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)***REMOVED***._md-sticky-clone[sticky-state=active]:not(.md-sticky-no-effect) ._md-subheader-inner***REMOVED***-webkit-animation:subheaderStickyHoverIn .3s ease-out both;animation:subheaderStickyHoverIn .3s ease-out both***REMOVED***
+ * v1.1.0-rc.5-master-c447c12
+ */.md-sticky-clone***REMOVED***z-index:2;top:0;left:0;right:0;position:absolute!important;-webkit-transform:translate3d(-9999px,-9999px,0);transform:translate3d(-9999px,-9999px,0)***REMOVED***.md-sticky-clone[sticky-state=active]***REMOVED***-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)***REMOVED***.md-sticky-clone[sticky-state=active]:not(.md-sticky-no-effect) .md-subheader-inner***REMOVED***-webkit-animation:subheaderStickyHoverIn .3s ease-out both;animation:subheaderStickyHoverIn .3s ease-out both***REMOVED***

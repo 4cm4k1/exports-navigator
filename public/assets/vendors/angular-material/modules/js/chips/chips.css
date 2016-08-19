@@ -2,13 +2,8 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-/*  Only used with Theme processes */
-html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
-
 .md-contact-chips .md-chips md-chip ***REMOVED***
   padding: 0 25px 0 0; ***REMOVED***
   [dir=rtl] .md-contact-chips .md-chips md-chip ***REMOVED***
@@ -25,9 +20,7 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
     height: 32px;
     margin-left: 8px; ***REMOVED***
     [dir=rtl] .md-contact-chips .md-chips md-chip .md-contact-name ***REMOVED***
-      margin-left: 0;
       margin-left: auto;
-      margin-left: initial;
       margin-right: 8px; ***REMOVED***
 
 .md-contact-suggestion ***REMOVED***
@@ -40,9 +33,7 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
     margin-left: 8px;
     width: 120px; ***REMOVED***
     [dir=rtl] .md-contact-suggestion .md-contact-name ***REMOVED***
-      margin-left: 0;
       margin-left: auto;
-      margin-left: initial;
       margin-right: 8px; ***REMOVED***
   .md-contact-suggestion .md-contact-name, .md-contact-suggestion .md-contact-email ***REMOVED***
     display: inline-block;
@@ -64,24 +55,20 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
     clear: both; ***REMOVED***
   [dir=rtl] .md-chips ***REMOVED***
     padding: 0 3px 8px 0; ***REMOVED***
-  .md-chips.md-readonly ._md-chip-input-container ***REMOVED***
+  .md-chips.md-readonly .md-chip-input-container ***REMOVED***
     min-height: 32px; ***REMOVED***
   .md-chips:not(.md-readonly) ***REMOVED***
     cursor: text; ***REMOVED***
-    .md-chips:not(.md-readonly) md-chip:not(.md-readonly) ***REMOVED***
-      padding-right: 22px; ***REMOVED***
-      [dir=rtl] .md-chips:not(.md-readonly) md-chip:not(.md-readonly) ***REMOVED***
+  .md-chips.md-removable md-chip ***REMOVED***
+    padding-right: 22px; ***REMOVED***
+    [dir=rtl] .md-chips.md-removable md-chip ***REMOVED***
+      padding-right: 0;
+      padding-left: 22px; ***REMOVED***
+    .md-chips.md-removable md-chip .md-chip-content ***REMOVED***
+      padding-right: 4px; ***REMOVED***
+      [dir=rtl] .md-chips.md-removable md-chip .md-chip-content ***REMOVED***
         padding-right: 0;
-        padding-right: auto;
-        padding-right: initial;
-        padding-left: 22px; ***REMOVED***
-      .md-chips:not(.md-readonly) md-chip:not(.md-readonly) ._md-chip-content ***REMOVED***
-        padding-right: 4px; ***REMOVED***
-        [dir=rtl] .md-chips:not(.md-readonly) md-chip:not(.md-readonly) ._md-chip-content ***REMOVED***
-          padding-right: 0;
-          padding-right: auto;
-          padding-right: initial;
-          padding-left: 4px; ***REMOVED***
+        padding-left: 4px; ***REMOVED***
   .md-chips md-chip ***REMOVED***
     cursor: default;
     border-radius: 16px;
@@ -98,16 +85,16 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
       margin: 8px 0 0 8px; ***REMOVED***
     [dir=rtl] .md-chips md-chip ***REMOVED***
       float: right; ***REMOVED***
-    .md-chips md-chip ._md-chip-content ***REMOVED***
+    .md-chips md-chip .md-chip-content ***REMOVED***
       display: block;
       float: left;
       white-space: nowrap;
       max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis; ***REMOVED***
-      [dir=rtl] .md-chips md-chip ._md-chip-content ***REMOVED***
+      [dir=rtl] .md-chips md-chip .md-chip-content ***REMOVED***
         float: right; ***REMOVED***
-      .md-chips md-chip ._md-chip-content:focus ***REMOVED***
+      .md-chips md-chip .md-chip-content:focus ***REMOVED***
         outline: none; ***REMOVED***
     .md-chips md-chip._md-chip-content-edit-is-enabled ***REMOVED***
       -webkit-user-select: none;
@@ -118,16 +105,14 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
       /* webkit (konqueror) browsers */
       -ms-user-select: none;
       /* IE10+ */ ***REMOVED***
-    .md-chips md-chip ._md-chip-remove-container ***REMOVED***
+    .md-chips md-chip .md-chip-remove-container ***REMOVED***
       position: absolute;
       right: 0;
       line-height: 22px; ***REMOVED***
-      [dir=rtl] .md-chips md-chip ._md-chip-remove-container ***REMOVED***
-        right: 0;
+      [dir=rtl] .md-chips md-chip .md-chip-remove-container ***REMOVED***
         right: auto;
-        right: initial;
         left: 0; ***REMOVED***
-    .md-chips md-chip ._md-chip-remove ***REMOVED***
+    .md-chips md-chip .md-chip-remove ***REMOVED***
       text-align: center;
       width: 32px;
       height: 32px;
@@ -138,7 +123,7 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
       box-shadow: none;
       margin: 0;
       position: relative; ***REMOVED***
-      .md-chips md-chip ._md-chip-remove md-icon ***REMOVED***
+      .md-chips md-chip .md-chip-remove md-icon ***REMOVED***
         height: 18px;
         width: 18px;
         position: absolute;
@@ -146,56 +131,56 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
         left: 50%;
         -webkit-transform: translate3d(-50%, -50%, 0);
                 transform: translate3d(-50%, -50%, 0); ***REMOVED***
-  .md-chips ._md-chip-input-container ***REMOVED***
+  .md-chips .md-chip-input-container ***REMOVED***
     display: block;
     line-height: 32px;
     margin: 8px 8px 0 0;
     padding: 0;
     float: left; ***REMOVED***
-    [dir=rtl] .md-chips ._md-chip-input-container ***REMOVED***
+    [dir=rtl] .md-chips .md-chip-input-container ***REMOVED***
       margin: 8px 0 0 8px; ***REMOVED***
-    [dir=rtl] .md-chips ._md-chip-input-container ***REMOVED***
+    [dir=rtl] .md-chips .md-chip-input-container ***REMOVED***
       float: right; ***REMOVED***
-    .md-chips ._md-chip-input-container input:not([type]), .md-chips ._md-chip-input-container input[type="email"], .md-chips ._md-chip-input-container input[type="number"], .md-chips ._md-chip-input-container input[type="tel"], .md-chips ._md-chip-input-container input[type="url"], .md-chips ._md-chip-input-container input[type="text"] ***REMOVED***
+    .md-chips .md-chip-input-container input:not([type]), .md-chips .md-chip-input-container input[type="email"], .md-chips .md-chip-input-container input[type="number"], .md-chips .md-chip-input-container input[type="tel"], .md-chips .md-chip-input-container input[type="url"], .md-chips .md-chip-input-container input[type="text"] ***REMOVED***
       border: 0;
       height: 32px;
       line-height: 32px;
       padding: 0; ***REMOVED***
-      .md-chips ._md-chip-input-container input:not([type]):focus, .md-chips ._md-chip-input-container input[type="email"]:focus, .md-chips ._md-chip-input-container input[type="number"]:focus, .md-chips ._md-chip-input-container input[type="tel"]:focus, .md-chips ._md-chip-input-container input[type="url"]:focus, .md-chips ._md-chip-input-container input[type="text"]:focus ***REMOVED***
+      .md-chips .md-chip-input-container input:not([type]):focus, .md-chips .md-chip-input-container input[type="email"]:focus, .md-chips .md-chip-input-container input[type="number"]:focus, .md-chips .md-chip-input-container input[type="tel"]:focus, .md-chips .md-chip-input-container input[type="url"]:focus, .md-chips .md-chip-input-container input[type="text"]:focus ***REMOVED***
         outline: none; ***REMOVED***
-    .md-chips ._md-chip-input-container md-autocomplete, .md-chips ._md-chip-input-container md-autocomplete-wrap ***REMOVED***
+    .md-chips .md-chip-input-container md-autocomplete, .md-chips .md-chip-input-container md-autocomplete-wrap ***REMOVED***
       background: transparent;
       height: 32px; ***REMOVED***
-    .md-chips ._md-chip-input-container md-autocomplete md-autocomplete-wrap ***REMOVED***
+    .md-chips .md-chip-input-container md-autocomplete md-autocomplete-wrap ***REMOVED***
       box-shadow: none; ***REMOVED***
-    .md-chips ._md-chip-input-container md-autocomplete input ***REMOVED***
+    .md-chips .md-chip-input-container md-autocomplete input ***REMOVED***
       position: relative; ***REMOVED***
-    .md-chips ._md-chip-input-container input ***REMOVED***
+    .md-chips .md-chip-input-container input ***REMOVED***
       border: 0;
       height: 32px;
       line-height: 32px;
       padding: 0; ***REMOVED***
-      .md-chips ._md-chip-input-container input:focus ***REMOVED***
+      .md-chips .md-chip-input-container input:focus ***REMOVED***
         outline: none; ***REMOVED***
-    .md-chips ._md-chip-input-container md-autocomplete, .md-chips ._md-chip-input-container md-autocomplete-wrap ***REMOVED***
+    .md-chips .md-chip-input-container md-autocomplete, .md-chips .md-chip-input-container md-autocomplete-wrap ***REMOVED***
       height: 32px; ***REMOVED***
-    .md-chips ._md-chip-input-container md-autocomplete ***REMOVED***
+    .md-chips .md-chip-input-container md-autocomplete ***REMOVED***
       box-shadow: none; ***REMOVED***
-      .md-chips ._md-chip-input-container md-autocomplete input ***REMOVED***
+      .md-chips .md-chip-input-container md-autocomplete input ***REMOVED***
         position: relative; ***REMOVED***
-    .md-chips ._md-chip-input-container:not(:first-child) ***REMOVED***
+    .md-chips .md-chip-input-container:not(:first-child) ***REMOVED***
       margin: 8px 8px 0 0; ***REMOVED***
-      [dir=rtl] .md-chips ._md-chip-input-container:not(:first-child) ***REMOVED***
+      [dir=rtl] .md-chips .md-chip-input-container:not(:first-child) ***REMOVED***
         margin: 8px 0 0 8px; ***REMOVED***
-    .md-chips ._md-chip-input-container input ***REMOVED***
+    .md-chips .md-chip-input-container input ***REMOVED***
       background: transparent;
       border-width: 0; ***REMOVED***
   .md-chips md-autocomplete button ***REMOVED***
     display: none; ***REMOVED***
 
 @media screen and (-ms-high-contrast: active) ***REMOVED***
-  ._md-chip-input-container,
+  .md-chip-input-container,
   md-chip ***REMOVED***
     border: 1px solid #fff; ***REMOVED***
-  ._md-chip-input-container md-autocomplete ***REMOVED***
+  .md-chip-input-container md-autocomplete ***REMOVED***
     border: none; ***REMOVED*** ***REMOVED***

@@ -2,13 +2,8 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
-/*  Only used with Theme processes */
-html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***
-
 @-webkit-keyframes subheaderStickyHoverIn ***REMOVED***
   0% ***REMOVED***
     box-shadow: 0 0 0 0 transparent; ***REMOVED***
@@ -33,15 +28,16 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
   100% ***REMOVED***
     box-shadow: 0 0 0 0 transparent; ***REMOVED*** ***REMOVED***
 
-._md-subheader-wrapper:not(.md-sticky-no-effect) ***REMOVED***
+.md-subheader-wrapper:not(.md-sticky-no-effect) ***REMOVED***
+  -webkit-transition: 0.2s ease-out margin;
   transition: 0.2s ease-out margin; ***REMOVED***
-  ._md-subheader-wrapper:not(.md-sticky-no-effect) .md-subheader ***REMOVED***
+  .md-subheader-wrapper:not(.md-sticky-no-effect) .md-subheader ***REMOVED***
     margin: 0; ***REMOVED***
-  ._md-subheader-wrapper:not(.md-sticky-no-effect).md-sticky-clone ***REMOVED***
+  .md-subheader-wrapper:not(.md-sticky-no-effect).md-sticky-clone ***REMOVED***
     z-index: 2; ***REMOVED***
-  ._md-subheader-wrapper:not(.md-sticky-no-effect)[sticky-state="active"] ***REMOVED***
+  .md-subheader-wrapper:not(.md-sticky-no-effect)[sticky-state="active"] ***REMOVED***
     margin-top: -2px; ***REMOVED***
-  ._md-subheader-wrapper:not(.md-sticky-no-effect):not(.md-sticky-clone)[sticky-prev-state="active"] ._md-subheader-inner:after ***REMOVED***
+  .md-subheader-wrapper:not(.md-sticky-no-effect):not(.md-sticky-clone)[sticky-prev-state="active"] .md-subheader-inner:after ***REMOVED***
     -webkit-animation: subheaderStickyHoverOut 0.3s ease-out both;
             animation: subheaderStickyHoverOut 0.3s ease-out both; ***REMOVED***
 
@@ -52,10 +48,10 @@ html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***
   line-height: 1em;
   margin: 0 0 0 0;
   position: relative; ***REMOVED***
-  .md-subheader ._md-subheader-inner ***REMOVED***
+  .md-subheader .md-subheader-inner ***REMOVED***
     display: block;
     padding: 16px; ***REMOVED***
-  .md-subheader ._md-subheader-content ***REMOVED***
+  .md-subheader .md-subheader-content ***REMOVED***
     display: block;
     z-index: 1;
     position: relative; ***REMOVED***

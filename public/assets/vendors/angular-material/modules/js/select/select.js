@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.0-rc.5
+ * v1.1.0
  */
 (function( window, angular, undefined )***REMOVED***
 "use strict";
@@ -22,7 +22,7 @@
 var SELECT_EDGE_MARGIN = 8;
 var selectNextId = 0;
 var CHECKBOX_SELECTION_INDICATOR =
-  angular.element('<div class="_md-container"><div class="_md-icon"></div></div>');
+  angular.element('<div class="md-container"><div class="md-icon"></div></div>');
 
 angular.module('material.components.select', [
     'material.core',
@@ -44,8 +44,36 @@ angular.module('material.components.select', [
  * @description Displays a select box, bound to an ng-model.
  *
  * When the select is required and uses a floating label, then the label will automatically contain
- * an asterisk (`*`).<br/>
- * This behavior can be disabled by using the `md-no-asterisk` attribute.
+ * an asterisk (`*`). This behavior can be disabled by using the `md-no-asterisk` attribute.
+ *
+ * By default, the select will display with an underline to match other form elements. This can be
+ * disabled by applying the `md-no-underline` CSS class.
+ *
+ * ### Option Params
+ *
+ * When applied, `md-option-empty` will mark the option as "empty" allowing the option to  clear the
+ * select and put it back in it's default state. You may supply this attribute on any option you
+ * wish, however, it is automatically applied to an option whose `value` or `ng-value` are not
+ * defined.
+ *
+ * **Automatically Applied**
+ *
+ *  - `<md-option>`
+ *  - `<md-option value>`
+ *  - `<md-option value="">`
+ *  - `<md-option ng-value>`
+ *  - `<md-option ng-value="">`
+ *
+ * **NOT Automatically Applied**
+ *
+ *  - `<md-option ng-value="1">`
+ *  - `<md-option ng-value="''">`
+ *  - `<md-option ng-value="undefined">`
+ *  - `<md-option value="undefined">` (this evaluates to the string `"undefined"`)
+ *  - <code ng-non-bindable>&lt;md-option ng-value="***REMOVED******REMOVED***someValueThatMightBeUndefined***REMOVED******REMOVED***"&gt;</code>
+ *
+ * **Note:** A value of `undefined` ***is considered a valid value*** (and does not auto-apply this
+ * attribute) since you may wish this to be your "Not Available" or "None" option.
  *
  * @param ***REMOVED***expression***REMOVED*** ng-model The model!
  * @param ***REMOVED***boolean=***REMOVED*** multiple Whether it's multiple.
@@ -58,7 +86,7 @@ angular.module('material.components.select', [
  * @param md-no-asterisk ***REMOVED***boolean=***REMOVED*** When set to true, an asterisk will not be appended to the floating label.
  * @param ***REMOVED***string=***REMOVED*** aria-label Optional label for accessibility. Only necessary if no placeholder or
  * explicit label is present.
- * @param ***REMOVED***string=***REMOVED*** md-container-class Class list to get applied to the `._md-select-menu-container`
+ * @param ***REMOVED***string=***REMOVED*** md-container-class Class list to get applied to the `.md-select-menu-container`
  * element (for custom styling).
  *
  * @usage
@@ -151,7 +179,10 @@ angular.module('material.components.select', [
  * </div>
  * </hljs>
  */
-function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $parse) ***REMOVED***
+function SelectDirective($mdSelect, $mdUtil, $mdConstant, $mdTheming, $mdAria, $compile, $parse) ***REMOVED***
+  var keyCodes = $mdConstant.KEY_CODE;
+  var NAVIGATION_KEYS = [keyCodes.SPACE, keyCodes.ENTER, keyCodes.UP_ARROW, keyCodes.DOWN_ARROW];
+
   return ***REMOVED***
     restrict: 'E',
     require: ['^?mdInputContainer', 'mdSelect', 'ngModel', '?^form'],
@@ -163,8 +194,8 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $par
   function compile(element, attr) ***REMOVED***
     // add the select value that will hold our placeholder or selected option value
     var valueEl = angular.element('<md-select-value><span></span></md-select-value>');
-    valueEl.append('<span class="_md-select-icon" aria-hidden="true"></span>');
-    valueEl.addClass('_md-select-value');
+    valueEl.append('<span class="md-select-icon" aria-hidden="true"></span>');
+    valueEl.addClass('md-select-value');
     if (!valueEl[0].hasAttribute('id')) ***REMOVED***
       valueEl.attr('id', 'select_value_label_' + $mdUtil.nextUid());
     ***REMOVED***
@@ -195,10 +226,9 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $par
     ***REMOVED***
 
     if (attr.name) ***REMOVED***
-      var autofillClone = angular.element('<select class="_md-visually-hidden">');
+      var autofillClone = angular.element('<select class="md-visually-hidden">');
       autofillClone.attr(***REMOVED***
-        'name': '.' + attr.name,
-        'ng-model': attr.ngModel,
+        'name': attr.name,
         'aria-hidden': 'true',
         'tabindex': '-1'
       ***REMOVED***);
@@ -210,6 +240,15 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $par
         autofillClone.append(newEl);
       ***REMOVED***);
 
+      // Adds an extra option that will hold the selected value for the
+      // cases where the select is a part of a non-angular form. This can be done with a ng-model,
+      // however if the `md-option` is being `ng-repeat`-ed, Angular seems to insert a similar
+      // `option` node, but with a value of `? string: <value> ?` which would then get submitted.
+      // This also goes around having to prepend a dot to the name attribute.
+      autofillClone.append(
+        '<option ng-value="' + attr.ngModel + '" selected></option>'
+      );
+
       element.parent().append(autofillClone);
     ***REMOVED***
 
@@ -218,7 +257,7 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $par
     // Use everything that's left inside element.contents() as the contents of the menu
     var multipleContent = isMultiple ? 'multiple' : '';
     var selectTemplate = '' +
-      '<div class="_md-select-menu-container" aria-hidden="true">' +
+      '<div class="md-select-menu-container" aria-hidden="true">' +
       '<md-select-menu ***REMOVED***0***REMOVED***>***REMOVED***1***REMOVED***</md-select-menu>' +
       '</div>';
 
@@ -245,8 +284,8 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $par
 
       if (containerCtrl) ***REMOVED***
         var isErrorGetter = containerCtrl.isErrorGetter || function() ***REMOVED***
-            return ngModelCtrl.$invalid && ngModelCtrl.$touched;
-          ***REMOVED***;
+          return ngModelCtrl.$invalid && (ngModelCtrl.$touched || (formCtrl && formCtrl.$submitted));
+        ***REMOVED***;
 
         if (containerCtrl.input) ***REMOVED***
           // We ignore inputs that are in the md-select-header (one
@@ -268,16 +307,6 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $par
 
       findSelectContainer();
       $mdTheming(element);
-
-      if (attr.name && formCtrl) ***REMOVED***
-        var selectEl = element.parent()[0].querySelector('select[name=".' + attr.name + '"]');
-        $mdUtil.nextTick(function() ***REMOVED***
-          var controller = angular.element(selectEl).controller('ngModel');
-          if (controller) ***REMOVED***
-            formCtrl.$removeControl(controller);
-          ***REMOVED***
-        ***REMOVED***);
-      ***REMOVED***
 
       if (formCtrl && angular.isDefined(attr.multiple)) ***REMOVED***
         $mdUtil.nextTick(function() ***REMOVED***
@@ -325,14 +354,14 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $par
 
       mdSelectCtrl.setIsPlaceholder = function(isPlaceholder) ***REMOVED***
         if (isPlaceholder) ***REMOVED***
-          valueEl.addClass('_md-select-placeholder');
+          valueEl.addClass('md-select-placeholder');
           if (containerCtrl && containerCtrl.label) ***REMOVED***
-            containerCtrl.label.addClass('_md-placeholder');
+            containerCtrl.label.addClass('md-placeholder');
           ***REMOVED***
         ***REMOVED*** else ***REMOVED***
-          valueEl.removeClass('_md-select-placeholder');
+          valueEl.removeClass('md-select-placeholder');
           if (containerCtrl && containerCtrl.label) ***REMOVED***
-            containerCtrl.label.removeClass('_md-placeholder');
+            containerCtrl.label.removeClass('md-placeholder');
           ***REMOVED***
         ***REMOVED***
       ***REMOVED***;
@@ -340,11 +369,9 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $par
       if (!isReadonly) ***REMOVED***
         element
           .on('focus', function(ev) ***REMOVED***
-            // only set focus on if we don't currently have a selected value. This avoids the "bounce"
-            // on the label transition because the focus will immediately switch to the open menu.
-            if (containerCtrl && containerCtrl.element.hasClass('md-input-has-value')) ***REMOVED***
-              containerCtrl.setFocused(true);
-            ***REMOVED***
+            // Always focus the container (if we have one) so floating labels and other styles are
+            // applied properly
+            containerCtrl && containerCtrl.setFocused(true);
           ***REMOVED***);
 
         // Attach before ngModel's blur listener to stop propagation of blur event
@@ -352,12 +379,12 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $par
         element.on('blur', function(event) ***REMOVED***
           if (untouched) ***REMOVED***
             untouched = false;
-            if (selectScope.isOpen) ***REMOVED***
+            if (selectScope._mdSelectIsOpen) ***REMOVED***
               event.stopImmediatePropagation();
             ***REMOVED***
           ***REMOVED***
 
-          if (selectScope.isOpen) return;
+          if (selectScope._mdSelectIsOpen) return;
           containerCtrl && containerCtrl.setFocused(false);
           inputCheckValue();
         ***REMOVED***);
@@ -494,7 +521,7 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $par
 
       function findSelectContainer() ***REMOVED***
         selectContainer = angular.element(
-          element[0].querySelector('._md-select-menu-container')
+          element[0].querySelector('.md-select-menu-container')
         );
         selectScope = scope;
         if (attr.mdContainerClass) ***REMOVED***
@@ -509,16 +536,16 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $par
       ***REMOVED***
 
       function handleKeypress(e) ***REMOVED***
-        var allowedCodes = [32, 13, 38, 40];
-        if (allowedCodes.indexOf(e.keyCode) != -1) ***REMOVED***
+        if ($mdConstant.isNavigationKey(e)) ***REMOVED***
           // prevent page scrolling on interaction
           e.preventDefault();
           openSelect(e);
         ***REMOVED*** else ***REMOVED***
-          if (e.keyCode <= 90 && e.keyCode >= 31) ***REMOVED***
+          if ($mdConstant.isInputKey(e) || $mdConstant.isNumPadKey(e)) ***REMOVED***
             e.preventDefault();
+
             var node = selectMenuCtrl.optNodeForKeyboardSearch(e);
-            if (!node) return;
+            if (!node || node.hasAttribute('disabled')) return;
             var optionCtrl = angular.element(node).controller('mdOption');
             if (!selectMenuCtrl.isMultiple) ***REMOVED***
               selectMenuCtrl.deselect(Object.keys(selectMenuCtrl.selected)[0]);
@@ -530,7 +557,7 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $par
       ***REMOVED***
 
       function openSelect() ***REMOVED***
-        selectScope.isOpen = true;
+        selectScope._mdSelectIsOpen = true;
         element.attr('aria-expanded', 'true');
 
         $mdSelect.show(***REMOVED***
@@ -544,18 +571,19 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $par
           hasBackdrop: true,
           loadingAsync: attr.mdOnOpen ? scope.$eval(attr.mdOnOpen) || true : false
         ***REMOVED***).finally(function() ***REMOVED***
-          selectScope.isOpen = false;
+          selectScope._mdSelectIsOpen = false;
           element.focus();
           element.attr('aria-expanded', 'false');
           ngModelCtrl.$setTouched();
         ***REMOVED***);
       ***REMOVED***
+
     ***REMOVED***;
   ***REMOVED***
 ***REMOVED***
-SelectDirective.$inject = ["$mdSelect", "$mdUtil", "$mdTheming", "$mdAria", "$compile", "$parse"];
+SelectDirective.$inject = ["$mdSelect", "$mdUtil", "$mdConstant", "$mdTheming", "$mdAria", "$compile", "$parse"];
 
-function SelectMenuDirective($parse, $mdUtil, $mdTheming) ***REMOVED***
+function SelectMenuDirective($parse, $mdUtil, $mdConstant, $mdTheming) ***REMOVED***
   // We want the scope to be set to 'false' so an isolated scope is not created
   // which would interfere with the md-select-header's access to the
   // parent scope.
@@ -668,6 +696,7 @@ function SelectMenuDirective($parse, $mdUtil, $mdTheming) ***REMOVED***
     var searchStr = '';
     var clearSearchTimeout, optNodes, optText;
     var CLEAR_SEARCH_AFTER = 300;
+
     self.optNodeForKeyboardSearch = function(e) ***REMOVED***
       clearSearchTimeout && clearTimeout(clearSearchTimeout);
       clearSearchTimeout = setTimeout(function() ***REMOVED***
@@ -676,7 +705,11 @@ function SelectMenuDirective($parse, $mdUtil, $mdTheming) ***REMOVED***
         optText = undefined;
         optNodes = undefined;
       ***REMOVED***, CLEAR_SEARCH_AFTER);
-      searchStr += String.fromCharCode(e.keyCode);
+
+      // Support 1-9 on numpad
+      var keyCode = e.keyCode - ($mdConstant.isNumPadKey(e) ? 48 : 0);
+
+      searchStr += String.fromCharCode(keyCode);
       var search = new RegExp('^' + searchStr, 'i');
       if (!optNodes) ***REMOVED***
         optNodes = $element.find('md-option');
@@ -698,7 +731,9 @@ function SelectMenuDirective($parse, $mdUtil, $mdTheming) ***REMOVED***
 
       // Setup a more robust version of isEmpty to ensure value is a valid option
       self.ngModel.$isEmpty = function($viewValue) ***REMOVED***
-        return !self.options[$viewValue];
+        // We have to transform the viewValue into the hashKey, because otherwise the
+        // OptionCtrl may not exist. Developers may have specified a trackBy function.
+        return !self.options[self.hashGetter($viewValue)];
       ***REMOVED***;
 
       // Allow users to provide `ng-model="foo" ng-model-options="***REMOVED***trackBy: 'foo.id'***REMOVED***"` so
@@ -734,10 +769,27 @@ function SelectMenuDirective($parse, $mdUtil, $mdTheming) ***REMOVED***
           // Map the given element to its innerHTML string. If the element has a child ripple
           // container remove it from the HTML string, before returning the string.
           mapFn = function(el) ***REMOVED***
+            // If we do not have a `value` or `ng-value`, assume it is an empty option which clears the select
+            if (el.hasAttribute('md-option-empty')) ***REMOVED***
+              return '';
+            ***REMOVED***
+
             var html = el.innerHTML;
+
             // Remove the ripple container from the selected option, copying it would cause a CSP violation.
             var rippleContainer = el.querySelector('.md-ripple-container');
-            return rippleContainer ? html.replace(rippleContainer.outerHTML, '') : html;
+            if (rippleContainer) ***REMOVED***
+              html = html.replace(rippleContainer.outerHTML, '');
+            ***REMOVED***
+
+            // Remove the checkbox container, because it will cause the label to wrap inside of the placeholder.
+            // It should be not displayed inside of the label element.
+            var checkboxContainer = el.querySelector('.md-container');
+            if (checkboxContainer) ***REMOVED***
+              html = html.replace(checkboxContainer.outerHTML, '');
+            ***REMOVED***
+
+            return html;
           ***REMOVED***;
         ***REMOVED*** else if (mode == 'aria') ***REMOVED***
           mapFn = function(el) ***REMOVED*** return el.hasAttribute('aria-label') ? el.getAttribute('aria-label') : el.textContent; ***REMOVED***;
@@ -764,11 +816,21 @@ function SelectMenuDirective($parse, $mdUtil, $mdTheming) ***REMOVED***
         throw new Error('Duplicate md-option values are not allowed in a select. ' +
           'Duplicate value "' + optionCtrl.value + '" found.');
       ***REMOVED***
+
       self.options[hashKey] = optionCtrl;
 
       // If this option's value was already in our ngModel, go ahead and select it.
       if (angular.isDefined(self.selected[hashKey])) ***REMOVED***
         self.select(hashKey, optionCtrl.value);
+
+        // When the current $modelValue of the ngModel Controller is using the same hash as
+        // the current option, which will be added, then we can be sure, that the validation
+        // of the option has occurred before the option was added properly.
+        // This means, that we have to manually trigger a new validation of the current option.
+        if (angular.isDefined(self.ngModel.$modelValue) && self.hashGetter(self.ngModel.$modelValue) === hashKey) ***REMOVED***
+          self.ngModel.$validate();
+        ***REMOVED***
+
         self.refreshViewValue();
       ***REMOVED***
     ***REMOVED***;
@@ -830,7 +892,7 @@ function SelectMenuDirective($parse, $mdUtil, $mdTheming) ***REMOVED***
   ***REMOVED***
 
 ***REMOVED***
-SelectMenuDirective.$inject = ["$parse", "$mdUtil", "$mdTheming"];
+SelectMenuDirective.$inject = ["$parse", "$mdUtil", "$mdConstant", "$mdTheming"];
 
 function OptionDirective($mdButtonInkRipple, $mdUtil) ***REMOVED***
 
@@ -844,10 +906,22 @@ function OptionDirective($mdButtonInkRipple, $mdUtil) ***REMOVED***
 
   function compile(element, attr) ***REMOVED***
     // Manual transclusion to avoid the extra inner <span> that ng-transclude generates
-    element.append(angular.element('<div class="_md-text">').append(element.contents()));
+    element.append(angular.element('<div class="md-text">').append(element.contents()));
 
     element.attr('tabindex', attr.tabindex || '0');
+
+    if (!hasDefinedValue(attr)) ***REMOVED***
+      element.attr('md-option-empty', '');
+    ***REMOVED***
+
     return postLink;
+  ***REMOVED***
+
+  function hasDefinedValue(attr) ***REMOVED***
+    var value = attr.value;
+    var ngValue = attr.ngValue;
+
+    return value || ngValue;
   ***REMOVED***
 
   function postLink(scope, element, attr, ctrls) ***REMOVED***
@@ -855,7 +929,7 @@ function OptionDirective($mdButtonInkRipple, $mdUtil) ***REMOVED***
     var selectCtrl = ctrls[1];
 
     if (selectCtrl.isMultiple) ***REMOVED***
-      element.addClass('_md-checkbox-enabled');
+      element.addClass('md-checkbox-enabled');
       element.prepend(CHECKBOX_SELECTION_INDICATOR.clone());
     ***REMOVED***
 
@@ -973,7 +1047,7 @@ function OptgroupDirective() ***REMOVED***
         labelElement = angular.element('<label>');
         el.prepend(labelElement);
       ***REMOVED***
-      labelElement.addClass('_md-container-ignore');
+      labelElement.addClass('md-container-ignore');
       if (attrs.label) labelElement.text(attrs.label);
     ***REMOVED***
   ***REMOVED***
@@ -997,6 +1071,7 @@ function SelectProvider($$interimElementProvider) ***REMOVED***
   function selectDefaultOptions($mdSelect, $mdConstant, $mdUtil, $window, $q, $$rAF, $animateCss, $animate, $document) ***REMOVED***
     var ERROR_TARGET_EXPECTED = "$mdSelect.show() expected a target element in options.target but got '***REMOVED***0***REMOVED***'!";
     var animator = $mdUtil.dom.animator;
+    var keyCodes = $mdConstant.KEY_CODE;
 
     return ***REMOVED***
       parent: 'body',
@@ -1027,7 +1102,7 @@ function SelectProvider($$interimElementProvider) ***REMOVED***
        * skip the animations
        */
       function animateRemoval() ***REMOVED***
-        return $animateCss(element, ***REMOVED***addClass: '_md-leave'***REMOVED***).start();
+        return $animateCss(element, ***REMOVED***addClass: 'md-leave'***REMOVED***).start();
       ***REMOVED***
 
       /**
@@ -1035,7 +1110,7 @@ function SelectProvider($$interimElementProvider) ***REMOVED***
        */
       function cleanElement() ***REMOVED***
 
-        element.removeClass('_md-active');
+        element.removeClass('md-active');
         element.attr('aria-hidden', 'true');
         element[0].style.display = 'none';
 
@@ -1083,7 +1158,7 @@ function SelectProvider($$interimElementProvider) ***REMOVED***
 
           try ***REMOVED***
 
-            $animateCss(element, ***REMOVED***removeClass: '_md-leave', duration: 0***REMOVED***)
+            $animateCss(element, ***REMOVED***removeClass: 'md-leave', duration: 0***REMOVED***)
               .start()
               .then(positionAndFocusMenu)
               .then(resolve);
@@ -1109,7 +1184,7 @@ function SelectProvider($$interimElementProvider) ***REMOVED***
           info.dropDown.element.css(animator.toCss(info.dropDown.styles));
 
           $$rAF(function() ***REMOVED***
-            element.addClass('_md-active');
+            element.addClass('md-active');
             info.dropDown.element.css(animator.toCss(***REMOVED***transform: ''***REMOVED***));
 
             autoFocus(opts.focusedNode);
@@ -1135,7 +1210,7 @@ function SelectProvider($$interimElementProvider) ***REMOVED***
 
         if (options.hasBackdrop) ***REMOVED***
           // Override duration to immediately show invisible backdrop
-          options.backdrop = $mdUtil.createBackdrop(scope, "_md-select-backdrop _md-click-catcher");
+          options.backdrop = $mdUtil.createBackdrop(scope, "md-select-backdrop md-click-catcher");
           $animate.enter(options.backdrop, $document[0].body, null, ***REMOVED***duration: 0***REMOVED***);
         ***REMOVED***
 
@@ -1238,7 +1313,7 @@ function SelectProvider($$interimElementProvider) ***REMOVED***
         var dropDown = opts.selectEl;
         var selectCtrl = dropDown.controller('mdSelectMenu') || ***REMOVED******REMOVED***;
 
-        element.addClass('_md-clickable');
+        element.addClass('md-clickable');
 
         // Close on backdrop click
         opts.backdrop && opts.backdrop.on('click', onBackdropClick);
@@ -1253,7 +1328,7 @@ function SelectProvider($$interimElementProvider) ***REMOVED***
           dropDown.off('keydown', onMenuKeyDown);
           dropDown.off('click', checkCloseMenu);
 
-          element.removeClass('_md-clickable');
+          element.removeClass('md-clickable');
           opts.isRemoved = true;
         ***REMOVED***;
 
@@ -1269,7 +1344,6 @@ function SelectProvider($$interimElementProvider) ***REMOVED***
         ***REMOVED***
 
         function onMenuKeyDown(ev) ***REMOVED***
-          var keyCodes = $mdConstant.KEY_CODE;
           ev.preventDefault();
           ev.stopPropagation();
 
@@ -1298,7 +1372,7 @@ function SelectProvider($$interimElementProvider) ***REMOVED***
               $mdUtil.nextTick($mdSelect.hide, true);
               break;
             default:
-              if (ev.keyCode >= 31 && ev.keyCode <= 90) ***REMOVED***
+              if ($mdConstant.isInputKey(ev) || $mdConstant.isNumPadKey(ev)) ***REMOVED***
                 var optNode = dropDown.controller('mdSelectMenu').optNodeForKeyboardSearch(ev);
                 opts.focusedNode = optNode || opts.focusedNode;
                 optNode && optNode.focus();
@@ -1451,7 +1525,7 @@ function SelectProvider($$interimElementProvider) ***REMOVED***
 
       // Remove padding before we compute the position of the menu
       if (isScrollable) ***REMOVED***
-        selectNode.classList.add('_md-overflow');
+        selectNode.classList.add('md-overflow');
       ***REMOVED***
 
       var focusedNode = centeredNode;
@@ -1490,7 +1564,7 @@ function SelectProvider($$interimElementProvider) ***REMOVED***
         ***REMOVED***
       ***REMOVED***
 
-      var left, top, transformOrigin, minWidth;
+      var left, top, transformOrigin, minWidth, fontSize;
       if (shouldOpenAroundTarget) ***REMOVED***
         left = targetRect.left;
         top = targetRect.top + targetRect.height;
@@ -1508,6 +1582,8 @@ function SelectProvider($$interimElementProvider) ***REMOVED***
           (centeredRect.top + centeredRect.height / 2 - contentNode.scrollTop) + 'px 0px';
 
         minWidth = Math.min(targetRect.width + centeredRect.paddingLeft + centeredRect.paddingRight, maxWidth);
+
+        fontSize = window.getComputedStyle(targetNode)['font-size'];
       ***REMOVED***
 
       // Keep left and top within the window
@@ -1521,7 +1597,8 @@ function SelectProvider($$interimElementProvider) ***REMOVED***
           styles: ***REMOVED***
             left: Math.floor(clamp(bounds.left, left, bounds.right - containerRect.width)),
             top: Math.floor(clamp(bounds.top, top, bounds.bottom - containerRect.height)),
-            'min-width': minWidth
+            'min-width': minWidth,
+            'font-size': fontSize
           ***REMOVED***
         ***REMOVED***,
         dropDown: ***REMOVED***
