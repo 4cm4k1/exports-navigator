@@ -9,5 +9,5 @@
     var vm = this;
 
 
-  ***REMOVED***;
+  ***REMOVED***
 ***REMOVED***)();

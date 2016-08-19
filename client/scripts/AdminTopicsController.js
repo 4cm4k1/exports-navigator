@@ -29,6 +29,6 @@
     vm.import = function() ***REMOVED***
       console.log('Import clicked');
     ***REMOVED***;
-  ***REMOVED***;
+  ***REMOVED***
 
 ***REMOVED***)();
