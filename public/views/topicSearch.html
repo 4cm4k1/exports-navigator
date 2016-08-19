@@ -1,11 +1,13 @@
 <!-- User Topic Search View -->
-<div class="jumbotron text-center">
-    <h1>Search by Topic</h1>
+<md-content layout-padding>
+    <h1 class="md-headline">Search by Topic</h1>
+</md-content>
     <!-- HTML for SEARCH Bar -->
+<md-content flex="" layout-padding="">
     <div class="tsearchHeader">
         <form class="tsearchGenTopic" action="" method="get">
             <input type="text" name="search" placeholder="Search..">
-            <button type="search" name="search">Search</button>
+            <md-autocomplete><button type="search" name="search">Search</button></md auto-complete>
             <div class="tsearchClear"></div>
         </form>
 
