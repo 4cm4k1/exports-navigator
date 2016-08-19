@@ -3,4 +3,4 @@ node_modules
 *.log
 bower_components
 *.env
-public/assets/scripts/client.min.js
+*.min.js
