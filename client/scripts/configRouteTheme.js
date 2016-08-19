@@ -6,11 +6,12 @@
     function configRouteTheme($routeProvider, $locationProvider, $mdThemingProvider) {
         //  Route config (with authentication checks)
         $routeProvider
+        // route for the User Landing Page View
         .when('/', {
-            controller: 'HomeCtrl as home',
-            templateUrl: 'views/home.html'
+            controller: 'LandingCtrl as landing',
+            templateUrl: 'views/landingPage.html'
         })
-        .when('')
+        // route for the Admin Home Page
         .when('/admin', {
           controller: 'AdminHomeController as admin',
           templateUrl: 'views/adminHome.html',
@@ -49,6 +50,33 @@
             }]
           }
         })
+
+        // route for the User Food-Aggribusiness View
+        .when('/user/food-aggribusiness', {
+            controller: 'FoodAgCtrl as foodAg',
+            templateUrl: 'views/foodAg.html'
+        })
+        // route for the User Medical Device, Pharma, Life Sciences View
+        .when('/user/meddev_pharma_lifescience', {
+            controller: 'MedDevCtrl as medDev',
+            templateUrl: 'views/medDev.html'
+        })
+        // route for the User Other View
+        .when('/user/other', {
+            controller: 'OtherCtrl as other',
+            templateUrl: 'views/other.html'
+        })
+        // route for the User General Topic Search View
+        .when('/user/topic-search', {
+            controller: 'TSearchCtrl as topics',
+            templateUrl: 'views/topicSearch.html'
+        })
+        // route for the User Country Search View
+        .when('/user/country-search', {
+            controller: 'CSearchCtrl as country',
+            templateUrl: 'views/countrySearch.html'
+        })
+        // route for the User Home Page View
         .otherwise({
           controller: 'HomeCtrl as home',
           templateUrl: 'views/home.html'
