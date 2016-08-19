@@ -13,7 +13,7 @@
         ***REMOVED***)
         // route for the Admin Home Page
         .when('/admin', ***REMOVED***
-          controller: 'AdminHomeController as admin',
+          controller: 'AdminHomeController as adminHome',
           templateUrl: 'views/adminHome.html',
           resolve: ***REMOVED***
             //  This will require the user is logged in
