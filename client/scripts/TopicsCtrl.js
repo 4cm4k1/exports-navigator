@@ -7,8 +7,7 @@
 
     function TopicsCtrl(Topic) ***REMOVED***
         var vm = this;
-
-
+        console.log('Injeting some stuff.');
     ***REMOVED***
 ***REMOVED***)();
 
@@ -24,6 +23,7 @@
         topicsService.saveTopics(this.topic)
             .then(function() ***REMOVED***
                 $state.go('topics');
+                console.log('Test Topics Save.');
             ***REMOVED***);
     ***REMOVED***;
 
@@ -31,6 +31,7 @@
         if (!query.length) return $state.go('topics');
 
         $state.go('search', ***REMOVED***query: query***REMOVED***);
+        console.log('Searching Topics!');
     ***REMOVED***;
 
 ***REMOVED***
