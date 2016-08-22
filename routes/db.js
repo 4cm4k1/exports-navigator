@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var Pool = require('pg').Pool;
+//user authentication on admin routes KRQ
+var firebase = require("firebase");
+firebase.initializeApp({
+  serviceAccount: 'firebaseCredentials.json'
+});
 //securely access heroku postgres configuration
 require('dotenv').config();
 var parseDbUrl = require('parse-database-url');
@@ -149,6 +154,40 @@ router.delete('/topics/delete', function(req, res){
 });
 
 
+//  ~ Admin Reports
+//below are routes for ADMIN REPORTS PURPOSES
+router.get('/unmatched', function(req, res){
+  var query = 'SELECT * FROM unmatched_topics';
+  queryDB(query, [], req, res);
+});
+
+router.post('/unmatched/create', function(req, res){
+  var query = 'INSERT INTO unmatched_topics' +
+'(unmatched_topic) VALUES' +
+'($1)';
+var params = [req.body.unmatched_topic];
+  queryDB(query, params, req, res);
+});
+
+
+//below is the route specifically for the function which updates the
+//number of hits for a specific topic which exists in the DB
+router.put('/topics/update/number_of_hits', function(req, res){
+  var query = 'UPDATE topics SET number_of_hits = ($1)' +
+    'WHERE id =' + req.body.id;
+  var params = [req.body.number_of_hits];
+  queryDB(query, params, req, res);
+});
+
+router.get('/testUserAuth', function(req, res){
+  var authenticated = checkUserAuth();
+  if(authenticated.success){
+    res.send('Authenticated: ' + authenticated.message);
+  } else {
+    res.redirect('/');
+  }
+});
+
 
 
 //refactored routes to use one function for retrieving or sending data KRQ
@@ -164,6 +203,23 @@ function queryDB(queryStatement, vars, req, res){
       }
     });
   });
+}
+//function for protected routes KRQ
+function checkUserAuth(){
+  if(firebase.auth().currentUser){
+    firebase.auth().currentUser.getToken(true).then(function(idToken) {
+      firebase.auth().verifyIdToken(idToken).then(function(decodedToken) {
+        var uid = decodedToken.uid;
+        return {message: uid, success: true};
+      }).catch(function(error) {
+        return {message: error, success: false};
+      });
+    }).catch(function(error) {
+      return {message: error, success: false};
+    });
+  }else{
+    return {message: 'No user logged in', success: false};
+  }
 }
 
 pool.on('error', function (err, client) {
