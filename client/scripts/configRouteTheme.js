@@ -31,6 +31,8 @@
             }]
           }
         })
+
+        // admin view of all topics
         .when('/admin/topics', {
           controller: 'AdminTopicsController as adminTopics',
           templateUrl: 'views/adminTopics.html',
@@ -40,6 +42,19 @@
             }]
           }
         })
+
+        // admin view of editing a topic
+        .when('/admin/topics/:itemID', {
+          controller: 'AdminTopicsEditController as adminTopicsEdit',
+          templateUrl: 'templates/adminTopicsEdit.html',
+          resolve: {
+            'currentAuth': ['Auth', function(Auth) {
+              return Auth.$requireSignIn();
+            }]
+          }
+        })
+
+        // admin view of all countries
         .when('/admin/countries', {
           controller: 'AdminCountriesController as adminCountries',
           templateUrl: 'views/adminCountries.html',
@@ -49,6 +64,8 @@
             }]
           }
         })
+
+        // admin view of generated reports
         .when('/admin/reports', {
           controller: 'AdminReportsController as adminReports',
           templateUrl: 'views/adminReports.html',
@@ -58,6 +75,8 @@
             }]
           }
         })
+
+        // admin view, where admin can add, edit, or delete managers 
         .when('/admin/managers', {
           controller: 'AdminManagersController as adminManagers',
           templateUrl: 'views/adminManagers.html',
