@@ -179,14 +179,12 @@ router.put('/topics/update/number_of_hits', function(req, res)***REMOVED***
   queryDB(query, params, req, res);
 ***REMOVED***);
 
-
-
 router.get('/testUserAuth', function(req, res)***REMOVED***
   var authenticated = checkUserAuth();
-  if(authenticated)***REMOVED***
-    res.send('Authenticated');
+  if(authenticated.success)***REMOVED***
+    res.send('Authenticated: ' + authenticated.message);
   ***REMOVED*** else ***REMOVED***
-    res.send('Not authenticated!');
+    res.redirect('/');
   ***REMOVED***
 ***REMOVED***);
 
@@ -208,16 +206,20 @@ function queryDB(queryStatement, vars, req, res)***REMOVED***
 ***REMOVED***
 //function for protected routes KRQ
 function checkUserAuth()***REMOVED***
-  firebase.auth().currentUser.getToken(true).then(function(idToken) ***REMOVED***
-    firebase.auth().verifyIdToken(idToken).then(function(decodedToken) ***REMOVED***
-      var uid = decodedToken.uid;
-      return ***REMOVED***message: uid, success: true***REMOVED***;
+  if(firebase.auth().currentUser)***REMOVED***
+    firebase.auth().currentUser.getToken(true).then(function(idToken) ***REMOVED***
+      firebase.auth().verifyIdToken(idToken).then(function(decodedToken) ***REMOVED***
+        var uid = decodedToken.uid;
+        return ***REMOVED***message: uid, success: true***REMOVED***;
+      ***REMOVED***).catch(function(error) ***REMOVED***
+        return ***REMOVED***message: error, success: false***REMOVED***;
+      ***REMOVED***);
     ***REMOVED***).catch(function(error) ***REMOVED***
       return ***REMOVED***message: error, success: false***REMOVED***;
     ***REMOVED***);
-  ***REMOVED***).catch(function(error) ***REMOVED***
-    return ***REMOVED***message: error, success: false***REMOVED***;
-  ***REMOVED***);
+  ***REMOVED***else***REMOVED***
+    return ***REMOVED***message: 'No user logged in', success: false***REMOVED***;
+  ***REMOVED***
 ***REMOVED***
 
 pool.on('error', function (err, client) ***REMOVED***
