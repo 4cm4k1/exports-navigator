@@ -5,7 +5,7 @@ var Pool = require('pg').Pool;
 //user authentication on admin routes KRQ
 var firebase = require("firebase");
 firebase.initializeApp(***REMOVED***
-  serviceAccount: 'path/to/serviceAccountCredentials.json'
+  serviceAccount: 'firebaseCredentials.json'
 ***REMOVED***);
 //securely access heroku postgres configuration
 require('dotenv').config();
@@ -169,7 +169,14 @@ var params = [req.body.unmatched_topic];
   queryDB(query, params, req, res);
 ***REMOVED***);
 
-
+router.get('/testUserAuth', function(req, res)***REMOVED***
+  var authenticated = checkUserAuth();
+  if(authenticated)***REMOVED***
+    res.send('Authenticated');
+  ***REMOVED*** else ***REMOVED***
+    res.send('Not authenticated!');
+  ***REMOVED***
+***REMOVED***);
 
 
 
@@ -186,8 +193,8 @@ function queryDB(queryStatement, vars, req, res)***REMOVED***
       ***REMOVED***
     ***REMOVED***);
   ***REMOVED***);
-***REMOVED***;
-
+***REMOVED***
+//function for protected routes KRQ
 function checkUserAuth()***REMOVED***
   firebase.auth().currentUser.getToken(true).then(function(idToken) ***REMOVED***
     firebase.auth().verifyIdToken(idToken).then(function(decodedToken) ***REMOVED***
@@ -199,7 +206,7 @@ function checkUserAuth()***REMOVED***
   ***REMOVED***).catch(function(error) ***REMOVED***
     return ***REMOVED***message: error, success: false***REMOVED***;
   ***REMOVED***);
-***REMOVED***;
+***REMOVED***
 
 pool.on('error', function (err, client) ***REMOVED***
   // if an error is encountered by a client while it sits idle in the pool
