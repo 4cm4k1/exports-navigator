@@ -29,6 +29,7 @@
                 .then(function(firebaseUser) {
                     console.log('Signed in as:', firebaseUser.uid);
                     $location.path('/admin');
+                    $mdDialog.hide();
                 })
                 .catch(function(error) {
                     console.error('Authentication failed:', error);
