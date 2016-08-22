@@ -5,7 +5,18 @@ var Pool = require('pg').Pool;
 //user authentication on admin routes KRQ
 var firebase = require("firebase");
 firebase.initializeApp({
-  serviceAccount: 'firebaseCredentials.json'
+  serviceAccount: {
+    "type": "service_account",
+    "project_id": "exports-navigator",
+    "private_key_id": process.env.FIREBASE_KEY_ID,
+    "private_key": process.env.FIREBASE_KEY,
+    "client_email": "exports-navigator@exports-navigator.iam.gserviceaccount.com",
+    "client_id": process.env.FIREBASE_CLIENT_ID,
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://accounts.google.com/o/oauth2/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/exports-navigator%40exports-navigator.iam.gserviceaccount.com"
+  }
 });
 //securely access heroku postgres configuration
 require('dotenv').config();
