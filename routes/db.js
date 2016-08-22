@@ -169,6 +169,18 @@ var params = [req.body.unmatched_topic];
   queryDB(query, params, req, res);
 });
 
+
+//below is the route specifically for the function which updates the
+//number of hits for a specific topic which exists in the DB
+router.put('/topics/update/number_of_hits', function(req, res){
+  var query = 'UPDATE topics SET number_of_hits = ($1)' +
+    'WHERE id =' + req.body.id;
+  var params = [req.body.number_of_hits];
+  queryDB(query, params, req, res);
+});
+
+
+
 router.get('/testUserAuth', function(req, res){
   var authenticated = checkUserAuth();
   if(authenticated){
