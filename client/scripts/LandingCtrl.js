@@ -2,8 +2,7 @@
 (function() ***REMOVED***
     'use strict';
 
-    angular.module('exportsNavigator').controller('LandingCtrl', ['$scope', '$http', function($scope, $http) ***REMOVED***
-    ***REMOVED***]);
+    angular.module('exportsNavigator').controller('LandingCtrl', LandingCtrl);
 
     function LandingCtrl($scope, $http) ***REMOVED***
         $scope.prequalData = [***REMOVED***

@@ -133,10 +133,10 @@ function queryDB(queryStatement, vars, req, res)***REMOVED***
     client.query(queryStatement, vars, function(err, queryRes)***REMOVED***
       done();
       if(err)***REMOVED***
-        res.send(err)
+        res.send(err);
       ***REMOVED***else***REMOVED***
         res.send(queryRes);
-      ***REMOVED***;
+      ***REMOVED***
     ***REMOVED***);
   ***REMOVED***);
 ***REMOVED***
