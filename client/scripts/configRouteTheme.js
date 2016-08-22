@@ -10,7 +10,7 @@
         //  public landing view
         .when('/', {
             controller: 'LandingCtrl as landing',
-            templateUrl: 'views/landingPage.html'
+            templateUrl: 'views/landing.html'
         })
 
         //  results view with $routeParams
@@ -90,7 +90,7 @@
         //  catch-all view
         .otherwise({
               controller: 'LandingCtrl as landing',
-              templateUrl: 'views/landingPage.html'
+              templateUrl: 'views/landing.html'
         });
 
         //  $locationProvider config
