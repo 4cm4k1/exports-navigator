@@ -2,9 +2,38 @@
 
 <h2>Contact 1</h2>
 <p>
-  Note: {{adminTopicsEdit.topic.note_1}}
-  First name: {{adminTopicsEdit.topic.first_name_1}}
-  Last name: {{adminTopicsEdit.topic.last_name_1}}
-  Organization: {{adminTopicsEdit.topic.}}
-  Email: {{adminTopicsEdit.topic.email_1}}
+  Note: <input type="text" ng-model="adminTopicsEdit.topic.note_1" />
+  First name: <input type="text" ng-model="adminTopicsEdit.topic.first_name_1" />
+  Last name: <input type="text" ng-model="adminTopicsEdit.topic.last_name_1" />
+  Title: <input type="text" ng-model="adminTopicsEdit.topic.title_1" />
+  Organization: <input type="text" ng-model="adminTopicsEdit.topic.organization_1" />
+  Website: <input type="text" ng-model="adminTopicsEdit.topic.website_1" />
+  Email: <input type="text" ng-model="adminTopicsEdit.topic.email_1" />
+  Phone: <input type="text" ng-model="adminTopicsEdit.topic.phone_1" />
 </p>
+
+<h2>Contact 2</h2>
+<p>
+  Note: <input type="text" ng-model="adminTopicsEdit.topic.note_2" />
+  First name: <input type="text" ng-model="adminTopicsEdit.topic.first_name_2" />
+  Last name: <input type="text" ng-model="adminTopicsEdit.topic.last_name_2" />
+  Title: <input type="text" ng-model="adminTopicsEdit.topic.title_2" />
+  Organization: <input type="text" ng-model="adminTopicsEdit.topic.organization_2" />
+  Website: <input type="text" ng-model="adminTopicsEdit.topic.website_2" />
+  Email: <input type="text" ng-model="adminTopicsEdit.topic.email_2" />
+  Phone: <input type="text" ng-model="adminTopicsEdit.topic.phone_2" />
+</p>
+
+<h2>Contact 3</h2>
+<p>
+  Note: <input type="text" ng-model="adminTopicsEdit.topic.note_3" />
+  First name: <input type="text" ng-model="adminTopicsEdit.topic.first_name_3" />
+  Last name: <input type="text" ng-model="adminTopicsEdit.topic.last_name_3" />
+  Title: <input type="text" ng-model="adminTopicsEdit.topic.title_3" />
+  Organization: <input type="text" ng-model="adminTopicsEdit.topic.organization_3" />
+  Website: <input type="text" ng-model="adminTopicsEdit.topic.website_3" />
+  Email: <input type="text" ng-model="adminTopicsEdit.topic.email_3" />
+  Phone: <input type="text" ng-model="adminTopicsEdit.topic.phone_3" />
+</p>
+
+<button ng-click="adminTopicsEdit.update()">Update</button>
