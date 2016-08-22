@@ -126,6 +126,31 @@ router.get('/topics', function(req, res)***REMOVED***
   'ORDER BY topics.id ';
   queryDB(query, [], req, res);
 ***REMOVED***);
+
+router.post('/topics/create', function(req, res)***REMOVED***
+  var query = 'INSERT INTO topics' +
+'(topic, note_1, note_2, note_3, contact_1, contact_2, contact_3, website_1, website_2, website_3) VALUES' +
+'($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
+var params = [req.body.topic, req.body.note_1, req.body.note_2, req.body.note_3, req.body.contact_1, req.body.contact_2, req.body.contact_3, req.body.website_1, req.body.website_2, req.body.website_3];
+  queryDB(query, params, req, res);
+***REMOVED***);
+
+router.put('/topics/update', function(req, res)***REMOVED***
+  var query = 'UPDATE topics SET (topic, note_1, note_2, note_3, contact_1, contact_2, contact_3, website_1, website_2, website_3) = ' +
+  '($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)' +
+  'WHERE id =' + req.body.id;
+  var params = [req.body.topic, req.body.note_1, req.body.note_2, req.body.note_3, req.body.contact_1, req.body.contact_2, req.body.contact_3, req.body.website_1, req.body.website_2, req.body.website_3];
+  queryDB(query, params, req, res);
+***REMOVED***);
+
+router.delete('/topics/delete', function(req, res)***REMOVED***
+  var query = 'DELETE FROM topics WHERE id =' + req.body.id;
+  queryDB(query, [], req, res);
+***REMOVED***);
+
+
+
+
 //refactored routes to use one function for retrieving or sending data KRQ
 function queryDB(queryStatement, vars, req, res)***REMOVED***
   pool.connect(function(err, client, done)***REMOVED***
