@@ -133,10 +133,10 @@ function queryDB(queryStatement, vars, req, res){
     client.query(queryStatement, vars, function(err, queryRes){
       done();
       if(err){
-        res.send(err)
+        res.send(err);
       }else{
         res.send(queryRes);
-      };
+      }
     });
   });
 }
