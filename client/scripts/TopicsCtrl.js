@@ -7,8 +7,7 @@
 
     function TopicsCtrl(Topic) {
         var vm = this;
-
-
+        console.log('Injeting some stuff.');
     }
 })();
 
@@ -24,6 +23,7 @@
         topicsService.saveTopics(this.topic)
             .then(function() {
                 $state.go('topics');
+                console.log('Test Topics Save.');
             });
     };
 
@@ -31,6 +31,7 @@
         if (!query.length) return $state.go('topics');
 
         $state.go('search', {query: query});
+        console.log('Searching Topics!');
     };
 
 }
