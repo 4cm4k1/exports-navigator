@@ -31,6 +31,8 @@
             ***REMOVED***]
           ***REMOVED***
         ***REMOVED***)
+
+        // admin view of all topics
         .when('/admin/topics', ***REMOVED***
           controller: 'AdminTopicsController as adminTopics',
           templateUrl: 'views/adminTopics.html',
@@ -40,6 +42,19 @@
             ***REMOVED***]
           ***REMOVED***
         ***REMOVED***)
+
+        // admin view of editing a topic
+        .when('/admin/topics/:itemID', ***REMOVED***
+          controller: 'AdminTopicsEditController as adminTopicsEdit',
+          templateUrl: 'templates/adminTopicsEdit.html',
+          resolve: ***REMOVED***
+            'currentAuth': ['Auth', function(Auth) ***REMOVED***
+              return Auth.$requireSignIn();
+            ***REMOVED***]
+          ***REMOVED***
+        ***REMOVED***)
+
+        // admin view of all countries
         .when('/admin/countries', ***REMOVED***
           controller: 'AdminCountriesController as adminCountries',
           templateUrl: 'views/adminCountries.html',
@@ -49,6 +64,8 @@
             ***REMOVED***]
           ***REMOVED***
         ***REMOVED***)
+
+        // admin view of generated reports
         .when('/admin/reports', ***REMOVED***
           controller: 'AdminReportsController as adminReports',
           templateUrl: 'views/adminReports.html',
@@ -58,6 +75,8 @@
             ***REMOVED***]
           ***REMOVED***
         ***REMOVED***)
+
+        // admin view, where admin can add, edit, or delete managers 
         .when('/admin/managers', ***REMOVED***
           controller: 'AdminManagersController as adminManagers',
           templateUrl: 'views/adminManagers.html',

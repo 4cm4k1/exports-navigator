@@ -3,32 +3,25 @@
 
   angular.module('exportsNavigator').controller('AdminTopicsController', AdminTopicsController);
 
-  AdminTopicsController.$inject = ['currentAuth', '$http'];
+  AdminTopicsController.$inject = ['currentAuth', '$http', '$routeParams'];
 
-  function AdminTopicsController(currentAuth, $http) ***REMOVED***
+  function AdminTopicsController(currentAuth, $http, $routeParams) ***REMOVED***
     var vm = this;
+
+    var list = [];
 
     $http.get('/db/topics').then(function(response) ***REMOVED***
 
-      // var list = [];
-
-      // for (var i = 0; i < response.data.rows.length; i++) ***REMOVED***
-      //   list.push(response.data.rows[i].topic);
-      // ***REMOVED***
-
-      // console.log('list variable:', list);
-
-      console.log(response);
+      for (var i = 0; i < response.data.rows.length; i++) ***REMOVED***
+        list.push(response.data.rows[i]);
+      ***REMOVED***
     ***REMOVED***);
 
-    vm.topicsList = ['this', 'will', 'be', 'a', 'list', 'of', 'topics'];
+    vm.topicsList = list;
 
-    vm.update = function(listItem) ***REMOVED***
-      console.log('Update clicked');
-    ***REMOVED***;
-
-    vm.remove = function(listItem) ***REMOVED***
-      console.log('Remove clicked');
+    vm.update = function(item) ***REMOVED***
+      console.log('Update clicked', item.id);
+      item.id = $routeParams.itemID;
     ***REMOVED***;
 
     vm.add = function() ***REMOVED***
