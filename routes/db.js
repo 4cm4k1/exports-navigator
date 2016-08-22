@@ -179,14 +179,12 @@ router.put('/topics/update/number_of_hits', function(req, res){
   queryDB(query, params, req, res);
 });
 
-
-
 router.get('/testUserAuth', function(req, res){
   var authenticated = checkUserAuth();
-  if(authenticated){
-    res.send('Authenticated');
+  if(authenticated.success){
+    res.send('Authenticated: ' + authenticated.message);
   } else {
-    res.send('Not authenticated!');
+    res.redirect('/');
   }
 });
 
@@ -208,16 +206,20 @@ function queryDB(queryStatement, vars, req, res){
 }
 //function for protected routes KRQ
 function checkUserAuth(){
-  firebase.auth().currentUser.getToken(true).then(function(idToken) {
-    firebase.auth().verifyIdToken(idToken).then(function(decodedToken) {
-      var uid = decodedToken.uid;
-      return {message: uid, success: true};
+  if(firebase.auth().currentUser){
+    firebase.auth().currentUser.getToken(true).then(function(idToken) {
+      firebase.auth().verifyIdToken(idToken).then(function(decodedToken) {
+        var uid = decodedToken.uid;
+        return {message: uid, success: true};
+      }).catch(function(error) {
+        return {message: error, success: false};
+      });
     }).catch(function(error) {
       return {message: error, success: false};
     });
-  }).catch(function(error) {
-    return {message: error, success: false};
-  });
+  }else{
+    return {message: 'No user logged in', success: false};
+  }
 }
 
 pool.on('error', function (err, client) {
