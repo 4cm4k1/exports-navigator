@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var Pool = require('pg').Pool;
+require('dotenv').config();
 //user authentication on admin routes KRQ
 var firebase = require("firebase");
 firebase.initializeApp({
@@ -19,7 +20,6 @@ firebase.initializeApp({
   }
 });
 //securely access heroku postgres configuration
-require('dotenv').config();
 var parseDbUrl = require('parse-database-url');
 var config = parseDbUrl(process.env.DATABASE_URL);
 config.idleTimeoutMillis = 30000; // how long a client is allowed to remain idle before being closed
