@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var Pool = require('pg').Pool;
+//user authentication on admin routes KRQ
+var firebase = require("firebase");
+firebase.initializeApp(***REMOVED***
+  serviceAccount: 'firebaseCredentials.json'
+***REMOVED***);
 //securely access heroku postgres configuration
 require('dotenv').config();
 var parseDbUrl = require('parse-database-url');
@@ -149,6 +154,40 @@ router.delete('/topics/delete', function(req, res)***REMOVED***
 ***REMOVED***);
 
 
+//  ~ Admin Reports
+//below are routes for ADMIN REPORTS PURPOSES
+router.get('/unmatched', function(req, res)***REMOVED***
+  var query = 'SELECT * FROM unmatched_topics';
+  queryDB(query, [], req, res);
+***REMOVED***);
+
+router.post('/unmatched/create', function(req, res)***REMOVED***
+  var query = 'INSERT INTO unmatched_topics' +
+'(unmatched_topic) VALUES' +
+'($1)';
+var params = [req.body.unmatched_topic];
+  queryDB(query, params, req, res);
+***REMOVED***);
+
+
+//below is the route specifically for the function which updates the
+//number of hits for a specific topic which exists in the DB
+router.put('/topics/update/number_of_hits', function(req, res)***REMOVED***
+  var query = 'UPDATE topics SET number_of_hits = ($1)' +
+    'WHERE id =' + req.body.id;
+  var params = [req.body.number_of_hits];
+  queryDB(query, params, req, res);
+***REMOVED***);
+
+router.get('/testUserAuth', function(req, res)***REMOVED***
+  var authenticated = checkUserAuth();
+  if(authenticated.success)***REMOVED***
+    res.send('Authenticated: ' + authenticated.message);
+  ***REMOVED*** else ***REMOVED***
+    res.redirect('/');
+  ***REMOVED***
+***REMOVED***);
+
 
 
 //refactored routes to use one function for retrieving or sending data KRQ
@@ -164,6 +203,23 @@ function queryDB(queryStatement, vars, req, res)***REMOVED***
       ***REMOVED***
     ***REMOVED***);
   ***REMOVED***);
+***REMOVED***
+//function for protected routes KRQ
+function checkUserAuth()***REMOVED***
+  if(firebase.auth().currentUser)***REMOVED***
+    firebase.auth().currentUser.getToken(true).then(function(idToken) ***REMOVED***
+      firebase.auth().verifyIdToken(idToken).then(function(decodedToken) ***REMOVED***
+        var uid = decodedToken.uid;
+        return ***REMOVED***message: uid, success: true***REMOVED***;
+      ***REMOVED***).catch(function(error) ***REMOVED***
+        return ***REMOVED***message: error, success: false***REMOVED***;
+      ***REMOVED***);
+    ***REMOVED***).catch(function(error) ***REMOVED***
+      return ***REMOVED***message: error, success: false***REMOVED***;
+    ***REMOVED***);
+  ***REMOVED***else***REMOVED***
+    return ***REMOVED***message: 'No user logged in', success: false***REMOVED***;
+  ***REMOVED***
 ***REMOVED***
 
 pool.on('error', function (err, client) ***REMOVED***
