@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var Pool = require('pg').Pool;
+//user authentication on admin routes KRQ
+var firebase = require("firebase");
+firebase.initializeApp({
+  serviceAccount: 'path/to/serviceAccountCredentials.json'
+});
 //securely access heroku postgres configuration
 require('dotenv').config();
 var parseDbUrl = require('parse-database-url');
@@ -181,7 +186,20 @@ function queryDB(queryStatement, vars, req, res){
       }
     });
   });
-}
+};
+
+function checkUserAuth(){
+  firebase.auth().currentUser.getToken(true).then(function(idToken) {
+    firebase.auth().verifyIdToken(idToken).then(function(decodedToken) {
+      var uid = decodedToken.uid;
+      return {message: uid, success: true};
+    }).catch(function(error) {
+      return {message: error, success: false};
+    });
+  }).catch(function(error) {
+    return {message: error, success: false};
+  });
+};
 
 pool.on('error', function (err, client) {
   // if an error is encountered by a client while it sits idle in the pool
