@@ -9,8 +9,8 @@
 
         //  public landing view
         .when('/', ***REMOVED***
-            controller: 'LandingCtrl as landing',
-            templateUrl: 'views/landing.html'
+            controller: 'HomeCtrl as home',
+            templateUrl: 'views/home.html'
         ***REMOVED***)
 
         //  results view with $routeParams
@@ -76,7 +76,7 @@
           ***REMOVED***
         ***REMOVED***)
 
-        // admin view, where admin can add, edit, or delete managers 
+        // admin view, where admin can add, edit, or delete managers
         .when('/admin/managers', ***REMOVED***
           controller: 'AdminManagersController as adminManagers',
           templateUrl: 'views/adminManagers.html',
@@ -89,8 +89,8 @@
 
         //  catch-all view
         .otherwise(***REMOVED***
-              controller: 'LandingCtrl as landing',
-              templateUrl: 'views/landing.html'
+              controller: 'HomeCtrl as home',
+              templateUrl: 'views/home.html'
         ***REMOVED***);
 
         //  $locationProvider config
