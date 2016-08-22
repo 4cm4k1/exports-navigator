@@ -5,7 +5,7 @@ var Pool = require('pg').Pool;
 //user authentication on admin routes KRQ
 var firebase = require("firebase");
 firebase.initializeApp(***REMOVED***
-  serviceAccount: process.env.firebaseCredentials
+  serviceAccount: 'firebaseCredentials.json'
 ***REMOVED***);
 //securely access heroku postgres configuration
 require('dotenv').config();
