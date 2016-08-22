@@ -28,21 +28,21 @@ angular
  * the checkbox is in the accent color by default. The primary color palette may be used with
  * the `md-primary` class.
  *
- * @param ***REMOVED***string***REMOVED*** ng-model Assignable angular expression to data-bind to.
- * @param ***REMOVED***string=***REMOVED*** name Property name of the form under which the control is published.
- * @param ***REMOVED***expression=***REMOVED*** ng-true-value The value to which the expression should be set when selected.
- * @param ***REMOVED***expression=***REMOVED*** ng-false-value The value to which the expression should be set when not selected.
- * @param ***REMOVED***string=***REMOVED*** ng-change Angular expression to be executed when input changes due to user interaction with the input element.
- * @param ***REMOVED***boolean=***REMOVED*** md-no-ink Use of attribute indicates use of ripple ink effects
- * @param ***REMOVED***string=***REMOVED*** aria-label Adds label to checkbox for accessibility.
+ * @param {string} ng-model Assignable angular expression to data-bind to.
+ * @param {string=} name Property name of the form under which the control is published.
+ * @param {expression=} ng-true-value The value to which the expression should be set when selected.
+ * @param {expression=} ng-false-value The value to which the expression should be set when not selected.
+ * @param {string=} ng-change Angular expression to be executed when input changes due to user interaction with the input element.
+ * @param {boolean=} md-no-ink Use of attribute indicates use of ripple ink effects
+ * @param {string=} aria-label Adds label to checkbox for accessibility.
  *     Defaults to checkbox's text. If no default text is found, a warning will be logged.
- * @param ***REMOVED***expression=***REMOVED*** md-indeterminate This determines when the checkbox should be rendered as 'indeterminate'.
+ * @param {expression=} md-indeterminate This determines when the checkbox should be rendered as 'indeterminate'.
  *     If a truthy expression or no value is passed in the checkbox renders in the md-indeterminate state.
  *     If falsy expression is passed in it just looks like a normal unchecked checkbox.
  *     The indeterminate, checked, and unchecked states are mutually exclusive. A box cannot be in any two states at the same time.
  *     Adding the 'md-indeterminate' attribute overrides any checked/unchecked rendering logic.
  *     When using the 'md-indeterminate' attribute use 'ng-checked' to define rendering logic instead of using 'ng-model'.
- * @param ***REMOVED***expression=***REMOVED*** ng-checked If this expression evaluates as truthy, the 'md-checked' css class is added to the checkbox and it
+ * @param {expression=} ng-checked If this expression evaluates as truthy, the 'md-checked' css class is added to the checkbox and it
  *     will appear checked.
  *
  * @usage
@@ -62,10 +62,10 @@ angular
  * </hljs>
  *
  */
-function MdCheckboxDirective(inputDirective, $mdAria, $mdConstant, $mdTheming, $mdUtil, $timeout) ***REMOVED***
+function MdCheckboxDirective(inputDirective, $mdAria, $mdConstant, $mdTheming, $mdUtil, $timeout) {
   inputDirective = inputDirective[0];
 
-  return ***REMOVED***
+  return {
     restrict: 'E',
     transclude: true,
     require: '?ngModel',
@@ -76,138 +76,138 @@ function MdCheckboxDirective(inputDirective, $mdAria, $mdConstant, $mdTheming, $
       '</div>' +
       '<div ng-transclude class="md-label"></div>',
     compile: compile
-  ***REMOVED***;
+  };
 
   // **********************************************************
   // Private Methods
   // **********************************************************
 
-  function compile (tElement, tAttrs) ***REMOVED***
+  function compile (tElement, tAttrs) {
     tAttrs.$set('tabindex', tAttrs.tabindex || '0');
     tAttrs.$set('type', 'checkbox');
     tAttrs.$set('role', tAttrs.type);
 
-    return  ***REMOVED***
-      pre: function(scope, element) ***REMOVED***
+    return  {
+      pre: function(scope, element) {
         // Attach a click handler during preLink, in order to immediately stop propagation
         // (especially for ng-click) when the checkbox is disabled.
-        element.on('click', function(e) ***REMOVED***
-          if (this.hasAttribute('disabled')) ***REMOVED***
+        element.on('click', function(e) {
+          if (this.hasAttribute('disabled')) {
             e.stopImmediatePropagation();
-          ***REMOVED***
-        ***REMOVED***);
-      ***REMOVED***,
+          }
+        });
+      },
       post: postLink
-    ***REMOVED***;
+    };
 
-    function postLink(scope, element, attr, ngModelCtrl) ***REMOVED***
+    function postLink(scope, element, attr, ngModelCtrl) {
       var isIndeterminate;
       ngModelCtrl = ngModelCtrl || $mdUtil.fakeNgModel();
       $mdTheming(element);
 
       // Redirect focus events to the root element, because IE11 is always focusing the container element instead
       // of the md-checkbox element. This causes issues when using ngModelOptions: `updateOnBlur`
-      element.children().on('focus', function() ***REMOVED***
+      element.children().on('focus', function() {
         element.focus();
-      ***REMOVED***);
+      });
 
-      if ($mdUtil.parseAttributeBoolean(attr.mdIndeterminate)) ***REMOVED***
+      if ($mdUtil.parseAttributeBoolean(attr.mdIndeterminate)) {
         setIndeterminateState();
         scope.$watch(attr.mdIndeterminate, setIndeterminateState);
-      ***REMOVED***
+      }
 
-      if (attr.ngChecked) ***REMOVED***
+      if (attr.ngChecked) {
         scope.$watch(
           scope.$eval.bind(scope, attr.ngChecked),
           ngModelCtrl.$setViewValue.bind(ngModelCtrl)
         );
-      ***REMOVED***
+      }
 
-      $$watchExpr('ngDisabled', 'tabindex', ***REMOVED***
+      $$watchExpr('ngDisabled', 'tabindex', {
         true: '-1',
         false: attr.tabindex
-      ***REMOVED***);
+      });
 
       $mdAria.expectWithText(element, 'aria-label');
 
       // Reuse the original input[type=checkbox] directive from Angular core.
       // This is a bit hacky as we need our own event listener and own render
       // function.
-      inputDirective.link.pre(scope, ***REMOVED***
+      inputDirective.link.pre(scope, {
         on: angular.noop,
-        0: ***REMOVED******REMOVED***
-      ***REMOVED***, attr, [ngModelCtrl]);
+        0: {}
+      }, attr, [ngModelCtrl]);
 
       scope.mouseActive = false;
       element.on('click', listener)
         .on('keypress', keypressHandler)
-        .on('mousedown', function() ***REMOVED***
+        .on('mousedown', function() {
           scope.mouseActive = true;
-          $timeout(function() ***REMOVED***
+          $timeout(function() {
             scope.mouseActive = false;
-          ***REMOVED***, 100);
-        ***REMOVED***)
-        .on('focus', function() ***REMOVED***
-          if (scope.mouseActive === false) ***REMOVED***
+          }, 100);
+        })
+        .on('focus', function() {
+          if (scope.mouseActive === false) {
             element.addClass('md-focused');
-          ***REMOVED***
-        ***REMOVED***)
-        .on('blur', function() ***REMOVED***
+          }
+        })
+        .on('blur', function() {
           element.removeClass('md-focused');
-        ***REMOVED***);
+        });
 
       ngModelCtrl.$render = render;
 
-      function $$watchExpr(expr, htmlAttr, valueOpts) ***REMOVED***
-        if (attr[expr]) ***REMOVED***
-          scope.$watch(attr[expr], function(val) ***REMOVED***
-            if (valueOpts[val]) ***REMOVED***
+      function $$watchExpr(expr, htmlAttr, valueOpts) {
+        if (attr[expr]) {
+          scope.$watch(attr[expr], function(val) {
+            if (valueOpts[val]) {
               element.attr(htmlAttr, valueOpts[val]);
-            ***REMOVED***
-          ***REMOVED***);
-        ***REMOVED***
-      ***REMOVED***
+            }
+          });
+        }
+      }
 
-      function keypressHandler(ev) ***REMOVED***
+      function keypressHandler(ev) {
         var keyCode = ev.which || ev.keyCode;
-        if (keyCode === $mdConstant.KEY_CODE.SPACE || keyCode === $mdConstant.KEY_CODE.ENTER) ***REMOVED***
+        if (keyCode === $mdConstant.KEY_CODE.SPACE || keyCode === $mdConstant.KEY_CODE.ENTER) {
           ev.preventDefault();
           element.addClass('md-focused');
           listener(ev);
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
-      function listener(ev) ***REMOVED***
+      function listener(ev) {
         // skipToggle boolean is used by the switch directive to prevent the click event
         // when releasing the drag. There will be always a click if releasing the drag over the checkbox
-        if (element[0].hasAttribute('disabled') || scope.skipToggle) ***REMOVED***
+        if (element[0].hasAttribute('disabled') || scope.skipToggle) {
           return;
-        ***REMOVED***
+        }
 
-        scope.$apply(function() ***REMOVED***
+        scope.$apply(function() {
           // Toggle the checkbox value...
           var viewValue = attr.ngChecked ? attr.checked : !ngModelCtrl.$viewValue;
 
           ngModelCtrl.$setViewValue(viewValue, ev && ev.type);
           ngModelCtrl.$render();
-        ***REMOVED***);
-      ***REMOVED***
+        });
+      }
 
-      function render() ***REMOVED***
+      function render() {
         // Cast the $viewValue to a boolean since it could be undefined
         element.toggleClass('md-checked', !!ngModelCtrl.$viewValue && !isIndeterminate);
-      ***REMOVED***
+      }
 
-      function setIndeterminateState(newValue) ***REMOVED***
+      function setIndeterminateState(newValue) {
         isIndeterminate = newValue !== false;
-        if (isIndeterminate) ***REMOVED***
+        if (isIndeterminate) {
           element.attr('aria-checked', 'mixed');
-        ***REMOVED***
+        }
         element.toggleClass('md-indeterminate', isIndeterminate);
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
-***REMOVED***
+      }
+    }
+  }
+}
 MdCheckboxDirective.$inject = ["inputDirective", "$mdAria", "$mdConstant", "$mdTheming", "$mdUtil", "$timeout"];
 
 ngmaterial.components.checkbox = angular.module("material.components.checkbox");

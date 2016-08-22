@@ -3,7 +3,7 @@
  * (c) 2010-2016 Google, Inc. http://angularjs.org
  * License: MIT
  */
-(function(window, angular) ***REMOVED***'use strict';
+(function(window, angular) {'use strict';
 
 /**
  * @ngdoc module
@@ -28,20 +28,20 @@
  *
  * | Directive                                   | Supported Attributes                                                                   |
  * |---------------------------------------------|----------------------------------------------------------------------------------------|
- * | ***REMOVED***@link ng.directive:ngModel ngModel***REMOVED***        | aria-checked, aria-valuemin, aria-valuemax, aria-valuenow, aria-invalid, aria-required, input roles |
- * | ***REMOVED***@link ng.directive:ngDisabled ngDisabled***REMOVED***  | aria-disabled                                                                          |
- * | ***REMOVED***@link ng.directive:ngRequired ngRequired***REMOVED***  | aria-required
- * | ***REMOVED***@link ng.directive:ngChecked ngChecked***REMOVED***    | aria-checked
- * | ***REMOVED***@link ng.directive:ngReadonly ngReadonly***REMOVED***  | aria-readonly                                                                          |
- * | ***REMOVED***@link ng.directive:ngValue ngValue***REMOVED***        | aria-checked                                                                           |
- * | ***REMOVED***@link ng.directive:ngShow ngShow***REMOVED***          | aria-hidden                                                                            |
- * | ***REMOVED***@link ng.directive:ngHide ngHide***REMOVED***          | aria-hidden                                                                            |
- * | ***REMOVED***@link ng.directive:ngDblclick ngDblclick***REMOVED***  | tabindex                                                                               |
- * | ***REMOVED***@link module:ngMessages ngMessages***REMOVED***        | aria-live                                                                              |
- * | ***REMOVED***@link ng.directive:ngClick ngClick***REMOVED***        | tabindex, keypress event, button role                                                  |
+ * | {@link ng.directive:ngModel ngModel}        | aria-checked, aria-valuemin, aria-valuemax, aria-valuenow, aria-invalid, aria-required, input roles |
+ * | {@link ng.directive:ngDisabled ngDisabled}  | aria-disabled                                                                          |
+ * | {@link ng.directive:ngRequired ngRequired}  | aria-required
+ * | {@link ng.directive:ngChecked ngChecked}    | aria-checked
+ * | {@link ng.directive:ngReadonly ngReadonly}  | aria-readonly                                                                          |
+ * | {@link ng.directive:ngValue ngValue}        | aria-checked                                                                           |
+ * | {@link ng.directive:ngShow ngShow}          | aria-hidden                                                                            |
+ * | {@link ng.directive:ngHide ngHide}          | aria-hidden                                                                            |
+ * | {@link ng.directive:ngDblclick ngDblclick}  | tabindex                                                                               |
+ * | {@link module:ngMessages ngMessages}        | aria-live                                                                              |
+ * | {@link ng.directive:ngClick ngClick}        | tabindex, keypress event, button role                                                  |
  *
  * Find out more information about each directive by reading the
- * ***REMOVED***@link guide/accessibility ngAria Developer Guide***REMOVED***.
+ * {@link guide/accessibility ngAria Developer Guide}.
  *
  * ## Example
  * Using ngDisabled with ngAria:
@@ -55,8 +55,8 @@
  *
  * ## Disabling Attributes
  * It's possible to disable individual attributes added by ngAria with the
- * ***REMOVED***@link ngAria.$ariaProvider#config config***REMOVED*** method. For more details, see the
- * ***REMOVED***@link guide/accessibility Developer Guide***REMOVED***.
+ * {@link ngAria.$ariaProvider#config config} method. For more details, see the
+ * {@link guide/accessibility Developer Guide}.
  */
  /* global -ngAriaModule */
 var ngAriaModule = angular.module('ngAria', ['ng']).
@@ -67,11 +67,11 @@ var ngAriaModule = angular.module('ngAria', ['ng']).
 */
 var nodeBlackList = ['BUTTON', 'A', 'INPUT', 'TEXTAREA', 'SELECT', 'DETAILS', 'SUMMARY'];
 
-var isNodeOneOf = function(elem, nodeTypeArray) ***REMOVED***
-  if (nodeTypeArray.indexOf(elem[0].nodeName) !== -1) ***REMOVED***
+var isNodeOneOf = function(elem, nodeTypeArray) {
+  if (nodeTypeArray.indexOf(elem[0].nodeName) !== -1) {
     return true;
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 /**
  * @ngdoc provider
  * @name $ariaProvider
@@ -81,20 +81,20 @@ var isNodeOneOf = function(elem, nodeTypeArray) ***REMOVED***
  * Used for configuring the ARIA attributes injected and managed by ngAria.
  *
  * ```js
- * angular.module('myApp', ['ngAria'], function config($ariaProvider) ***REMOVED***
- *   $ariaProvider.config(***REMOVED***
+ * angular.module('myApp', ['ngAria'], function config($ariaProvider) {
+ *   $ariaProvider.config({
  *     ariaValue: true,
  *     tabindex: false
- *   ***REMOVED***);
- * ***REMOVED***);
+ *   });
+ * });
  *```
  *
  * ## Dependencies
- * Requires the ***REMOVED***@link ngAria***REMOVED*** module to be installed.
+ * Requires the {@link ngAria} module to be installed.
  *
  */
-function $AriaProvider() ***REMOVED***
-  var config = ***REMOVED***
+function $AriaProvider() {
+  var config = {
     ariaHidden: true,
     ariaChecked: true,
     ariaReadonly: true,
@@ -105,46 +105,46 @@ function $AriaProvider() ***REMOVED***
     tabindex: true,
     bindKeypress: true,
     bindRoleForClick: true
-  ***REMOVED***;
+  };
 
   /**
    * @ngdoc method
    * @name $ariaProvider#config
    *
-   * @param ***REMOVED***object***REMOVED*** config object to enable/disable specific ARIA attributes
+   * @param {object} config object to enable/disable specific ARIA attributes
    *
-   *  - **ariaHidden** – `***REMOVED***boolean***REMOVED***` – Enables/disables aria-hidden tags
-   *  - **ariaChecked** – `***REMOVED***boolean***REMOVED***` – Enables/disables aria-checked tags
-   *  - **ariaReadonly** – `***REMOVED***boolean***REMOVED***` – Enables/disables aria-readonly tags
-   *  - **ariaDisabled** – `***REMOVED***boolean***REMOVED***` – Enables/disables aria-disabled tags
-   *  - **ariaRequired** – `***REMOVED***boolean***REMOVED***` – Enables/disables aria-required tags
-   *  - **ariaInvalid** – `***REMOVED***boolean***REMOVED***` – Enables/disables aria-invalid tags
-   *  - **ariaValue** – `***REMOVED***boolean***REMOVED***` – Enables/disables aria-valuemin, aria-valuemax and aria-valuenow tags
-   *  - **tabindex** – `***REMOVED***boolean***REMOVED***` – Enables/disables tabindex tags
-   *  - **bindKeypress** – `***REMOVED***boolean***REMOVED***` – Enables/disables keypress event binding on `div` and
+   *  - **ariaHidden** – `{boolean}` – Enables/disables aria-hidden tags
+   *  - **ariaChecked** – `{boolean}` – Enables/disables aria-checked tags
+   *  - **ariaReadonly** – `{boolean}` – Enables/disables aria-readonly tags
+   *  - **ariaDisabled** – `{boolean}` – Enables/disables aria-disabled tags
+   *  - **ariaRequired** – `{boolean}` – Enables/disables aria-required tags
+   *  - **ariaInvalid** – `{boolean}` – Enables/disables aria-invalid tags
+   *  - **ariaValue** – `{boolean}` – Enables/disables aria-valuemin, aria-valuemax and aria-valuenow tags
+   *  - **tabindex** – `{boolean}` – Enables/disables tabindex tags
+   *  - **bindKeypress** – `{boolean}` – Enables/disables keypress event binding on `div` and
    *    `li` elements with ng-click
-   *  - **bindRoleForClick** – `***REMOVED***boolean***REMOVED***` – Adds role=button to non-interactive elements like `div`
+   *  - **bindRoleForClick** – `{boolean}` – Adds role=button to non-interactive elements like `div`
    *    using ng-click, making them more accessible to users of assistive technologies
    *
    * @description
    * Enables/disables various ARIA attributes
    */
-  this.config = function(newConfig) ***REMOVED***
+  this.config = function(newConfig) {
     config = angular.extend(config, newConfig);
-  ***REMOVED***;
+  };
 
-  function watchExpr(attrName, ariaAttr, nodeBlackList, negate) ***REMOVED***
-    return function(scope, elem, attr) ***REMOVED***
+  function watchExpr(attrName, ariaAttr, nodeBlackList, negate) {
+    return function(scope, elem, attr) {
       var ariaCamelName = attr.$normalize(ariaAttr);
-      if (config[ariaCamelName] && !isNodeOneOf(elem, nodeBlackList) && !attr[ariaCamelName]) ***REMOVED***
-        scope.$watch(attr[attrName], function(boolVal) ***REMOVED***
+      if (config[ariaCamelName] && !isNodeOneOf(elem, nodeBlackList) && !attr[ariaCamelName]) {
+        scope.$watch(attr[attrName], function(boolVal) {
           // ensure boolean value
           boolVal = negate ? !boolVal : !!boolVal;
           elem.attr(ariaAttr, boolVal);
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***
+        });
+      }
+    };
+  }
   /**
    * @ngdoc service
    * @name $aria
@@ -160,9 +160,9 @@ function $AriaProvider() ***REMOVED***
    * let's review a code snippet from ngAria itself:
    *
    *```js
-   * ngAriaModule.directive('ngDisabled', ['$aria', function($aria) ***REMOVED***
+   * ngAriaModule.directive('ngDisabled', ['$aria', function($aria) {
    *   return $aria.$$watchExpr('ngDisabled', 'aria-disabled', nodeBlackList, false);
-   * ***REMOVED***])
+   * }])
    *```
    * Shown above, the ngAria module creates a directive with the same signature as the
    * traditional `ng-disabled` directive. But this ngAria version is dedicated to
@@ -188,218 +188,218 @@ function $AriaProvider() ***REMOVED***
    * * **ngDblclick**
    * * **ngMessages**
    *
-   * Read the ***REMOVED***@link guide/accessibility ngAria Developer Guide***REMOVED*** for a thorough explanation of each
+   * Read the {@link guide/accessibility ngAria Developer Guide} for a thorough explanation of each
    * directive.
    *
    *
    * ## Dependencies
-   * Requires the ***REMOVED***@link ngAria***REMOVED*** module to be installed.
+   * Requires the {@link ngAria} module to be installed.
    */
-  this.$get = function() ***REMOVED***
-    return ***REMOVED***
-      config: function(key) ***REMOVED***
+  this.$get = function() {
+    return {
+      config: function(key) {
         return config[key];
-      ***REMOVED***,
+      },
       $$watchExpr: watchExpr
-    ***REMOVED***;
-  ***REMOVED***;
-***REMOVED***
+    };
+  };
+}
 
 
-ngAriaModule.directive('ngShow', ['$aria', function($aria) ***REMOVED***
+ngAriaModule.directive('ngShow', ['$aria', function($aria) {
   return $aria.$$watchExpr('ngShow', 'aria-hidden', [], true);
-***REMOVED***])
-.directive('ngHide', ['$aria', function($aria) ***REMOVED***
+}])
+.directive('ngHide', ['$aria', function($aria) {
   return $aria.$$watchExpr('ngHide', 'aria-hidden', [], false);
-***REMOVED***])
-.directive('ngValue', ['$aria', function($aria) ***REMOVED***
+}])
+.directive('ngValue', ['$aria', function($aria) {
   return $aria.$$watchExpr('ngValue', 'aria-checked', nodeBlackList, false);
-***REMOVED***])
-.directive('ngChecked', ['$aria', function($aria) ***REMOVED***
+}])
+.directive('ngChecked', ['$aria', function($aria) {
   return $aria.$$watchExpr('ngChecked', 'aria-checked', nodeBlackList, false);
-***REMOVED***])
-.directive('ngReadonly', ['$aria', function($aria) ***REMOVED***
+}])
+.directive('ngReadonly', ['$aria', function($aria) {
   return $aria.$$watchExpr('ngReadonly', 'aria-readonly', nodeBlackList, false);
-***REMOVED***])
-.directive('ngRequired', ['$aria', function($aria) ***REMOVED***
+}])
+.directive('ngRequired', ['$aria', function($aria) {
   return $aria.$$watchExpr('ngRequired', 'aria-required', nodeBlackList, false);
-***REMOVED***])
-.directive('ngModel', ['$aria', function($aria) ***REMOVED***
+}])
+.directive('ngModel', ['$aria', function($aria) {
 
-  function shouldAttachAttr(attr, normalizedAttr, elem, allowBlacklistEls) ***REMOVED***
+  function shouldAttachAttr(attr, normalizedAttr, elem, allowBlacklistEls) {
     return $aria.config(normalizedAttr) && !elem.attr(attr) && (allowBlacklistEls || !isNodeOneOf(elem, nodeBlackList));
-  ***REMOVED***
+  }
 
-  function shouldAttachRole(role, elem) ***REMOVED***
+  function shouldAttachRole(role, elem) {
     // if element does not have role attribute
     // AND element type is equal to role (if custom element has a type equaling shape) <-- remove?
     // AND element is not INPUT
     return !elem.attr('role') && (elem.attr('type') === role) && (elem[0].nodeName !== 'INPUT');
-  ***REMOVED***
+  }
 
-  function getShape(attr, elem) ***REMOVED***
+  function getShape(attr, elem) {
     var type = attr.type,
         role = attr.role;
 
     return ((type || role) === 'checkbox' || role === 'menuitemcheckbox') ? 'checkbox' :
            ((type || role) === 'radio'    || role === 'menuitemradio') ? 'radio' :
            (type === 'range'              || role === 'progressbar' || role === 'slider') ? 'range' : '';
-  ***REMOVED***
+  }
 
-  return ***REMOVED***
+  return {
     restrict: 'A',
     require: 'ngModel',
     priority: 200, //Make sure watches are fired after any other directives that affect the ngModel value
-    compile: function(elem, attr) ***REMOVED***
+    compile: function(elem, attr) {
       var shape = getShape(attr, elem);
 
-      return ***REMOVED***
-        pre: function(scope, elem, attr, ngModel) ***REMOVED***
-          if (shape === 'checkbox') ***REMOVED***
+      return {
+        pre: function(scope, elem, attr, ngModel) {
+          if (shape === 'checkbox') {
             //Use the input[checkbox] $isEmpty implementation for elements with checkbox roles
-            ngModel.$isEmpty = function(value) ***REMOVED***
+            ngModel.$isEmpty = function(value) {
               return value === false;
-            ***REMOVED***;
-          ***REMOVED***
-        ***REMOVED***,
-        post: function(scope, elem, attr, ngModel) ***REMOVED***
+            };
+          }
+        },
+        post: function(scope, elem, attr, ngModel) {
           var needsTabIndex = shouldAttachAttr('tabindex', 'tabindex', elem, false);
 
-          function ngAriaWatchModelValue() ***REMOVED***
+          function ngAriaWatchModelValue() {
             return ngModel.$modelValue;
-          ***REMOVED***
+          }
 
-          function getRadioReaction(newVal) ***REMOVED***
+          function getRadioReaction(newVal) {
             var boolVal = (attr.value == ngModel.$viewValue);
             elem.attr('aria-checked', boolVal);
-          ***REMOVED***
+          }
 
-          function getCheckboxReaction() ***REMOVED***
+          function getCheckboxReaction() {
             elem.attr('aria-checked', !ngModel.$isEmpty(ngModel.$viewValue));
-          ***REMOVED***
+          }
 
-          switch (shape) ***REMOVED***
+          switch (shape) {
             case 'radio':
             case 'checkbox':
-              if (shouldAttachRole(shape, elem)) ***REMOVED***
+              if (shouldAttachRole(shape, elem)) {
                 elem.attr('role', shape);
-              ***REMOVED***
-              if (shouldAttachAttr('aria-checked', 'ariaChecked', elem, false)) ***REMOVED***
+              }
+              if (shouldAttachAttr('aria-checked', 'ariaChecked', elem, false)) {
                 scope.$watch(ngAriaWatchModelValue, shape === 'radio' ?
                     getRadioReaction : getCheckboxReaction);
-              ***REMOVED***
-              if (needsTabIndex) ***REMOVED***
+              }
+              if (needsTabIndex) {
                 elem.attr('tabindex', 0);
-              ***REMOVED***
+              }
               break;
             case 'range':
-              if (shouldAttachRole(shape, elem)) ***REMOVED***
+              if (shouldAttachRole(shape, elem)) {
                 elem.attr('role', 'slider');
-              ***REMOVED***
-              if ($aria.config('ariaValue')) ***REMOVED***
+              }
+              if ($aria.config('ariaValue')) {
                 var needsAriaValuemin = !elem.attr('aria-valuemin') &&
                     (attr.hasOwnProperty('min') || attr.hasOwnProperty('ngMin'));
                 var needsAriaValuemax = !elem.attr('aria-valuemax') &&
                     (attr.hasOwnProperty('max') || attr.hasOwnProperty('ngMax'));
                 var needsAriaValuenow = !elem.attr('aria-valuenow');
 
-                if (needsAriaValuemin) ***REMOVED***
-                  attr.$observe('min', function ngAriaValueMinReaction(newVal) ***REMOVED***
+                if (needsAriaValuemin) {
+                  attr.$observe('min', function ngAriaValueMinReaction(newVal) {
                     elem.attr('aria-valuemin', newVal);
-                  ***REMOVED***);
-                ***REMOVED***
-                if (needsAriaValuemax) ***REMOVED***
-                  attr.$observe('max', function ngAriaValueMinReaction(newVal) ***REMOVED***
+                  });
+                }
+                if (needsAriaValuemax) {
+                  attr.$observe('max', function ngAriaValueMinReaction(newVal) {
                     elem.attr('aria-valuemax', newVal);
-                  ***REMOVED***);
-                ***REMOVED***
-                if (needsAriaValuenow) ***REMOVED***
-                  scope.$watch(ngAriaWatchModelValue, function ngAriaValueNowReaction(newVal) ***REMOVED***
+                  });
+                }
+                if (needsAriaValuenow) {
+                  scope.$watch(ngAriaWatchModelValue, function ngAriaValueNowReaction(newVal) {
                     elem.attr('aria-valuenow', newVal);
-                  ***REMOVED***);
-                ***REMOVED***
-              ***REMOVED***
-              if (needsTabIndex) ***REMOVED***
+                  });
+                }
+              }
+              if (needsTabIndex) {
                 elem.attr('tabindex', 0);
-              ***REMOVED***
+              }
               break;
-          ***REMOVED***
+          }
 
           if (!attr.hasOwnProperty('ngRequired') && ngModel.$validators.required
-            && shouldAttachAttr('aria-required', 'ariaRequired', elem, false)) ***REMOVED***
+            && shouldAttachAttr('aria-required', 'ariaRequired', elem, false)) {
             // ngModel.$error.required is undefined on custom controls
-            attr.$observe('required', function() ***REMOVED***
+            attr.$observe('required', function() {
               elem.attr('aria-required', !!attr['required']);
-            ***REMOVED***);
-          ***REMOVED***
+            });
+          }
 
-          if (shouldAttachAttr('aria-invalid', 'ariaInvalid', elem, true)) ***REMOVED***
-            scope.$watch(function ngAriaInvalidWatch() ***REMOVED***
+          if (shouldAttachAttr('aria-invalid', 'ariaInvalid', elem, true)) {
+            scope.$watch(function ngAriaInvalidWatch() {
               return ngModel.$invalid;
-            ***REMOVED***, function ngAriaInvalidReaction(newVal) ***REMOVED***
+            }, function ngAriaInvalidReaction(newVal) {
               elem.attr('aria-invalid', !!newVal);
-            ***REMOVED***);
-          ***REMOVED***
-        ***REMOVED***
-      ***REMOVED***;
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***])
-.directive('ngDisabled', ['$aria', function($aria) ***REMOVED***
+            });
+          }
+        }
+      };
+    }
+  };
+}])
+.directive('ngDisabled', ['$aria', function($aria) {
   return $aria.$$watchExpr('ngDisabled', 'aria-disabled', nodeBlackList, false);
-***REMOVED***])
-.directive('ngMessages', function() ***REMOVED***
-  return ***REMOVED***
+}])
+.directive('ngMessages', function() {
+  return {
     restrict: 'A',
     require: '?ngMessages',
-    link: function(scope, elem, attr, ngMessages) ***REMOVED***
-      if (!elem.attr('aria-live')) ***REMOVED***
+    link: function(scope, elem, attr, ngMessages) {
+      if (!elem.attr('aria-live')) {
         elem.attr('aria-live', 'assertive');
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***)
-.directive('ngClick',['$aria', '$parse', function($aria, $parse) ***REMOVED***
-  return ***REMOVED***
+      }
+    }
+  };
+})
+.directive('ngClick',['$aria', '$parse', function($aria, $parse) {
+  return {
     restrict: 'A',
-    compile: function(elem, attr) ***REMOVED***
+    compile: function(elem, attr) {
       var fn = $parse(attr.ngClick, /* interceptorFn */ null, /* expensiveChecks */ true);
-      return function(scope, elem, attr) ***REMOVED***
+      return function(scope, elem, attr) {
 
-        if (!isNodeOneOf(elem, nodeBlackList)) ***REMOVED***
+        if (!isNodeOneOf(elem, nodeBlackList)) {
 
-          if ($aria.config('bindRoleForClick') && !elem.attr('role')) ***REMOVED***
+          if ($aria.config('bindRoleForClick') && !elem.attr('role')) {
             elem.attr('role', 'button');
-          ***REMOVED***
+          }
 
-          if ($aria.config('tabindex') && !elem.attr('tabindex')) ***REMOVED***
+          if ($aria.config('tabindex') && !elem.attr('tabindex')) {
             elem.attr('tabindex', 0);
-          ***REMOVED***
+          }
 
-          if ($aria.config('bindKeypress') && !attr.ngKeypress) ***REMOVED***
-            elem.on('keypress', function(event) ***REMOVED***
+          if ($aria.config('bindKeypress') && !attr.ngKeypress) {
+            elem.on('keypress', function(event) {
               var keyCode = event.which || event.keyCode;
-              if (keyCode === 32 || keyCode === 13) ***REMOVED***
+              if (keyCode === 32 || keyCode === 13) {
                 scope.$apply(callback);
-              ***REMOVED***
+              }
 
-              function callback() ***REMOVED***
-                fn(scope, ***REMOVED*** $event: event ***REMOVED***);
-              ***REMOVED***
-            ***REMOVED***);
-          ***REMOVED***
-        ***REMOVED***
-      ***REMOVED***;
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***])
-.directive('ngDblclick', ['$aria', function($aria) ***REMOVED***
-  return function(scope, elem, attr) ***REMOVED***
-    if ($aria.config('tabindex') && !elem.attr('tabindex') && !isNodeOneOf(elem, nodeBlackList)) ***REMOVED***
+              function callback() {
+                fn(scope, { $event: event });
+              }
+            });
+          }
+        }
+      };
+    }
+  };
+}])
+.directive('ngDblclick', ['$aria', function($aria) {
+  return function(scope, elem, attr) {
+    if ($aria.config('tabindex') && !elem.attr('tabindex') && !isNodeOneOf(elem, nodeBlackList)) {
       elem.attr('tabindex', 0);
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***]);
+    }
+  };
+}]);
 
 
-***REMOVED***)(window, window.angular);
+})(window, window.angular);

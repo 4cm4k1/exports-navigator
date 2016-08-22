@@ -1,7 +1,7 @@
-***REMOVED***
+{
   "_args": [
     [
-      ***REMOVED***
+      {
         "raw": "angular-material@1.1.0",
         "scope": null,
         "escapedName": "angular-material",
@@ -9,7 +9,7 @@
         "rawSpec": "1.1.0",
         "spec": "1.1.0",
         "type": "version"
-      ***REMOVED***,
+      },
       "/Users/4cm4k1/GitHub/exports-navigator"
     ]
   ],
@@ -19,17 +19,17 @@
   "_installable": true,
   "_location": "/angular-material",
   "_nodeVersion": "5.7.0",
-  "_npmOperationalInternal": ***REMOVED***
+  "_npmOperationalInternal": {
     "host": "packages-16-east.internal.npmjs.com",
     "tmp": "tmp/angular-material-1.1.0.tgz_1471454923336_0.17559621226973832"
-  ***REMOVED***,
-  "_npmUser": ***REMOVED***
+  },
+  "_npmUser": {
     "name": "angularcore",
     "email": "angular-core+npm@google.com"
-  ***REMOVED***,
+  },
   "_npmVersion": "3.7.5",
-  "_phantomChildren": ***REMOVED******REMOVED***,
-  "_requested": ***REMOVED***
+  "_phantomChildren": {},
+  "_requested": {
     "raw": "angular-material@1.1.0",
     "scope": null,
     "escapedName": "angular-material",
@@ -37,7 +37,7 @@
     "rawSpec": "1.1.0",
     "spec": "1.1.0",
     "type": "version"
-  ***REMOVED***,
+  },
   "_requiredBy": [
     "#USER",
     "/"
@@ -47,35 +47,35 @@
   "_shrinkwrap": null,
   "_spec": "angular-material@1.1.0",
   "_where": "/Users/4cm4k1/GitHub/exports-navigator",
-  "bugs": ***REMOVED***
+  "bugs": {
     "url": "https://github.com/angular/material/issues"
-  ***REMOVED***,
-  "dependencies": ***REMOVED******REMOVED***,
+  },
+  "dependencies": {},
   "description": "This repository is used only for Angular Material v1.x library deployments and localized installs using `npm` and `bower`. The actual component source-code for this library is in the [main Angular Material repository](https://github.com/angular/material).",
-  "devDependencies": ***REMOVED******REMOVED***,
-  "directories": ***REMOVED******REMOVED***,
-  "dist": ***REMOVED***
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
     "shasum": "09062ed64e6f257f62f194b06a06c8b95fcb2b65",
     "tarball": "https://registry.npmjs.org/angular-material/-/angular-material-1.1.0.tgz"
-  ***REMOVED***,
+  },
   "format": "cjs",
   "gitHead": "83d2db73af7c04355b03299b0d369312febea0ae",
   "homepage": "https://material.angularjs.org",
-  "jspm": ***REMOVED***
-    "dependencies": ***REMOVED***
+  "jspm": {
+    "dependencies": {
       "angular": "github:angular/bower-angular@^1.5.3",
       "angular-animate": "github:angular/bower-angular-animate@^1.5.3",
       "angular-aria": "github:angular/bower-angular-aria@^1.5.3",
       "angular-messages": "github:angular/bower-angular-messages@^1.5.3",
       "css": "systemjs/plugin-css@^0.1.9"
-    ***REMOVED***,
-    "shim": ***REMOVED***
-      "angular-material": ***REMOVED***
+    },
+    "shim": {
+      "angular-material": {
         "deps": []
-      ***REMOVED***
-    ***REMOVED***,
-    "peerDependencies": ***REMOVED******REMOVED***
-  ***REMOVED***,
+      }
+    },
+    "peerDependencies": {}
+  },
   "keywords": [
     "angular",
     "material",
@@ -83,31 +83,31 @@
     "client-side"
   ],
   "licenses": [
-    ***REMOVED***
+    {
       "type": "MIT",
       "url": "https://github.com/angular/material/blob/master/LICENSE"
-    ***REMOVED***
+    }
   ],
   "main": "index",
   "maintainers": [
-    ***REMOVED***
+    {
       "name": "angularcore",
       "email": "angular-core+npm@google.com"
-    ***REMOVED***
+    }
   ],
   "name": "angular-material",
-  "optionalDependencies": ***REMOVED******REMOVED***,
-  "peerDependencies": ***REMOVED***
+  "optionalDependencies": {},
+  "peerDependencies": {
     "angular": ">=1.3 <1.6",
     "angular-animate": ">=1.3 <1.6",
     "angular-aria": ">=1.3 <1.6"
-  ***REMOVED***,
+  },
   "readme": "ERROR: No README data found!",
   "registry": "github",
-  "repository": ***REMOVED***
+  "repository": {
     "type": "git",
     "url": "git://github.com/angular/material.git"
-  ***REMOVED***,
-  "scripts": ***REMOVED******REMOVED***,
+  },
+  "scripts": {},
   "version": "1.1.0"
-***REMOVED***
+}

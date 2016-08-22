@@ -23,21 +23,21 @@
  * Creates a new custom token (JWT) that can be sent back to a client to use
  * with signInWithCustomToken.
  *
- * @param ***REMOVED***string***REMOVED*** uid The uid to use as the subject
- * @param ***REMOVED***Object=***REMOVED*** developerClaims Optional additional claims to include
+ * @param {string} uid The uid to use as the subject
+ * @param {Object=} developerClaims Optional additional claims to include
  *     in the payload of the custom token (JWT)
  *
- * @return ***REMOVED***string***REMOVED*** The custom token (JWT) for the provided payload.
+ * @return {string} The custom token (JWT) for the provided payload.
  */
 firebase.auth.Auth.prototype.createCustomToken =
-    function(uid, developerClaims) ***REMOVED******REMOVED***;
+    function(uid, developerClaims) {};
 
 /**
  * Verifies a ID token (JWT). Returns a Promise with the tokens claims. Rejects
  * the promise if the token could not be verified.
  *
- * @param ***REMOVED***string***REMOVED*** idToken The ID token (JWT) to verify
- * @return ***REMOVED***!firebase.Promise<Object>***REMOVED*** The Promise that will be fulfilled after
+ * @param {string} idToken The ID token (JWT) to verify
+ * @return {!firebase.Promise<Object>} The Promise that will be fulfilled after
  *     a successful verification
  */
-firebase.auth.Auth.prototype.verifyIdToken = function(idToken) ***REMOVED******REMOVED***;
+firebase.auth.Auth.prototype.verifyIdToken = function(idToken) {};

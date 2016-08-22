@@ -32,11 +32,11 @@
  * ```
  *
  * @namespace
- * @param ***REMOVED***!firebase.app.App=***REMOVED*** app The app to create a storage service for.
+ * @param {!firebase.app.App=} app The app to create a storage service for.
  *     If not passed, uses the default app.
- * @return ***REMOVED***!firebase.storage.Storage***REMOVED***
+ * @return {!firebase.storage.Storage}
  */
-firebase.storage = function(app) ***REMOVED******REMOVED***;
+firebase.storage = function(app) {};
 
 /**
  * Access the Storage service from an App instance.
@@ -45,104 +45,104 @@ firebase.storage = function(app) ***REMOVED******REMOVED***;
  *
  *   app.storage()
  *
- * @return ***REMOVED***!firebase.storage.Storage***REMOVED***
+ * @return {!firebase.storage.Storage}
  */
-firebase.app.App.prototype.storage = function() ***REMOVED******REMOVED***;
+firebase.app.App.prototype.storage = function() {};
 
 /**
  * A service for uploading and downloading large objects to/from Google Cloud
  * Storage.
  * @interface
  */
-firebase.storage.Storage = function() ***REMOVED******REMOVED***;
+firebase.storage.Storage = function() {};
 
 /**
  * The app associated with this service.
- * @type ***REMOVED***!firebase.app.App***REMOVED***
+ * @type {!firebase.app.App}
  */
 firebase.storage.Storage.prototype.app;
 
 /**
  * Returns a reference for the given path in the default bucket.
- * @param ***REMOVED***string=***REMOVED*** path A relative path to initialize the reference with,
+ * @param {string=} path A relative path to initialize the reference with,
  *     for example `path/to/image.jpg`. If not passed, the returned reference
  *     points to the bucket root.
- * @return ***REMOVED***!firebase.storage.Reference***REMOVED*** A reference for the given path.
+ * @return {!firebase.storage.Reference} A reference for the given path.
  */
-firebase.storage.Storage.prototype.ref = function(path) ***REMOVED******REMOVED***;
+firebase.storage.Storage.prototype.ref = function(path) {};
 
 /**
  * Returns a reference for the given absolute URL.
- * @param ***REMOVED***string***REMOVED*** url A URL in the form: <br />
+ * @param {string} url A URL in the form: <br />
  *     1) a gs:// URL, for example `gs://bucket/files/image.png` <br />
  *     2) a download URL taken from object metadata. <br />
- *     @see ***REMOVED***@link firebase.storage.FullMetadata.prototype.downloadURLs***REMOVED***
- * @return ***REMOVED***!firebase.storage.Reference***REMOVED*** A reference for the given URL.
+ *     @see {@link firebase.storage.FullMetadata.prototype.downloadURLs}
+ * @return {!firebase.storage.Reference} A reference for the given URL.
  */
-firebase.storage.Storage.prototype.refFromURL = function(url) ***REMOVED******REMOVED***;
+firebase.storage.Storage.prototype.refFromURL = function(url) {};
 
 /**
  * The maximum time to retry operations other than uploads or downloads in
  * milliseconds.
- * @type ***REMOVED***number***REMOVED***
+ * @type {number}
  */
 firebase.storage.Storage.prototype.maxOperationRetryTime;
 
 /**
- * @param ***REMOVED***number***REMOVED*** time The new maximum operation retry time in milliseconds.
- * @see ***REMOVED***@link firebase.storage.Storage.prototype.maxOperationRetryTime***REMOVED***
+ * @param {number} time The new maximum operation retry time in milliseconds.
+ * @see {@link firebase.storage.Storage.prototype.maxOperationRetryTime}
  */
-firebase.storage.Storage.prototype.setMaxOperationRetryTime = function(time) ***REMOVED******REMOVED***;
+firebase.storage.Storage.prototype.setMaxOperationRetryTime = function(time) {};
 
 /**
  * The maximum time to retry uploads in milliseconds.
- * @type ***REMOVED***number***REMOVED***
+ * @type {number}
  */
 firebase.storage.Storage.prototype.maxUploadRetryTime;
 
 /**
- * @param ***REMOVED***number***REMOVED*** time The new maximum upload retry time in milliseconds.
- * @see ***REMOVED***@link firebase.storage.Storage.prototype.maxUploadRetryTime***REMOVED***
+ * @param {number} time The new maximum upload retry time in milliseconds.
+ * @see {@link firebase.storage.Storage.prototype.maxUploadRetryTime}
  */
-firebase.storage.Storage.prototype.setMaxUploadRetryTime = function(time) ***REMOVED******REMOVED***;
+firebase.storage.Storage.prototype.setMaxUploadRetryTime = function(time) {};
 
 /**
  * Represents a reference to a Google Cloud Storage object. Developers can
  * upload, download, and delete objects, as well as get/set object metadata.
  * @interface
  */
-firebase.storage.Reference = function() ***REMOVED******REMOVED***;
+firebase.storage.Reference = function() {};
 
 /**
  * Returns a gs:// URL for this object in the form
  *   `gs://<bucket>/<path>/<to>/<object>`
- * @return ***REMOVED***string***REMOVED*** The gs:// URL.
+ * @return {string} The gs:// URL.
  */
-firebase.storage.Reference.prototype.toString = function() ***REMOVED******REMOVED***;
+firebase.storage.Reference.prototype.toString = function() {};
 
 /**
  * Returns a reference to a relative path from this reference.
- * @param ***REMOVED***string***REMOVED*** path The relative path from this reference.
+ * @param {string} path The relative path from this reference.
  *     Leading, trailing, and consecutive slashes are removed.
- * @return ***REMOVED***!firebase.storage.Reference***REMOVED*** The reference a the given path.
+ * @return {!firebase.storage.Reference} The reference a the given path.
  */
-firebase.storage.Reference.prototype.child = function(path) ***REMOVED******REMOVED***;
+firebase.storage.Reference.prototype.child = function(path) {};
 
 /**
  * Uploads data to this reference's location.
- * @param ***REMOVED***!Blob|!Uint8Array|!ArrayBuffer***REMOVED*** data The data to upload.
- * @param ***REMOVED***!firebase.storage.UploadMetadata=***REMOVED*** metadata Metadata for the newly
+ * @param {!Blob|!Uint8Array|!ArrayBuffer} data The data to upload.
+ * @param {!firebase.storage.UploadMetadata=} metadata Metadata for the newly
  *     uploaded object.
- * @return ***REMOVED***!firebase.storage.UploadTask***REMOVED*** An object that can be used to monitor
+ * @return {!firebase.storage.UploadTask} An object that can be used to monitor
  *     and manage the upload.
  */
-firebase.storage.Reference.prototype.put = function(data, metadata) ***REMOVED******REMOVED***;
+firebase.storage.Reference.prototype.put = function(data, metadata) {};
 
 /**
- * @enum ***REMOVED***string***REMOVED***
+ * @enum {string}
  * An enumeration of the possible string formats for upload.
  */
-firebase.storage.StringFormat = ***REMOVED***
+firebase.storage.StringFormat = {
   /**
    * Indicates the string should be interpreted "raw", that is, as normal text.
    * The string will be interpreted as UTF-16, then uploaded as a UTF-8 byte
@@ -175,94 +175,94 @@ firebase.storage.StringFormat = ***REMOVED***
    * be overridden in the metadata object).
    */
   DATA_URL: 'data_url'
-***REMOVED***;
+};
 
 /**
  * Uploads string data to this reference's location.
- * @param ***REMOVED***string***REMOVED*** data The string to upload.
- * @param ***REMOVED***!firebase.storage.StringFormat=***REMOVED*** format The format of the string to
+ * @param {string} data The string to upload.
+ * @param {!firebase.storage.StringFormat=} format The format of the string to
  *     upload.
- * @param ***REMOVED***!firebase.storage.UploadMetadata=***REMOVED*** metadata Metadata for the newly
+ * @param {!firebase.storage.UploadMetadata=} metadata Metadata for the newly
  *     uploaded object.
- * @return ***REMOVED***!firebase.storage.UploadTask***REMOVED***
+ * @return {!firebase.storage.UploadTask}
  * @throws If the format is not an allowed format, or if the given string
  *     doesn't conform to the specified format.
  */
 firebase.storage.Reference.prototype.putString = function(
-    data, format, metadata) ***REMOVED******REMOVED***;
+    data, format, metadata) {};
 
 
 /**
  * Deletes the object at this reference's location.
- * @return ***REMOVED***!Promise<void>***REMOVED*** A promise that resolves if the deletion succeeded
+ * @return {!Promise<void>} A promise that resolves if the deletion succeeded
  *     and rejects if it failed, including if the object didn't exist.
  */
-firebase.storage.Reference.prototype.delete = function() ***REMOVED******REMOVED***;
+firebase.storage.Reference.prototype.delete = function() {};
 
 /**
  * Fetches metadata for the object at this location, if one exists.
- * @return ***REMOVED***!Promise<firebase.storage.FullMetadata>***REMOVED*** A promise that resolves
+ * @return {!Promise<firebase.storage.FullMetadata>} A promise that resolves
  *     with the metadata, or rejects if the fetch failed, including if the
  *     object did not exist.
  */
-firebase.storage.Reference.prototype.getMetadata = function() ***REMOVED******REMOVED***;
+firebase.storage.Reference.prototype.getMetadata = function() {};
 
 /**
  * Updates the metadata for the object at this location, if one exists.
- * @param ***REMOVED***!firebase.storage.SettableMetadata***REMOVED*** metadata The new metadata.
+ * @param {!firebase.storage.SettableMetadata} metadata The new metadata.
  *     Setting a property to 'null' removes it on the server, while leaving
  *     a property as 'undefined' has no effect.
- * @return ***REMOVED***!Promise<firebase.storage.FullMetadata>***REMOVED*** A promise that resolves
+ * @return {!Promise<firebase.storage.FullMetadata>} A promise that resolves
  *     with the full updated metadata or rejects if the updated failed,
  *     including if the object did not exist.
  */
-firebase.storage.Reference.prototype.updateMetadata = function(metadata) ***REMOVED******REMOVED***;
+firebase.storage.Reference.prototype.updateMetadata = function(metadata) {};
 
 
 /**
  * Fetches a long lived download URL for this object.
- * @return ***REMOVED***!Promise<string>***REMOVED*** A promise that resolves with the download URL or
+ * @return {!Promise<string>} A promise that resolves with the download URL or
  *     rejects if the fetch failed, including if the object did not exist.
  */
-firebase.storage.Reference.prototype.getDownloadURL = function() ***REMOVED******REMOVED***;
+firebase.storage.Reference.prototype.getDownloadURL = function() {};
 
 
 /**
  * A reference pointing to the parent location of this reference, or null if
  * this reference is the root.
- * @type ***REMOVED***?firebase.storage.Reference***REMOVED***
+ * @type {?firebase.storage.Reference}
  */
 firebase.storage.Reference.prototype.parent;
 
 
 /**
  * A reference to the root of this reference's bucket.
- * @type ***REMOVED***!firebase.storage.Reference***REMOVED***
+ * @type {!firebase.storage.Reference}
  */
 firebase.storage.Reference.prototype.root;
 
 /**
  * The name of the bucket containing this reference's object.
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.storage.Reference.prototype.bucket;
 
 /**
  * The full path of this object.
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.storage.Reference.prototype.fullPath;
 
 /**
  * The short name of this object, which is the last component of the full path.
  * For example, if fullPath is 'full/path/image.png', name is 'image.png'.
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.storage.Reference.prototype.name;
 
 /**
  * The storage service associated with this reference.
- * @type ***REMOVED***!firebase.storage.Storage***REMOVED***
+ * @type {!firebase.storage.Storage}
  */
 firebase.storage.Reference.prototype.storage;
 
@@ -271,133 +271,133 @@ firebase.storage.Reference.prototype.storage;
  * Object metadata that can be set at any time.
  * @interface
  */
-firebase.storage.SettableMetadata = function() ***REMOVED******REMOVED***;
+firebase.storage.SettableMetadata = function() {};
 
 /**
  * Served as the 'Cache-Control' header on object download.
- * @type ***REMOVED***?string|undefined***REMOVED***
+ * @type {?string|undefined}
  */
 firebase.storage.SettableMetadata.prototype.cacheControl;
 
 /**
  * Served as the 'Content-Disposition' header on object download.
- * @type ***REMOVED***?string|undefined***REMOVED***
+ * @type {?string|undefined}
  */
 firebase.storage.SettableMetadata.prototype.contentDisposition;
 
 /**
  * Served as the 'Content-Encoding' header on object download.
- * @type ***REMOVED***?string|undefined***REMOVED***
+ * @type {?string|undefined}
  */
 firebase.storage.SettableMetadata.prototype.contentEncoding;
 
 /**
  * Served as the 'Content-Language' header on object download.
- * @type ***REMOVED***?string|undefined***REMOVED***
+ * @type {?string|undefined}
  */
 firebase.storage.SettableMetadata.prototype.contentLanguage;
 
 /**
  * Served as the 'Content-Type' header on object download.
- * @type ***REMOVED***?string|undefined***REMOVED***
+ * @type {?string|undefined}
  */
 firebase.storage.SettableMetadata.prototype.contentType;
 
 /**
  * Additional user-defined custom metadata.
- * @type ***REMOVED***?Object<string>|undefined***REMOVED***
+ * @type {?Object<string>|undefined}
  */
 firebase.storage.SettableMetadata.prototype.customMetadata;
 
 /**
  * Object metadata that can be set at upload.
  * @interface
- * @extends ***REMOVED***firebase.storage.SettableMetadata***REMOVED***
+ * @extends {firebase.storage.SettableMetadata}
  */
-firebase.storage.UploadMetadata = function() ***REMOVED******REMOVED***;
+firebase.storage.UploadMetadata = function() {};
 
 /**
  * A Base64-encoded MD5 hash of the object being uploaded.
- * @type ***REMOVED***?string|undefined***REMOVED***
+ * @type {?string|undefined}
  */
 firebase.storage.UploadMetadata.prototype.md5Hash;
 
 /**
  * The full set of object metadata, including read-only properties.
  * @interface
- * @extends ***REMOVED***firebase.storage.UploadMetadata***REMOVED***
+ * @extends {firebase.storage.UploadMetadata}
  */
-firebase.storage.FullMetadata = function() ***REMOVED******REMOVED***;
+firebase.storage.FullMetadata = function() {};
 
 /**
  * The bucket this object is contained in.
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.storage.FullMetadata.prototype.bucket;
 
 /**
  * The object's generation.
- * @type ***REMOVED***string***REMOVED***
- * @see ***REMOVED***@link https://cloud.google.com/storage/docs/generations-preconditions***REMOVED***
+ * @type {string}
+ * @see {@link https://cloud.google.com/storage/docs/generations-preconditions}
  */
 firebase.storage.FullMetadata.prototype.generation;
 
 /**
  * The object's metageneration.
- * @type ***REMOVED***string***REMOVED***
- * @see ***REMOVED***@link https://cloud.google.com/storage/docs/generations-preconditions***REMOVED***
+ * @type {string}
+ * @see {@link https://cloud.google.com/storage/docs/generations-preconditions}
  */
 firebase.storage.FullMetadata.prototype.metageneration;
 
 /**
  * The full path of this object.
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.storage.FullMetadata.prototype.fullPath;
 
 /**
  * The short name of this object, which is the last component of the full path.
  * For example, if fullPath is 'full/path/image.png', name is 'image.png'.
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.storage.FullMetadata.prototype.name;
 
 /**
  * The size of this object, in bytes.
- * @type ***REMOVED***number***REMOVED***
+ * @type {number}
  */
 firebase.storage.FullMetadata.prototype.size;
 
 /**
  * A date string representing when this object was created.
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.storage.FullMetadata.prototype.timeCreated;
 
 /**
  * A date string representing when this object was last updated.
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.storage.FullMetadata.prototype.updated;
 
 /**
  * An array of long-lived download URLs. Always contains at least one URL.
- * @type ***REMOVED***!Array<string>***REMOVED***
+ * @type {!Array<string>}
  */
 firebase.storage.FullMetadata.prototype.downloadURLs;
 
 /**
  * An event that is triggered on a task.
- * @enum ***REMOVED***string***REMOVED***
- * @see ***REMOVED***@link firebase.storage.UploadTask.prototype.on***REMOVED***
+ * @enum {string}
+ * @see {@link firebase.storage.UploadTask.prototype.on}
  */
-firebase.storage.TaskEvent = ***REMOVED***
+firebase.storage.TaskEvent = {
   /**
    * For this event,
    * <ul>
    *   <li>The `next` function is triggered on progress updates and when the
    *       task is paused/resumed with a
-   *       ***REMOVED***@link firebase.storage.UploadTaskSnapshot***REMOVED*** as the first
+   *       {@link firebase.storage.UploadTaskSnapshot} as the first
    *       argument.</li>
    *   <li>The `error` function is triggered if the upload is canceled or fails
    *       for another reason.</li>
@@ -406,13 +406,13 @@ firebase.storage.TaskEvent = ***REMOVED***
    * </ul>
    */
   STATE_CHANGED: 'state_changed'
-***REMOVED***;
+};
 
 /**
  * Represents the current state of a running upload.
- * @enum ***REMOVED***string***REMOVED***
+ * @enum {string}
  */
-firebase.storage.TaskState = ***REMOVED***
+firebase.storage.TaskState = {
   /** Indicates that the task is still running and making progress. */
   RUNNING: 'running',
   /** Indicates that the task is paused. */
@@ -423,32 +423,32 @@ firebase.storage.TaskState = ***REMOVED***
   CANCELED: 'canceled',
   /** Indicates that the task failed for a reason other than being canceled. */
   ERROR: 'error'
-***REMOVED***;
+};
 
 /**
  * Represents the process of uploading an object. Allows you to monitor and
  * manage the upload.
  * @interface
  */
-firebase.storage.UploadTask = function() ***REMOVED******REMOVED***;
+firebase.storage.UploadTask = function() {};
 
 /**
  * This object behaves like a Promise, and resolves with its snapshot data when
  * the upload completes.
- * @param ***REMOVED***(?function(!firebase.storage.UploadTaskSnapshot):*)=***REMOVED*** onFulfilled
+ * @param {(?function(!firebase.storage.UploadTaskSnapshot):*)=} onFulfilled
  *     The fulfillment callback. Promise chaining works as normal.
- * @param ***REMOVED***(?function(!Error):*)=***REMOVED*** onRejected The rejection callback.
- * @return ***REMOVED***!Promise***REMOVED***
+ * @param {(?function(!Error):*)=} onRejected The rejection callback.
+ * @return {!Promise}
  */
-firebase.storage.UploadTask.prototype.then = function(onFulfilled, onRejected) ***REMOVED***
-***REMOVED***;
+firebase.storage.UploadTask.prototype.then = function(onFulfilled, onRejected) {
+};
 
 /**
  * Equivalent to calling `then(null, onRejected)`.
- * @param ***REMOVED***!function(!Error):****REMOVED*** onRejected
- * @return ***REMOVED***!Promise***REMOVED***
+ * @param {!function(!Error):*} onRejected
+ * @return {!Promise}
  */
-firebase.storage.UploadTask.prototype.catch = function(onRejected) ***REMOVED******REMOVED***;
+firebase.storage.UploadTask.prototype.catch = function(onRejected) {};
 
 /**
  * Listens for events on this task.
@@ -466,9 +466,9 @@ firebase.storage.UploadTask.prototype.catch = function(onRejected) ***REMOVED***
  * function to unregister the associated callbacks.
  *
  * @example <caption>Pass callbacks separately or in an object.</caption>
- * var next = function(snapshot) ***REMOVED******REMOVED***;
- * var error = function(error) ***REMOVED******REMOVED***;
- * var complete = function() ***REMOVED******REMOVED***;
+ * var next = function(snapshot) {};
+ * var error = function(error) {};
+ * var complete = function() {};
  *
  * // The first example.
  * uploadTask.on(
@@ -478,11 +478,11 @@ firebase.storage.UploadTask.prototype.catch = function(onRejected) ***REMOVED***
  *     complete);
  *
  * // This is equivalent to the first example.
- * uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, ***REMOVED***
+ * uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, {
  *   'next': next,
  *   'error': error,
  *   'complete': complete
- * ***REMOVED***);
+ * });
  *
  * // This is equivalent to the first example.
  * var subscribe = uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED);
@@ -490,11 +490,11 @@ firebase.storage.UploadTask.prototype.catch = function(onRejected) ***REMOVED***
  *
  * // This is equivalent to the first example.
  * var subscribe = uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED);
- * subscribe(***REMOVED***
+ * subscribe({
  *   'next': next,
  *   'error': error,
  *   'complete': complete
- * ***REMOVED***);
+ * });
  *
  * @example <caption>Any callback is optional.</caption>
  * // Just listening for completion, this is legal.
@@ -502,84 +502,84 @@ firebase.storage.UploadTask.prototype.catch = function(onRejected) ***REMOVED***
  *     firebase.storage.TaskEvent.STATE_CHANGED,
  *     null,
  *     null,
- *     function() ***REMOVED***
+ *     function() {
  *       console.log('upload complete!');
- *     ***REMOVED***);
+ *     });
  *
  * // Just listening for progress/state changes, this is legal.
- * uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function(snapshot) ***REMOVED***
+ * uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function(snapshot) {
  *   var percent = snapshot.bytesTransferred / snapshot.totalBytes * 100;
  *   console.log(percent + "% done");
- * ***REMOVED***);
+ * });
  *
  * // This is also legal.
- * uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, ***REMOVED***
- *   'complete': function() ***REMOVED***
+ * uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, {
+ *   'complete': function() {
  *     console.log('upload complete!');
- *   ***REMOVED***
- * ***REMOVED***);
+ *   }
+ * });
  *
  * @example <caption>Use the returned function to remove callbacks.</caption>
  * var unsubscribe = uploadTask.on(
  *     firebase.storage.TaskEvent.STATE_CHANGED,
- *     function(snapshot) ***REMOVED***
+ *     function(snapshot) {
  *       var percent = snapshot.bytesTransferred / snapshot.totalBytes * 100;
  *       console.log(percent + "% done");
  *       // Stop after receiving one update.
  *       unsubscribe();
- *     ***REMOVED***);
+ *     });
  *
  * // This code is equivalent to the above.
  * var handle = uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED);
- * unsubscribe = handle(function(snapshot) ***REMOVED***
+ * unsubscribe = handle(function(snapshot) {
  *   var percent = snapshot.bytesTransferred / snapshot.totalBytes * 100;
  *   console.log(percent + "% done");
  *   // Stop after receiving one update.
  *   unsubscribe();
- * ***REMOVED***);
+ * });
  *
- * @param ***REMOVED***!firebase.storage.TaskEvent***REMOVED*** event The event to listen for.
- * @param ***REMOVED***(?function(!Object)|!Object)=***REMOVED*** nextOrObserver The `next` function,
+ * @param {!firebase.storage.TaskEvent} event The event to listen for.
+ * @param {(?function(!Object)|!Object)=} nextOrObserver The `next` function,
  *     which gets called for each item in the event stream, or an observer
  *     object with some or all of these three properties (`next`, `error`,
  *     `complete`).
- * @param ***REMOVED***?function(!Error)=***REMOVED*** error A function that gets called with an Error
+ * @param {?function(!Error)=} error A function that gets called with an Error
  *     if the event stream ends due to an error.
- * @param ***REMOVED***?function()=***REMOVED*** complete A function that gets called if the
+ * @param {?function()=} complete A function that gets called if the
  *     event stream ends normally.
- * @return ***REMOVED***
+ * @return {
  *     !function()|
  *     !function(?function(!Object),?function(!Error)=,?function()=)
- *       :!function()***REMOVED***
+ *       :!function()}
  *     If only the event argument is passed, returns a function you can use to
  *     add callbacks (see the examples above). If more than just the event
  *     argument is passed, returns a function you can call to unregister the
  *     callbacks.
  */
 firebase.storage.UploadTask.prototype.on = function(
-    event, nextOrObserver, error, complete) ***REMOVED******REMOVED***;
+    event, nextOrObserver, error, complete) {};
 
 /**
  * Resumes a paused task. Has no effect on a running or failed task.
- * @return ***REMOVED***boolean***REMOVED*** True if the resume had an effect.
+ * @return {boolean} True if the resume had an effect.
  */
-firebase.storage.UploadTask.prototype.resume = function() ***REMOVED******REMOVED***;
+firebase.storage.UploadTask.prototype.resume = function() {};
 
 /**
  * Pauses a running task. Has no effect on a paused or failed task.
- * @return ***REMOVED***boolean***REMOVED*** True if the pause had an effect.
+ * @return {boolean} True if the pause had an effect.
  */
-firebase.storage.UploadTask.prototype.pause = function() ***REMOVED******REMOVED***;
+firebase.storage.UploadTask.prototype.pause = function() {};
 
 /**
  * Cancels a running task. Has no effect on a complete or failed task.
- * @return ***REMOVED***boolean***REMOVED*** True if the cancel had an effect.
+ * @return {boolean} True if the cancel had an effect.
  */
-firebase.storage.UploadTask.prototype.cancel = function() ***REMOVED******REMOVED***;
+firebase.storage.UploadTask.prototype.cancel = function() {};
 
 /**
  * A snapshot of the current task state.
- * @type ***REMOVED***!firebase.storage.UploadTaskSnapshot***REMOVED***
+ * @type {!firebase.storage.UploadTaskSnapshot}
  */
 firebase.storage.UploadTask.prototype.snapshot;
 
@@ -587,48 +587,48 @@ firebase.storage.UploadTask.prototype.snapshot;
  * Holds data about the current state of the upload task.
  * @interface
  */
-firebase.storage.UploadTaskSnapshot = function() ***REMOVED******REMOVED***;
+firebase.storage.UploadTaskSnapshot = function() {};
 
 /**
  * The number of bytes that have been successfully uploaded so far.
- * @type ***REMOVED***number***REMOVED***
+ * @type {number}
  */
 firebase.storage.UploadTaskSnapshot.prototype.bytesTransferred;
 
 /**
  * The total number of bytes to be uploaded.
- * @type ***REMOVED***number***REMOVED***
+ * @type {number}
  */
 firebase.storage.UploadTaskSnapshot.prototype.totalBytes;
 
 /**
  * The current state of the task.
- * @type ***REMOVED***firebase.storage.TaskState***REMOVED***
+ * @type {firebase.storage.TaskState}
  */
 firebase.storage.UploadTaskSnapshot.prototype.state;
 
 /**
  * Before the upload completes, contains the metadata sent to the server.
  * After the upload completes, contains the metadata sent back from the server.
- * @type ***REMOVED***!firebase.storage.FullMetadata***REMOVED***
+ * @type {!firebase.storage.FullMetadata}
  */
 firebase.storage.UploadTaskSnapshot.prototype.metadata;
 
 /**
  * After the upload completes, contains a long-lived download URL for the
  * object. Also accessible in metadata.
- * @type ***REMOVED***?string***REMOVED***
+ * @type {?string}
  */
 firebase.storage.UploadTaskSnapshot.prototype.downloadURL;
 
 /**
  * The task of which this is a snapshot.
- * @type ***REMOVED***!firebase.storage.UploadTask***REMOVED***
+ * @type {!firebase.storage.UploadTask}
  */
 firebase.storage.UploadTaskSnapshot.prototype.task;
 
 /**
  * The reference that spawned this snapshot's upload task.
- * @type ***REMOVED***!firebase.storage.Reference***REMOVED***
+ * @type {!firebase.storage.Reference}
  */
 firebase.storage.UploadTaskSnapshot.prototype.ref;

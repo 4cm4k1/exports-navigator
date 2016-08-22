@@ -30,12 +30,12 @@ Include Firebase in your web application via a `<script>` tag:
 <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
 
 <script>
-  var app = firebase.initializeApp(***REMOVED***
+  var app = firebase.initializeApp({
     apiKey: '<your-api-key>',
     authDomain: '<your-auth-domain>',
     databaseURL: '<your-database-url>',
     storageBucket: '<your-storage-bucket>'
-  ***REMOVED***);
+  });
   // ...
 </script>
 ```
@@ -62,7 +62,7 @@ In your code, you can access Firebase using:
 
 ```
 var firebase = require('firebase');
-var app = firebase.initializeApp(***REMOVED*** ... ***REMOVED***);
+var app = firebase.initializeApp({ ... });
 // ...
 ```
 
@@ -90,7 +90,7 @@ first):
 <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-storage.js"></script>
 
 <script>
-  var app = firebase.initializeApp(***REMOVED*** ... ***REMOVED***);
+  var app = firebase.initializeApp({ ... });
   // ...
 </script>
 ```
@@ -102,7 +102,7 @@ var firebase = require('firebase/app');
 require('firebase/auth');
 require('firebase/database');
 
-var app = firebase.initializeApp(***REMOVED*** ... ***REMOVED***);
+var app = firebase.initializeApp({ ... });
 // ...
 ```
 
@@ -126,7 +126,7 @@ In your code, you can access Firebase using:
 
 ```
 var firebase = require('firebase');
-var app = firebase.initializeApp(***REMOVED*** ... ***REMOVED***);
+var app = firebase.initializeApp({ ... });
 // ...
 ```
 
@@ -141,7 +141,7 @@ $ npm install --save gcloud
 In your code, you can access your Storage bucket using:
 
 ```
-var gcloud = require('gcloud')(***REMOVED*** ... ***REMOVED***);
+var gcloud = require('gcloud')({ ... });
 var gcs = gcloud.storage();
 var bucket = gcs.bucket('<your-firebase-storage-bucket>');
 ...

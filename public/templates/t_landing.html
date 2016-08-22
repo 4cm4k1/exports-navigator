@@ -6,19 +6,19 @@
 <body ng-app="exports-navigator" ng-controller="FoodAgCtrl as foodag">
 
 <form ng-model="foodagContact">
-  <input type="radio" ng-model="foodagContact" value="food_aggribusiness">***REMOVED******REMOVED***food.option***REMOVED******REMOVED***
-  <input type="radio" ng-model="meddevContact" value="meddev_pharma_lifesci">***REMOVED******REMOVED***med.option***REMOVED******REMOVED***
-  <input type="radio" ng-model="other" value="other">***REMOVED******REMOVED******REMOVED******REMOVED***
+  <input type="radio" ng-model="foodagContact" value="food_aggribusiness">{{food.option}}
+  <input type="radio" ng-model="meddevContact" value="meddev_pharma_lifesci">{{med.option}}
+  <input type="radio" ng-model="other" value="other">{{}}
 </form>
 
 <div ng-switch="industry_sector">
   <div ng-switch-when="food_aggribusiness">
-     <h1>***REMOVED******REMOVED***foodag_export.message***REMOVED******REMOVED***</h1>
-     <p>***REMOVED******REMOVED***foodag_export.contact***REMOVED******REMOVED***</p>
+     <h1>{{foodag_export.message}}</h1>
+     <p>{{foodag_export.contact}}</p>
   </div> -->
   <!-- <div ng-switch-when="meddev_pharma_lifesci">
-     <h1>***REMOVED******REMOVED***med.message***REMOVED******REMOVED***</h1>
-     <p>***REMOVED******REMOVED***med.contact***REMOVED******REMOVED***</p>
+     <h1>{{med.message}}</h1>
+     <p>{{med.contact}}</p>
   </div>
   <div ng-switch-when="other" ng-include="topicSearch.html">
   </div>

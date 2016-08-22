@@ -1,18 +1,18 @@
 // //client/scripts/IndustryCtrl.js User Industry View Controller
-// (function() ***REMOVED***
+// (function() {
 //     'use strict';
 //
 //     angular.module('exportsNavigator').controller('IndustryCtrl', IndustryCtrl);
 //     IndustryCtrl.$inject = ['$state', 'industriesService', 'industries', 'industry'];
 //
-//     function IndustryCtrl(Industry) ***REMOVED***
+//     function IndustryCtrl(Industry) {
 //         var vm = this;
 //
 //
-//     ***REMOVED***
-// ***REMOVED***)();
+//     }
+// })();
 //
-//     function industryData($state, industriesService, industries, industry) ***REMOVED***
+//     function industryData($state, industriesService, industries, industry) {
 //
 //     this.industry = industry.data;
 //
@@ -20,17 +20,17 @@
 //
 //     this.industries = industries.data;
 //
-//     this.saveIndustry = function() ***REMOVED***
+//     this.saveIndustry = function() {
 //         industriesService.saveIndustry(this.industry)
-//             .then(function() ***REMOVED***
+//             .then(function() {
 //                 $state.go('industries');
-//             ***REMOVED***);
-//     ***REMOVED***;
+//             });
+//     };
 //
-//     this.searchIndustries = function(query) ***REMOVED***
+//     this.searchIndustries = function(query) {
 //         if (!query.length) return $state.go('industries');
 //
-//         $state.go('search', ***REMOVED***query: query***REMOVED***);
-//     ***REMOVED***;
+//         $state.go('search', {query: query});
+//     };
 //
-// ***REMOVED***
+// }

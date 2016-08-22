@@ -4,7 +4,7 @@
  * @license MIT
  * v1.1.0
  */
-(function( window, angular, undefined )***REMOVED***
+(function( window, angular, undefined ){
 "use strict";
 
 /**
@@ -28,21 +28,21 @@ angular
  * Warn if detected.
  * ngInject
  */
-function DetectNgTouch($log, $injector) ***REMOVED***
-  if ( $injector.has('$swipe') ) ***REMOVED***
+function DetectNgTouch($log, $injector) {
+  if ( $injector.has('$swipe') ) {
     var msg = "" +
       "You are using the ngTouch module. \n" +
       "Angular Material already has mobile click, tap, and swipe support... \n" +
       "ngTouch is not supported with Angular Material!";
     $log.warn(msg);
-  ***REMOVED***
-***REMOVED***
+  }
+}
 DetectNgTouch.$inject = ["$log", "$injector"];
 
 /**
  * ngInject
  */
-function MdCoreConfigure($provide, $mdThemingProvider) ***REMOVED***
+function MdCoreConfigure($provide, $mdThemingProvider) {
 
   $provide.decorator('$$rAF', ["$delegate", rAFDecorator]);
 
@@ -51,13 +51,13 @@ function MdCoreConfigure($provide, $mdThemingProvider) ***REMOVED***
     .accentPalette('pink')
     .warnPalette('deep-orange')
     .backgroundPalette('grey');
-***REMOVED***
+}
 MdCoreConfigure.$inject = ["$provide", "$mdThemingProvider"];
 
 /**
  * ngInject
  */
-function rAFDecorator($delegate) ***REMOVED***
+function rAFDecorator($delegate) {
   /**
    * Use this to throttle events that come in often.
    * The throttled function will always use the *last* invocation before the
@@ -68,25 +68,25 @@ function rAFDecorator($delegate) ***REMOVED***
    * our callback will only be fired once per frame, with the last resize
    * event that happened before that frame.
    *
-   * @param ***REMOVED***function***REMOVED*** callback function to debounce
+   * @param {function} callback function to debounce
    */
-  $delegate.throttle = function(cb) ***REMOVED***
+  $delegate.throttle = function(cb) {
     var queuedArgs, alreadyQueued, queueCb, context;
-    return function debounced() ***REMOVED***
+    return function debounced() {
       queuedArgs = arguments;
       context = this;
       queueCb = cb;
-      if (!alreadyQueued) ***REMOVED***
+      if (!alreadyQueued) {
         alreadyQueued = true;
-        $delegate(function() ***REMOVED***
+        $delegate(function() {
           queueCb.apply(context, Array.prototype.slice.call(queuedArgs));
           alreadyQueued = false;
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***;
+        });
+      }
+    };
+  };
   return $delegate;
-***REMOVED***
+}
 rAFDecorator.$inject = ["$delegate"];
 
 angular.module('material.core')
@@ -132,8 +132,8 @@ angular.module('material.core')
  *    <md-list-item ng-repeat="item in items">
  *
  *      <md-button md-autofocus="$index == 2">
- *        <md-icon md-svg-src="***REMOVED******REMOVED***item.icon***REMOVED******REMOVED***"></md-icon>
- *        <span class="md-inline-list-icon-label">***REMOVED******REMOVED*** item.name ***REMOVED******REMOVED***</span>
+ *        <md-icon md-svg-src="{{item.icon}}"></md-icon>
+ *        <span class="md-inline-list-icon-label">{{ item.name }}</span>
  *      </md-button>
  *
  *    </md-list-item>
@@ -149,7 +149,7 @@ angular.module('material.core')
  *       md-search-text="searchText"
  *       md-items="item in getMatches(searchText)"
  *       md-item-text="item.display">
- *     <span md-highlight-text="searchText">***REMOVED******REMOVED***item.display***REMOVED******REMOVED***</span>
+ *     <span md-highlight-text="searchText">{{item.display}}</span>
  *   </md-autocomplete>
  * </hljs>
  *
@@ -181,22 +181,22 @@ angular.module('material.core')
  * </div>
  * </hljs>
  **/
-function MdAutofocusDirective() ***REMOVED***
-  return ***REMOVED***
+function MdAutofocusDirective() {
+  return {
     restrict: 'A',
 
     link: postLink
-  ***REMOVED***
-***REMOVED***
+  }
+}
 
-function postLink(scope, element, attrs) ***REMOVED***
+function postLink(scope, element, attrs) {
   var attr = attrs.mdAutoFocus || attrs.mdAutofocus || attrs.mdSidenavFocus;
 
   // Setup a watcher on the proper attribute to update a class we can check for in $mdUtil
-  scope.$watch(attr, function(canAutofocus) ***REMOVED***
+  scope.$watch(attr, function(canAutofocus) {
     element.toggleClass('md-autofocus', canAutofocus);
-  ***REMOVED***);
-***REMOVED***
+  });
+}
 
 /**
  * @ngdoc module
@@ -208,32 +208,32 @@ angular
   .module('material.core')
   .factory('$mdColorUtil', ColorUtilFactory);
 
-function ColorUtilFactory() ***REMOVED***
+function ColorUtilFactory() {
   /**
    * Converts hex value to RGBA string
-   * @param color ***REMOVED***string***REMOVED***
-   * @returns ***REMOVED***string***REMOVED***
+   * @param color {string}
+   * @returns {string}
    */
-  function hexToRgba (color) ***REMOVED***
+  function hexToRgba (color) {
     var hex   = color[ 0 ] === '#' ? color.substr(1) : color,
       dig   = hex.length / 3,
       red   = hex.substr(0, dig),
       green = hex.substr(dig, dig),
       blue  = hex.substr(dig * 2);
-    if (dig === 1) ***REMOVED***
+    if (dig === 1) {
       red += red;
       green += green;
       blue += blue;
-    ***REMOVED***
+    }
     return 'rgba(' + parseInt(red, 16) + ',' + parseInt(green, 16) + ',' + parseInt(blue, 16) + ',0.1)';
-  ***REMOVED***
+  }
 
   /**
    * Converts rgba value to hex string
-   * @param color ***REMOVED***string***REMOVED***
-   * @returns ***REMOVED***string***REMOVED***
+   * @param color {string}
+   * @returns {string}
    */
-  function rgbaToHex(color) ***REMOVED***
+  function rgbaToHex(color) {
     color = color.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
 
     var hex = (color && color.length === 4) ? "#" +
@@ -242,35 +242,35 @@ function ColorUtilFactory() ***REMOVED***
     ("0" + parseInt(color[3],10).toString(16)).slice(-2) : '';
 
     return hex.toUpperCase();
-  ***REMOVED***
+  }
 
   /**
    * Converts an RGB color to RGBA
-   * @param color ***REMOVED***string***REMOVED***
-   * @returns ***REMOVED***string***REMOVED***
+   * @param color {string}
+   * @returns {string}
    */
-  function rgbToRgba (color) ***REMOVED***
+  function rgbToRgba (color) {
     return color.replace(')', ', 0.1)').replace('(', 'a(');
-  ***REMOVED***
+  }
 
   /**
    * Converts an RGBA color to RGB
-   * @param color ***REMOVED***string***REMOVED***
-   * @returns ***REMOVED***string***REMOVED***
+   * @param color {string}
+   * @returns {string}
    */
-  function rgbaToRgb (color) ***REMOVED***
+  function rgbaToRgb (color) {
     return color
       ? color.replace('rgba', 'rgb').replace(/,[^\),]+\)/, ')')
       : 'rgb(0,0,0)';
-  ***REMOVED***
+  }
 
-  return ***REMOVED***
+  return {
     rgbaToHex: rgbaToHex,
     hexToRgba: hexToRgba,
     rgbToRgba: rgbToRgba,
     rgbaToRgb: rgbaToRgb
-  ***REMOVED***
-***REMOVED***
+  }
+}
 angular.module('material.core')
 .factory('$mdConstant', MdConstantFactory);
 
@@ -278,14 +278,14 @@ angular.module('material.core')
  * Factory function that creates the grab-bag $mdConstant service.
  * ngInject
  */
-function MdConstantFactory($sniffer, $window, $document) ***REMOVED***
+function MdConstantFactory($sniffer, $window, $document) {
 
   var vendorPrefix = $sniffer.vendorPrefix;
   var isWebkit = /webkit/i.test(vendorPrefix);
   var SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g;
   var prefixTestEl = document.createElement('div');
 
-  function vendorProperty(name) ***REMOVED***
+  function vendorProperty(name) {
     // Add a dash between the prefix and name, to be able to transform the string into camelcase.
     var prefixedName = vendorPrefix + '-' + name;
     var ucPrefix = camelCase(prefixedName);
@@ -294,27 +294,27 @@ function MdConstantFactory($sniffer, $window, $document) ***REMOVED***
     return hasStyleProperty(name)     ? name     :       // The current browser supports the un-prefixed property
            hasStyleProperty(ucPrefix) ? ucPrefix :       // The current browser only supports the prefixed property.
            hasStyleProperty(lcPrefix) ? lcPrefix : name; // Some browsers are only supporting the prefix in lowercase.
-  ***REMOVED***
+  }
 
-  function hasStyleProperty(property) ***REMOVED***
+  function hasStyleProperty(property) {
     return angular.isDefined(prefixTestEl.style[property]);
-  ***REMOVED***
+  }
 
-  function camelCase(input) ***REMOVED***
-    return input.replace(SPECIAL_CHARS_REGEXP, function(matches, separator, letter, offset) ***REMOVED***
+  function camelCase(input) {
+    return input.replace(SPECIAL_CHARS_REGEXP, function(matches, separator, letter, offset) {
       return offset ? letter.toUpperCase() : letter;
-    ***REMOVED***);
-  ***REMOVED***
+    });
+  }
 
-  var self = ***REMOVED***
-    isInputKey : function(e) ***REMOVED*** return (e.keyCode >= 31 && e.keyCode <= 90); ***REMOVED***,
-    isNumPadKey : function (e)***REMOVED*** return (3 === e.location && e.keyCode >= 97 && e.keyCode <= 105); ***REMOVED***,
-    isNavigationKey : function(e) ***REMOVED***
+  var self = {
+    isInputKey : function(e) { return (e.keyCode >= 31 && e.keyCode <= 90); },
+    isNumPadKey : function (e){ return (3 === e.location && e.keyCode >= 97 && e.keyCode <= 105); },
+    isNavigationKey : function(e) {
       var kc = self.KEY_CODE, NAVIGATION_KEYS =  [kc.SPACE, kc.ENTER, kc.UP_ARROW, kc.DOWN_ARROW];
       return (NAVIGATION_KEYS.indexOf(e.keyCode) != -1);    
-    ***REMOVED***,
+    },
 
-    KEY_CODE: ***REMOVED***
+    KEY_CODE: {
       COMMA: 188,
       SEMICOLON : 186,
       ENTER: 13,
@@ -331,8 +331,8 @@ function MdConstantFactory($sniffer, $window, $document) ***REMOVED***
       TAB : 9,
       BACKSPACE: 8,
       DELETE: 46
-    ***REMOVED***,
-    CSS: ***REMOVED***
+    },
+    CSS: {
       /* Constants */
       TRANSITIONEND: 'transitionend' + (isWebkit ? ' webkitTransitionEnd' : ''),
       ANIMATIONEND: 'animationend' + (isWebkit ? ' webkitAnimationEnd' : ''),
@@ -346,7 +346,7 @@ function MdConstantFactory($sniffer, $window, $document) ***REMOVED***
       ANIMATION_NAME: vendorProperty('animationName'),
       ANIMATION_TIMING: vendorProperty('animationTimingFunction'),
       ANIMATION_DIRECTION: vendorProperty('animationDirection')
-    ***REMOVED***,
+    },
     /**
      * As defined in core/style/variables.scss
      *
@@ -356,7 +356,7 @@ function MdConstantFactory($sniffer, $window, $document) ***REMOVED***
      * $layout-breakpoint-lg:     1920px !default;
      *
      */
-    MEDIA: ***REMOVED***
+    MEDIA: {
       'xs'        : '(max-width: 599px)'                         ,
       'gt-xs'     : '(min-width: 600px)'                         ,
       'sm'        : '(min-width: 600px) and (max-width: 959px)'  ,
@@ -369,7 +369,7 @@ function MdConstantFactory($sniffer, $window, $document) ***REMOVED***
       'landscape' : '(orientation: landscape)'                   ,
       'portrait'  : '(orientation: portrait)'                    ,
       'print' : 'print'
-    ***REMOVED***,
+    },
     MEDIA_PRIORITY: [
       'xl',
       'gt-lg',
@@ -384,16 +384,16 @@ function MdConstantFactory($sniffer, $window, $document) ***REMOVED***
       'portrait',
       'print'
     ]
-  ***REMOVED***;
+  };
 
   return self;
-***REMOVED***
+}
 MdConstantFactory.$inject = ["$sniffer", "$window", "$document"];
 
   angular
     .module('material.core')
-    .config( ["$provide", function($provide)***REMOVED***
-       $provide.decorator('$mdUtil', ['$delegate', function ($delegate)***REMOVED***
+    .config( ["$provide", function($provide){
+       $provide.decorator('$mdUtil', ['$delegate', function ($delegate){
            /**
             * Inject the iterator facade to easily support iteration and accessors
             * @see iterator below
@@ -401,9 +401,9 @@ MdConstantFactory.$inject = ["$sniffer", "$window", "$document"];
            $delegate.iterator = MdIterator;
 
            return $delegate;
-         ***REMOVED***
+         }
        ]);
-     ***REMOVED***]);
+     }]);
 
   /**
    * iterator is a list facade to easily support iteration and accessors
@@ -411,18 +411,18 @@ MdConstantFactory.$inject = ["$sniffer", "$window", "$document"];
    * @param items Array list which this iterator will enumerate
    * @param reloop Boolean enables iterator to consider the list as an endless reloop
    */
-  function MdIterator(items, reloop) ***REMOVED***
-    var trueFn = function() ***REMOVED*** return true; ***REMOVED***;
+  function MdIterator(items, reloop) {
+    var trueFn = function() { return true; };
 
-    if (items && !angular.isArray(items)) ***REMOVED***
+    if (items && !angular.isArray(items)) {
       items = Array.prototype.slice.call(items);
-    ***REMOVED***
+    }
 
     reloop = !!reloop;
     var _items = items || [ ];
 
     // Published API
-    return ***REMOVED***
+    return {
       items: getItems,
       count: count,
 
@@ -444,63 +444,63 @@ MdConstantFactory.$inject = ["$sniffer", "$window", "$document"];
       hasPrevious: hasPrevious,
       hasNext: hasNext
 
-    ***REMOVED***;
+    };
 
     /**
      * Publish copy of the enumerable set
-     * @returns ***REMOVED***Array|****REMOVED***
+     * @returns {Array|*}
      */
-    function getItems() ***REMOVED***
+    function getItems() {
       return [].concat(_items);
-    ***REMOVED***
+    }
 
     /**
      * Determine length of the list
-     * @returns ***REMOVED***Array.length|*|number***REMOVED***
+     * @returns {Array.length|*|number}
      */
-    function count() ***REMOVED***
+    function count() {
       return _items.length;
-    ***REMOVED***
+    }
 
     /**
      * Is the index specified valid
      * @param index
-     * @returns ***REMOVED***Array.length|*|number|boolean***REMOVED***
+     * @returns {Array.length|*|number|boolean}
      */
-    function inRange(index) ***REMOVED***
+    function inRange(index) {
       return _items.length && ( index > -1 ) && (index < _items.length );
-    ***REMOVED***
+    }
 
     /**
      * Can the iterator proceed to the next item in the list; relative to
      * the specified item.
      *
      * @param item
-     * @returns ***REMOVED***Array.length|*|number|boolean***REMOVED***
+     * @returns {Array.length|*|number|boolean}
      */
-    function hasNext(item) ***REMOVED***
+    function hasNext(item) {
       return item ? inRange(indexOf(item) + 1) : false;
-    ***REMOVED***
+    }
 
     /**
      * Can the iterator proceed to the previous item in the list; relative to
      * the specified item.
      *
      * @param item
-     * @returns ***REMOVED***Array.length|*|number|boolean***REMOVED***
+     * @returns {Array.length|*|number|boolean}
      */
-    function hasPrevious(item) ***REMOVED***
+    function hasPrevious(item) {
       return item ? inRange(indexOf(item) - 1) : false;
-    ***REMOVED***
+    }
 
     /**
      * Get item at specified index/position
      * @param index
-     * @returns ***REMOVED*******REMOVED***
+     * @returns {*}
      */
-    function itemAt(index) ***REMOVED***
+    function itemAt(index) {
       return inRange(index) ? _items[index] : null;
-    ***REMOVED***
+    }
 
     /**
      * Find all elements matching the key/value pair
@@ -511,101 +511,101 @@ MdConstantFactory.$inject = ["$sniffer", "$window", "$document"];
      *
      * @return array
      */
-    function findBy(key, val) ***REMOVED***
-      return _items.filter(function(item) ***REMOVED***
+    function findBy(key, val) {
+      return _items.filter(function(item) {
         return item[key] === val;
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
 
     /**
      * Add item to list
      * @param item
      * @param index
-     * @returns ***REMOVED*******REMOVED***
+     * @returns {*}
      */
-    function add(item, index) ***REMOVED***
+    function add(item, index) {
       if ( !item ) return -1;
 
-      if (!angular.isNumber(index)) ***REMOVED***
+      if (!angular.isNumber(index)) {
         index = _items.length;
-      ***REMOVED***
+      }
 
       _items.splice(index, 0, item);
 
       return indexOf(item);
-    ***REMOVED***
+    }
 
     /**
      * Remove item from list...
      * @param item
      */
-    function remove(item) ***REMOVED***
-      if ( contains(item) )***REMOVED***
+    function remove(item) {
+      if ( contains(item) ){
         _items.splice(indexOf(item), 1);
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     /**
      * Get the zero-based index of the target item
      * @param item
-     * @returns ***REMOVED*******REMOVED***
+     * @returns {*}
      */
-    function indexOf(item) ***REMOVED***
+    function indexOf(item) {
       return _items.indexOf(item);
-    ***REMOVED***
+    }
 
     /**
      * Boolean existence check
      * @param item
-     * @returns ***REMOVED***boolean***REMOVED***
+     * @returns {boolean}
      */
-    function contains(item) ***REMOVED***
+    function contains(item) {
       return item && (indexOf(item) > -1);
-    ***REMOVED***
+    }
 
     /**
      * Return first item in the list
-     * @returns ***REMOVED*******REMOVED***
+     * @returns {*}
      */
-    function first() ***REMOVED***
+    function first() {
       return _items.length ? _items[0] : null;
-    ***REMOVED***
+    }
 
     /**
      * Return last item in the list...
-     * @returns ***REMOVED*******REMOVED***
+     * @returns {*}
      */
-    function last() ***REMOVED***
+    function last() {
       return _items.length ? _items[_items.length - 1] : null;
-    ***REMOVED***
+    }
 
     /**
      * Find the next item. If reloop is true and at the end of the list, it will go back to the
      * first item. If given, the `validate` callback will be used to determine whether the next item
      * is valid. If not valid, it will try to find the next item again.
      *
-     * @param ***REMOVED***boolean***REMOVED*** backwards Specifies the direction of searching (forwards/backwards)
-     * @param ***REMOVED*******REMOVED*** item The item whose subsequent item we are looking for
-     * @param ***REMOVED***Function=***REMOVED*** validate The `validate` function
-     * @param ***REMOVED***integer=***REMOVED*** limit The recursion limit
+     * @param {boolean} backwards Specifies the direction of searching (forwards/backwards)
+     * @param {*} item The item whose subsequent item we are looking for
+     * @param {Function=} validate The `validate` function
+     * @param {integer=} limit The recursion limit
      *
-     * @returns ***REMOVED*******REMOVED*** The subsequent item or null
+     * @returns {*} The subsequent item or null
      */
-    function findSubsequentItem(backwards, item, validate, limit) ***REMOVED***
+    function findSubsequentItem(backwards, item, validate, limit) {
       validate = validate || trueFn;
 
       var curIndex = indexOf(item);
-      while (true) ***REMOVED***
+      while (true) {
         if (!inRange(curIndex)) return null;
 
         var nextIndex = curIndex + (backwards ? -1 : 1);
         var foundItem = null;
-        if (inRange(nextIndex)) ***REMOVED***
+        if (inRange(nextIndex)) {
           foundItem = _items[nextIndex];
-        ***REMOVED*** else if (reloop) ***REMOVED***
+        } else if (reloop) {
           foundItem = backwards ? last() : first();
           nextIndex = indexOf(foundItem);
-        ***REMOVED***
+        }
 
         if ((foundItem === null) || (nextIndex === limit)) return null;
         if (validate(foundItem)) return foundItem;
@@ -613,9 +613,9 @@ MdConstantFactory.$inject = ["$sniffer", "$window", "$document"];
         if (angular.isUndefined(limit)) limit = nextIndex;
 
         curIndex = nextIndex;
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
+      }
+    }
+  }
 
 
 angular.module('material.core')
@@ -698,28 +698,28 @@ angular.module('material.core')
  *  <img src="https://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B8olV15J7abPSGFxemFiQVRtb1k/layout_adaptive_breakpoints_01.png" width="100%" height="100%"></img>
  *  </a>
  *
- * @returns ***REMOVED***boolean***REMOVED*** a boolean representing whether or not the given media query is true or false.
+ * @returns {boolean} a boolean representing whether or not the given media query is true or false.
  *
  * @usage
  * <hljs lang="js">
- * app.controller('MyController', function($mdMedia, $scope) ***REMOVED***
- *   $scope.$watch(function() ***REMOVED*** return $mdMedia('lg'); ***REMOVED***, function(big) ***REMOVED***
+ * app.controller('MyController', function($mdMedia, $scope) {
+ *   $scope.$watch(function() { return $mdMedia('lg'); }, function(big) {
  *     $scope.bigScreen = big;
- *   ***REMOVED***);
+ *   });
  *
  *   $scope.screenIsSmall = $mdMedia('sm');
  *   $scope.customQuery = $mdMedia('(min-width: 1234px)');
  *   $scope.anotherCustom = $mdMedia('max-width: 300px');
- * ***REMOVED***);
+ * });
  * </hljs>
  */
 
 /* ngInject */
-function mdMediaFactory($mdConstant, $rootScope, $window) ***REMOVED***
-  var queries = ***REMOVED******REMOVED***;
-  var mqls = ***REMOVED******REMOVED***;
-  var results = ***REMOVED******REMOVED***;
-  var normalizeCache = ***REMOVED******REMOVED***;
+function mdMediaFactory($mdConstant, $rootScope, $window) {
+  var queries = {};
+  var mqls = {};
+  var results = {};
+  var normalizeCache = {};
 
   $mdMedia.getResponsiveAttribute = getResponsiveAttribute;
   $mdMedia.getQuery = getQuery;
@@ -727,165 +727,165 @@ function mdMediaFactory($mdConstant, $rootScope, $window) ***REMOVED***
 
   return $mdMedia;
 
-  function $mdMedia(query) ***REMOVED***
+  function $mdMedia(query) {
     var validated = queries[query];
-    if (angular.isUndefined(validated)) ***REMOVED***
+    if (angular.isUndefined(validated)) {
       validated = queries[query] = validate(query);
-    ***REMOVED***
+    }
 
     var result = results[validated];
-    if (angular.isUndefined(result)) ***REMOVED***
+    if (angular.isUndefined(result)) {
       result = add(validated);
-    ***REMOVED***
+    }
 
     return result;
-  ***REMOVED***
+  }
 
-  function validate(query) ***REMOVED***
+  function validate(query) {
     return $mdConstant.MEDIA[query] ||
            ((query.charAt(0) !== '(') ? ('(' + query + ')') : query);
-  ***REMOVED***
+  }
 
-  function add(query) ***REMOVED***
+  function add(query) {
     var result = mqls[query];
-    if ( !result ) ***REMOVED***
+    if ( !result ) {
       result = mqls[query] = $window.matchMedia(query);
-    ***REMOVED***
+    }
 
     result.addListener(onQueryChange);
     return (results[result.media] = !!result.matches);
-  ***REMOVED***
+  }
 
-  function onQueryChange(query) ***REMOVED***
-    $rootScope.$evalAsync(function() ***REMOVED***
+  function onQueryChange(query) {
+    $rootScope.$evalAsync(function() {
       results[query.media] = !!query.matches;
-    ***REMOVED***);
-  ***REMOVED***
+    });
+  }
 
-  function getQuery(name) ***REMOVED***
+  function getQuery(name) {
     return mqls[name];
-  ***REMOVED***
+  }
 
-  function getResponsiveAttribute(attrs, attrName) ***REMOVED***
-    for (var i = 0; i < $mdConstant.MEDIA_PRIORITY.length; i++) ***REMOVED***
+  function getResponsiveAttribute(attrs, attrName) {
+    for (var i = 0; i < $mdConstant.MEDIA_PRIORITY.length; i++) {
       var mediaName = $mdConstant.MEDIA_PRIORITY[i];
-      if (!mqls[queries[mediaName]].matches) ***REMOVED***
+      if (!mqls[queries[mediaName]].matches) {
         continue;
-      ***REMOVED***
+      }
 
       var normalizedName = getNormalizedName(attrs, attrName + '-' + mediaName);
-      if (attrs[normalizedName]) ***REMOVED***
+      if (attrs[normalizedName]) {
         return attrs[normalizedName];
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     // fallback on unprefixed
     return attrs[getNormalizedName(attrs, attrName)];
-  ***REMOVED***
+  }
 
-  function watchResponsiveAttributes(attrNames, attrs, watchFn) ***REMOVED***
+  function watchResponsiveAttributes(attrNames, attrs, watchFn) {
     var unwatchFns = [];
-    attrNames.forEach(function(attrName) ***REMOVED***
+    attrNames.forEach(function(attrName) {
       var normalizedName = getNormalizedName(attrs, attrName);
-      if (angular.isDefined(attrs[normalizedName])) ***REMOVED***
+      if (angular.isDefined(attrs[normalizedName])) {
         unwatchFns.push(
             attrs.$observe(normalizedName, angular.bind(void 0, watchFn, null)));
-      ***REMOVED***
+      }
 
-      for (var mediaName in $mdConstant.MEDIA) ***REMOVED***
+      for (var mediaName in $mdConstant.MEDIA) {
         normalizedName = getNormalizedName(attrs, attrName + '-' + mediaName);
-        if (angular.isDefined(attrs[normalizedName])) ***REMOVED***
+        if (angular.isDefined(attrs[normalizedName])) {
           unwatchFns.push(
               attrs.$observe(normalizedName, angular.bind(void 0, watchFn, mediaName)));
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***);
+        }
+      }
+    });
 
-    return function unwatch() ***REMOVED***
-      unwatchFns.forEach(function(fn) ***REMOVED*** fn(); ***REMOVED***)
-    ***REMOVED***;
-  ***REMOVED***
+    return function unwatch() {
+      unwatchFns.forEach(function(fn) { fn(); })
+    };
+  }
 
   // Improves performance dramatically
-  function getNormalizedName(attrs, attrName) ***REMOVED***
+  function getNormalizedName(attrs, attrName) {
     return normalizeCache[attrName] ||
         (normalizeCache[attrName] = attrs.$normalize(attrName));
-  ***REMOVED***
-***REMOVED***
+  }
+}
 mdMediaFactory.$inject = ["$mdConstant", "$rootScope", "$window"];
 
 angular
   .module('material.core')
-  .config( ["$provide", function($provide) ***REMOVED***
-    $provide.decorator('$mdUtil', ['$delegate', function ($delegate) ***REMOVED***
+  .config( ["$provide", function($provide) {
+    $provide.decorator('$mdUtil', ['$delegate', function ($delegate) {
 
       // Inject the prefixer into our original $mdUtil service.
       $delegate.prefixer = MdPrefixer;
 
       return $delegate;
-    ***REMOVED***]);
-  ***REMOVED***]);
+    }]);
+  }]);
 
-function MdPrefixer(initialAttributes, buildSelector) ***REMOVED***
+function MdPrefixer(initialAttributes, buildSelector) {
   var PREFIXES = ['data', 'x'];
 
-  if (initialAttributes) ***REMOVED***
+  if (initialAttributes) {
     // The prefixer also accepts attributes as a parameter, and immediately builds a list or selector for
     // the specified attributes.
     return buildSelector ? _buildSelector(initialAttributes) : _buildList(initialAttributes);
-  ***REMOVED***
+  }
 
-  return ***REMOVED***
+  return {
     buildList: _buildList,
     buildSelector: _buildSelector,
     hasAttribute: _hasAttribute,
     removeAttribute: _removeAttribute
-  ***REMOVED***;
+  };
 
-  function _buildList(attributes) ***REMOVED***
+  function _buildList(attributes) {
     attributes = angular.isArray(attributes) ? attributes : [attributes];
 
-    attributes.forEach(function(item) ***REMOVED***
-      PREFIXES.forEach(function(prefix) ***REMOVED***
+    attributes.forEach(function(item) {
+      PREFIXES.forEach(function(prefix) {
         attributes.push(prefix + '-' + item);
-      ***REMOVED***);
-    ***REMOVED***);
+      });
+    });
 
     return attributes;
-  ***REMOVED***
+  }
 
-  function _buildSelector(attributes) ***REMOVED***
+  function _buildSelector(attributes) {
     attributes = angular.isArray(attributes) ? attributes : [attributes];
 
     return _buildList(attributes)
-      .map(function(item) ***REMOVED***
+      .map(function(item) {
         return '[' + item + ']'
-      ***REMOVED***)
+      })
       .join(',');
-  ***REMOVED***
+  }
 
-  function _hasAttribute(element, attribute) ***REMOVED***
+  function _hasAttribute(element, attribute) {
     element = element[0] || element;
 
     var prefixedAttrs = _buildList(attribute);
 
-    for (var i = 0; i < prefixedAttrs.length; i++) ***REMOVED***
-      if (element.hasAttribute(prefixedAttrs[i])) ***REMOVED***
+    for (var i = 0; i < prefixedAttrs.length; i++) {
+      if (element.hasAttribute(prefixedAttrs[i])) {
         return true;
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     return false;
-  ***REMOVED***
+  }
 
-  function _removeAttribute(element, attribute) ***REMOVED***
+  function _removeAttribute(element, attribute) {
     element = element[0] || element;
 
-    _buildList(attribute).forEach(function(prefixedAttribute) ***REMOVED***
+    _buildList(attribute).forEach(function(prefixedAttribute) {
       element.removeAttribute(prefixedAttribute);
-    ***REMOVED***);
-  ***REMOVED***
-***REMOVED***
+    });
+  }
+}
 /*
  * This var has to be outside the angular factory, otherwise when
  * there are multiple material apps on the same page, each app
@@ -907,56 +907,56 @@ angular
 /**
  * ngInject
  */
-function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $interpolate, $log, $rootElement, $window, $$rAF) ***REMOVED***
+function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $interpolate, $log, $rootElement, $window, $$rAF) {
   // Setup some core variables for the processTemplate method
   var startSymbol = $interpolate.startSymbol(),
     endSymbol = $interpolate.endSymbol(),
-    usesStandardSymbols = ((startSymbol === '***REMOVED******REMOVED***') && (endSymbol === '***REMOVED******REMOVED***'));
+    usesStandardSymbols = ((startSymbol === '{{') && (endSymbol === '}}'));
 
   /**
    * Checks if the target element has the requested style by key
-   * @param ***REMOVED***DOMElement|JQLite***REMOVED*** target Target element
-   * @param ***REMOVED***string***REMOVED*** key Style key
-   * @param ***REMOVED***string=***REMOVED*** expectedVal Optional expected value
-   * @returns ***REMOVED***boolean***REMOVED*** Whether the target element has the style or not
+   * @param {DOMElement|JQLite} target Target element
+   * @param {string} key Style key
+   * @param {string=} expectedVal Optional expected value
+   * @returns {boolean} Whether the target element has the style or not
    */
-  var hasComputedStyle = function (target, key, expectedVal) ***REMOVED***
+  var hasComputedStyle = function (target, key, expectedVal) {
     var hasValue = false;
 
-    if ( target && target.length  ) ***REMOVED***
+    if ( target && target.length  ) {
       var computedStyles = $window.getComputedStyle(target[0]);
       hasValue = angular.isDefined(computedStyles[key]) && (expectedVal ? computedStyles[key] == expectedVal : true);
-    ***REMOVED***
+    }
 
     return hasValue;
-  ***REMOVED***;
+  };
 
-  function validateCssValue(value) ***REMOVED***
+  function validateCssValue(value) {
     return !value       ? '0'   :
       hasPx(value) || hasPercent(value) ? value : value + 'px';
-  ***REMOVED***
+  }
 
-  function hasPx(value) ***REMOVED***
+  function hasPx(value) {
     return String(value).indexOf('px') > -1;
-  ***REMOVED***
+  }
 
-  function hasPercent(value) ***REMOVED***
+  function hasPercent(value) {
     return String(value).indexOf('%') > -1;
 
-  ***REMOVED***
+  }
 
-  var $mdUtil = ***REMOVED***
-    dom: ***REMOVED******REMOVED***,
+  var $mdUtil = {
+    dom: {},
     now: window.performance ?
-      angular.bind(window.performance, window.performance.now) : Date.now || function() ***REMOVED***
+      angular.bind(window.performance, window.performance.now) : Date.now || function() {
       return new Date().getTime();
-    ***REMOVED***,
+    },
 
     /**
      * Bi-directional accessor/mutator used to easily update an element's
      * property based on the current 'dir'ectional value.
      */
-    bidi : function(element, property, lValue, rValue) ***REMOVED***
+    bidi : function(element, property, lValue, rValue) {
       var ltr = !($document[0].dir == 'rtl' || $document[0].body.dir == 'rtl');
 
       // If accessor
@@ -965,30 +965,30 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
       // If mutator
       var elem = angular.element(element);
 
-      if ( ltr && angular.isDefined(lValue)) ***REMOVED***
+      if ( ltr && angular.isDefined(lValue)) {
         elem.css(property, validateCssValue(lValue));
-      ***REMOVED***
-      else if ( !ltr && angular.isDefined(rValue)) ***REMOVED***
+      }
+      else if ( !ltr && angular.isDefined(rValue)) {
         elem.css(property, validateCssValue(rValue) );
-      ***REMOVED***
-    ***REMOVED***,
+      }
+    },
 
-    bidiProperty: function (element, lProperty, rProperty, value) ***REMOVED***
+    bidiProperty: function (element, lProperty, rProperty, value) {
       var ltr = !($document[0].dir == 'rtl' || $document[0].body.dir == 'rtl');
 
       var elem = angular.element(element);
 
-      if ( ltr && angular.isDefined(lProperty)) ***REMOVED***
+      if ( ltr && angular.isDefined(lProperty)) {
         elem.css(lProperty, validateCssValue(value));
         elem.css(rProperty, '');
-      ***REMOVED***
-      else if ( !ltr && angular.isDefined(rProperty)) ***REMOVED***
+      }
+      else if ( !ltr && angular.isDefined(rProperty)) {
         elem.css(rProperty, validateCssValue(value) );
         elem.css(lProperty, '');
-      ***REMOVED***
-    ***REMOVED***,
+      }
+    },
 
-    clientRect: function(element, offsetParent, isOffsetRect) ***REMOVED***
+    clientRect: function(element, offsetParent, isOffsetRect) {
       var node = getNode(element);
       offsetParent = getNode(offsetParent || node.offsetParent || document.body);
       var nodeRect = node.getBoundingClientRect();
@@ -997,35 +997,35 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
       // or a clientRect: a rect relative to the page
       var offsetRect = isOffsetRect ?
         offsetParent.getBoundingClientRect() :
-      ***REMOVED***left: 0, top: 0, width: 0, height: 0***REMOVED***;
-      return ***REMOVED***
+      {left: 0, top: 0, width: 0, height: 0};
+      return {
         left: nodeRect.left - offsetRect.left,
         top: nodeRect.top - offsetRect.top,
         width: nodeRect.width,
         height: nodeRect.height
-      ***REMOVED***;
-    ***REMOVED***,
-    offsetRect: function(element, offsetParent) ***REMOVED***
+      };
+    },
+    offsetRect: function(element, offsetParent) {
       return $mdUtil.clientRect(element, offsetParent, true);
-    ***REMOVED***,
+    },
 
     // Annoying method to copy nodes to an array, thanks to IE
-    nodesToArray: function(nodes) ***REMOVED***
+    nodesToArray: function(nodes) {
       nodes = nodes || [];
 
       var results = [];
-      for (var i = 0; i < nodes.length; ++i) ***REMOVED***
+      for (var i = 0; i < nodes.length; ++i) {
         results.push(nodes.item(i));
-      ***REMOVED***
+      }
       return results;
-    ***REMOVED***,
+    },
 
     /**
      * Calculate the positive scroll offset
      * TODO: Check with pinch-zoom in IE/Chrome;
      *       https://code.google.com/p/chromium/issues/detail?id=496285
      */
-    scrollTop: function(element) ***REMOVED***
+    scrollTop: function(element) {
       element = angular.element(element || $document[0].body);
 
       var body = (element[0] == $document[0].body) ? $document[0].body : undefined;
@@ -1033,30 +1033,30 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
 
       // Calculate the positive scroll offset
       return scrollTop || Math.abs(element[0].getBoundingClientRect().top);
-    ***REMOVED***,
+    },
 
     /**
      * Finds the proper focus target by searching the DOM.
      *
      * @param containerEl
      * @param attributeVal
-     * @returns ***REMOVED*******REMOVED***
+     * @returns {*}
      */
-    findFocusTarget: function(containerEl, attributeVal) ***REMOVED***
+    findFocusTarget: function(containerEl, attributeVal) {
       var AUTO_FOCUS = this.prefixer('md-autofocus', true);
       var elToFocus;
 
       elToFocus = scanForFocusable(containerEl, attributeVal || AUTO_FOCUS);
 
-      if ( !elToFocus && attributeVal != AUTO_FOCUS) ***REMOVED***
+      if ( !elToFocus && attributeVal != AUTO_FOCUS) {
         // Scan for deprecated attribute
         elToFocus = scanForFocusable(containerEl, this.prefixer('md-auto-focus', true));
 
-        if ( !elToFocus ) ***REMOVED***
+        if ( !elToFocus ) {
           // Scan for fallback to 'universal' API
           elToFocus = scanForFocusable(containerEl, AUTO_FOCUS);
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
       return elToFocus;
 
@@ -1064,34 +1064,34 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
        * Can target and nested children for specified Selector (attribute)
        * whose value may be an expression that evaluates to True/False.
        */
-      function scanForFocusable(target, selector) ***REMOVED***
+      function scanForFocusable(target, selector) {
         var elFound, items = target[0].querySelectorAll(selector);
 
         // Find the last child element with the focus attribute
-        if ( items && items.length )***REMOVED***
-          items.length && angular.forEach(items, function(it) ***REMOVED***
+        if ( items && items.length ){
+          items.length && angular.forEach(items, function(it) {
             it = angular.element(it);
 
             // Check the element for the md-autofocus class to ensure any associated expression
             // evaluated to true.
             var isFocusable = it.hasClass('md-autofocus');
             if (isFocusable) elFound = it;
-          ***REMOVED***);
-        ***REMOVED***
+          });
+        }
         return elFound;
-      ***REMOVED***
-    ***REMOVED***,
+      }
+    },
 
     /**
      * Disables scroll around the passed parent element.
      * @param element Unused
-     * @param ***REMOVED***!Element|!angular.JQLite***REMOVED*** parent Element to disable scrolling within.
+     * @param {!Element|!angular.JQLite} parent Element to disable scrolling within.
      *   Defaults to body if none supplied.
      * @param options Object of options to modify functionality
      *   - disableScrollMask Boolean of whether or not to create a scroll mask element or
      *     use the passed parent element.
      */
-    disableScrollAround: function(element, parent, options) ***REMOVED***
+    disableScrollAround: function(element, parent, options) {
       $mdUtil.disableScrollAround._count = $mdUtil.disableScrollAround._count || 0;
       ++$mdUtil.disableScrollAround._count;
       if ($mdUtil.disableScrollAround._enableScrolling) return $mdUtil.disableScrollAround._enableScrolling;
@@ -1099,251 +1099,251 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
         restoreBody = disableBodyScroll(),
         restoreElement = disableElementScroll(parent);
 
-      return $mdUtil.disableScrollAround._enableScrolling = function() ***REMOVED***
-        if (!--$mdUtil.disableScrollAround._count) ***REMOVED***
+      return $mdUtil.disableScrollAround._enableScrolling = function() {
+        if (!--$mdUtil.disableScrollAround._count) {
           restoreBody();
           restoreElement();
           delete $mdUtil.disableScrollAround._enableScrolling;
-        ***REMOVED***
-      ***REMOVED***;
+        }
+      };
 
       // Creates a virtual scrolling mask to absorb touchmove, keyboard, scrollbar clicking, and wheel events
-      function disableElementScroll(element) ***REMOVED***
+      function disableElementScroll(element) {
         element = angular.element(element || body);
         var scrollMask;
-        if (options && options.disableScrollMask) ***REMOVED***
+        if (options && options.disableScrollMask) {
           scrollMask = element;
-        ***REMOVED*** else ***REMOVED***
+        } else {
           element = element[0];
           scrollMask = angular.element(
             '<div class="md-scroll-mask">' +
             '  <div class="md-scroll-mask-bar"></div>' +
             '</div>');
           element.appendChild(scrollMask[0]);
-        ***REMOVED***
+        }
 
         scrollMask.on('wheel', preventDefault);
         scrollMask.on('touchmove', preventDefault);
 
-        return function restoreScroll() ***REMOVED***
+        return function restoreScroll() {
           scrollMask.off('wheel');
           scrollMask.off('touchmove');
           scrollMask[0].parentNode.removeChild(scrollMask[0]);
           delete $mdUtil.disableScrollAround._enableScrolling;
-        ***REMOVED***;
+        };
 
-        function preventDefault(e) ***REMOVED***
+        function preventDefault(e) {
           e.preventDefault();
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
       // Converts the body to a position fixed block and translate it to the proper scroll position
-      function disableBodyScroll() ***REMOVED***
+      function disableBodyScroll() {
         var htmlNode = body.parentNode;
         var restoreHtmlStyle = htmlNode.style.cssText || '';
         var restoreBodyStyle = body.style.cssText || '';
         var scrollOffset = $mdUtil.scrollTop(body);
         var clientWidth = body.clientWidth;
 
-        if (body.scrollHeight > body.clientHeight + 1) ***REMOVED***
-          applyStyles(body, ***REMOVED***
+        if (body.scrollHeight > body.clientHeight + 1) {
+          applyStyles(body, {
             position: 'fixed',
             width: '100%',
             top: -scrollOffset + 'px'
-          ***REMOVED***);
+          });
 
           htmlNode.style.overflowY = 'scroll';
-        ***REMOVED***
+        }
 
-        if (body.clientWidth < clientWidth) applyStyles(body, ***REMOVED***overflow: 'hidden'***REMOVED***);
+        if (body.clientWidth < clientWidth) applyStyles(body, {overflow: 'hidden'});
 
-        return function restoreScroll() ***REMOVED***
+        return function restoreScroll() {
           body.style.cssText = restoreBodyStyle;
           htmlNode.style.cssText = restoreHtmlStyle;
           body.scrollTop = scrollOffset;
           htmlNode.scrollTop = scrollOffset;
-        ***REMOVED***;
-      ***REMOVED***
+        };
+      }
 
-      function applyStyles(el, styles) ***REMOVED***
-        for (var key in styles) ***REMOVED***
+      function applyStyles(el, styles) {
+        for (var key in styles) {
           el.style[key] = styles[key];
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***,
-    enableScrolling: function() ***REMOVED***
+        }
+      }
+    },
+    enableScrolling: function() {
       var method = this.disableScrollAround._enableScrolling;
       method && method();
-    ***REMOVED***,
-    floatingScrollbars: function() ***REMOVED***
-      if (this.floatingScrollbars.cached === undefined) ***REMOVED***
-        var tempNode = angular.element('<div><div></div></div>').css(***REMOVED***
+    },
+    floatingScrollbars: function() {
+      if (this.floatingScrollbars.cached === undefined) {
+        var tempNode = angular.element('<div><div></div></div>').css({
           width: '100%',
           'z-index': -1,
           position: 'absolute',
           height: '35px',
           'overflow-y': 'scroll'
-        ***REMOVED***);
+        });
         tempNode.children().css('height', '60px');
 
         $document[0].body.appendChild(tempNode[0]);
         this.floatingScrollbars.cached = (tempNode[0].offsetWidth == tempNode[0].childNodes[0].offsetWidth);
         tempNode.remove();
-      ***REMOVED***
+      }
       return this.floatingScrollbars.cached;
-    ***REMOVED***,
+    },
 
     // Mobile safari only allows you to set focus in click event listeners...
-    forceFocus: function(element) ***REMOVED***
+    forceFocus: function(element) {
       var node = element[0] || element;
 
-      document.addEventListener('click', function focusOnClick(ev) ***REMOVED***
-        if (ev.target === node && ev.$focus) ***REMOVED***
+      document.addEventListener('click', function focusOnClick(ev) {
+        if (ev.target === node && ev.$focus) {
           node.focus();
           ev.stopImmediatePropagation();
           ev.preventDefault();
           node.removeEventListener('click', focusOnClick);
-        ***REMOVED***
-      ***REMOVED***, true);
+        }
+      }, true);
 
       var newEvent = document.createEvent('MouseEvents');
-      newEvent.initMouseEvent('click', false, true, window, ***REMOVED******REMOVED***, 0, 0, 0, 0,
+      newEvent.initMouseEvent('click', false, true, window, {}, 0, 0, 0, 0,
         false, false, false, false, 0, null);
       newEvent.$material = true;
       newEvent.$focus = true;
       node.dispatchEvent(newEvent);
-    ***REMOVED***,
+    },
 
     /**
      * facade to build md-backdrop element with desired styles
      * NOTE: Use $compile to trigger backdrop postLink function
      */
-    createBackdrop: function(scope, addClass) ***REMOVED***
-      return $compile($mdUtil.supplant('<md-backdrop class="***REMOVED***0***REMOVED***">', [addClass]))(scope);
-    ***REMOVED***,
+    createBackdrop: function(scope, addClass) {
+      return $compile($mdUtil.supplant('<md-backdrop class="{0}">', [addClass]))(scope);
+    },
 
     /**
      * supplant() method from Crockford's `Remedial Javascript`
      * Equivalent to use of $interpolate; without dependency on
-     * interpolation symbols and scope. Note: the '***REMOVED***<token>***REMOVED***' can
+     * interpolation symbols and scope. Note: the '{<token>}' can
      * be property names, property chains, or array indices.
      */
-    supplant: function(template, values, pattern) ***REMOVED***
-      pattern = pattern || /\***REMOVED***([^\***REMOVED***\***REMOVED***]*)\***REMOVED***/g;
-      return template.replace(pattern, function(a, b) ***REMOVED***
+    supplant: function(template, values, pattern) {
+      pattern = pattern || /\{([^\{\}]*)\}/g;
+      return template.replace(pattern, function(a, b) {
         var p = b.split('.'),
           r = values;
-        try ***REMOVED***
-          for (var s in p) ***REMOVED***
-            if (p.hasOwnProperty(s) ) ***REMOVED***
+        try {
+          for (var s in p) {
+            if (p.hasOwnProperty(s) ) {
               r = r[p[s]];
-            ***REMOVED***
-          ***REMOVED***
-        ***REMOVED*** catch (e) ***REMOVED***
+            }
+          }
+        } catch (e) {
           r = a;
-        ***REMOVED***
+        }
         return (typeof r === 'string' || typeof r === 'number') ? r : a;
-      ***REMOVED***);
-    ***REMOVED***,
+      });
+    },
 
-    fakeNgModel: function() ***REMOVED***
-      return ***REMOVED***
+    fakeNgModel: function() {
+      return {
         $fake: true,
         $setTouched: angular.noop,
-        $setViewValue: function(value) ***REMOVED***
+        $setViewValue: function(value) {
           this.$viewValue = value;
           this.$render(value);
-          this.$viewChangeListeners.forEach(function(cb) ***REMOVED***
+          this.$viewChangeListeners.forEach(function(cb) {
             cb();
-          ***REMOVED***);
-        ***REMOVED***,
-        $isEmpty: function(value) ***REMOVED***
+          });
+        },
+        $isEmpty: function(value) {
           return ('' + value).length === 0;
-        ***REMOVED***,
+        },
         $parsers: [],
         $formatters: [],
         $viewChangeListeners: [],
         $render: angular.noop
-      ***REMOVED***;
-    ***REMOVED***,
+      };
+    },
 
     // Returns a function, that, as long as it continues to be invoked, will not
     // be triggered. The function will be called after it stops being called for
     // N milliseconds.
     // @param wait Integer value of msecs to delay (since last debounce reset); default value 10 msecs
     // @param invokeApply should the $timeout trigger $digest() dirty checking
-    debounce: function(func, wait, scope, invokeApply) ***REMOVED***
+    debounce: function(func, wait, scope, invokeApply) {
       var timer;
 
-      return function debounced() ***REMOVED***
+      return function debounced() {
         var context = scope,
           args = Array.prototype.slice.call(arguments);
 
         $timeout.cancel(timer);
-        timer = $timeout(function() ***REMOVED***
+        timer = $timeout(function() {
 
           timer = undefined;
           func.apply(context, args);
 
-        ***REMOVED***, wait || 10, invokeApply);
-      ***REMOVED***;
-    ***REMOVED***,
+        }, wait || 10, invokeApply);
+      };
+    },
 
     // Returns a function that can only be triggered every `delay` milliseconds.
     // In other words, the function will not be called unless it has been more
     // than `delay` milliseconds since the last call.
-    throttle: function throttle(func, delay) ***REMOVED***
+    throttle: function throttle(func, delay) {
       var recent;
-      return function throttled() ***REMOVED***
+      return function throttled() {
         var context = this;
         var args = arguments;
         var now = $mdUtil.now();
 
-        if (!recent || (now - recent > delay)) ***REMOVED***
+        if (!recent || (now - recent > delay)) {
           func.apply(context, args);
           recent = now;
-        ***REMOVED***
-      ***REMOVED***;
-    ***REMOVED***,
+        }
+      };
+    },
 
     /**
      * Measures the number of milliseconds taken to run the provided callback
      * function. Uses a high-precision timer if available.
      */
-    time: function time(cb) ***REMOVED***
+    time: function time(cb) {
       var start = $mdUtil.now();
       cb();
       return $mdUtil.now() - start;
-    ***REMOVED***,
+    },
 
     /**
      * Create an implicit getter that caches its `getter()`
      * lookup value
      */
-    valueOnUse : function (scope, key, getter) ***REMOVED***
+    valueOnUse : function (scope, key, getter) {
       var value = null, args = Array.prototype.slice.call(arguments);
       var params = (args.length > 3) ? args.slice(3) : [ ];
 
-      Object.defineProperty(scope, key, ***REMOVED***
-        get: function () ***REMOVED***
+      Object.defineProperty(scope, key, {
+        get: function () {
           if (value === null) value = getter.apply(scope, params);
           return value;
-        ***REMOVED***
-      ***REMOVED***);
-    ***REMOVED***,
+        }
+      });
+    },
 
     /**
      * Get a unique ID.
      *
-     * @returns ***REMOVED***string***REMOVED*** an unique numeric string
+     * @returns {string} an unique numeric string
      */
-    nextUid: function() ***REMOVED***
+    nextUid: function() {
       return '' + nextUniqueId++;
-    ***REMOVED***,
+    },
 
     // Stop watchers and events from firing on a scope without destroying it,
     // by disconnecting it from its parent and its siblings' linked lists.
-    disconnectScope: function disconnectScope(scope) ***REMOVED***
+    disconnectScope: function disconnectScope(scope) {
       if (!scope) return;
 
       // we can't destroy the root scope or a scope that has been already destroyed
@@ -1361,10 +1361,10 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
 
       scope.$$nextSibling = scope.$$prevSibling = null;
 
-    ***REMOVED***,
+    },
 
     // Undo the effects of disconnectScope above.
-    reconnectScope: function reconnectScope(scope) ***REMOVED***
+    reconnectScope: function reconnectScope(scope) {
       if (!scope) return;
 
       // we can't disconnect the root node or scope already disconnected
@@ -1377,13 +1377,13 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
       child.$$disconnected = false;
       // See Scope.$new for this logic...
       child.$$prevSibling = parent.$$childTail;
-      if (parent.$$childHead) ***REMOVED***
+      if (parent.$$childHead) {
         parent.$$childTail.$$nextSibling = child;
         parent.$$childTail = child;
-      ***REMOVED*** else ***REMOVED***
+      } else {
         parent.$$childHead = parent.$$childTail = child;
-      ***REMOVED***
-    ***REMOVED***,
+      }
+    },
 
     /*
      * getClosest replicates jQuery.closest() to walk up the DOM tree until it finds a matching nodeName
@@ -1394,110 +1394,110 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
      * the parents and will use the return value to determine whether the node is a match.
      * @param onlyParent Only start checking from the parent element, not `el`.
      */
-    getClosest: function getClosest(el, validateWith, onlyParent) ***REMOVED***
-      if ( angular.isString(validateWith) ) ***REMOVED***
+    getClosest: function getClosest(el, validateWith, onlyParent) {
+      if ( angular.isString(validateWith) ) {
         var tagName = validateWith.toUpperCase();
-        validateWith = function(el) ***REMOVED***
+        validateWith = function(el) {
           return el.nodeName === tagName;
-        ***REMOVED***;
-      ***REMOVED***
+        };
+      }
 
       if (el instanceof angular.element) el = el[0];
       if (onlyParent) el = el.parentNode;
       if (!el) return null;
 
-      do ***REMOVED***
-        if (validateWith(el)) ***REMOVED***
+      do {
+        if (validateWith(el)) {
           return el;
-        ***REMOVED***
-      ***REMOVED*** while (el = el.parentNode);
+        }
+      } while (el = el.parentNode);
 
       return null;
-    ***REMOVED***,
+    },
 
     /**
      * Build polyfill for the Node.contains feature (if needed)
      */
-    elementContains: function(node, child) ***REMOVED***
+    elementContains: function(node, child) {
       var hasContains = (window.Node && window.Node.prototype && Node.prototype.contains);
-      var findFn = hasContains ? angular.bind(node, node.contains) : angular.bind(node, function(arg) ***REMOVED***
+      var findFn = hasContains ? angular.bind(node, node.contains) : angular.bind(node, function(arg) {
         // compares the positions of two nodes and returns a bitmask
         return (node === child) || !!(this.compareDocumentPosition(arg) & 16)
-      ***REMOVED***);
+      });
 
       return findFn(child);
-    ***REMOVED***,
+    },
 
     /**
      * Functional equivalent for $element.filter(‘md-bottom-sheet’)
      * useful with interimElements where the element and its container are important...
      *
-     * @param ***REMOVED***[]***REMOVED*** elements to scan
-     * @param ***REMOVED***string***REMOVED*** name of node to find (e.g. 'md-dialog')
-     * @param ***REMOVED***boolean=***REMOVED*** optional flag to allow deep scans; defaults to 'false'.
-     * @param ***REMOVED***boolean=***REMOVED*** optional flag to enable log warnings; defaults to false
+     * @param {[]} elements to scan
+     * @param {string} name of node to find (e.g. 'md-dialog')
+     * @param {boolean=} optional flag to allow deep scans; defaults to 'false'.
+     * @param {boolean=} optional flag to enable log warnings; defaults to false
      */
-    extractElementByName: function(element, nodeName, scanDeep, warnNotFound) ***REMOVED***
+    extractElementByName: function(element, nodeName, scanDeep, warnNotFound) {
       var found = scanTree(element);
-      if (!found && !!warnNotFound) ***REMOVED***
-        $log.warn( $mdUtil.supplant("Unable to find node '***REMOVED***0***REMOVED***' in element '***REMOVED***1***REMOVED***'.",[nodeName, element[0].outerHTML]) );
-      ***REMOVED***
+      if (!found && !!warnNotFound) {
+        $log.warn( $mdUtil.supplant("Unable to find node '{0}' in element '{1}'.",[nodeName, element[0].outerHTML]) );
+      }
 
       return angular.element(found || element);
 
       /**
        * Breadth-First tree scan for element with matching `nodeName`
        */
-      function scanTree(element) ***REMOVED***
+      function scanTree(element) {
         return scanLevel(element) || (!!scanDeep ? scanChildren(element) : null);
-      ***REMOVED***
+      }
 
       /**
        * Case-insensitive scan of current elements only (do not descend).
        */
-      function scanLevel(element) ***REMOVED***
-        if ( element ) ***REMOVED***
-          for (var i = 0, len = element.length; i < len; i++) ***REMOVED***
-            if (element[i].nodeName.toLowerCase() === nodeName) ***REMOVED***
+      function scanLevel(element) {
+        if ( element ) {
+          for (var i = 0, len = element.length; i < len; i++) {
+            if (element[i].nodeName.toLowerCase() === nodeName) {
               return element[i];
-            ***REMOVED***
-          ***REMOVED***
-        ***REMOVED***
+            }
+          }
+        }
         return null;
-      ***REMOVED***
+      }
 
       /**
        * Scan children of specified node
        */
-      function scanChildren(element) ***REMOVED***
+      function scanChildren(element) {
         var found;
-        if ( element ) ***REMOVED***
-          for (var i = 0, len = element.length; i < len; i++) ***REMOVED***
+        if ( element ) {
+          for (var i = 0, len = element.length; i < len; i++) {
             var target = element[i];
-            if ( !found ) ***REMOVED***
-              for (var j = 0, numChild = target.childNodes.length; j < numChild; j++) ***REMOVED***
+            if ( !found ) {
+              for (var j = 0, numChild = target.childNodes.length; j < numChild; j++) {
                 found = found || scanTree([target.childNodes[j]]);
-              ***REMOVED***
-            ***REMOVED***
-          ***REMOVED***
-        ***REMOVED***
+              }
+            }
+          }
+        }
         return found;
-      ***REMOVED***
+      }
 
-    ***REMOVED***,
+    },
 
     /**
      * Give optional properties with no value a boolean true if attr provided or false otherwise
      */
-    initOptionalProperties: function(scope, attr, defaults) ***REMOVED***
-      defaults = defaults || ***REMOVED******REMOVED***;
-      angular.forEach(scope.$$isolateBindings, function(binding, key) ***REMOVED***
-        if (binding.optional && angular.isUndefined(scope[key])) ***REMOVED***
+    initOptionalProperties: function(scope, attr, defaults) {
+      defaults = defaults || {};
+      angular.forEach(scope.$$isolateBindings, function(binding, key) {
+        if (binding.optional && angular.isUndefined(scope[key])) {
           var attrIsDefined = angular.isDefined(attr[binding.attrName]);
           scope[key] = angular.isDefined(defaults[key]) ? defaults[key] : attrIsDefined;
-        ***REMOVED***
-      ***REMOVED***);
-    ***REMOVED***,
+        }
+      });
+    },
 
     /**
      * Alternative to $timeout calls with 0 delay.
@@ -1506,16 +1506,16 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
      *
      * @param callback
      * @param digest
-     * @returns ***REMOVED*******REMOVED***
+     * @returns {*}
      */
-    nextTick: function(callback, digest, scope) ***REMOVED***
+    nextTick: function(callback, digest, scope) {
       //-- grab function reference for storing state details
       var nextTick = $mdUtil.nextTick;
       var timeout = nextTick.timeout;
       var queue = nextTick.queue || [];
 
       //-- add callback to the queue
-      queue.push(***REMOVED***scope: scope, callback: callback***REMOVED***);
+      queue.push({scope: scope, callback: callback});
 
       //-- set default value for digest
       if (digest == null) digest = true;
@@ -1533,7 +1533,7 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
        * Process the existing queue
        * Trigger digest if necessary
        */
-      function processQueue() ***REMOVED***
+      function processQueue() {
         var queue = nextTick.queue;
         var digest = nextTick.digest;
 
@@ -1541,83 +1541,83 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
         nextTick.timeout = null;
         nextTick.digest = false;
 
-        queue.forEach(function(queueItem) ***REMOVED***
+        queue.forEach(function(queueItem) {
           var skip = queueItem.scope && queueItem.scope.$$destroyed;
-          if (!skip) ***REMOVED***
+          if (!skip) {
             queueItem.callback();
-          ***REMOVED***
-        ***REMOVED***);
+          }
+        });
 
         if (digest) $rootScope.$digest();
-      ***REMOVED***
-    ***REMOVED***,
+      }
+    },
 
     /**
      * Processes a template and replaces the start/end symbols if the application has
      * overriden them.
      *
      * @param template The template to process whose start/end tags may be replaced.
-     * @returns ***REMOVED*******REMOVED***
+     * @returns {*}
      */
-    processTemplate: function(template) ***REMOVED***
-      if (usesStandardSymbols) ***REMOVED***
+    processTemplate: function(template) {
+      if (usesStandardSymbols) {
         return template;
-      ***REMOVED*** else ***REMOVED***
+      } else {
         if (!template || !angular.isString(template)) return template;
-        return template.replace(/\***REMOVED***\***REMOVED***/g, startSymbol).replace(/***REMOVED******REMOVED***/g, endSymbol);
-      ***REMOVED***
-    ***REMOVED***,
+        return template.replace(/\{\{/g, startSymbol).replace(/}}/g, endSymbol);
+      }
+    },
 
     /**
      * Scan up dom hierarchy for enabled parent;
      */
-    getParentWithPointerEvents: function (element) ***REMOVED***
+    getParentWithPointerEvents: function (element) {
       var parent = element.parent();
 
       // jqLite might return a non-null, but still empty, parent; so check for parent and length
-      while (hasComputedStyle(parent, 'pointer-events', 'none')) ***REMOVED***
+      while (hasComputedStyle(parent, 'pointer-events', 'none')) {
         parent = parent.parent();
-      ***REMOVED***
+      }
 
       return parent;
-    ***REMOVED***,
+    },
 
-    getNearestContentElement: function (element) ***REMOVED***
+    getNearestContentElement: function (element) {
       var current = element.parent()[0];
       // Look for the nearest parent md-content, stopping at the rootElement.
-      while (current && current !== $rootElement[0] && current !== document.body && current.nodeName.toUpperCase() !== 'MD-CONTENT') ***REMOVED***
+      while (current && current !== $rootElement[0] && current !== document.body && current.nodeName.toUpperCase() !== 'MD-CONTENT') {
         current = current.parentNode;
-      ***REMOVED***
+      }
       return current;
-    ***REMOVED***,
+    },
 
     /**
      * Checks if the current browser is natively supporting the `sticky` position.
-     * @returns ***REMOVED***string***REMOVED*** supported sticky property name
+     * @returns {string} supported sticky property name
      */
-    checkStickySupport: function() ***REMOVED***
+    checkStickySupport: function() {
       var stickyProp;
       var testEl = angular.element('<div>');
       $document[0].body.appendChild(testEl[0]);
 
       var stickyProps = ['sticky', '-webkit-sticky'];
-      for (var i = 0; i < stickyProps.length; ++i) ***REMOVED***
-        testEl.css(***REMOVED***
+      for (var i = 0; i < stickyProps.length; ++i) {
+        testEl.css({
           position: stickyProps[i],
           top: 0,
           'z-index': 2
-        ***REMOVED***);
+        });
 
-        if (testEl.css('position') == stickyProps[i]) ***REMOVED***
+        if (testEl.css('position') == stickyProps[i]) {
           stickyProp = stickyProps[i];
           break;
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
       testEl.remove();
 
       return stickyProp;
-    ***REMOVED***,
+    },
 
     /**
      * Parses an attribute value, mostly a string.
@@ -1626,11 +1626,11 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
      * `false` or `0`.
      * @param value Attribute value which should be parsed.
      * @param negatedCheck When set to false, won't check for negated values.
-     * @returns ***REMOVED***boolean***REMOVED***
+     * @returns {boolean}
      */
-    parseAttributeBoolean: function(value, negatedCheck) ***REMOVED***
+    parseAttributeBoolean: function(value, negatedCheck) {
       return value === '' || !!value && (negatedCheck === false || value !== 'false' && value !== '0');
-    ***REMOVED***,
+    },
 
     hasComputedStyle: hasComputedStyle,
 
@@ -1639,14 +1639,14 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
      *
      * @param element An Angular or HTML5 element.
      *
-     * @returns ***REMOVED***boolean***REMOVED***
+     * @returns {boolean}
      */
-    isParentFormSubmitted: function(element) ***REMOVED***
+    isParentFormSubmitted: function(element) {
       var parent = $mdUtil.getClosest(element, 'form');
       var form = parent ? angular.element(parent).controller('form') : null;
 
       return form ? form.$submitted : false;
-    ***REMOVED***,
+    },
 
     /**
      * Animate the requested element's scrollTop to the requested scrollPosition with basic easing.
@@ -1654,7 +1654,7 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
      * @param element The element to scroll.
      * @param scrollEnd The new/final scroll position.
      */
-    animateScrollTo: function(element, scrollEnd) ***REMOVED***
+    animateScrollTo: function(element, scrollEnd) {
       var scrollStart = element.scrollTop;
       var scrollChange = scrollEnd - scrollStart;
       var scrollingDown = scrollStart < scrollEnd;
@@ -1662,37 +1662,37 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
 
       $$rAF(scrollChunk);
 
-      function scrollChunk() ***REMOVED***
+      function scrollChunk() {
         var newPosition = calculateNewPosition();
         
         element.scrollTop = newPosition;
         
-        if (scrollingDown ? newPosition < scrollEnd : newPosition > scrollEnd) ***REMOVED***
+        if (scrollingDown ? newPosition < scrollEnd : newPosition > scrollEnd) {
           $$rAF(scrollChunk);
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
       
-      function calculateNewPosition() ***REMOVED***
+      function calculateNewPosition() {
         var duration = 1000;
         var currentTime = $mdUtil.now() - startTime;
         
         return ease(currentTime, scrollStart, scrollChange, duration);
-      ***REMOVED***
+      }
 
-      function ease(currentTime, start, change, duration) ***REMOVED***
+      function ease(currentTime, start, change, duration) {
         // If the duration has passed (which can occur if our app loses focus due to $$rAF), jump
         // straight to the proper position
-        if (currentTime > duration) ***REMOVED***
+        if (currentTime > duration) {
           return start + change;
-        ***REMOVED***
+        }
         
         var ts = (currentTime /= duration) * currentTime;
         var tc = ts * currentTime;
 
         return start + change * (-2 * tc + 3 * ts);
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***;
+      }
+    }
+  };
 
 
 // Instantiate other namespace utility methods
@@ -1701,11 +1701,11 @@ function UtilFactory($document, $timeout, $compile, $rootScope, $$mdAnimate, $in
 
   return $mdUtil;
 
-  function getNode(el) ***REMOVED***
+  function getNode(el) {
     return el[0] || el;
-  ***REMOVED***
+  }
 
-***REMOVED***
+}
 UtilFactory.$inject = ["$document", "$timeout", "$compile", "$rootScope", "$$mdAnimate", "$interpolate", "$log", "$rootElement", "$window", "$$rAF"];
 
 /*
@@ -1713,18 +1713,18 @@ UtilFactory.$inject = ["$document", "$timeout", "$compile", "$rootScope", "$$mdA
  * We need to add `element.focus()`, because it's testable unlike `element[0].focus`.
  */
 
-angular.element.prototype.focus = angular.element.prototype.focus || function() ***REMOVED***
-    if (this.length) ***REMOVED***
+angular.element.prototype.focus = angular.element.prototype.focus || function() {
+    if (this.length) {
       this[0].focus();
-    ***REMOVED***
+    }
     return this;
-  ***REMOVED***;
-angular.element.prototype.blur = angular.element.prototype.blur || function() ***REMOVED***
-    if (this.length) ***REMOVED***
+  };
+angular.element.prototype.blur = angular.element.prototype.blur || function() {
+    if (this.length) {
       this[0].blur();
-    ***REMOVED***
+    }
     return this;
-  ***REMOVED***;
+  };
 
 /**
  * @ngdoc module
@@ -1748,14 +1748,14 @@ angular
  *
  * You are able to disable `$mdAria` warnings, by using the following markup.
  * <hljs lang="js">
- *   app.config(function($mdAriaProvider) ***REMOVED***
+ *   app.config(function($mdAriaProvider) {
  *     // Globally disables all ARIA warnings.
  *     $mdAriaProvider.disableWarnings();
- *   ***REMOVED***);
+ *   });
  * </hljs>
  *
  */
-function MdAriaProvider() ***REMOVED***
+function MdAriaProvider() {
 
   var self = this;
 
@@ -1765,45 +1765,45 @@ function MdAriaProvider() ***REMOVED***
    */
   self.showWarnings = true;
 
-  return ***REMOVED***
+  return {
     disableWarnings: disableWarnings,
-    $get: ["$$rAF", "$log", "$window", "$interpolate", function($$rAF, $log, $window, $interpolate) ***REMOVED***
+    $get: ["$$rAF", "$log", "$window", "$interpolate", function($$rAF, $log, $window, $interpolate) {
       return MdAriaService.apply(self, arguments);
-    ***REMOVED***]
-  ***REMOVED***;
+    }]
+  };
 
   /**
    * @ngdoc method
    * @name $mdAriaProvider#disableWarnings
    */
-  function disableWarnings() ***REMOVED***
+  function disableWarnings() {
     self.showWarnings = false;
-  ***REMOVED***
-***REMOVED***
+  }
+}
 
 /*
  * ngInject
  */
-function MdAriaService($$rAF, $log, $window, $interpolate) ***REMOVED***
+function MdAriaService($$rAF, $log, $window, $interpolate) {
 
   // Load the showWarnings option from the current context and store it inside of a scope variable,
   // because the context will be probably lost in some function calls.
   var showWarnings = this.showWarnings;
 
-  return ***REMOVED***
+  return {
     expect: expect,
     expectAsync: expectAsync,
     expectWithText: expectWithText,
     expectWithoutText: expectWithoutText
-  ***REMOVED***;
+  };
 
   /**
    * Check if expected attribute has been specified on the target element or child
    * @param element
    * @param attrName
-   * @param ***REMOVED***optional***REMOVED*** defaultValue What to set the attr to if no value is found
+   * @param {optional} defaultValue What to set the attr to if no value is found
    */
-  function expect(element, attrName, defaultValue) ***REMOVED***
+  function expect(element, attrName, defaultValue) {
 
     var node = angular.element(element)[0] || element;
 
@@ -1811,103 +1811,103 @@ function MdAriaService($$rAF, $log, $window, $interpolate) ***REMOVED***
     if (node &&
        ((!node.hasAttribute(attrName) ||
         node.getAttribute(attrName).length === 0) &&
-        !childHasAttribute(node, attrName))) ***REMOVED***
+        !childHasAttribute(node, attrName))) {
 
       defaultValue = angular.isString(defaultValue) ? defaultValue.trim() : '';
-      if (defaultValue.length) ***REMOVED***
+      if (defaultValue.length) {
         element.attr(attrName, defaultValue);
-      ***REMOVED*** else if (showWarnings) ***REMOVED***
+      } else if (showWarnings) {
         $log.warn('ARIA: Attribute "', attrName, '", required for accessibility, is missing on node:', node);
-      ***REMOVED***
+      }
 
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
-  function expectAsync(element, attrName, defaultValueGetter) ***REMOVED***
+  function expectAsync(element, attrName, defaultValueGetter) {
     // Problem: when retrieving the element's contents synchronously to find the label,
     // the text may not be defined yet in the case of a binding.
     // There is a higher chance that a binding will be defined if we wait one frame.
-    $$rAF(function() ***REMOVED***
+    $$rAF(function() {
         expect(element, attrName, defaultValueGetter());
-    ***REMOVED***);
-  ***REMOVED***
+    });
+  }
 
-  function expectWithText(element, attrName) ***REMOVED***
+  function expectWithText(element, attrName) {
     var content = getText(element) || "";
     var hasBinding = content.indexOf($interpolate.startSymbol()) > -1;
 
-    if ( hasBinding ) ***REMOVED***
-      expectAsync(element, attrName, function() ***REMOVED***
+    if ( hasBinding ) {
+      expectAsync(element, attrName, function() {
         return getText(element);
-      ***REMOVED***);
-    ***REMOVED*** else ***REMOVED***
+      });
+    } else {
       expect(element, attrName, content);
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
-  function expectWithoutText(element, attrName) ***REMOVED***
+  function expectWithoutText(element, attrName) {
     var content = getText(element);
     var hasBinding = content.indexOf($interpolate.startSymbol()) > -1;
 
-    if ( !hasBinding && !content) ***REMOVED***
+    if ( !hasBinding && !content) {
       expect(element, attrName, content);
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
-  function getText(element) ***REMOVED***
+  function getText(element) {
     element = element[0] || element;
     var walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
     var text = '';
 
     var node;
-    while (node = walker.nextNode()) ***REMOVED***
-      if (!isAriaHiddenNode(node)) ***REMOVED***
+    while (node = walker.nextNode()) {
+      if (!isAriaHiddenNode(node)) {
         text += node.textContent;
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     return text.trim() || '';
 
-    function isAriaHiddenNode(node) ***REMOVED***
-      while (node.parentNode && (node = node.parentNode) !== element) ***REMOVED***
-        if (node.getAttribute && node.getAttribute('aria-hidden') === 'true') ***REMOVED***
+    function isAriaHiddenNode(node) {
+      while (node.parentNode && (node = node.parentNode) !== element) {
+        if (node.getAttribute && node.getAttribute('aria-hidden') === 'true') {
           return true;
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
+        }
+      }
+    }
+  }
 
-  function childHasAttribute(node, attrName) ***REMOVED***
+  function childHasAttribute(node, attrName) {
     var hasChildren = node.hasChildNodes(),
         hasAttr = false;
 
-    function isHidden(el) ***REMOVED***
+    function isHidden(el) {
       var style = el.currentStyle ? el.currentStyle : $window.getComputedStyle(el);
       return (style.display === 'none');
-    ***REMOVED***
+    }
 
-    if (hasChildren) ***REMOVED***
+    if (hasChildren) {
       var children = node.childNodes;
-      for (var i=0; i < children.length; i++) ***REMOVED***
+      for (var i=0; i < children.length; i++) {
         var child = children[i];
-        if (child.nodeType === 1 && child.hasAttribute(attrName)) ***REMOVED***
-          if (!isHidden(child)) ***REMOVED***
+        if (child.nodeType === 1 && child.hasAttribute(attrName)) {
+          if (!isHidden(child)) {
             hasAttr = true;
-          ***REMOVED***
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***
+          }
+        }
+      }
+    }
 
     return hasAttr;
-  ***REMOVED***
-***REMOVED***
+  }
+}
 MdAriaService.$inject = ["$$rAF", "$log", "$window", "$interpolate"];
 
 angular
   .module('material.core')
   .service('$mdCompiler', mdCompilerService);
 
-function mdCompilerService($q, $templateRequest, $injector, $compile, $controller) ***REMOVED***
+function mdCompilerService($q, $templateRequest, $injector, $compile, $controller) {
   /* jshint validthis: true */
 
   /*
@@ -1920,16 +1920,16 @@ function mdCompilerService($q, $templateRequest, $injector, $compile, $controlle
    *
    * @usage
    * <hljs lang="js">
-   * $mdCompiler.compile(***REMOVED***
+   * $mdCompiler.compile({
    *   templateUrl: 'modal.html',
    *   controller: 'ModalCtrl',
-   *   locals: ***REMOVED***
+   *   locals: {
    *     modal: myModalInstance;
-   *   ***REMOVED***
-   * ***REMOVED***).then(function(compileData) ***REMOVED***
+   *   }
+   * }).then(function(compileData) {
    *   compileData.element; // modal.html's template in an element
    *   compileData.link(myScope); //attach controller & scope to element
-   * ***REMOVED***);
+   * });
    * </hljs>
    */
 
@@ -1938,72 +1938,72 @@ function mdCompilerService($q, $templateRequest, $injector, $compile, $controlle
     * @name $mdCompiler#compile
     * @description A helper to compile an HTML template/templateUrl with a given controller,
     * locals, and scope.
-    * @param ***REMOVED***object***REMOVED*** options An options object, with the following properties:
+    * @param {object} options An options object, with the following properties:
     *
-    *    - `controller` - `***REMOVED***(string=|function()=***REMOVED***` Controller fn that should be associated with
+    *    - `controller` - `{(string=|function()=}` Controller fn that should be associated with
     *      newly created scope or the name of a registered controller if passed as a string.
-    *    - `controllerAs` - `***REMOVED***string=***REMOVED***` A controller alias name. If present the controller will be
+    *    - `controllerAs` - `{string=}` A controller alias name. If present the controller will be
     *      published to scope under the `controllerAs` name.
-    *    - `template` - `***REMOVED***string=***REMOVED***` An html template as a string.
-    *    - `templateUrl` - `***REMOVED***string=***REMOVED***` A path to an html template.
-    *    - `transformTemplate` - `***REMOVED***function(template)=***REMOVED***` A function which transforms the template after
+    *    - `template` - `{string=}` An html template as a string.
+    *    - `templateUrl` - `{string=}` A path to an html template.
+    *    - `transformTemplate` - `{function(template)=}` A function which transforms the template after
     *      it is loaded. It will be given the template string as a parameter, and should
     *      return a a new string representing the transformed template.
-    *    - `resolve` - `***REMOVED***Object.<string, function>=***REMOVED***` - An optional map of dependencies which should
+    *    - `resolve` - `{Object.<string, function>=}` - An optional map of dependencies which should
     *      be injected into the controller. If any of these dependencies are promises, the compiler
     *      will wait for them all to be resolved, or if one is rejected before the controller is
     *      instantiated `compile()` will fail..
-    *      * `key` - `***REMOVED***string***REMOVED***`: a name of a dependency to be injected into the controller.
-    *      * `factory` - `***REMOVED***string|function***REMOVED***`: If `string` then it is an alias for a service.
+    *      * `key` - `{string}`: a name of a dependency to be injected into the controller.
+    *      * `factory` - `{string|function}`: If `string` then it is an alias for a service.
     *        Otherwise if function, then it is injected and the return value is treated as the
     *        dependency. If the result is a promise, it is resolved before its value is
     *        injected into the controller.
     *
-    * @returns ***REMOVED***object=***REMOVED*** promise A promise, which will be resolved with a `compileData` object.
+    * @returns {object=} promise A promise, which will be resolved with a `compileData` object.
     * `compileData` has the following properties:
     *
-    *   - `element` - `***REMOVED***element***REMOVED***`: an uncompiled element matching the provided template.
-    *   - `link` - `***REMOVED***function(scope)***REMOVED***`: A link function, which, when called, will compile
+    *   - `element` - `{element}`: an uncompiled element matching the provided template.
+    *   - `link` - `{function(scope)}`: A link function, which, when called, will compile
     *     the element and instantiate the provided controller (if given).
-    *   - `locals` - `***REMOVED***object***REMOVED***`: The locals which will be passed into the controller once `link` is
+    *   - `locals` - `{object}`: The locals which will be passed into the controller once `link` is
     *     called. If `bindToController` is true, they will be coppied to the ctrl instead
     *   - `bindToController` - `bool`: bind the locals to the controller, instead of passing them in.
     */
-  this.compile = function(options) ***REMOVED***
+  this.compile = function(options) {
     var templateUrl = options.templateUrl;
     var template = options.template || '';
     var controller = options.controller;
     var controllerAs = options.controllerAs;
-    var resolve = angular.extend(***REMOVED******REMOVED***, options.resolve || ***REMOVED******REMOVED***);
-    var locals = angular.extend(***REMOVED******REMOVED***, options.locals || ***REMOVED******REMOVED***);
+    var resolve = angular.extend({}, options.resolve || {});
+    var locals = angular.extend({}, options.locals || {});
     var transformTemplate = options.transformTemplate || angular.identity;
     var bindToController = options.bindToController;
 
     // Take resolve values and invoke them.
     // Resolves can either be a string (value: 'MyRegisteredAngularConst'),
-    // or an invokable 'factory' of sorts: (value: function ValueGetter($dependency) ***REMOVED******REMOVED***)
-    angular.forEach(resolve, function(value, key) ***REMOVED***
-      if (angular.isString(value)) ***REMOVED***
+    // or an invokable 'factory' of sorts: (value: function ValueGetter($dependency) {})
+    angular.forEach(resolve, function(value, key) {
+      if (angular.isString(value)) {
         resolve[key] = $injector.get(value);
-      ***REMOVED*** else ***REMOVED***
+      } else {
         resolve[key] = $injector.invoke(value);
-      ***REMOVED***
-    ***REMOVED***);
+      }
+    });
     //Add the locals, which are just straight values to inject
-    //eg locals: ***REMOVED*** three: 3 ***REMOVED***, will inject three into the controller
+    //eg locals: { three: 3 }, will inject three into the controller
     angular.extend(resolve, locals);
 
-    if (templateUrl) ***REMOVED***
+    if (templateUrl) {
       resolve.$template = $templateRequest(templateUrl)
-        .then(function(response) ***REMOVED***
+        .then(function(response) {
           return response;
-        ***REMOVED***);
-    ***REMOVED*** else ***REMOVED***
+        });
+    } else {
       resolve.$template = $q.when(template);
-    ***REMOVED***
+    }
 
     // Wait for all the resolves to finish if they are promises
-    return $q.all(resolve).then(function(locals) ***REMOVED***
+    return $q.all(resolve).then(function(locals) {
 
       var compiledData;
       var template = transformTemplate(locals.$template, options);
@@ -2011,40 +2011,40 @@ function mdCompilerService($q, $templateRequest, $injector, $compile, $controlle
       var linkFn = $compile(element);
 
       // Return a linking function that can be used later when the element is ready
-      return compiledData = ***REMOVED***
+      return compiledData = {
         locals: locals,
         element: element,
-        link: function link(scope) ***REMOVED***
+        link: function link(scope) {
           locals.$scope = scope;
 
           //Instantiate controller if it exists, because we have scope
-          if (controller) ***REMOVED***
+          if (controller) {
             var invokeCtrl = $controller(controller, locals, true);
-            if (bindToController) ***REMOVED***
+            if (bindToController) {
               angular.extend(invokeCtrl.instance, locals);
-            ***REMOVED***
+            }
             var ctrl = invokeCtrl();
             //See angular-route source for this logic
             element.data('$ngControllerController', ctrl);
             element.children().data('$ngControllerController', ctrl);
 
-            if (controllerAs) ***REMOVED***
+            if (controllerAs) {
               scope[controllerAs] = ctrl;
-            ***REMOVED***
+            }
 
             // Publish reference to this controller
             compiledData.controller = ctrl;
-          ***REMOVED***
+          }
           return linkFn(scope);
-        ***REMOVED***
-      ***REMOVED***;
-    ***REMOVED***);
+        }
+      };
+    });
 
-  ***REMOVED***;
-***REMOVED***
+  };
+}
 mdCompilerService.$inject = ["$q", "$templateRequest", "$injector", "$compile", "$controller"];
 
-var HANDLERS = ***REMOVED******REMOVED***;
+var HANDLERS = {};
 
 /* The state of the current 'pointer'
  * The pointer represents the state of the current touch.
@@ -2056,7 +2056,7 @@ var pointer, lastPointer, forceSkipClickHijack = false;
 
 /**
  * The position of the most recent click if that click was on a label element.
- * @type ***REMOVED******REMOVED***x: number, y: number***REMOVED***?***REMOVED***
+ * @type {{x: number, y: number}?}
  */
 var lastLabelClickPos = null;
 
@@ -2080,34 +2080,34 @@ angular
    * devices.
    *
    * <hljs lang="js">
-   *   app.config(function($mdGestureProvider) ***REMOVED***
+   *   app.config(function($mdGestureProvider) {
    *
    *     // For mobile devices without jQuery loaded, do not
    *     // intercept click events during the capture phase.
    *     $mdGestureProvider.skipClickHijack();
    *
-   *   ***REMOVED***);
+   *   });
    * </hljs>
    *
    */
-function MdGestureProvider() ***REMOVED*** ***REMOVED***
+function MdGestureProvider() { }
 
-MdGestureProvider.prototype = ***REMOVED***
+MdGestureProvider.prototype = {
 
   // Publish access to setter to configure a variable  BEFORE the
   // $mdGesture service is instantiated...
-  skipClickHijack: function() ***REMOVED***
+  skipClickHijack: function() {
     return forceSkipClickHijack = true;
-  ***REMOVED***,
+  },
 
   /**
    * $get is used to build an instance of $mdGesture
    * ngInject
    */
-  $get : ["$$MdGestureHandler", "$$rAF", "$timeout", function($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
+  $get : ["$$MdGestureHandler", "$$rAF", "$timeout", function($$MdGestureHandler, $$rAF, $timeout) {
        return new MdGesture($$MdGestureHandler, $$rAF, $timeout);
-  ***REMOVED***]
-***REMOVED***;
+  }]
+};
 
 
 
@@ -2115,75 +2115,75 @@ MdGestureProvider.prototype = ***REMOVED***
  * MdGesture factory construction function
  * ngInject
  */
-function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
+function MdGesture($$MdGestureHandler, $$rAF, $timeout) {
   var userAgent = navigator.userAgent || navigator.vendor || window.opera;
   var isIos = userAgent.match(/ipad|iphone|ipod/i);
   var isAndroid = userAgent.match(/android/i);
   var touchActionProperty = getTouchAction();
   var hasJQuery =  (typeof window.jQuery !== 'undefined') && (angular.element === window.jQuery);
 
-  var self = ***REMOVED***
+  var self = {
     handler: addHandler,
     register: register,
     isIos: isIos,
     isAndroid: isAndroid,
     // On mobile w/out jQuery, we normally intercept clicks. Should we skip that?
     isHijackingClicks: (isIos || isAndroid) && !hasJQuery && !forceSkipClickHijack
-  ***REMOVED***;
+  };
 
-  if (self.isHijackingClicks) ***REMOVED***
+  if (self.isHijackingClicks) {
     var maxClickDistance = 6;
-    self.handler('click', ***REMOVED***
-      options: ***REMOVED***
+    self.handler('click', {
+      options: {
         maxDistance: maxClickDistance
-      ***REMOVED***,
+      },
       onEnd: checkDistanceAndEmit('click')
-    ***REMOVED***);
+    });
 
-    self.handler('focus', ***REMOVED***
-      options: ***REMOVED***
+    self.handler('focus', {
+      options: {
         maxDistance: maxClickDistance
-      ***REMOVED***,
-      onEnd: function(ev, pointer) ***REMOVED***
-        if (pointer.distance < this.state.options.maxDistance) ***REMOVED***
-          if (canFocus(ev.target)) ***REMOVED***
+      },
+      onEnd: function(ev, pointer) {
+        if (pointer.distance < this.state.options.maxDistance) {
+          if (canFocus(ev.target)) {
             this.dispatchEvent(ev, 'focus', pointer);
             ev.target.focus();
-          ***REMOVED***
-        ***REMOVED***
+          }
+        }
 
-        function canFocus(element) ***REMOVED***
+        function canFocus(element) {
           var focusableElements = ['INPUT', 'SELECT', 'BUTTON', 'TEXTAREA', 'VIDEO', 'AUDIO'];
 
           return (element.getAttribute('tabindex') != '-1') &&
               !element.hasAttribute('DISABLED') &&
               (element.hasAttribute('tabindex') || element.hasAttribute('href') || element.isContentEditable ||
               (focusableElements.indexOf(element.nodeName) != -1));
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***);
+        }
+      }
+    });
 
-    self.handler('mouseup', ***REMOVED***
-      options: ***REMOVED***
+    self.handler('mouseup', {
+      options: {
         maxDistance: maxClickDistance
-      ***REMOVED***,
+      },
       onEnd: checkDistanceAndEmit('mouseup')
-    ***REMOVED***);
+    });
 
-    self.handler('mousedown', ***REMOVED***
-      onStart: function(ev) ***REMOVED***
+    self.handler('mousedown', {
+      onStart: function(ev) {
         this.dispatchEvent(ev, 'mousedown');
-      ***REMOVED***
-    ***REMOVED***);
-  ***REMOVED***
+      }
+    });
+  }
 
-  function checkDistanceAndEmit(eventName) ***REMOVED***
-    return function(ev, pointer) ***REMOVED***
-      if (pointer.distance < this.state.options.maxDistance) ***REMOVED***
+  function checkDistanceAndEmit(eventName) {
+    return function(ev, pointer) {
+      if (pointer.distance < this.state.options.maxDistance) {
         this.dispatchEvent(ev, eventName, pointer);
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***
+      }
+    };
+  }
 
   /*
    * Register an element to listen for a handler.
@@ -2192,27 +2192,27 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
    * the domEvent happens inside an element that's registered to listen for these events.
    *
    * @see GestureHandler for how overriding of default options works.
-   * @example $mdGesture.register(myElement, 'drag', ***REMOVED*** minDistance: 20, horziontal: false ***REMOVED***)
+   * @example $mdGesture.register(myElement, 'drag', { minDistance: 20, horziontal: false })
    */
-  function register(element, handlerName, options) ***REMOVED***
+  function register(element, handlerName, options) {
     var handler = HANDLERS[handlerName.replace(/^\$md./, '')];
-    if (!handler) ***REMOVED***
+    if (!handler) {
       throw new Error('Failed to register element with handler ' + handlerName + '. ' +
       'Available handlers: ' + Object.keys(HANDLERS).join(', '));
-    ***REMOVED***
+    }
     return handler.registerElement(element, options);
-  ***REMOVED***
+  }
 
   /*
    * add a handler to $mdGesture. see below.
    */
-  function addHandler(name, definition) ***REMOVED***
+  function addHandler(name, definition) {
     var handler = new $$MdGestureHandler(name);
     angular.extend(handler, definition);
     HANDLERS[name] = handler;
 
     return self;
-  ***REMOVED***
+  }
 
   /*
    * Register handlers. These listen to touch/start/move events, interpret them,
@@ -2225,14 +2225,14 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
      * The press handler dispatches an event on touchdown/touchend.
      * It's a simple abstraction of touch/mouse/pointer start and end.
      */
-    .handler('press', ***REMOVED***
-      onStart: function (ev, pointer) ***REMOVED***
+    .handler('press', {
+      onStart: function (ev, pointer) {
         this.dispatchEvent(ev, '$md.pressdown');
-      ***REMOVED***,
-      onEnd: function (ev, pointer) ***REMOVED***
+      },
+      onEnd: function (ev, pointer) {
         this.dispatchEvent(ev, '$md.pressup');
-      ***REMOVED***
-    ***REMOVED***)
+      }
+    })
 
     /*
      * The hold handler dispatches an event if the user keeps their finger within
@@ -2240,26 +2240,26 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
      * The hold handler will only run if a parent of the touch target is registered
      * to listen for hold events through $mdGesture.register()
      */
-    .handler('hold', ***REMOVED***
-      options: ***REMOVED***
+    .handler('hold', {
+      options: {
         maxDistance: 6,
         delay: 500
-      ***REMOVED***,
-      onCancel: function () ***REMOVED***
+      },
+      onCancel: function () {
         $timeout.cancel(this.state.timeout);
-      ***REMOVED***,
-      onStart: function (ev, pointer) ***REMOVED***
+      },
+      onStart: function (ev, pointer) {
         // For hold, require a parent to be registered with $mdGesture.register()
         // Because we prevent scroll events, this is necessary.
         if (!this.state.registeredParent) return this.cancel();
 
-        this.state.pos = ***REMOVED***x: pointer.x, y: pointer.y***REMOVED***;
-        this.state.timeout = $timeout(angular.bind(this, function holdDelayFn() ***REMOVED***
+        this.state.pos = {x: pointer.x, y: pointer.y};
+        this.state.timeout = $timeout(angular.bind(this, function holdDelayFn() {
           this.dispatchEvent(ev, '$md.hold');
           this.cancel(); //we're done!
-        ***REMOVED***), this.state.options.delay, false);
-      ***REMOVED***,
-      onMove: function (ev, pointer) ***REMOVED***
+        }), this.state.options.delay, false);
+      },
+      onMove: function (ev, pointer) {
         // Don't scroll while waiting for hold.
         // If we don't preventDefault touchmove events here, Android will assume we don't
         // want to listen to anymore touch events. It will start scrolling and stop sending
@@ -2270,14 +2270,14 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
         // set in onStart
         var dx = this.state.pos.x - pointer.x;
         var dy = this.state.pos.y - pointer.y;
-        if (Math.sqrt(dx * dx + dy * dy) > this.options.maxDistance) ***REMOVED***
+        if (Math.sqrt(dx * dx + dy * dy) > this.options.maxDistance) {
           this.cancel();
-        ***REMOVED***
-      ***REMOVED***,
-      onEnd: function () ***REMOVED***
+        }
+      },
+      onEnd: function () {
         this.onCancel();
-      ***REMOVED***
-    ***REMOVED***)
+      }
+    })
 
     /*
      * The drag handler dispatches a drag event if the user holds and moves his finger greater than
@@ -2286,29 +2286,29 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
      * the perpendicular direction. Eg if the drag is horizontal and the user moves his finger <minDistance>*<cancelMultiplier>
      * pixels vertically, this handler won't consider the move part of a drag.
      */
-    .handler('drag', ***REMOVED***
-      options: ***REMOVED***
+    .handler('drag', {
+      options: {
         minDistance: 6,
         horizontal: true,
         cancelMultiplier: 1.5
-      ***REMOVED***,
-      onSetup: function(element, options) ***REMOVED***
-        if (touchActionProperty) ***REMOVED***
+      },
+      onSetup: function(element, options) {
+        if (touchActionProperty) {
           // We check for horizontal to be false, because otherwise we would overwrite the default opts.
           this.oldTouchAction = element[0].style[touchActionProperty];
           element[0].style[touchActionProperty] = options.horizontal === false ? 'pan-y' : 'pan-x';
-        ***REMOVED***
-      ***REMOVED***,
-      onCleanup: function(element) ***REMOVED***
-        if (this.oldTouchAction) ***REMOVED***
+        }
+      },
+      onCleanup: function(element) {
+        if (this.oldTouchAction) {
           element[0].style[touchActionProperty] = this.oldTouchAction;
-        ***REMOVED***
-      ***REMOVED***,
-      onStart: function (ev) ***REMOVED***
+        }
+      },
+      onStart: function (ev) {
         // For drag, require a parent to be registered with $mdGesture.register()
         if (!this.state.registeredParent) this.cancel();
-      ***REMOVED***,
-      onMove: function (ev, pointer) ***REMOVED***
+      },
+      onMove: function (ev, pointer) {
         var shouldStartDrag, shouldCancel;
         // Don't scroll while deciding if this touchmove qualifies as a drag event.
         // If we don't preventDefault touchmove events here, Android will assume we don't
@@ -2316,89 +2316,89 @@ function MdGesture($$MdGestureHandler, $$rAF, $timeout) ***REMOVED***
         // touchmove events.
         if (!touchActionProperty && ev.type === 'touchmove') ev.preventDefault();
 
-        if (!this.state.dragPointer) ***REMOVED***
-          if (this.state.options.horizontal) ***REMOVED***
+        if (!this.state.dragPointer) {
+          if (this.state.options.horizontal) {
             shouldStartDrag = Math.abs(pointer.distanceX) > this.state.options.minDistance;
             shouldCancel = Math.abs(pointer.distanceY) > this.state.options.minDistance * this.state.options.cancelMultiplier;
-          ***REMOVED*** else ***REMOVED***
+          } else {
             shouldStartDrag = Math.abs(pointer.distanceY) > this.state.options.minDistance;
             shouldCancel = Math.abs(pointer.distanceX) > this.state.options.minDistance * this.state.options.cancelMultiplier;
-          ***REMOVED***
+          }
 
-          if (shouldStartDrag) ***REMOVED***
+          if (shouldStartDrag) {
             // Create a new pointer representing this drag, starting at this point where the drag started.
             this.state.dragPointer = makeStartPointer(ev);
             updatePointerState(ev, this.state.dragPointer);
             this.dispatchEvent(ev, '$md.dragstart', this.state.dragPointer);
 
-          ***REMOVED*** else if (shouldCancel) ***REMOVED***
+          } else if (shouldCancel) {
             this.cancel();
-          ***REMOVED***
-        ***REMOVED*** else ***REMOVED***
+          }
+        } else {
           this.dispatchDragMove(ev);
-        ***REMOVED***
-      ***REMOVED***,
+        }
+      },
       // Only dispatch dragmove events every frame; any more is unnecessary
-      dispatchDragMove: $$rAF.throttle(function (ev) ***REMOVED***
+      dispatchDragMove: $$rAF.throttle(function (ev) {
         // Make sure the drag didn't stop while waiting for the next frame
-        if (this.state.isRunning) ***REMOVED***
+        if (this.state.isRunning) {
           updatePointerState(ev, this.state.dragPointer);
           this.dispatchEvent(ev, '$md.drag', this.state.dragPointer);
-        ***REMOVED***
-      ***REMOVED***),
-      onEnd: function (ev, pointer) ***REMOVED***
-        if (this.state.dragPointer) ***REMOVED***
+        }
+      }),
+      onEnd: function (ev, pointer) {
+        if (this.state.dragPointer) {
           updatePointerState(ev, this.state.dragPointer);
           this.dispatchEvent(ev, '$md.dragend', this.state.dragPointer);
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***)
+        }
+      }
+    })
 
     /*
      * The swipe handler will dispatch a swipe event if, on the end of a touch,
      * the velocity and distance were high enough.
      */
-    .handler('swipe', ***REMOVED***
-      options: ***REMOVED***
+    .handler('swipe', {
+      options: {
         minVelocity: 0.65,
         minDistance: 10
-      ***REMOVED***,
-      onEnd: function (ev, pointer) ***REMOVED***
+      },
+      onEnd: function (ev, pointer) {
         var eventType;
 
         if (Math.abs(pointer.velocityX) > this.state.options.minVelocity &&
-          Math.abs(pointer.distanceX) > this.state.options.minDistance) ***REMOVED***
+          Math.abs(pointer.distanceX) > this.state.options.minDistance) {
           eventType = pointer.directionX == 'left' ? '$md.swipeleft' : '$md.swiperight';
           this.dispatchEvent(ev, eventType);
-        ***REMOVED***
+        }
         else if (Math.abs(pointer.velocityY) > this.state.options.minVelocity &&
-          Math.abs(pointer.distanceY) > this.state.options.minDistance) ***REMOVED***
+          Math.abs(pointer.distanceY) > this.state.options.minDistance) {
           eventType = pointer.directionY == 'up' ? '$md.swipeup' : '$md.swipedown';
           this.dispatchEvent(ev, eventType);
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***);
+        }
+      }
+    });
 
-  function getTouchAction() ***REMOVED***
+  function getTouchAction() {
     var testEl = document.createElement('div');
     var vendorPrefixes = ['', 'webkit', 'Moz', 'MS', 'ms', 'o'];
 
-    for (var i = 0; i < vendorPrefixes.length; i++) ***REMOVED***
+    for (var i = 0; i < vendorPrefixes.length; i++) {
       var prefix = vendorPrefixes[i];
       var property = prefix ? prefix + 'TouchAction' : 'touchAction';
-      if (angular.isDefined(testEl.style[property])) ***REMOVED***
+      if (angular.isDefined(testEl.style[property])) {
         return property;
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
+      }
+    }
+  }
 
-***REMOVED***
+}
 MdGesture.$inject = ["$$MdGestureHandler", "$$rAF", "$timeout"];
 
 /**
  * MdGestureHandler
  * A GestureHandler is an object which is able to dispatch custom dom events
- * based on native dom ***REMOVED***touch,pointer,mouse***REMOVED******REMOVED***start,move,end***REMOVED*** events.
+ * based on native dom {touch,pointer,mouse}{start,move,end} events.
  *
  * A gesture will manage its lifecycle through the start,move,end, and cancel
  * functions, which are called by native dom events.
@@ -2406,16 +2406,16 @@ MdGesture.$inject = ["$$MdGestureHandler", "$$rAF", "$timeout"];
  * A gesture has the concept of 'options' (eg a swipe's required velocity), which can be
  * overridden by elements registering through $mdGesture.register()
  */
-function GestureHandler (name) ***REMOVED***
+function GestureHandler (name) {
   this.name = name;
-  this.state = ***REMOVED******REMOVED***;
-***REMOVED***
+  this.state = {};
+}
 
-function MdGestureHandler() ***REMOVED***
+function MdGestureHandler() {
   var hasJQuery =  (typeof window.jQuery !== 'undefined') && (angular.element === window.jQuery);
 
-  GestureHandler.prototype = ***REMOVED***
-    options: ***REMOVED******REMOVED***,
+  GestureHandler.prototype = {
+    options: {},
     // jQuery listeners don't work with custom DOMEvents, so we have to dispatch events
     // differently when jQuery is loaded
     dispatchEvent: hasJQuery ?  jQueryDispatchEvent : nativeDispatchEvent,
@@ -2430,69 +2430,69 @@ function MdGestureHandler() ***REMOVED***
 
     // onStart sets up a new state for the handler, which includes options from the
     // nearest registered parent element of ev.target.
-    start: function (ev, pointer) ***REMOVED***
+    start: function (ev, pointer) {
       if (this.state.isRunning) return;
       var parentTarget = this.getNearestParent(ev.target);
       // Get the options from the nearest registered parent
-      var parentTargetOptions = parentTarget && parentTarget.$mdGesture[this.name] || ***REMOVED******REMOVED***;
+      var parentTargetOptions = parentTarget && parentTarget.$mdGesture[this.name] || {};
 
-      this.state = ***REMOVED***
+      this.state = {
         isRunning: true,
         // Override the default options with the nearest registered parent's options
-        options: angular.extend(***REMOVED******REMOVED***, this.options, parentTargetOptions),
+        options: angular.extend({}, this.options, parentTargetOptions),
         // Pass in the registered parent node to the state so the onStart listener can use
         registeredParent: parentTarget
-      ***REMOVED***;
+      };
       this.onStart(ev, pointer);
-    ***REMOVED***,
-    move: function (ev, pointer) ***REMOVED***
+    },
+    move: function (ev, pointer) {
       if (!this.state.isRunning) return;
       this.onMove(ev, pointer);
-    ***REMOVED***,
-    end: function (ev, pointer) ***REMOVED***
+    },
+    end: function (ev, pointer) {
       if (!this.state.isRunning) return;
       this.onEnd(ev, pointer);
       this.state.isRunning = false;
-    ***REMOVED***,
-    cancel: function (ev, pointer) ***REMOVED***
+    },
+    cancel: function (ev, pointer) {
       this.onCancel(ev, pointer);
-      this.state = ***REMOVED******REMOVED***;
-    ***REMOVED***,
+      this.state = {};
+    },
 
     // Find and return the nearest parent element that has been registered to
     // listen for this handler via $mdGesture.register(element, 'handlerName').
-    getNearestParent: function (node) ***REMOVED***
+    getNearestParent: function (node) {
       var current = node;
-      while (current) ***REMOVED***
-        if ((current.$mdGesture || ***REMOVED******REMOVED***)[this.name]) ***REMOVED***
+      while (current) {
+        if ((current.$mdGesture || {})[this.name]) {
           return current;
-        ***REMOVED***
+        }
         current = current.parentNode;
-      ***REMOVED***
+      }
       return null;
-    ***REMOVED***,
+    },
 
     // Called from $mdGesture.register when an element registers itself with a handler.
     // Store the options the user gave on the DOMElement itself. These options will
     // be retrieved with getNearestParent when the handler starts.
-    registerElement: function (element, options) ***REMOVED***
+    registerElement: function (element, options) {
       var self = this;
-      element[0].$mdGesture = element[0].$mdGesture || ***REMOVED******REMOVED***;
-      element[0].$mdGesture[this.name] = options || ***REMOVED******REMOVED***;
+      element[0].$mdGesture = element[0].$mdGesture || {};
+      element[0].$mdGesture[this.name] = options || {};
       element.on('$destroy', onDestroy);
 
-      self.onSetup(element, options || ***REMOVED******REMOVED***);
+      self.onSetup(element, options || {});
 
       return onDestroy;
 
-      function onDestroy() ***REMOVED***
+      function onDestroy() {
         delete element[0].$mdGesture[self.name];
         element.off('$destroy', onDestroy);
 
-        self.onCleanup(element, options || ***REMOVED******REMOVED***);
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***;
+        self.onCleanup(element, options || {});
+      }
+    }
+  };
 
   return GestureHandler;
 
@@ -2504,7 +2504,7 @@ function MdGestureHandler() ***REMOVED***
    * @param eventType the name of the custom event to send (eg 'click' or '$md.drag')
    * @param eventPointer the pointer object that matches this event.
    */
-  function jQueryDispatchEvent(srcEvent, eventType, eventPointer) ***REMOVED***
+  function jQueryDispatchEvent(srcEvent, eventType, eventPointer) {
     eventPointer = eventPointer || pointer;
     var eventObj = new angular.element.Event(eventType);
 
@@ -2512,7 +2512,7 @@ function MdGestureHandler() ***REMOVED***
     eventObj.pointer = eventPointer;
     eventObj.srcEvent = srcEvent;
 
-    angular.extend(eventObj, ***REMOVED***
+    angular.extend(eventObj, {
       clientX: eventPointer.x,
       clientY: eventPointer.y,
       screenX: eventPointer.x,
@@ -2523,9 +2523,9 @@ function MdGestureHandler() ***REMOVED***
       altKey: srcEvent.altKey,
       shiftKey: srcEvent.shiftKey,
       metaKey: srcEvent.metaKey
-    ***REMOVED***);
+    });
     angular.element(eventPointer.target).trigger(eventObj);
-  ***REMOVED***
+  }
 
   /*
    * NOTE: nativeDispatchEvent is very performance sensitive.
@@ -2533,11 +2533,11 @@ function MdGestureHandler() ***REMOVED***
    * @param eventType the name of the custom event to send (eg 'click' or '$md.drag')
    * @param eventPointer the pointer object that matches this event.
    */
-  function nativeDispatchEvent(srcEvent, eventType, eventPointer) ***REMOVED***
+  function nativeDispatchEvent(srcEvent, eventType, eventPointer) {
     eventPointer = eventPointer || pointer;
     var eventObj;
 
-    if (eventType === 'click' || eventType == 'mouseup' || eventType == 'mousedown' ) ***REMOVED***
+    if (eventType === 'click' || eventType == 'mouseup' || eventType == 'mousedown' ) {
       eventObj = document.createEvent('MouseEvents');
       eventObj.initMouseEvent(
         eventType, true, true, window, srcEvent.detail,
@@ -2546,31 +2546,31 @@ function MdGestureHandler() ***REMOVED***
         srcEvent.button, srcEvent.relatedTarget || null
       );
 
-    ***REMOVED*** else ***REMOVED***
+    } else {
       eventObj = document.createEvent('CustomEvent');
-      eventObj.initCustomEvent(eventType, true, true, ***REMOVED******REMOVED***);
-    ***REMOVED***
+      eventObj.initCustomEvent(eventType, true, true, {});
+    }
     eventObj.$material = true;
     eventObj.pointer = eventPointer;
     eventObj.srcEvent = srcEvent;
     eventPointer.target.dispatchEvent(eventObj);
-  ***REMOVED***
+  }
 
-***REMOVED***
+}
 
 /**
  * Attach Gestures: hook document and check shouldHijack clicks
  * ngInject
  */
-function attachToDocument( $mdGesture, $$MdGestureHandler ) ***REMOVED***
+function attachToDocument( $mdGesture, $$MdGestureHandler ) {
 
   // Polyfill document.contains for IE11.
   // TODO: move to util
-  document.contains || (document.contains = function (node) ***REMOVED***
+  document.contains || (document.contains = function (node) {
     return document.body.contains(node);
-  ***REMOVED***);
+  });
 
-  if (!isInitialized && $mdGesture.isHijackingClicks ) ***REMOVED***
+  if (!isInitialized && $mdGesture.isHijackingClicks ) {
     /*
      * If hijack clicks is true, we preventDefault any click that wasn't
      * sent by ngMaterial. This is because on older Android & iOS, a false, or 'ghost',
@@ -2588,31 +2588,31 @@ function attachToDocument( $mdGesture, $$MdGestureHandler ) ***REMOVED***
     document.addEventListener('focus'    , mouseInputHijacker, true);
 
     isInitialized = true;
-  ***REMOVED***
+  }
 
-  function mouseInputHijacker(ev) ***REMOVED***
+  function mouseInputHijacker(ev) {
     var isKeyClick = !ev.clientX && !ev.clientY;
     if (!isKeyClick && !ev.$material && !ev.isIonicTap
-      && !isInputEventFromLabelClick(ev)) ***REMOVED***
+      && !isInputEventFromLabelClick(ev)) {
       ev.preventDefault();
       ev.stopPropagation();
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
-  function clickHijacker(ev) ***REMOVED***
+  function clickHijacker(ev) {
     var isKeyClick = ev.clientX === 0 && ev.clientY === 0;
     if (!isKeyClick && !ev.$material && !ev.isIonicTap
-      && !isInputEventFromLabelClick(ev)) ***REMOVED***
+      && !isInputEventFromLabelClick(ev)) {
       ev.preventDefault();
       ev.stopPropagation();
       lastLabelClickPos = null;
-    ***REMOVED*** else ***REMOVED***
+    } else {
       lastLabelClickPos = null;
-      if (ev.target.tagName.toLowerCase() == 'label') ***REMOVED***
-        lastLabelClickPos = ***REMOVED***x: ev.x, y: ev.y***REMOVED***;
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
+      if (ev.target.tagName.toLowerCase() == 'label') {
+        lastLabelClickPos = {x: ev.x, y: ev.y};
+      }
+    }
+  }
 
 
   // Listen to all events to cover all platforms.
@@ -2625,9 +2625,9 @@ function attachToDocument( $mdGesture, $$MdGestureHandler ) ***REMOVED***
     .on(MOVE_EVENTS, gestureMove)
     .on(END_EVENTS, gestureEnd)
     // For testing
-    .on('$$mdGestureReset', function gestureClearCache () ***REMOVED***
+    .on('$$mdGestureReset', function gestureClearCache () {
       lastPointer = pointer = null;
-    ***REMOVED***);
+    });
 
   /*
    * When a DOM event happens, run all registered gesture handlers' lifecycle
@@ -2635,21 +2635,21 @@ function attachToDocument( $mdGesture, $$MdGestureHandler ) ***REMOVED***
    * Eg when a 'touchstart' event happens, runHandlers('start') will call and
    * run `handler.cancel()` and `handler.start()` on all registered handlers.
    */
-  function runHandlers(handlerEvent, event) ***REMOVED***
+  function runHandlers(handlerEvent, event) {
     var handler;
-    for (var name in HANDLERS) ***REMOVED***
+    for (var name in HANDLERS) {
       handler = HANDLERS[name];
-      if( handler instanceof $$MdGestureHandler ) ***REMOVED***
+      if( handler instanceof $$MdGestureHandler ) {
 
-        if (handlerEvent === 'start') ***REMOVED***
+        if (handlerEvent === 'start') {
           // Run cancel to reset any handlers' state
           handler.cancel();
-        ***REMOVED***
+        }
         handler[handlerEvent](event, pointer);
 
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
+      }
+    }
+  }
 
   /*
    * gestureStart vets if a start event is legitimate (and not part of a 'ghost click' from iOS/Android)
@@ -2657,7 +2657,7 @@ function attachToDocument( $mdGesture, $$MdGestureHandler ) ***REMOVED***
    * For example, for a touchstart event, mark the current pointer as a 'touch' pointer, so mouse events
    * won't effect it.
    */
-  function gestureStart(ev) ***REMOVED***
+  function gestureStart(ev) {
     // If we're already touched down, abort
     if (pointer) return;
 
@@ -2665,28 +2665,28 @@ function attachToDocument( $mdGesture, $$MdGestureHandler ) ***REMOVED***
 
     // iOS & old android bug: after a touch event, a click event is sent 350 ms later.
     // If <400ms have passed, don't allow an event of a different type than the previous event
-    if (lastPointer && !typesMatch(ev, lastPointer) && (now - lastPointer.endTime < 1500)) ***REMOVED***
+    if (lastPointer && !typesMatch(ev, lastPointer) && (now - lastPointer.endTime < 1500)) {
       return;
-    ***REMOVED***
+    }
 
     pointer = makeStartPointer(ev);
 
     runHandlers('start', ev);
-  ***REMOVED***
+  }
   /*
    * If a move event happens of the right type, update the pointer and run all the move handlers.
    * "of the right type": if a mousemove happens but our pointer started with a touch event, do nothing.
    */
-  function gestureMove(ev) ***REMOVED***
+  function gestureMove(ev) {
     if (!pointer || !typesMatch(ev, pointer)) return;
 
     updatePointerState(ev, pointer);
     runHandlers('move', ev);
-  ***REMOVED***
+  }
   /*
    * If an end event happens of the right type, update the pointer, run endHandlers, and save the pointer as 'lastPointer'
    */
-  function gestureEnd(ev) ***REMOVED***
+  function gestureEnd(ev) {
     if (!pointer || !typesMatch(ev, pointer)) return;
 
     updatePointerState(ev, pointer);
@@ -2696,9 +2696,9 @@ function attachToDocument( $mdGesture, $$MdGestureHandler ) ***REMOVED***
 
     lastPointer = pointer;
     pointer = null;
-  ***REMOVED***
+  }
 
-***REMOVED***
+}
 attachToDocument.$inject = ["$mdGesture", "$$MdGestureHandler"];
 
 // ********************
@@ -2708,26 +2708,26 @@ attachToDocument.$inject = ["$mdGesture", "$$MdGestureHandler"];
 /*
  * Initiate the pointer. x, y, and the pointer's type.
  */
-function makeStartPointer(ev) ***REMOVED***
+function makeStartPointer(ev) {
   var point = getEventPoint(ev);
-  var startPointer = ***REMOVED***
+  var startPointer = {
     startTime: +Date.now(),
     target: ev.target,
     // 'p' for pointer events, 'm' for mouse, 't' for touch
     type: ev.type.charAt(0)
-  ***REMOVED***;
+  };
   startPointer.startX = startPointer.x = point.pageX;
   startPointer.startY = startPointer.y = point.pageY;
   return startPointer;
-***REMOVED***
+}
 
 /*
  * return whether the pointer's type matches the event's type.
  * Eg if a touch event happens but the pointer has a mouse type, return false.
  */
-function typesMatch(ev, pointer) ***REMOVED***
+function typesMatch(ev, pointer) {
   return ev && pointer && ev.type.charAt(0) === pointer.type;
-***REMOVED***
+}
 
 /**
  * Gets whether the given event is an input event that was caused by clicking on an
@@ -2742,20 +2742,20 @@ function typesMatch(ev, pointer) ***REMOVED***
  * click occurs). Unfortunately, there are no event properties that tie the input and the label
  * together (such as relatedTarget).
  *
- * @param ***REMOVED***MouseEvent***REMOVED*** event
- * @returns ***REMOVED***boolean***REMOVED***
+ * @param {MouseEvent} event
+ * @returns {boolean}
  */
-function isInputEventFromLabelClick(event) ***REMOVED***
+function isInputEventFromLabelClick(event) {
   return lastLabelClickPos
       && lastLabelClickPos.x == event.x
       && lastLabelClickPos.y == event.y;
-***REMOVED***
+}
 
 /*
  * Update the given pointer based upon the given DOMEvent.
  * Distance, velocity, direction, duration, etc
  */
-function updatePointerState(ev, pointer) ***REMOVED***
+function updatePointerState(ev, pointer) {
   var point = getEventPoint(ev);
   var x = pointer.x = point.pageX;
   var y = pointer.y = point.pageY;
@@ -2772,18 +2772,18 @@ function updatePointerState(ev, pointer) ***REMOVED***
   pointer.duration = +Date.now() - pointer.startTime;
   pointer.velocityX = pointer.distanceX / pointer.duration;
   pointer.velocityY = pointer.distanceY / pointer.duration;
-***REMOVED***
+}
 
 /*
  * Normalize the point where the DOM event happened whether it's touch or mouse.
  * @returns point event obj with pageX and pageY on it.
  */
-function getEventPoint(ev) ***REMOVED***
+function getEventPoint(ev) {
   ev = ev.originalEvent || ev; // support jQuery events
   return (ev.touches && ev.touches[0]) ||
     (ev.changedTouches && ev.changedTouches[0]) ||
     ev;
-***REMOVED***
+}
 
 angular.module('material.core')
   .provider('$$interimElement', InterimElementProvider);
@@ -2801,18 +2801,18 @@ angular.module('material.core')
  * elements.
  *
  * ```js
- * app.service('$mdToast', function($$interimElement) ***REMOVED***
+ * app.service('$mdToast', function($$interimElement) {
  *   var $mdToast = $$interimElement(toastDefaultOptions);
  *   return $mdToast;
- * ***REMOVED***);
+ * });
  * ```
- * @param ***REMOVED***object=***REMOVED*** defaultOptions Options used by default for the `show` method on the service.
+ * @param {object=} defaultOptions Options used by default for the `show` method on the service.
  *
- * @returns ***REMOVED***$$interimElement.$service***REMOVED***
+ * @returns {$$interimElement.$service}
  *
  */
 
-function InterimElementProvider() ***REMOVED***
+function InterimElementProvider() {
   createInterimElementProvider.$get = InterimElementFactory;
   InterimElementFactory.$inject = ["$document", "$q", "$$q", "$rootScope", "$timeout", "$rootElement", "$animate", "$mdUtil", "$mdCompiler", "$mdTheming", "$injector"];
   return createInterimElementProvider;
@@ -2822,28 +2822,28 @@ function InterimElementProvider() ***REMOVED***
    * service. Allows configuration of default options & methods for options,
    * as well as configuration of 'preset' methods (eg dialog.basic(): basic is a preset method)
    */
-  function createInterimElementProvider(interimFactoryName) ***REMOVED***
+  function createInterimElementProvider(interimFactoryName) {
     var EXPOSED_METHODS = ['onHide', 'onShow', 'onRemove'];
 
-    var customMethods = ***REMOVED******REMOVED***;
-    var providerConfig = ***REMOVED***
-      presets: ***REMOVED******REMOVED***
-    ***REMOVED***;
+    var customMethods = {};
+    var providerConfig = {
+      presets: {}
+    };
 
-    var provider = ***REMOVED***
+    var provider = {
       setDefaults: setDefaults,
       addPreset: addPreset,
       addMethod: addMethod,
       $get: factory
-    ***REMOVED***;
+    };
 
     /**
      * all interim elements will come with the 'build' preset
      */
-    provider.addPreset('build', ***REMOVED***
+    provider.addPreset('build', {
       methods: ['controller', 'controllerAs', 'resolve',
         'template', 'templateUrl', 'themable', 'transformTemplate', 'parent']
-    ***REMOVED***);
+    });
 
     factory.$inject = ["$$interimElement", "$injector"];
     return provider;
@@ -2851,52 +2851,52 @@ function InterimElementProvider() ***REMOVED***
     /**
      * Save the configured defaults to be used when the factory is instantiated
      */
-    function setDefaults(definition) ***REMOVED***
+    function setDefaults(definition) {
       providerConfig.optionsFactory = definition.options;
       providerConfig.methods = (definition.methods || []).concat(EXPOSED_METHODS);
       return provider;
-    ***REMOVED***
+    }
 
     /**
      * Add a method to the factory that isn't specific to any interim element operations
      */
 
-    function addMethod(name, fn) ***REMOVED***
+    function addMethod(name, fn) {
       customMethods[name] = fn;
       return provider;
-    ***REMOVED***
+    }
 
     /**
      * Save the configured preset to be used when the factory is instantiated
      */
-    function addPreset(name, definition) ***REMOVED***
-      definition = definition || ***REMOVED******REMOVED***;
+    function addPreset(name, definition) {
+      definition = definition || {};
       definition.methods = definition.methods || [];
-      definition.options = definition.options || function() ***REMOVED*** return ***REMOVED******REMOVED***; ***REMOVED***;
+      definition.options = definition.options || function() { return {}; };
 
-      if (/^cancel|hide|show$/.test(name)) ***REMOVED***
+      if (/^cancel|hide|show$/.test(name)) {
         throw new Error("Preset '" + name + "' in " + interimFactoryName + " is reserved!");
-      ***REMOVED***
-      if (definition.methods.indexOf('_options') > -1) ***REMOVED***
+      }
+      if (definition.methods.indexOf('_options') > -1) {
         throw new Error("Method '_options' in " + interimFactoryName + " is reserved!");
-      ***REMOVED***
-      providerConfig.presets[name] = ***REMOVED***
+      }
+      providerConfig.presets[name] = {
         methods: definition.methods.concat(EXPOSED_METHODS),
         optionsFactory: definition.options,
         argOption: definition.argOption
-      ***REMOVED***;
+      };
       return provider;
-    ***REMOVED***
+    }
 
-    function addPresetMethod(presetName, methodName, method) ***REMOVED***
+    function addPresetMethod(presetName, methodName, method) {
       providerConfig.presets[presetName][methodName] = method;
-    ***REMOVED***
+    }
 
     /**
      * Create a factory that has the given methods & defaults implementing interimElement
      */
     /* ngInject */
-    function factory($$interimElement, $injector) ***REMOVED***
+    function factory($$interimElement, $injector) {
       var defaultMethods;
       var defaultOptions;
       var interimElementService = $$interimElement();
@@ -2906,7 +2906,7 @@ function InterimElementProvider() ***REMOVED***
        * It has methods hide(), cancel(), show(), build(), and any other
        * presets which were set during the config phase.
        */
-      var publicService = ***REMOVED***
+      var publicService = {
         hide: interimElementService.hide,
         cancel: interimElementService.cancel,
         show: showInterimElement,
@@ -2914,95 +2914,95 @@ function InterimElementProvider() ***REMOVED***
         // Special internal method to destroy an interim element without animations
         // used when navigation changes causes a $scope.$destroy() action
         destroy : destroyInterimElement
-      ***REMOVED***;
+      };
 
 
       defaultMethods = providerConfig.methods || [];
       // This must be invoked after the publicService is initialized
-      defaultOptions = invokeFactory(providerConfig.optionsFactory, ***REMOVED******REMOVED***);
+      defaultOptions = invokeFactory(providerConfig.optionsFactory, {});
 
       // Copy over the simple custom methods
-      angular.forEach(customMethods, function(fn, name) ***REMOVED***
+      angular.forEach(customMethods, function(fn, name) {
         publicService[name] = fn;
-      ***REMOVED***);
+      });
 
-      angular.forEach(providerConfig.presets, function(definition, name) ***REMOVED***
-        var presetDefaults = invokeFactory(definition.optionsFactory, ***REMOVED******REMOVED***);
+      angular.forEach(providerConfig.presets, function(definition, name) {
+        var presetDefaults = invokeFactory(definition.optionsFactory, {});
         var presetMethods = (definition.methods || []).concat(defaultMethods);
 
         // Every interimElement built with a preset has a field called `$type`,
         // which matches the name of the preset.
         // Eg in preset 'confirm', options.$type === 'confirm'
-        angular.extend(presetDefaults, ***REMOVED*** $type: name ***REMOVED***);
+        angular.extend(presetDefaults, { $type: name });
 
         // This creates a preset class which has setter methods for every
         // method given in the `.addPreset()` function, as well as every
         // method given in the `.setDefaults()` function.
         //
         // @example
-        // .setDefaults(***REMOVED***
+        // .setDefaults({
         //   methods: ['hasBackdrop', 'clickOutsideToClose', 'escapeToClose', 'targetEvent'],
         //   options: dialogDefaultOptions
-        // ***REMOVED***)
-        // .addPreset('alert', ***REMOVED***
+        // })
+        // .addPreset('alert', {
         //   methods: ['title', 'ok'],
         //   options: alertDialogOptions
-        // ***REMOVED***)
+        // })
         //
         // Set values will be passed to the options when interimElement.show() is called.
-        function Preset(opts) ***REMOVED***
-          this._options = angular.extend(***REMOVED******REMOVED***, presetDefaults, opts);
-        ***REMOVED***
-        angular.forEach(presetMethods, function(name) ***REMOVED***
-          Preset.prototype[name] = function(value) ***REMOVED***
+        function Preset(opts) {
+          this._options = angular.extend({}, presetDefaults, opts);
+        }
+        angular.forEach(presetMethods, function(name) {
+          Preset.prototype[name] = function(value) {
             this._options[name] = value;
             return this;
-          ***REMOVED***;
-        ***REMOVED***);
+          };
+        });
 
         // Create shortcut method for one-linear methods
-        if (definition.argOption) ***REMOVED***
+        if (definition.argOption) {
           var methodName = 'show' + name.charAt(0).toUpperCase() + name.slice(1);
-          publicService[methodName] = function(arg) ***REMOVED***
+          publicService[methodName] = function(arg) {
             var config = publicService[name](arg);
             return publicService.show(config);
-          ***REMOVED***;
-        ***REMOVED***
+          };
+        }
 
         // eg $mdDialog.alert() will return a new alert preset
-        publicService[name] = function(arg) ***REMOVED***
+        publicService[name] = function(arg) {
           // If argOption is supplied, eg `argOption: 'content'`, then we assume
           // if the argument is not an options object then it is the `argOption` option.
           //
           // @example `$mdToast.simple('hello')` // sets options.content to hello
           //                                     // because argOption === 'content'
           if (arguments.length && definition.argOption &&
-              !angular.isObject(arg) && !angular.isArray(arg))  ***REMOVED***
+              !angular.isObject(arg) && !angular.isArray(arg))  {
 
             return (new Preset())[definition.argOption](arg);
 
-          ***REMOVED*** else ***REMOVED***
+          } else {
             return new Preset(arg);
-          ***REMOVED***
+          }
 
-        ***REMOVED***;
-      ***REMOVED***);
+        };
+      });
 
       return publicService;
 
       /**
        *
        */
-      function showInterimElement(opts) ***REMOVED***
+      function showInterimElement(opts) {
         // opts is either a preset which stores its options on an _options field,
         // or just an object made up of options
-        opts = opts || ***REMOVED*** ***REMOVED***;
+        opts = opts || { };
         if (opts._options) opts = opts._options;
 
         return interimElementService.show(
-          angular.extend(***REMOVED******REMOVED***, defaultOptions, opts)
+          angular.extend({}, defaultOptions, opts)
         );
-      ***REMOVED***
+      }
 
       /**
        *  Special method to hide and destroy an interimElement WITHOUT
@@ -3011,9 +3011,9 @@ function InterimElementProvider() ***REMOVED***
        *  NOTE: This calls the onRemove() subclass method for each component...
        *  which must have code to respond to `options.$destroy == true`
        */
-      function destroyInterimElement(opts) ***REMOVED***
+      function destroyInterimElement(opts) {
           return interimElementService.destroy(opts);
-      ***REMOVED***
+      }
 
       /**
        * Helper to call $injector.invoke with a local of the factory name for
@@ -3022,20 +3022,20 @@ function InterimElementProvider() ***REMOVED***
        * $mdDialog, a circular dependency error will happen.
        * We get around that by manually injecting $mdDialog as a local.
        */
-      function invokeFactory(factory, defaultVal) ***REMOVED***
-        var locals = ***REMOVED******REMOVED***;
+      function invokeFactory(factory, defaultVal) {
+        var locals = {};
         locals[interimFactoryName] = publicService;
-        return $injector.invoke(factory || function() ***REMOVED*** return defaultVal; ***REMOVED***, ***REMOVED******REMOVED***, locals);
-      ***REMOVED***
+        return $injector.invoke(factory || function() { return defaultVal; }, {}, locals);
+      }
 
-    ***REMOVED***
+    }
 
-  ***REMOVED***
+  }
 
   /* ngInject */
   function InterimElementFactory($document, $q, $$q, $rootScope, $timeout, $rootElement, $animate,
-                                 $mdUtil, $mdCompiler, $mdTheming, $injector ) ***REMOVED***
-    return function createInterimElementService() ***REMOVED***
+                                 $mdUtil, $mdCompiler, $mdTheming, $injector ) {
+    return function createInterimElementService() {
       var SHOW_CANCELLED = false;
 
       /*
@@ -3051,13 +3051,13 @@ function InterimElementProvider() ***REMOVED***
       // Publish instance $$interimElement service;
       // ... used as $mdDialog, $mdToast, $mdMenu, and $mdSelect
 
-      return service = ***REMOVED***
+      return service = {
         show: show,
         hide: hide,
         cancel: cancel,
         destroy : destroy,
         $injector_: $injector
-      ***REMOVED***;
+      };
 
       /*
        * @ngdoc method
@@ -3068,13 +3068,13 @@ function InterimElementProvider() ***REMOVED***
        * Adds the `$interimElement` to the DOM and returns a special promise that will be resolved or rejected
        * with hide or cancel, respectively. To external cancel/hide, developers should use the
        *
-       * @param ***REMOVED*******REMOVED*** options is hashMap of settings
+       * @param {*} options is hashMap of settings
        * @returns a Promise
        *
        */
-      function show(options) ***REMOVED***
-        options = options || ***REMOVED******REMOVED***;
-        var interimElement = new InterimElement(options || ***REMOVED******REMOVED***);
+      function show(options) {
+        options = options || {};
+        var interimElement = new InterimElement(options || {});
         // When an interim element is currently showing, we have to cancel it.
         // Just hiding it, will resolve the InterimElement's promise, the promise should be
         // rejected instead.
@@ -3083,23 +3083,23 @@ function InterimElementProvider() ***REMOVED***
         // This hide()s only the current interim element before showing the next, new one
         // NOTE: this is not reversible (e.g. interim elements are not stackable)
 
-        hideExisting.finally(function() ***REMOVED***
+        hideExisting.finally(function() {
 
           stack.push(interimElement);
           interimElement
             .show()
-            .catch(function( reason ) ***REMOVED***
+            .catch(function( reason ) {
               //$log.error("InterimElement.show() error: " + reason );
               return reason;
-            ***REMOVED***);
+            });
 
-        ***REMOVED***);
+        });
 
         // Return a promise that will be resolved when the interim
         // element is hidden or cancelled...
 
         return interimElement.deferred.promise;
-      ***REMOVED***
+      }
 
       /*
        * @ngdoc method
@@ -3109,35 +3109,35 @@ function InterimElementProvider() ***REMOVED***
        * @description
        * Removes the `$interimElement` from the DOM and resolves the promise returned from `show`
        *
-       * @param ***REMOVED*******REMOVED*** resolveParam Data to resolve the promise with
+       * @param {*} resolveParam Data to resolve the promise with
        * @returns a Promise that will be resolved after the element has been removed.
        *
        */
-      function hide(reason, options) ***REMOVED***
+      function hide(reason, options) {
         if ( !stack.length ) return $q.when(reason);
-        options = options || ***REMOVED******REMOVED***;
+        options = options || {};
 
-        if (options.closeAll) ***REMOVED***
+        if (options.closeAll) {
           var promise = $q.all(stack.reverse().map(closeElement));
           stack = [];
           return promise;
-        ***REMOVED*** else if (options.closeTo !== undefined) ***REMOVED***
+        } else if (options.closeTo !== undefined) {
           return $q.all(stack.splice(options.closeTo).map(closeElement));
-        ***REMOVED*** else ***REMOVED***
+        } else {
           var interim = stack.pop();
           return closeElement(interim);
-        ***REMOVED***
+        }
 
-        function closeElement(interim) ***REMOVED***
+        function closeElement(interim) {
           interim
-            .remove(reason, false, options || ***REMOVED*** ***REMOVED***)
-            .catch(function( reason ) ***REMOVED***
+            .remove(reason, false, options || { })
+            .catch(function( reason ) {
               //$log.error("InterimElement.hide() error: " + reason );
               return reason;
-            ***REMOVED***);
+            });
           return interim.deferred.promise;
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
       /*
        * @ngdoc method
@@ -3147,98 +3147,98 @@ function InterimElementProvider() ***REMOVED***
        * @description
        * Removes the `$interimElement` from the DOM and rejects the promise returned from `show`
        *
-       * @param ***REMOVED*******REMOVED*** reason Data to reject the promise with
+       * @param {*} reason Data to reject the promise with
        * @returns Promise that will be resolved after the element has been removed.
        *
        */
-      function cancel(reason, options) ***REMOVED***
+      function cancel(reason, options) {
         var interim = stack.pop();
         if ( !interim ) return $q.when(reason);
 
         interim
-          .remove(reason, true, options || ***REMOVED*** ***REMOVED***)
-          .catch(function( reason ) ***REMOVED***
+          .remove(reason, true, options || { })
+          .catch(function( reason ) {
             //$log.error("InterimElement.cancel() error: " + reason );
             return reason;
-          ***REMOVED***);
+          });
 
         // Since Angular 1.6.7, promises will be logged to $exceptionHandler when the promise
         // is not handling the rejection. We create a pseudo catch handler, which will prevent the
         // promise from being logged to the $exceptionHandler.
         return interim.deferred.promise.catch(angular.noop);
-      ***REMOVED***
+      }
 
       /*
        * Special method to quick-remove the interim element without animations
        * Note: interim elements are in "interim containers"
        */
-      function destroy(target) ***REMOVED***
+      function destroy(target) {
         var interim = !target ? stack.shift() : null;
         var cntr = angular.element(target).length ? angular.element(target)[0].parentNode : null;
 
-        if (cntr) ***REMOVED***
+        if (cntr) {
             // Try to find the interim element in the stack which corresponds to the supplied DOM element.
-            var filtered = stack.filter(function(entry) ***REMOVED***
+            var filtered = stack.filter(function(entry) {
                   var currNode = entry.options.element[0];
                   return  (currNode === cntr);
-                ***REMOVED***);
+                });
 
             // Note: this function might be called when the element already has been removed, in which
             //       case we won't find any matches. That's ok.
-            if (filtered.length > 0) ***REMOVED***
+            if (filtered.length > 0) {
               interim = filtered[0];
               stack.splice(stack.indexOf(interim), 1);
-            ***REMOVED***
-        ***REMOVED***
+            }
+        }
 
-        return interim ? interim.remove(SHOW_CANCELLED, false, ***REMOVED***'$destroy':true***REMOVED***) : $q.when(SHOW_CANCELLED);
-      ***REMOVED***
+        return interim ? interim.remove(SHOW_CANCELLED, false, {'$destroy':true}) : $q.when(SHOW_CANCELLED);
+      }
 
       /*
        * Internal Interim Element Object
        * Used internally to manage the DOM element and related data
        */
-      function InterimElement(options) ***REMOVED***
+      function InterimElement(options) {
         var self, element, showAction = $q.when(true);
 
         options = configureScopeAndTransitions(options);
 
-        return self = ***REMOVED***
+        return self = {
           options : options,
           deferred: $q.defer(),
           show    : createAndTransitionIn,
           remove  : transitionOutAndRemove
-        ***REMOVED***;
+        };
 
         /**
          * Compile, link, and show this interim element
          * Use optional autoHided and transition-in effects
          */
-        function createAndTransitionIn() ***REMOVED***
-          return $q(function(resolve, reject) ***REMOVED***
+        function createAndTransitionIn() {
+          return $q(function(resolve, reject) {
 
             // Trigger onCompiling callback before the compilation starts.
             // This is useful, when modifying options, which can be influenced by developers.
             options.onCompiling && options.onCompiling(options);
 
             compileElement(options)
-              .then(function( compiledData ) ***REMOVED***
+              .then(function( compiledData ) {
                 element = linkElement( compiledData, options );
 
                 showAction = showElement(element, options, compiledData.controller)
                   .then(resolve, rejectAll);
 
-              ***REMOVED***, rejectAll);
+              }, rejectAll);
 
-            function rejectAll(fault) ***REMOVED***
+            function rejectAll(fault) {
               // Force the '$md<xxx>.show()' promise to reject
               self.deferred.reject(fault);
 
               // Continue rejection propagation
               reject(fault);
-            ***REMOVED***
-          ***REMOVED***);
-        ***REMOVED***
+            }
+          });
+        }
 
         /**
          * After the show process has finished/rejected:
@@ -3246,63 +3246,63 @@ function InterimElementProvider() ***REMOVED***
          * - perform the transition-out, and
          * - perform optional clean up scope.
          */
-        function transitionOutAndRemove(response, isCancelled, opts) ***REMOVED***
+        function transitionOutAndRemove(response, isCancelled, opts) {
 
           // abort if the show() and compile failed
           if ( !element ) return $q.when(false);
 
-          options = angular.extend(options || ***REMOVED******REMOVED***, opts || ***REMOVED******REMOVED***);
+          options = angular.extend(options || {}, opts || {});
           options.cancelAutoHide && options.cancelAutoHide();
           options.element.triggerHandler('$mdInterimElementRemove');
 
-          if ( options.$destroy === true ) ***REMOVED***
+          if ( options.$destroy === true ) {
 
-            return hideElement(options.element, options).then(function()***REMOVED***
+            return hideElement(options.element, options).then(function(){
               (isCancelled && rejectAll(response)) || resolveAll(response);
-            ***REMOVED***);
+            });
 
-          ***REMOVED*** else ***REMOVED***
+          } else {
 
             $q.when(showAction)
-                .finally(function() ***REMOVED***
-                  hideElement(options.element, options).then(function() ***REMOVED***
+                .finally(function() {
+                  hideElement(options.element, options).then(function() {
 
                     (isCancelled && rejectAll(response)) || resolveAll(response);
 
-                  ***REMOVED***, rejectAll);
-                ***REMOVED***);
+                  }, rejectAll);
+                });
 
             return self.deferred.promise;
-          ***REMOVED***
+          }
 
 
           /**
            * The `show()` returns a promise that will be resolved when the interim
            * element is hidden or cancelled...
            */
-          function resolveAll(response) ***REMOVED***
+          function resolveAll(response) {
             self.deferred.resolve(response);
-          ***REMOVED***
+          }
 
           /**
            * Force the '$md<xxx>.show()' promise to reject
            */
-          function rejectAll(fault) ***REMOVED***
+          function rejectAll(fault) {
             self.deferred.reject(fault);
-          ***REMOVED***
-        ***REMOVED***
+          }
+        }
 
         /**
          * Prepare optional isolated scope and prepare $animate with default enter and leave
          * transitions for the new element instance.
          */
-        function configureScopeAndTransitions(options) ***REMOVED***
-          options = options || ***REMOVED*** ***REMOVED***;
-          if ( options.template ) ***REMOVED***
+        function configureScopeAndTransitions(options) {
+          options = options || { };
+          if ( options.template ) {
             options.template = $mdUtil.processTemplate(options.template);
-          ***REMOVED***
+          }
 
-          return angular.extend(***REMOVED***
+          return angular.extend({
             preserveScope: false,
             cancelAutoHide : angular.noop,
             scope: options.scope || $rootScope.$new(options.isolateScope),
@@ -3310,43 +3310,43 @@ function InterimElementProvider() ***REMOVED***
             /**
              * Default usage to enable $animate to transition-in; can be easily overridden via 'options'
              */
-            onShow: function transitionIn(scope, element, options) ***REMOVED***
+            onShow: function transitionIn(scope, element, options) {
               return $animate.enter(element, options.parent);
-            ***REMOVED***,
+            },
 
             /**
              * Default usage to enable $animate to transition-out; can be easily overridden via 'options'
              */
-            onRemove: function transitionOut(scope, element) ***REMOVED***
+            onRemove: function transitionOut(scope, element) {
               // Element could be undefined if a new element is shown before
               // the old one finishes compiling.
               return element && $animate.leave(element) || $q.when();
-            ***REMOVED***
-          ***REMOVED***, options );
+            }
+          }, options );
 
-        ***REMOVED***
+        }
 
         /**
          * Compile an element with a templateUrl, controller, and locals
          */
-        function compileElement(options) ***REMOVED***
+        function compileElement(options) {
 
           var compiled = !options.skipCompile ? $mdCompiler.compile(options) : null;
 
-          return compiled || $q(function (resolve) ***REMOVED***
-              resolve(***REMOVED***
-                locals: ***REMOVED******REMOVED***,
-                link: function () ***REMOVED***
+          return compiled || $q(function (resolve) {
+              resolve({
+                locals: {},
+                link: function () {
                   return options.element;
-                ***REMOVED***
-              ***REMOVED***);
-            ***REMOVED***);
-        ***REMOVED***
+                }
+              });
+            });
+        }
 
         /**
          *  Link an element with compiled configuration
          */
-        function linkElement(compileData, options)***REMOVED***
+        function linkElement(compileData, options){
           angular.extend(compileData.locals, options);
 
           var element = compileData.link(options.scope);
@@ -3357,65 +3357,65 @@ function InterimElementProvider() ***REMOVED***
           if (options.themable) $mdTheming(element);
 
           return element;
-        ***REMOVED***
+        }
 
         /**
          * Search for parent at insertion time, if not specified
          */
-        function findParent(element, options) ***REMOVED***
+        function findParent(element, options) {
           var parent = options.parent;
 
           // Search for parent at insertion time, if not specified
-          if (angular.isFunction(parent)) ***REMOVED***
+          if (angular.isFunction(parent)) {
             parent = parent(options.scope, element, options);
-          ***REMOVED*** else if (angular.isString(parent)) ***REMOVED***
+          } else if (angular.isString(parent)) {
             parent = angular.element($document[0].querySelector(parent));
-          ***REMOVED*** else ***REMOVED***
+          } else {
             parent = angular.element(parent);
-          ***REMOVED***
+          }
 
           // If parent querySelector/getter function fails, or it's just null,
           // find a default.
-          if (!(parent || ***REMOVED******REMOVED***).length) ***REMOVED***
+          if (!(parent || {}).length) {
             var el;
-            if ($rootElement[0] && $rootElement[0].querySelector) ***REMOVED***
+            if ($rootElement[0] && $rootElement[0].querySelector) {
               el = $rootElement[0].querySelector(':not(svg) > body');
-            ***REMOVED***
+            }
             if (!el) el = $rootElement[0];
-            if (el.nodeName == '#comment') ***REMOVED***
+            if (el.nodeName == '#comment') {
               el = $document[0].body;
-            ***REMOVED***
+            }
             return angular.element(el);
-          ***REMOVED***
+          }
 
           return parent;
-        ***REMOVED***
+        }
 
         /**
          * If auto-hide is enabled, start timer and prepare cancel function
          */
-        function startAutoHide() ***REMOVED***
+        function startAutoHide() {
           var autoHideTimer, cancelAutoHide = angular.noop;
 
-          if (options.hideDelay) ***REMOVED***
+          if (options.hideDelay) {
             autoHideTimer = $timeout(service.hide, options.hideDelay) ;
-            cancelAutoHide = function() ***REMOVED***
+            cancelAutoHide = function() {
               $timeout.cancel(autoHideTimer);
-            ***REMOVED***
-          ***REMOVED***
+            }
+          }
 
           // Cache for subsequent use
-          options.cancelAutoHide = function() ***REMOVED***
+          options.cancelAutoHide = function() {
             cancelAutoHide();
             options.cancelAutoHide = undefined;
-          ***REMOVED***
-        ***REMOVED***
+          }
+        }
 
         /**
          * Show the element ( with transitions), notify complete and start
          * optional auto-Hide
          */
-        function showElement(element, options, controller) ***REMOVED***
+        function showElement(element, options, controller) {
           // Trigger onShowing callback before the `show()` starts
           var notifyShowing = options.onShowing || angular.noop;
           // Trigger onComplete callback when the `show()` finishes
@@ -3423,68 +3423,68 @@ function InterimElementProvider() ***REMOVED***
 
           notifyShowing(options.scope, element, options, controller);
 
-          return $q(function (resolve, reject) ***REMOVED***
-            try ***REMOVED***
+          return $q(function (resolve, reject) {
+            try {
               // Start transitionIn
               $q.when(options.onShow(options.scope, element, options, controller))
-                .then(function () ***REMOVED***
+                .then(function () {
                   notifyComplete(options.scope, element, options);
                   startAutoHide();
 
                   resolve(element);
 
-                ***REMOVED***, reject );
+                }, reject );
 
-            ***REMOVED*** catch(e) ***REMOVED***
+            } catch(e) {
               reject(e.message);
-            ***REMOVED***
-          ***REMOVED***);
-        ***REMOVED***
+            }
+          });
+        }
 
-        function hideElement(element, options) ***REMOVED***
+        function hideElement(element, options) {
           var announceRemoving = options.onRemoving || angular.noop;
 
-          return $$q(function (resolve, reject) ***REMOVED***
-            try ***REMOVED***
+          return $$q(function (resolve, reject) {
+            try {
               // Start transitionIn
               var action = $$q.when( options.onRemove(options.scope, element, options) || true );
 
               // Trigger callback *before* the remove operation starts
               announceRemoving(element, action);
 
-              if ( options.$destroy == true ) ***REMOVED***
+              if ( options.$destroy == true ) {
 
                 // For $destroy, onRemove should be synchronous
                 resolve(element);
 
-              ***REMOVED*** else ***REMOVED***
+              } else {
 
                 // Wait until transition-out is done
-                action.then(function () ***REMOVED***
+                action.then(function () {
 
-                  if (!options.preserveScope && options.scope ) ***REMOVED***
+                  if (!options.preserveScope && options.scope ) {
                     options.scope.$destroy();
-                  ***REMOVED***
+                  }
 
                   resolve(element);
 
-                ***REMOVED***, reject );
-              ***REMOVED***
+                }, reject );
+              }
 
-            ***REMOVED*** catch(e) ***REMOVED***
+            } catch(e) {
               reject(e);
-            ***REMOVED***
-          ***REMOVED***);
-        ***REMOVED***
+            }
+          });
+        }
 
-      ***REMOVED***
-    ***REMOVED***;
+      }
+    };
 
-  ***REMOVED***
+  }
 
-***REMOVED***
+}
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   var $mdUtil, $interpolate, $log;
@@ -3497,7 +3497,7 @@ function InterimElementProvider() ***REMOVED***
   var ALIGNMENT_MAIN_AXIS= [ "", "start", "center", "end", "stretch", "space-around", "space-between" ];
   var ALIGNMENT_CROSS_AXIS= [ "", "start", "center", "end", "stretch" ];
 
-  var config = ***REMOVED***
+  var config = {
     /**
      * Enable directive attribute-to-class conversions
      * Developers can use `<body md-layout-css />` to quickly
@@ -3509,12 +3509,12 @@ function InterimElementProvider() ***REMOVED***
      * List of mediaQuery breakpoints and associated suffixes
      *
      *   [
-     *    ***REMOVED*** suffix: "sm", mediaQuery: "screen and (max-width: 599px)" ***REMOVED***,
-     *    ***REMOVED*** suffix: "md", mediaQuery: "screen and (min-width: 600px) and (max-width: 959px)" ***REMOVED***
+     *    { suffix: "sm", mediaQuery: "screen and (max-width: 599px)" },
+     *    { suffix: "md", mediaQuery: "screen and (min-width: 600px) and (max-width: 959px)" }
      *   ]
      */
     breakpoints: []
-  ***REMOVED***;
+  };
 
   registerLayoutAPI( angular.module('material.core.layout', ['ng']) );
 
@@ -3528,13 +3528,13 @@ function InterimElementProvider() ***REMOVED***
    *  ```
    *
    *  ```css
-   *  [layout] ***REMOVED***
+   *  [layout] {
    *    box-sizing: border-box;
    *    display:flex;
-   *  ***REMOVED***
-   *  [layout=column] ***REMOVED***
+   *  }
+   *  [layout=column] {
    *    flex-direction : column
-   *  ***REMOVED***
+   *  }
    *  ```
    *
    *  Use of attribute selectors creates significant performance impacts in some
@@ -3549,16 +3549,16 @@ function InterimElementProvider() ***REMOVED***
    *```
    *
    *  ```css
-   *  .layout ***REMOVED***
+   *  .layout {
    *    box-sizing: border-box;
    *    display:flex;
-   *  ***REMOVED***
-   *  .layout-column ***REMOVED***
+   *  }
+   *  .layout-column {
    *    flex-direction : column
-   *  ***REMOVED***
+   *  }
    *  ```
    */
-  function registerLayoutAPI(module)***REMOVED***
+  function registerLayoutAPI(module){
     var PREFIX_REGEXP = /^((?:x|data)[\:\-_])/i;
     var SPECIAL_CHARS_REGEXP = /([\:\-\_]+(.))/g;
 
@@ -3569,28 +3569,28 @@ function InterimElementProvider() ***REMOVED***
 
 
     // Build directive registration functions for the standard Layout API... for all breakpoints.
-    angular.forEach(BREAKPOINTS, function(mqb) ***REMOVED***
+    angular.forEach(BREAKPOINTS, function(mqb) {
 
       // Attribute directives with expected, observable value(s)
-      angular.forEach( API_WITH_VALUES, function(name)***REMOVED***
+      angular.forEach( API_WITH_VALUES, function(name){
         var fullName = mqb ? name + "-" + mqb : name;
         module.directive( directiveNormalize(fullName), attributeWithObserve(fullName));
-      ***REMOVED***);
+      });
 
       // Attribute directives with no expected value(s)
-      angular.forEach( API_NO_VALUES, function(name)***REMOVED***
+      angular.forEach( API_NO_VALUES, function(name){
         var fullName = mqb ? name + "-" + mqb : name;
         module.directive( directiveNormalize(fullName), attributeWithoutValue(fullName));
-      ***REMOVED***);
+      });
 
-    ***REMOVED***);
+    });
 
     // Register other, special directive functions for the Layout features:
     module
 
-      .provider('$$mdLayout'     , function() ***REMOVED***
+      .provider('$$mdLayout'     , function() {
         // Publish internal service for Layouts
-        return ***REMOVED***
+        return {
           $get : angular.noop,
           validateAttributeValue : validateAttributeValue,
           validateAttributeUsage : validateAttributeUsage,
@@ -3598,11 +3598,11 @@ function InterimElementProvider() ***REMOVED***
            * Easy way to disable/enable the Layout API.
            * When disabled, this stops all attribute-to-classname generations
            */
-          disableLayouts  : function(isDisabled) ***REMOVED***
+          disableLayouts  : function(isDisabled) {
             config.enabled =  (isDisabled !== true);
-          ***REMOVED***
-        ***REMOVED***;
-      ***REMOVED***)
+          }
+        };
+      })
 
       .directive('mdLayoutCss'        , disableLayoutDirective )
       .directive('ngCloak'            , buildCloakInterceptor('ng-cloak'))
@@ -3639,15 +3639,15 @@ function InterimElementProvider() ***REMOVED***
      * Also there is special case for Moz prefix starting with upper case letter.
      * @param name Name to normalize
      */
-    function directiveNormalize(name) ***REMOVED***
+    function directiveNormalize(name) {
       return name
         .replace(PREFIX_REGEXP, '')
-        .replace(SPECIAL_CHARS_REGEXP, function(_, separator, letter, offset) ***REMOVED***
+        .replace(SPECIAL_CHARS_REGEXP, function(_, separator, letter, offset) {
           return offset ? letter.toUpperCase() : letter;
-        ***REMOVED***);
-    ***REMOVED***
+        });
+    }
 
-  ***REMOVED***
+  }
 
 
   /**
@@ -3659,10 +3659,10 @@ function InterimElementProvider() ***REMOVED***
    /**
     * ngInject
     */
-   function detectDisabledLayouts() ***REMOVED***
+   function detectDisabledLayouts() {
      var isDisabled = !!document.querySelector('[md-layouts-disabled]');
      config.enabled = !isDisabled;
-   ***REMOVED***
+   }
 
   /**
    * Special directive that will disable ALL Layout conversions of layout
@@ -3684,43 +3684,43 @@ function InterimElementProvider() ***REMOVED***
    * conversions; this would obviate the use of the `md-layout-css` directive
    *
    */
-  function disableLayoutDirective() ***REMOVED***
+  function disableLayoutDirective() {
     // Return a 1x-only, first-match attribute directive
     config.enabled = false;
 
-    return ***REMOVED***
+    return {
       restrict : 'A',
       priority : '900'
-    ***REMOVED***;
-  ***REMOVED***
+    };
+  }
 
   /**
    * Tail-hook ngCloak to delay the uncloaking while Layout transformers
    * finish processing. Eliminates flicker with Material.Layoouts
    */
-  function buildCloakInterceptor(className) ***REMOVED***
-    return [ '$timeout', function($timeout)***REMOVED***
-      return ***REMOVED***
+  function buildCloakInterceptor(className) {
+    return [ '$timeout', function($timeout){
+      return {
         restrict : 'A',
         priority : -10,   // run after normal ng-cloak
-        compile  : function( element ) ***REMOVED***
+        compile  : function( element ) {
           if (!config.enabled) return angular.noop;
 
           // Re-add the cloak
           element.addClass(className);
 
-          return function( scope, element ) ***REMOVED***
+          return function( scope, element ) {
             // Wait while layout injectors configure, then uncloak
             // NOTE: $rAF does not delay enough... and this is a 1x-only event,
             //       $timeout is acceptable.
-            $timeout( function()***REMOVED***
+            $timeout( function(){
               element.removeClass(className);
-            ***REMOVED***, 10, false);
-          ***REMOVED***;
-        ***REMOVED***
-      ***REMOVED***;
-    ***REMOVED***];
-  ***REMOVED***
+            }, 10, false);
+          };
+        }
+      };
+    }];
+  }
 
 
   // *********************************************************************************
@@ -3735,20 +3735,20 @@ function InterimElementProvider() ***REMOVED***
   /**
    * Creates a directive registration function where a possible dynamic attribute
    * value will be observed/watched.
-   * @param ***REMOVED***string***REMOVED*** className attribute name; eg `layout-gt-md` with value ="row"
+   * @param {string} className attribute name; eg `layout-gt-md` with value ="row"
    */
-  function attributeWithObserve(className) ***REMOVED***
+  function attributeWithObserve(className) {
 
-    return ['$mdUtil', '$interpolate', "$log", function(_$mdUtil_, _$interpolate_, _$log_) ***REMOVED***
+    return ['$mdUtil', '$interpolate', "$log", function(_$mdUtil_, _$interpolate_, _$log_) {
       $mdUtil = _$mdUtil_;
       $interpolate = _$interpolate_;
       $log = _$log_;
 
-      return ***REMOVED***
+      return {
         restrict: 'A',
-        compile: function(element, attr) ***REMOVED***
+        compile: function(element, attr) {
           var linkFn;
-          if (config.enabled) ***REMOVED***
+          if (config.enabled) {
             // immediately replace static (non-interpolated) invalid values...
 
             validateAttributeUsage(className, attr, element, $log);
@@ -3759,43 +3759,43 @@ function InterimElementProvider() ***REMOVED***
             );
 
             linkFn = translateWithValueToCssClass;
-          ***REMOVED***
+          }
 
           // Use for postLink to account for transforms after ng-transclude.
           return linkFn || angular.noop;
-        ***REMOVED***
-      ***REMOVED***;
-    ***REMOVED***];
+        }
+      };
+    }];
 
     /**
      * Add as transformed class selector(s), then
      * remove the deprecated attribute selector
      */
-    function translateWithValueToCssClass(scope, element, attrs) ***REMOVED***
+    function translateWithValueToCssClass(scope, element, attrs) {
       var updateFn = updateClassWithValue(element, className, attrs);
       var unwatch = attrs.$observe(attrs.$normalize(className), updateFn);
 
       updateFn(getNormalizedAttrValue(className, attrs, ""));
-      scope.$on("$destroy", function() ***REMOVED*** unwatch() ***REMOVED***);
-    ***REMOVED***
-  ***REMOVED***
+      scope.$on("$destroy", function() { unwatch() });
+    }
+  }
 
   /**
    * Creates a registration function for ngMaterial Layout attribute directive.
    * This is a `simple` transpose of attribute usage to class usage; where we ignore
    * any attribute value
    */
-  function attributeWithoutValue(className) ***REMOVED***
-    return ['$mdUtil', '$interpolate', "$log", function(_$mdUtil_, _$interpolate_, _$log_) ***REMOVED***
+  function attributeWithoutValue(className) {
+    return ['$mdUtil', '$interpolate', "$log", function(_$mdUtil_, _$interpolate_, _$log_) {
       $mdUtil = _$mdUtil_;
       $interpolate = _$interpolate_;
       $log = _$log_;
 
-      return ***REMOVED***
+      return {
         restrict: 'A',
-        compile: function(element, attr) ***REMOVED***
+        compile: function(element, attr) {
           var linkFn;
-          if (config.enabled) ***REMOVED***
+          if (config.enabled) {
             // immediately replace static (non-interpolated) invalid values...
 
             validateAttributeValue( className,
@@ -3807,21 +3807,21 @@ function InterimElementProvider() ***REMOVED***
 
             // Use for postLink to account for transforms after ng-transclude.
             linkFn = translateToCssClass;
-          ***REMOVED***
+          }
 
           return linkFn || angular.noop;
-        ***REMOVED***
-      ***REMOVED***;
-    ***REMOVED***];
+        }
+      };
+    }];
 
     /**
      * Add as transformed class selector, then
      * remove the deprecated attribute selector
      */
-    function translateToCssClass(scope, element) ***REMOVED***
+    function translateToCssClass(scope, element) {
       element.addClass(className);
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
 
 
@@ -3832,95 +3832,95 @@ function InterimElementProvider() ***REMOVED***
    *
    * $observe() the className and update with new class (after removing the last one)
    *
-   * e.g. `layout="***REMOVED******REMOVED***layoutDemo.direction***REMOVED******REMOVED***"` will update...
+   * e.g. `layout="{{layoutDemo.direction}}"` will update...
    *
    * NOTE: The value must match one of the specified styles in the CSS.
-   * For example `flex-gt-md="***REMOVED******REMOVED***size***REMOVED******REMOVED***`  where `scope.size == 47` will NOT work since
+   * For example `flex-gt-md="{{size}}`  where `scope.size == 47` will NOT work since
    * only breakpoints for 0, 5, 10, 15... 100, 33, 34, 66, 67 are defined.
    *
    */
-  function updateClassWithValue(element, className) ***REMOVED***
+  function updateClassWithValue(element, className) {
     var lastClass;
 
-    return function updateClassFn(newValue) ***REMOVED***
+    return function updateClassFn(newValue) {
       var value = validateAttributeValue(className, newValue || "");
-      if ( angular.isDefined(value) ) ***REMOVED***
+      if ( angular.isDefined(value) ) {
         if (lastClass) element.removeClass(lastClass);
         lastClass = !value ? className : className + "-" + value.replace(WHITESPACE, "-");
         element.addClass(lastClass);
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***
+      }
+    };
+  }
 
   /**
    * Provide console warning that this layout attribute has been deprecated
    *
    */
-  function warnAttrNotSupported(className) ***REMOVED***
+  function warnAttrNotSupported(className) {
     var parts = className.split("-");
-    return ["$log", function($log) ***REMOVED***
+    return ["$log", function($log) {
       $log.warn(className + "has been deprecated. Please use a `" + parts[0] + "-gt-<xxx>` variant.");
       return angular.noop;
-    ***REMOVED***];
-  ***REMOVED***
+    }];
+  }
 
   /**
    * Centralize warnings for known flexbox issues (especially IE-related issues)
    */
-  function validateAttributeUsage(className, attr, element, $log)***REMOVED***
+  function validateAttributeUsage(className, attr, element, $log){
     var message, usage, url;
     var nodeName = element[0].nodeName.toLowerCase();
 
-    switch(className.replace(SUFFIXES,"")) ***REMOVED***
+    switch(className.replace(SUFFIXES,"")) {
       case "flex":
-        if ((nodeName == "md-button") || (nodeName == "fieldset"))***REMOVED***
+        if ((nodeName == "md-button") || (nodeName == "fieldset")){
           // @see https://github.com/philipwalton/flexbugs#9-some-html-elements-cant-be-flex-containers
           // Use <div flex> wrapper inside (preferred) or outside
 
           usage = "<" + nodeName + " " + className + "></" + nodeName + ">";
           url = "https://github.com/philipwalton/flexbugs#9-some-html-elements-cant-be-flex-containers";
-          message = "Markup '***REMOVED***0***REMOVED***' may not work as expected in IE Browsers. Consult '***REMOVED***1***REMOVED***' for details.";
+          message = "Markup '{0}' may not work as expected in IE Browsers. Consult '{1}' for details.";
 
           $log.warn( $mdUtil.supplant(message, [usage, url]) );
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
 
-  ***REMOVED***
+  }
 
 
   /**
    * For the Layout attribute value, validate or replace with default
    * fallback value
    */
-  function validateAttributeValue(className, value, updateFn) ***REMOVED***
+  function validateAttributeValue(className, value, updateFn) {
     var origValue = value;
 
-    if (!needsInterpolation(value)) ***REMOVED***
-      switch (className.replace(SUFFIXES,"")) ***REMOVED***
+    if (!needsInterpolation(value)) {
+      switch (className.replace(SUFFIXES,"")) {
         case 'layout'        :
-          if ( !findIn(value, LAYOUT_OPTIONS) ) ***REMOVED***
+          if ( !findIn(value, LAYOUT_OPTIONS) ) {
             value = LAYOUT_OPTIONS[0];    // 'row';
-          ***REMOVED***
+          }
           break;
 
         case 'flex'          :
-          if (!findIn(value, FLEX_OPTIONS)) ***REMOVED***
-            if (isNaN(value)) ***REMOVED***
+          if (!findIn(value, FLEX_OPTIONS)) {
+            if (isNaN(value)) {
               value = '';
-            ***REMOVED***
-          ***REMOVED***
+            }
+          }
           break;
 
         case 'flex-offset' :
         case 'flex-order'    :
-          if (!value || isNaN(+value)) ***REMOVED***
+          if (!value || isNaN(+value)) {
             value = '0';
-          ***REMOVED***
+          }
           break;
 
         case 'layout-align'  :
           var axis = extractAlignAxis(value);
-          value = $mdUtil.supplant("***REMOVED***main***REMOVED***-***REMOVED***cross***REMOVED***",axis);
+          value = $mdUtil.supplant("{main}-{cross}",axis);
           break;
 
         case 'layout-padding' :
@@ -3931,74 +3931,74 @@ function InterimElementProvider() ***REMOVED***
         case 'layout-nowrap' :
           value = '';
           break;
-      ***REMOVED***
+      }
 
-      if (value != origValue) ***REMOVED***
+      if (value != origValue) {
         (updateFn || angular.noop)(value);
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     return value;
-  ***REMOVED***
+  }
 
   /**
    * Replace current attribute value with fallback value
    */
-  function buildUpdateFn(element, className, attrs) ***REMOVED***
-    return function updateAttrValue(fallback) ***REMOVED***
-      if (!needsInterpolation(fallback)) ***REMOVED***
+  function buildUpdateFn(element, className, attrs) {
+    return function updateAttrValue(fallback) {
+      if (!needsInterpolation(fallback)) {
         // Do not modify the element's attribute value; so
         // uses '<ui-layout layout="/api/sidebar.html" />' will not
         // be affected. Just update the attrs value.
         attrs[attrs.$normalize(className)] = fallback;
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***
+      }
+    };
+  }
 
   /**
    * See if the original value has interpolation symbols:
-   * e.g.  flex-gt-md="***REMOVED******REMOVED***triggerPoint***REMOVED******REMOVED***"
+   * e.g.  flex-gt-md="{{triggerPoint}}"
    */
-  function needsInterpolation(value) ***REMOVED***
+  function needsInterpolation(value) {
     return (value || "").indexOf($interpolate.startSymbol()) > -1;
-  ***REMOVED***
+  }
 
-  function getNormalizedAttrValue(className, attrs, defaultVal) ***REMOVED***
+  function getNormalizedAttrValue(className, attrs, defaultVal) {
     var normalizedAttr = attrs.$normalize(className);
     return attrs[normalizedAttr] ? attrs[normalizedAttr].replace(WHITESPACE, "-") : defaultVal || null;
-  ***REMOVED***
+  }
 
-  function findIn(item, list, replaceWith) ***REMOVED***
+  function findIn(item, list, replaceWith) {
     item = replaceWith && item ? item.replace(WHITESPACE, replaceWith) : item;
 
     var found = false;
-    if (item) ***REMOVED***
-      list.forEach(function(it) ***REMOVED***
+    if (item) {
+      list.forEach(function(it) {
         it = replaceWith ? it.replace(WHITESPACE, replaceWith) : it;
         found = found || (it === item);
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
     return found;
-  ***REMOVED***
+  }
 
-  function extractAlignAxis(attrValue) ***REMOVED***
-    var axis = ***REMOVED***
+  function extractAlignAxis(attrValue) {
+    var axis = {
       main : "start",
       cross: "stretch"
-    ***REMOVED***, values;
+    }, values;
 
     attrValue = (attrValue || "");
 
-    if ( attrValue.indexOf("-") == 0 || attrValue.indexOf(" ") == 0) ***REMOVED***
+    if ( attrValue.indexOf("-") == 0 || attrValue.indexOf(" ") == 0) {
       // For missing main-axis values
       attrValue = "none" + attrValue;
-    ***REMOVED***
+    }
 
     values = attrValue.toLowerCase().trim().replace(WHITESPACE, "-").split("-");
-    if ( values.length && (values[0] === "space") ) ***REMOVED***
+    if ( values.length && (values[0] === "space") ) {
       // for main-axis values of "space-around" or "space-between"
       values = [ values[0]+"-"+values[1],values[2] ];
-    ***REMOVED***
+    }
 
     if ( values.length > 0 ) axis.main  = values[0] || axis.main;
     if ( values.length > 1 ) axis.cross = values[1] || axis.cross;
@@ -4007,10 +4007,10 @@ function InterimElementProvider() ***REMOVED***
     if ( ALIGNMENT_CROSS_AXIS.indexOf(axis.cross) < 0 ) axis.cross = "stretch";
 
     return axis;
-  ***REMOVED***
+  }
 
 
-***REMOVED***)();
+})();
 
   /**
    * @ngdoc module
@@ -4030,49 +4030,49 @@ function InterimElementProvider() ***REMOVED***
    * @module material.core.componentRegistry
    *
    */
-  function ComponentRegistry($log, $q) ***REMOVED***
+  function ComponentRegistry($log, $q) {
 
     var self;
     var instances = [ ];
-    var pendings = ***REMOVED*** ***REMOVED***;
+    var pendings = { };
 
-    return self = ***REMOVED***
+    return self = {
       /**
        * Used to print an error when an instance for a handle isn't found.
        */
-      notFoundError: function(handle, msgContext) ***REMOVED***
+      notFoundError: function(handle, msgContext) {
         $log.error( (msgContext || "") + 'No instance found for handle', handle);
-      ***REMOVED***,
+      },
       /**
        * Return all registered instances as an array.
        */
-      getInstances: function() ***REMOVED***
+      getInstances: function() {
         return instances;
-      ***REMOVED***,
+      },
 
       /**
        * Get a registered instance.
        * @param handle the String handle to look up for a registered instance.
        */
-      get: function(handle) ***REMOVED***
+      get: function(handle) {
         if ( !isValidID(handle) ) return null;
 
         var i, j, instance;
-        for(i = 0, j = instances.length; i < j; i++) ***REMOVED***
+        for(i = 0, j = instances.length; i < j; i++) {
           instance = instances[i];
-          if(instance.$$mdHandle === handle) ***REMOVED***
+          if(instance.$$mdHandle === handle) {
             return instance;
-          ***REMOVED***
-        ***REMOVED***
+          }
+        }
         return null;
-      ***REMOVED***,
+      },
 
       /**
        * Register an instance.
        * @param instance the instance to register
        * @param handle the handle to identify the instance under.
        */
-      register: function(instance, handle) ***REMOVED***
+      register: function(instance, handle) {
         if ( !handle ) return angular.noop;
 
         instance.$$mdHandle = handle;
@@ -4084,61 +4084,61 @@ function InterimElementProvider() ***REMOVED***
         /**
          * Remove registration for an instance
          */
-        function deregister() ***REMOVED***
+        function deregister() {
           var index = instances.indexOf(instance);
-          if (index !== -1) ***REMOVED***
+          if (index !== -1) {
             instances.splice(index, 1);
-          ***REMOVED***
-        ***REMOVED***
+          }
+        }
 
         /**
          * Resolve any pending promises for this instance
          */
-        function resolveWhen() ***REMOVED***
+        function resolveWhen() {
           var dfd = pendings[handle];
-          if ( dfd ) ***REMOVED***
-            dfd.forEach(function (promise) ***REMOVED***
+          if ( dfd ) {
+            dfd.forEach(function (promise) {
               promise.resolve(instance);
-            ***REMOVED***);
+            });
             delete pendings[handle];
-          ***REMOVED***
-        ***REMOVED***
-      ***REMOVED***,
+          }
+        }
+      },
 
       /**
        * Async accessor to registered component instance
        * If not available then a promise is created to notify
        * all listeners when the instance is registered.
        */
-      when : function(handle) ***REMOVED***
-        if ( isValidID(handle) ) ***REMOVED***
+      when : function(handle) {
+        if ( isValidID(handle) ) {
           var deferred = $q.defer();
           var instance = self.get(handle);
 
-          if ( instance )  ***REMOVED***
+          if ( instance )  {
             deferred.resolve( instance );
-          ***REMOVED*** else ***REMOVED***
-            if (pendings[handle] === undefined) ***REMOVED***
+          } else {
+            if (pendings[handle] === undefined) {
               pendings[handle] = [];
-            ***REMOVED***
+            }
             pendings[handle].push(deferred);
-          ***REMOVED***
+          }
 
           return deferred.promise;
-        ***REMOVED***
+        }
         return $q.reject("Invalid `md-component-id` value.");
-      ***REMOVED***
+      }
 
-    ***REMOVED***;
+    };
 
-    function isValidID(handle)***REMOVED***
+    function isValidID(handle){
       return handle && (handle !== "");
-    ***REMOVED***
+    }
 
-  ***REMOVED***
+  }
   ComponentRegistry.$inject = ["$log", "$q"];
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   /**
@@ -4149,42 +4149,42 @@ function InterimElementProvider() ***REMOVED***
    * @description
    * Provides ripple effects for md-button.  See $mdInkRipple service for all possible configuration options.
    *
-   * @param ***REMOVED***object=***REMOVED*** scope Scope within the current context
-   * @param ***REMOVED***object=***REMOVED*** element The element the ripple effect should be applied to
-   * @param ***REMOVED***object=***REMOVED*** options (Optional) Configuration options to override the default ripple configuration
+   * @param {object=} scope Scope within the current context
+   * @param {object=} element The element the ripple effect should be applied to
+   * @param {object=} options (Optional) Configuration options to override the default ripple configuration
    */
 
   angular.module('material.core')
     .factory('$mdButtonInkRipple', MdButtonInkRipple);
 
-  function MdButtonInkRipple($mdInkRipple) ***REMOVED***
-    return ***REMOVED***
-      attach: function attachRipple(scope, element, options) ***REMOVED***
+  function MdButtonInkRipple($mdInkRipple) {
+    return {
+      attach: function attachRipple(scope, element, options) {
         options = angular.extend(optionsForElement(element), options);
 
         return $mdInkRipple.attach(scope, element, options);
-      ***REMOVED***
-    ***REMOVED***;
+      }
+    };
 
-    function optionsForElement(element) ***REMOVED***
-      if (element.hasClass('md-icon-button')) ***REMOVED***
-        return ***REMOVED***
+    function optionsForElement(element) {
+      if (element.hasClass('md-icon-button')) {
+        return {
           isMenuItem: element.hasClass('md-menu-item'),
           fitRipple: true,
           center: true
-        ***REMOVED***;
-      ***REMOVED*** else ***REMOVED***
-        return ***REMOVED***
+        };
+      } else {
+        return {
           isMenuItem: element.hasClass('md-menu-item'),
           dimBackground: true
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***
+        }
+      }
+    };
+  }
   MdButtonInkRipple.$inject = ["$mdInkRipple"];;
-***REMOVED***)();
+})();
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
     /**
@@ -4195,31 +4195,31 @@ function InterimElementProvider() ***REMOVED***
    * @description
    * Provides ripple effects for md-checkbox.  See $mdInkRipple service for all possible configuration options.
    *
-   * @param ***REMOVED***object=***REMOVED*** scope Scope within the current context
-   * @param ***REMOVED***object=***REMOVED*** element The element the ripple effect should be applied to
-   * @param ***REMOVED***object=***REMOVED*** options (Optional) Configuration options to override the defaultripple configuration
+   * @param {object=} scope Scope within the current context
+   * @param {object=} element The element the ripple effect should be applied to
+   * @param {object=} options (Optional) Configuration options to override the defaultripple configuration
    */
 
   angular.module('material.core')
     .factory('$mdCheckboxInkRipple', MdCheckboxInkRipple);
 
-  function MdCheckboxInkRipple($mdInkRipple) ***REMOVED***
-    return ***REMOVED***
+  function MdCheckboxInkRipple($mdInkRipple) {
+    return {
       attach: attach
-    ***REMOVED***;
+    };
 
-    function attach(scope, element, options) ***REMOVED***
-      return $mdInkRipple.attach(scope, element, angular.extend(***REMOVED***
+    function attach(scope, element, options) {
+      return $mdInkRipple.attach(scope, element, angular.extend({
         center: true,
         dimBackground: false,
         fitRipple: true
-      ***REMOVED***, options));
-    ***REMOVED***;
-  ***REMOVED***
+      }, options));
+    };
+  }
   MdCheckboxInkRipple.$inject = ["$mdInkRipple"];;
-***REMOVED***)();
+})();
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   /**
@@ -4230,30 +4230,30 @@ function InterimElementProvider() ***REMOVED***
    * @description
    * Provides ripple effects for md-list.  See $mdInkRipple service for all possible configuration options.
    *
-   * @param ***REMOVED***object=***REMOVED*** scope Scope within the current context
-   * @param ***REMOVED***object=***REMOVED*** element The element the ripple effect should be applied to
-   * @param ***REMOVED***object=***REMOVED*** options (Optional) Configuration options to override the defaultripple configuration
+   * @param {object=} scope Scope within the current context
+   * @param {object=} element The element the ripple effect should be applied to
+   * @param {object=} options (Optional) Configuration options to override the defaultripple configuration
    */
 
   angular.module('material.core')
     .factory('$mdListInkRipple', MdListInkRipple);
 
-  function MdListInkRipple($mdInkRipple) ***REMOVED***
-    return ***REMOVED***
+  function MdListInkRipple($mdInkRipple) {
+    return {
       attach: attach
-    ***REMOVED***;
+    };
 
-    function attach(scope, element, options) ***REMOVED***
-      return $mdInkRipple.attach(scope, element, angular.extend(***REMOVED***
+    function attach(scope, element, options) {
+      return $mdInkRipple.attach(scope, element, angular.extend({
         center: false,
         dimBackground: true,
         outline: false,
         rippleSize: 'full'
-      ***REMOVED***, options));
-    ***REMOVED***;
-  ***REMOVED***
+      }, options));
+    };
+  }
   MdListInkRipple.$inject = ["$mdInkRipple"];;
-***REMOVED***)();
+})();
 
 /**
  * @ngdoc module
@@ -4278,7 +4278,7 @@ var DURATION = 450;
  * @description
  * The `md-ink-ripple` directive allows you to specify the ripple color or id a ripple is allowed.
  *
- * @param ***REMOVED***string|boolean***REMOVED*** md-ink-ripple A color string `#FF0000` or boolean (`false` or `0`) for preventing ripple
+ * @param {string|boolean} md-ink-ripple A color string `#FF0000` or boolean (`false` or `0`) for preventing ripple
  *
  * @usage
  * ### String values
@@ -4294,25 +4294,25 @@ var DURATION = 450;
  *
  * ### Interpolated values
  * <hljs lang="html">
- *   <ANY md-ink-ripple="***REMOVED******REMOVED*** randomColor() ***REMOVED******REMOVED***">
+ *   <ANY md-ink-ripple="{{ randomColor() }}">
  *     Ripples with the return value of 'randomColor' function
  *   </ANY>
  *
- *   <ANY md-ink-ripple="***REMOVED******REMOVED*** canRipple() ***REMOVED******REMOVED***">
+ *   <ANY md-ink-ripple="{{ canRipple() }}">
  *     Ripples if 'canRipple' function return value is not 'false' or '0'
  *   </ANY>
  * </hljs>
  */
-function InkRippleDirective ($mdButtonInkRipple, $mdCheckboxInkRipple) ***REMOVED***
-  return ***REMOVED***
+function InkRippleDirective ($mdButtonInkRipple, $mdCheckboxInkRipple) {
+  return {
     controller: angular.noop,
-    link:       function (scope, element, attr) ***REMOVED***
+    link:       function (scope, element, attr) {
       attr.hasOwnProperty('mdInkRippleCheckbox')
           ? $mdCheckboxInkRipple.attach(scope, element)
           : $mdButtonInkRipple.attach(scope, element);
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***
+    }
+  };
+}
 InkRippleDirective.$inject = ["$mdButtonInkRipple", "$mdCheckboxInkRipple"];
 
 /**
@@ -4325,22 +4325,22 @@ InkRippleDirective.$inject = ["$mdButtonInkRipple", "$mdCheckboxInkRipple"];
  *
  * @usage
  * <hljs lang="js">
- * app.factory('$myElementInkRipple', function($mdInkRipple) ***REMOVED***
- *   return ***REMOVED***
- *     attach: function (scope, element, options) ***REMOVED***
- *       return $mdInkRipple.attach(scope, element, angular.extend(***REMOVED***
+ * app.factory('$myElementInkRipple', function($mdInkRipple) {
+ *   return {
+ *     attach: function (scope, element, options) {
+ *       return $mdInkRipple.attach(scope, element, angular.extend({
  *         center: false,
  *         dimBackground: true
- *       ***REMOVED***, options));
- *     ***REMOVED***
- *   ***REMOVED***;
- * ***REMOVED***);
+ *       }, options));
+ *     }
+ *   };
+ * });
  *
- * app.controller('myController', function ($scope, $element, $myElementInkRipple) ***REMOVED***
- *   $scope.onClick = function (ev) ***REMOVED***
- *     $myElementInkRipple.attach($scope, angular.element(ev.target), ***REMOVED*** center: true ***REMOVED***);
- *   ***REMOVED***
- * ***REMOVED***);
+ * app.controller('myController', function ($scope, $element, $myElementInkRipple) {
+ *   $scope.onClick = function (ev) {
+ *     $myElementInkRipple.attach($scope, angular.element(ev.target), { center: true });
+ *   }
+ * });
  * </hljs>
  *
  * ### Disabling ripples globally
@@ -4348,18 +4348,18 @@ InkRippleDirective.$inject = ["$mdButtonInkRipple", "$mdCheckboxInkRipple"];
  * `disableInkRipple` method in your app's config.
  *
  * <hljs lang="js">
- * app.config(function ($mdInkRippleProvider) ***REMOVED***
+ * app.config(function ($mdInkRippleProvider) {
  *   $mdInkRippleProvider.disableInkRipple();
- * ***REMOVED***);
+ * });
  */
 
-function InkRippleProvider () ***REMOVED***
+function InkRippleProvider () {
   var isDisabledGlobally = false;
 
-  return ***REMOVED***
+  return {
     disableInkRipple: disableInkRipple,
-    $get: ["$injector", function($injector) ***REMOVED***
-      return ***REMOVED*** attach: attach ***REMOVED***;
+    $get: ["$injector", function($injector) {
+      return { attach: attach };
 
       /**
        * @ngdoc method
@@ -4368,24 +4368,24 @@ function InkRippleProvider () ***REMOVED***
        * @description
        * Attaching given scope, element and options to inkRipple controller
        *
-       * @param ***REMOVED***object=***REMOVED*** scope Scope within the current context
-       * @param ***REMOVED***object=***REMOVED*** element The element the ripple effect should be applied to
-       * @param ***REMOVED***object=***REMOVED*** options (Optional) Configuration options to override the defaultRipple configuration
+       * @param {object=} scope Scope within the current context
+       * @param {object=} element The element the ripple effect should be applied to
+       * @param {object=} options (Optional) Configuration options to override the defaultRipple configuration
        * * `center` -  Whether the ripple should start from the center of the container element
        * * `dimBackground` - Whether the background should be dimmed with the ripple color
        * * `colorElement` - The element the ripple should take its color from, defined by css property `color`
        * * `fitRipple` - Whether the ripple should fill the element
        */
-      function attach (scope, element, options) ***REMOVED***
+      function attach (scope, element, options) {
         if (isDisabledGlobally || element.controller('mdNoInk')) return angular.noop;
-        return $injector.instantiate(InkRippleCtrl, ***REMOVED***
+        return $injector.instantiate(InkRippleCtrl, {
           $scope:        scope,
           $element:      element,
           rippleOptions: options
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***]
-  ***REMOVED***;
+        });
+      }
+    }]
+  };
 
   /**
    * @ngdoc method
@@ -4394,16 +4394,16 @@ function InkRippleProvider () ***REMOVED***
    * @description
    * A config-time method that, when called, disables ripples globally.
    */
-  function disableInkRipple () ***REMOVED***
+  function disableInkRipple () {
     isDisabledGlobally = true;
-  ***REMOVED***
-***REMOVED***
+  }
+}
 
 /**
  * Controller used by the ripple service in order to apply ripples
  * ngInject
  */
-function InkRippleCtrl ($scope, $element, rippleOptions, $window, $timeout, $mdUtil, $mdColorUtil) ***REMOVED***
+function InkRippleCtrl ($scope, $element, rippleOptions, $window, $timeout, $mdUtil, $mdColorUtil) {
   this.$window    = $window;
   this.$timeout   = $timeout;
   this.$mdUtil    = $mdUtil;
@@ -4421,11 +4421,11 @@ function InkRippleCtrl ($scope, $element, rippleOptions, $window, $timeout, $mdU
   this.$element.addClass('md-ink-ripple');
 
   // attach method for unit tests
-  ($element.controller('mdInkRipple') || ***REMOVED******REMOVED***).createRipple = angular.bind(this, this.createRipple);
-  ($element.controller('mdInkRipple') || ***REMOVED******REMOVED***).setColor = angular.bind(this, this.color);
+  ($element.controller('mdInkRipple') || {}).createRipple = angular.bind(this, this.createRipple);
+  ($element.controller('mdInkRipple') || {}).setColor = angular.bind(this, this.color);
 
   this.bindEvents();
-***REMOVED***
+}
 InkRippleCtrl.$inject = ["$scope", "$element", "rippleOptions", "$window", "$timeout", "$mdUtil", "$mdColorUtil"];
 
 
@@ -4433,60 +4433,60 @@ InkRippleCtrl.$inject = ["$scope", "$element", "rippleOptions", "$window", "$tim
  * Either remove or unlock any remaining ripples when the user mouses off of the element (either by
  * mouseup or mouseleave event)
  */
-function autoCleanup (self, cleanupFn) ***REMOVED***
+function autoCleanup (self, cleanupFn) {
 
-  if ( self.mousedown || self.lastRipple ) ***REMOVED***
+  if ( self.mousedown || self.lastRipple ) {
     self.mousedown = false;
     self.$mdUtil.nextTick( angular.bind(self, cleanupFn), false);
-  ***REMOVED***
+  }
 
-***REMOVED***
+}
 
 
 /**
  * Returns the color that the ripple should be (either based on CSS or hard-coded)
- * @returns ***REMOVED***string***REMOVED***
+ * @returns {string}
  */
-InkRippleCtrl.prototype.color = function (value) ***REMOVED***
+InkRippleCtrl.prototype.color = function (value) {
   var self = this;
 
   // If assigning a color value, apply it to background and the ripple color
-  if (angular.isDefined(value)) ***REMOVED***
+  if (angular.isDefined(value)) {
     self._color = self._parseColor(value);
-  ***REMOVED***
+  }
 
   // If color lookup, use assigned, defined, or inherited
   return self._color || self._parseColor( self.inkRipple() ) || self._parseColor( getElementColor() );
 
   /**
    * Finds the color element and returns its text color for use as default ripple color
-   * @returns ***REMOVED***string***REMOVED***
+   * @returns {string}
    */
-  function getElementColor () ***REMOVED***
+  function getElementColor () {
     var items = self.options && self.options.colorElement ? self.options.colorElement : [];
     var elem =  items.length ? items[ 0 ] : self.$element[ 0 ];
 
     return elem ? self.$window.getComputedStyle(elem).color : 'rgb(0,0,0)';
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 /**
  * Updating the ripple colors based on the current inkRipple value
  * or the element's computed style color
  */
-InkRippleCtrl.prototype.calculateColor = function () ***REMOVED***
+InkRippleCtrl.prototype.calculateColor = function () {
   return this.color();
-***REMOVED***;
+};
 
 
 /**
  * Takes a string color and converts it to RGBA format
- * @param color ***REMOVED***string***REMOVED***
- * @param [multiplier] ***REMOVED***int***REMOVED***
- * @returns ***REMOVED***string***REMOVED***
+ * @param color {string}
+ * @param [multiplier] {int}
+ * @returns {string}
  */
 
-InkRippleCtrl.prototype._parseColor = function parseColor (color, multiplier) ***REMOVED***
+InkRippleCtrl.prototype._parseColor = function parseColor (color, multiplier) {
   multiplier = multiplier || 1;
   var colorUtil = this.$mdColorUtil;
 
@@ -4495,125 +4495,125 @@ InkRippleCtrl.prototype._parseColor = function parseColor (color, multiplier) **
   if (color.indexOf('rgb') === 0) return colorUtil.rgbToRgba(color);
   if (color.indexOf('#') === 0) return colorUtil.hexToRgba(color);
 
-***REMOVED***;
+};
 
 /**
  * Binds events to the root element for
  */
-InkRippleCtrl.prototype.bindEvents = function () ***REMOVED***
+InkRippleCtrl.prototype.bindEvents = function () {
   this.$element.on('mousedown', angular.bind(this, this.handleMousedown));
   this.$element.on('mouseup touchend', angular.bind(this, this.handleMouseup));
   this.$element.on('mouseleave', angular.bind(this, this.handleMouseup));
   this.$element.on('touchmove', angular.bind(this, this.handleTouchmove));
-***REMOVED***;
+};
 
 /**
  * Create a new ripple on every mousedown event from the root element
- * @param event ***REMOVED***MouseEvent***REMOVED***
+ * @param event {MouseEvent}
  */
-InkRippleCtrl.prototype.handleMousedown = function (event) ***REMOVED***
+InkRippleCtrl.prototype.handleMousedown = function (event) {
   if ( this.mousedown ) return;
 
   // When jQuery is loaded, we have to get the original event
   if (event.hasOwnProperty('originalEvent')) event = event.originalEvent;
   this.mousedown = true;
-  if (this.options.center) ***REMOVED***
+  if (this.options.center) {
     this.createRipple(this.container.prop('clientWidth') / 2, this.container.prop('clientWidth') / 2);
-  ***REMOVED*** else ***REMOVED***
+  } else {
 
     // We need to calculate the relative coordinates if the target is a sublayer of the ripple element
-    if (event.srcElement !== this.$element[0]) ***REMOVED***
+    if (event.srcElement !== this.$element[0]) {
       var layerRect = this.$element[0].getBoundingClientRect();
       var layerX = event.clientX - layerRect.left;
       var layerY = event.clientY - layerRect.top;
 
       this.createRipple(layerX, layerY);
-    ***REMOVED*** else ***REMOVED***
+    } else {
       this.createRipple(event.offsetX, event.offsetY);
-    ***REMOVED***
-  ***REMOVED***
-***REMOVED***;
+    }
+  }
+};
 
 /**
  * Either remove or unlock any remaining ripples when the user mouses off of the element (either by
  * mouseup, touchend or mouseleave event)
  */
-InkRippleCtrl.prototype.handleMouseup = function () ***REMOVED***
+InkRippleCtrl.prototype.handleMouseup = function () {
   autoCleanup(this, this.clearRipples);
-***REMOVED***;
+};
 
 /**
  * Either remove or unlock any remaining ripples when the user mouses off of the element (by
  * touchmove)
  */
-InkRippleCtrl.prototype.handleTouchmove = function () ***REMOVED***
+InkRippleCtrl.prototype.handleTouchmove = function () {
   autoCleanup(this, this.deleteRipples);
-***REMOVED***;
+};
 
 /**
  * Cycles through all ripples and attempts to remove them.
  */
-InkRippleCtrl.prototype.deleteRipples = function () ***REMOVED***
-  for (var i = 0; i < this.ripples.length; i++) ***REMOVED***
+InkRippleCtrl.prototype.deleteRipples = function () {
+  for (var i = 0; i < this.ripples.length; i++) {
     this.ripples[ i ].remove();
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 /**
  * Cycles through all ripples and attempts to remove them with fade.
  * Depending on logic within `fadeInComplete`, some removals will be postponed.
  */
-InkRippleCtrl.prototype.clearRipples = function () ***REMOVED***
-  for (var i = 0; i < this.ripples.length; i++) ***REMOVED***
+InkRippleCtrl.prototype.clearRipples = function () {
+  for (var i = 0; i < this.ripples.length; i++) {
     this.fadeInComplete(this.ripples[ i ]);
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 /**
  * Creates the ripple container element
- * @returns ***REMOVED*******REMOVED***
+ * @returns {*}
  */
-InkRippleCtrl.prototype.createContainer = function () ***REMOVED***
+InkRippleCtrl.prototype.createContainer = function () {
   var container = angular.element('<div class="md-ripple-container"></div>');
   this.$element.append(container);
   return container;
-***REMOVED***;
+};
 
-InkRippleCtrl.prototype.clearTimeout = function () ***REMOVED***
-  if (this.timeout) ***REMOVED***
+InkRippleCtrl.prototype.clearTimeout = function () {
+  if (this.timeout) {
     this.$timeout.cancel(this.timeout);
     this.timeout = null;
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
-InkRippleCtrl.prototype.isRippleAllowed = function () ***REMOVED***
+InkRippleCtrl.prototype.isRippleAllowed = function () {
   var element = this.$element[0];
-  do ***REMOVED***
+  do {
     if (!element.tagName || element.tagName === 'BODY') break;
 
-    if (element && angular.isFunction(element.hasAttribute)) ***REMOVED***
+    if (element && angular.isFunction(element.hasAttribute)) {
       if (element.hasAttribute('disabled')) return false;
       if (this.inkRipple() === 'false' || this.inkRipple() === '0') return false;
-    ***REMOVED***
+    }
 
-  ***REMOVED*** while (element = element.parentNode);
+  } while (element = element.parentNode);
   return true;
-***REMOVED***;
+};
 
 /**
  * The attribute `md-ink-ripple` may be a static or interpolated
  * color value OR a boolean indicator (used to disable ripples)
  */
-InkRippleCtrl.prototype.inkRipple = function () ***REMOVED***
+InkRippleCtrl.prototype.inkRipple = function () {
   return this.$element.attr('md-ink-ripple');
-***REMOVED***;
+};
 
 /**
  * Creates a new ripple and adds it to the container.  Also tracks ripple in `this.ripples`.
  * @param left
  * @param top
  */
-InkRippleCtrl.prototype.createRipple = function (left, top) ***REMOVED***
+InkRippleCtrl.prototype.createRipple = function (left, top) {
   if (!this.isRippleAllowed()) return;
 
   var ctrl        = this;
@@ -4626,7 +4626,7 @@ InkRippleCtrl.prototype.createRipple = function (left, top) ***REMOVED***
   var size        = getSize(this.options.fitRipple, x, y);
   var color       = this.calculateColor();
 
-  ripple.css(***REMOVED***
+  ripple.css({
     left:            left + 'px',
     top:             top + 'px',
     background:      'black',
@@ -4634,36 +4634,36 @@ InkRippleCtrl.prototype.createRipple = function (left, top) ***REMOVED***
     height:          size + 'px',
     backgroundColor: colorUtil.rgbaToRgb(color),
     borderColor:     colorUtil.rgbaToRgb(color)
-  ***REMOVED***);
+  });
   this.lastRipple = ripple;
 
   // we only want one timeout to be running at a time
   this.clearTimeout();
-  this.timeout    = this.$timeout(function () ***REMOVED***
+  this.timeout    = this.$timeout(function () {
     ctrl.clearTimeout();
     if (!ctrl.mousedown) ctrl.fadeInComplete(ripple);
-  ***REMOVED***, DURATION * 0.35, false);
+  }, DURATION * 0.35, false);
 
-  if (this.options.dimBackground) this.container.css(***REMOVED*** backgroundColor: color ***REMOVED***);
+  if (this.options.dimBackground) this.container.css({ backgroundColor: color });
   this.container.append(ripple);
   this.ripples.push(ripple);
   ripple.addClass('md-ripple-placed');
 
-  this.$mdUtil.nextTick(function () ***REMOVED***
+  this.$mdUtil.nextTick(function () {
 
     ripple.addClass('md-ripple-scaled md-ripple-active');
-    ctrl.$timeout(function () ***REMOVED***
+    ctrl.$timeout(function () {
       ctrl.clearRipples();
-    ***REMOVED***, DURATION, false);
+    }, DURATION, false);
 
-  ***REMOVED***, false);
+  }, false);
 
-  function getSize (fit, x, y) ***REMOVED***
+  function getSize (fit, x, y) {
     return fit
         ? Math.max(x, y)
         : Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 
 
@@ -4671,43 +4671,43 @@ InkRippleCtrl.prototype.createRipple = function (left, top) ***REMOVED***
  * After fadeIn finishes, either kicks off the fade-out animation or queues the element for removal on mouseup
  * @param ripple
  */
-InkRippleCtrl.prototype.fadeInComplete = function (ripple) ***REMOVED***
-  if (this.lastRipple === ripple) ***REMOVED***
-    if (!this.timeout && !this.mousedown) ***REMOVED***
+InkRippleCtrl.prototype.fadeInComplete = function (ripple) {
+  if (this.lastRipple === ripple) {
+    if (!this.timeout && !this.mousedown) {
       this.removeRipple(ripple);
-    ***REMOVED***
-  ***REMOVED*** else ***REMOVED***
+    }
+  } else {
     this.removeRipple(ripple);
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 /**
  * Kicks off the animation for removing a ripple
- * @param ripple ***REMOVED***Element***REMOVED***
+ * @param ripple {Element}
  */
-InkRippleCtrl.prototype.removeRipple = function (ripple) ***REMOVED***
+InkRippleCtrl.prototype.removeRipple = function (ripple) {
   var ctrl  = this;
   var index = this.ripples.indexOf(ripple);
   if (index < 0) return;
   this.ripples.splice(this.ripples.indexOf(ripple), 1);
   ripple.removeClass('md-ripple-active');
   ripple.addClass('md-ripple-remove');
-  if (this.ripples.length === 0) this.container.css(***REMOVED*** backgroundColor: '' ***REMOVED***);
+  if (this.ripples.length === 0) this.container.css({ backgroundColor: '' });
   // use a 2-second timeout in order to allow for the animation to finish
   // we don't actually care how long the animation takes
-  this.$timeout(function () ***REMOVED***
+  this.$timeout(function () {
     ctrl.fadeOutComplete(ripple);
-  ***REMOVED***, DURATION, false);
-***REMOVED***;
+  }, DURATION, false);
+};
 
 /**
  * Removes the provided ripple from the DOM
  * @param ripple
  */
-InkRippleCtrl.prototype.fadeOutComplete = function (ripple) ***REMOVED***
+InkRippleCtrl.prototype.fadeOutComplete = function (ripple) {
   ripple.remove();
   this.lastRipple = null;
-***REMOVED***;
+};
 
 /**
  * Used to create an empty directive.  This is used to track flag-directives whose children may have
@@ -4715,11 +4715,11 @@ InkRippleCtrl.prototype.fadeOutComplete = function (ripple) ***REMOVED***
  *
  * Example: `md-no-ink` will potentially be used by all child directives.
  */
-function attrNoDirective () ***REMOVED***
-  return ***REMOVED*** controller: angular.noop ***REMOVED***;
-***REMOVED***
+function attrNoDirective () {
+  return { controller: angular.noop };
+}
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
     /**
@@ -4730,34 +4730,34 @@ function attrNoDirective () ***REMOVED***
    * @description
    * Provides ripple effects for md-tabs.  See $mdInkRipple service for all possible configuration options.
    *
-   * @param ***REMOVED***object=***REMOVED*** scope Scope within the current context
-   * @param ***REMOVED***object=***REMOVED*** element The element the ripple effect should be applied to
-   * @param ***REMOVED***object=***REMOVED*** options (Optional) Configuration options to override the defaultripple configuration
+   * @param {object=} scope Scope within the current context
+   * @param {object=} element The element the ripple effect should be applied to
+   * @param {object=} options (Optional) Configuration options to override the defaultripple configuration
    */
 
   angular.module('material.core')
     .factory('$mdTabInkRipple', MdTabInkRipple);
 
-  function MdTabInkRipple($mdInkRipple) ***REMOVED***
-    return ***REMOVED***
+  function MdTabInkRipple($mdInkRipple) {
+    return {
       attach: attach
-    ***REMOVED***;
+    };
 
-    function attach(scope, element, options) ***REMOVED***
-      return $mdInkRipple.attach(scope, element, angular.extend(***REMOVED***
+    function attach(scope, element, options) {
+      return $mdInkRipple.attach(scope, element, angular.extend({
         center: false,
         dimBackground: true,
         outline: false,
         rippleSize: 'full'
-      ***REMOVED***, options));
-    ***REMOVED***;
-  ***REMOVED***
+      }, options));
+    };
+  }
   MdTabInkRipple.$inject = ["$mdInkRipple"];;
-***REMOVED***)();
+})();
 
 angular.module('material.core.theming.palette', [])
-.constant('$mdColorPalette', ***REMOVED***
-  'red': ***REMOVED***
+.constant('$mdColorPalette', {
+  'red': {
     '50': '#ffebee',
     '100': '#ffcdd2',
     '200': '#ef9a9a',
@@ -4775,8 +4775,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'light',
     'contrastDarkColors': '50 100 200 300 A100',
     'contrastStrongLightColors': '400 500 600 700 A200 A400 A700'
-  ***REMOVED***,
-  'pink': ***REMOVED***
+  },
+  'pink': {
     '50': '#fce4ec',
     '100': '#f8bbd0',
     '200': '#f48fb1',
@@ -4794,8 +4794,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'light',
     'contrastDarkColors': '50 100 200 A100',
     'contrastStrongLightColors': '500 600 A200 A400 A700'
-  ***REMOVED***,
-  'purple': ***REMOVED***
+  },
+  'purple': {
     '50': '#f3e5f5',
     '100': '#e1bee7',
     '200': '#ce93d8',
@@ -4813,8 +4813,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'light',
     'contrastDarkColors': '50 100 200 A100',
     'contrastStrongLightColors': '300 400 A200 A400 A700'
-  ***REMOVED***,
-  'deep-purple': ***REMOVED***
+  },
+  'deep-purple': {
     '50': '#ede7f6',
     '100': '#d1c4e9',
     '200': '#b39ddb',
@@ -4832,8 +4832,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'light',
     'contrastDarkColors': '50 100 200 A100',
     'contrastStrongLightColors': '300 400 A200'
-  ***REMOVED***,
-  'indigo': ***REMOVED***
+  },
+  'indigo': {
     '50': '#e8eaf6',
     '100': '#c5cae9',
     '200': '#9fa8da',
@@ -4851,8 +4851,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'light',
     'contrastDarkColors': '50 100 200 A100',
     'contrastStrongLightColors': '300 400 A200 A400'
-  ***REMOVED***,
-  'blue': ***REMOVED***
+  },
+  'blue': {
     '50': '#e3f2fd',
     '100': '#bbdefb',
     '200': '#90caf9',
@@ -4870,8 +4870,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'light',
     'contrastDarkColors': '50 100 200 300 400 A100',
     'contrastStrongLightColors': '500 600 700 A200 A400 A700'
-  ***REMOVED***,
-  'light-blue': ***REMOVED***
+  },
+  'light-blue': {
     '50': '#e1f5fe',
     '100': '#b3e5fc',
     '200': '#81d4fa',
@@ -4889,8 +4889,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'dark',
     'contrastLightColors': '600 700 800 900 A700',
     'contrastStrongLightColors': '600 700 800 A700'
-  ***REMOVED***,
-  'cyan': ***REMOVED***
+  },
+  'cyan': {
     '50': '#e0f7fa',
     '100': '#b2ebf2',
     '200': '#80deea',
@@ -4908,8 +4908,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'dark',
     'contrastLightColors': '700 800 900',
     'contrastStrongLightColors': '700 800 900'
-  ***REMOVED***,
-  'teal': ***REMOVED***
+  },
+  'teal': {
     '50': '#e0f2f1',
     '100': '#b2dfdb',
     '200': '#80cbc4',
@@ -4927,8 +4927,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'dark',
     'contrastLightColors': '500 600 700 800 900',
     'contrastStrongLightColors': '500 600 700'
-  ***REMOVED***,
-  'green': ***REMOVED***
+  },
+  'green': {
     '50': '#e8f5e9',
     '100': '#c8e6c9',
     '200': '#a5d6a7',
@@ -4946,8 +4946,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'dark',
     'contrastLightColors': '500 600 700 800 900',
     'contrastStrongLightColors': '500 600 700'
-  ***REMOVED***,
-  'light-green': ***REMOVED***
+  },
+  'light-green': {
     '50': '#f1f8e9',
     '100': '#dcedc8',
     '200': '#c5e1a5',
@@ -4965,8 +4965,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'dark',
     'contrastLightColors': '700 800 900',
     'contrastStrongLightColors': '700 800 900'
-  ***REMOVED***,
-  'lime': ***REMOVED***
+  },
+  'lime': {
     '50': '#f9fbe7',
     '100': '#f0f4c3',
     '200': '#e6ee9c',
@@ -4984,8 +4984,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'dark',
     'contrastLightColors': '900',
     'contrastStrongLightColors': '900'
-  ***REMOVED***,
-  'yellow': ***REMOVED***
+  },
+  'yellow': {
     '50': '#fffde7',
     '100': '#fff9c4',
     '200': '#fff59d',
@@ -5001,8 +5001,8 @@ angular.module('material.core.theming.palette', [])
     'A400': '#ffea00',
     'A700': '#ffd600',
     'contrastDefaultColor': 'dark'
-  ***REMOVED***,
-  'amber': ***REMOVED***
+  },
+  'amber': {
     '50': '#fff8e1',
     '100': '#ffecb3',
     '200': '#ffe082',
@@ -5018,8 +5018,8 @@ angular.module('material.core.theming.palette', [])
     'A400': '#ffc400',
     'A700': '#ffab00',
     'contrastDefaultColor': 'dark'
-  ***REMOVED***,
-  'orange': ***REMOVED***
+  },
+  'orange': {
     '50': '#fff3e0',
     '100': '#ffe0b2',
     '200': '#ffcc80',
@@ -5037,8 +5037,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'dark',
     'contrastLightColors': '800 900',
     'contrastStrongLightColors': '800 900'
-  ***REMOVED***,
-  'deep-orange': ***REMOVED***
+  },
+  'deep-orange': {
     '50': '#fbe9e7',
     '100': '#ffccbc',
     '200': '#ffab91',
@@ -5056,8 +5056,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'light',
     'contrastDarkColors': '50 100 200 300 400 A100 A200',
     'contrastStrongLightColors': '500 600 700 800 900 A400 A700'
-  ***REMOVED***,
-  'brown': ***REMOVED***
+  },
+  'brown': {
     '50': '#efebe9',
     '100': '#d7ccc8',
     '200': '#bcaaa4',
@@ -5075,8 +5075,8 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'light',
     'contrastDarkColors': '50 100 200 A100 A200',
     'contrastStrongLightColors': '300 400'
-  ***REMOVED***,
-  'grey': ***REMOVED***
+  },
+  'grey': {
     '50': '#fafafa',
     '100': '#f5f5f5',
     '200': '#eeeeee',
@@ -5093,8 +5093,8 @@ angular.module('material.core.theming.palette', [])
     'A700': '#616161',
     'contrastDefaultColor': 'dark',
     'contrastLightColors': '600 700 800 900 A200 A400 A700'
-  ***REMOVED***,
-  'blue-grey': ***REMOVED***
+  },
+  'blue-grey': {
     '50': '#eceff1',
     '100': '#cfd8dc',
     '200': '#b0bec5',
@@ -5112,10 +5112,10 @@ angular.module('material.core.theming.palette', [])
     'contrastDefaultColor': 'light',
     'contrastDarkColors': '50 100 200 300 A100 A200',
     'contrastStrongLightColors': '400 500 700'
-  ***REMOVED***
-***REMOVED***);
+  }
+});
 
-(function(angular) ***REMOVED***
+(function(angular) {
   'use strict';
 /**
  * @ngdoc module
@@ -5138,10 +5138,10 @@ angular.module('material.core.theming', ['material.core.theming.palette'])
 /**
  * ngInject
  */
-function detectDisabledThemes($mdThemingProvider) ***REMOVED***
+function detectDisabledThemes($mdThemingProvider) {
   var isDisabled = !!document.querySelector('[md-themes-disabled]');
   $mdThemingProvider.disableTheming(isDisabled);
-***REMOVED***
+}
 detectDisabledThemes.$inject = ["$mdThemingProvider"];
 
 /**
@@ -5164,14 +5164,14 @@ detectDisabledThemes.$inject = ["$mdThemingProvider"];
  * This can be done by using the following markup.
  *
  * <hljs lang="js">
- *   myAppModule.config(function($mdThemingProvider) ***REMOVED***
+ *   myAppModule.config(function($mdThemingProvider) {
  *     $mdThemingProvider
  *       .theme('default')
  *       .primaryPalette('blue')
  *       .accentPalette('teal')
  *       .warnPalette('red')
  *       .backgroundPalette('grey');
- *   ***REMOVED***);
+ *   });
  * </hljs>
  *
 
@@ -5181,10 +5181,10 @@ detectDisabledThemes.$inject = ["$mdThemingProvider"];
  * If you have an application, which changes its theme on runtime, you have to enable theme watching.
  *
  * <hljs lang="js">
- *   myAppModule.config(function($mdThemingProvider) ***REMOVED***
+ *   myAppModule.config(function($mdThemingProvider) {
  *     // Enable theme watching.
  *     $mdThemingProvider.alwaysWatchTheme(true);
- *   ***REMOVED***);
+ *   });
  * </hljs>
  *
  * ### Custom Theme Styles
@@ -5193,10 +5193,10 @@ detectDisabledThemes.$inject = ["$mdThemingProvider"];
  * You are able to register your own styles by using the following markup.
  *
  * <hljs lang="js">
- *   myAppModule.config(function($mdThemingProvider) ***REMOVED***
+ *   myAppModule.config(function($mdThemingProvider) {
  *     // Register our custom stylesheet into the theming provider.
  *     $mdThemingProvider.registerStyles(STYLESHEET);
- *   ***REMOVED***);
+ *   });
  * </hljs>
  *
  * The `registerStyles` method only accepts strings as value, so you're actually not able to load an external
@@ -5206,35 +5206,35 @@ detectDisabledThemes.$inject = ["$mdThemingProvider"];
  * like [raw-loader](https://github.com/webpack/raw-loader) for `webpack`.
  *
  * <hljs lang="js">
- *   myAppModule.config(function($mdThemingProvider) ***REMOVED***
+ *   myAppModule.config(function($mdThemingProvider) {
  *     // Register your custom stylesheet into the theming provider.
  *     $mdThemingProvider.registerStyles(require('../styles/my-component.theme.css'));
- *   ***REMOVED***);
+ *   });
  * </hljs>
  */
 
 /**
  * @ngdoc method
  * @name $mdThemingProvider#registerStyles
- * @param ***REMOVED***string***REMOVED*** styles The styles to be appended to Angular Material's built in theme css.
+ * @param {string} styles The styles to be appended to Angular Material's built in theme css.
  */
 /**
  * @ngdoc method
  * @name $mdThemingProvider#setNonce
- * @param ***REMOVED***string***REMOVED*** nonceValue The nonce to be added as an attribute to the theme style tags.
+ * @param {string} nonceValue The nonce to be added as an attribute to the theme style tags.
  * Setting a value allows the use of CSP policy without using the unsafe-inline directive.
  */
 
 /**
  * @ngdoc method
  * @name $mdThemingProvider#setDefaultTheme
- * @param ***REMOVED***string***REMOVED*** themeName Default theme name to be applied to elements. Default value is `default`.
+ * @param {string} themeName Default theme name to be applied to elements. Default value is `default`.
  */
 
 /**
  * @ngdoc method
  * @name $mdThemingProvider#alwaysWatchTheme
- * @param ***REMOVED***boolean***REMOVED*** watch Whether or not to always watch themes for changes and re-apply
+ * @param {boolean} watch Whether or not to always watch themes for changes and re-apply
  * classes when they change. Default is `false`. Enabling can reduce performance.
  */
 
@@ -5243,47 +5243,47 @@ detectDisabledThemes.$inject = ["$mdThemingProvider"];
  *
  * Intention group expansion: (valid for primary, accent, warn, background)
  *
- * ***REMOVED******REMOVED***primary-100***REMOVED******REMOVED*** - grab shade 100 from the primary palette
- * ***REMOVED******REMOVED***primary-100-0.7***REMOVED******REMOVED*** - grab shade 100, apply opacity of 0.7
- * ***REMOVED******REMOVED***primary-100-contrast***REMOVED******REMOVED*** - grab shade 100's contrast color
- * ***REMOVED******REMOVED***primary-hue-1***REMOVED******REMOVED*** - grab the shade assigned to hue-1 from the primary palette
- * ***REMOVED******REMOVED***primary-hue-1-0.7***REMOVED******REMOVED*** - apply 0.7 opacity to primary-hue-1
- * ***REMOVED******REMOVED***primary-color***REMOVED******REMOVED*** - Generates .md-hue-1, .md-hue-2, .md-hue-3 with configured shades set for each hue
- * ***REMOVED******REMOVED***primary-color-0.7***REMOVED******REMOVED*** - Apply 0.7 opacity to each of the above rules
- * ***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED*** - Generates .md-hue-1, .md-hue-2, .md-hue-3 with configured contrast (ie. text) color shades set for each hue
- * ***REMOVED******REMOVED***primary-contrast-0.7***REMOVED******REMOVED*** - Apply 0.7 opacity to each of the above rules
+ * {{primary-100}} - grab shade 100 from the primary palette
+ * {{primary-100-0.7}} - grab shade 100, apply opacity of 0.7
+ * {{primary-100-contrast}} - grab shade 100's contrast color
+ * {{primary-hue-1}} - grab the shade assigned to hue-1 from the primary palette
+ * {{primary-hue-1-0.7}} - apply 0.7 opacity to primary-hue-1
+ * {{primary-color}} - Generates .md-hue-1, .md-hue-2, .md-hue-3 with configured shades set for each hue
+ * {{primary-color-0.7}} - Apply 0.7 opacity to each of the above rules
+ * {{primary-contrast}} - Generates .md-hue-1, .md-hue-2, .md-hue-3 with configured contrast (ie. text) color shades set for each hue
+ * {{primary-contrast-0.7}} - Apply 0.7 opacity to each of the above rules
  *
  * Foreground expansion: Applies rgba to black/white foreground text
  *
- * ***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED*** - used for primary text
- * ***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED*** - used for secondary text/divider
- * ***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED*** - used for disabled text
- * ***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED*** - used for dividers
+ * {{foreground-1}} - used for primary text
+ * {{foreground-2}} - used for secondary text/divider
+ * {{foreground-3}} - used for disabled text
+ * {{foreground-4}} - used for dividers
  *
  */
 
 // In memory generated CSS rules; registered by theme.name
-var GENERATED = ***REMOVED*** ***REMOVED***;
+var GENERATED = { };
 
 // In memory storage of defined themes and color palettes (both loaded by CSS, and user specified)
 var PALETTES;
 
 // Text Colors on light and dark backgrounds
 // @see https://www.google.com/design/spec/style/color.html#color-text-background-colors
-var DARK_FOREGROUND = ***REMOVED***
+var DARK_FOREGROUND = {
   name: 'dark',
   '1': 'rgba(0,0,0,0.87)',
   '2': 'rgba(0,0,0,0.54)',
   '3': 'rgba(0,0,0,0.38)',
   '4': 'rgba(0,0,0,0.12)'
-***REMOVED***;
-var LIGHT_FOREGROUND = ***REMOVED***
+};
+var LIGHT_FOREGROUND = {
   name: 'light',
   '1': 'rgba(255,255,255,1.0)',
   '2': 'rgba(255,255,255,0.7)',
   '3': 'rgba(255,255,255,0.5)',
   '4': 'rgba(255,255,255,0.12)'
-***REMOVED***;
+};
 
 var DARK_SHADOW = '1px 1px 0px rgba(0,0,0,0.4), -1px -1px 0px rgba(0,0,0,0.4)';
 var LIGHT_SHADOW = '';
@@ -5296,59 +5296,59 @@ var THEME_COLOR_TYPES = ['primary', 'accent', 'warn', 'background'];
 var DEFAULT_COLOR_TYPE = 'primary';
 
 // A color in a theme will use these hues by default, if not specified by user.
-var LIGHT_DEFAULT_HUES = ***REMOVED***
-  'accent': ***REMOVED***
+var LIGHT_DEFAULT_HUES = {
+  'accent': {
     'default': 'A200',
     'hue-1': 'A100',
     'hue-2': 'A400',
     'hue-3': 'A700'
-  ***REMOVED***,
-  'background': ***REMOVED***
+  },
+  'background': {
     'default': '50',
     'hue-1': 'A100',
     'hue-2': '100',
     'hue-3': '300'
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
-var DARK_DEFAULT_HUES = ***REMOVED***
-  'background': ***REMOVED***
+var DARK_DEFAULT_HUES = {
+  'background': {
     'default': 'A400',
     'hue-1': '800',
     'hue-2': '900',
     'hue-3': 'A200'
-  ***REMOVED***
-***REMOVED***;
-THEME_COLOR_TYPES.forEach(function(colorType) ***REMOVED***
+  }
+};
+THEME_COLOR_TYPES.forEach(function(colorType) {
   // Color types with unspecified default hues will use these default hue values
-  var defaultDefaultHues = ***REMOVED***
+  var defaultDefaultHues = {
     'default': '500',
     'hue-1': '300',
     'hue-2': '800',
     'hue-3': 'A100'
-  ***REMOVED***;
+  };
   if (!LIGHT_DEFAULT_HUES[colorType]) LIGHT_DEFAULT_HUES[colorType] = defaultDefaultHues;
   if (!DARK_DEFAULT_HUES[colorType]) DARK_DEFAULT_HUES[colorType] = defaultDefaultHues;
-***REMOVED***);
+});
 
 var VALID_HUE_VALUES = [
   '50', '100', '200', '300', '400', '500', '600',
   '700', '800', '900', 'A100', 'A200', 'A400', 'A700'
 ];
 
-var themeConfig = ***REMOVED***
+var themeConfig = {
   disableTheming : false,   // Generate our themes at run time; also disable stylesheet DOM injection
   generateOnDemand : false, // Whether or not themes are to be generated on-demand (vs. eagerly).
   registeredStyles : [],    // Custom styles registered to be used in the theming of custom components.
   nonce : null              // Nonce to be added as an attribute to the generated themes style tags.
-***REMOVED***;
+};
 
 /**
  *
  */
-function ThemingProvider($mdColorPalette) ***REMOVED***
-  PALETTES = ***REMOVED*** ***REMOVED***;
-  var THEMES = ***REMOVED*** ***REMOVED***;
+function ThemingProvider($mdColorPalette) {
+  PALETTES = { };
+  var THEMES = { };
 
   var themingProvider;
 
@@ -5361,45 +5361,45 @@ function ThemingProvider($mdColorPalette) ***REMOVED***
   // Default theme defined in core.js
 
   ThemingService.$inject = ["$rootScope", "$log"];
-  return themingProvider = ***REMOVED***
+  return themingProvider = {
     definePalette: definePalette,
     extendPalette: extendPalette,
     theme: registerTheme,
 
-    configuration : function() ***REMOVED***
+    configuration : function() {
       // return a read-only clone of the current configuration
-      var locals = ***REMOVED*** defaultTheme : defaultTheme, alwaysWatchTheme : alwaysWatchTheme ***REMOVED***;
-      return angular.extend( ***REMOVED*** ***REMOVED***, config, locals );
-    ***REMOVED***,
+      var locals = { defaultTheme : defaultTheme, alwaysWatchTheme : alwaysWatchTheme };
+      return angular.extend( { }, config, locals );
+    },
 
     /**
      * Easy way to disable theming without having to use
      * `.constant("$MD_THEME_CSS","");` This disables
      * all dynamic theme style sheet generations and injections...
      */
-    disableTheming: function(isDisabled) ***REMOVED***
+    disableTheming: function(isDisabled) {
       themeConfig.disableTheming = angular.isUndefined(isDisabled) || !!isDisabled;
-    ***REMOVED***,
+    },
 
-    registerStyles: function(styles) ***REMOVED***
+    registerStyles: function(styles) {
       themeConfig.registeredStyles.push(styles);
-    ***REMOVED***,
+    },
 
-    setNonce: function(nonceValue) ***REMOVED***
+    setNonce: function(nonceValue) {
       themeConfig.nonce = nonceValue;
-    ***REMOVED***,
+    },
 
-    generateThemesOnDemand: function(onDemand) ***REMOVED***
+    generateThemesOnDemand: function(onDemand) {
       themeConfig.generateOnDemand = onDemand;
-    ***REMOVED***,
+    },
 
-    setDefaultTheme: function(theme) ***REMOVED***
+    setDefaultTheme: function(theme) {
       defaultTheme = theme;
-    ***REMOVED***,
+    },
 
-    alwaysWatchTheme: function(alwaysWatch) ***REMOVED***
+    alwaysWatchTheme: function(alwaysWatch) {
       alwaysWatchTheme = alwaysWatch;
-    ***REMOVED***,
+    },
 
     $get: ThemingService,
     _LIGHT_DEFAULT_HUES: LIGHT_DEFAULT_HUES,
@@ -5408,41 +5408,41 @@ function ThemingProvider($mdColorPalette) ***REMOVED***
     _THEMES: THEMES,
     _parseRules: parseRules,
     _rgba: rgba
-  ***REMOVED***;
+  };
 
-  // Example: $mdThemingProvider.definePalette('neonRed', ***REMOVED*** 50: '#f5fafa', ... ***REMOVED***);
-  function definePalette(name, map) ***REMOVED***
-    map = map || ***REMOVED******REMOVED***;
+  // Example: $mdThemingProvider.definePalette('neonRed', { 50: '#f5fafa', ... });
+  function definePalette(name, map) {
+    map = map || {};
     PALETTES[name] = checkPaletteValid(name, map);
     return themingProvider;
-  ***REMOVED***
+  }
 
   // Returns an new object which is a copy of a given palette `name` with variables from
   // `map` overwritten
-  // Example: var neonRedMap = $mdThemingProvider.extendPalette('red', ***REMOVED*** 50: '#f5fafafa' ***REMOVED***);
-  function extendPalette(name, map) ***REMOVED***
-    return checkPaletteValid(name,  angular.extend(***REMOVED******REMOVED***, PALETTES[name] || ***REMOVED******REMOVED***, map) );
-  ***REMOVED***
+  // Example: var neonRedMap = $mdThemingProvider.extendPalette('red', { 50: '#f5fafafa' });
+  function extendPalette(name, map) {
+    return checkPaletteValid(name,  angular.extend({}, PALETTES[name] || {}, map) );
+  }
 
   // Make sure that palette has all required hues
-  function checkPaletteValid(name, map) ***REMOVED***
-    var missingColors = VALID_HUE_VALUES.filter(function(field) ***REMOVED***
+  function checkPaletteValid(name, map) {
+    var missingColors = VALID_HUE_VALUES.filter(function(field) {
       return !map[field];
-    ***REMOVED***);
-    if (missingColors.length) ***REMOVED***
+    });
+    if (missingColors.length) {
       throw new Error("Missing colors %1 in palette %2!"
                       .replace('%1', missingColors.join(', '))
                       .replace('%2', name));
-    ***REMOVED***
+    }
 
     return map;
-  ***REMOVED***
+  }
 
   // Register a theme (which is a collection of color palettes to use with various states
   // ie. warn, accent, primary )
   // Optionally inherit from an existing theme
   // $mdThemingProvider.theme('custom-theme').primaryPalette('red');
-  function registerTheme(name, inheritFrom) ***REMOVED***
+  function registerTheme(name, inheritFrom) {
     if (THEMES[name]) return THEMES[name];
 
     inheritFrom = inheritFrom || 'default';
@@ -5450,30 +5450,30 @@ function ThemingProvider($mdColorPalette) ***REMOVED***
     var parentTheme = typeof inheritFrom === 'string' ? THEMES[inheritFrom] : inheritFrom;
     var theme = new Theme(name);
 
-    if (parentTheme) ***REMOVED***
-      angular.forEach(parentTheme.colors, function(color, colorType) ***REMOVED***
-        theme.colors[colorType] = ***REMOVED***
+    if (parentTheme) {
+      angular.forEach(parentTheme.colors, function(color, colorType) {
+        theme.colors[colorType] = {
           name: color.name,
           // Make sure a COPY of the hues is given to the child color,
           // not the same reference.
-          hues: angular.extend(***REMOVED******REMOVED***, color.hues)
-        ***REMOVED***;
-      ***REMOVED***);
-    ***REMOVED***
+          hues: angular.extend({}, color.hues)
+        };
+      });
+    }
     THEMES[name] = theme;
 
     return theme;
-  ***REMOVED***
+  }
 
-  function Theme(name) ***REMOVED***
+  function Theme(name) {
     var self = this;
     self.name = name;
-    self.colors = ***REMOVED******REMOVED***;
+    self.colors = {};
 
     self.dark = setDark;
     setDark(false);
 
-    function setDark(isDark) ***REMOVED***
+    function setDark(isDark) {
       isDark = arguments.length === 0 ? true : !!isDark;
 
       // If no change, abort
@@ -5490,43 +5490,43 @@ function ThemingProvider($mdColorPalette) ***REMOVED***
       // set it to the default hue value from the new light/dark setting.
       var newDefaultHues = self.isDark ? DARK_DEFAULT_HUES : LIGHT_DEFAULT_HUES;
       var oldDefaultHues = self.isDark ? LIGHT_DEFAULT_HUES : DARK_DEFAULT_HUES;
-      angular.forEach(newDefaultHues, function(newDefaults, colorType) ***REMOVED***
+      angular.forEach(newDefaultHues, function(newDefaults, colorType) {
         var color = self.colors[colorType];
         var oldDefaults = oldDefaultHues[colorType];
-        if (color) ***REMOVED***
-          for (var hueName in color.hues) ***REMOVED***
-            if (color.hues[hueName] === oldDefaults[hueName]) ***REMOVED***
+        if (color) {
+          for (var hueName in color.hues) {
+            if (color.hues[hueName] === oldDefaults[hueName]) {
               color.hues[hueName] = newDefaults[hueName];
-            ***REMOVED***
-          ***REMOVED***
-        ***REMOVED***
-      ***REMOVED***);
+            }
+          }
+        }
+      });
 
       return self;
-    ***REMOVED***
+    }
 
-    THEME_COLOR_TYPES.forEach(function(colorType) ***REMOVED***
+    THEME_COLOR_TYPES.forEach(function(colorType) {
       var defaultHues = (self.isDark ? DARK_DEFAULT_HUES : LIGHT_DEFAULT_HUES)[colorType];
-      self[colorType + 'Palette'] = function setPaletteType(paletteName, hues) ***REMOVED***
-        var color = self.colors[colorType] = ***REMOVED***
+      self[colorType + 'Palette'] = function setPaletteType(paletteName, hues) {
+        var color = self.colors[colorType] = {
           name: paletteName,
-          hues: angular.extend(***REMOVED******REMOVED***, defaultHues, hues)
-        ***REMOVED***;
+          hues: angular.extend({}, defaultHues, hues)
+        };
 
-        Object.keys(color.hues).forEach(function(name) ***REMOVED***
-          if (!defaultHues[name]) ***REMOVED***
+        Object.keys(color.hues).forEach(function(name) {
+          if (!defaultHues[name]) {
             throw new Error("Invalid hue name '%1' in theme %2's %3 color %4. Available hue names: %4"
               .replace('%1', name)
               .replace('%2', self.name)
               .replace('%3', paletteName)
               .replace('%4', Object.keys(defaultHues).join(', '))
             );
-          ***REMOVED***
-        ***REMOVED***);
-        Object.keys(color.hues).map(function(key) ***REMOVED***
+          }
+        });
+        Object.keys(color.hues).map(function(key) {
           return color.hues[key];
-        ***REMOVED***).forEach(function(hueValue) ***REMOVED***
-          if (VALID_HUE_VALUES.indexOf(hueValue) == -1) ***REMOVED***
+        }).forEach(function(hueValue) {
+          if (VALID_HUE_VALUES.indexOf(hueValue) == -1) {
             throw new Error("Invalid hue value '%1' in theme %2's %3 color %4. Available hue values: %5"
               .replace('%1', hueValue)
               .replace('%2', self.name)
@@ -5534,19 +5534,19 @@ function ThemingProvider($mdColorPalette) ***REMOVED***
               .replace('%4', paletteName)
               .replace('%5', VALID_HUE_VALUES.join(', '))
             );
-          ***REMOVED***
-        ***REMOVED***);
+          }
+        });
         return self;
-      ***REMOVED***;
+      };
 
-      self[colorType + 'Color'] = function() ***REMOVED***
+      self[colorType + 'Color'] = function() {
         var args = Array.prototype.slice.call(arguments);
         console.warn('$mdThemingProviderTheme.' + colorType + 'Color() has been deprecated. ' +
                      'Use $mdThemingProviderTheme.' + colorType + 'Palette() instead.');
         return self[colorType + 'Palette'].apply(self, args);
-      ***REMOVED***;
-    ***REMOVED***);
-  ***REMOVED***
+      };
+    });
+  }
 
   /**
    * @ngdoc service
@@ -5557,143 +5557,143 @@ function ThemingProvider($mdColorPalette) ***REMOVED***
    * Service that makes an element apply theming related classes to itself.
    *
    * ```js
-   * app.directive('myFancyDirective', function($mdTheming) ***REMOVED***
-   *   return ***REMOVED***
+   * app.directive('myFancyDirective', function($mdTheming) {
+   *   return {
    *     restrict: 'e',
-   *     link: function(scope, el, attrs) ***REMOVED***
+   *     link: function(scope, el, attrs) {
    *       $mdTheming(el);
-   *     ***REMOVED***
-   *   ***REMOVED***;
-   * ***REMOVED***);
+   *     }
+   *   };
+   * });
    * ```
-   * @param ***REMOVED***el=***REMOVED*** element to apply theming to
+   * @param {el=} element to apply theming to
    */
   /* ngInject */
-  function ThemingService($rootScope, $log) ***REMOVED***
+  function ThemingService($rootScope, $log) {
         // Allow us to be invoked via a linking function signature.
-    var applyTheme = function (scope, el) ***REMOVED***
-          if (el === undefined) ***REMOVED*** el = scope; scope = undefined; ***REMOVED***
-          if (scope === undefined) ***REMOVED*** scope = $rootScope; ***REMOVED***
+    var applyTheme = function (scope, el) {
+          if (el === undefined) { el = scope; scope = undefined; }
+          if (scope === undefined) { scope = $rootScope; }
           applyTheme.inherit(el, el);
-        ***REMOVED***;
+        };
 
-    applyTheme.THEMES = angular.extend(***REMOVED******REMOVED***, THEMES);
-    applyTheme.PALETTES = angular.extend(***REMOVED******REMOVED***, PALETTES);
+    applyTheme.THEMES = angular.extend({}, THEMES);
+    applyTheme.PALETTES = angular.extend({}, PALETTES);
     applyTheme.inherit = inheritTheme;
     applyTheme.registered = registered;
-    applyTheme.defaultTheme = function() ***REMOVED*** return defaultTheme; ***REMOVED***;
-    applyTheme.generateTheme = function(name) ***REMOVED*** generateTheme(THEMES[name], name, themeConfig.nonce); ***REMOVED***;
+    applyTheme.defaultTheme = function() { return defaultTheme; };
+    applyTheme.generateTheme = function(name) { generateTheme(THEMES[name], name, themeConfig.nonce); };
 
     return applyTheme;
 
     /**
      * Determine is specified theme name is a valid, registered theme
      */
-    function registered(themeName) ***REMOVED***
+    function registered(themeName) {
       if (themeName === undefined || themeName === '') return true;
       return applyTheme.THEMES[themeName] !== undefined;
-    ***REMOVED***
+    }
 
     /**
      * Get theme name for the element, then update with Theme CSS class
      */
-    function inheritTheme (el, parent) ***REMOVED***
+    function inheritTheme (el, parent) {
       var ctrl = parent.controller('mdTheme');
       var attrThemeValue = el.attr('md-theme-watch');
       var watchTheme = (alwaysWatchTheme || angular.isDefined(attrThemeValue)) && attrThemeValue != 'false';
 
       updateThemeClass(lookupThemeName());
 
-      if ((alwaysWatchTheme && !registerChangeCallback()) || (!alwaysWatchTheme && watchTheme)) ***REMOVED***
+      if ((alwaysWatchTheme && !registerChangeCallback()) || (!alwaysWatchTheme && watchTheme)) {
         el.on('$destroy', $rootScope.$watch(lookupThemeName, updateThemeClass) );
-      ***REMOVED***
+      }
 
       /**
        * Find the theme name from the parent controller or element data
        */
-      function lookupThemeName() ***REMOVED***
+      function lookupThemeName() {
         // As a few components (dialog) add their controllers later, we should also watch for a controller init.
         ctrl = parent.controller('mdTheme') || el.data('$mdThemeController');
         return ctrl && ctrl.$mdTheme || (defaultTheme == 'default' ? '' : defaultTheme);
-      ***REMOVED***
+      }
 
       /**
        * Remove old theme class and apply a new one
        * NOTE: if not a valid theme name, then the current name is not changed
        */
-      function updateThemeClass(theme) ***REMOVED***
+      function updateThemeClass(theme) {
         if (!theme) return;
-        if (!registered(theme)) ***REMOVED***
+        if (!registered(theme)) {
           $log.warn('Attempted to use unregistered theme \'' + theme + '\'. ' +
                     'Register it with $mdThemingProvider.theme().');
-        ***REMOVED***
+        }
 
         var oldTheme = el.data('$mdThemeName');
         if (oldTheme) el.removeClass('md-' + oldTheme +'-theme');
         el.addClass('md-' + theme + '-theme');
         el.data('$mdThemeName', theme);
-        if (ctrl) ***REMOVED***
+        if (ctrl) {
           el.data('$mdThemeController', ctrl);
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
       /**
        * Register change callback with parent mdTheme controller
        */
-      function registerChangeCallback() ***REMOVED***
+      function registerChangeCallback() {
         var parentController = parent.controller('mdTheme');
         if (!parentController) return false;
-        el.on('$destroy', parentController.registerChanges( function() ***REMOVED***
+        el.on('$destroy', parentController.registerChanges( function() {
           updateThemeClass(lookupThemeName());
-        ***REMOVED***));
+        }));
         return true;
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
-  ***REMOVED***
-***REMOVED***
+  }
+}
 ThemingProvider.$inject = ["$mdColorPalette"];
 
-function ThemingDirective($mdTheming, $interpolate, $log) ***REMOVED***
-  return ***REMOVED***
+function ThemingDirective($mdTheming, $interpolate, $log) {
+  return {
     priority: 100,
-    link: ***REMOVED***
-      pre: function(scope, el, attrs) ***REMOVED***
+    link: {
+      pre: function(scope, el, attrs) {
         var registeredCallbacks = [];
-        var ctrl = ***REMOVED***
-          registerChanges: function (cb, context) ***REMOVED***
-            if (context) ***REMOVED***
+        var ctrl = {
+          registerChanges: function (cb, context) {
+            if (context) {
               cb = angular.bind(context, cb);
-            ***REMOVED***
+            }
 
             registeredCallbacks.push(cb);
 
-            return function () ***REMOVED***
+            return function () {
               var index = registeredCallbacks.indexOf(cb);
 
-              if (index > -1) ***REMOVED***
+              if (index > -1) {
                 registeredCallbacks.splice(index, 1);
-              ***REMOVED***
-            ***REMOVED***
-          ***REMOVED***,
-          $setTheme: function (theme) ***REMOVED***
-            if (!$mdTheming.registered(theme)) ***REMOVED***
+              }
+            }
+          },
+          $setTheme: function (theme) {
+            if (!$mdTheming.registered(theme)) {
               $log.warn('attempted to use unregistered theme \'' + theme + '\'');
-            ***REMOVED***
+            }
             ctrl.$mdTheme = theme;
 
-            registeredCallbacks.forEach(function (cb) ***REMOVED***
+            registeredCallbacks.forEach(function (cb) {
               cb();
-            ***REMOVED***)
-          ***REMOVED***
-        ***REMOVED***;
+            })
+          }
+        };
         el.data('$mdThemeController', ctrl);
         ctrl.$setTheme($interpolate(attrs.mdTheme)(scope));
         attrs.$observe('mdTheme', ctrl.$setTheme);
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***
+      }
+    }
+  };
+}
 ThemingDirective.$inject = ["$mdTheming", "$interpolate", "$log"];
 
 /**
@@ -5715,22 +5715,22 @@ ThemingDirective.$inject = ["$mdTheming", "$interpolate", "$log"];
  * conversions; this would obviate the use of the `md-themes-css` directive
  *
  */
-function disableThemesDirective() ***REMOVED***
+function disableThemesDirective() {
   themeConfig.disableTheming = true;
 
   // Return a 1x-only, first-match attribute directive
-  return ***REMOVED***
+  return {
     restrict : 'A',
     priority : '900'
-  ***REMOVED***;
-***REMOVED***
+  };
+}
 
-function ThemableDirective($mdTheming) ***REMOVED***
+function ThemableDirective($mdTheming) {
   return $mdTheming;
-***REMOVED***
+}
 ThemableDirective.$inject = ["$mdTheming"];
 
-function parseRules(theme, colorType, rules) ***REMOVED***
+function parseRules(theme, colorType, rules) {
   checkValidPalette(theme, colorType);
 
   rules = rules.replace(/THEME_NAME/g, theme.name);
@@ -5738,60 +5738,60 @@ function parseRules(theme, colorType, rules) ***REMOVED***
   var color = theme.colors[colorType];
 
   var themeNameRegex = new RegExp('\\.md-' + theme.name + '-theme', 'g');
-  // Matches '***REMOVED******REMOVED*** primary-color ***REMOVED******REMOVED***', etc
-  var hueRegex = new RegExp('(\'|")?***REMOVED******REMOVED***\\s*(' + colorType + ')-(color|contrast)-?(\\d\\.?\\d*)?\\s****REMOVED******REMOVED***(\"|\')?','g');
-  var simpleVariableRegex = /'?"?\***REMOVED***\***REMOVED***\s*([a-zA-Z]+)-(A?\d+|hue\-[0-3]|shadow|default)-?(\d\.?\d*)?(contrast)?\s*\***REMOVED***\***REMOVED***'?"?/g;
+  // Matches '{{ primary-color }}', etc
+  var hueRegex = new RegExp('(\'|")?{{\\s*(' + colorType + ')-(color|contrast)-?(\\d\\.?\\d*)?\\s*}}(\"|\')?','g');
+  var simpleVariableRegex = /'?"?\{\{\s*([a-zA-Z]+)-(A?\d+|hue\-[0-3]|shadow|default)-?(\d\.?\d*)?(contrast)?\s*\}\}'?"?/g;
   var palette = PALETTES[color.name];
 
   // find and replace simple variables where we use a specific hue, not an entire palette
-  // eg. "***REMOVED******REMOVED***primary-100***REMOVED******REMOVED***"
+  // eg. "{{primary-100}}"
   //\(' + THEME_COLOR_TYPES.join('\|') + '\)'
-  rules = rules.replace(simpleVariableRegex, function(match, colorType, hue, opacity, contrast) ***REMOVED***
-    if (colorType === 'foreground') ***REMOVED***
-      if (hue == 'shadow') ***REMOVED***
+  rules = rules.replace(simpleVariableRegex, function(match, colorType, hue, opacity, contrast) {
+    if (colorType === 'foreground') {
+      if (hue == 'shadow') {
         return theme.foregroundShadow;
-      ***REMOVED*** else ***REMOVED***
+      } else {
         return theme.foregroundPalette[hue] || theme.foregroundPalette['1'];
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     // `default` is also accepted as a hue-value, because the background palettes are
     // using it as a name for the default hue.
-    if (hue.indexOf('hue') === 0 || hue === 'default') ***REMOVED***
+    if (hue.indexOf('hue') === 0 || hue === 'default') {
       hue = theme.colors[colorType].hues[hue];
-    ***REMOVED***
+    }
 
     return rgba( (PALETTES[ theme.colors[colorType].name ][hue] || '')[contrast ? 'contrast' : 'value'], opacity );
-  ***REMOVED***);
+  });
 
   // For each type, generate rules for each hue (ie. default, md-hue-1, md-hue-2, md-hue-3)
-  angular.forEach(color.hues, function(hueValue, hueName) ***REMOVED***
+  angular.forEach(color.hues, function(hueValue, hueName) {
     var newRule = rules
-      .replace(hueRegex, function(match, _, colorType, hueType, opacity) ***REMOVED***
+      .replace(hueRegex, function(match, _, colorType, hueType, opacity) {
         return rgba(palette[hueValue][hueType === 'color' ? 'value' : 'contrast'], opacity);
-      ***REMOVED***);
-    if (hueName !== 'default') ***REMOVED***
+      });
+    if (hueName !== 'default') {
       newRule = newRule.replace(themeNameRegex, '.md-' + theme.name + '-theme.md-' + hueName);
-    ***REMOVED***
+    }
 
     // Don't apply a selector rule to the default theme, making it easier to override
     // styles of the base-component
-    if (theme.name == 'default') ***REMOVED***
+    if (theme.name == 'default') {
       var themeRuleRegex = /((?:(?:(?: |>|\.|\w|-|:|\(|\)|\[|\]|"|'|=)+) )?)((?:(?:\w|\.|-)+)?)\.md-default-theme((?: |>|\.|\w|-|:|\(|\)|\[|\]|"|'|=)*)/g;
-      newRule = newRule.replace(themeRuleRegex, function(match, prefix, target, suffix) ***REMOVED***
+      newRule = newRule.replace(themeRuleRegex, function(match, prefix, target, suffix) {
         return match + ', ' + prefix + target + suffix;
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
     generatedRules.push(newRule);
-  ***REMOVED***);
+  });
 
   return generatedRules;
-***REMOVED***
+}
 
-var rulesByType = ***REMOVED******REMOVED***;
+var rulesByType = {};
 
 // Generate our themes at run time given the state of THEMES and PALETTES
-function generateAllThemes($injector, $mdTheming) ***REMOVED***
+function generateAllThemes($injector, $mdTheming) {
   var head = document.head;
   var firstChild = head ? head.firstElementChild : null;
   var themeCss = !themeConfig.disableTheming && $injector.has('$MD_THEME_CSS') ? $injector.get('$MD_THEME_CSS') : '';
@@ -5810,49 +5810,49 @@ function generateAllThemes($injector, $mdTheming) ***REMOVED***
 
   // Break the CSS into individual rules
   var rules = themeCss
-                  .split(/\***REMOVED***(?!(\***REMOVED***|'|"|;))/)
-                  .filter(function(rule) ***REMOVED*** return rule && rule.trim().length; ***REMOVED***)
-                  .map(function(rule) ***REMOVED*** return rule.trim() + '***REMOVED***'; ***REMOVED***);
+                  .split(/\}(?!(\}|'|"|;))/)
+                  .filter(function(rule) { return rule && rule.trim().length; })
+                  .map(function(rule) { return rule.trim() + '}'; });
 
 
   var ruleMatchRegex = new RegExp('md-(' + THEME_COLOR_TYPES.join('|') + ')', 'g');
 
-  THEME_COLOR_TYPES.forEach(function(type) ***REMOVED***
+  THEME_COLOR_TYPES.forEach(function(type) {
     rulesByType[type] = '';
-  ***REMOVED***);
+  });
 
 
   // Sort the rules based on type, allowing us to do color substitution on a per-type basis
-  rules.forEach(function(rule) ***REMOVED***
+  rules.forEach(function(rule) {
     var match = rule.match(ruleMatchRegex);
     // First: test that if the rule has '.md-accent', it goes into the accent set of rules
-    for (var i = 0, type; type = THEME_COLOR_TYPES[i]; i++) ***REMOVED***
-      if (rule.indexOf('.md-' + type) > -1) ***REMOVED***
+    for (var i = 0, type; type = THEME_COLOR_TYPES[i]; i++) {
+      if (rule.indexOf('.md-' + type) > -1) {
         return rulesByType[type] += rule;
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     // If no eg 'md-accent' class is found, try to just find 'accent' in the rule and guess from
     // there
-    for (i = 0; type = THEME_COLOR_TYPES[i]; i++) ***REMOVED***
-      if (rule.indexOf(type) > -1) ***REMOVED***
+    for (i = 0; type = THEME_COLOR_TYPES[i]; i++) {
+      if (rule.indexOf(type) > -1) {
         return rulesByType[type] += rule;
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     // Default to the primary array
     return rulesByType[DEFAULT_COLOR_TYPE] += rule;
-  ***REMOVED***);
+  });
 
   // If themes are being generated on-demand, quit here. The user will later manually
   // call generateTheme to do this on a theme-by-theme basis.
   if (themeConfig.generateOnDemand) return;
 
-  angular.forEach($mdTheming.THEMES, function(theme) ***REMOVED***
-    if (!GENERATED[theme.name] && !($mdTheming.defaultTheme() !== 'default' && theme.name === 'default')) ***REMOVED***
+  angular.forEach($mdTheming.THEMES, function(theme) {
+    if (!GENERATED[theme.name] && !($mdTheming.defaultTheme() !== 'default' && theme.name === 'default')) {
       generateTheme(theme, theme.name, themeConfig.nonce);
-    ***REMOVED***
-  ***REMOVED***);
+    }
+  });
 
 
   // *************************
@@ -5861,7 +5861,7 @@ function generateAllThemes($injector, $mdTheming) ***REMOVED***
 
   // The user specifies a 'default' contrast color as either light or dark,
   // then explicitly lists which hues are the opposite contrast (eg. A100 has dark, A200 has light)
-  function sanitizePalette(palette, name) ***REMOVED***
+  function sanitizePalette(palette, name) {
     var defaultContrast = palette.contrastDefaultColor;
     var lightColors = palette.contrastLightColors || [];
     var strongLightColors = palette.contrastStrongLightColors || [];
@@ -5878,186 +5878,186 @@ function generateAllThemes($injector, $mdTheming) ***REMOVED***
     delete palette.contrastStrongLightColors;
     delete palette.contrastDarkColors;
 
-    // Change ***REMOVED*** 'A100': '#fffeee' ***REMOVED*** to ***REMOVED*** 'A100': ***REMOVED*** value: '#fffeee', contrast:DARK_CONTRAST_COLOR ***REMOVED***
-    angular.forEach(palette, function(hueValue, hueName) ***REMOVED***
+    // Change { 'A100': '#fffeee' } to { 'A100': { value: '#fffeee', contrast:DARK_CONTRAST_COLOR }
+    angular.forEach(palette, function(hueValue, hueName) {
       if (angular.isObject(hueValue)) return; // Already converted
       // Map everything to rgb colors
       var rgbValue = colorToRgbaArray(hueValue);
-      if (!rgbValue) ***REMOVED***
+      if (!rgbValue) {
         throw new Error("Color %1, in palette %2's hue %3, is invalid. Hex or rgb(a) color expected."
                         .replace('%1', hueValue)
                         .replace('%2', palette.name)
                         .replace('%3', hueName));
-      ***REMOVED***
+      }
 
-      palette[hueName] = ***REMOVED***
+      palette[hueName] = {
         value: rgbValue,
         contrast: getContrastColor()
-      ***REMOVED***;
-      function getContrastColor() ***REMOVED***
-        if (defaultContrast === 'light') ***REMOVED***
-          if (darkColors.indexOf(hueName) > -1) ***REMOVED***
+      };
+      function getContrastColor() {
+        if (defaultContrast === 'light') {
+          if (darkColors.indexOf(hueName) > -1) {
             return DARK_CONTRAST_COLOR;
-          ***REMOVED*** else ***REMOVED***
+          } else {
             return strongLightColors.indexOf(hueName) > -1 ? STRONG_LIGHT_CONTRAST_COLOR
               : LIGHT_CONTRAST_COLOR;
-          ***REMOVED***
-        ***REMOVED*** else ***REMOVED***
-          if (lightColors.indexOf(hueName) > -1) ***REMOVED***
+          }
+        } else {
+          if (lightColors.indexOf(hueName) > -1) {
             return strongLightColors.indexOf(hueName) > -1 ? STRONG_LIGHT_CONTRAST_COLOR
               : LIGHT_CONTRAST_COLOR;
-          ***REMOVED*** else ***REMOVED***
+          } else {
             return DARK_CONTRAST_COLOR;
-          ***REMOVED***
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***);
-  ***REMOVED***
-***REMOVED***
+          }
+        }
+      }
+    });
+  }
+}
 generateAllThemes.$inject = ["$injector", "$mdTheming"];
 
-function generateTheme(theme, name, nonce) ***REMOVED***
+function generateTheme(theme, name, nonce) {
   var head = document.head;
   var firstChild = head ? head.firstElementChild : null;
 
-  if (!GENERATED[name]) ***REMOVED***
+  if (!GENERATED[name]) {
     // For each theme, use the color palettes specified for
     // `primary`, `warn` and `accent` to generate CSS rules.
-    THEME_COLOR_TYPES.forEach(function(colorType) ***REMOVED***
+    THEME_COLOR_TYPES.forEach(function(colorType) {
       var styleStrings = parseRules(theme, colorType, rulesByType[colorType]);
-      while (styleStrings.length) ***REMOVED***
+      while (styleStrings.length) {
         var styleContent = styleStrings.shift();
-        if (styleContent) ***REMOVED***
+        if (styleContent) {
           var style = document.createElement('style');
           style.setAttribute('md-theme-style', '');
-          if (nonce) ***REMOVED***
+          if (nonce) {
             style.setAttribute('nonce', nonce);
-          ***REMOVED***
+          }
           style.appendChild(document.createTextNode(styleContent));
           head.insertBefore(style, firstChild);
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***);
+        }
+      }
+    });
 
     GENERATED[theme.name] = true;
-  ***REMOVED***
+  }
 
-***REMOVED***
+}
 
 
-function checkValidPalette(theme, colorType) ***REMOVED***
+function checkValidPalette(theme, colorType) {
   // If theme attempts to use a palette that doesnt exist, throw error
-  if (!PALETTES[ (theme.colors[colorType] || ***REMOVED******REMOVED***).name ]) ***REMOVED***
+  if (!PALETTES[ (theme.colors[colorType] || {}).name ]) {
     throw new Error(
       "You supplied an invalid color palette for theme %1's %2 palette. Available palettes: %3"
                     .replace('%1', theme.name)
                     .replace('%2', colorType)
                     .replace('%3', Object.keys(PALETTES).join(', '))
     );
-  ***REMOVED***
-***REMOVED***
+  }
+}
 
-function colorToRgbaArray(clr) ***REMOVED***
+function colorToRgbaArray(clr) {
   if (angular.isArray(clr) && clr.length == 3) return clr;
-  if (/^rgb/.test(clr)) ***REMOVED***
-    return clr.replace(/(^\s*rgba?\(|\)\s*$)/g, '').split(',').map(function(value, i) ***REMOVED***
+  if (/^rgb/.test(clr)) {
+    return clr.replace(/(^\s*rgba?\(|\)\s*$)/g, '').split(',').map(function(value, i) {
       return i == 3 ? parseFloat(value, 10) : parseInt(value, 10);
-    ***REMOVED***);
-  ***REMOVED***
+    });
+  }
   if (clr.charAt(0) == '#') clr = clr.substring(1);
-  if (!/^([a-fA-F0-9]***REMOVED***3***REMOVED***)***REMOVED***1,2***REMOVED***$/g.test(clr)) return;
+  if (!/^([a-fA-F0-9]{3}){1,2}$/g.test(clr)) return;
 
   var dig = clr.length / 3;
   var red = clr.substr(0, dig);
   var grn = clr.substr(dig, dig);
   var blu = clr.substr(dig * 2);
-  if (dig === 1) ***REMOVED***
+  if (dig === 1) {
     red += red;
     grn += grn;
     blu += blu;
-  ***REMOVED***
+  }
   return [parseInt(red, 16), parseInt(grn, 16), parseInt(blu, 16)];
-***REMOVED***
+}
 
-function rgba(rgbArray, opacity) ***REMOVED***
+function rgba(rgbArray, opacity) {
   if ( !rgbArray ) return "rgb('0,0,0')";
 
-  if (rgbArray.length == 4) ***REMOVED***
+  if (rgbArray.length == 4) {
     rgbArray = angular.copy(rgbArray);
     opacity ? rgbArray.pop() : opacity = rgbArray.pop();
-  ***REMOVED***
+  }
   return opacity && (typeof opacity == 'number' || (typeof opacity == 'string' && opacity.length)) ?
     'rgba(' + rgbArray.join(',') + ',' + opacity + ')' :
     'rgb(' + rgbArray.join(',') + ')';
-***REMOVED***
+}
 
 
-***REMOVED***)(window.angular);
+})(window.angular);
 
 // Polyfill angular < 1.4 (provide $animateCss)
 angular
   .module('material.core')
-  .factory('$$mdAnimate', ["$q", "$timeout", "$mdConstant", "$animateCss", function($q, $timeout, $mdConstant, $animateCss)***REMOVED***
+  .factory('$$mdAnimate', ["$q", "$timeout", "$mdConstant", "$animateCss", function($q, $timeout, $mdConstant, $animateCss){
 
      // Since $$mdAnimate is injected into $mdUtil... use a wrapper function
      // to subsequently inject $mdUtil as an argument to the AnimateDomUtils
 
-     return function($mdUtil) ***REMOVED***
+     return function($mdUtil) {
        return AnimateDomUtils( $mdUtil, $q, $timeout, $mdConstant, $animateCss);
-     ***REMOVED***;
-   ***REMOVED***]);
+     };
+   }]);
 
 /**
  * Factory function that requires special injections
  */
-function AnimateDomUtils($mdUtil, $q, $timeout, $mdConstant, $animateCss) ***REMOVED***
+function AnimateDomUtils($mdUtil, $q, $timeout, $mdConstant, $animateCss) {
   var self;
-  return self = ***REMOVED***
+  return self = {
     /**
      *
      */
-    translate3d : function( target, from, to, options ) ***REMOVED***
-      return $animateCss(target,***REMOVED***
+    translate3d : function( target, from, to, options ) {
+      return $animateCss(target,{
         from:from,
         to:to,
         addClass:options.transitionInClass,
         removeClass:options.transitionOutClass
-      ***REMOVED***)
+      })
       .start()
-      .then(function()***REMOVED***
+      .then(function(){
           // Resolve with reverser function...
           return reverseTranslate;
-      ***REMOVED***);
+      });
 
       /**
        * Specific reversal of the request translate animation above...
        */
-      function reverseTranslate (newFrom) ***REMOVED***
-        return $animateCss(target, ***REMOVED***
+      function reverseTranslate (newFrom) {
+        return $animateCss(target, {
            to: newFrom || from,
            addClass: options.transitionOutClass,
            removeClass: options.transitionInClass
-        ***REMOVED***).start();
+        }).start();
 
-      ***REMOVED***
-    ***REMOVED***,
+      }
+    },
 
     /**
      * Listen for transitionEnd event (with optional timeout)
      * Announce completion or failure via promise handlers
      */
-    waitTransitionEnd: function (element, opts) ***REMOVED***
+    waitTransitionEnd: function (element, opts) {
       var TIMEOUT = 3000; // fallback is 3 secs
 
-      return $q(function(resolve, reject)***REMOVED***
-        opts = opts || ***REMOVED*** ***REMOVED***;
+      return $q(function(resolve, reject){
+        opts = opts || { };
 
         // If there is no transition is found, resolve immediately
         //
         // NOTE: using $mdUtil.nextTick() causes delays/issues
-        if (noTransitionFound(opts.cachedTransitionStyles)) ***REMOVED***
+        if (noTransitionFound(opts.cachedTransitionStyles)) {
           TIMEOUT = 0;
-        ***REMOVED***
+        }
 
         var timer = $timeout(finished, opts.timeout || TIMEOUT);
         element.on($mdConstant.CSS.TRANSITIONEND, finished);
@@ -6066,7 +6066,7 @@ function AnimateDomUtils($mdUtil, $q, $timeout, $mdConstant, $animateCss) ***REM
          * Upon timeout or transitionEnd, reject or resolve (respectively) this promise.
          * NOTE: Make sure this transitionEnd didn't bubble up from a child
          */
-        function finished(ev) ***REMOVED***
+        function finished(ev) {
           if ( ev && ev.target !== element[0]) return;
 
           if ( ev  ) $timeout.cancel(timer);
@@ -6075,7 +6075,7 @@ function AnimateDomUtils($mdUtil, $q, $timeout, $mdConstant, $animateCss) ***REM
           // Never reject since ngAnimate may cause timeouts due missed transitionEnd events
           resolve();
 
-        ***REMOVED***
+        }
 
         /**
          * Checks whether or not there is a transition.
@@ -6083,47 +6083,47 @@ function AnimateDomUtils($mdUtil, $q, $timeout, $mdConstant, $animateCss) ***REM
          * @param styles The cached styles to use for the calculation. If null, getComputedStyle()
          * will be used.
          *
-         * @returns ***REMOVED***boolean***REMOVED*** True if there is no transition/duration; false otherwise.
+         * @returns {boolean} True if there is no transition/duration; false otherwise.
          */
-        function noTransitionFound(styles) ***REMOVED***
+        function noTransitionFound(styles) {
           styles = styles || window.getComputedStyle(element[0]);
 
           return styles.transitionDuration == '0s' || (!styles.transition && !styles.transitionProperty);
-        ***REMOVED***
+        }
 
-      ***REMOVED***);
-    ***REMOVED***,
+      });
+    },
 
-    calculateTransformValues: function (element, originator) ***REMOVED***
+    calculateTransformValues: function (element, originator) {
       var origin = originator.element;
       var bounds = originator.bounds;
 
-      if (origin || bounds) ***REMOVED***
+      if (origin || bounds) {
         var originBnds = origin ? self.clientRect(origin) || currentBounds() : self.copyRect(bounds);
         var dialogRect = self.copyRect(element[0].getBoundingClientRect());
         var dialogCenterPt = self.centerPointFor(dialogRect);
         var originCenterPt = self.centerPointFor(originBnds);
 
-        return ***REMOVED***
+        return {
           centerX: originCenterPt.x - dialogCenterPt.x,
           centerY: originCenterPt.y - dialogCenterPt.y,
           scaleX: Math.round(100 * Math.min(0.5, originBnds.width / dialogRect.width)) / 100,
           scaleY: Math.round(100 * Math.min(0.5, originBnds.height / dialogRect.height)) / 100
-        ***REMOVED***;
-      ***REMOVED***
-      return ***REMOVED***centerX: 0, centerY: 0, scaleX: 0.5, scaleY: 0.5***REMOVED***;
+        };
+      }
+      return {centerX: 0, centerY: 0, scaleX: 0.5, scaleY: 0.5};
 
       /**
        * This is a fallback if the origin information is no longer valid, then the
        * origin bounds simply becomes the current bounds for the dialogContainer's parent
        */
-      function currentBounds() ***REMOVED***
+      function currentBounds() {
         var cntr = element ? element.parent() : null;
         var parent = cntr ? cntr.parent() : null;
 
         return parent ? self.clientRect(parent) : null;
-      ***REMOVED***
-    ***REMOVED***,
+      }
+    },
 
     /**
      * Calculate the zoom transform from dialog to origin.
@@ -6134,38 +6134,38 @@ function AnimateDomUtils($mdUtil, $q, $timeout, $mdConstant, $animateCss) ***REM
      *
      * NOTE: all values are rounded to the nearest integer
      */
-    calculateZoomToOrigin: function (element, originator) ***REMOVED***
-      var zoomTemplate = "translate3d( ***REMOVED***centerX***REMOVED***px, ***REMOVED***centerY***REMOVED***px, 0 ) scale( ***REMOVED***scaleX***REMOVED***, ***REMOVED***scaleY***REMOVED*** )";
+    calculateZoomToOrigin: function (element, originator) {
+      var zoomTemplate = "translate3d( {centerX}px, {centerY}px, 0 ) scale( {scaleX}, {scaleY} )";
       var buildZoom = angular.bind(null, $mdUtil.supplant, zoomTemplate);
 
       return buildZoom(self.calculateTransformValues(element, originator));
-    ***REMOVED***,
+    },
 
     /**
      * Calculate the slide transform from panel to origin.
      * NOTE: all values are rounded to the nearest integer
      */
-    calculateSlideToOrigin: function (element, originator) ***REMOVED***
-      var slideTemplate = "translate3d( ***REMOVED***centerX***REMOVED***px, ***REMOVED***centerY***REMOVED***px, 0 )";
+    calculateSlideToOrigin: function (element, originator) {
+      var slideTemplate = "translate3d( {centerX}px, {centerY}px, 0 )";
       var buildSlide = angular.bind(null, $mdUtil.supplant, slideTemplate);
 
       return buildSlide(self.calculateTransformValues(element, originator));
-    ***REMOVED***,
+    },
 
     /**
      * Enhance raw values to represent valid css stylings...
      */
-    toCss : function( raw ) ***REMOVED***
-      var css = ***REMOVED*** ***REMOVED***;
+    toCss : function( raw ) {
+      var css = { };
       var lookups = 'left top right bottom width height x y min-width min-height max-width max-height';
 
-      angular.forEach(raw, function(value,key) ***REMOVED***
+      angular.forEach(raw, function(value,key) {
         if ( angular.isUndefined(value) ) return;
 
-        if ( lookups.indexOf(key) >= 0 ) ***REMOVED***
+        if ( lookups.indexOf(key) >= 0 ) {
           css[key] = value + 'px';
-        ***REMOVED*** else ***REMOVED***
-          switch (key) ***REMOVED***
+        } else {
+          switch (key) {
             case 'transition':
               convertToVendor(key, $mdConstant.CSS.TRANSITION, value);
               break;
@@ -6178,87 +6178,87 @@ function AnimateDomUtils($mdUtil, $q, $timeout, $mdConstant, $animateCss) ***REM
             case 'font-size':
               css['font-size'] = value; // font sizes aren't always in px
               break;
-          ***REMOVED***
-        ***REMOVED***
-      ***REMOVED***);
+          }
+        }
+      });
 
       return css;
 
-      function convertToVendor(key, vendor, value) ***REMOVED***
-        angular.forEach(vendor.split(' '), function (key) ***REMOVED***
+      function convertToVendor(key, vendor, value) {
+        angular.forEach(vendor.split(' '), function (key) {
           css[key] = value;
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***,
+        });
+      }
+    },
 
     /**
      * Convert the translate CSS value to key/value pair(s).
      */
-    toTransformCss: function (transform, addTransition, transition) ***REMOVED***
-      var css = ***REMOVED******REMOVED***;
-      angular.forEach($mdConstant.CSS.TRANSFORM.split(' '), function (key) ***REMOVED***
+    toTransformCss: function (transform, addTransition, transition) {
+      var css = {};
+      angular.forEach($mdConstant.CSS.TRANSFORM.split(' '), function (key) {
         css[key] = transform;
-      ***REMOVED***);
+      });
 
-      if (addTransition) ***REMOVED***
+      if (addTransition) {
         transition = transition || "all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important";
         css['transition'] = transition;
-      ***REMOVED***
+      }
 
       return css;
-    ***REMOVED***,
+    },
 
     /**
      *  Clone the Rect and calculate the height/width if needed
      */
-    copyRect: function (source, destination) ***REMOVED***
+    copyRect: function (source, destination) {
       if (!source) return null;
 
-      destination = destination || ***REMOVED******REMOVED***;
+      destination = destination || {};
 
-      angular.forEach('left top right bottom width height'.split(' '), function (key) ***REMOVED***
+      angular.forEach('left top right bottom width height'.split(' '), function (key) {
         destination[key] = Math.round(source[key])
-      ***REMOVED***);
+      });
 
       destination.width = destination.width || (destination.right - destination.left);
       destination.height = destination.height || (destination.bottom - destination.top);
 
       return destination;
-    ***REMOVED***,
+    },
 
     /**
      * Calculate ClientRect of element; return null if hidden or zero size
      */
-    clientRect: function (element) ***REMOVED***
+    clientRect: function (element) {
       var bounds = angular.element(element)[0].getBoundingClientRect();
-      var isPositiveSizeClientRect = function (rect) ***REMOVED***
+      var isPositiveSizeClientRect = function (rect) {
         return rect && (rect.width > 0) && (rect.height > 0);
-      ***REMOVED***;
+      };
 
       // If the event origin element has zero size, it has probably been hidden.
       return isPositiveSizeClientRect(bounds) ? self.copyRect(bounds) : null;
-    ***REMOVED***,
+    },
 
     /**
      *  Calculate 'rounded' center point of Rect
      */
-    centerPointFor: function (targetRect) ***REMOVED***
-      return targetRect ? ***REMOVED***
+    centerPointFor: function (targetRect) {
+      return targetRect ? {
         x: Math.round(targetRect.left + (targetRect.width / 2)),
         y: Math.round(targetRect.top + (targetRect.height / 2))
-      ***REMOVED*** : ***REMOVED*** x : 0, y : 0 ***REMOVED***;
-    ***REMOVED***
+      } : { x : 0, y : 0 };
+    }
 
-  ***REMOVED***;
-***REMOVED***;
+  };
+};
 
 
 "use strict";
 
-if (angular.version.minor >= 4) ***REMOVED***
+if (angular.version.minor >= 4) {
   angular.module('material.core.animate', []);
-***REMOVED*** else ***REMOVED***
-(function() ***REMOVED***
+} else {
+(function() {
 
   var forEach = angular.forEach;
 
@@ -6270,141 +6270,141 @@ if (angular.version.minor >= 4) ***REMOVED***
   var TRANSITION_EVENTS = (WEBKIT ? 'webkitTransitionEnd ' : '') + 'transitionend';
   var ANIMATION_EVENTS = (WEBKIT ? 'webkitAnimationEnd ' : '') + 'animationend';
 
-  var $$ForceReflowFactory = ['$document', function($document) ***REMOVED***
-    return function() ***REMOVED***
+  var $$ForceReflowFactory = ['$document', function($document) {
+    return function() {
       return $document[0].body.clientWidth + 1;
-    ***REMOVED***
-  ***REMOVED***];
+    }
+  }];
 
-  var $$rAFMutexFactory = ['$$rAF', function($$rAF) ***REMOVED***
-    return function() ***REMOVED***
+  var $$rAFMutexFactory = ['$$rAF', function($$rAF) {
+    return function() {
       var passed = false;
-      $$rAF(function() ***REMOVED***
+      $$rAF(function() {
         passed = true;
-      ***REMOVED***);
-      return function(fn) ***REMOVED***
+      });
+      return function(fn) {
         passed ? fn() : $$rAF(fn);
-      ***REMOVED***;
-    ***REMOVED***;
-  ***REMOVED***];
+      };
+    };
+  }];
 
-  var $$AnimateRunnerFactory = ['$q', '$$rAFMutex', function($q, $$rAFMutex) ***REMOVED***
+  var $$AnimateRunnerFactory = ['$q', '$$rAFMutex', function($q, $$rAFMutex) {
     var INITIAL_STATE = 0;
     var DONE_PENDING_STATE = 1;
     var DONE_COMPLETE_STATE = 2;
 
-    function AnimateRunner(host) ***REMOVED***
+    function AnimateRunner(host) {
       this.setHost(host);
 
       this._doneCallbacks = [];
       this._runInAnimationFrame = $$rAFMutex();
       this._state = 0;
-    ***REMOVED***
+    }
 
-    AnimateRunner.prototype = ***REMOVED***
-      setHost: function(host) ***REMOVED***
-        this.host = host || ***REMOVED******REMOVED***;
-      ***REMOVED***,
+    AnimateRunner.prototype = {
+      setHost: function(host) {
+        this.host = host || {};
+      },
 
-      done: function(fn) ***REMOVED***
-        if (this._state === DONE_COMPLETE_STATE) ***REMOVED***
+      done: function(fn) {
+        if (this._state === DONE_COMPLETE_STATE) {
           fn();
-        ***REMOVED*** else ***REMOVED***
+        } else {
           this._doneCallbacks.push(fn);
-        ***REMOVED***
-      ***REMOVED***,
+        }
+      },
 
       progress: angular.noop,
 
-      getPromise: function() ***REMOVED***
-        if (!this.promise) ***REMOVED***
+      getPromise: function() {
+        if (!this.promise) {
           var self = this;
-          this.promise = $q(function(resolve, reject) ***REMOVED***
-            self.done(function(status) ***REMOVED***
+          this.promise = $q(function(resolve, reject) {
+            self.done(function(status) {
               status === false ? reject() : resolve();
-            ***REMOVED***);
-          ***REMOVED***);
-        ***REMOVED***
+            });
+          });
+        }
         return this.promise;
-      ***REMOVED***,
+      },
 
-      then: function(resolveHandler, rejectHandler) ***REMOVED***
+      then: function(resolveHandler, rejectHandler) {
         return this.getPromise().then(resolveHandler, rejectHandler);
-      ***REMOVED***,
+      },
 
-      'catch': function(handler) ***REMOVED***
+      'catch': function(handler) {
         return this.getPromise()['catch'](handler);
-      ***REMOVED***,
+      },
 
-      'finally': function(handler) ***REMOVED***
+      'finally': function(handler) {
         return this.getPromise()['finally'](handler);
-      ***REMOVED***,
+      },
 
-      pause: function() ***REMOVED***
-        if (this.host.pause) ***REMOVED***
+      pause: function() {
+        if (this.host.pause) {
           this.host.pause();
-        ***REMOVED***
-      ***REMOVED***,
+        }
+      },
 
-      resume: function() ***REMOVED***
-        if (this.host.resume) ***REMOVED***
+      resume: function() {
+        if (this.host.resume) {
           this.host.resume();
-        ***REMOVED***
-      ***REMOVED***,
+        }
+      },
 
-      end: function() ***REMOVED***
-        if (this.host.end) ***REMOVED***
+      end: function() {
+        if (this.host.end) {
           this.host.end();
-        ***REMOVED***
+        }
         this._resolve(true);
-      ***REMOVED***,
+      },
 
-      cancel: function() ***REMOVED***
-        if (this.host.cancel) ***REMOVED***
+      cancel: function() {
+        if (this.host.cancel) {
           this.host.cancel();
-        ***REMOVED***
+        }
         this._resolve(false);
-      ***REMOVED***,
+      },
 
-      complete: function(response) ***REMOVED***
+      complete: function(response) {
         var self = this;
-        if (self._state === INITIAL_STATE) ***REMOVED***
+        if (self._state === INITIAL_STATE) {
           self._state = DONE_PENDING_STATE;
-          self._runInAnimationFrame(function() ***REMOVED***
+          self._runInAnimationFrame(function() {
             self._resolve(response);
-          ***REMOVED***);
-        ***REMOVED***
-      ***REMOVED***,
+          });
+        }
+      },
 
-      _resolve: function(response) ***REMOVED***
-        if (this._state !== DONE_COMPLETE_STATE) ***REMOVED***
-          forEach(this._doneCallbacks, function(fn) ***REMOVED***
+      _resolve: function(response) {
+        if (this._state !== DONE_COMPLETE_STATE) {
+          forEach(this._doneCallbacks, function(fn) {
             fn(response);
-          ***REMOVED***);
+          });
           this._doneCallbacks.length = 0;
           this._state = DONE_COMPLETE_STATE;
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***;
+        }
+      }
+    };
 
     // Polyfill AnimateRunner.all which is used by input animations
-    AnimateRunner.all = function(runners, callback) ***REMOVED***
+    AnimateRunner.all = function(runners, callback) {
       var count = 0;
       var status = true;
-      forEach(runners, function(runner) ***REMOVED***
+      forEach(runners, function(runner) {
         runner.done(onProgress);
-      ***REMOVED***);
+      });
 
-      function onProgress(response) ***REMOVED***
+      function onProgress(response) {
         status = status && response;
-        if (++count === runners.length) ***REMOVED***
+        if (++count === runners.length) {
           callback(status);
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***;
+        }
+      }
+    };
 
     return AnimateRunner;
-  ***REMOVED***];
+  }];
 
   angular
     .module('material.core.animate', [])
@@ -6412,9 +6412,9 @@ if (angular.version.minor >= 4) ***REMOVED***
     .factory('$$AnimateRunner', $$AnimateRunnerFactory)
     .factory('$$rAFMutex', $$rAFMutexFactory)
     .factory('$animateCss', ['$window', '$$rAF', '$$AnimateRunner', '$$forceReflow', '$$jqLite', '$timeout', '$animate',
-                     function($window,   $$rAF,   $$AnimateRunner,   $$forceReflow,   $$jqLite,   $timeout, $animate) ***REMOVED***
+                     function($window,   $$rAF,   $$AnimateRunner,   $$forceReflow,   $$jqLite,   $timeout, $animate) {
 
-      function init(element, options) ***REMOVED***
+      function init(element, options) {
 
         var temporaryStyles = [];
         var node = getDomNode(element);
@@ -6423,29 +6423,29 @@ if (angular.version.minor >= 4) ***REMOVED***
         var hasCompleteStyles = false;
         var hasCompleteClasses = false;
 
-        if (areAnimationsAllowed) ***REMOVED***
-          if (options.transitionStyle) ***REMOVED***
+        if (areAnimationsAllowed) {
+          if (options.transitionStyle) {
             temporaryStyles.push([PREFIX + 'transition', options.transitionStyle]);
-          ***REMOVED***
+          }
 
-          if (options.keyframeStyle) ***REMOVED***
+          if (options.keyframeStyle) {
             temporaryStyles.push([PREFIX + 'animation', options.keyframeStyle]);
-          ***REMOVED***
+          }
 
-          if (options.delay) ***REMOVED***
+          if (options.delay) {
             temporaryStyles.push([PREFIX + 'transition-delay', options.delay + 's']);
-          ***REMOVED***
+          }
 
-          if (options.duration) ***REMOVED***
+          if (options.duration) {
             temporaryStyles.push([PREFIX + 'transition-duration', options.duration + 's']);
-          ***REMOVED***
+          }
 
           hasCompleteStyles = options.keyframeStyle ||
               (options.to && (options.duration > 0 || options.transitionStyle));
           hasCompleteClasses = !!options.addClass || !!options.removeClass;
 
           blockTransition(element, true);
-        ***REMOVED***
+        }
 
         var hasCompleteAnimation = areAnimationsAllowed && (hasCompleteStyles || hasCompleteClasses);
 
@@ -6454,54 +6454,54 @@ if (angular.version.minor >= 4) ***REMOVED***
         var animationClosed = false;
         var events, eventFn;
 
-        return ***REMOVED***
+        return {
           close: $window.close,
-          start: function() ***REMOVED***
+          start: function() {
             var runner = new $$AnimateRunner();
-            waitUntilQuiet(function() ***REMOVED***
+            waitUntilQuiet(function() {
               blockTransition(element, false);
-              if (!hasCompleteAnimation) ***REMOVED***
+              if (!hasCompleteAnimation) {
                 return close();
-              ***REMOVED***
+              }
 
-              forEach(temporaryStyles, function(entry) ***REMOVED***
+              forEach(temporaryStyles, function(entry) {
                 var key = entry[0];
                 var value = entry[1];
                 node.style[camelCase(key)] = value;
-              ***REMOVED***);
+              });
 
               applyClasses(element, options);
 
               var timings = computeTimings(element);
-              if (timings.duration === 0) ***REMOVED***
+              if (timings.duration === 0) {
                 return close();
-              ***REMOVED***
+              }
 
               var moreStyles = [];
 
-              if (options.easing) ***REMOVED***
-                if (timings.transitionDuration) ***REMOVED***
+              if (options.easing) {
+                if (timings.transitionDuration) {
                   moreStyles.push([PREFIX + 'transition-timing-function', options.easing]);
-                ***REMOVED***
-                if (timings.animationDuration) ***REMOVED***
+                }
+                if (timings.animationDuration) {
                   moreStyles.push([PREFIX + 'animation-timing-function', options.easing]);
-                ***REMOVED***
-              ***REMOVED***
+                }
+              }
 
-              if (options.delay && timings.animationDelay) ***REMOVED***
+              if (options.delay && timings.animationDelay) {
                 moreStyles.push([PREFIX + 'animation-delay', options.delay + 's']);
-              ***REMOVED***
+              }
 
-              if (options.duration && timings.animationDuration) ***REMOVED***
+              if (options.duration && timings.animationDuration) {
                 moreStyles.push([PREFIX + 'animation-duration', options.duration + 's']);
-              ***REMOVED***
+              }
 
-              forEach(moreStyles, function(entry) ***REMOVED***
+              forEach(moreStyles, function(entry) {
                 var key = entry[0];
                 var value = entry[1];
                 node.style[camelCase(key)] = value;
                 temporaryStyles.push(entry);
-              ***REMOVED***);
+              });
 
               var maxDelay = timings.delay;
               var maxDelayTime = maxDelay * 1000;
@@ -6510,62 +6510,62 @@ if (angular.version.minor >= 4) ***REMOVED***
               var startTime = Date.now();
 
               events = [];
-              if (timings.transitionDuration) ***REMOVED***
+              if (timings.transitionDuration) {
                 events.push(TRANSITION_EVENTS);
-              ***REMOVED***
-              if (timings.animationDuration) ***REMOVED***
+              }
+              if (timings.animationDuration) {
                 events.push(ANIMATION_EVENTS);
-              ***REMOVED***
+              }
               events = events.join(' ');
-              eventFn = function(event) ***REMOVED***
+              eventFn = function(event) {
                 event.stopPropagation();
                 var ev = event.originalEvent || event;
                 var timeStamp = ev.timeStamp || Date.now();
                 var elapsedTime = parseFloat(ev.elapsedTime.toFixed(3));
-                if (Math.max(timeStamp - startTime, 0) >= maxDelayTime && elapsedTime >= maxDuration) ***REMOVED***
+                if (Math.max(timeStamp - startTime, 0) >= maxDelayTime && elapsedTime >= maxDuration) {
                   close();
-                ***REMOVED***
-              ***REMOVED***;
+                }
+              };
               element.on(events, eventFn);
 
               applyAnimationToStyles(element, options);
 
               $timeout(close, maxDelayTime + maxDurationTime * 1.5, false);
-            ***REMOVED***);
+            });
 
             return runner;
 
-            function close() ***REMOVED***
+            function close() {
               if (animationClosed) return;
               animationClosed = true;
 
-              if (events && eventFn) ***REMOVED***
+              if (events && eventFn) {
                 element.off(events, eventFn);
-              ***REMOVED***
+              }
               applyClasses(element, options);
               applyAnimationStyles(element, options);
-              forEach(temporaryStyles, function(entry) ***REMOVED***
+              forEach(temporaryStyles, function(entry) {
                 node.style[camelCase(entry[0])] = '';
-              ***REMOVED***);
+              });
               runner.complete(true);
               return runner;
-            ***REMOVED***
-          ***REMOVED***
-        ***REMOVED***
-      ***REMOVED***
+            }
+          }
+        }
+      }
 
-      function applyClasses(element, options) ***REMOVED***
-        if (options.addClass) ***REMOVED***
+      function applyClasses(element, options) {
+        if (options.addClass) {
           $$jqLite.addClass(element, options.addClass);
           options.addClass = null;
-        ***REMOVED***
-        if (options.removeClass) ***REMOVED***
+        }
+        if (options.removeClass) {
           $$jqLite.removeClass(element, options.removeClass);
           options.removeClass = null;
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
-      function computeTimings(element) ***REMOVED***
+      function computeTimings(element) {
         var node = getDomNode(element);
         var cs = $window.getComputedStyle(node)
         var tdr = parseMaxTime(cs[prop('transitionDuration')]);
@@ -6577,44 +6577,44 @@ if (angular.version.minor >= 4) ***REMOVED***
         var duration = Math.max(adr, tdr);
         var delay = Math.max(ady, tdy);
 
-        return ***REMOVED***
+        return {
           duration: duration,
           delay: delay,
           animationDuration: adr,
           transitionDuration: tdr,
           animationDelay: ady,
           transitionDelay: tdy
-        ***REMOVED***;
+        };
 
-        function prop(key) ***REMOVED***
+        function prop(key) {
           return WEBKIT ? 'Webkit' + key.charAt(0).toUpperCase() + key.substr(1)
                         : key;
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
-      function parseMaxTime(str) ***REMOVED***
+      function parseMaxTime(str) {
         var maxValue = 0;
         var values = (str || "").split(/\s*,\s*/);
-        forEach(values, function(value) ***REMOVED***
+        forEach(values, function(value) {
           // it's always safe to consider only second values and omit `ms` values since
           // getComputedStyle will always handle the conversion for us
-          if (value.charAt(value.length - 1) == 's') ***REMOVED***
+          if (value.charAt(value.length - 1) == 's') {
             value = value.substring(0, value.length - 1);
-          ***REMOVED***
+          }
           value = parseFloat(value) || 0;
           maxValue = maxValue ? Math.max(value, maxValue) : value;
-        ***REMOVED***);
+        });
         return maxValue;
-      ***REMOVED***
+      }
 
       var cancelLastRAFRequest;
       var rafWaitQueue = [];
-      function waitUntilQuiet(callback) ***REMOVED***
-        if (cancelLastRAFRequest) ***REMOVED***
+      function waitUntilQuiet(callback) {
+        if (cancelLastRAFRequest) {
           cancelLastRAFRequest(); //cancels the request
-        ***REMOVED***
+        }
         rafWaitQueue.push(callback);
-        cancelLastRAFRequest = $$rAF(function() ***REMOVED***
+        cancelLastRAFRequest = $$rAF(function() {
           cancelLastRAFRequest = null;
 
           // DO NOT REMOVE THIS LINE OR REFACTOR OUT THE `pageWidth` variable.
@@ -6623,46 +6623,46 @@ if (angular.version.minor >= 4) ***REMOVED***
 
           // we use a for loop to ensure that if the queue is changed
           // during this looping then it will consider new requests
-          for (var i = 0; i < rafWaitQueue.length; i++) ***REMOVED***
+          for (var i = 0; i < rafWaitQueue.length; i++) {
             rafWaitQueue[i](pageWidth);
-          ***REMOVED***
+          }
           rafWaitQueue.length = 0;
-        ***REMOVED***);
-      ***REMOVED***
+        });
+      }
 
-      function applyAnimationStyles(element, options) ***REMOVED***
+      function applyAnimationStyles(element, options) {
         applyAnimationFromStyles(element, options);
         applyAnimationToStyles(element, options);
-      ***REMOVED***
+      }
 
-      function applyAnimationFromStyles(element, options) ***REMOVED***
-        if (options.from) ***REMOVED***
+      function applyAnimationFromStyles(element, options) {
+        if (options.from) {
           element.css(options.from);
           options.from = null;
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
-      function applyAnimationToStyles(element, options) ***REMOVED***
-        if (options.to) ***REMOVED***
+      function applyAnimationToStyles(element, options) {
+        if (options.to) {
           element.css(options.to);
           options.to = null;
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
-      function getDomNode(element) ***REMOVED***
-        for (var i = 0; i < element.length; i++) ***REMOVED***
+      function getDomNode(element) {
+        for (var i = 0; i < element.length; i++) {
           if (element[i].nodeType === 1) return element[i];
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
-      function blockTransition(element, bool) ***REMOVED***
+      function blockTransition(element, bool) {
         var node = getDomNode(element);
         var key = camelCase(PREFIX + 'transition-delay');
         node.style[key] = bool ? '-9999s' : '';
-      ***REMOVED***
+      }
 
       return init;
-    ***REMOVED***]);
+    }]);
 
   /**
    * Older browsers [FF31] expect camelCase
@@ -6670,19 +6670,19 @@ if (angular.version.minor >= 4) ***REMOVED***
    * e.g.
    *  animation-duration --> animationDuration
    */
-  function camelCase(str) ***REMOVED***
-    return str.replace(/-[a-z]/g, function(str) ***REMOVED***
+  function camelCase(str) {
+    return str.replace(/-[a-z]/g, function(str) {
       return str.charAt(1).toUpperCase();
-    ***REMOVED***);
-  ***REMOVED***
+    });
+  }
 
-***REMOVED***)();
+})();
 
-***REMOVED***
+}
 
-(function()***REMOVED*** 
-angular.module("material.core").constant("$MD_THEME_CSS", "/*  Only used with Theme processes */html.md-THEME_NAME-theme, body.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***md-backdrop ***REMOVED***  background-color: '***REMOVED******REMOVED***background-900-0.0***REMOVED******REMOVED***'; ***REMOVED***  md-backdrop.md-opaque.md-THEME_NAME-theme ***REMOVED***    background-color: '***REMOVED******REMOVED***background-900-1.0***REMOVED******REMOVED***'; ***REMOVED***md-autocomplete.md-THEME_NAME-theme ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  md-autocomplete.md-THEME_NAME-theme[disabled]:not([md-floating-label]) ***REMOVED***    background: '***REMOVED******REMOVED***background-100***REMOVED******REMOVED***'; ***REMOVED***  md-autocomplete.md-THEME_NAME-theme button md-icon path ***REMOVED***    fill: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***  md-autocomplete.md-THEME_NAME-theme button:after ***REMOVED***    background: '***REMOVED******REMOVED***background-600-0.3***REMOVED******REMOVED***'; ***REMOVED***.md-autocomplete-suggestions-container.md-THEME_NAME-theme ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  .md-autocomplete-suggestions-container.md-THEME_NAME-theme li ***REMOVED***    color: '***REMOVED******REMOVED***background-900***REMOVED******REMOVED***'; ***REMOVED***    .md-autocomplete-suggestions-container.md-THEME_NAME-theme li .highlight ***REMOVED***      color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***    .md-autocomplete-suggestions-container.md-THEME_NAME-theme li:hover, .md-autocomplete-suggestions-container.md-THEME_NAME-theme li.selected ***REMOVED***      background: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***md-bottom-sheet.md-THEME_NAME-theme ***REMOVED***  background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***';  border-top-color: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***'; ***REMOVED***  md-bottom-sheet.md-THEME_NAME-theme.md-list md-list-item ***REMOVED***    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***  md-bottom-sheet.md-THEME_NAME-theme .md-subheader ***REMOVED***    background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***  md-bottom-sheet.md-THEME_NAME-theme .md-subheader ***REMOVED***    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme:not([disabled]):hover ***REMOVED***  background-color: '***REMOVED******REMOVED***background-500-0.2***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme:not([disabled]).md-focused ***REMOVED***  background-color: '***REMOVED******REMOVED***background-500-0.2***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme:not([disabled]).md-icon-button:hover ***REMOVED***  background-color: transparent; ***REMOVED***.md-button.md-THEME_NAME-theme.md-fab ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab md-icon ***REMOVED***    color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]):hover ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]).md-focused ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-primary ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-primary.md-raised, .md-button.md-THEME_NAME-theme.md-primary.md-fab ***REMOVED***    color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***';    background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-primary.md-raised:not([disabled]) md-icon, .md-button.md-THEME_NAME-theme.md-primary.md-fab:not([disabled]) md-icon ***REMOVED***      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-primary.md-raised:not([disabled]):hover, .md-button.md-THEME_NAME-theme.md-primary.md-fab:not([disabled]):hover ***REMOVED***      background-color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-primary.md-raised:not([disabled]).md-focused, .md-button.md-THEME_NAME-theme.md-primary.md-fab:not([disabled]).md-focused ***REMOVED***      background-color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-primary:not([disabled]) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-fab ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]) .md-icon ***REMOVED***    color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]):hover ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]).md-focused ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-raised ***REMOVED***  color: '***REMOVED******REMOVED***background-900***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-raised:not([disabled]) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***background-900***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-raised:not([disabled]):hover ***REMOVED***    background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-raised:not([disabled]).md-focused ***REMOVED***    background-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-warn ***REMOVED***  color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-warn.md-raised, .md-button.md-THEME_NAME-theme.md-warn.md-fab ***REMOVED***    color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***';    background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-warn.md-raised:not([disabled]) md-icon, .md-button.md-THEME_NAME-theme.md-warn.md-fab:not([disabled]) md-icon ***REMOVED***      color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-warn.md-raised:not([disabled]):hover, .md-button.md-THEME_NAME-theme.md-warn.md-fab:not([disabled]):hover ***REMOVED***      background-color: '***REMOVED******REMOVED***warn-600***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-warn.md-raised:not([disabled]).md-focused, .md-button.md-THEME_NAME-theme.md-warn.md-fab:not([disabled]).md-focused ***REMOVED***      background-color: '***REMOVED******REMOVED***warn-600***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-warn:not([disabled]) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-accent ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-accent.md-raised, .md-button.md-THEME_NAME-theme.md-accent.md-fab ***REMOVED***    color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***';    background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-accent.md-raised:not([disabled]) md-icon, .md-button.md-THEME_NAME-theme.md-accent.md-fab:not([disabled]) md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-accent.md-raised:not([disabled]):hover, .md-button.md-THEME_NAME-theme.md-accent.md-fab:not([disabled]):hover ***REMOVED***      background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***    .md-button.md-THEME_NAME-theme.md-accent.md-raised:not([disabled]).md-focused, .md-button.md-THEME_NAME-theme.md-accent.md-fab:not([disabled]).md-focused ***REMOVED***      background-color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***  .md-button.md-THEME_NAME-theme.md-accent:not([disabled]) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme[disabled], .md-button.md-THEME_NAME-theme.md-raised[disabled], .md-button.md-THEME_NAME-theme.md-fab[disabled], .md-button.md-THEME_NAME-theme.md-accent[disabled], .md-button.md-THEME_NAME-theme.md-warn[disabled] ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';  cursor: default; ***REMOVED***  .md-button.md-THEME_NAME-theme[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-raised[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-fab[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-accent[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-warn[disabled] md-icon ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme.md-raised[disabled], .md-button.md-THEME_NAME-theme.md-fab[disabled] ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***.md-button.md-THEME_NAME-theme[disabled] ***REMOVED***  background-color: transparent; ***REMOVED***._md a.md-THEME_NAME-theme:not(.md-button).md-primary ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  ._md a.md-THEME_NAME-theme:not(.md-button).md-primary:hover ***REMOVED***    color: '***REMOVED******REMOVED***primary-700***REMOVED******REMOVED***'; ***REMOVED***._md a.md-THEME_NAME-theme:not(.md-button).md-accent ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  ._md a.md-THEME_NAME-theme:not(.md-button).md-accent:hover ***REMOVED***    color: '***REMOVED******REMOVED***accent-700***REMOVED******REMOVED***'; ***REMOVED***._md a.md-THEME_NAME-theme:not(.md-button).md-accent ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  ._md a.md-THEME_NAME-theme:not(.md-button).md-accent:hover ***REMOVED***    color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***._md a.md-THEME_NAME-theme:not(.md-button).md-warn ***REMOVED***  color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  ._md a.md-THEME_NAME-theme:not(.md-button).md-warn:hover ***REMOVED***    color: '***REMOVED******REMOVED***warn-700***REMOVED******REMOVED***'; ***REMOVED***md-card.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***';  border-radius: 2px; ***REMOVED***  md-card.md-THEME_NAME-theme .md-card-image ***REMOVED***    border-radius: 2px 2px 0 0; ***REMOVED***  md-card.md-THEME_NAME-theme md-card-header md-card-avatar md-icon ***REMOVED***    color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***';    background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-card.md-THEME_NAME-theme md-card-header md-card-header-text .md-subhead ***REMOVED***    color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***  md-card.md-THEME_NAME-theme md-card-title md-card-title-text:not(:only-child) .md-subhead ***REMOVED***    color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked.md-focused .md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not(.md-checked) .md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked .md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme.md-checked .md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***accent-contrast-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary:not(.md-checked) .md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked.md-focused .md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-contrast-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-indeterminate[disabled] .md-container ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-600***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn:not(.md-checked) .md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked.md-focused:not([disabled]) .md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled]:not(.md-checked) .md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled].md-checked .md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled].md-checked .md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled] .md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-checkbox.md-THEME_NAME-theme[disabled] .md-label ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-chips.md-THEME_NAME-theme .md-chips ***REMOVED***  box-shadow: 0 1px '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme .md-chips.md-focused ***REMOVED***    box-shadow: 0 2px '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input ***REMOVED***    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input::-webkit-input-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input:-moz-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input::-moz-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input:-ms-input-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input::-webkit-input-placeholder ***REMOVED***      color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-chips.md-THEME_NAME-theme md-chip ***REMOVED***  background: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-800***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme md-chip md-icon ***REMOVED***    color: '***REMOVED******REMOVED***background-700***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme md-chip.md-focused ***REMOVED***    background: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';    color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-chips.md-THEME_NAME-theme md-chip.md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***  md-chips.md-THEME_NAME-theme md-chip._md-chip-editing ***REMOVED***    background: transparent;    color: '***REMOVED******REMOVED***background-800***REMOVED******REMOVED***'; ***REMOVED***md-chips.md-THEME_NAME-theme md-chip-remove .md-button md-icon path ***REMOVED***  fill: '***REMOVED******REMOVED***background-500***REMOVED******REMOVED***'; ***REMOVED***.md-contact-suggestion span.md-contact-email ***REMOVED***  color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-content.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-default***REMOVED******REMOVED***'; ***REMOVED***/** Theme styles for mdCalendar. */.md-calendar.md-THEME_NAME-theme ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-A200-0.87***REMOVED******REMOVED***'; ***REMOVED***  .md-calendar.md-THEME_NAME-theme tr:last-child td ***REMOVED***    border-bottom-color: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-calendar-day-header ***REMOVED***  background: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-A200-0.87***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-calendar-date.md-calendar-date-today .md-calendar-date-selection-indicator ***REMOVED***  border: 1px solid '***REMOVED******REMOVED***primary-500***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-calendar-date.md-calendar-date-today.md-calendar-date-disabled ***REMOVED***  color: '***REMOVED******REMOVED***primary-500-0.6***REMOVED******REMOVED***'; ***REMOVED***.md-calendar-date.md-focus .md-THEME_NAME-theme .md-calendar-date-selection-indicator, .md-THEME_NAME-theme .md-calendar-date-selection-indicator:hover ***REMOVED***  background: '***REMOVED******REMOVED***background-300***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-calendar-date.md-calendar-selected-date .md-calendar-date-selection-indicator,.md-THEME_NAME-theme .md-calendar-date.md-focus.md-calendar-selected-date .md-calendar-date-selection-indicator ***REMOVED***  background: '***REMOVED******REMOVED***primary-500***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***primary-500-contrast***REMOVED******REMOVED***';  border-color: transparent; ***REMOVED***.md-THEME_NAME-theme .md-calendar-date-disabled,.md-THEME_NAME-theme .md-calendar-month-label-disabled ***REMOVED***  color: '***REMOVED******REMOVED***background-A200-0.435***REMOVED******REMOVED***'; ***REMOVED***/** Theme styles for mdDatepicker. */.md-THEME_NAME-theme .md-datepicker-input ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input::-webkit-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input:-moz-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input::-moz-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input:-ms-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input::-webkit-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-input-container ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-focused ***REMOVED***    border-bottom-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***    .md-accent .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-focused ***REMOVED***      border-bottom-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***    .md-warn .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-focused ***REMOVED***      border-bottom-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***  .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-invalid ***REMOVED***    border-bottom-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-calendar-pane ***REMOVED***  border-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-triangle-button .md-datepicker-expand-triangle ***REMOVED***  border-top-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-triangle-button:hover .md-datepicker-expand-triangle ***REMOVED***  border-top-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-open .md-datepicker-calendar-icon ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-open.md-accent .md-datepicker-calendar-icon, .md-accent .md-THEME_NAME-theme .md-datepicker-open .md-datepicker-calendar-icon ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-open.md-warn .md-datepicker-calendar-icon, .md-warn .md-THEME_NAME-theme .md-datepicker-open .md-datepicker-calendar-icon ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-open .md-datepicker-input-container,.md-THEME_NAME-theme .md-datepicker-input-mask-opaque ***REMOVED***  background: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***'; ***REMOVED***.md-THEME_NAME-theme .md-datepicker-calendar ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***md-dialog.md-THEME_NAME-theme ***REMOVED***  border-radius: 4px;  background-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***  md-dialog.md-THEME_NAME-theme.md-content-overflow .md-actions, md-dialog.md-THEME_NAME-theme.md-content-overflow md-dialog-actions ***REMOVED***    border-top-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-divider.md-THEME_NAME-theme ***REMOVED***  border-top-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***.layout-row > md-divider.md-THEME_NAME-theme,.layout-xs-row > md-divider.md-THEME_NAME-theme, .layout-gt-xs-row > md-divider.md-THEME_NAME-theme,.layout-sm-row > md-divider.md-THEME_NAME-theme, .layout-gt-sm-row > md-divider.md-THEME_NAME-theme,.layout-md-row > md-divider.md-THEME_NAME-theme, .layout-gt-md-row > md-divider.md-THEME_NAME-theme,.layout-lg-row > md-divider.md-THEME_NAME-theme, .layout-gt-lg-row > md-divider.md-THEME_NAME-theme,.layout-xl-row > md-divider.md-THEME_NAME-theme ***REMOVED***  border-right-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-icon.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***  md-icon.md-THEME_NAME-theme.md-primary ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-icon.md-THEME_NAME-theme.md-accent ***REMOVED***    color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  md-icon.md-THEME_NAME-theme.md-warn ***REMOVED***    color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme .md-input ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';  border-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input::-webkit-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input:-moz-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input::-moz-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input:-ms-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input::-webkit-input-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme > md-icon ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme label,md-input-container.md-THEME_NAME-theme .md-placeholder ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme label.md-required:after ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-focused):not(.md-input-invalid) label.md-required:after ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme .md-input-messages-animation, md-input-container.md-THEME_NAME-theme .md-input-message-animation ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-THEME_NAME-theme .md-input-messages-animation .md-char-counter, md-input-container.md-THEME_NAME-theme .md-input-message-animation .md-char-counter ***REMOVED***    color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-has-value label ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused .md-input, md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-resized .md-input ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused label,md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused md-icon ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-accent .md-input ***REMOVED***  border-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-accent label,md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-accent md-icon ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-warn .md-input ***REMOVED***  border-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-warn label,md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-warn md-icon ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme.md-input-invalid .md-input ***REMOVED***  border-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme.md-input-invalid label,md-input-container.md-THEME_NAME-theme.md-input-invalid .md-input-message-animation,md-input-container.md-THEME_NAME-theme.md-input-invalid .md-char-counter ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-THEME_NAME-theme .md-input[disabled],[disabled] md-input-container.md-THEME_NAME-theme .md-input ***REMOVED***  border-bottom-color: transparent;  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';  background-image: linear-gradient(to right, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 0%, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 33%, transparent 0%);  background-image: -ms-linear-gradient(left, transparent 0%, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 100%); ***REMOVED***md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text h3, md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text h4,md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text h3,md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text h4 ***REMOVED***  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text p,md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text p ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-list.md-THEME_NAME-theme .md-proxy-focus.md-focused div.md-no-style ***REMOVED***  background-color: '***REMOVED******REMOVED***background-100***REMOVED******REMOVED***'; ***REMOVED***md-list.md-THEME_NAME-theme md-list-item .md-avatar-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***md-list.md-THEME_NAME-theme md-list-item > md-icon ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***  md-list.md-THEME_NAME-theme md-list-item > md-icon.md-highlight ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***    md-list.md-THEME_NAME-theme md-list-item > md-icon.md-highlight.md-accent ***REMOVED***      color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-menu-content.md-THEME_NAME-theme ***REMOVED***  background-color: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  md-menu-content.md-THEME_NAME-theme md-menu-item ***REMOVED***    color: '***REMOVED******REMOVED***background-A200-0.87***REMOVED******REMOVED***'; ***REMOVED***    md-menu-content.md-THEME_NAME-theme md-menu-item md-icon ***REMOVED***      color: '***REMOVED******REMOVED***background-A200-0.54***REMOVED******REMOVED***'; ***REMOVED***    md-menu-content.md-THEME_NAME-theme md-menu-item .md-button[disabled] ***REMOVED***      color: '***REMOVED******REMOVED***background-A200-0.25***REMOVED******REMOVED***'; ***REMOVED***      md-menu-content.md-THEME_NAME-theme md-menu-item .md-button[disabled] md-icon ***REMOVED***        color: '***REMOVED******REMOVED***background-A200-0.25***REMOVED******REMOVED***'; ***REMOVED***  md-menu-content.md-THEME_NAME-theme md-menu-divider ***REMOVED***    background-color: '***REMOVED******REMOVED***background-A200-0.11***REMOVED******REMOVED***'; ***REMOVED***md-menu-bar.md-THEME_NAME-theme > button.md-button ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***';  border-radius: 2px; ***REMOVED***md-menu-bar.md-THEME_NAME-theme md-menu.md-open > button, md-menu-bar.md-THEME_NAME-theme md-menu > button:focus ***REMOVED***  outline: none;  background: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***md-menu-bar.md-THEME_NAME-theme.md-open:not(.md-keyboard-mode) md-menu:hover > button ***REMOVED***  background-color: '***REMOVED******REMOVED*** background-500-0.2***REMOVED******REMOVED***'; ***REMOVED***md-menu-bar.md-THEME_NAME-theme:not(.md-keyboard-mode):not(.md-open) md-menu button:hover,md-menu-bar.md-THEME_NAME-theme:not(.md-keyboard-mode):not(.md-open) md-menu button:focus ***REMOVED***  background: transparent; ***REMOVED***md-menu-content.md-THEME_NAME-theme .md-menu > .md-button:after ***REMOVED***  color: '***REMOVED******REMOVED***background-A200-0.54***REMOVED******REMOVED***'; ***REMOVED***md-menu-content.md-THEME_NAME-theme .md-menu.md-open > .md-button ***REMOVED***  background-color: '***REMOVED******REMOVED*** background-500-0.2***REMOVED******REMOVED***'; ***REMOVED***md-toolbar.md-THEME_NAME-theme.md-menu-toolbar ***REMOVED***  background-color: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***background-A200***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme.md-menu-toolbar md-toolbar-filler ***REMOVED***    background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';    color: '***REMOVED******REMOVED***background-A100-0.87***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-THEME_NAME-theme.md-menu-toolbar md-toolbar-filler md-icon ***REMOVED***      color: '***REMOVED******REMOVED***background-A100-0.87***REMOVED******REMOVED***'; ***REMOVED***md-nav-bar.md-THEME_NAME-theme .md-nav-bar ***REMOVED***  background-color: transparent;  border-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-nav-bar.md-THEME_NAME-theme .md-button._md-nav-button.md-unselected ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-nav-bar.md-THEME_NAME-theme md-nav-ink-bar ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  background: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***.md-panel ***REMOVED***  background-color: '***REMOVED******REMOVED***background-900-0.0***REMOVED******REMOVED***'; ***REMOVED***  .md-panel._md-panel-backdrop.md-THEME_NAME-theme ***REMOVED***    background-color: '***REMOVED******REMOVED***background-900-1.0***REMOVED******REMOVED***'; ***REMOVED***md-progress-circular.md-THEME_NAME-theme path ***REMOVED***  stroke: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-circular.md-THEME_NAME-theme.md-warn path ***REMOVED***  stroke: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-circular.md-THEME_NAME-theme.md-accent path ***REMOVED***  stroke: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme .md-container ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme.md-warn .md-container ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme.md-warn .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme.md-accent .md-container ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme.md-accent .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-warn .md-bar1 ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-warn .md-dashed:before ***REMOVED***  background: radial-gradient(\"***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***\" 0%, \"***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***\" 16%, transparent 42%); ***REMOVED***md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-accent .md-bar1 ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-100***REMOVED******REMOVED***'; ***REMOVED***md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-accent .md-dashed:before ***REMOVED***  background: radial-gradient(\"***REMOVED******REMOVED***accent-100***REMOVED******REMOVED***\" 0%, \"***REMOVED******REMOVED***accent-100***REMOVED******REMOVED***\" 16%, transparent 42%); ***REMOVED***md-radio-button.md-THEME_NAME-theme .md-off ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***md-radio-button.md-THEME_NAME-theme .md-on ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-button.md-THEME_NAME-theme.md-checked .md-off ***REMOVED***  border-color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-button.md-THEME_NAME-theme.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-button.md-THEME_NAME-theme .md-container .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-on, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-on ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-off ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-container .md-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-container .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-on, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-on ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-off ***REMOVED***  border-color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-color-0.87***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-container .md-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-container .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-600***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme[disabled],md-radio-button.md-THEME_NAME-theme[disabled] ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-radio-group.md-THEME_NAME-theme[disabled] .md-container .md-off,  md-radio-button.md-THEME_NAME-theme[disabled] .md-container .md-off ***REMOVED***    border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-radio-group.md-THEME_NAME-theme[disabled] .md-container .md-on,  md-radio-button.md-THEME_NAME-theme[disabled] .md-container .md-on ***REMOVED***    border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme .md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme.md-primary .md-checked:not([disabled]) .md-ink-ripple, md-radio-group.md-THEME_NAME-theme .md-checked:not([disabled]).md-primary .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme .md-checked.md-primary .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked .md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty).md-primary .md-checked .md-container:before,md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked.md-primary .md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty).md-warn .md-checked .md-container:before,md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked.md-warn .md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-input-container md-select.md-THEME_NAME-theme .md-select-value span:first-child:after ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-input-container:not(.md-input-focused):not(.md-input-invalid) md-select.md-THEME_NAME-theme .md-select-value span:first-child:after ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-input-focused:not(.md-input-has-value) md-select.md-THEME_NAME-theme .md-select-value ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-input-container.md-input-focused:not(.md-input-has-value) md-select.md-THEME_NAME-theme .md-select-value.md-select-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-input-container.md-input-invalid md-select.md-THEME_NAME-theme .md-select-value ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***' !important;  border-bottom-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***' !important; ***REMOVED***md-input-container.md-input-invalid md-select.md-THEME_NAME-theme.md-no-underline .md-select-value ***REMOVED***  border-bottom-color: transparent !important; ***REMOVED***md-select.md-THEME_NAME-theme[disabled] .md-select-value ***REMOVED***  border-bottom-color: transparent;  background-image: linear-gradient(to right, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 0%, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 33%, transparent 0%);  background-image: -ms-linear-gradient(left, transparent 0%, \"***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***\" 100%); ***REMOVED***md-select.md-THEME_NAME-theme .md-select-value ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***  md-select.md-THEME_NAME-theme .md-select-value.md-select-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-select.md-THEME_NAME-theme .md-select-value span:first-child:after ***REMOVED***    color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***'; ***REMOVED***md-select.md-THEME_NAME-theme.md-no-underline .md-select-value ***REMOVED***  border-bottom-color: transparent !important; ***REMOVED***md-select.md-THEME_NAME-theme.ng-invalid.ng-touched .md-select-value ***REMOVED***  color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***' !important;  border-bottom-color: '***REMOVED******REMOVED***warn-A700***REMOVED******REMOVED***' !important; ***REMOVED***md-select.md-THEME_NAME-theme.ng-invalid.ng-touched.md-no-underline .md-select-value ***REMOVED***  border-bottom-color: transparent !important; ***REMOVED***md-select.md-THEME_NAME-theme:not([disabled]):focus .md-select-value ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED*** foreground-1 ***REMOVED******REMOVED***'; ***REMOVED***  md-select.md-THEME_NAME-theme:not([disabled]):focus .md-select-value.md-select-placeholder ***REMOVED***    color: '***REMOVED******REMOVED*** foreground-1 ***REMOVED******REMOVED***'; ***REMOVED***md-select.md-THEME_NAME-theme:not([disabled]):focus.md-no-underline .md-select-value ***REMOVED***  border-bottom-color: transparent !important; ***REMOVED***md-select.md-THEME_NAME-theme:not([disabled]):focus.md-accent .md-select-value ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-select.md-THEME_NAME-theme:not([disabled]):focus.md-warn .md-select-value ***REMOVED***  border-bottom-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-select.md-THEME_NAME-theme[disabled] .md-select-value ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-select.md-THEME_NAME-theme[disabled] .md-select-value.md-select-placeholder ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-select-menu.md-THEME_NAME-theme md-content ***REMOVED***  background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  md-select-menu.md-THEME_NAME-theme md-content md-optgroup ***REMOVED***    color: '***REMOVED******REMOVED***background-600-0.87***REMOVED******REMOVED***'; ***REMOVED***  md-select-menu.md-THEME_NAME-theme md-content md-option ***REMOVED***    color: '***REMOVED******REMOVED***background-900-0.87***REMOVED******REMOVED***'; ***REMOVED***    md-select-menu.md-THEME_NAME-theme md-content md-option[disabled] .md-text ***REMOVED***      color: '***REMOVED******REMOVED***background-400-0.87***REMOVED******REMOVED***'; ***REMOVED***    md-select-menu.md-THEME_NAME-theme md-content md-option:not([disabled]):focus, md-select-menu.md-THEME_NAME-theme md-content md-option:not([disabled]):hover ***REMOVED***      background: '***REMOVED******REMOVED***background-200***REMOVED******REMOVED***'; ***REMOVED***    md-select-menu.md-THEME_NAME-theme md-content md-option[selected] ***REMOVED***      color: '***REMOVED******REMOVED***primary-500***REMOVED******REMOVED***'; ***REMOVED***      md-select-menu.md-THEME_NAME-theme md-content md-option[selected]:focus ***REMOVED***        color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***      md-select-menu.md-THEME_NAME-theme md-content md-option[selected].md-accent ***REMOVED***        color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***        md-select-menu.md-THEME_NAME-theme md-content md-option[selected].md-accent:focus ***REMOVED***          color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-600***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme[selected] .md-ripple ***REMOVED***  color: '***REMOVED******REMOVED***background-600***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme[selected] .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme:not(.md-checked) .md-icon ***REMOVED***  border-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme[selected] .md-icon ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.87***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme[selected].md-focused .md-container:before ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme[selected] .md-icon:after ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-contrast-0.87***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme .md-indeterminate[disabled] .md-container ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***.md-checkbox-enabled.md-THEME_NAME-theme md-option .md-text ***REMOVED***  color: '***REMOVED******REMOVED***background-900-0.87***REMOVED******REMOVED***'; ***REMOVED***md-sidenav.md-THEME_NAME-theme, md-sidenav.md-THEME_NAME-theme md-content ***REMOVED***  background-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-track ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-track-ticks ***REMOVED***  color: '***REMOVED******REMOVED***background-contrast***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-focus-ring ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-A200-0.2***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-disabled-thumb ***REMOVED***  border-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-min .md-thumb:after ***REMOVED***  background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***';  border-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-min .md-focus-ring ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3-0.38***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-min[md-discrete] .md-thumb:after ***REMOVED***  background-color: '***REMOVED******REMOVED***background-contrast***REMOVED******REMOVED***';  border-color: transparent; ***REMOVED***md-slider.md-THEME_NAME-theme.md-min[md-discrete] .md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme.md-min[md-discrete] .md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-min[md-discrete][md-vertical] .md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-track.md-track-fill ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-thumb:after ***REMOVED***  border-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme .md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme[md-vertical] .md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme .md-thumb-text ***REMOVED***  color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn .md-focus-ring ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-200-0.38***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn .md-track.md-track-fill ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn .md-thumb:after ***REMOVED***  border-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn .md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme.md-warn .md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn[md-vertical] .md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-warn .md-thumb-text ***REMOVED***  color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary .md-focus-ring ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-200-0.38***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary .md-track.md-track-fill ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary .md-thumb:after ***REMOVED***  border-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary .md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme.md-primary .md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary[md-vertical] .md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme.md-primary .md-thumb-text ***REMOVED***  color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled] .md-thumb:after ***REMOVED***  border-color: transparent; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled]:not(.md-min) .md-thumb:after, md-slider.md-THEME_NAME-theme[disabled][md-discrete] .md-thumb:after ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***';  border-color: transparent; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled][readonly] .md-sign ***REMOVED***  background-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***  md-slider.md-THEME_NAME-theme[disabled][readonly] .md-sign:after ***REMOVED***    border-top-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled][readonly][md-vertical] .md-sign:after ***REMOVED***  border-top-color: transparent;  border-left-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-slider.md-THEME_NAME-theme[disabled][readonly] .md-disabled-thumb ***REMOVED***  border-color: transparent;  background-color: transparent; ***REMOVED***md-slider-container[disabled] > *:first-child:not(md-slider),md-slider-container[disabled] > *:last-child:not(md-slider) ***REMOVED***  color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***.md-subheader.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED*** foreground-2-0.23 ***REMOVED******REMOVED***';  background-color: '***REMOVED******REMOVED***background-default***REMOVED******REMOVED***'; ***REMOVED***  .md-subheader.md-THEME_NAME-theme.md-primary ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  .md-subheader.md-THEME_NAME-theme.md-accent ***REMOVED***    color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  .md-subheader.md-THEME_NAME-theme.md-warn ***REMOVED***    color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***background-500***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme .md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***background-500***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked .md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.5***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-focused .md-thumb:before ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-primary .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-primary .md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-primary .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.5***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-primary.md-focused .md-thumb:before ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-warn .md-ink-ripple ***REMOVED***  color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-warn .md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-warn .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.5***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme.md-checked.md-warn.md-focused .md-thumb:before ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color-0.26***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme[disabled] .md-thumb ***REMOVED***  background-color: '***REMOVED******REMOVED***background-400***REMOVED******REMOVED***'; ***REMOVED***md-switch.md-THEME_NAME-theme[disabled] .md-bar ***REMOVED***  background-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme md-tabs-wrapper ***REMOVED***  background-color: transparent;  border-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme .md-paginator md-icon ***REMOVED***  color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme md-ink-bar ***REMOVED***  color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';  background: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme .md-tab ***REMOVED***  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme .md-tab[disabled], md-tabs.md-THEME_NAME-theme .md-tab[disabled] md-icon ***REMOVED***    color: '***REMOVED******REMOVED***foreground-3***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme .md-tab.md-active, md-tabs.md-THEME_NAME-theme .md-tab.md-active md-icon, md-tabs.md-THEME_NAME-theme .md-tab.md-focused, md-tabs.md-THEME_NAME-theme .md-tab.md-focused md-icon ***REMOVED***    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme .md-tab.md-focused ***REMOVED***    background: '***REMOVED******REMOVED***primary-color-0.1***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme .md-tab .md-ripple-container ***REMOVED***    color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***accent-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar ***REMOVED***    color: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***';    background: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***primary-100***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***primary-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***warn-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***primary-100***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***primary-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***accent-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar ***REMOVED***    color: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***';    background: '***REMOVED******REMOVED***primary-600-1***REMOVED******REMOVED***'; ***REMOVED***md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper ***REMOVED***  background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) ***REMOVED***    color: '***REMOVED******REMOVED***warn-100***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon ***REMOVED***      color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused ***REMOVED***      background: '***REMOVED******REMOVED***warn-contrast-0.1***REMOVED******REMOVED***'; ***REMOVED***md-toast.md-THEME_NAME-theme .md-toast-content ***REMOVED***  background-color: #323232;  color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***  md-toast.md-THEME_NAME-theme .md-toast-content .md-button ***REMOVED***    color: '***REMOVED******REMOVED***background-50***REMOVED******REMOVED***'; ***REMOVED***    md-toast.md-THEME_NAME-theme .md-toast-content .md-button.md-highlight ***REMOVED***      color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***      md-toast.md-THEME_NAME-theme .md-toast-content .md-button.md-highlight.md-primary ***REMOVED***        color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***      md-toast.md-THEME_NAME-theme .md-toast-content .md-button.md-highlight.md-warn ***REMOVED***        color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar) ***REMOVED***  background-color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***';  color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar) md-icon ***REMOVED***    color: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***';    fill: '***REMOVED******REMOVED***primary-contrast***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar) .md-button[disabled] md-icon ***REMOVED***    color: '***REMOVED******REMOVED***primary-contrast-0.26***REMOVED******REMOVED***';    fill: '***REMOVED******REMOVED***primary-contrast-0.26***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent ***REMOVED***    background-color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';    color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent .md-ink-ripple ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***';      fill: '***REMOVED******REMOVED***accent-contrast***REMOVED******REMOVED***'; ***REMOVED***    md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent .md-button[disabled] md-icon ***REMOVED***      color: '***REMOVED******REMOVED***accent-contrast-0.26***REMOVED******REMOVED***';      fill: '***REMOVED******REMOVED***accent-contrast-0.26***REMOVED******REMOVED***'; ***REMOVED***  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-warn ***REMOVED***    background-color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***';    color: '***REMOVED******REMOVED***warn-contrast***REMOVED******REMOVED***'; ***REMOVED***md-tooltip.md-THEME_NAME-theme ***REMOVED***  color: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***  md-tooltip.md-THEME_NAME-theme .md-content ***REMOVED***    background-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***"); 
-***REMOVED***)();
+(function(){ 
+angular.module("material.core").constant("$MD_THEME_CSS", "/*  Only used with Theme processes */html.md-THEME_NAME-theme, body.md-THEME_NAME-theme {  color: '{{foreground-1}}';  background-color: '{{background-color}}'; }md-backdrop {  background-color: '{{background-900-0.0}}'; }  md-backdrop.md-opaque.md-THEME_NAME-theme {    background-color: '{{background-900-1.0}}'; }md-autocomplete.md-THEME_NAME-theme {  background: '{{background-A100}}'; }  md-autocomplete.md-THEME_NAME-theme[disabled]:not([md-floating-label]) {    background: '{{background-100}}'; }  md-autocomplete.md-THEME_NAME-theme button md-icon path {    fill: '{{background-600}}'; }  md-autocomplete.md-THEME_NAME-theme button:after {    background: '{{background-600-0.3}}'; }.md-autocomplete-suggestions-container.md-THEME_NAME-theme {  background: '{{background-A100}}'; }  .md-autocomplete-suggestions-container.md-THEME_NAME-theme li {    color: '{{background-900}}'; }    .md-autocomplete-suggestions-container.md-THEME_NAME-theme li .highlight {      color: '{{background-600}}'; }    .md-autocomplete-suggestions-container.md-THEME_NAME-theme li:hover, .md-autocomplete-suggestions-container.md-THEME_NAME-theme li.selected {      background: '{{background-200}}'; }md-bottom-sheet.md-THEME_NAME-theme {  background-color: '{{background-50}}';  border-top-color: '{{background-300}}'; }  md-bottom-sheet.md-THEME_NAME-theme.md-list md-list-item {    color: '{{foreground-1}}'; }  md-bottom-sheet.md-THEME_NAME-theme .md-subheader {    background-color: '{{background-50}}'; }  md-bottom-sheet.md-THEME_NAME-theme .md-subheader {    color: '{{foreground-1}}'; }.md-button.md-THEME_NAME-theme:not([disabled]):hover {  background-color: '{{background-500-0.2}}'; }.md-button.md-THEME_NAME-theme:not([disabled]).md-focused {  background-color: '{{background-500-0.2}}'; }.md-button.md-THEME_NAME-theme:not([disabled]).md-icon-button:hover {  background-color: transparent; }.md-button.md-THEME_NAME-theme.md-fab {  background-color: '{{accent-color}}';  color: '{{accent-contrast}}'; }  .md-button.md-THEME_NAME-theme.md-fab md-icon {    color: '{{accent-contrast}}'; }  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]):hover {    background-color: '{{accent-A700}}'; }  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]).md-focused {    background-color: '{{accent-A700}}'; }.md-button.md-THEME_NAME-theme.md-primary {  color: '{{primary-color}}'; }  .md-button.md-THEME_NAME-theme.md-primary.md-raised, .md-button.md-THEME_NAME-theme.md-primary.md-fab {    color: '{{primary-contrast}}';    background-color: '{{primary-color}}'; }    .md-button.md-THEME_NAME-theme.md-primary.md-raised:not([disabled]) md-icon, .md-button.md-THEME_NAME-theme.md-primary.md-fab:not([disabled]) md-icon {      color: '{{primary-contrast}}'; }    .md-button.md-THEME_NAME-theme.md-primary.md-raised:not([disabled]):hover, .md-button.md-THEME_NAME-theme.md-primary.md-fab:not([disabled]):hover {      background-color: '{{primary-600}}'; }    .md-button.md-THEME_NAME-theme.md-primary.md-raised:not([disabled]).md-focused, .md-button.md-THEME_NAME-theme.md-primary.md-fab:not([disabled]).md-focused {      background-color: '{{primary-600}}'; }  .md-button.md-THEME_NAME-theme.md-primary:not([disabled]) md-icon {    color: '{{primary-color}}'; }.md-button.md-THEME_NAME-theme.md-fab {  background-color: '{{accent-color}}';  color: '{{accent-contrast}}'; }  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]) .md-icon {    color: '{{accent-contrast}}'; }  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]):hover {    background-color: '{{accent-A700}}'; }  .md-button.md-THEME_NAME-theme.md-fab:not([disabled]).md-focused {    background-color: '{{accent-A700}}'; }.md-button.md-THEME_NAME-theme.md-raised {  color: '{{background-900}}';  background-color: '{{background-50}}'; }  .md-button.md-THEME_NAME-theme.md-raised:not([disabled]) md-icon {    color: '{{background-900}}'; }  .md-button.md-THEME_NAME-theme.md-raised:not([disabled]):hover {    background-color: '{{background-50}}'; }  .md-button.md-THEME_NAME-theme.md-raised:not([disabled]).md-focused {    background-color: '{{background-200}}'; }.md-button.md-THEME_NAME-theme.md-warn {  color: '{{warn-color}}'; }  .md-button.md-THEME_NAME-theme.md-warn.md-raised, .md-button.md-THEME_NAME-theme.md-warn.md-fab {    color: '{{warn-contrast}}';    background-color: '{{warn-color}}'; }    .md-button.md-THEME_NAME-theme.md-warn.md-raised:not([disabled]) md-icon, .md-button.md-THEME_NAME-theme.md-warn.md-fab:not([disabled]) md-icon {      color: '{{warn-contrast}}'; }    .md-button.md-THEME_NAME-theme.md-warn.md-raised:not([disabled]):hover, .md-button.md-THEME_NAME-theme.md-warn.md-fab:not([disabled]):hover {      background-color: '{{warn-600}}'; }    .md-button.md-THEME_NAME-theme.md-warn.md-raised:not([disabled]).md-focused, .md-button.md-THEME_NAME-theme.md-warn.md-fab:not([disabled]).md-focused {      background-color: '{{warn-600}}'; }  .md-button.md-THEME_NAME-theme.md-warn:not([disabled]) md-icon {    color: '{{warn-color}}'; }.md-button.md-THEME_NAME-theme.md-accent {  color: '{{accent-color}}'; }  .md-button.md-THEME_NAME-theme.md-accent.md-raised, .md-button.md-THEME_NAME-theme.md-accent.md-fab {    color: '{{accent-contrast}}';    background-color: '{{accent-color}}'; }    .md-button.md-THEME_NAME-theme.md-accent.md-raised:not([disabled]) md-icon, .md-button.md-THEME_NAME-theme.md-accent.md-fab:not([disabled]) md-icon {      color: '{{accent-contrast}}'; }    .md-button.md-THEME_NAME-theme.md-accent.md-raised:not([disabled]):hover, .md-button.md-THEME_NAME-theme.md-accent.md-fab:not([disabled]):hover {      background-color: '{{accent-A700}}'; }    .md-button.md-THEME_NAME-theme.md-accent.md-raised:not([disabled]).md-focused, .md-button.md-THEME_NAME-theme.md-accent.md-fab:not([disabled]).md-focused {      background-color: '{{accent-A700}}'; }  .md-button.md-THEME_NAME-theme.md-accent:not([disabled]) md-icon {    color: '{{accent-color}}'; }.md-button.md-THEME_NAME-theme[disabled], .md-button.md-THEME_NAME-theme.md-raised[disabled], .md-button.md-THEME_NAME-theme.md-fab[disabled], .md-button.md-THEME_NAME-theme.md-accent[disabled], .md-button.md-THEME_NAME-theme.md-warn[disabled] {  color: '{{foreground-3}}';  cursor: default; }  .md-button.md-THEME_NAME-theme[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-raised[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-fab[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-accent[disabled] md-icon, .md-button.md-THEME_NAME-theme.md-warn[disabled] md-icon {    color: '{{foreground-3}}'; }.md-button.md-THEME_NAME-theme.md-raised[disabled], .md-button.md-THEME_NAME-theme.md-fab[disabled] {  background-color: '{{foreground-4}}'; }.md-button.md-THEME_NAME-theme[disabled] {  background-color: transparent; }._md a.md-THEME_NAME-theme:not(.md-button).md-primary {  color: '{{primary-color}}'; }  ._md a.md-THEME_NAME-theme:not(.md-button).md-primary:hover {    color: '{{primary-700}}'; }._md a.md-THEME_NAME-theme:not(.md-button).md-accent {  color: '{{accent-color}}'; }  ._md a.md-THEME_NAME-theme:not(.md-button).md-accent:hover {    color: '{{accent-700}}'; }._md a.md-THEME_NAME-theme:not(.md-button).md-accent {  color: '{{accent-color}}'; }  ._md a.md-THEME_NAME-theme:not(.md-button).md-accent:hover {    color: '{{accent-A700}}'; }._md a.md-THEME_NAME-theme:not(.md-button).md-warn {  color: '{{warn-color}}'; }  ._md a.md-THEME_NAME-theme:not(.md-button).md-warn:hover {    color: '{{warn-700}}'; }md-card.md-THEME_NAME-theme {  color: '{{foreground-1}}';  background-color: '{{background-hue-1}}';  border-radius: 2px; }  md-card.md-THEME_NAME-theme .md-card-image {    border-radius: 2px 2px 0 0; }  md-card.md-THEME_NAME-theme md-card-header md-card-avatar md-icon {    color: '{{background-color}}';    background-color: '{{foreground-3}}'; }  md-card.md-THEME_NAME-theme md-card-header md-card-header-text .md-subhead {    color: '{{foreground-2}}'; }  md-card.md-THEME_NAME-theme md-card-title md-card-title-text:not(:only-child) .md-subhead {    color: '{{foreground-2}}'; }md-checkbox.md-THEME_NAME-theme .md-ripple {  color: '{{accent-A700}}'; }md-checkbox.md-THEME_NAME-theme.md-checked .md-ripple {  color: '{{background-600}}'; }md-checkbox.md-THEME_NAME-theme.md-checked.md-focused .md-container:before {  background-color: '{{accent-color-0.26}}'; }md-checkbox.md-THEME_NAME-theme .md-ink-ripple {  color: '{{foreground-2}}'; }md-checkbox.md-THEME_NAME-theme.md-checked .md-ink-ripple {  color: '{{accent-color-0.87}}'; }md-checkbox.md-THEME_NAME-theme:not(.md-checked) .md-icon {  border-color: '{{foreground-2}}'; }md-checkbox.md-THEME_NAME-theme.md-checked .md-icon {  background-color: '{{accent-color-0.87}}'; }md-checkbox.md-THEME_NAME-theme.md-checked .md-icon:after {  border-color: '{{accent-contrast-0.87}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-ripple {  color: '{{primary-600}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ripple {  color: '{{background-600}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-ink-ripple {  color: '{{foreground-2}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple {  color: '{{primary-color-0.87}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary:not(.md-checked) .md-icon {  border-color: '{{foreground-2}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-icon {  background-color: '{{primary-color-0.87}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked.md-focused .md-container:before {  background-color: '{{primary-color-0.26}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-icon:after {  border-color: '{{primary-contrast-0.87}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-primary .md-indeterminate[disabled] .md-container {  color: '{{foreground-3}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn .md-ripple {  color: '{{warn-600}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn .md-ink-ripple {  color: '{{foreground-2}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple {  color: '{{warn-color-0.87}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn:not(.md-checked) .md-icon {  border-color: '{{foreground-2}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-icon {  background-color: '{{warn-color-0.87}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked.md-focused:not([disabled]) .md-container:before {  background-color: '{{warn-color-0.26}}'; }md-checkbox.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-icon:after {  border-color: '{{background-200}}'; }md-checkbox.md-THEME_NAME-theme[disabled]:not(.md-checked) .md-icon {  border-color: '{{foreground-3}}'; }md-checkbox.md-THEME_NAME-theme[disabled].md-checked .md-icon {  background-color: '{{foreground-3}}'; }md-checkbox.md-THEME_NAME-theme[disabled].md-checked .md-icon:after {  border-color: '{{background-200}}'; }md-checkbox.md-THEME_NAME-theme[disabled] .md-icon:after {  border-color: '{{foreground-3}}'; }md-checkbox.md-THEME_NAME-theme[disabled] .md-label {  color: '{{foreground-3}}'; }md-chips.md-THEME_NAME-theme .md-chips {  box-shadow: 0 1px '{{foreground-4}}'; }  md-chips.md-THEME_NAME-theme .md-chips.md-focused {    box-shadow: 0 2px '{{primary-color}}'; }  md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input {    color: '{{foreground-1}}'; }    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input::-webkit-input-placeholder {      color: '{{foreground-3}}'; }    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input:-moz-placeholder {      color: '{{foreground-3}}'; }    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input::-moz-placeholder {      color: '{{foreground-3}}'; }    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input:-ms-input-placeholder {      color: '{{foreground-3}}'; }    md-chips.md-THEME_NAME-theme .md-chips .md-chip-input-container input::-webkit-input-placeholder {      color: '{{foreground-3}}'; }md-chips.md-THEME_NAME-theme md-chip {  background: '{{background-300}}';  color: '{{background-800}}'; }  md-chips.md-THEME_NAME-theme md-chip md-icon {    color: '{{background-700}}'; }  md-chips.md-THEME_NAME-theme md-chip.md-focused {    background: '{{primary-color}}';    color: '{{primary-contrast}}'; }    md-chips.md-THEME_NAME-theme md-chip.md-focused md-icon {      color: '{{primary-contrast}}'; }  md-chips.md-THEME_NAME-theme md-chip._md-chip-editing {    background: transparent;    color: '{{background-800}}'; }md-chips.md-THEME_NAME-theme md-chip-remove .md-button md-icon path {  fill: '{{background-500}}'; }.md-contact-suggestion span.md-contact-email {  color: '{{background-400}}'; }md-content.md-THEME_NAME-theme {  color: '{{foreground-1}}';  background-color: '{{background-default}}'; }/** Theme styles for mdCalendar. */.md-calendar.md-THEME_NAME-theme {  background: '{{background-A100}}';  color: '{{background-A200-0.87}}'; }  .md-calendar.md-THEME_NAME-theme tr:last-child td {    border-bottom-color: '{{background-200}}'; }.md-THEME_NAME-theme .md-calendar-day-header {  background: '{{background-300}}';  color: '{{background-A200-0.87}}'; }.md-THEME_NAME-theme .md-calendar-date.md-calendar-date-today .md-calendar-date-selection-indicator {  border: 1px solid '{{primary-500}}'; }.md-THEME_NAME-theme .md-calendar-date.md-calendar-date-today.md-calendar-date-disabled {  color: '{{primary-500-0.6}}'; }.md-calendar-date.md-focus .md-THEME_NAME-theme .md-calendar-date-selection-indicator, .md-THEME_NAME-theme .md-calendar-date-selection-indicator:hover {  background: '{{background-300}}'; }.md-THEME_NAME-theme .md-calendar-date.md-calendar-selected-date .md-calendar-date-selection-indicator,.md-THEME_NAME-theme .md-calendar-date.md-focus.md-calendar-selected-date .md-calendar-date-selection-indicator {  background: '{{primary-500}}';  color: '{{primary-500-contrast}}';  border-color: transparent; }.md-THEME_NAME-theme .md-calendar-date-disabled,.md-THEME_NAME-theme .md-calendar-month-label-disabled {  color: '{{background-A200-0.435}}'; }/** Theme styles for mdDatepicker. */.md-THEME_NAME-theme .md-datepicker-input {  color: '{{foreground-1}}'; }  .md-THEME_NAME-theme .md-datepicker-input::-webkit-input-placeholder {    color: '{{foreground-3}}'; }  .md-THEME_NAME-theme .md-datepicker-input:-moz-placeholder {    color: '{{foreground-3}}'; }  .md-THEME_NAME-theme .md-datepicker-input::-moz-placeholder {    color: '{{foreground-3}}'; }  .md-THEME_NAME-theme .md-datepicker-input:-ms-input-placeholder {    color: '{{foreground-3}}'; }  .md-THEME_NAME-theme .md-datepicker-input::-webkit-input-placeholder {    color: '{{foreground-3}}'; }.md-THEME_NAME-theme .md-datepicker-input-container {  border-bottom-color: '{{foreground-4}}'; }  .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-focused {    border-bottom-color: '{{primary-color}}'; }    .md-accent .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-focused {      border-bottom-color: '{{accent-color}}'; }    .md-warn .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-focused {      border-bottom-color: '{{warn-A700}}'; }  .md-THEME_NAME-theme .md-datepicker-input-container.md-datepicker-invalid {    border-bottom-color: '{{warn-A700}}'; }.md-THEME_NAME-theme .md-datepicker-calendar-pane {  border-color: '{{background-hue-1}}'; }.md-THEME_NAME-theme .md-datepicker-triangle-button .md-datepicker-expand-triangle {  border-top-color: '{{foreground-3}}'; }.md-THEME_NAME-theme .md-datepicker-triangle-button:hover .md-datepicker-expand-triangle {  border-top-color: '{{foreground-2}}'; }.md-THEME_NAME-theme .md-datepicker-open .md-datepicker-calendar-icon {  color: '{{primary-color}}'; }.md-THEME_NAME-theme .md-datepicker-open.md-accent .md-datepicker-calendar-icon, .md-accent .md-THEME_NAME-theme .md-datepicker-open .md-datepicker-calendar-icon {  color: '{{accent-color}}'; }.md-THEME_NAME-theme .md-datepicker-open.md-warn .md-datepicker-calendar-icon, .md-warn .md-THEME_NAME-theme .md-datepicker-open .md-datepicker-calendar-icon {  color: '{{warn-A700}}'; }.md-THEME_NAME-theme .md-datepicker-open .md-datepicker-input-container,.md-THEME_NAME-theme .md-datepicker-input-mask-opaque {  background: '{{background-hue-1}}'; }.md-THEME_NAME-theme .md-datepicker-calendar {  background: '{{background-A100}}'; }md-dialog.md-THEME_NAME-theme {  border-radius: 4px;  background-color: '{{background-hue-1}}';  color: '{{foreground-1}}'; }  md-dialog.md-THEME_NAME-theme.md-content-overflow .md-actions, md-dialog.md-THEME_NAME-theme.md-content-overflow md-dialog-actions {    border-top-color: '{{foreground-4}}'; }md-divider.md-THEME_NAME-theme {  border-top-color: '{{foreground-4}}'; }.layout-row > md-divider.md-THEME_NAME-theme,.layout-xs-row > md-divider.md-THEME_NAME-theme, .layout-gt-xs-row > md-divider.md-THEME_NAME-theme,.layout-sm-row > md-divider.md-THEME_NAME-theme, .layout-gt-sm-row > md-divider.md-THEME_NAME-theme,.layout-md-row > md-divider.md-THEME_NAME-theme, .layout-gt-md-row > md-divider.md-THEME_NAME-theme,.layout-lg-row > md-divider.md-THEME_NAME-theme, .layout-gt-lg-row > md-divider.md-THEME_NAME-theme,.layout-xl-row > md-divider.md-THEME_NAME-theme {  border-right-color: '{{foreground-4}}'; }md-icon.md-THEME_NAME-theme {  color: '{{foreground-2}}'; }  md-icon.md-THEME_NAME-theme.md-primary {    color: '{{primary-color}}'; }  md-icon.md-THEME_NAME-theme.md-accent {    color: '{{accent-color}}'; }  md-icon.md-THEME_NAME-theme.md-warn {    color: '{{warn-color}}'; }md-input-container.md-THEME_NAME-theme .md-input {  color: '{{foreground-1}}';  border-color: '{{foreground-4}}'; }  md-input-container.md-THEME_NAME-theme .md-input::-webkit-input-placeholder {    color: '{{foreground-3}}'; }  md-input-container.md-THEME_NAME-theme .md-input:-moz-placeholder {    color: '{{foreground-3}}'; }  md-input-container.md-THEME_NAME-theme .md-input::-moz-placeholder {    color: '{{foreground-3}}'; }  md-input-container.md-THEME_NAME-theme .md-input:-ms-input-placeholder {    color: '{{foreground-3}}'; }  md-input-container.md-THEME_NAME-theme .md-input::-webkit-input-placeholder {    color: '{{foreground-3}}'; }md-input-container.md-THEME_NAME-theme > md-icon {  color: '{{foreground-1}}'; }md-input-container.md-THEME_NAME-theme label,md-input-container.md-THEME_NAME-theme .md-placeholder {  color: '{{foreground-3}}'; }md-input-container.md-THEME_NAME-theme label.md-required:after {  color: '{{warn-A700}}'; }md-input-container.md-THEME_NAME-theme:not(.md-input-focused):not(.md-input-invalid) label.md-required:after {  color: '{{foreground-2}}'; }md-input-container.md-THEME_NAME-theme .md-input-messages-animation, md-input-container.md-THEME_NAME-theme .md-input-message-animation {  color: '{{warn-A700}}'; }  md-input-container.md-THEME_NAME-theme .md-input-messages-animation .md-char-counter, md-input-container.md-THEME_NAME-theme .md-input-message-animation .md-char-counter {    color: '{{foreground-1}}'; }md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-has-value label {  color: '{{foreground-2}}'; }md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused .md-input, md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-resized .md-input {  border-color: '{{primary-color}}'; }md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused label,md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused md-icon {  color: '{{primary-color}}'; }md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-accent .md-input {  border-color: '{{accent-color}}'; }md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-accent label,md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-accent md-icon {  color: '{{accent-color}}'; }md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-warn .md-input {  border-color: '{{warn-A700}}'; }md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-warn label,md-input-container.md-THEME_NAME-theme:not(.md-input-invalid).md-input-focused.md-warn md-icon {  color: '{{warn-A700}}'; }md-input-container.md-THEME_NAME-theme.md-input-invalid .md-input {  border-color: '{{warn-A700}}'; }md-input-container.md-THEME_NAME-theme.md-input-invalid label,md-input-container.md-THEME_NAME-theme.md-input-invalid .md-input-message-animation,md-input-container.md-THEME_NAME-theme.md-input-invalid .md-char-counter {  color: '{{warn-A700}}'; }md-input-container.md-THEME_NAME-theme .md-input[disabled],[disabled] md-input-container.md-THEME_NAME-theme .md-input {  border-bottom-color: transparent;  color: '{{foreground-3}}';  background-image: linear-gradient(to right, \"{{foreground-3}}\" 0%, \"{{foreground-3}}\" 33%, transparent 0%);  background-image: -ms-linear-gradient(left, transparent 0%, \"{{foreground-3}}\" 100%); }md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text h3, md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text h4,md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text h3,md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text h4 {  color: '{{foreground-1}}'; }md-list.md-THEME_NAME-theme md-list-item.md-2-line .md-list-item-text p,md-list.md-THEME_NAME-theme md-list-item.md-3-line .md-list-item-text p {  color: '{{foreground-2}}'; }md-list.md-THEME_NAME-theme .md-proxy-focus.md-focused div.md-no-style {  background-color: '{{background-100}}'; }md-list.md-THEME_NAME-theme md-list-item .md-avatar-icon {  background-color: '{{foreground-3}}';  color: '{{background-color}}'; }md-list.md-THEME_NAME-theme md-list-item > md-icon {  color: '{{foreground-2}}'; }  md-list.md-THEME_NAME-theme md-list-item > md-icon.md-highlight {    color: '{{primary-color}}'; }    md-list.md-THEME_NAME-theme md-list-item > md-icon.md-highlight.md-accent {      color: '{{accent-color}}'; }md-menu-content.md-THEME_NAME-theme {  background-color: '{{background-A100}}'; }  md-menu-content.md-THEME_NAME-theme md-menu-item {    color: '{{background-A200-0.87}}'; }    md-menu-content.md-THEME_NAME-theme md-menu-item md-icon {      color: '{{background-A200-0.54}}'; }    md-menu-content.md-THEME_NAME-theme md-menu-item .md-button[disabled] {      color: '{{background-A200-0.25}}'; }      md-menu-content.md-THEME_NAME-theme md-menu-item .md-button[disabled] md-icon {        color: '{{background-A200-0.25}}'; }  md-menu-content.md-THEME_NAME-theme md-menu-divider {    background-color: '{{background-A200-0.11}}'; }md-menu-bar.md-THEME_NAME-theme > button.md-button {  color: '{{foreground-2}}';  border-radius: 2px; }md-menu-bar.md-THEME_NAME-theme md-menu.md-open > button, md-menu-bar.md-THEME_NAME-theme md-menu > button:focus {  outline: none;  background: '{{background-200}}'; }md-menu-bar.md-THEME_NAME-theme.md-open:not(.md-keyboard-mode) md-menu:hover > button {  background-color: '{{ background-500-0.2}}'; }md-menu-bar.md-THEME_NAME-theme:not(.md-keyboard-mode):not(.md-open) md-menu button:hover,md-menu-bar.md-THEME_NAME-theme:not(.md-keyboard-mode):not(.md-open) md-menu button:focus {  background: transparent; }md-menu-content.md-THEME_NAME-theme .md-menu > .md-button:after {  color: '{{background-A200-0.54}}'; }md-menu-content.md-THEME_NAME-theme .md-menu.md-open > .md-button {  background-color: '{{ background-500-0.2}}'; }md-toolbar.md-THEME_NAME-theme.md-menu-toolbar {  background-color: '{{background-A100}}';  color: '{{background-A200}}'; }  md-toolbar.md-THEME_NAME-theme.md-menu-toolbar md-toolbar-filler {    background-color: '{{primary-color}}';    color: '{{background-A100-0.87}}'; }    md-toolbar.md-THEME_NAME-theme.md-menu-toolbar md-toolbar-filler md-icon {      color: '{{background-A100-0.87}}'; }md-nav-bar.md-THEME_NAME-theme .md-nav-bar {  background-color: transparent;  border-color: '{{foreground-4}}'; }md-nav-bar.md-THEME_NAME-theme .md-button._md-nav-button.md-unselected {  color: '{{foreground-2}}'; }md-nav-bar.md-THEME_NAME-theme md-nav-ink-bar {  color: '{{accent-color}}';  background: '{{accent-color}}'; }.md-panel {  background-color: '{{background-900-0.0}}'; }  .md-panel._md-panel-backdrop.md-THEME_NAME-theme {    background-color: '{{background-900-1.0}}'; }md-progress-circular.md-THEME_NAME-theme path {  stroke: '{{primary-color}}'; }md-progress-circular.md-THEME_NAME-theme.md-warn path {  stroke: '{{warn-color}}'; }md-progress-circular.md-THEME_NAME-theme.md-accent path {  stroke: '{{accent-color}}'; }md-progress-linear.md-THEME_NAME-theme .md-container {  background-color: '{{primary-100}}'; }md-progress-linear.md-THEME_NAME-theme .md-bar {  background-color: '{{primary-color}}'; }md-progress-linear.md-THEME_NAME-theme.md-warn .md-container {  background-color: '{{warn-100}}'; }md-progress-linear.md-THEME_NAME-theme.md-warn .md-bar {  background-color: '{{warn-color}}'; }md-progress-linear.md-THEME_NAME-theme.md-accent .md-container {  background-color: '{{accent-100}}'; }md-progress-linear.md-THEME_NAME-theme.md-accent .md-bar {  background-color: '{{accent-color}}'; }md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-warn .md-bar1 {  background-color: '{{warn-100}}'; }md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-warn .md-dashed:before {  background: radial-gradient(\"{{warn-100}}\" 0%, \"{{warn-100}}\" 16%, transparent 42%); }md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-accent .md-bar1 {  background-color: '{{accent-100}}'; }md-progress-linear.md-THEME_NAME-theme[md-mode=buffer].md-accent .md-dashed:before {  background: radial-gradient(\"{{accent-100}}\" 0%, \"{{accent-100}}\" 16%, transparent 42%); }md-radio-button.md-THEME_NAME-theme .md-off {  border-color: '{{foreground-2}}'; }md-radio-button.md-THEME_NAME-theme .md-on {  background-color: '{{accent-color-0.87}}'; }md-radio-button.md-THEME_NAME-theme.md-checked .md-off {  border-color: '{{accent-color-0.87}}'; }md-radio-button.md-THEME_NAME-theme.md-checked .md-ink-ripple {  color: '{{accent-color-0.87}}'; }md-radio-button.md-THEME_NAME-theme .md-container .md-ripple {  color: '{{accent-A700}}'; }md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-on, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-on {  background-color: '{{primary-color-0.87}}'; }md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-off {  border-color: '{{primary-color-0.87}}'; }md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary.md-checked .md-ink-ripple {  color: '{{primary-color-0.87}}'; }md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-primary .md-container .md-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-primary .md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-primary .md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-primary .md-container .md-ripple {  color: '{{primary-600}}'; }md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-on, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-on,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-on {  background-color: '{{warn-color-0.87}}'; }md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-off, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-off,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-off {  border-color: '{{warn-color-0.87}}'; }md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-ink-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn.md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-checked .md-ink-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn.md-checked .md-ink-ripple {  color: '{{warn-color-0.87}}'; }md-radio-group.md-THEME_NAME-theme:not([disabled]) .md-warn .md-container .md-ripple, md-radio-group.md-THEME_NAME-theme:not([disabled]).md-warn .md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]) .md-warn .md-container .md-ripple,md-radio-button.md-THEME_NAME-theme:not([disabled]).md-warn .md-container .md-ripple {  color: '{{warn-600}}'; }md-radio-group.md-THEME_NAME-theme[disabled],md-radio-button.md-THEME_NAME-theme[disabled] {  color: '{{foreground-3}}'; }  md-radio-group.md-THEME_NAME-theme[disabled] .md-container .md-off,  md-radio-button.md-THEME_NAME-theme[disabled] .md-container .md-off {    border-color: '{{foreground-3}}'; }  md-radio-group.md-THEME_NAME-theme[disabled] .md-container .md-on,  md-radio-button.md-THEME_NAME-theme[disabled] .md-container .md-on {    border-color: '{{foreground-3}}'; }md-radio-group.md-THEME_NAME-theme .md-checked .md-ink-ripple {  color: '{{accent-color-0.26}}'; }md-radio-group.md-THEME_NAME-theme.md-primary .md-checked:not([disabled]) .md-ink-ripple, md-radio-group.md-THEME_NAME-theme .md-checked:not([disabled]).md-primary .md-ink-ripple {  color: '{{primary-color-0.26}}'; }md-radio-group.md-THEME_NAME-theme .md-checked.md-primary .md-ink-ripple {  color: '{{warn-color-0.26}}'; }md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked .md-container:before {  background-color: '{{accent-color-0.26}}'; }md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty).md-primary .md-checked .md-container:before,md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked.md-primary .md-container:before {  background-color: '{{primary-color-0.26}}'; }md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty).md-warn .md-checked .md-container:before,md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked.md-warn .md-container:before {  background-color: '{{warn-color-0.26}}'; }md-input-container md-select.md-THEME_NAME-theme .md-select-value span:first-child:after {  color: '{{warn-A700}}'; }md-input-container:not(.md-input-focused):not(.md-input-invalid) md-select.md-THEME_NAME-theme .md-select-value span:first-child:after {  color: '{{foreground-3}}'; }md-input-container.md-input-focused:not(.md-input-has-value) md-select.md-THEME_NAME-theme .md-select-value {  color: '{{primary-color}}'; }  md-input-container.md-input-focused:not(.md-input-has-value) md-select.md-THEME_NAME-theme .md-select-value.md-select-placeholder {    color: '{{primary-color}}'; }md-input-container.md-input-invalid md-select.md-THEME_NAME-theme .md-select-value {  color: '{{warn-A700}}' !important;  border-bottom-color: '{{warn-A700}}' !important; }md-input-container.md-input-invalid md-select.md-THEME_NAME-theme.md-no-underline .md-select-value {  border-bottom-color: transparent !important; }md-select.md-THEME_NAME-theme[disabled] .md-select-value {  border-bottom-color: transparent;  background-image: linear-gradient(to right, \"{{foreground-3}}\" 0%, \"{{foreground-3}}\" 33%, transparent 0%);  background-image: -ms-linear-gradient(left, transparent 0%, \"{{foreground-3}}\" 100%); }md-select.md-THEME_NAME-theme .md-select-value {  border-bottom-color: '{{foreground-4}}'; }  md-select.md-THEME_NAME-theme .md-select-value.md-select-placeholder {    color: '{{foreground-3}}'; }  md-select.md-THEME_NAME-theme .md-select-value span:first-child:after {    color: '{{warn-A700}}'; }md-select.md-THEME_NAME-theme.md-no-underline .md-select-value {  border-bottom-color: transparent !important; }md-select.md-THEME_NAME-theme.ng-invalid.ng-touched .md-select-value {  color: '{{warn-A700}}' !important;  border-bottom-color: '{{warn-A700}}' !important; }md-select.md-THEME_NAME-theme.ng-invalid.ng-touched.md-no-underline .md-select-value {  border-bottom-color: transparent !important; }md-select.md-THEME_NAME-theme:not([disabled]):focus .md-select-value {  border-bottom-color: '{{primary-color}}';  color: '{{ foreground-1 }}'; }  md-select.md-THEME_NAME-theme:not([disabled]):focus .md-select-value.md-select-placeholder {    color: '{{ foreground-1 }}'; }md-select.md-THEME_NAME-theme:not([disabled]):focus.md-no-underline .md-select-value {  border-bottom-color: transparent !important; }md-select.md-THEME_NAME-theme:not([disabled]):focus.md-accent .md-select-value {  border-bottom-color: '{{accent-color}}'; }md-select.md-THEME_NAME-theme:not([disabled]):focus.md-warn .md-select-value {  border-bottom-color: '{{warn-color}}'; }md-select.md-THEME_NAME-theme[disabled] .md-select-value {  color: '{{foreground-3}}'; }  md-select.md-THEME_NAME-theme[disabled] .md-select-value.md-select-placeholder {    color: '{{foreground-3}}'; }md-select-menu.md-THEME_NAME-theme md-content {  background: '{{background-A100}}'; }  md-select-menu.md-THEME_NAME-theme md-content md-optgroup {    color: '{{background-600-0.87}}'; }  md-select-menu.md-THEME_NAME-theme md-content md-option {    color: '{{background-900-0.87}}'; }    md-select-menu.md-THEME_NAME-theme md-content md-option[disabled] .md-text {      color: '{{background-400-0.87}}'; }    md-select-menu.md-THEME_NAME-theme md-content md-option:not([disabled]):focus, md-select-menu.md-THEME_NAME-theme md-content md-option:not([disabled]):hover {      background: '{{background-200}}'; }    md-select-menu.md-THEME_NAME-theme md-content md-option[selected] {      color: '{{primary-500}}'; }      md-select-menu.md-THEME_NAME-theme md-content md-option[selected]:focus {        color: '{{primary-600}}'; }      md-select-menu.md-THEME_NAME-theme md-content md-option[selected].md-accent {        color: '{{accent-color}}'; }        md-select-menu.md-THEME_NAME-theme md-content md-option[selected].md-accent:focus {          color: '{{accent-A700}}'; }.md-checkbox-enabled.md-THEME_NAME-theme .md-ripple {  color: '{{primary-600}}'; }.md-checkbox-enabled.md-THEME_NAME-theme[selected] .md-ripple {  color: '{{background-600}}'; }.md-checkbox-enabled.md-THEME_NAME-theme .md-ink-ripple {  color: '{{foreground-2}}'; }.md-checkbox-enabled.md-THEME_NAME-theme[selected] .md-ink-ripple {  color: '{{primary-color-0.87}}'; }.md-checkbox-enabled.md-THEME_NAME-theme:not(.md-checked) .md-icon {  border-color: '{{foreground-2}}'; }.md-checkbox-enabled.md-THEME_NAME-theme[selected] .md-icon {  background-color: '{{primary-color-0.87}}'; }.md-checkbox-enabled.md-THEME_NAME-theme[selected].md-focused .md-container:before {  background-color: '{{primary-color-0.26}}'; }.md-checkbox-enabled.md-THEME_NAME-theme[selected] .md-icon:after {  border-color: '{{primary-contrast-0.87}}'; }.md-checkbox-enabled.md-THEME_NAME-theme .md-indeterminate[disabled] .md-container {  color: '{{foreground-3}}'; }.md-checkbox-enabled.md-THEME_NAME-theme md-option .md-text {  color: '{{background-900-0.87}}'; }md-sidenav.md-THEME_NAME-theme, md-sidenav.md-THEME_NAME-theme md-content {  background-color: '{{background-hue-1}}'; }md-slider.md-THEME_NAME-theme .md-track {  background-color: '{{foreground-3}}'; }md-slider.md-THEME_NAME-theme .md-track-ticks {  color: '{{background-contrast}}'; }md-slider.md-THEME_NAME-theme .md-focus-ring {  background-color: '{{accent-A200-0.2}}'; }md-slider.md-THEME_NAME-theme .md-disabled-thumb {  border-color: '{{background-color}}';  background-color: '{{background-color}}'; }md-slider.md-THEME_NAME-theme.md-min .md-thumb:after {  background-color: '{{background-color}}';  border-color: '{{foreground-3}}'; }md-slider.md-THEME_NAME-theme.md-min .md-focus-ring {  background-color: '{{foreground-3-0.38}}'; }md-slider.md-THEME_NAME-theme.md-min[md-discrete] .md-thumb:after {  background-color: '{{background-contrast}}';  border-color: transparent; }md-slider.md-THEME_NAME-theme.md-min[md-discrete] .md-sign {  background-color: '{{background-400}}'; }  md-slider.md-THEME_NAME-theme.md-min[md-discrete] .md-sign:after {    border-top-color: '{{background-400}}'; }md-slider.md-THEME_NAME-theme.md-min[md-discrete][md-vertical] .md-sign:after {  border-top-color: transparent;  border-left-color: '{{background-400}}'; }md-slider.md-THEME_NAME-theme .md-track.md-track-fill {  background-color: '{{accent-color}}'; }md-slider.md-THEME_NAME-theme .md-thumb:after {  border-color: '{{accent-color}}';  background-color: '{{accent-color}}'; }md-slider.md-THEME_NAME-theme .md-sign {  background-color: '{{accent-color}}'; }  md-slider.md-THEME_NAME-theme .md-sign:after {    border-top-color: '{{accent-color}}'; }md-slider.md-THEME_NAME-theme[md-vertical] .md-sign:after {  border-top-color: transparent;  border-left-color: '{{accent-color}}'; }md-slider.md-THEME_NAME-theme .md-thumb-text {  color: '{{accent-contrast}}'; }md-slider.md-THEME_NAME-theme.md-warn .md-focus-ring {  background-color: '{{warn-200-0.38}}'; }md-slider.md-THEME_NAME-theme.md-warn .md-track.md-track-fill {  background-color: '{{warn-color}}'; }md-slider.md-THEME_NAME-theme.md-warn .md-thumb:after {  border-color: '{{warn-color}}';  background-color: '{{warn-color}}'; }md-slider.md-THEME_NAME-theme.md-warn .md-sign {  background-color: '{{warn-color}}'; }  md-slider.md-THEME_NAME-theme.md-warn .md-sign:after {    border-top-color: '{{warn-color}}'; }md-slider.md-THEME_NAME-theme.md-warn[md-vertical] .md-sign:after {  border-top-color: transparent;  border-left-color: '{{warn-color}}'; }md-slider.md-THEME_NAME-theme.md-warn .md-thumb-text {  color: '{{warn-contrast}}'; }md-slider.md-THEME_NAME-theme.md-primary .md-focus-ring {  background-color: '{{primary-200-0.38}}'; }md-slider.md-THEME_NAME-theme.md-primary .md-track.md-track-fill {  background-color: '{{primary-color}}'; }md-slider.md-THEME_NAME-theme.md-primary .md-thumb:after {  border-color: '{{primary-color}}';  background-color: '{{primary-color}}'; }md-slider.md-THEME_NAME-theme.md-primary .md-sign {  background-color: '{{primary-color}}'; }  md-slider.md-THEME_NAME-theme.md-primary .md-sign:after {    border-top-color: '{{primary-color}}'; }md-slider.md-THEME_NAME-theme.md-primary[md-vertical] .md-sign:after {  border-top-color: transparent;  border-left-color: '{{primary-color}}'; }md-slider.md-THEME_NAME-theme.md-primary .md-thumb-text {  color: '{{primary-contrast}}'; }md-slider.md-THEME_NAME-theme[disabled] .md-thumb:after {  border-color: transparent; }md-slider.md-THEME_NAME-theme[disabled]:not(.md-min) .md-thumb:after, md-slider.md-THEME_NAME-theme[disabled][md-discrete] .md-thumb:after {  background-color: '{{foreground-3}}';  border-color: transparent; }md-slider.md-THEME_NAME-theme[disabled][readonly] .md-sign {  background-color: '{{background-400}}'; }  md-slider.md-THEME_NAME-theme[disabled][readonly] .md-sign:after {    border-top-color: '{{background-400}}'; }md-slider.md-THEME_NAME-theme[disabled][readonly][md-vertical] .md-sign:after {  border-top-color: transparent;  border-left-color: '{{background-400}}'; }md-slider.md-THEME_NAME-theme[disabled][readonly] .md-disabled-thumb {  border-color: transparent;  background-color: transparent; }md-slider-container[disabled] > *:first-child:not(md-slider),md-slider-container[disabled] > *:last-child:not(md-slider) {  color: '{{foreground-3}}'; }.md-subheader.md-THEME_NAME-theme {  color: '{{ foreground-2-0.23 }}';  background-color: '{{background-default}}'; }  .md-subheader.md-THEME_NAME-theme.md-primary {    color: '{{primary-color}}'; }  .md-subheader.md-THEME_NAME-theme.md-accent {    color: '{{accent-color}}'; }  .md-subheader.md-THEME_NAME-theme.md-warn {    color: '{{warn-color}}'; }md-switch.md-THEME_NAME-theme .md-ink-ripple {  color: '{{background-500}}'; }md-switch.md-THEME_NAME-theme .md-thumb {  background-color: '{{background-50}}'; }md-switch.md-THEME_NAME-theme .md-bar {  background-color: '{{background-500}}'; }md-switch.md-THEME_NAME-theme.md-checked .md-ink-ripple {  color: '{{accent-color}}'; }md-switch.md-THEME_NAME-theme.md-checked .md-thumb {  background-color: '{{accent-color}}'; }md-switch.md-THEME_NAME-theme.md-checked .md-bar {  background-color: '{{accent-color-0.5}}'; }md-switch.md-THEME_NAME-theme.md-checked.md-focused .md-thumb:before {  background-color: '{{accent-color-0.26}}'; }md-switch.md-THEME_NAME-theme.md-checked.md-primary .md-ink-ripple {  color: '{{primary-color}}'; }md-switch.md-THEME_NAME-theme.md-checked.md-primary .md-thumb {  background-color: '{{primary-color}}'; }md-switch.md-THEME_NAME-theme.md-checked.md-primary .md-bar {  background-color: '{{primary-color-0.5}}'; }md-switch.md-THEME_NAME-theme.md-checked.md-primary.md-focused .md-thumb:before {  background-color: '{{primary-color-0.26}}'; }md-switch.md-THEME_NAME-theme.md-checked.md-warn .md-ink-ripple {  color: '{{warn-color}}'; }md-switch.md-THEME_NAME-theme.md-checked.md-warn .md-thumb {  background-color: '{{warn-color}}'; }md-switch.md-THEME_NAME-theme.md-checked.md-warn .md-bar {  background-color: '{{warn-color-0.5}}'; }md-switch.md-THEME_NAME-theme.md-checked.md-warn.md-focused .md-thumb:before {  background-color: '{{warn-color-0.26}}'; }md-switch.md-THEME_NAME-theme[disabled] .md-thumb {  background-color: '{{background-400}}'; }md-switch.md-THEME_NAME-theme[disabled] .md-bar {  background-color: '{{foreground-4}}'; }md-tabs.md-THEME_NAME-theme md-tabs-wrapper {  background-color: transparent;  border-color: '{{foreground-4}}'; }md-tabs.md-THEME_NAME-theme .md-paginator md-icon {  color: '{{primary-color}}'; }md-tabs.md-THEME_NAME-theme md-ink-bar {  color: '{{accent-color}}';  background: '{{accent-color}}'; }md-tabs.md-THEME_NAME-theme .md-tab {  color: '{{foreground-2}}'; }  md-tabs.md-THEME_NAME-theme .md-tab[disabled], md-tabs.md-THEME_NAME-theme .md-tab[disabled] md-icon {    color: '{{foreground-3}}'; }  md-tabs.md-THEME_NAME-theme .md-tab.md-active, md-tabs.md-THEME_NAME-theme .md-tab.md-active md-icon, md-tabs.md-THEME_NAME-theme .md-tab.md-focused, md-tabs.md-THEME_NAME-theme .md-tab.md-focused md-icon {    color: '{{primary-color}}'; }  md-tabs.md-THEME_NAME-theme .md-tab.md-focused {    background: '{{primary-color-0.1}}'; }  md-tabs.md-THEME_NAME-theme .md-tab .md-ripple-container {    color: '{{accent-A100}}'; }md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper {  background-color: '{{accent-color}}'; }  md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {    color: '{{accent-A100}}'; }    md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {      color: '{{accent-contrast}}'; }    md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {      background: '{{accent-contrast-0.1}}'; }  md-tabs.md-THEME_NAME-theme.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar {    color: '{{primary-600-1}}';    background: '{{primary-600-1}}'; }md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper {  background-color: '{{primary-color}}'; }  md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {    color: '{{primary-100}}'; }    md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {      color: '{{primary-contrast}}'; }    md-tabs.md-THEME_NAME-theme.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {      background: '{{primary-contrast-0.1}}'; }md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper {  background-color: '{{warn-color}}'; }  md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {    color: '{{warn-100}}'; }    md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {      color: '{{warn-contrast}}'; }    md-tabs.md-THEME_NAME-theme.md-warn > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {      background: '{{warn-contrast-0.1}}'; }md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper {  background-color: '{{primary-color}}'; }  md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {    color: '{{primary-100}}'; }    md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {      color: '{{primary-contrast}}'; }    md-toolbar > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {      background: '{{primary-contrast-0.1}}'; }md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper {  background-color: '{{accent-color}}'; }  md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {    color: '{{accent-A100}}'; }    md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {      color: '{{accent-contrast}}'; }    md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {      background: '{{accent-contrast-0.1}}'; }  md-toolbar.md-accent > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar {    color: '{{primary-600-1}}';    background: '{{primary-600-1}}'; }md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper {  background-color: '{{warn-color}}'; }  md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {    color: '{{warn-100}}'; }    md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active md-icon, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused, md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused md-icon {      color: '{{warn-contrast}}'; }    md-toolbar.md-warn > md-tabs.md-THEME_NAME-theme > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {      background: '{{warn-contrast-0.1}}'; }md-toast.md-THEME_NAME-theme .md-toast-content {  background-color: #323232;  color: '{{background-50}}'; }  md-toast.md-THEME_NAME-theme .md-toast-content .md-button {    color: '{{background-50}}'; }    md-toast.md-THEME_NAME-theme .md-toast-content .md-button.md-highlight {      color: '{{accent-color}}'; }      md-toast.md-THEME_NAME-theme .md-toast-content .md-button.md-highlight.md-primary {        color: '{{primary-color}}'; }      md-toast.md-THEME_NAME-theme .md-toast-content .md-button.md-highlight.md-warn {        color: '{{warn-color}}'; }md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar) {  background-color: '{{primary-color}}';  color: '{{primary-contrast}}'; }  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar) md-icon {    color: '{{primary-contrast}}';    fill: '{{primary-contrast}}'; }  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar) .md-button[disabled] md-icon {    color: '{{primary-contrast-0.26}}';    fill: '{{primary-contrast-0.26}}'; }  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent {    background-color: '{{accent-color}}';    color: '{{accent-contrast}}'; }    md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent .md-ink-ripple {      color: '{{accent-contrast}}'; }    md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent md-icon {      color: '{{accent-contrast}}';      fill: '{{accent-contrast}}'; }    md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-accent .md-button[disabled] md-icon {      color: '{{accent-contrast-0.26}}';      fill: '{{accent-contrast-0.26}}'; }  md-toolbar.md-THEME_NAME-theme:not(.md-menu-toolbar).md-warn {    background-color: '{{warn-color}}';    color: '{{warn-contrast}}'; }md-tooltip.md-THEME_NAME-theme {  color: '{{background-A100}}'; }  md-tooltip.md-THEME_NAME-theme .md-content {    background-color: '{{foreground-2}}'; }"); 
+})();
 
 
-***REMOVED***)(window, window.angular);
+})(window, window.angular);

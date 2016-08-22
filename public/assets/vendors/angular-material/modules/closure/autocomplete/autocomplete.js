@@ -31,14 +31,14 @@ var ITEM_HEIGHT   = 41,
     INPUT_PADDING = 2; // Padding provided by `md-input-container`
 
 function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $mdTheming, $window,
-                             $animate, $rootElement, $attrs, $q, $log) ***REMOVED***
+                             $animate, $rootElement, $attrs, $q, $log) {
 
   // Internal Variables.
   var ctrl                 = this,
       itemParts            = $scope.itemsExpr.split(/ in /i),
       itemExpr             = itemParts[ 1 ],
       elements             = null,
-      cache                = ***REMOVED******REMOVED***,
+      cache                = {},
       noBlur               = false,
       selectedItemWatchers = [],
       hasFocus             = false,
@@ -88,29 +88,29 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $mdTheming,
   /**
    * Initialize the controller, setup watchers, gather elements
    */
-  function init () ***REMOVED***
-    $mdUtil.initOptionalProperties($scope, $attrs, ***REMOVED*** searchText: '', selectedItem: null ***REMOVED***);
+  function init () {
+    $mdUtil.initOptionalProperties($scope, $attrs, { searchText: '', selectedItem: null });
     $mdTheming($element);
     configureWatchers();
-    $mdUtil.nextTick(function () ***REMOVED***
+    $mdUtil.nextTick(function () {
       gatherElements();
       moveDropdown();
       focusElement();
       $element.on('focus', focusElement);
-    ***REMOVED***);
-  ***REMOVED***
+    });
+  }
 
-  function updateModelValidators() ***REMOVED***
+  function updateModelValidators() {
     if (!$scope.requireMatch || !inputModelCtrl) return;
 
     inputModelCtrl.$setValidity('md-require-match', !!$scope.selectedItem);
-  ***REMOVED***
+  }
 
   /**
    * Calculates the dropdown's position and applies the new styles to the menu element
-   * @returns ***REMOVED*******REMOVED***
+   * @returns {*}
    */
-  function positionDropdown () ***REMOVED***
+  function positionDropdown () {
     if (!elements) return $mdUtil.nextTick(positionDropdown, false, $scope);
     var hrect  = elements.wrap.getBoundingClientRect(),
         vrect  = elements.snap.getBoundingClientRect(),
@@ -122,113 +122,113 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $mdTheming,
         offset = getVerticalOffset(),
         styles;
     // Adjust the width to account for the padding provided by `md-input-container`
-    if ($attrs.mdFloatingLabel) ***REMOVED***
+    if ($attrs.mdFloatingLabel) {
       left += INPUT_PADDING;
       width -= INPUT_PADDING * 2;
-    ***REMOVED***
-    styles = ***REMOVED***
+    }
+    styles = {
       left:     left + 'px',
       minWidth: width + 'px',
       maxWidth: Math.max(hrect.right - root.left, root.right - hrect.left) - MENU_PADDING + 'px'
-    ***REMOVED***;
-    if (top > bot && root.height - hrect.bottom - MENU_PADDING < MAX_HEIGHT) ***REMOVED***
+    };
+    if (top > bot && root.height - hrect.bottom - MENU_PADDING < MAX_HEIGHT) {
       styles.top       = 'auto';
       styles.bottom    = bot + 'px';
       styles.maxHeight = Math.min(MAX_HEIGHT, hrect.top - root.top - MENU_PADDING) + 'px';
-    ***REMOVED*** else ***REMOVED***
+    } else {
       styles.top       = (top - offset) + 'px';
       styles.bottom    = 'auto';
       styles.maxHeight = Math.min(MAX_HEIGHT, root.bottom + $mdUtil.scrollTop() - hrect.bottom - MENU_PADDING) + 'px';
-    ***REMOVED***
+    }
 
     elements.$.scrollContainer.css(styles);
     $mdUtil.nextTick(correctHorizontalAlignment, false);
 
     /**
      * Calculates the vertical offset for floating label examples to account for ngMessages
-     * @returns ***REMOVED***number***REMOVED***
+     * @returns {number}
      */
-    function getVerticalOffset () ***REMOVED***
+    function getVerticalOffset () {
       var offset = 0;
       var inputContainer = $element.find('md-input-container');
-      if (inputContainer.length) ***REMOVED***
+      if (inputContainer.length) {
         var input = inputContainer.find('input');
         offset = inputContainer.prop('offsetHeight');
         offset -= input.prop('offsetTop');
         offset -= input.prop('offsetHeight');
         // add in the height left up top for the floating label text
         offset += inputContainer.prop('offsetTop');
-      ***REMOVED***
+      }
       return offset;
-    ***REMOVED***
+    }
 
     /**
      * Makes sure that the menu doesn't go off of the screen on either side.
      */
-    function correctHorizontalAlignment () ***REMOVED***
+    function correctHorizontalAlignment () {
       var dropdown = elements.scrollContainer.getBoundingClientRect(),
-          styles   = ***REMOVED******REMOVED***;
-      if (dropdown.right > root.right - MENU_PADDING) ***REMOVED***
+          styles   = {};
+      if (dropdown.right > root.right - MENU_PADDING) {
         styles.left = (hrect.right - dropdown.width) + 'px';
-      ***REMOVED***
+      }
       elements.$.scrollContainer.css(styles);
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
   /**
    * Moves the dropdown menu to the body tag in order to avoid z-index and overflow issues.
    */
-  function moveDropdown () ***REMOVED***
+  function moveDropdown () {
     if (!elements.$.root.length) return;
     $mdTheming(elements.$.scrollContainer);
     elements.$.scrollContainer.detach();
     elements.$.root.append(elements.$.scrollContainer);
     if ($animate.pin) $animate.pin(elements.$.scrollContainer, $rootElement);
-  ***REMOVED***
+  }
 
   /**
    * Sends focus to the input element.
    */
-  function focusElement () ***REMOVED***
+  function focusElement () {
     if ($scope.autofocus) elements.input.focus();
-  ***REMOVED***
+  }
 
   /**
    * Sets up any watchers used by autocomplete
    */
-  function configureWatchers () ***REMOVED***
+  function configureWatchers () {
     var wait = parseInt($scope.delay, 10) || 0;
-    $attrs.$observe('disabled', function (value) ***REMOVED*** ctrl.isDisabled = $mdUtil.parseAttributeBoolean(value, false); ***REMOVED***);
-    $attrs.$observe('required', function (value) ***REMOVED*** ctrl.isRequired = $mdUtil.parseAttributeBoolean(value, false); ***REMOVED***);
-    $attrs.$observe('readonly', function (value) ***REMOVED*** ctrl.isReadonly = $mdUtil.parseAttributeBoolean(value, false); ***REMOVED***);
+    $attrs.$observe('disabled', function (value) { ctrl.isDisabled = $mdUtil.parseAttributeBoolean(value, false); });
+    $attrs.$observe('required', function (value) { ctrl.isRequired = $mdUtil.parseAttributeBoolean(value, false); });
+    $attrs.$observe('readonly', function (value) { ctrl.isReadonly = $mdUtil.parseAttributeBoolean(value, false); });
     $scope.$watch('searchText', wait ? $mdUtil.debounce(handleSearchText, wait) : handleSearchText);
     $scope.$watch('selectedItem', selectedItemChange);
     angular.element($window).on('resize', positionDropdown);
     $scope.$on('$destroy', cleanup);
-  ***REMOVED***
+  }
 
   /**
    * Removes any events or leftover elements created by this controller
    */
-  function cleanup () ***REMOVED***
-    if (!ctrl.hidden) ***REMOVED***
+  function cleanup () {
+    if (!ctrl.hidden) {
       $mdUtil.enableScrolling();
-    ***REMOVED***
+    }
 
     angular.element($window).off('resize', positionDropdown);
-    if ( elements )***REMOVED***
+    if ( elements ){
       var items = ['ul', 'scroller', 'scrollContainer', 'input'];
-      angular.forEach(items, function(key)***REMOVED***
+      angular.forEach(items, function(key){
         elements.$[key].remove();
-      ***REMOVED***);
-    ***REMOVED***
-  ***REMOVED***
+      });
+    }
+  }
 
   /**
    * Gathers all of the elements needed for this controller
    */
-  function gatherElements () ***REMOVED***
-    elements = ***REMOVED***
+  function gatherElements () {
+    elements = {
       main:  $element[0],
       scrollContainer: $element[0].querySelector('.md-virtual-repeat-container'),
       scroller: $element[0].querySelector('.md-virtual-repeat-scroller'),
@@ -236,38 +236,38 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $mdTheming,
       input: $element.find('input')[0],
       wrap:  $element.find('md-autocomplete-wrap')[0],
       root:  document.body
-    ***REMOVED***;
+    };
 
     elements.li   = elements.ul.getElementsByTagName('li');
     elements.snap = getSnapTarget();
     elements.$    = getAngularElements(elements);
 
     inputModelCtrl = elements.$.input.controller('ngModel');
-  ***REMOVED***
+  }
 
   /**
    * Finds the element that the menu will base its position on
-   * @returns ***REMOVED*******REMOVED***
+   * @returns {*}
    */
-  function getSnapTarget () ***REMOVED***
-    for (var element = $element; element.length; element = element.parent()) ***REMOVED***
+  function getSnapTarget () {
+    for (var element = $element; element.length; element = element.parent()) {
       if (angular.isDefined(element.attr('md-autocomplete-snap'))) return element[ 0 ];
-    ***REMOVED***
+    }
     return elements.wrap;
-  ***REMOVED***
+  }
 
   /**
    * Gathers angular-wrapped versions of each element
    * @param elements
-   * @returns ***REMOVED******REMOVED******REMOVED******REMOVED***
+   * @returns {{}}
    */
-  function getAngularElements (elements) ***REMOVED***
-    var obj = ***REMOVED******REMOVED***;
-    for (var key in elements) ***REMOVED***
+  function getAngularElements (elements) {
+    var obj = {};
+    for (var key in elements) {
       if (elements.hasOwnProperty(key)) obj[ key ] = angular.element(elements[ key ]);
-    ***REMOVED***
+    }
     return obj;
-  ***REMOVED***
+  }
 
   //-- event/change handlers
 
@@ -276,110 +276,110 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $mdTheming,
    * @param hidden
    * @param oldHidden
    */
-  function handleHiddenChange (hidden, oldHidden) ***REMOVED***
-    if (!hidden && oldHidden) ***REMOVED***
+  function handleHiddenChange (hidden, oldHidden) {
+    if (!hidden && oldHidden) {
       positionDropdown();
 
-      if (elements) ***REMOVED***
-        $mdUtil.nextTick(function () ***REMOVED***
+      if (elements) {
+        $mdUtil.nextTick(function () {
           $mdUtil.disableScrollAround(elements.ul);
           enableWrapScroll = disableElementScrollEvents(angular.element(elements.wrap));
-        ***REMOVED***, false, $scope);
-      ***REMOVED***
-    ***REMOVED*** else if (hidden && !oldHidden) ***REMOVED***
-      $mdUtil.nextTick(function () ***REMOVED***
+        }, false, $scope);
+      }
+    } else if (hidden && !oldHidden) {
+      $mdUtil.nextTick(function () {
         $mdUtil.enableScrolling();
 
-        if (enableWrapScroll) ***REMOVED***
+        if (enableWrapScroll) {
           enableWrapScroll();
           enableWrapScroll = null;
-        ***REMOVED***
-      ***REMOVED***, false, $scope);
-    ***REMOVED***
-  ***REMOVED***
+        }
+      }, false, $scope);
+    }
+  }
 
   /**
    * Disables scrolling for a specific element
    */
-  function disableElementScrollEvents(element) ***REMOVED***
+  function disableElementScrollEvents(element) {
 
-    function preventDefault(e) ***REMOVED***
+    function preventDefault(e) {
       e.preventDefault();
-    ***REMOVED***
+    }
 
     element.on('wheel', preventDefault);
     element.on('touchmove', preventDefault);
 
-    return function() ***REMOVED***
+    return function() {
       element.off('wheel', preventDefault);
       element.off('touchmove', preventDefault);
-    ***REMOVED***;
-  ***REMOVED***
+    };
+  }
 
   /**
    * When the user mouses over the dropdown menu, ignore blur events.
    */
-  function onListEnter () ***REMOVED***
+  function onListEnter () {
     noBlur = true;
-  ***REMOVED***
+  }
 
   /**
    * When the user's mouse leaves the menu, blur events may hide the menu again.
    */
-  function onListLeave () ***REMOVED***
+  function onListLeave () {
     if (!hasFocus && !ctrl.hidden) elements.input.focus();
     noBlur = false;
     ctrl.hidden = shouldHide();
-  ***REMOVED***
+  }
 
   /**
    * When the mouse button is released, send focus back to the input field.
    */
-  function onMouseup () ***REMOVED***
+  function onMouseup () {
     elements.input.focus();
-  ***REMOVED***
+  }
 
   /**
    * Handles changes to the selected item.
    * @param selectedItem
    * @param previousSelectedItem
    */
-  function selectedItemChange (selectedItem, previousSelectedItem) ***REMOVED***
+  function selectedItemChange (selectedItem, previousSelectedItem) {
 
     updateModelValidators();
 
-    if (selectedItem) ***REMOVED***
-      getDisplayValue(selectedItem).then(function (val) ***REMOVED***
+    if (selectedItem) {
+      getDisplayValue(selectedItem).then(function (val) {
         $scope.searchText = val;
         handleSelectedItemChange(selectedItem, previousSelectedItem);
-      ***REMOVED***);
-    ***REMOVED*** else if (previousSelectedItem && $scope.searchText) ***REMOVED***
-      getDisplayValue(previousSelectedItem).then(function(displayValue) ***REMOVED***
+      });
+    } else if (previousSelectedItem && $scope.searchText) {
+      getDisplayValue(previousSelectedItem).then(function(displayValue) {
         // Clear the searchText, when the selectedItem is set to null.
         // Do not clear the searchText, when the searchText isn't matching with the previous
         // selected item.
-        if (displayValue.toString().toLowerCase() === $scope.searchText.toLowerCase()) ***REMOVED***
+        if (displayValue.toString().toLowerCase() === $scope.searchText.toLowerCase()) {
           $scope.searchText = '';
-        ***REMOVED***
-      ***REMOVED***);
-    ***REMOVED***
+        }
+      });
+    }
 
     if (selectedItem !== previousSelectedItem) announceItemChange();
-  ***REMOVED***
+  }
 
   /**
    * Use the user-defined expression to announce changes each time a new item is selected
    */
-  function announceItemChange () ***REMOVED***
+  function announceItemChange () {
     angular.isFunction($scope.itemChange) && $scope.itemChange(getItemAsNameVal($scope.selectedItem));
-  ***REMOVED***
+  }
 
   /**
    * Use the user-defined expression to announce changes each time the search text is changed
    */
-  function announceTextChange () ***REMOVED***
+  function announceTextChange () {
     angular.isFunction($scope.textChange) && $scope.textChange();
-  ***REMOVED***
+  }
 
   /**
    * Calls any external watchers listening for the selected item.  Used in conjunction with
@@ -387,37 +387,37 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $mdTheming,
    * @param selectedItem
    * @param previousSelectedItem
    */
-  function handleSelectedItemChange (selectedItem, previousSelectedItem) ***REMOVED***
-    selectedItemWatchers.forEach(function (watcher) ***REMOVED*** watcher(selectedItem, previousSelectedItem); ***REMOVED***);
-  ***REMOVED***
+  function handleSelectedItemChange (selectedItem, previousSelectedItem) {
+    selectedItemWatchers.forEach(function (watcher) { watcher(selectedItem, previousSelectedItem); });
+  }
 
   /**
    * Register a function to be called when the selected item changes.
    * @param cb
    */
-  function registerSelectedItemWatcher (cb) ***REMOVED***
-    if (selectedItemWatchers.indexOf(cb) == -1) ***REMOVED***
+  function registerSelectedItemWatcher (cb) {
+    if (selectedItemWatchers.indexOf(cb) == -1) {
       selectedItemWatchers.push(cb);
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
   /**
    * Unregister a function previously registered for selected item changes.
    * @param cb
    */
-  function unregisterSelectedItemWatcher (cb) ***REMOVED***
+  function unregisterSelectedItemWatcher (cb) {
     var i = selectedItemWatchers.indexOf(cb);
-    if (i != -1) ***REMOVED***
+    if (i != -1) {
       selectedItemWatchers.splice(i, 1);
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
   /**
    * Handles changes to the searchText property.
    * @param searchText
    * @param previousSearchText
    */
-  function handleSearchText (searchText, previousSearchText) ***REMOVED***
+  function handleSearchText (searchText, previousSearchText) {
     ctrl.index = getDefaultIndex();
 
     // do nothing on init
@@ -425,66 +425,66 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $mdTheming,
 
     updateModelValidators();
 
-    getDisplayValue($scope.selectedItem).then(function (val) ***REMOVED***
+    getDisplayValue($scope.selectedItem).then(function (val) {
       // clear selected item if search text no longer matches it
-      if (searchText !== val) ***REMOVED***
+      if (searchText !== val) {
         $scope.selectedItem = null;
 
         // trigger change event if available
         if (searchText !== previousSearchText) announceTextChange();
 
         // cancel results if search text is not long enough
-        if (!isMinLengthMet()) ***REMOVED***
+        if (!isMinLengthMet()) {
           ctrl.matches = [];
           setLoading(false);
           updateMessages();
-        ***REMOVED*** else ***REMOVED***
+        } else {
           handleQuery();
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***);
+        }
+      }
+    });
 
-  ***REMOVED***
+  }
 
   /**
    * Handles input blur event, determines if the dropdown should hide.
    */
-  function blur () ***REMOVED***
+  function blur () {
     hasFocus = false;
-    if (!noBlur) ***REMOVED***
+    if (!noBlur) {
       ctrl.hidden = shouldHide();
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
   /**
    * Force blur on input element
    * @param forceBlur
    */
-  function doBlur(forceBlur) ***REMOVED***
-    if (forceBlur) ***REMOVED***
+  function doBlur(forceBlur) {
+    if (forceBlur) {
       noBlur = false;
       hasFocus = false;
-    ***REMOVED***
+    }
     elements.input.blur();
-  ***REMOVED***
+  }
 
   /**
    * Handles input focus event, determines if the dropdown should show.
    */
-  function focus($event) ***REMOVED***
+  function focus($event) {
     hasFocus = true;
     //-- if searchText is null, let's force it to be a string
     if (!angular.isString($scope.searchText)) $scope.searchText = '';
     ctrl.hidden = shouldHide();
     if (!ctrl.hidden) handleQuery();
-  ***REMOVED***
+  }
 
   /**
    * Handles keyboard input.
    * @param event
    */
-  function keydown (event) ***REMOVED***
-    switch (event.keyCode) ***REMOVED***
+  function keydown (event) {
+    switch (event.keyCode) {
       case $mdConstant.KEY_CODE.DOWN_ARROW:
         if (ctrl.loading) return;
         event.stopPropagation();
@@ -521,166 +521,166 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $mdTheming,
         event.stopPropagation();
 
         clearSelectedItem();
-        if ($scope.searchText && hasEscapeOption('clear')) ***REMOVED***
+        if ($scope.searchText && hasEscapeOption('clear')) {
           clearSearchText();
-        ***REMOVED***
+        }
 
         // Manually hide (needed for mdNotFound support)
         ctrl.hidden = true;
 
-        if (hasEscapeOption('blur')) ***REMOVED***
+        if (hasEscapeOption('blur')) {
           // Force the component to blur if they hit escape
           doBlur(true);
-        ***REMOVED***
+        }
 
         break;
       default:
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
   //-- getters
 
   /**
    * Returns the minimum length needed to display the dropdown.
-   * @returns ***REMOVED*******REMOVED***
+   * @returns {*}
    */
-  function getMinLength () ***REMOVED***
+  function getMinLength () {
     return angular.isNumber($scope.minLength) ? $scope.minLength : 1;
-  ***REMOVED***
+  }
 
   /**
    * Returns the display value for an item.
    * @param item
-   * @returns ***REMOVED*******REMOVED***
+   * @returns {*}
    */
-  function getDisplayValue (item) ***REMOVED***
-    return $q.when(getItemText(item) || item).then(function(itemText) ***REMOVED***
-      if (itemText && !angular.isString(itemText)) ***REMOVED***
+  function getDisplayValue (item) {
+    return $q.when(getItemText(item) || item).then(function(itemText) {
+      if (itemText && !angular.isString(itemText)) {
         $log.warn('md-autocomplete: Could not resolve display value to a string. ' +
           'Please check the `md-item-text` attribute.');
-      ***REMOVED***
+      }
 
       return itemText;
-    ***REMOVED***);
+    });
 
     /**
      * Getter function to invoke user-defined expression (in the directive)
      * to convert your object to a single string.
      */
-    function getItemText (item) ***REMOVED***
+    function getItemText (item) {
       return (item && $scope.itemText) ? $scope.itemText(getItemAsNameVal(item)) : null;
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
   /**
    * Returns the locals object for compiling item templates.
    * @param item
-   * @returns ***REMOVED******REMOVED******REMOVED******REMOVED***
+   * @returns {{}}
    */
-  function getItemAsNameVal (item) ***REMOVED***
+  function getItemAsNameVal (item) {
     if (!item) return undefined;
 
-    var locals = ***REMOVED******REMOVED***;
+    var locals = {};
     if (ctrl.itemName) locals[ ctrl.itemName ] = item;
 
     return locals;
-  ***REMOVED***
+  }
 
   /**
    * Returns the default index based on whether or not autoselect is enabled.
-   * @returns ***REMOVED***number***REMOVED***
+   * @returns {number}
    */
-  function getDefaultIndex () ***REMOVED***
+  function getDefaultIndex () {
     return $scope.autoselect ? 0 : -1;
-  ***REMOVED***
+  }
 
   /**
    * Sets the loading parameter and updates the hidden state.
-   * @param value ***REMOVED***boolean***REMOVED*** Whether or not the component is currently loading.
+   * @param value {boolean} Whether or not the component is currently loading.
    */
-  function setLoading(value) ***REMOVED***
-    if (ctrl.loading != value) ***REMOVED***
+  function setLoading(value) {
+    if (ctrl.loading != value) {
       ctrl.loading = value;
-    ***REMOVED***
+    }
 
     // Always refresh the hidden variable as something else might have changed
     ctrl.hidden = shouldHide();
-  ***REMOVED***
+  }
 
   /**
    * Determines if the menu should be hidden.
-   * @returns ***REMOVED***boolean***REMOVED***
+   * @returns {boolean}
    */
-  function shouldHide () ***REMOVED***
+  function shouldHide () {
     if (ctrl.loading && !hasMatches()) return true; // Hide while loading initial matches
     else if (hasSelection()) return true;           // Hide if there is already a selection
     else if (!hasFocus) return true;                // Hide if the input does not have focus
     else return !shouldShow();                      // Defer to standard show logic
-  ***REMOVED***
+  }
 
   /**
    * Determines if the escape keydown should be processed
-   * @returns ***REMOVED***boolean***REMOVED***
+   * @returns {boolean}
    */
-  function shouldProcessEscape() ***REMOVED***
+  function shouldProcessEscape() {
     return hasEscapeOption('blur') || !ctrl.hidden || ctrl.loading || hasEscapeOption('clear') && $scope.searchText;
-  ***REMOVED***
+  }
 
   /**
    * Determines if an escape option is set
-   * @returns ***REMOVED***boolean***REMOVED***
+   * @returns {boolean}
    */
-  function hasEscapeOption(option) ***REMOVED***
+  function hasEscapeOption(option) {
     return !$scope.escapeOptions || $scope.escapeOptions.toLowerCase().indexOf(option) !== -1;
-  ***REMOVED***
+  }
 
   /**
    * Determines if the menu should be shown.
-   * @returns ***REMOVED***boolean***REMOVED***
+   * @returns {boolean}
    */
-  function shouldShow() ***REMOVED***
+  function shouldShow() {
     return (isMinLengthMet() && hasMatches()) || notFoundVisible();
-  ***REMOVED***
+  }
 
   /**
    * Returns true if the search text has matches.
-   * @returns ***REMOVED***boolean***REMOVED***
+   * @returns {boolean}
    */
-  function hasMatches() ***REMOVED***
+  function hasMatches() {
     return ctrl.matches.length ? true : false;
-  ***REMOVED***
+  }
 
   /**
    * Returns true if the autocomplete has a valid selection.
-   * @returns ***REMOVED***boolean***REMOVED***
+   * @returns {boolean}
    */
-  function hasSelection() ***REMOVED***
+  function hasSelection() {
     return ctrl.scope.selectedItem ? true : false;
-  ***REMOVED***
+  }
 
   /**
    * Returns true if the loading indicator is, or should be, visible.
-   * @returns ***REMOVED***boolean***REMOVED***
+   * @returns {boolean}
    */
-  function loadingIsVisible() ***REMOVED***
+  function loadingIsVisible() {
     return ctrl.loading && !hasSelection();
-  ***REMOVED***
+  }
 
   /**
    * Returns the display value of the current item.
-   * @returns ***REMOVED*******REMOVED***
+   * @returns {*}
    */
-  function getCurrentDisplayValue () ***REMOVED***
+  function getCurrentDisplayValue () {
     return getDisplayValue(ctrl.matches[ ctrl.index ]);
-  ***REMOVED***
+  }
 
   /**
    * Determines if the minimum length is met by the search text.
-   * @returns ***REMOVED*******REMOVED***
+   * @returns {*}
    */
-  function isMinLengthMet () ***REMOVED***
+  function isMinLengthMet () {
     return ($scope.searchText || '').length >= getMinLength();
-  ***REMOVED***
+  }
 
   //-- actions
 
@@ -690,56 +690,56 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $mdTheming,
    * @param handler
    * @param value
    */
-  function defineProperty (key, handler, value) ***REMOVED***
-    Object.defineProperty(ctrl, key, ***REMOVED***
-      get: function () ***REMOVED*** return value; ***REMOVED***,
-      set: function (newValue) ***REMOVED***
+  function defineProperty (key, handler, value) {
+    Object.defineProperty(ctrl, key, {
+      get: function () { return value; },
+      set: function (newValue) {
         var oldValue = value;
         value        = newValue;
         handler(newValue, oldValue);
-      ***REMOVED***
-    ***REMOVED***);
-  ***REMOVED***
+      }
+    });
+  }
 
   /**
    * Selects the item at the given index.
    * @param index
    */
-  function select (index) ***REMOVED***
+  function select (index) {
     //-- force form to update state for validation
-    $mdUtil.nextTick(function () ***REMOVED***
-      getDisplayValue(ctrl.matches[ index ]).then(function (val) ***REMOVED***
+    $mdUtil.nextTick(function () {
+      getDisplayValue(ctrl.matches[ index ]).then(function (val) {
         var ngModel = elements.$.input.controller('ngModel');
         ngModel.$setViewValue(val);
         ngModel.$render();
-      ***REMOVED***).finally(function () ***REMOVED***
+      }).finally(function () {
         $scope.selectedItem = ctrl.matches[ index ];
         setLoading(false);
-      ***REMOVED***);
-    ***REMOVED***, false);
-  ***REMOVED***
+      });
+    }, false);
+  }
 
   /**
    * Clears the searchText value and selected item.
    */
-  function clearValue () ***REMOVED***
+  function clearValue () {
     clearSelectedItem();
     clearSearchText();
-  ***REMOVED***
+  }
 
   /**
    * Clears the selected item
    */
-  function clearSelectedItem () ***REMOVED***
+  function clearSelectedItem () {
     // Reset our variables
     ctrl.index = 0;
     ctrl.matches = [];
-  ***REMOVED***
+  }
 
   /**
    * Clears the searchText value
    */
-  function clearSearchText () ***REMOVED***
+  function clearSearchText () {
     // Set the loading to true so we don't see flashes of content.
     // The flashing will only occur when an async request is running.
     // So the loading process will stop when the results had been retrieved.
@@ -752,7 +752,7 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $mdTheming,
     // Using the `input` is not working properly, because for example IE11 is not supporting the `input` event.
     // The `change` event is a good alternative and is supported by all supported browsers.
     var eventObj = document.createEvent('CustomEvent');
-    eventObj.initCustomEvent('change', true, true, ***REMOVED*** value: '' ***REMOVED***);
+    eventObj.initCustomEvent('change', true, true, { value: '' });
     elements.input.dispatchEvent(eventObj);
 
     // For some reason, firing the above event resets the value of $scope.searchText if
@@ -761,13 +761,13 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $mdTheming,
     elements.input.blur();
     $scope.searchText = '';
     elements.input.focus();
-  ***REMOVED***
+  }
 
   /**
    * Fetches the results for the provided search text.
    * @param searchText
    */
-  function fetchResults (searchText) ***REMOVED***
+  function fetchResults (searchText) {
     var items = $scope.$parent.$eval(itemExpr),
         term  = searchText.toLowerCase(),
         isList = angular.isArray(items),
@@ -776,118 +776,118 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $mdTheming,
     if (isList) onResultsRetrieved(items);
     else if (isPromise) handleAsyncResults(items);
 
-    function handleAsyncResults(items) ***REMOVED***
+    function handleAsyncResults(items) {
       if ( !items ) return;
 
       items = $q.when(items);
       fetchesInProgress++;
       setLoading(true);
 
-      $mdUtil.nextTick(function () ***REMOVED***
+      $mdUtil.nextTick(function () {
           items
             .then(onResultsRetrieved)
-            .finally(function()***REMOVED***
-              if (--fetchesInProgress === 0) ***REMOVED***
+            .finally(function(){
+              if (--fetchesInProgress === 0) {
                 setLoading(false);
-              ***REMOVED***
-            ***REMOVED***);
-      ***REMOVED***,true, $scope);
-    ***REMOVED***
+              }
+            });
+      },true, $scope);
+    }
 
-    function onResultsRetrieved(matches) ***REMOVED***
+    function onResultsRetrieved(matches) {
       cache[term] = matches;
 
       // Just cache the results if the request is now outdated.
       // The request becomes outdated, when the new searchText has changed during the result fetching.
-      if ((searchText || '') !== ($scope.searchText || '')) ***REMOVED***
+      if ((searchText || '') !== ($scope.searchText || '')) {
         return;
-      ***REMOVED***
+      }
 
       handleResults(matches);
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
   /**
    * Updates the ARIA messages
    */
-  function updateMessages () ***REMOVED***
-    getCurrentDisplayValue().then(function (msg) ***REMOVED***
+  function updateMessages () {
+    getCurrentDisplayValue().then(function (msg) {
       ctrl.messages = [ getCountMessage(), msg ];
-    ***REMOVED***);
-  ***REMOVED***
+    });
+  }
 
   /**
    * Returns the ARIA message for how many results match the current query.
-   * @returns ***REMOVED*******REMOVED***
+   * @returns {*}
    */
-  function getCountMessage () ***REMOVED***
+  function getCountMessage () {
     if (lastCount === ctrl.matches.length) return '';
     lastCount = ctrl.matches.length;
-    switch (ctrl.matches.length) ***REMOVED***
+    switch (ctrl.matches.length) {
       case 0:
         return 'There are no matches available.';
       case 1:
         return 'There is 1 match available.';
       default:
         return 'There are ' + ctrl.matches.length + ' matches available.';
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
   /**
    * Makes sure that the focused element is within view.
    */
-  function updateScroll () ***REMOVED***
+  function updateScroll () {
     if (!elements.li[0]) return;
     var height = elements.li[0].offsetHeight,
         top = height * ctrl.index,
         bot = top + height,
         hgt = elements.scroller.clientHeight,
         scrollTop = elements.scroller.scrollTop;
-    if (top < scrollTop) ***REMOVED***
+    if (top < scrollTop) {
       scrollTo(top);
-    ***REMOVED*** else if (bot > scrollTop + hgt) ***REMOVED***
+    } else if (bot > scrollTop + hgt) {
       scrollTo(bot - hgt);
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
-  function isPromiseFetching() ***REMOVED***
+  function isPromiseFetching() {
     return fetchesInProgress !== 0;
-  ***REMOVED***
+  }
 
-  function scrollTo (offset) ***REMOVED***
+  function scrollTo (offset) {
     elements.$.scrollContainer.controller('mdVirtualRepeatContainer').scrollTo(offset);
-  ***REMOVED***
+  }
 
-  function notFoundVisible () ***REMOVED***
+  function notFoundVisible () {
     var textLength = (ctrl.scope.searchText || '').length;
 
     return ctrl.hasNotFound && !hasMatches() && (!ctrl.loading || isPromiseFetching()) && textLength >= getMinLength() && (hasFocus || noBlur) && !hasSelection();
-  ***REMOVED***
+  }
 
   /**
    * Starts the query to gather the results for the current searchText.  Attempts to return cached
    * results first, then forwards the process to `fetchResults` if necessary.
    */
-  function handleQuery () ***REMOVED***
+  function handleQuery () {
     var searchText = $scope.searchText || '';
     var term = searchText.toLowerCase();
 
     // If caching is enabled and the current searchText is stored in the cache
-    if (!$scope.noCache && cache[term]) ***REMOVED***
+    if (!$scope.noCache && cache[term]) {
       // The results should be handled as same as a normal un-cached request does.
       handleResults(cache[term]);
-    ***REMOVED*** else ***REMOVED***
+    } else {
       fetchResults(searchText);
-    ***REMOVED***
+    }
 
     ctrl.hidden = shouldHide();
-  ***REMOVED***
+  }
 
   /**
    * Handles the retrieved results by showing them in the autocompletes dropdown.
    * @param results Retrieved results
    */
-  function handleResults(results) ***REMOVED***
+  function handleResults(results) {
     ctrl.matches = results;
     ctrl.hidden  = shouldHide();
 
@@ -899,28 +899,28 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $mdTheming,
 
     updateMessages();
     positionDropdown();
-  ***REMOVED***
+  }
 
   /**
    * If there is only one matching item and the search text matches its display value exactly,
    * automatically select that item.  Note: This function is only called if the user uses the
    * `md-select-on-match` flag.
    */
-  function selectItemOnMatch () ***REMOVED***
+  function selectItemOnMatch () {
     var searchText = $scope.searchText,
         matches    = ctrl.matches,
         item       = matches[ 0 ];
-    if (matches.length === 1) getDisplayValue(item).then(function (displayValue) ***REMOVED***
+    if (matches.length === 1) getDisplayValue(item).then(function (displayValue) {
       var isMatching = searchText == displayValue;
-      if ($scope.matchInsensitive && !isMatching) ***REMOVED***
+      if ($scope.matchInsensitive && !isMatching) {
         isMatching = searchText.toLowerCase() == displayValue.toLowerCase();
-      ***REMOVED***
+      }
 
       if (isMatching) select(0);
-    ***REMOVED***);
-  ***REMOVED***
+    });
+  }
 
-***REMOVED***
+}
 MdAutocompleteCtrl.$inject = ["$scope", "$element", "$mdUtil", "$mdConstant", "$mdTheming", "$window", "$animate", "$rootElement", "$attrs", "$q", "$log"];
 
 angular
@@ -966,46 +966,46 @@ angular
  *   [VirtualRepeatContainer](/api/directive/mdVirtualRepeatContainer) documentation.
  *
  *
- * @param ***REMOVED***expression***REMOVED*** md-items An expression in the format of `item in items` to iterate over
+ * @param {expression} md-items An expression in the format of `item in items` to iterate over
  *     matches for your search.
- * @param ***REMOVED***expression=***REMOVED*** md-selected-item-change An expression to be run each time a new item is
+ * @param {expression=} md-selected-item-change An expression to be run each time a new item is
  *     selected
- * @param ***REMOVED***expression=***REMOVED*** md-search-text-change An expression to be run each time the search text
+ * @param {expression=} md-search-text-change An expression to be run each time the search text
  *     updates
- * @param ***REMOVED***expression=***REMOVED*** md-search-text A model to bind the search query text to
- * @param ***REMOVED***object=***REMOVED*** md-selected-item A model to bind the selected item to
- * @param ***REMOVED***expression=***REMOVED*** md-item-text An expression that will convert your object to a single string.
- * @param ***REMOVED***string=***REMOVED*** placeholder Placeholder text that will be forwarded to the input.
- * @param ***REMOVED***boolean=***REMOVED*** md-no-cache Disables the internal caching that happens in autocomplete
- * @param ***REMOVED***boolean=***REMOVED*** ng-disabled Determines whether or not to disable the input field
- * @param ***REMOVED***boolean=***REMOVED*** md-require-match When set to true, the autocomplete will add a validator,
+ * @param {expression=} md-search-text A model to bind the search query text to
+ * @param {object=} md-selected-item A model to bind the selected item to
+ * @param {expression=} md-item-text An expression that will convert your object to a single string.
+ * @param {string=} placeholder Placeholder text that will be forwarded to the input.
+ * @param {boolean=} md-no-cache Disables the internal caching that happens in autocomplete
+ * @param {boolean=} ng-disabled Determines whether or not to disable the input field
+ * @param {boolean=} md-require-match When set to true, the autocomplete will add a validator,
  *     which will evaluate to false, when no item is currently selected.
- * @param ***REMOVED***number=***REMOVED*** md-min-length Specifies the minimum length of text before autocomplete will
+ * @param {number=} md-min-length Specifies the minimum length of text before autocomplete will
  *     make suggestions
- * @param ***REMOVED***number=***REMOVED*** md-delay Specifies the amount of time (in milliseconds) to wait before looking
+ * @param {number=} md-delay Specifies the amount of time (in milliseconds) to wait before looking
  *     for results
- * @param ***REMOVED***boolean=***REMOVED*** md-autofocus If true, the autocomplete will be automatically focused when a `$mdDialog`,
+ * @param {boolean=} md-autofocus If true, the autocomplete will be automatically focused when a `$mdDialog`,
  *     `$mdBottomsheet` or `$mdSidenav`, which contains the autocomplete, is opening. <br/><br/>
  *     Also the autocomplete will immediately focus the input element.
- * @param ***REMOVED***boolean=***REMOVED*** md-no-asterisk When present, asterisk will not be appended to the floating label
- * @param ***REMOVED***boolean=***REMOVED*** md-autoselect If set to true, the first item will be automatically selected
+ * @param {boolean=} md-no-asterisk When present, asterisk will not be appended to the floating label
+ * @param {boolean=} md-autoselect If set to true, the first item will be automatically selected
  *     in the dropdown upon open.
- * @param ***REMOVED***string=***REMOVED*** md-menu-class This will be applied to the dropdown menu for styling
- * @param ***REMOVED***string=***REMOVED*** md-floating-label This will add a floating label to autocomplete and wrap it in
+ * @param {string=} md-menu-class This will be applied to the dropdown menu for styling
+ * @param {string=} md-floating-label This will add a floating label to autocomplete and wrap it in
  *     `md-input-container`
- * @param ***REMOVED***string=***REMOVED*** md-input-name The name attribute given to the input element to be used with
+ * @param {string=} md-input-name The name attribute given to the input element to be used with
  *     FormController
- * @param ***REMOVED***string=***REMOVED*** md-select-on-focus When present the inputs text will be automatically selected
+ * @param {string=} md-select-on-focus When present the inputs text will be automatically selected
  *     on focus.
- * @param ***REMOVED***string=***REMOVED*** md-input-id An ID to be added to the input element
- * @param ***REMOVED***number=***REMOVED*** md-input-minlength The minimum length for the input's value for validation
- * @param ***REMOVED***number=***REMOVED*** md-input-maxlength The maximum length for the input's value for validation
- * @param ***REMOVED***boolean=***REMOVED*** md-select-on-match When set, autocomplete will automatically select exact
+ * @param {string=} md-input-id An ID to be added to the input element
+ * @param {number=} md-input-minlength The minimum length for the input's value for validation
+ * @param {number=} md-input-maxlength The maximum length for the input's value for validation
+ * @param {boolean=} md-select-on-match When set, autocomplete will automatically select exact
  *     the item if the search text is an exact match. <br/><br/>
  *     Exact match means that there is only one match showing up.
- * @param ***REMOVED***boolean=***REMOVED*** md-match-case-insensitive When set and using `md-select-on-match`, autocomplete
+ * @param {boolean=} md-match-case-insensitive When set and using `md-select-on-match`, autocomplete
  *     will select on case-insensitive match
- * @param ***REMOVED***string=***REMOVED*** md-escape-options Override escape key logic. Default is `blur clear`.<br/>
+ * @param {string=} md-escape-options Override escape key logic. Default is `blur clear`.<br/>
  *     Options: `blur | clear`, `none`
  *
  * @usage
@@ -1016,7 +1016,7 @@ angular
  *       md-search-text="searchText"
  *       md-items="item in getMatches(searchText)"
  *       md-item-text="item.display">
- *     <span md-highlight-text="searchText">***REMOVED******REMOVED***item.display***REMOVED******REMOVED***</span>
+ *     <span md-highlight-text="searchText">{{item.display}}</span>
  *   </md-autocomplete>
  * </hljs>
  *
@@ -1028,7 +1028,7 @@ angular
  *     md-items="item in getMatches(searchText)"
  *     md-item-text="item.display">
  *   <md-item-template>
- *     <span md-highlight-text="searchText">***REMOVED******REMOVED***item.display***REMOVED******REMOVED***</span>
+ *     <span md-highlight-text="searchText">{{item.display}}</span>
  *   </md-item-template>
  *   <md-not-found>
  *     No matches found.
@@ -1050,7 +1050,7 @@ angular
  *       md-items="item in getMatches(searchText)"
  *       md-item-text="item.display">
  *     <md-item-template>
- *       <span md-highlight-text="searchText">***REMOVED******REMOVED***item.display***REMOVED******REMOVED***</span>
+ *       <span md-highlight-text="searchText">{{item.display}}</span>
  *     </md-item-template>
  *     <div ng-messages="autocompleteForm.autocomplete.$error">
  *       <div ng-message="required">This field is required</div>
@@ -1063,12 +1063,12 @@ angular
  *     input validation for the field.
  */
 
-function MdAutocomplete ($$mdSvgRegistry) ***REMOVED***
+function MdAutocomplete ($$mdSvgRegistry) {
 
-  return ***REMOVED***
+  return {
     controller:   'MdAutocompleteCtrl',
     controllerAs: '$mdAutocompleteCtrl',
-    scope:        ***REMOVED***
+    scope:        {
       inputName:        '@mdInputName',
       inputMinlength:   '@mdInputMinlength',
       inputMaxlength:   '@mdInputMaxlength',
@@ -1091,13 +1091,13 @@ function MdAutocomplete ($$mdSvgRegistry) ***REMOVED***
       menuClass:        '@?mdMenuClass',
       inputId:          '@?mdInputId',
       escapeOptions:    '@?mdEscapeOptions'
-    ***REMOVED***,
-    link: function(scope, element, attrs, controller) ***REMOVED***
+    },
+    link: function(scope, element, attrs, controller) {
       // Retrieve the state of using a md-not-found template by using our attribute, which will
       // be added to the element in the template function.
       controller.hasNotFound = !!element.attr('md-has-not-found');
-    ***REMOVED***,
-    template:     function (element, attr) ***REMOVED***
+    },
+    template:     function (element, attr) {
       var noItemsTemplate = getNoItemsTemplate(),
           itemTemplate    = getItemTemplate(),
           leftover        = element.html(),
@@ -1114,7 +1114,7 @@ function MdAutocomplete ($$mdSvgRegistry) ***REMOVED***
 
       return '\
         <md-autocomplete-wrap\
-            ng-class="***REMOVED*** \'md-whiteframe-z1\': !floatingLabel, \'md-menu-showing\': !$mdAutocompleteCtrl.hidden ***REMOVED***">\
+            ng-class="{ \'md-whiteframe-z1\': !floatingLabel, \'md-menu-showing\': !$mdAutocompleteCtrl.hidden }">\
           ' + getInputElement() + '\
           <md-progress-linear\
               class="' + (attr.mdFloatingLabel ? 'md-inline' : '') + '"\
@@ -1128,13 +1128,13 @@ function MdAutocomplete ($$mdSvgRegistry) ***REMOVED***
               ng-mouseup="$mdAutocompleteCtrl.mouseUp()"\
               ng-hide="$mdAutocompleteCtrl.hidden"\
               class="md-autocomplete-suggestions-container md-whiteframe-z1"\
-              ng-class="***REMOVED*** \'md-not-found\': $mdAutocompleteCtrl.notFoundVisible() ***REMOVED***"\
+              ng-class="{ \'md-not-found\': $mdAutocompleteCtrl.notFoundVisible() }"\
               role="presentation">\
             <ul class="md-autocomplete-suggestions"\
                 ng-class="::menuClass"\
-                id="ul-***REMOVED******REMOVED***$mdAutocompleteCtrl.id***REMOVED******REMOVED***">\
+                id="ul-{{$mdAutocompleteCtrl.id}}">\
               <li md-virtual-repeat="item in $mdAutocompleteCtrl.matches"\
-                  ng-class="***REMOVED*** selected: $index === $mdAutocompleteCtrl.index ***REMOVED***"\
+                  ng-class="{ selected: $index === $mdAutocompleteCtrl.index }"\
                   ng-click="$mdAutocompleteCtrl.select($index)"\
                   md-extra-name="$mdAutocompleteCtrl.itemName">\
                   ' + itemTemplate + '\
@@ -1146,17 +1146,17 @@ function MdAutocomplete ($$mdSvgRegistry) ***REMOVED***
             class="md-visually-hidden"\
             role="status"\
             aria-live="assertive">\
-          <p ng-repeat="message in $mdAutocompleteCtrl.messages track by $index" ng-if="message">***REMOVED******REMOVED***message***REMOVED******REMOVED***</p>\
+          <p ng-repeat="message in $mdAutocompleteCtrl.messages track by $index" ng-if="message">{{message}}</p>\
         </aria-status>';
 
-      function getItemTemplate() ***REMOVED***
+      function getItemTemplate() {
         var templateTag = element.find('md-item-template').detach(),
             html = templateTag.length ? templateTag.html() : element.html();
         if (!templateTag.length) element.empty();
         return '<md-autocomplete-parent-scope md-autocomplete-replace>' + html + '</md-autocomplete-parent-scope>';
-      ***REMOVED***
+      }
 
-      function getNoItemsTemplate() ***REMOVED***
+      function getNoItemsTemplate() {
         var templateTag = element.find('md-not-found').detach(),
             template = templateTag.length ? templateTag.html() : '';
         return template
@@ -1164,17 +1164,17 @@ function MdAutocomplete ($$mdSvgRegistry) ***REMOVED***
                          md-autocomplete-parent-scope>' + template + '</li>'
             : '';
 
-      ***REMOVED***
+      }
 
-      function getInputElement () ***REMOVED***
-        if (attr.mdFloatingLabel) ***REMOVED***
+      function getInputElement () {
+        if (attr.mdFloatingLabel) {
           return '\
             <md-input-container ng-if="floatingLabel">\
-              <label>***REMOVED******REMOVED***floatingLabel***REMOVED******REMOVED***</label>\
+              <label>{{floatingLabel}}</label>\
               <input type="search"\
                   ' + (tabindex != null ? 'tabindex="' + tabindex + '"' : '') + '\
-                  id="***REMOVED******REMOVED*** inputId || \'fl-input-\' + $mdAutocompleteCtrl.id ***REMOVED******REMOVED***"\
-                  name="***REMOVED******REMOVED***inputName***REMOVED******REMOVED***"\
+                  id="{{ inputId || \'fl-input-\' + $mdAutocompleteCtrl.id }}"\
+                  name="{{inputName}}"\
                   autocomplete="off"\
                   ng-required="$mdAutocompleteCtrl.isRequired"\
                   ng-readonly="$mdAutocompleteCtrl.isReadonly"\
@@ -1182,27 +1182,27 @@ function MdAutocomplete ($$mdSvgRegistry) ***REMOVED***
                   ng-maxlength="inputMaxlength"\
                   ng-disabled="$mdAutocompleteCtrl.isDisabled"\
                   ng-model="$mdAutocompleteCtrl.scope.searchText"\
-                  ng-model-options="***REMOVED*** allowInvalid: true ***REMOVED***"\
+                  ng-model-options="{ allowInvalid: true }"\
                   ng-keydown="$mdAutocompleteCtrl.keydown($event)"\
                   ng-blur="$mdAutocompleteCtrl.blur()"\
                   ' + (attr.mdNoAsterisk != null ? 'md-no-asterisk="' + attr.mdNoAsterisk + '"' : '') + '\
                   ng-focus="$mdAutocompleteCtrl.focus($event)"\
-                  aria-owns="ul-***REMOVED******REMOVED***$mdAutocompleteCtrl.id***REMOVED******REMOVED***"\
+                  aria-owns="ul-{{$mdAutocompleteCtrl.id}}"\
                   ' + (attr.mdSelectOnFocus != null ? 'md-select-on-focus=""' : '') + '\
-                  aria-label="***REMOVED******REMOVED***floatingLabel***REMOVED******REMOVED***"\
+                  aria-label="{{floatingLabel}}"\
                   aria-autocomplete="list"\
                   role="combobox"\
                   aria-haspopup="true"\
                   aria-activedescendant=""\
-                  aria-expanded="***REMOVED******REMOVED***!$mdAutocompleteCtrl.hidden***REMOVED******REMOVED***"/>\
+                  aria-expanded="{{!$mdAutocompleteCtrl.hidden}}"/>\
               <div md-autocomplete-parent-scope md-autocomplete-replace>' + leftover + '</div>\
             </md-input-container>';
-        ***REMOVED*** else ***REMOVED***
+        } else {
           return '\
             <input type="search"\
                 ' + (tabindex != null ? 'tabindex="' + tabindex + '"' : '') + '\
-                id="***REMOVED******REMOVED*** inputId || \'input-\' + $mdAutocompleteCtrl.id ***REMOVED******REMOVED***"\
-                name="***REMOVED******REMOVED***inputName***REMOVED******REMOVED***"\
+                id="{{ inputId || \'input-\' + $mdAutocompleteCtrl.id }}"\
+                name="{{inputName}}"\
                 ng-if="!floatingLabel"\
                 autocomplete="off"\
                 ng-required="$mdAutocompleteCtrl.isRequired"\
@@ -1212,15 +1212,15 @@ function MdAutocomplete ($$mdSvgRegistry) ***REMOVED***
                 ng-keydown="$mdAutocompleteCtrl.keydown($event)"\
                 ng-blur="$mdAutocompleteCtrl.blur()"\
                 ng-focus="$mdAutocompleteCtrl.focus($event)"\
-                placeholder="***REMOVED******REMOVED***placeholder***REMOVED******REMOVED***"\
-                aria-owns="ul-***REMOVED******REMOVED***$mdAutocompleteCtrl.id***REMOVED******REMOVED***"\
+                placeholder="{{placeholder}}"\
+                aria-owns="ul-{{$mdAutocompleteCtrl.id}}"\
                 ' + (attr.mdSelectOnFocus != null ? 'md-select-on-focus=""' : '') + '\
-                aria-label="***REMOVED******REMOVED***placeholder***REMOVED******REMOVED***"\
+                aria-label="{{placeholder}}"\
                 aria-autocomplete="list"\
                 role="combobox"\
                 aria-haspopup="true"\
                 aria-activedescendant=""\
-                aria-expanded="***REMOVED******REMOVED***!$mdAutocompleteCtrl.hidden***REMOVED******REMOVED***"/>\
+                aria-expanded="{{!$mdAutocompleteCtrl.hidden}}"/>\
             <button\
                 type="button"\
                 tabindex="-1"\
@@ -1230,27 +1230,27 @@ function MdAutocomplete ($$mdSvgRegistry) ***REMOVED***
               <span class="md-visually-hidden">Clear</span>\
             </button>\
                 ';
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***
+        }
+      }
+    }
+  };
+}
 MdAutocomplete.$inject = ["$$mdSvgRegistry"];
 
 angular
   .module('material.components.autocomplete')
   .directive('mdAutocompleteParentScope', MdAutocompleteItemScopeDirective);
 
-function MdAutocompleteItemScopeDirective($compile, $mdUtil) ***REMOVED***
-  return ***REMOVED***
+function MdAutocompleteItemScopeDirective($compile, $mdUtil) {
+  return {
     restrict: 'AE',
     compile: compile,
     terminal: true,
     transclude: 'element'
-  ***REMOVED***;
+  };
 
-  function compile(tElement, tAttr, transclude) ***REMOVED***
-    return function postLink(scope, element, attr) ***REMOVED***
+  function compile(tElement, tAttr, transclude) {
+    return function postLink(scope, element, attr) {
       var ctrl = scope.$mdAutocompleteCtrl;
       var newScope = ctrl.parent.$new();
       var itemName = ctrl.itemName;
@@ -1263,96 +1263,96 @@ function MdAutocompleteItemScopeDirective($compile, $mdUtil) ***REMOVED***
       connectScopes();
 
       // Link the element against newScope.
-      transclude(newScope, function(clone) ***REMOVED***
+      transclude(newScope, function(clone) {
         element.after(clone);
-      ***REMOVED***);
+      });
 
       /**
        * Creates a watcher for variables that are copied from the parent scope
        * @param variable
        * @param alias
        */
-      function watchVariable(variable, alias) ***REMOVED***
+      function watchVariable(variable, alias) {
         newScope[alias] = scope[variable];
 
-        scope.$watch(variable, function(value) ***REMOVED***
-          $mdUtil.nextTick(function() ***REMOVED***
+        scope.$watch(variable, function(value) {
+          $mdUtil.nextTick(function() {
             newScope[alias] = value;
-          ***REMOVED***);
-        ***REMOVED***);
-      ***REMOVED***
+          });
+        });
+      }
 
       /**
        * Creates watchers on scope and newScope that ensure that for any
        * $digest of scope, newScope is also $digested.
        */
-      function connectScopes() ***REMOVED***
+      function connectScopes() {
         var scopeDigesting = false;
         var newScopeDigesting = false;
 
-        scope.$watch(function() ***REMOVED***
-          if (newScopeDigesting || scopeDigesting) ***REMOVED***
+        scope.$watch(function() {
+          if (newScopeDigesting || scopeDigesting) {
             return;
-          ***REMOVED***
+          }
 
           scopeDigesting = true;
-          scope.$$postDigest(function() ***REMOVED***
-            if (!newScopeDigesting) ***REMOVED***
+          scope.$$postDigest(function() {
+            if (!newScopeDigesting) {
               newScope.$digest();
-            ***REMOVED***
+            }
 
             scopeDigesting = newScopeDigesting = false;
-          ***REMOVED***);
-        ***REMOVED***);
+          });
+        });
 
-        newScope.$watch(function() ***REMOVED***
+        newScope.$watch(function() {
           newScopeDigesting = true;
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***
-***REMOVED***
+        });
+      }
+    };
+  }
+}
 MdAutocompleteItemScopeDirective.$inject = ["$compile", "$mdUtil"];
 angular
     .module('material.components.autocomplete')
     .controller('MdHighlightCtrl', MdHighlightCtrl);
 
-function MdHighlightCtrl ($scope, $element, $attrs) ***REMOVED***
+function MdHighlightCtrl ($scope, $element, $attrs) {
   this.init = init;
 
-  function init (termExpr, unsafeTextExpr) ***REMOVED***
+  function init (termExpr, unsafeTextExpr) {
     var text = null,
         regex = null,
         flags = $attrs.mdHighlightFlags || '',
-        watcher = $scope.$watch(function($scope) ***REMOVED***
-          return ***REMOVED***
+        watcher = $scope.$watch(function($scope) {
+          return {
             term: termExpr($scope),
             unsafeText: unsafeTextExpr($scope)
-          ***REMOVED***;
-        ***REMOVED***, function (state, prevState) ***REMOVED***
-          if (text === null || state.unsafeText !== prevState.unsafeText) ***REMOVED***
+          };
+        }, function (state, prevState) {
+          if (text === null || state.unsafeText !== prevState.unsafeText) {
             text = angular.element('<div>').text(state.unsafeText).html();
-          ***REMOVED***
-          if (regex === null || state.term !== prevState.term) ***REMOVED***
+          }
+          if (regex === null || state.term !== prevState.term) {
             regex = getRegExp(state.term, flags);
-          ***REMOVED***
+          }
 
           $element.html(text.replace(regex, '<span class="highlight">$&</span>'));
-        ***REMOVED***, true);
+        }, true);
     $element.on('$destroy', watcher);
-  ***REMOVED***
+  }
 
-  function sanitize (term) ***REMOVED***
-    return term && term.toString().replace(/[\\\^\$\*\+\?\.\(\)\|\***REMOVED******REMOVED***\[\]]/g, '\\$&');
-  ***REMOVED***
+  function sanitize (term) {
+    return term && term.toString().replace(/[\\\^\$\*\+\?\.\(\)\|\{}\[\]]/g, '\\$&');
+  }
 
-  function getRegExp (text, flags) ***REMOVED***
+  function getRegExp (text, flags) {
     var startFlag = '', endFlag = '';
     if (flags.indexOf('^') >= 0) startFlag = '^';
     if (flags.indexOf('$') >= 0) endFlag = '$';
     return new RegExp(startFlag + sanitize(text) + endFlag, flags.replace(/[\$\^]/g, ''));
-  ***REMOVED***
-***REMOVED***
+  }
+}
 MdHighlightCtrl.$inject = ["$scope", "$element", "$attrs"];
 
 angular
@@ -1369,8 +1369,8 @@ angular
  *     an element.  Highlighted text will be wrapped in `<span class="highlight"></span>` which can
  *     be styled through CSS.  Please note that child elements may not be used with this directive.
  *
- * @param ***REMOVED***string***REMOVED*** md-highlight-text A model to be searched for
- * @param ***REMOVED***string=***REMOVED*** md-highlight-flags A list of flags (loosely based on JavaScript RexExp flags).
+ * @param {string} md-highlight-text A model to be searched for
+ * @param {string=} md-highlight-flags A list of flags (loosely based on JavaScript RexExp flags).
  * #### **Supported flags**:
  * - `g`: Find all matches within the provided text
  * - `i`: Ignore case when searching for matches
@@ -1382,26 +1382,26 @@ angular
  * <input placeholder="Enter a search term..." ng-model="searchTerm" type="text" />
  * <ul>
  *   <li ng-repeat="result in results" md-highlight-text="searchTerm">
- *     ***REMOVED******REMOVED***result.text***REMOVED******REMOVED***
+ *     {{result.text}}
  *   </li>
  * </ul>
  * </hljs>
  */
 
-function MdHighlight ($interpolate, $parse) ***REMOVED***
-  return ***REMOVED***
+function MdHighlight ($interpolate, $parse) {
+  return {
     terminal: true,
     controller: 'MdHighlightCtrl',
-    compile: function mdHighlightCompile(tElement, tAttr) ***REMOVED***
+    compile: function mdHighlightCompile(tElement, tAttr) {
       var termExpr = $parse(tAttr.mdHighlightText);
       var unsafeTextExpr = $interpolate(tElement.html());
 
-      return function mdHighlightLink(scope, element, attr, ctrl) ***REMOVED***
+      return function mdHighlightLink(scope, element, attr, ctrl) {
         ctrl.init(termExpr, unsafeTextExpr);
-      ***REMOVED***;
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***
+      };
+    }
+  };
+}
 MdHighlight.$inject = ["$interpolate", "$parse"];
 
 ngmaterial.components.autocomplete = angular.module("material.components.autocomplete");

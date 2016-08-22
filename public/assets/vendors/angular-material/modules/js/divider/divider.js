@@ -4,7 +4,7 @@
  * @license MIT
  * v1.1.0
  */
-(function( window, angular, undefined )***REMOVED***
+(function( window, angular, undefined ){
 "use strict";
 
 /**
@@ -26,7 +26,7 @@ angular.module('material.components.divider', [
  * @description
  * Dividers group and separate content within lists and page layouts using strong visual and spatial distinctions. This divider is a thin rule, lightweight enough to not distract the user from content.
  *
- * @param ***REMOVED***boolean=***REMOVED*** md-inset Add this attribute to activate the inset divider style.
+ * @param {boolean=} md-inset Add this attribute to activate the inset divider style.
  * @usage
  * <hljs lang="html">
  * <md-divider></md-divider>
@@ -35,12 +35,12 @@ angular.module('material.components.divider', [
  * </hljs>
  *
  */
-function MdDividerDirective($mdTheming) ***REMOVED***
-  return ***REMOVED***
+function MdDividerDirective($mdTheming) {
+  return {
     restrict: 'E',
     link: $mdTheming
-  ***REMOVED***;
-***REMOVED***
+  };
+}
 MdDividerDirective.$inject = ["$mdTheming"];
 
-***REMOVED***)(window, window.angular);
+})(window, window.angular);

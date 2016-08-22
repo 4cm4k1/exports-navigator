@@ -27,7 +27,7 @@ var BOUND_MENU_METHODS = ['handleKeyDown', 'handleMenuHover', 'scheduleOpenHover
 /**
  * ngInject
  */
-function MenuBarController($scope, $rootScope, $element, $attrs, $mdConstant, $document, $mdUtil, $timeout) ***REMOVED***
+function MenuBarController($scope, $rootScope, $element, $attrs, $mdConstant, $document, $mdUtil, $timeout) {
   this.$element = $element;
   this.$attrs = $attrs;
   this.$mdConstant = $mdConstant;
@@ -38,13 +38,13 @@ function MenuBarController($scope, $rootScope, $element, $attrs, $mdConstant, $d
   this.$timeout = $timeout;
 
   var self = this;
-  angular.forEach(BOUND_MENU_METHODS, function(methodName) ***REMOVED***
+  angular.forEach(BOUND_MENU_METHODS, function(methodName) {
     self[methodName] = angular.bind(self, self[methodName]);
-  ***REMOVED***);
-***REMOVED***
+  });
+}
 MenuBarController.$inject = ["$scope", "$rootScope", "$element", "$attrs", "$mdConstant", "$document", "$mdUtil", "$timeout"];
 
-MenuBarController.prototype.init = function() ***REMOVED***
+MenuBarController.prototype.init = function() {
   var $element = this.$element;
   var $mdUtil = this.$mdUtil;
   var $scope = this.$scope;
@@ -54,122 +54,122 @@ MenuBarController.prototype.init = function() ***REMOVED***
   $element.on('keydown', this.handleKeyDown);
   this.parentToolbar = $mdUtil.getClosest($element, 'MD-TOOLBAR');
 
-  deregisterFns.push(this.$rootScope.$on('$mdMenuOpen', function(event, el) ***REMOVED***
-    if (self.getMenus().indexOf(el[0]) != -1) ***REMOVED***
+  deregisterFns.push(this.$rootScope.$on('$mdMenuOpen', function(event, el) {
+    if (self.getMenus().indexOf(el[0]) != -1) {
       $element[0].classList.add('md-open');
       el[0].classList.add('md-open');
       self.currentlyOpenMenu = el.controller('mdMenu');
       self.currentlyOpenMenu.registerContainerProxy(self.handleKeyDown);
       self.enableOpenOnHover();
-    ***REMOVED***
-  ***REMOVED***));
+    }
+  }));
 
-  deregisterFns.push(this.$rootScope.$on('$mdMenuClose', function(event, el, opts) ***REMOVED***
+  deregisterFns.push(this.$rootScope.$on('$mdMenuClose', function(event, el, opts) {
     var rootMenus = self.getMenus();
-    if (rootMenus.indexOf(el[0]) != -1) ***REMOVED***
+    if (rootMenus.indexOf(el[0]) != -1) {
       $element[0].classList.remove('md-open');
       el[0].classList.remove('md-open');
-    ***REMOVED***
+    }
 
-    if ($element[0].contains(el[0])) ***REMOVED***
+    if ($element[0].contains(el[0])) {
       var parentMenu = el[0];
-      while (parentMenu && rootMenus.indexOf(parentMenu) == -1) ***REMOVED***
+      while (parentMenu && rootMenus.indexOf(parentMenu) == -1) {
         parentMenu = $mdUtil.getClosest(parentMenu, 'MD-MENU', true);
-      ***REMOVED***
-      if (parentMenu) ***REMOVED***
+      }
+      if (parentMenu) {
         if (!opts.skipFocus) parentMenu.querySelector('button:not([disabled])').focus();
         self.currentlyOpenMenu = undefined;
         self.disableOpenOnHover();
         self.setKeyboardMode(true);
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***));
+      }
+    }
+  }));
 
-  $scope.$on('$destroy', function() ***REMOVED***
-    while (deregisterFns.length) ***REMOVED***
+  $scope.$on('$destroy', function() {
+    while (deregisterFns.length) {
       deregisterFns.shift()();
-    ***REMOVED***
-  ***REMOVED***);
+    }
+  });
 
 
   this.setKeyboardMode(true);
-***REMOVED***;
+};
 
-MenuBarController.prototype.setKeyboardMode = function(enabled) ***REMOVED***
+MenuBarController.prototype.setKeyboardMode = function(enabled) {
   if (enabled) this.$element[0].classList.add('md-keyboard-mode');
   else this.$element[0].classList.remove('md-keyboard-mode');
-***REMOVED***;
+};
 
-MenuBarController.prototype.enableOpenOnHover = function() ***REMOVED***
+MenuBarController.prototype.enableOpenOnHover = function() {
   if (this.openOnHoverEnabled) return;
   this.openOnHoverEnabled = true;
 
   var parentToolbar;
-  if (parentToolbar = this.parentToolbar) ***REMOVED***
+  if (parentToolbar = this.parentToolbar) {
     parentToolbar.dataset.mdRestoreStyle = parentToolbar.getAttribute('style');
     parentToolbar.style.position = 'relative';
     parentToolbar.style.zIndex = 100;
-  ***REMOVED***
+  }
   angular
     .element(this.getMenus())
     .on('mouseenter', this.handleMenuHover);
-***REMOVED***;
+};
 
-MenuBarController.prototype.handleMenuHover = function(e) ***REMOVED***
+MenuBarController.prototype.handleMenuHover = function(e) {
   this.setKeyboardMode(false);
-  if (this.openOnHoverEnabled) ***REMOVED***
+  if (this.openOnHoverEnabled) {
     this.scheduleOpenHoveredMenu(e);
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 
-MenuBarController.prototype.disableOpenOnHover = function() ***REMOVED***
+MenuBarController.prototype.disableOpenOnHover = function() {
   if (!this.openOnHoverEnabled) return;
   this.openOnHoverEnabled = false;
   var parentToolbar;
-  if (parentToolbar = this.parentToolbar) ***REMOVED***
+  if (parentToolbar = this.parentToolbar) {
     parentToolbar.style.cssText = parentToolbar.dataset.mdRestoreStyle || '';
-  ***REMOVED***
+  }
   angular
     .element(this.getMenus())
     .off('mouseenter', this.handleMenuHover);
-***REMOVED***;
+};
 
-MenuBarController.prototype.scheduleOpenHoveredMenu = function(e) ***REMOVED***
+MenuBarController.prototype.scheduleOpenHoveredMenu = function(e) {
   var menuEl = angular.element(e.currentTarget);
   var menuCtrl = menuEl.controller('mdMenu');
   this.setKeyboardMode(false);
   this.scheduleOpenMenu(menuCtrl);
-***REMOVED***;
+};
 
-MenuBarController.prototype.scheduleOpenMenu = function(menuCtrl) ***REMOVED***
+MenuBarController.prototype.scheduleOpenMenu = function(menuCtrl) {
   var self = this;
   var $timeout = this.$timeout;
-  if (menuCtrl != self.currentlyOpenMenu) ***REMOVED***
+  if (menuCtrl != self.currentlyOpenMenu) {
     $timeout.cancel(self.pendingMenuOpen);
-    self.pendingMenuOpen = $timeout(function() ***REMOVED***
+    self.pendingMenuOpen = $timeout(function() {
       self.pendingMenuOpen = undefined;
-      if (self.currentlyOpenMenu) ***REMOVED***
-        self.currentlyOpenMenu.close(true, ***REMOVED*** closeAll: true ***REMOVED***);
-      ***REMOVED***
+      if (self.currentlyOpenMenu) {
+        self.currentlyOpenMenu.close(true, { closeAll: true });
+      }
       menuCtrl.open();
-    ***REMOVED***, 200, false);
-  ***REMOVED***
-***REMOVED***;
+    }, 200, false);
+  }
+};
 
-MenuBarController.prototype.handleKeyDown = function(e) ***REMOVED***
+MenuBarController.prototype.handleKeyDown = function(e) {
   var keyCodes = this.$mdConstant.KEY_CODE;
   var currentMenu = this.currentlyOpenMenu;
   var wasOpen = currentMenu && currentMenu.isOpen;
   this.setKeyboardMode(true);
   var handled, newMenu, newMenuCtrl;
-  switch (e.keyCode) ***REMOVED***
+  switch (e.keyCode) {
     case keyCodes.DOWN_ARROW:
-      if (currentMenu) ***REMOVED***
+      if (currentMenu) {
         currentMenu.focusMenuContainer();
-      ***REMOVED*** else ***REMOVED***
+      } else {
         this.openFocusedMenu();
-      ***REMOVED***
+      }
       handled = true;
       break;
     case keyCodes.UP_ARROW:
@@ -178,65 +178,65 @@ MenuBarController.prototype.handleKeyDown = function(e) ***REMOVED***
       break;
     case keyCodes.LEFT_ARROW:
       newMenu = this.focusMenu(-1);
-      if (wasOpen) ***REMOVED***
+      if (wasOpen) {
         newMenuCtrl = angular.element(newMenu).controller('mdMenu');
         this.scheduleOpenMenu(newMenuCtrl);
-      ***REMOVED***
+      }
       handled = true;
       break;
     case keyCodes.RIGHT_ARROW:
       newMenu = this.focusMenu(+1);
-      if (wasOpen) ***REMOVED***
+      if (wasOpen) {
         newMenuCtrl = angular.element(newMenu).controller('mdMenu');
         this.scheduleOpenMenu(newMenuCtrl);
-      ***REMOVED***
+      }
       handled = true;
       break;
-  ***REMOVED***
-  if (handled) ***REMOVED***
+  }
+  if (handled) {
     e && e.preventDefault && e.preventDefault();
     e && e.stopImmediatePropagation && e.stopImmediatePropagation();
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
-MenuBarController.prototype.focusMenu = function(direction) ***REMOVED***
+MenuBarController.prototype.focusMenu = function(direction) {
   var menus = this.getMenus();
   var focusedIndex = this.getFocusedMenuIndex();
 
-  if (focusedIndex == -1) ***REMOVED*** focusedIndex = this.getOpenMenuIndex(); ***REMOVED***
+  if (focusedIndex == -1) { focusedIndex = this.getOpenMenuIndex(); }
 
   var changed = false;
 
-  if (focusedIndex == -1) ***REMOVED*** focusedIndex = 0; changed = true; ***REMOVED***
+  if (focusedIndex == -1) { focusedIndex = 0; changed = true; }
   else if (
     direction < 0 && focusedIndex > 0 ||
     direction > 0 && focusedIndex < menus.length - direction
-  ) ***REMOVED***
+  ) {
     focusedIndex += direction;
     changed = true;
-  ***REMOVED***
-  if (changed) ***REMOVED***
+  }
+  if (changed) {
     menus[focusedIndex].querySelector('button').focus();
     return menus[focusedIndex];
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
-MenuBarController.prototype.openFocusedMenu = function() ***REMOVED***
+MenuBarController.prototype.openFocusedMenu = function() {
   var menu = this.getFocusedMenu();
   menu && angular.element(menu).controller('mdMenu').open();
-***REMOVED***;
+};
 
-MenuBarController.prototype.getMenus = function() ***REMOVED***
+MenuBarController.prototype.getMenus = function() {
   var $element = this.$element;
   return this.$mdUtil.nodesToArray($element[0].children)
-    .filter(function(el) ***REMOVED*** return el.nodeName == 'MD-MENU'; ***REMOVED***);
-***REMOVED***;
+    .filter(function(el) { return el.nodeName == 'MD-MENU'; });
+};
 
-MenuBarController.prototype.getFocusedMenu = function() ***REMOVED***
+MenuBarController.prototype.getFocusedMenu = function() {
   return this.getMenus()[this.getFocusedMenuIndex()];
-***REMOVED***;
+};
 
-MenuBarController.prototype.getFocusedMenuIndex = function() ***REMOVED***
+MenuBarController.prototype.getFocusedMenuIndex = function() {
   var $mdUtil = this.$mdUtil;
   var focusedEl = $mdUtil.getClosest(
     this.$document[0].activeElement,
@@ -247,15 +247,15 @@ MenuBarController.prototype.getFocusedMenuIndex = function() ***REMOVED***
   var focusedIndex = this.getMenus().indexOf(focusedEl);
   return focusedIndex;
 
-***REMOVED***;
+};
 
-MenuBarController.prototype.getOpenMenuIndex = function() ***REMOVED***
+MenuBarController.prototype.getOpenMenuIndex = function() {
   var menus = this.getMenus();
-  for (var i = 0; i < menus.length; ++i) ***REMOVED***
+  for (var i = 0; i < menus.length; ++i) {
     if (menus[i].classList.contains('md-open')) return i;
-  ***REMOVED***
+  }
   return -1;
-***REMOVED***;
+};
 
 
 
@@ -360,35 +360,35 @@ angular
   .directive('mdMenuBar', MenuBarDirective);
 
 /* ngInject */
-function MenuBarDirective($mdUtil, $mdTheming) ***REMOVED***
-  return ***REMOVED***
+function MenuBarDirective($mdUtil, $mdTheming) {
+  return {
     restrict: 'E',
     require: 'mdMenuBar',
     controller: 'MenuBarController',
 
-    compile: function compile(templateEl, templateAttrs) ***REMOVED***
-      if (!templateAttrs.ariaRole) ***REMOVED***
+    compile: function compile(templateEl, templateAttrs) {
+      if (!templateAttrs.ariaRole) {
         templateEl[0].setAttribute('role', 'menubar');
-      ***REMOVED***
-      angular.forEach(templateEl[0].children, function(menuEl) ***REMOVED***
-        if (menuEl.nodeName == 'MD-MENU') ***REMOVED***
-          if (!menuEl.hasAttribute('md-position-mode')) ***REMOVED***
+      }
+      angular.forEach(templateEl[0].children, function(menuEl) {
+        if (menuEl.nodeName == 'MD-MENU') {
+          if (!menuEl.hasAttribute('md-position-mode')) {
             menuEl.setAttribute('md-position-mode', 'left bottom');
 
             // Since we're in the compile function and actual `md-buttons` are not compiled yet,
             // we need to query for possible `md-buttons` as well.
             menuEl.querySelector('button, a, md-button').setAttribute('role', 'menuitem');
-          ***REMOVED***
+          }
           var contentEls = $mdUtil.nodesToArray(menuEl.querySelectorAll('md-menu-content'));
-          angular.forEach(contentEls, function(contentEl) ***REMOVED***
+          angular.forEach(contentEls, function(contentEl) {
             contentEl.classList.add('md-menu-bar-menu');
             contentEl.classList.add('md-dense');
-            if (!contentEl.hasAttribute('width')) ***REMOVED***
+            if (!contentEl.hasAttribute('width')) {
               contentEl.setAttribute('width', 5);
-            ***REMOVED***
-          ***REMOVED***);
-        ***REMOVED***
-      ***REMOVED***);
+            }
+          });
+        }
+      });
 
       // Mark the child menu items that they're inside a menu bar. This is necessary,
       // because mnMenuItem has special behaviour during compilation, depending on
@@ -397,15 +397,15 @@ function MenuBarDirective($mdUtil, $mdTheming) ***REMOVED***
       // the element won't have a parent and won't compile properly.
       templateEl.find('md-menu-item').addClass('md-in-menu-bar');
 
-      return function postLink(scope, el, attr, ctrl) ***REMOVED***
+      return function postLink(scope, el, attr, ctrl) {
         el.addClass('_md');     // private md component indicator for styling
         $mdTheming(scope, el);
         ctrl.init();
-      ***REMOVED***;
-    ***REMOVED***
-  ***REMOVED***;
+      };
+    }
+  };
 
-***REMOVED***
+}
 MenuBarDirective.$inject = ["$mdUtil", "$mdTheming"];
 
 
@@ -414,16 +414,16 @@ angular
   .directive('mdMenuDivider', MenuDividerDirective);
 
 
-function MenuDividerDirective() ***REMOVED***
-  return ***REMOVED***
+function MenuDividerDirective() {
+  return {
     restrict: 'E',
-    compile: function(templateEl, templateAttrs) ***REMOVED***
-      if (!templateAttrs.role) ***REMOVED***
+    compile: function(templateEl, templateAttrs) {
+      if (!templateAttrs.role) {
         templateEl[0].setAttribute('role', 'separator');
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***
+      }
+    }
+  };
+}
 
 
 angular
@@ -434,42 +434,42 @@ angular
 /**
  * ngInject
  */
-function MenuItemController($scope, $element, $attrs) ***REMOVED***
+function MenuItemController($scope, $element, $attrs) {
   this.$element = $element;
   this.$attrs = $attrs;
   this.$scope = $scope;
-***REMOVED***
+}
 MenuItemController.$inject = ["$scope", "$element", "$attrs"];
 
-MenuItemController.prototype.init = function(ngModel) ***REMOVED***
+MenuItemController.prototype.init = function(ngModel) {
   var $element = this.$element;
   var $attrs = this.$attrs;
 
   this.ngModel = ngModel;
-  if ($attrs.type == 'checkbox' || $attrs.type == 'radio') ***REMOVED***
+  if ($attrs.type == 'checkbox' || $attrs.type == 'radio') {
     this.mode  = $attrs.type;
     this.iconEl = $element[0].children[0];
     this.buttonEl = $element[0].children[1];
-    if (ngModel) ***REMOVED***
+    if (ngModel) {
       // Clear ngAria set attributes
       this.initClickListeners();
-    ***REMOVED***
-  ***REMOVED***
-***REMOVED***;
+    }
+  }
+};
 
 // ngAria auto sets attributes on a menu-item with a ngModel.
 // We don't want this because our content (buttons) get the focus
 // and set their own aria attributes appropritately. Having both
 // breaks NVDA / JAWS. This undeoes ngAria's attrs.
-MenuItemController.prototype.clearNgAria = function() ***REMOVED***
+MenuItemController.prototype.clearNgAria = function() {
   var el = this.$element[0];
   var clearAttrs = ['role', 'tabindex', 'aria-invalid', 'aria-checked'];
-  angular.forEach(clearAttrs, function(attr) ***REMOVED***
+  angular.forEach(clearAttrs, function(attr) {
     el.removeAttribute(attr);
-  ***REMOVED***);
-***REMOVED***;
+  });
+};
 
-MenuItemController.prototype.initClickListeners = function() ***REMOVED***
+MenuItemController.prototype.initClickListeners = function() {
   var self = this;
   var ngModel = this.ngModel;
   var $scope = this.$scope;
@@ -486,50 +486,50 @@ MenuItemController.prototype.initClickListeners = function() ***REMOVED***
   $attrs.$observe('disabled', setDisabled);
   setDisabled($attrs.disabled);
 
-  ngModel.$render = function render() ***REMOVED***
+  ngModel.$render = function render() {
     self.clearNgAria();
-    if (isSelected()) ***REMOVED***
+    if (isSelected()) {
       icon.style.display = '';
       button.attr('aria-checked', 'true');
-    ***REMOVED*** else ***REMOVED***
+    } else {
       icon.style.display = 'none';
       button.attr('aria-checked', 'false');
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
   $scope.$$postDigest(ngModel.$render);
 
-  function isSelected() ***REMOVED***
-    if (mode == 'radio') ***REMOVED***
+  function isSelected() {
+    if (mode == 'radio') {
       var val = $attrs.ngValue ? $scope.$eval($attrs.ngValue) : $attrs.value;
       return ngModel.$modelValue == val;
-    ***REMOVED*** else ***REMOVED***
+    } else {
       return ngModel.$modelValue;
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
-  function setDisabled(disabled) ***REMOVED***
-    if (disabled) ***REMOVED***
+  function setDisabled(disabled) {
+    if (disabled) {
       button.off('click', handleClick);
-    ***REMOVED*** else ***REMOVED***
+    } else {
       button.on('click', handleClick);
-    ***REMOVED***
-  ***REMOVED***
-***REMOVED***;
+    }
+  }
+};
 
-MenuItemController.prototype.handleClick = function(e) ***REMOVED***
+MenuItemController.prototype.handleClick = function(e) {
   var mode = this.mode;
   var ngModel = this.ngModel;
   var $attrs = this.$attrs;
   var newVal;
-  if (mode == 'checkbox') ***REMOVED***
+  if (mode == 'checkbox') {
     newVal = !ngModel.$modelValue;
-  ***REMOVED*** else if (mode == 'radio') ***REMOVED***
+  } else if (mode == 'radio') {
     newVal = $attrs.ngValue ? this.$scope.$eval($attrs.ngValue) : $attrs.value;
-  ***REMOVED***
+  }
   ngModel.$setViewValue(newVal);
   ngModel.$render();
-***REMOVED***;
+};
 
 
 angular
@@ -537,18 +537,18 @@ angular
   .directive('mdMenuItem', MenuItemDirective);
 
  /* ngInject */
-function MenuItemDirective($mdUtil) ***REMOVED***
-  return ***REMOVED***
+function MenuItemDirective($mdUtil) {
+  return {
     controller: 'MenuItemController',
     require: ['mdMenuItem', '?ngModel'],
     priority: 210, // ensure that our post link runs after ngAria
-    compile: function(templateEl, templateAttrs) ***REMOVED***
+    compile: function(templateEl, templateAttrs) {
       var type = templateAttrs.type;
       var inMenuBarClass = 'md-in-menu-bar';
 
       // Note: This allows us to show the `check` icon for the md-menu-bar items.
       // The `md-in-menu-bar` class is set by the mdMenuBar directive.
-      if ((type == 'checkbox' || type == 'radio') && templateEl.hasClass(inMenuBarClass)) ***REMOVED***
+      if ((type == 'checkbox' || type == 'radio') && templateEl.hasClass(inMenuBarClass)) {
         var text = templateEl[0].textContent;
         var buttonEl = angular.element('<md-button type="button"></md-button>');
             buttonEl.html(text);
@@ -562,41 +562,41 @@ function MenuItemDirective($mdUtil) ***REMOVED***
         setDefault('role', type == 'checkbox' ? 'menuitemcheckbox' : 'menuitemradio', buttonEl);
         moveAttrToButton('ng-disabled');
 
-      ***REMOVED*** else ***REMOVED***
+      } else {
         setDefault('role', 'menuitem', templateEl[0].querySelector('md-button, button, a'));
-      ***REMOVED***
+      }
 
 
-      return function(scope, el, attrs, ctrls) ***REMOVED***
+      return function(scope, el, attrs, ctrls) {
         var ctrl = ctrls[0];
         var ngModel = ctrls[1];
         ctrl.init(ngModel);
-      ***REMOVED***;
+      };
 
-      function setDefault(attr, val, el) ***REMOVED***
+      function setDefault(attr, val, el) {
         el = el || templateEl;
-        if (el instanceof angular.element) ***REMOVED***
+        if (el instanceof angular.element) {
           el = el[0];
-        ***REMOVED***
-        if (!el.hasAttribute(attr)) ***REMOVED***
+        }
+        if (!el.hasAttribute(attr)) {
           el.setAttribute(attr, val);
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
-      function moveAttrToButton(attribute) ***REMOVED***
+      function moveAttrToButton(attribute) {
         var attributes = $mdUtil.prefixer(attribute);
 
-        angular.forEach(attributes, function(attr) ***REMOVED***
-          if (templateEl[0].hasAttribute(attr)) ***REMOVED***
+        angular.forEach(attributes, function(attr) {
+          if (templateEl[0].hasAttribute(attr)) {
             var val = templateEl[0].getAttribute(attr);
             buttonEl[0].setAttribute(attr, val);
             templateEl[0].removeAttribute(attr);
-          ***REMOVED***
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***
+          }
+        });
+      }
+    }
+  };
+}
 MenuItemDirective.$inject = ["$mdUtil"];
 
 ngmaterial.components.menuBar = angular.module("material.components.menuBar");

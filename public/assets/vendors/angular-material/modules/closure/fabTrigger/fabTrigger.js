@@ -6,7 +6,7 @@
  */
 goog.provide('ng.material.components.fabTrigger');
 goog.require('ng.material.core');
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   /**
@@ -32,15 +32,15 @@ goog.require('ng.material.core');
    * @usage
    * See the `<md-fab-speed-dial>` or `<md-fab-toolbar>` directives for example usage.
    */
-  function MdFabTriggerDirective() ***REMOVED***
+  function MdFabTriggerDirective() {
     // TODO: Remove this completely?
-    return ***REMOVED***
+    return {
       restrict: 'E',
 
       require: ['^?mdFabSpeedDial', '^?mdFabToolbar']
-    ***REMOVED***;
-  ***REMOVED***
-***REMOVED***)();
+    };
+  }
+})();
 
 
 ng.material.components.fabTrigger = angular.module("material.components.fabTrigger");

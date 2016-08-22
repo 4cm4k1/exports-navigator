@@ -4,10 +4,10 @@
  * @license MIT
  * v1.1.0-rc.5-master-26a5fb8
  */
-(function( window, angular, undefined )***REMOVED***
+(function( window, angular, undefined ){
 "use strict";
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   /**
@@ -33,15 +33,15 @@
    * @usage
    * See the `<md-fab-speed-dial>` or `<md-fab-toolbar>` directives for example usage.
    */
-  function MdFabTriggerDirective() ***REMOVED***
+  function MdFabTriggerDirective() {
     // TODO: Remove this completely?
-    return ***REMOVED***
+    return {
       restrict: 'E',
 
       require: ['^?mdFabSpeedDial', '^?mdFabToolbar']
-    ***REMOVED***;
-  ***REMOVED***
-***REMOVED***)();
+    };
+  }
+})();
 
 
-***REMOVED***)(window, window.angular);
+})(window, window.angular);

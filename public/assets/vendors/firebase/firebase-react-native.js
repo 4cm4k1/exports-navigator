@@ -11,11 +11,11 @@ require('./database');
 require('./auth');
 require('./storage');
 var AsyncStorage = require('react-native').AsyncStorage;
-firebase.INTERNAL.extendNamespace(***REMOVED***
- 'INTERNAL': ***REMOVED***
-   'reactNative': ***REMOVED***
+firebase.INTERNAL.extendNamespace({
+ 'INTERNAL': {
+   'reactNative': {
      'AsyncStorage': AsyncStorage
-   ***REMOVED***
- ***REMOVED***
-***REMOVED***);
+   }
+ }
+});
 module.exports = firebase;

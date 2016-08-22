@@ -6,33 +6,33 @@
  */
 goog.provide('ngmaterial.components.fabShared');
 goog.require('ngmaterial.core');
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   angular.module('material.components.fabShared', ['material.core'])
     .controller('MdFabController', MdFabController);
 
-  function MdFabController($scope, $element, $animate, $mdUtil, $mdConstant, $timeout) ***REMOVED***
+  function MdFabController($scope, $element, $animate, $mdUtil, $mdConstant, $timeout) {
     var vm = this;
 
     // NOTE: We use async eval(s) below to avoid conflicts with any existing digest loops
 
-    vm.open = function() ***REMOVED***
+    vm.open = function() {
       $scope.$evalAsync("vm.isOpen = true");
-    ***REMOVED***;
+    };
 
-    vm.close = function() ***REMOVED***
+    vm.close = function() {
       // Async eval to avoid conflicts with existing digest loops
       $scope.$evalAsync("vm.isOpen = false");
 
       // Focus the trigger when the element closes so users can still tab to the next item
       $element.find('md-fab-trigger')[0].focus();
-    ***REMOVED***;
+    };
 
     // Toggle the open/close state when the trigger is clicked
-    vm.toggle = function() ***REMOVED***
+    vm.toggle = function() {
       $scope.$evalAsync("vm.isOpen = !vm.isOpen");
-    ***REMOVED***;
+    };
 
     setupDefaults();
     setupListeners();
@@ -41,7 +41,7 @@ goog.require('ngmaterial.core');
     var initialAnimationAttempts = 0;
     fireInitialAnimations();
 
-    function setupDefaults() ***REMOVED***
+    function setupDefaults() {
       // Set the default direction to 'down' if none is specified
       vm.direction = vm.direction || 'down';
 
@@ -53,85 +53,85 @@ goog.require('ngmaterial.core');
 
       // Add an animations waiting class so we know not to run
       $element.addClass('md-animations-waiting');
-    ***REMOVED***
+    }
 
-    function setupListeners() ***REMOVED***
+    function setupListeners() {
       var eventTypes = [
         'click', 'focusin', 'focusout'
       ];
 
       // Add our listeners
-      angular.forEach(eventTypes, function(eventType) ***REMOVED***
+      angular.forEach(eventTypes, function(eventType) {
         $element.on(eventType, parseEvents);
-      ***REMOVED***);
+      });
 
       // Remove our listeners when destroyed
-      $scope.$on('$destroy', function() ***REMOVED***
-        angular.forEach(eventTypes, function(eventType) ***REMOVED***
+      $scope.$on('$destroy', function() {
+        angular.forEach(eventTypes, function(eventType) {
           $element.off(eventType, parseEvents);
-        ***REMOVED***);
+        });
 
         // remove any attached keyboard handlers in case element is removed while
         // speed dial is open
         disableKeyboard();
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
 
     var closeTimeout;
-    function parseEvents(event) ***REMOVED***
+    function parseEvents(event) {
       // If the event is a click, just handle it
-      if (event.type == 'click') ***REMOVED***
+      if (event.type == 'click') {
         handleItemClick(event);
-      ***REMOVED***
+      }
 
       // If we focusout, set a timeout to close the element
-      if (event.type == 'focusout' && !closeTimeout) ***REMOVED***
-        closeTimeout = $timeout(function() ***REMOVED***
+      if (event.type == 'focusout' && !closeTimeout) {
+        closeTimeout = $timeout(function() {
           vm.close();
-        ***REMOVED***, 100, false);
-      ***REMOVED***
+        }, 100, false);
+      }
 
       // If we see a focusin and there is a timeout about to run, cancel it so we stay open
-      if (event.type == 'focusin' && closeTimeout) ***REMOVED***
+      if (event.type == 'focusin' && closeTimeout) {
         $timeout.cancel(closeTimeout);
         closeTimeout = null;
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
-    function resetActionIndex() ***REMOVED***
+    function resetActionIndex() {
       vm.currentActionIndex = -1;
-    ***REMOVED***
+    }
 
-    function setupWatchers() ***REMOVED***
+    function setupWatchers() {
       // Watch for changes to the direction and update classes/attributes
-      $scope.$watch('vm.direction', function(newDir, oldDir) ***REMOVED***
+      $scope.$watch('vm.direction', function(newDir, oldDir) {
         // Add the appropriate classes so we can target the direction in the CSS
         $animate.removeClass($element, 'md-' + oldDir);
         $animate.addClass($element, 'md-' + newDir);
 
         // Reset the action index since it may have changed
         resetActionIndex();
-      ***REMOVED***);
+      });
 
       var trigger, actions;
 
       // Watch for changes to md-open
-      $scope.$watch('vm.isOpen', function(isOpen) ***REMOVED***
+      $scope.$watch('vm.isOpen', function(isOpen) {
         // Reset the action index since it may have changed
         resetActionIndex();
 
         // We can't get the trigger/actions outside of the watch because the component hasn't been
         // linked yet, so we wait until the first watch fires to cache them.
-        if (!trigger || !actions) ***REMOVED***
+        if (!trigger || !actions) {
           trigger = getTriggerElement();
           actions = getActionsElement();
-        ***REMOVED***
+        }
 
-        if (isOpen) ***REMOVED***
+        if (isOpen) {
           enableKeyboard();
-        ***REMOVED*** else ***REMOVED***
+        } else {
           disableKeyboard();
-        ***REMOVED***
+        }
 
         var toAdd = isOpen ? 'md-is-open' : '';
         var toRemove = isOpen ? '' : 'md-is-open';
@@ -143,77 +143,77 @@ goog.require('ngmaterial.core');
 
         // Animate the CSS classes
         $animate.setClass($element, toAdd, toRemove);
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
 
-    function fireInitialAnimations() ***REMOVED***
+    function fireInitialAnimations() {
       // If the element is actually visible on the screen
-      if ($element[0].scrollHeight > 0) ***REMOVED***
+      if ($element[0].scrollHeight > 0) {
         // Fire our animation
-        $animate.addClass($element, '_md-animations-ready').then(function() ***REMOVED***
+        $animate.addClass($element, '_md-animations-ready').then(function() {
           // Remove the waiting class
           $element.removeClass('md-animations-waiting');
-        ***REMOVED***);
-      ***REMOVED***
+        });
+      }
 
       // Otherwise, try for up to 1 second before giving up
-      else if (initialAnimationAttempts < 10) ***REMOVED***
+      else if (initialAnimationAttempts < 10) {
         $timeout(fireInitialAnimations, 100);
 
         // Increment our counter
         initialAnimationAttempts = initialAnimationAttempts + 1;
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
-    function enableKeyboard() ***REMOVED***
+    function enableKeyboard() {
       $element.on('keydown', keyPressed);
 
       // On the next tick, setup a check for outside clicks; we do this on the next tick to avoid
       // clicks/touches that result in the isOpen attribute changing (e.g. a bound radio button)
-      $mdUtil.nextTick(function() ***REMOVED***
+      $mdUtil.nextTick(function() {
         angular.element(document).on('click touchend', checkForOutsideClick);
-      ***REMOVED***);
+      });
 
       // TODO: On desktop, we should be able to reset the indexes so you cannot tab through, but
       // this breaks accessibility, especially on mobile, since you have no arrow keys to press
       //resetActionTabIndexes();
-    ***REMOVED***
+    }
 
-    function disableKeyboard() ***REMOVED***
+    function disableKeyboard() {
       $element.off('keydown', keyPressed);
       angular.element(document).off('click touchend', checkForOutsideClick);
-    ***REMOVED***
+    }
 
-    function checkForOutsideClick(event) ***REMOVED***
-      if (event.target) ***REMOVED***
+    function checkForOutsideClick(event) {
+      if (event.target) {
         var closestTrigger = $mdUtil.getClosest(event.target, 'md-fab-trigger');
         var closestActions = $mdUtil.getClosest(event.target, 'md-fab-actions');
 
-        if (!closestTrigger && !closestActions) ***REMOVED***
+        if (!closestTrigger && !closestActions) {
           vm.close();
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***
+        }
+      }
+    }
 
-    function keyPressed(event) ***REMOVED***
-      switch (event.which) ***REMOVED***
+    function keyPressed(event) {
+      switch (event.which) {
         case $mdConstant.KEY_CODE.ESCAPE: vm.close(); event.preventDefault(); return false;
         case $mdConstant.KEY_CODE.LEFT_ARROW: doKeyLeft(event); return false;
         case $mdConstant.KEY_CODE.UP_ARROW: doKeyUp(event); return false;
         case $mdConstant.KEY_CODE.RIGHT_ARROW: doKeyRight(event); return false;
         case $mdConstant.KEY_CODE.DOWN_ARROW: doKeyDown(event); return false;
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
-    function doActionPrev(event) ***REMOVED***
+    function doActionPrev(event) {
       focusAction(event, -1);
-    ***REMOVED***
+    }
 
-    function doActionNext(event) ***REMOVED***
+    function doActionNext(event) {
       focusAction(event, 1);
-    ***REMOVED***
+    }
 
-    function focusAction(event, direction) ***REMOVED***
+    function focusAction(event, direction) {
       var actions = resetActionTabIndexes();
 
       // Increment/decrement the counter with restrictions
@@ -229,88 +229,88 @@ goog.require('ngmaterial.core');
       // Make sure the event doesn't bubble and cause something else
       event.preventDefault();
       event.stopImmediatePropagation();
-    ***REMOVED***
+    }
 
-    function resetActionTabIndexes() ***REMOVED***
+    function resetActionTabIndexes() {
       // Grab all of the actions
       var actions = getActionsElement()[0].querySelectorAll('.md-fab-action-item');
 
       // Disable all other actions for tabbing
-      angular.forEach(actions, function(action) ***REMOVED***
+      angular.forEach(actions, function(action) {
         angular.element(angular.element(action).children()[0]).attr('tabindex', -1);
-      ***REMOVED***);
+      });
 
       return actions;
-    ***REMOVED***
+    }
 
-    function doKeyLeft(event) ***REMOVED***
-      if (vm.direction === 'left') ***REMOVED***
+    function doKeyLeft(event) {
+      if (vm.direction === 'left') {
         doActionNext(event);
-      ***REMOVED*** else ***REMOVED***
+      } else {
         doActionPrev(event);
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
-    function doKeyUp(event) ***REMOVED***
-      if (vm.direction === 'down') ***REMOVED***
+    function doKeyUp(event) {
+      if (vm.direction === 'down') {
         doActionPrev(event);
-      ***REMOVED*** else ***REMOVED***
+      } else {
         doActionNext(event);
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
-    function doKeyRight(event) ***REMOVED***
-      if (vm.direction === 'left') ***REMOVED***
+    function doKeyRight(event) {
+      if (vm.direction === 'left') {
         doActionPrev(event);
-      ***REMOVED*** else ***REMOVED***
+      } else {
         doActionNext(event);
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
-    function doKeyDown(event) ***REMOVED***
-      if (vm.direction === 'up') ***REMOVED***
+    function doKeyDown(event) {
+      if (vm.direction === 'up') {
         doActionPrev(event);
-      ***REMOVED*** else ***REMOVED***
+      } else {
         doActionNext(event);
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
-    function isTrigger(element) ***REMOVED***
+    function isTrigger(element) {
       return $mdUtil.getClosest(element, 'md-fab-trigger');
-    ***REMOVED***
+    }
 
-    function isAction(element) ***REMOVED***
+    function isAction(element) {
       return $mdUtil.getClosest(element, 'md-fab-actions');
-    ***REMOVED***
+    }
 
-    function handleItemClick(event) ***REMOVED***
-      if (isTrigger(event.target)) ***REMOVED***
+    function handleItemClick(event) {
+      if (isTrigger(event.target)) {
         vm.toggle();
-      ***REMOVED***
+      }
 
-      if (isAction(event.target)) ***REMOVED***
+      if (isAction(event.target)) {
         vm.close();
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
-    function getTriggerElement() ***REMOVED***
+    function getTriggerElement() {
       return $element.find('md-fab-trigger');
-    ***REMOVED***
+    }
 
-    function getActionsElement() ***REMOVED***
+    function getActionsElement() {
       return $element.find('md-fab-actions');
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
   MdFabController.$inject = ["$scope", "$element", "$animate", "$mdUtil", "$mdConstant", "$timeout"];
-***REMOVED***)();
+})();
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   /**
    * The duration of the CSS animation in milliseconds.
    *
-   * @type ***REMOVED***number***REMOVED***
+   * @type {number}
    */
   var cssAnimationDuration = 300;
 
@@ -397,40 +397,40 @@ goog.require('ngmaterial.core');
    * </md-fab-speed-dial>
    * </hljs>
    *
-   * @param ***REMOVED***string***REMOVED*** md-direction From which direction you would like the speed dial to appear
+   * @param {string} md-direction From which direction you would like the speed dial to appear
    * relative to the trigger element.
-   * @param ***REMOVED***expression=***REMOVED*** md-open Programmatically control whether or not the speed-dial is visible.
+   * @param {expression=} md-open Programmatically control whether or not the speed-dial is visible.
    */
-  function MdFabSpeedDialDirective() ***REMOVED***
-    return ***REMOVED***
+  function MdFabSpeedDialDirective() {
+    return {
       restrict: 'E',
 
-      scope: ***REMOVED***
+      scope: {
         direction: '@?mdDirection',
         isOpen: '=?mdOpen'
-      ***REMOVED***,
+      },
 
       bindToController: true,
       controller: 'MdFabController',
       controllerAs: 'vm',
 
       link: FabSpeedDialLink
-    ***REMOVED***;
+    };
 
-    function FabSpeedDialLink(scope, element) ***REMOVED***
+    function FabSpeedDialLink(scope, element) {
       // Prepend an element to hold our CSS variables so we can use them in the animations below
       element.prepend('<div class="_md-css-variables"></div>');
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
-  function MdFabSpeedDialFlingAnimation($timeout) ***REMOVED***
-    function delayDone(done) ***REMOVED*** $timeout(done, cssAnimationDuration, false); ***REMOVED***
+  function MdFabSpeedDialFlingAnimation($timeout) {
+    function delayDone(done) { $timeout(done, cssAnimationDuration, false); }
 
-    function runAnimation(element) ***REMOVED***
+    function runAnimation(element) {
       // Don't run if we are still waiting and we are not ready
-      if (element.hasClass('md-animations-waiting') && !element.hasClass('_md-animations-ready')) ***REMOVED***
+      if (element.hasClass('md-animations-waiting') && !element.hasClass('_md-animations-ready')) {
         return;
-      ***REMOVED***
+      }
 
       var el = element[0];
       var ctrl = element.controller('mdFabSpeedDial');
@@ -446,7 +446,7 @@ goog.require('ngmaterial.core');
       var startZIndex = parseInt(window.getComputedStyle(variablesElement).zIndex);
 
       // Always reset the items to their natural position/state
-      angular.forEach(items, function(item, index) ***REMOVED***
+      angular.forEach(items, function(item, index) {
         var styles = item.style;
 
         styles.transform = styles.webkitTransform = '';
@@ -455,14 +455,14 @@ goog.require('ngmaterial.core');
 
         // Make the items closest to the trigger have the highest z-index
         styles.zIndex = (items.length - index) + startZIndex;
-      ***REMOVED***);
+      });
 
       // Set the trigger to be above all of the actions so they disappear behind it.
       triggerElement.style.zIndex = startZIndex + items.length + 1;
 
       // If the control is closed, hide the items behind the trigger
-      if (!ctrl.isOpen) ***REMOVED***
-        angular.forEach(items, function(item, index) ***REMOVED***
+      if (!ctrl.isOpen) {
+        angular.forEach(items, function(item, index) {
           var newPosition, axis;
           var styles = item.style;
 
@@ -472,7 +472,7 @@ goog.require('ngmaterial.core');
           var triggerItemHeightOffset = (triggerElement.clientHeight - item.clientHeight) / 2;
           var triggerItemWidthOffset = (triggerElement.clientWidth - item.clientWidth) / 2;
 
-          switch (ctrl.direction) ***REMOVED***
+          switch (ctrl.direction) {
             case 'up':
               newPosition = (item.scrollHeight * (index + 1) + triggerItemHeightOffset);
               axis = 'Y';
@@ -489,38 +489,38 @@ goog.require('ngmaterial.core');
               newPosition = -(item.scrollWidth * (index + 1) + triggerItemWidthOffset);
               axis = 'X';
               break;
-          ***REMOVED***
+          }
 
           var newTranslate = 'translate' + axis + '(' + newPosition + 'px)';
 
           styles.transform = styles.webkitTransform = newTranslate;
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***
+        });
+      }
+    }
 
-    return ***REMOVED***
-      addClass: function(element, className, done) ***REMOVED***
-        if (element.hasClass('md-fling')) ***REMOVED***
+    return {
+      addClass: function(element, className, done) {
+        if (element.hasClass('md-fling')) {
           runAnimation(element);
           delayDone(done);
-        ***REMOVED*** else ***REMOVED***
+        } else {
           done();
-        ***REMOVED***
-      ***REMOVED***,
-      removeClass: function(element, className, done) ***REMOVED***
+        }
+      },
+      removeClass: function(element, className, done) {
         runAnimation(element);
         delayDone(done);
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
+      }
+    }
+  }
   MdFabSpeedDialFlingAnimation.$inject = ["$timeout"];
 
-  function MdFabSpeedDialScaleAnimation($timeout) ***REMOVED***
-    function delayDone(done) ***REMOVED*** $timeout(done, cssAnimationDuration, false); ***REMOVED***
+  function MdFabSpeedDialScaleAnimation($timeout) {
+    function delayDone(done) { $timeout(done, cssAnimationDuration, false); }
 
     var delay = 65;
 
-    function runAnimation(element) ***REMOVED***
+    function runAnimation(element) {
       var el = element[0];
       var ctrl = element.controller('mdFabSpeedDial');
       var items = el.querySelectorAll('.md-fab-action-item');
@@ -532,7 +532,7 @@ goog.require('ngmaterial.core');
       var startZIndex = parseInt(window.getComputedStyle(variablesElement).zIndex);
 
       // Always reset the items to their natural position/state
-      angular.forEach(items, function(item, index) ***REMOVED***
+      angular.forEach(items, function(item, index) {
         var styles = item.style,
           offsetDelay = index * delay;
 
@@ -542,22 +542,22 @@ goog.require('ngmaterial.core');
 
         // Make the items closest to the trigger have the highest z-index
         styles.zIndex = (items.length - index) + startZIndex;
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
 
-    return ***REMOVED***
-      addClass: function(element, className, done) ***REMOVED***
+    return {
+      addClass: function(element, className, done) {
         runAnimation(element);
         delayDone(done);
-      ***REMOVED***,
+      },
 
-      removeClass: function(element, className, done) ***REMOVED***
+      removeClass: function(element, className, done) {
         runAnimation(element);
         delayDone(done);
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
+      }
+    }
+  }
   MdFabSpeedDialScaleAnimation.$inject = ["$timeout"];
-***REMOVED***)();
+})();
 
 ngmaterial.components.fabShared = angular.module("material.components.fabShared");

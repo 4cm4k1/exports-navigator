@@ -20,7 +20,7 @@ var JWT_ALGORITHM = 'RS256';
  * Should possibly be moved to a Credential namespace before making public.
  * @interface
  */
-var Credential = function() ***REMOVED******REMOVED***;
+var Credential = function() {};
 
 /**
  * A struct containing information needed to authenticate requests to Firebase.
@@ -28,7 +28,7 @@ var Credential = function() ***REMOVED******REMOVED***;
  * @record
  */
 // eslint-disable-next-line no-unused-vars
-var AccessToken = function() ***REMOVED******REMOVED***;
+var AccessToken = function() {};
 
 /**
  * A struct containing the fields necessary to use service-account based authentication.
@@ -36,109 +36,109 @@ var AccessToken = function() ***REMOVED******REMOVED***;
  * @record
  */
 // eslint-disable-next-line no-unused-vars
-var ServiceAccount = function() ***REMOVED******REMOVED***;
+var ServiceAccount = function() {};
 
 /**
  * Get an access token. This method does not do any sort of caching.
- * @return ***REMOVED***Promise<?AccessToken>***REMOVED***
+ * @return {Promise<?AccessToken>}
  */
-Credential.prototype.getAccessToken = function() ***REMOVED******REMOVED***;
+Credential.prototype.getAccessToken = function() {};
 
 /**
  * Implementation of Credential that uses a service account certificate.
  *
- * @implements ***REMOVED***Credential***REMOVED***
+ * @implements {Credential}
  * @constructor
- * @param ***REMOVED***ServiceAccount***REMOVED*** serviceAccount
+ * @param {ServiceAccount} serviceAccount
  */
-var CertCredential = function(serviceAccount) ***REMOVED***
+var CertCredential = function(serviceAccount) {
   this.serviceAccount_ = serviceAccount;
-***REMOVED***;
+};
 
 /**
  * Fetches a new access token by making a HTTP request to the
  * specified OAuth endpoint
- * @return ***REMOVED***Promise<?AccessToken>***REMOVED***
+ * @return {Promise<?AccessToken>}
  */
-CertCredential.prototype.getAccessToken = function() ***REMOVED***
+CertCredential.prototype.getAccessToken = function() {
   var token = this.authJwt();
-  return new firebase.Promise(function(resolve, reject) ***REMOVED***
+  return new firebase.Promise(function(resolve, reject) {
     var postData = 'grant_type=urn%3Aietf%3Aparams%3Aoauth%3A' +
         'grant-type%3Ajwt-bearer&assertion=' +
         token;
-    var options = ***REMOVED***
+    var options = {
       method: 'POST',
       host: GOOGLE_AUTH_TOKEN_HOST,
       port: GOOGLE_AUTH_TOKEN_PORT,
       path: GOOGLE_AUTH_TOKEN_PATH,
-      headers: ***REMOVED***
+      headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Content-Length': postData.length
-      ***REMOVED***
-    ***REMOVED***;
-    var req = https.request(options, function(res) ***REMOVED***
+      }
+    };
+    var req = https.request(options, function(res) {
       var buffers = [];
-      res.on('data', function(buffer) ***REMOVED***
+      res.on('data', function(buffer) {
         buffers.push(buffer);
-      ***REMOVED***);
-      res.on('end', function() ***REMOVED***
-        try ***REMOVED***
+      });
+      res.on('end', function() {
+        try {
           var json = JSON.parse(Buffer.concat(buffers));
-          if (json.error) ***REMOVED***
+          if (json.error) {
             var msg = 'Error refreshing access token: ' + json.error;
-            if (json.error_description) ***REMOVED***
+            if (json.error_description) {
               msg += ' (' + json.error_description + ')';
-            ***REMOVED***
+            }
             reject(new Error(msg));
-          ***REMOVED*** else if (!json.access_token || !json.expires_in) ***REMOVED***
+          } else if (!json.access_token || !json.expires_in) {
             reject(new Error('Unexpected response from OAuth server'));
-          ***REMOVED*** else ***REMOVED***
+          } else {
             resolve(json);
-          ***REMOVED***
-        ***REMOVED*** catch (err) ***REMOVED***
+          }
+        } catch (err) {
           reject(err);
-        ***REMOVED***
-      ***REMOVED***);
-    ***REMOVED***);
+        }
+      });
+    });
     req.on('error', reject);
     req.write(postData);
     req.end();
-  ***REMOVED***);
-***REMOVED***;
+  });
+};
 
 /**
  * Generates a JWT that is used to retrieve an access token
  */
-CertCredential.prototype.authJwt = function() ***REMOVED***
-  var claims = ***REMOVED***
+CertCredential.prototype.authJwt = function() {
+  var claims = {
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/firebase.database',
     ].join(' ')
-  ***REMOVED***;
-  return jwt.sign(claims, this.serviceAccount_.private_key, ***REMOVED***
+  };
+  return jwt.sign(claims, this.serviceAccount_.private_key, {
     audience: GOOGLE_TOKEN_AUDIENCE,
     expiresIn: ONE_HOUR_IN_SECONDS,
     issuer: this.serviceAccount_.client_email,
     algorithm: JWT_ALGORITHM
-  ***REMOVED***);
-***REMOVED***;
+  });
+};
 
 /**
  * UnauthenticatedCredential fufills the Credential contract by returning
  * null for getAccessToken
- * @implements ***REMOVED***Credential***REMOVED***
+ * @implements {Credential}
  * @constructor
  */
-var UnauthenticatedCredential = function() ***REMOVED******REMOVED***;
+var UnauthenticatedCredential = function() {};
 
 /**
  * Noop implementation of Credential.getToken that returns a Promise of null.
- * @return ***REMOVED***Promise<?AccessToken>***REMOVED***
+ * @return {Promise<?AccessToken>}
  */
-UnauthenticatedCredential.prototype.getAccessToken = function() ***REMOVED***
+UnauthenticatedCredential.prototype.getAccessToken = function() {
   return firebase.Promise.resolve(null);
-***REMOVED***;
+};
 
 module.exports.Credential = Credential;
 module.exports.CertCredential = CertCredential;

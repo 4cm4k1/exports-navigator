@@ -1,46 +1,46 @@
-module.exports = function(grunt) ***REMOVED***
+module.exports = function(grunt) {
 
-    grunt.initConfig(***REMOVED***
+    grunt.initConfig({
 
-        jshint: ***REMOVED***
+        jshint: {
             files: ['Gruntfile.js', 'client/scripts/*.js', 'routes/*.js', 'modules/*.js', 'server.js']
-        ***REMOVED***,
-        watch: ***REMOVED***
+        },
+        watch: {
             files: ['client/**/*', 'server.js', 'modules/*.js', 'routes/*.js'],
             tasks: ['jshint', 'uglify', 'cssmin']
-        ***REMOVED***,
-        copy: ***REMOVED***
-            main: ***REMOVED***
-                files: [***REMOVED***
+        },
+        copy: {
+            main: {
+                files: [{
                     expand: true,
                     cwd: 'node_modules',
                     src: ['angular/**', 'angular-animate/**', 'angular-aria/**', 'angular-material/**', 'angular-messages/**', 'angular-route/**', 'angularfire/**', 'firebase/**'],
                     dest: 'public/assets/vendors'
-                ***REMOVED***, ],
-            ***REMOVED***,
-        ***REMOVED***,
-        uglify: ***REMOVED***
-            options: ***REMOVED***
+                }, ],
+            },
+        },
+        uglify: {
+            options: {
                 mangle: false
-            ***REMOVED***,
-            my_target: ***REMOVED***
-                files: ***REMOVED***
+            },
+            my_target: {
+                files: {
                     'public/assets/scripts/client.min.js': ['client/scripts/*.js']
-                ***REMOVED***
-            ***REMOVED***
-        ***REMOVED***,
-        cssmin: ***REMOVED***
-            target: ***REMOVED***
-                files: [***REMOVED***
+                }
+            }
+        },
+        cssmin: {
+            target: {
+                files: [{
                     expand: true,
                     cwd: 'client/styles',
                     src: ['*.css', '!*.min.css'],
                     dest: 'public/assets/styles',
                     ext: '.min.css'
-                ***REMOVED***]
-            ***REMOVED***
-        ***REMOVED***
-    ***REMOVED***);
+                }]
+            }
+        }
+    });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -50,4 +50,4 @@ module.exports = function(grunt) ***REMOVED***
 
     grunt.registerTask('default', ['jshint', 'uglify', 'cssmin', 'watch']);
 
-***REMOVED***;
+};

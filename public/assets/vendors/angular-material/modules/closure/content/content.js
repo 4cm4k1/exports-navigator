@@ -58,45 +58,45 @@ angular.module('material.components.content', [
  * </hljs>
  */
 
-function mdContentDirective($mdTheming) ***REMOVED***
-  return ***REMOVED***
+function mdContentDirective($mdTheming) {
+  return {
     restrict: 'E',
     controller: ['$scope', '$element', ContentController],
-    link: function(scope, element) ***REMOVED***
+    link: function(scope, element) {
       element.addClass('_md');     // private md component indicator for styling
 
       $mdTheming(element);
       scope.$broadcast('$mdContentLoaded', element);
 
       iosScrollFix(element[0]);
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
-  function ContentController($scope, $element) ***REMOVED***
+  function ContentController($scope, $element) {
     this.$scope = $scope;
     this.$element = $element;
-  ***REMOVED***
-***REMOVED***
+  }
+}
 mdContentDirective.$inject = ["$mdTheming"];
 
-function iosScrollFix(node) ***REMOVED***
+function iosScrollFix(node) {
   // IOS FIX:
   // If we scroll where there is no more room for the webview to scroll,
   // by default the webview itself will scroll up and down, this looks really
   // bad.  So if we are scrolling to the very top or bottom, add/subtract one
-  angular.element(node).on('$md.pressdown', function(ev) ***REMOVED***
+  angular.element(node).on('$md.pressdown', function(ev) {
     // Only touch events
     if (ev.pointer.type !== 't') return;
     // Don't let a child content's touchstart ruin it for us.
     if (ev.$materialScrollFixed) return;
     ev.$materialScrollFixed = true;
 
-    if (node.scrollTop === 0) ***REMOVED***
+    if (node.scrollTop === 0) {
       node.scrollTop = 1;
-    ***REMOVED*** else if (node.scrollHeight === node.scrollTop + node.offsetHeight) ***REMOVED***
+    } else if (node.scrollHeight === node.scrollTop + node.offsetHeight) {
       node.scrollTop -= 1;
-    ***REMOVED***
-  ***REMOVED***);
-***REMOVED***
+    }
+  });
+}
 
 ngmaterial.components.content = angular.module("material.components.content");

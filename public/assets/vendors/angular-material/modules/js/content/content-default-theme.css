@@ -4,6 +4,6 @@
  * @license MIT
  * v1.1.0
  */
-md-content.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';
-  background-color: '***REMOVED******REMOVED***background-default***REMOVED******REMOVED***'; ***REMOVED***
+md-content.md-THEME_NAME-theme {
+  color: '{{foreground-1}}';
+  background-color: '{{background-default}}'; }

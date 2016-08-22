@@ -1,17 +1,17 @@
 //client/scripts/TopicsCtrl.js User Topics View Controller
-(function() ***REMOVED***
+(function() {
     'use strict';
 
     angular.module('exportsNavigator').controller('TopicsCtrl', TopicsCtrl);
     TopicsCtrl.$inject = ['$state', 'topicsService', 'topics', 'topic'];
 
-    function TopicsCtrl(Topic) ***REMOVED***
+    function TopicsCtrl(Topic) {
         var vm = this;
         console.log('Injeting some stuff.');
-    ***REMOVED***
-***REMOVED***)();
+    }
+})();
 
-    function topicsData($state, topicsService, topics, topic) ***REMOVED***
+    function topicsData($state, topicsService, topics, topic) {
 
     this.topic = topics.data;
 
@@ -19,19 +19,19 @@
 
     this.topics = topics.data;
 
-    this.saveTopics = function() ***REMOVED***
+    this.saveTopics = function() {
         topicsService.saveTopics(this.topic)
-            .then(function() ***REMOVED***
+            .then(function() {
                 $state.go('topics');
                 console.log('Test Topics Save.');
-            ***REMOVED***);
-    ***REMOVED***;
+            });
+    };
 
-    this.searchTopics = function(query) ***REMOVED***
+    this.searchTopics = function(query) {
         if (!query.length) return $state.go('topics');
 
-        $state.go('search', ***REMOVED***query: query***REMOVED***);
+        $state.go('search', {query: query});
         console.log('Searching Topics!');
-    ***REMOVED***;
+    };
 
-***REMOVED***
+}

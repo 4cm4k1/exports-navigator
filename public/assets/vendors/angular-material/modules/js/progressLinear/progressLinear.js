@@ -4,7 +4,7 @@
  * @license MIT
  * v1.1.0
  */
-(function( window, angular, undefined )***REMOVED***
+(function( window, angular, undefined ){
 "use strict";
 
 /**
@@ -42,16 +42,16 @@ angular.module('material.components.progressLinear', [
  * happening behind the scenes and how long it will take, use an
  * indeterminate indicator.
  *
- * @param ***REMOVED***string***REMOVED*** md-mode Select from one of four modes: determinate, indeterminate, buffer or query.
+ * @param {string} md-mode Select from one of four modes: determinate, indeterminate, buffer or query.
  *
  * Note: if the `md-mode` value is set as undefined or specified as 1 of the four (4) valid modes, then `indeterminate`
  * will be auto-applied as the mode.
  *
  * Note: if not configured, the `md-mode="indeterminate"` will be auto injected as an attribute. If `value=""` is also specified, however,
  * then `md-mode="determinate"` would be auto-injected instead.
- * @param ***REMOVED***number=***REMOVED*** value In determinate and buffer modes, this number represents the percentage of the primary progress bar. Default: 0
- * @param ***REMOVED***number=***REMOVED*** md-buffer-value In the buffer mode, this number represents the percentage of the secondary progress bar. Default: 0
- * @param ***REMOVED***boolean=***REMOVED*** ng-disabled Determines whether to disable the progress element.
+ * @param {number=} value In determinate and buffer modes, this number represents the percentage of the primary progress bar. Default: 0
+ * @param {number=} md-buffer-value In the buffer mode, this number represents the percentage of the secondary progress bar. Default: 0
+ * @param {boolean=} ng-disabled Determines whether to disable the progress element.
  *
  * @usage
  * <hljs lang="html">
@@ -66,14 +66,14 @@ angular.module('material.components.progressLinear', [
  * <md-progress-linear md-mode="query"></md-progress-linear>
  * </hljs>
  */
-function MdProgressLinearDirective($mdTheming, $mdUtil, $log) ***REMOVED***
+function MdProgressLinearDirective($mdTheming, $mdUtil, $log) {
   var MODE_DETERMINATE = "determinate";
   var MODE_INDETERMINATE = "indeterminate";
   var MODE_BUFFER = "buffer";
   var MODE_QUERY = "query";
   var DISABLED_CLASS = "_md-progress-linear-disabled";
 
-  return ***REMOVED***
+  return {
     restrict: 'E',
     template: '<div class="md-container">' +
       '<div class="md-dashed"></div>' +
@@ -81,16 +81,16 @@ function MdProgressLinearDirective($mdTheming, $mdUtil, $log) ***REMOVED***
       '<div class="md-bar md-bar2"></div>' +
       '</div>',
     compile: compile
-  ***REMOVED***;
+  };
 
-  function compile(tElement, tAttrs, transclude) ***REMOVED***
+  function compile(tElement, tAttrs, transclude) {
     tElement.attr('aria-valuemin', 0);
     tElement.attr('aria-valuemax', 100);
     tElement.attr('role', 'progressbar');
 
     return postLink;
-  ***REMOVED***
-  function postLink(scope, element, attr) ***REMOVED***
+  }
+  function postLink(scope, element, attr) {
     $mdTheming(element);
 
     var lastMode;
@@ -110,33 +110,33 @@ function MdProgressLinearDirective($mdTheming, $mdUtil, $log) ***REMOVED***
     /**
      * Watch the value, md-buffer-value, and md-mode attributes
      */
-    function watchAttributes() ***REMOVED***
-      attr.$observe('value', function(value) ***REMOVED***
+    function watchAttributes() {
+      attr.$observe('value', function(value) {
         var percentValue = clamp(value);
         element.attr('aria-valuenow', percentValue);
 
         if (mode() != MODE_QUERY) animateIndicator(bar2, percentValue);
-      ***REMOVED***);
+      });
 
-      attr.$observe('mdBufferValue', function(value) ***REMOVED***
+      attr.$observe('mdBufferValue', function(value) {
         animateIndicator(bar1, clamp(value));
-      ***REMOVED***);
+      });
 
-      attr.$observe('disabled', function(value) ***REMOVED***
-        if (value === true || value === false) ***REMOVED***
+      attr.$observe('disabled', function(value) {
+        if (value === true || value === false) {
           isDisabled = !!value;
-        ***REMOVED*** else ***REMOVED***
+        } else {
           isDisabled = angular.isDefined(value);
-        ***REMOVED***
+        }
 
         element.toggleClass(DISABLED_CLASS, isDisabled);
         container.toggleClass(lastMode, !isDisabled);
-      ***REMOVED***);
+      });
 
-      attr.$observe('mdMode', function(mode) ***REMOVED***
+      attr.$observe('mdMode', function(mode) {
         if (lastMode) container.removeClass( lastMode );
 
-        switch( mode ) ***REMOVED***
+        switch( mode ) {
           case MODE_QUERY:
           case MODE_BUFFER:
           case MODE_DETERMINATE:
@@ -146,33 +146,33 @@ function MdProgressLinearDirective($mdTheming, $mdUtil, $log) ***REMOVED***
           default:
             container.addClass( lastMode = "md-mode-" + MODE_INDETERMINATE );
             break;
-        ***REMOVED***
-      ***REMOVED***);
-    ***REMOVED***
+        }
+      });
+    }
 
     /**
      * Auto-defaults the mode to either `determinate` or `indeterminate` mode; if not specified
      */
-    function validateMode() ***REMOVED***
-      if ( angular.isUndefined(attr.mdMode) ) ***REMOVED***
+    function validateMode() {
+      if ( angular.isUndefined(attr.mdMode) ) {
         var hasValue = angular.isDefined(attr.value);
         var mode = hasValue ? MODE_DETERMINATE : MODE_INDETERMINATE;
-        var info = "Auto-adding the missing md-mode='***REMOVED***0***REMOVED***' to the ProgressLinear element";
+        var info = "Auto-adding the missing md-mode='{0}' to the ProgressLinear element";
 
         //$log.debug( $mdUtil.supplant(info, [mode]) );
 
         element.attr("md-mode", mode);
         attr.mdMode = mode;
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     /**
      * Is the md-mode a valid option?
      */
-    function mode() ***REMOVED***
+    function mode() {
       var value = (attr.mdMode || "").trim();
-      if ( value ) ***REMOVED***
-        switch(value) ***REMOVED***
+      if ( value ) {
+        switch(value) {
           case MODE_DETERMINATE:
           case MODE_INDETERMINATE:
           case MODE_BUFFER:
@@ -181,34 +181,34 @@ function MdProgressLinearDirective($mdTheming, $mdUtil, $log) ***REMOVED***
           default:
             value = MODE_INDETERMINATE;
             break;
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
       return value;
-    ***REMOVED***
+    }
 
     /**
      * Manually set CSS to animate the Determinate indicator based on the specified
      * percentage value (0-100).
      */
-    function animateIndicator(target, value) ***REMOVED***
+    function animateIndicator(target, value) {
       if ( isDisabled || !mode() ) return;
 
-      var to = $mdUtil.supplant("translateX(***REMOVED***0***REMOVED***%) scale(***REMOVED***1***REMOVED***,1)", [ (value-100)/2, value/100 ]);
-      var styles = toVendorCSS(***REMOVED*** transform : to ***REMOVED***);
+      var to = $mdUtil.supplant("translateX({0}%) scale({1},1)", [ (value-100)/2, value/100 ]);
+      var styles = toVendorCSS({ transform : to });
       angular.element(target).css( styles );
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
   /**
    * Clamps the value to be between 0 and 100.
-   * @param ***REMOVED***number***REMOVED*** value The value to clamp.
-   * @returns ***REMOVED***number***REMOVED***
+   * @param {number} value The value to clamp.
+   * @returns {number}
    */
-  function clamp(value) ***REMOVED***
+  function clamp(value) {
     return Math.max(0, Math.min(value || 0, 100));
-  ***REMOVED***
-***REMOVED***
+  }
+}
 MdProgressLinearDirective.$inject = ["$mdTheming", "$mdUtil", "$log"];
 
 
-***REMOVED***)(window, window.angular);
+})(window, window.angular);

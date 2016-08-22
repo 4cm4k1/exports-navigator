@@ -1,28 +1,28 @@
-(function()***REMOVED***
+(function(){
     'use strict';
 
     angular.module('exportsNavigator').controller('FooterCtrl', FooterCtrl);
 
     FooterCtrl.$inject = ['$mdDialog'];
 
-    function FooterCtrl($mdDialog)***REMOVED***
+    function FooterCtrl($mdDialog){
         var vm = this;
 
-        vm.showSignInModal = function(ev) ***REMOVED***
-            $mdDialog.show(***REMOVED***
+        vm.showSignInModal = function(ev) {
+            $mdDialog.show({
                     controller: 'AuthCtrl as auth',
                     templateUrl: 'templates/auth.html',
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose: true,
                     fullscreen: true // Only for -xs, -sm breakpoints.
-                ***REMOVED***)
-                .then(function(answer) ***REMOVED***
+                })
+                .then(function(answer) {
                     vm.status = 'You said the information was "' + answer + '".';
-                ***REMOVED***, function() ***REMOVED***
+                }, function() {
                     vm.status = 'You cancelled the dialog.';
-                ***REMOVED***);
-        ***REMOVED***;
+                });
+        };
 
-    ***REMOVED***
-***REMOVED***)();
+    }
+})();

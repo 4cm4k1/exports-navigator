@@ -4,17 +4,17 @@
  * @license MIT
  * v1.1.0
  */
-md-content ***REMOVED***
+md-content {
   display: block;
   position: relative;
   overflow: auto;
-  -webkit-overflow-scrolling: touch; ***REMOVED***
-  md-content[md-scroll-y] ***REMOVED***
+  -webkit-overflow-scrolling: touch; }
+  md-content[md-scroll-y] {
     overflow-y: auto;
-    overflow-x: hidden; ***REMOVED***
-  md-content[md-scroll-x] ***REMOVED***
+    overflow-x: hidden; }
+  md-content[md-scroll-x] {
     overflow-x: auto;
-    overflow-y: hidden; ***REMOVED***
-  @media print ***REMOVED***
-    md-content ***REMOVED***
-      overflow: visible !important; ***REMOVED*** ***REMOVED***
+    overflow-y: hidden; }
+  @media print {
+    md-content {
+      overflow: visible !important; } }

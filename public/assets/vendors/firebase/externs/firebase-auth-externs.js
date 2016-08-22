@@ -28,10 +28,10 @@
  *   firebase.auth(app)
  *
  * @namespace
- * @param ***REMOVED***!firebase.app.App=***REMOVED*** app
- * @return ***REMOVED***!firebase.auth.Auth***REMOVED***
+ * @param {!firebase.app.App=} app
+ * @return {!firebase.auth.Auth}
  */
-firebase.auth = function(app) ***REMOVED******REMOVED***;
+firebase.auth = function(app) {};
 
 /**
  * Interface that represents the credentials returned by an auth provider.
@@ -40,13 +40,13 @@ firebase.auth = function(app) ***REMOVED******REMOVED***;
  *
  * @interface
  */
-firebase.auth.AuthCredential = function() ***REMOVED******REMOVED***;
+firebase.auth.AuthCredential = function() {};
 
 /**
  * The authentication provider ID for the credential.
  * For example, 'facebook.com', or 'google.com'.
   *
-  * @type ***REMOVED***string***REMOVED***
+  * @type {string}
   */
 firebase.auth.AuthCredential.prototype.provider;
 
@@ -58,9 +58,9 @@ firebase.auth.AuthCredential.prototype.provider;
  *
  *   app.auth()
  *
- * @return ***REMOVED***!firebase.auth.Auth***REMOVED***
+ * @return {!firebase.auth.Auth}
  */
-firebase.app.App.prototype.auth = function() ***REMOVED******REMOVED***;
+firebase.app.App.prototype.auth = function() {};
 
 
 /**
@@ -69,12 +69,12 @@ firebase.app.App.prototype.auth = function() ***REMOVED******REMOVED***;
  *
  * @interface
  */
-firebase.UserInfo = function() ***REMOVED******REMOVED***;
+firebase.UserInfo = function() {};
 
 /**
  * The user's unique ID.
  *
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.UserInfo.prototype.uid;
 
@@ -82,27 +82,27 @@ firebase.UserInfo.prototype.uid;
  * The authentication provider ID for the current user.
  * For example, 'facebook.com', or 'google.com'.
  *
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.UserInfo.prototype.providerId;
 
 /**
  * The user's email address (if available).
- * @type ***REMOVED***?string***REMOVED***
+ * @type {?string}
  */
 firebase.UserInfo.prototype.email;
 
 /**
  * The user's display name (if available).
  *
- * @type ***REMOVED***?string***REMOVED***
+ * @type {?string}
  */
 firebase.UserInfo.prototype.displayName;
 
 /**
  * The URL of the user's profile picture (if available).
  *
- * @type ***REMOVED***?string***REMOVED***
+ * @type {?string}
  */
 firebase.UserInfo.prototype.photoURL;
 
@@ -110,29 +110,29 @@ firebase.UserInfo.prototype.photoURL;
  * A user account.
  *
  * @interface
- * @extends ***REMOVED***firebase.UserInfo***REMOVED***
+ * @extends {firebase.UserInfo}
  */
 firebase.User;
 
-/** @type ***REMOVED***boolean***REMOVED*** */
+/** @type {boolean} */
 firebase.User.prototype.isAnonymous;
 
 /**
  * True if the user's email address has been verified.
- * @type ***REMOVED***boolean***REMOVED***
+ * @type {boolean}
  */
 firebase.User.prototype.emailVerified;
 
 /**
  * Additional provider-specific information about the user.
- * @type ***REMOVED***!Array<firebase.UserInfo>***REMOVED***
+ * @type {!Array<firebase.UserInfo>}
  */
 firebase.User.prototype.providerData;
 
 /**
  * A refresh token for the user account. Use only for advanced scenarios that
  * require explicitly refreshing tokens.
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.User.prototype.refreshToken;
 
@@ -142,28 +142,28 @@ firebase.User.prototype.refreshToken;
  * Returns the current token if it has not expired, otherwise this will
  * refresh the token and return a new one.
  *
- * @param ***REMOVED***boolean=***REMOVED*** opt_forceRefresh Force refresh regardless of token
+ * @param {boolean=} opt_forceRefresh Force refresh regardless of token
  *     expiration.
- * @return ***REMOVED***!firebase.Promise<string>***REMOVED***
+ * @return {!firebase.Promise<string>}
  */
-firebase.User.prototype.getToken = function(opt_forceRefresh) ***REMOVED******REMOVED***;
+firebase.User.prototype.getToken = function(opt_forceRefresh) {};
 
 /**
  * Refreshes the current user, if signed in.
  *
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @return {!firebase.Promise<void>}
  */
-firebase.User.prototype.reload = function() ***REMOVED******REMOVED***;
+firebase.User.prototype.reload = function() {};
 
 /**
  * Sends a verification email to a user.
  *
  * The verification process is completed by calling
- * ***REMOVED***@link firebase.auth.Auth#applyActionCode***REMOVED***
+ * {@link firebase.auth.Auth#applyActionCode}
  *
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @return {!firebase.Promise<void>}
  */
-firebase.User.prototype.sendEmailVerification = function() ***REMOVED******REMOVED***;
+firebase.User.prototype.sendEmailVerification = function() {};
 
 
 /**
@@ -190,17 +190,17 @@ firebase.User.prototype.sendEmailVerification = function() ***REMOVED******REMOV
  *     <strong>Sign in Method</strong> tab and configure the provider.</dd>
  * <dt>auth/invalid-email</dt>
  * <dd>Thrown if the email used in a
- *     ***REMOVED***@link firebase.auth.EmailAuthProvider#credential***REMOVED*** is invalid.</dd>
+ *     {@link firebase.auth.EmailAuthProvider#credential} is invalid.</dd>
  * <dt>auth/wrong-password</dt>
  * <dd>Thrown if the password used in a
- *     ***REMOVED***@link firebase.auth.EmailAuthProvider#credential***REMOVED*** is not correct or when
+ *     {@link firebase.auth.EmailAuthProvider#credential} is not correct or when
  *     the user associated with the email does not have a password.</dd>
  * </dl>
  *
- * @param ***REMOVED***!firebase.auth.AuthCredential***REMOVED*** credential The auth credential.
- * @return ***REMOVED***!firebase.Promise<!firebase.User>***REMOVED***
+ * @param {!firebase.auth.AuthCredential} credential The auth credential.
+ * @return {!firebase.Promise<!firebase.User>}
  */
-firebase.User.prototype.link = function(credential) ***REMOVED******REMOVED***;
+firebase.User.prototype.link = function(credential) {};
 
 
 /**
@@ -213,15 +213,15 @@ firebase.User.prototype.link = function(credential) ***REMOVED******REMOVED***;
  *     provider ID given does not exist.</dd>
  * </dt>
  *
- * @param ***REMOVED***string***REMOVED*** providerId
- * @return ***REMOVED***!firebase.Promise<!firebase.User>***REMOVED***
+ * @param {string} providerId
+ * @return {!firebase.Promise<!firebase.User>}
  */
-firebase.User.prototype.unlink = function(providerId) ***REMOVED******REMOVED***;
+firebase.User.prototype.unlink = function(providerId) {};
 
 
 /**
  * Re-authenticates a user using a fresh credential. Use before operations
- * such as ***REMOVED***@link firebase.User#updatePassword***REMOVED*** that require tokens from recent
+ * such as {@link firebase.User#updatePassword} that require tokens from recent
  * sign-in attempts.
  *
  * <h4>Error Codes</h4>
@@ -239,17 +239,17 @@ firebase.User.prototype.unlink = function(providerId) ***REMOVED******REMOVED***
  *     method.</dd>
  * <dt>auth/invalid-email</dt>
  * <dd>Thrown if the email used in a
- *     ***REMOVED***@link firebase.auth.EmailAuthProvider#credential***REMOVED*** is invalid.</dd>
+ *     {@link firebase.auth.EmailAuthProvider#credential} is invalid.</dd>
  * <dt>auth/wrong-password</dt>
  * <dd>Thrown if the password used in a
- *     ***REMOVED***@link firebase.auth.EmailAuthProvider#credential***REMOVED*** is not correct or when
+ *     {@link firebase.auth.EmailAuthProvider#credential} is not correct or when
  *     the user associated with the email does not have a password.</dd>
  * </dl>
  *
- * @param ***REMOVED***!firebase.auth.AuthCredential***REMOVED*** credential
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @param {!firebase.auth.AuthCredential} credential
+ * @return {!firebase.Promise<void>}
  */
-firebase.User.prototype.reauthenticate = function(credential) ***REMOVED******REMOVED***;
+firebase.User.prototype.reauthenticate = function(credential) {};
 
 
 /**
@@ -261,7 +261,7 @@ firebase.User.prototype.reauthenticate = function(credential) ***REMOVED******RE
  *
  * <b>Important:</b> this is a security sensitive operation that requires the
  * user to have recently signed in. If this requirement isn't met, ask the user
- * to authenticate again and then call ***REMOVED***@link firebase.User#reauthenticate***REMOVED***.
+ * to authenticate again and then call {@link firebase.User#reauthenticate}.
  *
  * <h4>Error Codes</h4>
  * <dl>
@@ -271,14 +271,14 @@ firebase.User.prototype.reauthenticate = function(credential) ***REMOVED******RE
  * <dd>Thrown if the email is already used by another user.</dd>
  * <dt>auth/requires-recent-login</dt>
  * <dd>Thrown if the user's last sign-in time does not meet the security
- *     threshold. Use ***REMOVED***@link firebase.User#reauthenticate***REMOVED*** to resolve. This does
+ *     threshold. Use {@link firebase.User#reauthenticate} to resolve. This does
  *     not apply if the user is anonymous.</dd>
  * </dl>
  *
- * @param ***REMOVED***string***REMOVED*** newEmail The new email address.
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @param {string} newEmail The new email address.
+ * @return {!firebase.Promise<void>}
  */
-firebase.User.prototype.updateEmail = function(newEmail) ***REMOVED******REMOVED***;
+firebase.User.prototype.updateEmail = function(newEmail) {};
 
 
 /**
@@ -286,7 +286,7 @@ firebase.User.prototype.updateEmail = function(newEmail) ***REMOVED******REMOVED
  *
  * <b>Important:</b> this is a security sensitive operation that requires the
  * user to have recently signed in. If this requirement isn't met, ask the user
- * to authenticate again and then call ***REMOVED***@link firebase.User#reauthenticate***REMOVED***.
+ * to authenticate again and then call {@link firebase.User#reauthenticate}.
  *
  * <h4>Error Codes</h4>
  * <dl>
@@ -294,14 +294,14 @@ firebase.User.prototype.updateEmail = function(newEmail) ***REMOVED******REMOVED
  * <dd>Thrown if the password is not strong enough.</dd>
  * <dt>auth/requires-recent-login</dt>
  * <dd>Thrown if the user's last sign-in time does not meet the security
- *     threshold. Use ***REMOVED***@link firebase.User#reauthenticate***REMOVED*** to resolve. This does
+ *     threshold. Use {@link firebase.User#reauthenticate} to resolve. This does
  *     not apply if the user is anonymous.</dd>
  * </dl>
  *
- * @param ***REMOVED***string***REMOVED*** newPassword
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @param {string} newPassword
+ * @return {!firebase.Promise<void>}
  */
-firebase.User.prototype.updatePassword = function(newPassword) ***REMOVED******REMOVED***;
+firebase.User.prototype.updatePassword = function(newPassword) {};
 
 
 /**
@@ -309,37 +309,37 @@ firebase.User.prototype.updatePassword = function(newPassword) ***REMOVED******R
  *
  * @example
  * // Updates the user attributes:
- * user.updateProfile(***REMOVED***
+ * user.updateProfile({
  *   displayName: "Jane Q. User",
  *   photoURL: "https://example.com/jane-q-user/profile.jpg"
- * ***REMOVED***).then(function() ***REMOVED***
+ * }).then(function() {
  *   // Profile updated successfully!
  *   // "Jane Q. User"
  *   var displayName = user.displayName;
  *   // "https://example.com/jane-q-user/profile.jpg"
  *   var photoURL = user.photoURL;
- * ***REMOVED***, function(error) ***REMOVED***
+ * }, function(error) {
  *   // An error happened.
- * ***REMOVED***);
+ * });
  *
  * // Passing a null value will delete the current attribute's value, but not
  * // passing a property won't change the current attribute's value:
  * // Let's say we're using the same user than before, after the update.
- * user.updateProfile(***REMOVED***photoURL: null***REMOVED***).then(function() ***REMOVED***
+ * user.updateProfile({photoURL: null}).then(function() {
  *   // Profile updated successfully!
  *   // "Jane Q. User", hasn't changed.
  *   var displayName = user.displayName;
  *   // Now, this is null.
  *   var photoURL = user.photoURL;
- * ***REMOVED***, function(error) ***REMOVED***
+ * }, function(error) {
  *   // An error happened.
- * ***REMOVED***);
+ * });
  *
- * @param ***REMOVED***!***REMOVED***displayName: ?string, photoURL: ?string***REMOVED******REMOVED*** profile The profile's
+ * @param {!{displayName: ?string, photoURL: ?string}} profile The profile's
  *     displayName and photoURL to update.
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @return {!firebase.Promise<void>}
  */
-firebase.User.prototype.updateProfile = function(profile) ***REMOVED******REMOVED***;
+firebase.User.prototype.updateProfile = function(profile) {};
 
 
 /**
@@ -347,19 +347,19 @@ firebase.User.prototype.updateProfile = function(profile) ***REMOVED******REMOVE
  *
  * <b>Important:</b> this is a security sensitive operation that requires the
  * user to have recently signed in. If this requirement isn't met, ask the user
- * to authenticate again and then call ***REMOVED***@link firebase.User#reauthenticate***REMOVED***.
+ * to authenticate again and then call {@link firebase.User#reauthenticate}.
  *
  * <h4>Error Codes</h4>
  * <dl>
  * <dt>auth/requires-recent-login</dt>
  * <dd>Thrown if the user's last sign-in time does not meet the security
- *     threshold. Use ***REMOVED***@link firebase.User#reauthenticate***REMOVED*** to resolve. This does
+ *     threshold. Use {@link firebase.User#reauthenticate} to resolve. This does
  *     not apply if the user is anonymous.</dd>
  * </dl>
  *
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @return {!firebase.Promise<void>}
  */
-firebase.User.prototype.delete = function() ***REMOVED******REMOVED***;
+firebase.User.prototype.delete = function() {};
 
 
 /**
@@ -384,26 +384,26 @@ firebase.User.prototype.delete = function() ***REMOVED******REMOVED***;
  *     issued and when this method was called.</dd>
  * </dl>
  *
- * @param ***REMOVED***string***REMOVED*** code A verification code sent to the user.
- * @return ***REMOVED***!firebase.Promise<string>***REMOVED***
+ * @param {string} code A verification code sent to the user.
+ * @return {!firebase.Promise<string>}
  */
-firebase.auth.Auth.prototype.verifyPasswordResetCode = function(code) ***REMOVED******REMOVED***;
+firebase.auth.Auth.prototype.verifyPasswordResetCode = function(code) {};
 
 
 /**
- * A response from ***REMOVED***@link firebase.auth.Auth#checkActionCode***REMOVED***.
+ * A response from {@link firebase.auth.Auth#checkActionCode}.
  *
  * @interface
  */
-firebase.auth.ActionCodeInfo = function() ***REMOVED******REMOVED***;
+firebase.auth.ActionCodeInfo = function() {};
 
 
 /**
  * The email address associated with the action code.
  *
- * @typedef ***REMOVED******REMOVED***
+ * @typedef {{
  *   email: string
- * ***REMOVED******REMOVED***
+ * }}
  */
 firebase.auth.ActionCodeInfo.prototype.data;
 
@@ -430,10 +430,10 @@ firebase.auth.ActionCodeInfo.prototype.data;
  *     issued and when this method was called.</dd>
  * </dl>
  *
- * @param ***REMOVED***string***REMOVED*** code A verification code sent to the user.
- * @return ***REMOVED***!firebase.Promise<!firebase.auth.ActionCodeInfo>***REMOVED***
+ * @param {string} code A verification code sent to the user.
+ * @return {!firebase.Promise<!firebase.auth.ActionCodeInfo>}
  */
-firebase.auth.Auth.prototype.checkActionCode = function(code) ***REMOVED******REMOVED***;
+firebase.auth.Auth.prototype.checkActionCode = function(code) {};
 
 
 /**
@@ -456,10 +456,10 @@ firebase.auth.Auth.prototype.checkActionCode = function(code) ***REMOVED******RE
  *     issued and when this method was called.</dd>
  * </dl>
  *
- * @param ***REMOVED***string***REMOVED*** code A verification code sent to the user.
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @param {string} code A verification code sent to the user.
+ * @return {!firebase.Promise<void>}
  */
-firebase.auth.Auth.prototype.applyActionCode = function(code) ***REMOVED******REMOVED***;
+firebase.auth.Auth.prototype.applyActionCode = function(code) {};
 
 
 /**
@@ -467,19 +467,19 @@ firebase.auth.Auth.prototype.applyActionCode = function(code) ***REMOVED******RE
  *
  * @interface
  */
-firebase.auth.Auth = function() ***REMOVED******REMOVED***;
+firebase.auth.Auth = function() {};
 
 /**
  * The App associated with the Auth service instance.
  *
- * @type ***REMOVED***!firebase.app.App***REMOVED***
+ * @type {!firebase.app.App}
  */
 firebase.auth.Auth.prototype.app;
 
 /**
  * The currently signed-in user (or null).
  *
- * @type ***REMOVED***firebase.User|null***REMOVED***
+ * @type {firebase.User|null}
  */
 firebase.auth.Auth.prototype.currentUser;
 
@@ -511,12 +511,12 @@ firebase.auth.Auth.prototype.currentUser;
  * <dd>Thrown if the password is not strong enough.</dd>
  * </dl>
  *
- * @param ***REMOVED***string***REMOVED*** email The user's email address.
- * @param ***REMOVED***string***REMOVED*** password The user's chosen password.
- * @return ***REMOVED***!firebase.Promise<!firebase.User>***REMOVED***
+ * @param {string} email The user's email address.
+ * @param {string} password The user's chosen password.
+ * @return {!firebase.Promise<!firebase.User>}
  */
 firebase.auth.Auth.prototype.createUserWithEmailAndPassword =
-    function(email, password) ***REMOVED******REMOVED***;
+    function(email, password) {};
 
 
 /**
@@ -529,32 +529,32 @@ firebase.auth.Auth.prototype.createUserWithEmailAndPassword =
  * <dd>Thrown if the email address is not valid.</dd>
  * </dl>
  *
- * @param ***REMOVED***string***REMOVED*** email An email address.
- * @return ***REMOVED***!firebase.Promise<!Array<string>>***REMOVED***
+ * @param {string} email An email address.
+ * @return {!firebase.Promise<!Array<string>>}
  */
-firebase.auth.Auth.prototype.fetchProvidersForEmail = function(email) ***REMOVED******REMOVED***;
+firebase.auth.Auth.prototype.fetchProvidersForEmail = function(email) {};
 
 
 /**
  * Adds an observer for auth state changes.
  *
- * @param ***REMOVED***!Object|function(?firebase.User)***REMOVED***
+ * @param {!Object|function(?firebase.User)}
  *     nextOrObserver An observer object or a function triggered on change.
- * @param ***REMOVED***function(!firebase.auth.Error)=***REMOVED*** opt_error Optional A function
+ * @param {function(!firebase.auth.Error)=} opt_error Optional A function
  *     triggered on auth error.
- * @param ***REMOVED***function()=***REMOVED*** opt_completed Optional A function triggered when the
+ * @param {function()=} opt_completed Optional A function triggered when the
  *     observer is removed.
- * @return ***REMOVED***!function()***REMOVED*** The unsubscribe function for the observer.
+ * @return {!function()} The unsubscribe function for the observer.
  */
 firebase.auth.Auth.prototype.onAuthStateChanged = function(
-    nextOrObserver, opt_error, opt_completed) ***REMOVED******REMOVED***;
+    nextOrObserver, opt_error, opt_completed) {};
 
 
 /**
  * Sends a password reset email to the given email address.
  *
  * To complete the password reset, call
- * ***REMOVED***@link firebase.auth.Auth#confirmPasswordReset***REMOVED*** with the code supplied in the
+ * {@link firebase.auth.Auth#confirmPasswordReset} with the code supplied in the
  * email sent to the user, along with the new password specified by the user.
  *
  * <h4>Error Codes</h4>
@@ -565,10 +565,10 @@ firebase.auth.Auth.prototype.onAuthStateChanged = function(
  * <dd>Thrown if there is no user corresponding to the email address.</dd>
  * </dl>
  *
- * @param ***REMOVED***string***REMOVED*** email The email address with the password to be reset.
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @param {string} email The email address with the password to be reset.
+ * @return {!firebase.Promise<void>}
  */
-firebase.auth.Auth.prototype.sendPasswordResetEmail = function(email) ***REMOVED******REMOVED***;
+firebase.auth.Auth.prototype.sendPasswordResetEmail = function(email) {};
 
 
 /**
@@ -593,12 +593,12 @@ firebase.auth.Auth.prototype.sendPasswordResetEmail = function(email) ***REMOVED
  * <dd>Thrown if the new password is not strong enough.</dd>
  * </dl>
  *
- * @param ***REMOVED***string***REMOVED*** code The confirmation code send via email to the user.
- * @param ***REMOVED***string***REMOVED*** newPassword The new password.
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @param {string} code The confirmation code send via email to the user.
+ * @param {string} newPassword The new password.
+ * @return {!firebase.Promise<void>}
  */
 firebase.auth.Auth.prototype.confirmPasswordReset =
-    function(code, newPassword) ***REMOVED******REMOVED***;
+    function(code, newPassword) {};
 
 /**
  * Asynchronously signs in with the given credentials.
@@ -608,10 +608,10 @@ firebase.auth.Auth.prototype.confirmPasswordReset =
  * <dt>auth/account-exists-with-different-credential</dt>
  * <dd>Thrown if there already exists an account with the email address
  *     asserted by the credential. Resolve this by calling
- *     ***REMOVED***@link firebase.auth.Auth#fetchProvidersForEmail***REMOVED*** and then asking the
+ *     {@link firebase.auth.Auth#fetchProvidersForEmail} and then asking the
  *     user to sign in using one of the returned providers. Once the user is
  *     signed in, the original credential can be linked to the user with
- *     ***REMOVED***@link firebase.User#link***REMOVED***.</dd>
+ *     {@link firebase.User#link}.</dd>
  * <dt>auth/invalid-credential</dt>
  * <dd>Thrown if the credential is malformed or has expired.</dd>
  * <dt>auth/operation-not-allowed</dt>
@@ -623,19 +623,19 @@ firebase.auth.Auth.prototype.confirmPasswordReset =
  *     disabled.</dd>
  * <dt>auth/user-not-found</dt>
  * <dd>Thrown if signing in with a credential from
- *     ***REMOVED***@link firebase.auth.EmailAuthProvider#credential***REMOVED*** and there is no user
+ *     {@link firebase.auth.EmailAuthProvider#credential} and there is no user
  *     corresponding to the given email. </dd>
  * <dt>auth/wrong-password</dt>
  * <dd>Thrown if signing in with a credential from
- *     ***REMOVED***@link firebase.auth.EmailAuthProvider#credential***REMOVED*** and the password is
+ *     {@link firebase.auth.EmailAuthProvider#credential} and the password is
  *     invalid for the given email, or if the account corresponding to the email
  *     does not have a password set.</dd>
  * </dl>
  *
- * @param ***REMOVED***!firebase.auth.AuthCredential***REMOVED*** credential The auth credential.
- * @return ***REMOVED***!firebase.Promise<!firebase.User>***REMOVED***
+ * @param {!firebase.auth.AuthCredential} credential The auth credential.
+ * @return {!firebase.Promise<!firebase.User>}
  */
-firebase.auth.Auth.prototype.signInWithCredential = function(credential) ***REMOVED******REMOVED***;
+firebase.auth.Auth.prototype.signInWithCredential = function(credential) {};
 
 
 /**
@@ -655,10 +655,10 @@ firebase.auth.Auth.prototype.signInWithCredential = function(credential) ***REMO
  * <dd>Thrown if the custom token format is incorrect.</dd>
  * </dl>
  *
- * @param ***REMOVED***string***REMOVED*** token The custom token to sign in with.
- * @return ***REMOVED***!firebase.Promise<!firebase.User>***REMOVED***
+ * @param {string} token The custom token to sign in with.
+ * @return {!firebase.Promise<!firebase.User>}
  */
-firebase.auth.Auth.prototype.signInWithCustomToken = function(token) ***REMOVED******REMOVED***;
+firebase.auth.Auth.prototype.signInWithCustomToken = function(token) {};
 
 
 /**
@@ -670,7 +670,7 @@ firebase.auth.Auth.prototype.signInWithCustomToken = function(token) ***REMOVED*
  * account. The email address serves as a unique identifier for the user, and
  * the password is used to access the user's account in your Firebase project.
  *
- * See also: ***REMOVED***@link firebase.auth.Auth#createUserWithEmailAndPassword***REMOVED***.
+ * See also: {@link firebase.auth.Auth#createUserWithEmailAndPassword}.
  *
  * <h4>Error Codes</h4>
  * <dl>
@@ -686,12 +686,12 @@ firebase.auth.Auth.prototype.signInWithCustomToken = function(token) ***REMOVED*
  *     corresponding to the email does not have a password set.</dd>
  * </dl>
  *
- * @param ***REMOVED***string***REMOVED*** email The users email address.
- * @param ***REMOVED***string***REMOVED*** password The users password.
- * @return ***REMOVED***!firebase.Promise<!firebase.User>***REMOVED***
+ * @param {string} email The users email address.
+ * @param {string} password The users password.
+ * @return {!firebase.Promise<!firebase.User>}
  */
 firebase.auth.Auth.prototype.signInWithEmailAndPassword =
-    function(email, password) ***REMOVED******REMOVED***;
+    function(email, password) {};
 
 
 /**
@@ -707,39 +707,39 @@ firebase.auth.Auth.prototype.signInWithEmailAndPassword =
  *     in the Firebase Console, under the Auth tab.</dd>
  * </dl>
  *
- * @return ***REMOVED***!firebase.Promise<!firebase.User>***REMOVED***
+ * @return {!firebase.Promise<!firebase.User>}
  */
-firebase.auth.Auth.prototype.signInAnonymously = function() ***REMOVED******REMOVED***;
+firebase.auth.Auth.prototype.signInAnonymously = function() {};
 
 
 /**
  * A structure containing a User and an AuthCredential.
  *
- * @typedef ***REMOVED******REMOVED***
+ * @typedef {{
  *   user: ?firebase.User,
  *   credential: ?firebase.auth.AuthCredential
- * ***REMOVED******REMOVED***
+ * }}
  */
 firebase.auth.UserCredential;
 
 /**
  * Signs out the current user.
  *
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @return {!firebase.Promise<void>}
  */
-firebase.auth.Auth.prototype.signOut = function() ***REMOVED******REMOVED***;
+firebase.auth.Auth.prototype.signOut = function() {};
 
 
 /**
  * An authentication error.
  * For method-specific error codes, refer to the specific methods in the
- * documentation. For common error codes, check the reference below. Use ***REMOVED***@link
- * firebase.auth.Error#code***REMOVED*** to get the specific error code. For a detailed
- * message, use ***REMOVED***@link firebase.auth.Error#message***REMOVED***.
+ * documentation. For common error codes, check the reference below. Use {@link
+ * firebase.auth.Error#code} to get the specific error code. For a detailed
+ * message, use {@link firebase.auth.Error#message}.
  * Errors with the code <strong>auth/account-exists-with-different-credential
  * </strong> will have the additional fields <strong>email</strong> and <strong>
  * credential</strong> which are needed to provide a way to resolve these
- * specific errors. Refer to ***REMOVED***@link firebase.auth.Auth#signInWithPopup***REMOVED*** for more
+ * specific errors. Refer to {@link firebase.auth.Auth#signInWithPopup} for more
  * information.
  *
  * <h4>Common Error Codes</h4>
@@ -767,7 +767,7 @@ firebase.auth.Auth.prototype.signOut = function() ***REMOVED******REMOVED***;
  *     <strong>Sign in Method</strong> tab and configure the provider.</dd>
  * <dt>auth/requires-recent-login</dt>
  * <dd>Thrown if the user's last sign-in time does not meet the security
- *     threshold. Use ***REMOVED***@link firebase.User#reauthenticate***REMOVED*** to resolve. This does
+ *     threshold. Use {@link firebase.User#reauthenticate} to resolve. This does
  *     not apply if the user is anonymous.</dd>
  * <dt>auth/too-many-requests</dt>
  * <dd>Thrown if requests are blocked from a device due to unusual activity.
@@ -791,19 +791,19 @@ firebase.auth.Auth.prototype.signOut = function() ***REMOVED******REMOVED***;
  *
  * @interface
  */
-firebase.auth.Error = function() ***REMOVED******REMOVED***;
+firebase.auth.Error = function() {};
 
 /**
  * Unique error code.
  *
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.auth.Error.prototype.code;
 
 /**
  * Complete error message.
  *
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.auth.Error.prototype.message;
 
@@ -818,125 +818,125 @@ firebase.auth.Error.prototype.message;
  *
  * @interface
  */
-firebase.auth.AuthProvider = function() ***REMOVED******REMOVED***;
+firebase.auth.AuthProvider = function() {};
 
-/** @type ***REMOVED***string***REMOVED*** */
+/** @type {string} */
 firebase.auth.AuthProvider.prototype.providerId;
 
 /**
  * Facebook auth provider.
  * @constructor
- * @implements ***REMOVED***firebase.auth.AuthProvider***REMOVED***
+ * @implements {firebase.auth.AuthProvider}
  */
-firebase.auth.FacebookAuthProvider = function() ***REMOVED******REMOVED***;
+firebase.auth.FacebookAuthProvider = function() {};
 
-/** @type ***REMOVED***string***REMOVED*** */
+/** @type {string} */
 firebase.auth.FacebookAuthProvider.PROVIDER_ID;
 
 /**
- * @param ***REMOVED***string***REMOVED*** token Facebook access token.
- * @return ***REMOVED***!firebase.auth.AuthCredential***REMOVED*** The auth provider credential.
+ * @param {string} token Facebook access token.
+ * @return {!firebase.auth.AuthCredential} The auth provider credential.
  */
-firebase.auth.FacebookAuthProvider.credential = function(token) ***REMOVED******REMOVED***;
+firebase.auth.FacebookAuthProvider.credential = function(token) {};
 
-/** @type ***REMOVED***string***REMOVED*** */
+/** @type {string} */
 firebase.auth.FacebookAuthProvider.prototype.providerId;
 
 /**
- * @param ***REMOVED***string***REMOVED*** scope Facebook OAuth scope.
+ * @param {string} scope Facebook OAuth scope.
  */
-firebase.auth.FacebookAuthProvider.prototype.addScope = function(scope) ***REMOVED******REMOVED***;
+firebase.auth.FacebookAuthProvider.prototype.addScope = function(scope) {};
 
 
 /**
  * Github auth provider.
  * @constructor
- * @implements ***REMOVED***firebase.auth.AuthProvider***REMOVED***
+ * @implements {firebase.auth.AuthProvider}
  */
-firebase.auth.GithubAuthProvider = function() ***REMOVED******REMOVED***;
+firebase.auth.GithubAuthProvider = function() {};
 
-/** @type ***REMOVED***string***REMOVED*** */
+/** @type {string} */
 firebase.auth.GithubAuthProvider.PROVIDER_ID;
 
 /**
- * @param ***REMOVED***string***REMOVED*** token Github access token.
- * @return ***REMOVED***!firebase.auth.AuthCredential***REMOVED*** The auth provider credential.
+ * @param {string} token Github access token.
+ * @return {!firebase.auth.AuthCredential} The auth provider credential.
  */
-firebase.auth.GithubAuthProvider.credential = function(token) ***REMOVED******REMOVED***;
+firebase.auth.GithubAuthProvider.credential = function(token) {};
 
-/** @type ***REMOVED***string***REMOVED*** */
+/** @type {string} */
 firebase.auth.GithubAuthProvider.prototype.providerId;
 
 /**
- * @param ***REMOVED***string***REMOVED*** scope Github OAuth scope.
+ * @param {string} scope Github OAuth scope.
  */
-firebase.auth.GithubAuthProvider.prototype.addScope = function(scope) ***REMOVED******REMOVED***;
+firebase.auth.GithubAuthProvider.prototype.addScope = function(scope) {};
 
 /**
  * Google auth provider.
  * @constructor
- * @implements ***REMOVED***firebase.auth.AuthProvider***REMOVED***
+ * @implements {firebase.auth.AuthProvider}
  */
-firebase.auth.GoogleAuthProvider = function() ***REMOVED******REMOVED***;
+firebase.auth.GoogleAuthProvider = function() {};
 
-/** @type ***REMOVED***string***REMOVED*** */
+/** @type {string} */
 firebase.auth.GoogleAuthProvider.PROVIDER_ID;
 
 /**
  * Creates a credential for Google. At least one of ID token and access token
  * is required.
- * @param ***REMOVED***?string=***REMOVED*** idToken Google ID token.
- * @param ***REMOVED***?string=***REMOVED*** accessToken Google access token.
- * @return ***REMOVED***!firebase.auth.AuthCredential***REMOVED*** The auth provider credential.
+ * @param {?string=} idToken Google ID token.
+ * @param {?string=} accessToken Google access token.
+ * @return {!firebase.auth.AuthCredential} The auth provider credential.
  */
-firebase.auth.GoogleAuthProvider.credential = function(idToken, accessToken) ***REMOVED******REMOVED***;
+firebase.auth.GoogleAuthProvider.credential = function(idToken, accessToken) {};
 
-/** @type ***REMOVED***string***REMOVED*** */
+/** @type {string} */
 firebase.auth.GoogleAuthProvider.prototype.providerId;
 
 /**
- * @param ***REMOVED***string***REMOVED*** scope Google OAuth scope.
+ * @param {string} scope Google OAuth scope.
  */
-firebase.auth.GoogleAuthProvider.prototype.addScope = function(scope) ***REMOVED******REMOVED***;
+firebase.auth.GoogleAuthProvider.prototype.addScope = function(scope) {};
 
 
 /**
  * Twitter auth provider.
  * @constructor
- * @implements ***REMOVED***firebase.auth.AuthProvider***REMOVED***
+ * @implements {firebase.auth.AuthProvider}
  */
-firebase.auth.TwitterAuthProvider = function() ***REMOVED******REMOVED***;
+firebase.auth.TwitterAuthProvider = function() {};
 
-/** @type ***REMOVED***string***REMOVED*** */
+/** @type {string} */
 firebase.auth.TwitterAuthProvider.PROVIDER_ID;
 
 /**
- * @param ***REMOVED***string***REMOVED*** token Twitter access token.
- * @param ***REMOVED***string***REMOVED*** secret Twitter secret.
- * @return ***REMOVED***!firebase.auth.AuthCredential***REMOVED*** The auth provider credential.
+ * @param {string} token Twitter access token.
+ * @param {string} secret Twitter secret.
+ * @return {!firebase.auth.AuthCredential} The auth provider credential.
  */
-firebase.auth.TwitterAuthProvider.credential = function(token, secret) ***REMOVED******REMOVED***;
+firebase.auth.TwitterAuthProvider.credential = function(token, secret) {};
 
-/** @type ***REMOVED***string***REMOVED*** */
+/** @type {string} */
 firebase.auth.TwitterAuthProvider.prototype.providerId;
 
 
 /**
  * Email and password auth provider implementation.
  * @constructor
- * @implements ***REMOVED***firebase.auth.AuthProvider***REMOVED***
+ * @implements {firebase.auth.AuthProvider}
  */
-firebase.auth.EmailAuthProvider = function() ***REMOVED******REMOVED***;
+firebase.auth.EmailAuthProvider = function() {};
 
-/** @type ***REMOVED***string***REMOVED*** */
+/** @type {string} */
 firebase.auth.EmailAuthProvider.PROVIDER_ID;
 
 /**
- * @param ***REMOVED***string***REMOVED*** email Email address.
- * @param ***REMOVED***string***REMOVED*** password User account password.
- * @return ***REMOVED***!firebase.auth.AuthCredential***REMOVED*** The auth provider credential.
+ * @param {string} email Email address.
+ * @param {string} password User account password.
+ * @return {!firebase.auth.AuthCredential} The auth provider credential.
  */
-firebase.auth.EmailAuthProvider.credential = function(email, password) ***REMOVED******REMOVED***;
+firebase.auth.EmailAuthProvider.credential = function(email, password) {};
 
-/** @type ***REMOVED***string***REMOVED*** */
+/** @type {string} */
 firebase.auth.EmailAuthProvider.prototype.providerId;

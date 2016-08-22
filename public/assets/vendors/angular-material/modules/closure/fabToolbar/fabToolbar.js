@@ -8,7 +8,7 @@ goog.provide('ngmaterial.components.fabToolbar');
 goog.require('ngmaterial.components.fabActions');
 goog.require('ngmaterial.components.fabShared');
 goog.require('ngmaterial.core');
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   /**
@@ -77,47 +77,47 @@ goog.require('ngmaterial.core');
    * </md-fab-toolbar>
    * </hljs>
    *
-   * @param ***REMOVED***string***REMOVED*** md-direction From which direction you would like the toolbar items to appear
+   * @param {string} md-direction From which direction you would like the toolbar items to appear
    * relative to the trigger element. Supports `left` and `right` directions.
-   * @param ***REMOVED***expression=***REMOVED*** md-open Programmatically control whether or not the toolbar is visible.
+   * @param {expression=} md-open Programmatically control whether or not the toolbar is visible.
    */
-  function MdFabToolbarDirective() ***REMOVED***
-    return ***REMOVED***
+  function MdFabToolbarDirective() {
+    return {
       restrict: 'E',
       transclude: true,
       template: '<div class="md-fab-toolbar-wrapper">' +
       '  <div class="md-fab-toolbar-content" ng-transclude></div>' +
       '</div>',
 
-      scope: ***REMOVED***
+      scope: {
         direction: '@?mdDirection',
         isOpen: '=?mdOpen'
-      ***REMOVED***,
+      },
 
       bindToController: true,
       controller: 'MdFabController',
       controllerAs: 'vm',
 
       link: link
-    ***REMOVED***;
+    };
 
-    function link(scope, element, attributes) ***REMOVED***
+    function link(scope, element, attributes) {
       // Add the base class for animations
       element.addClass('md-fab-toolbar');
 
       // Prepend the background element to the trigger's button
       element.find('md-fab-trigger').find('button')
         .prepend('<div class="md-fab-toolbar-background"></div>');
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
-  function MdFabToolbarAnimation() ***REMOVED***
+  function MdFabToolbarAnimation() {
 
-    function runAnimation(element, className, done) ***REMOVED***
+    function runAnimation(element, className, done) {
       // If no className was specified, don't do anything
-      if (!className) ***REMOVED***
+      if (!className) {
         return;
-      ***REMOVED***
+      }
 
       var el = element[0];
       var ctrl = element.controller('mdFabToolbar');
@@ -130,7 +130,7 @@ goog.require('ngmaterial.core');
       var actions = element.find('md-fab-actions').children();
 
       // If we have both elements, use them to position the new background
-      if (triggerElement && backgroundElement) ***REMOVED***
+      if (triggerElement && backgroundElement) {
         // Get our variables
         var color = window.getComputedStyle(triggerElement).getPropertyValue('background-color');
         var width = el.offsetWidth;
@@ -144,7 +144,7 @@ goog.require('ngmaterial.core');
         backgroundElement.style.borderRadius = width + 'px';
 
         // If we're open
-        if (ctrl.isOpen) ***REMOVED***
+        if (ctrl.isOpen) {
           // Turn on toolbar pointer events when closed
           toolbarElement.style.pointerEvents = 'inherit';
 
@@ -157,10 +157,10 @@ goog.require('ngmaterial.core');
           iconElement && (iconElement.style.transitionDelay = '.3s');
 
           // Apply a transition delay to actions
-          angular.forEach(actions, function(action, index) ***REMOVED***
+          angular.forEach(actions, function(action, index) {
             action.style.transitionDelay = (actions.length - index) * 25 + 'ms';
-          ***REMOVED***);
-        ***REMOVED*** else ***REMOVED***
+          });
+        } else {
           // Turn off toolbar pointer events when closed
           toolbarElement.style.pointerEvents = 'none';
 
@@ -170,40 +170,40 @@ goog.require('ngmaterial.core');
           // Reset the position
           backgroundElement.style.top = '0';
 
-          if (element.hasClass('md-right')) ***REMOVED***
+          if (element.hasClass('md-right')) {
             backgroundElement.style.left = '0';
             backgroundElement.style.right = null;
-          ***REMOVED***
+          }
 
-          if (element.hasClass('md-left')) ***REMOVED***
+          if (element.hasClass('md-left')) {
             backgroundElement.style.right = '0';
             backgroundElement.style.left = null;
-          ***REMOVED***
+          }
 
           // Set the next open animation to have the proper delays
           backgroundElement.style.transitionDelay = '200ms';
           iconElement && (iconElement.style.transitionDelay = '0ms');
 
           // Apply a transition delay to actions
-          angular.forEach(actions, function(action, index) ***REMOVED***
+          angular.forEach(actions, function(action, index) {
             action.style.transitionDelay = 200 + (index * 25) + 'ms';
-          ***REMOVED***);
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***
+          });
+        }
+      }
+    }
 
-    return ***REMOVED***
-      addClass: function(element, className, done) ***REMOVED***
+    return {
+      addClass: function(element, className, done) {
         runAnimation(element, className, done);
         done();
-      ***REMOVED***,
+      },
 
-      removeClass: function(element, className, done) ***REMOVED***
+      removeClass: function(element, className, done) {
         runAnimation(element, className, done);
         done();
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
-***REMOVED***)();
+      }
+    }
+  }
+})();
 
 ngmaterial.components.fabToolbar = angular.module("material.components.fabToolbar");

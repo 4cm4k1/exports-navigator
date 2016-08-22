@@ -1,23 +1,23 @@
-***REMOVED***
+{
   "name": "exports-navigator",
   "version": "1.0.0",
   "description": "Web portal for Greater MSP 16-county region businesses to navigate the complicated ecosystem of exports",
   "main": "server.js",
-  "scripts": ***REMOVED***
+  "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
-  ***REMOVED***,
-  "repository": ***REMOVED***
+  },
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/4cm4k1/exports-navigator.git"
-  ***REMOVED***,
+  },
   "author": "Liz Kerber, Anthony Maki, Kyle Quamme, Sahasha Reese, Katie Vogel",
   "license": "ISC",
-  "bugs": ***REMOVED***
+  "bugs": {
     "url": "https://github.com/4cm4k1/exports-navigator/issues"
-  ***REMOVED***,
+  },
   "homepage": "https://github.com/4cm4k1/exports-navigator#readme",
-  "dependencies": ***REMOVED***
+  "dependencies": {
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",
     "angular-aria": "^1.5.8",
@@ -37,5 +37,5 @@
     "grunt-contrib-watch": "^1.0.0",
     "parse-database-url": "^0.3.0",
     "pg": "^6.1.0"
-  ***REMOVED***
-***REMOVED***
+  }
+}

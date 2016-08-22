@@ -82,7 +82,7 @@ angular.module('material.components.swipe', ['material.core'])
     .directive('mdSwipeUp', getDirective('SwipeUp'))
     .directive('mdSwipeDown', getDirective('SwipeDown'));
 
-function getDirective(name) ***REMOVED***
+function getDirective(name) {
   var directiveName = 'md' + name;
   var eventName = '$md.' + name.toLowerCase();
 
@@ -90,16 +90,16 @@ function getDirective(name) ***REMOVED***
   return DirectiveFactory;
 
   /* ngInject */
-  function DirectiveFactory($parse) ***REMOVED***
-      return ***REMOVED*** restrict: 'A', link: postLink ***REMOVED***;
-      function postLink(scope, element, attr) ***REMOVED***
+  function DirectiveFactory($parse) {
+      return { restrict: 'A', link: postLink };
+      function postLink(scope, element, attr) {
         var fn = $parse(attr[directiveName]);
-        element.on(eventName, function(ev) ***REMOVED***
-          scope.$applyAsync(function() ***REMOVED*** fn(scope, ***REMOVED*** $event: ev ***REMOVED***); ***REMOVED***);
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***
-***REMOVED***
+        element.on(eventName, function(ev) {
+          scope.$applyAsync(function() { fn(scope, { $event: ev }); });
+        });
+      }
+    }
+}
 
 
 

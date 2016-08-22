@@ -4,11 +4,11 @@
  * @license MIT
  * v1.1.0
  */
-md-icon.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
-  md-icon.md-THEME_NAME-theme.md-primary ***REMOVED***
-    color: '***REMOVED******REMOVED***primary-color***REMOVED******REMOVED***'; ***REMOVED***
-  md-icon.md-THEME_NAME-theme.md-accent ***REMOVED***
-    color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'; ***REMOVED***
-  md-icon.md-THEME_NAME-theme.md-warn ***REMOVED***
-    color: '***REMOVED******REMOVED***warn-color***REMOVED******REMOVED***'; ***REMOVED***
+md-icon.md-THEME_NAME-theme {
+  color: '{{foreground-2}}'; }
+  md-icon.md-THEME_NAME-theme.md-primary {
+    color: '{{primary-color}}'; }
+  md-icon.md-THEME_NAME-theme.md-accent {
+    color: '{{accent-color}}'; }
+  md-icon.md-THEME_NAME-theme.md-warn {
+    color: '{{warn-color}}'; }

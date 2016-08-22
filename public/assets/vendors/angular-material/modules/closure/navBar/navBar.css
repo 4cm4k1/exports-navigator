@@ -5,13 +5,13 @@
  * v1.1.0
  */
 /** Matches "md-tabs md-tabs-wrapper" style. */
-.md-nav-bar ***REMOVED***
+.md-nav-bar {
   border-style: solid;
   border-width: 0 0 1px;
   height: 48px;
-  position: relative; ***REMOVED***
+  position: relative; }
 
-._md-nav-bar-list ***REMOVED***
+._md-nav-bar-list {
   outline: none;
   list-style: none;
   margin: 0;
@@ -23,36 +23,36 @@
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
-          flex-direction: row; ***REMOVED***
+          flex-direction: row; }
 
-.md-nav-item:first-of-type ***REMOVED***
-  margin-left: 8px; ***REMOVED***
+.md-nav-item:first-of-type {
+  margin-left: 8px; }
 
-.md-button._md-nav-button ***REMOVED***
+.md-button._md-nav-button {
   line-height: 24px;
   margin: 0 4px;
   padding: 12px 16px;
   -webkit-transition: background-color 0.35s cubic-bezier(0.35, 0, 0.25, 1);
-  transition: background-color 0.35s cubic-bezier(0.35, 0, 0.25, 1); ***REMOVED***
-  .md-button._md-nav-button:focus ***REMOVED***
-    outline: none; ***REMOVED***
-  .md-button._md-nav-button:hover ***REMOVED***
-    background-color: inherit; ***REMOVED***
+  transition: background-color 0.35s cubic-bezier(0.35, 0, 0.25, 1); }
+  .md-button._md-nav-button:focus {
+    outline: none; }
+  .md-button._md-nav-button:hover {
+    background-color: inherit; }
 
-md-nav-ink-bar ***REMOVED***
+md-nav-ink-bar {
   bottom: 0;
   height: 2px;
   left: auto;
   position: absolute;
   right: auto;
-  background-color: black; ***REMOVED***
-  md-nav-ink-bar._md-left ***REMOVED***
+  background-color: black; }
+  md-nav-ink-bar._md-left {
     -webkit-transition: left 0.125s cubic-bezier(0.35, 0, 0.25, 1), right 0.25s cubic-bezier(0.35, 0, 0.25, 1);
-    transition: left 0.125s cubic-bezier(0.35, 0, 0.25, 1), right 0.25s cubic-bezier(0.35, 0, 0.25, 1); ***REMOVED***
-  md-nav-ink-bar._md-right ***REMOVED***
+    transition: left 0.125s cubic-bezier(0.35, 0, 0.25, 1), right 0.25s cubic-bezier(0.35, 0, 0.25, 1); }
+  md-nav-ink-bar._md-right {
     -webkit-transition: left 0.25s cubic-bezier(0.35, 0, 0.25, 1), right 0.125s cubic-bezier(0.35, 0, 0.25, 1);
-    transition: left 0.25s cubic-bezier(0.35, 0, 0.25, 1), right 0.125s cubic-bezier(0.35, 0, 0.25, 1); ***REMOVED***
+    transition: left 0.25s cubic-bezier(0.35, 0, 0.25, 1), right 0.125s cubic-bezier(0.35, 0, 0.25, 1); }
 
-md-nav-extra-content ***REMOVED***
+md-nav-extra-content {
   min-height: 48px;
-  padding-right: 12px; ***REMOVED***
+  padding-right: 12px; }

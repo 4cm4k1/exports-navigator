@@ -4,10 +4,10 @@
  * @license MIT
  * v1.1.0
  */
-button.md-button::-moz-focus-inner ***REMOVED***
-  border: 0; ***REMOVED***
+button.md-button::-moz-focus-inner {
+  border: 0; }
 
-.md-button ***REMOVED***
+.md-button {
   display: inline-block;
   position: relative;
   cursor: pointer;
@@ -46,35 +46,35 @@ button.md-button::-moz-focus-inner ***REMOVED***
   text-decoration: none;
   overflow: hidden;
   -webkit-transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); ***REMOVED***
-  .md-button:focus ***REMOVED***
-    outline: none; ***REMOVED***
-  .md-button:hover, .md-button:focus ***REMOVED***
-    text-decoration: none; ***REMOVED***
-  .md-button.ng-hide, .md-button.ng-leave ***REMOVED***
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+  .md-button:focus {
+    outline: none; }
+  .md-button:hover, .md-button:focus {
+    text-decoration: none; }
+  .md-button.ng-hide, .md-button.ng-leave {
     -webkit-transition: none;
-    transition: none; ***REMOVED***
-  .md-button.md-cornered ***REMOVED***
-    border-radius: 0; ***REMOVED***
-  .md-button.md-icon ***REMOVED***
+    transition: none; }
+  .md-button.md-cornered {
+    border-radius: 0; }
+  .md-button.md-icon {
     padding: 0;
-    background: none; ***REMOVED***
-  .md-button.md-raised:not([disabled]) ***REMOVED***
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); ***REMOVED***
-  .md-button.md-icon-button ***REMOVED***
+    background: none; }
+  .md-button.md-raised:not([disabled]) {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
+  .md-button.md-icon-button {
     margin: 0 6px;
     height: 40px;
     min-width: 0;
     line-height: 24px;
     padding: 8px;
     width: 40px;
-    border-radius: 50%; ***REMOVED***
-    .md-button.md-icon-button .md-ripple-container ***REMOVED***
+    border-radius: 50%; }
+    .md-button.md-icon-button .md-ripple-container {
       border-radius: 50%;
       background-clip: padding-box;
       overflow: hidden;
-      -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC"); ***REMOVED***
-  .md-button.md-fab ***REMOVED***
+      -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC"); }
+  .md-button.md-fab {
     z-index: 20;
     line-height: 56px;
     min-width: 0;
@@ -90,90 +90,90 @@ button.md-button::-moz-focus-inner ***REMOVED***
     -webkit-transition-property: background-color, box-shadow, -webkit-transform;
     transition-property: background-color, box-shadow, -webkit-transform;
     transition-property: background-color, box-shadow, transform;
-    transition-property: background-color, box-shadow, transform, -webkit-transform; ***REMOVED***
-    .md-button.md-fab.md-fab-bottom-right ***REMOVED***
+    transition-property: background-color, box-shadow, transform, -webkit-transform; }
+    .md-button.md-fab.md-fab-bottom-right {
       top: auto;
       right: 20px;
       bottom: 20px;
       left: auto;
-      position: absolute; ***REMOVED***
-    .md-button.md-fab.md-fab-bottom-left ***REMOVED***
+      position: absolute; }
+    .md-button.md-fab.md-fab-bottom-left {
       top: auto;
       right: auto;
       bottom: 20px;
       left: 20px;
-      position: absolute; ***REMOVED***
-    .md-button.md-fab.md-fab-top-right ***REMOVED***
+      position: absolute; }
+    .md-button.md-fab.md-fab-top-right {
       top: 20px;
       right: 20px;
       bottom: auto;
       left: auto;
-      position: absolute; ***REMOVED***
-    .md-button.md-fab.md-fab-top-left ***REMOVED***
+      position: absolute; }
+    .md-button.md-fab.md-fab-top-left {
       top: 20px;
       right: auto;
       bottom: auto;
       left: 20px;
-      position: absolute; ***REMOVED***
-    .md-button.md-fab .md-ripple-container ***REMOVED***
+      position: absolute; }
+    .md-button.md-fab .md-ripple-container {
       border-radius: 50%;
       background-clip: padding-box;
       overflow: hidden;
-      -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC"); ***REMOVED***
-    .md-button.md-fab.md-mini ***REMOVED***
+      -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC"); }
+    .md-button.md-fab.md-mini {
       line-height: 40px;
       width: 40px;
-      height: 40px; ***REMOVED***
-    .md-button.md-fab.ng-hide, .md-button.md-fab.ng-leave ***REMOVED***
+      height: 40px; }
+    .md-button.md-fab.ng-hide, .md-button.md-fab.ng-leave {
       -webkit-transition: none;
-      transition: none; ***REMOVED***
-  .md-button:not([disabled]).md-raised.md-focused, .md-button:not([disabled]).md-fab.md-focused ***REMOVED***
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); ***REMOVED***
-  .md-button:not([disabled]).md-raised:active, .md-button:not([disabled]).md-fab:active ***REMOVED***
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4); ***REMOVED***
-  .md-button .md-ripple-container ***REMOVED***
+      transition: none; }
+  .md-button:not([disabled]).md-raised.md-focused, .md-button:not([disabled]).md-fab.md-focused {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
+  .md-button:not([disabled]).md-raised:active, .md-button:not([disabled]).md-fab:active {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4); }
+  .md-button .md-ripple-container {
     border-radius: 3px;
     background-clip: padding-box;
     overflow: hidden;
-    -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC"); ***REMOVED***
+    -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC"); }
 
 .md-button.md-icon-button md-icon,
-button.md-button.md-fab md-icon ***REMOVED***
-  display: block; ***REMOVED***
+button.md-button.md-fab md-icon {
+  display: block; }
 
 .md-toast-open-top .md-button.md-fab-top-left,
-.md-toast-open-top .md-button.md-fab-top-right ***REMOVED***
+.md-toast-open-top .md-button.md-fab-top-right {
   -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   -webkit-transform: translate3d(0, 42px, 0);
-          transform: translate3d(0, 42px, 0); ***REMOVED***
+          transform: translate3d(0, 42px, 0); }
   .md-toast-open-top .md-button.md-fab-top-left:not([disabled]).md-focused, .md-toast-open-top .md-button.md-fab-top-left:not([disabled]):hover,
   .md-toast-open-top .md-button.md-fab-top-right:not([disabled]).md-focused,
-  .md-toast-open-top .md-button.md-fab-top-right:not([disabled]):hover ***REMOVED***
+  .md-toast-open-top .md-button.md-fab-top-right:not([disabled]):hover {
     -webkit-transform: translate3d(0, 41px, 0);
-            transform: translate3d(0, 41px, 0); ***REMOVED***
+            transform: translate3d(0, 41px, 0); }
 
 .md-toast-open-bottom .md-button.md-fab-bottom-left,
-.md-toast-open-bottom .md-button.md-fab-bottom-right ***REMOVED***
+.md-toast-open-bottom .md-button.md-fab-bottom-right {
   -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   -webkit-transform: translate3d(0, -42px, 0);
-          transform: translate3d(0, -42px, 0); ***REMOVED***
+          transform: translate3d(0, -42px, 0); }
   .md-toast-open-bottom .md-button.md-fab-bottom-left:not([disabled]).md-focused, .md-toast-open-bottom .md-button.md-fab-bottom-left:not([disabled]):hover,
   .md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]).md-focused,
-  .md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]):hover ***REMOVED***
+  .md-toast-open-bottom .md-button.md-fab-bottom-right:not([disabled]):hover {
     -webkit-transform: translate3d(0, -43px, 0);
-            transform: translate3d(0, -43px, 0); ***REMOVED***
+            transform: translate3d(0, -43px, 0); }
 
-.md-button-group ***REMOVED***
+.md-button-group {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
-  width: 100%; ***REMOVED***
-  .md-button-group > .md-button ***REMOVED***
+  width: 100%; }
+  .md-button-group > .md-button {
     -webkit-box-flex: 1;
     -webkit-flex: 1;
             flex: 1;
@@ -184,14 +184,14 @@ button.md-button.md-fab md-icon ***REMOVED***
     border-radius: 0;
     text-align: center;
     text-overflow: ellipsis;
-    white-space: nowrap; ***REMOVED***
-    .md-button-group > .md-button:first-child ***REMOVED***
-      border-radius: 2px 0px 0px 2px; ***REMOVED***
-    .md-button-group > .md-button:last-child ***REMOVED***
+    white-space: nowrap; }
+    .md-button-group > .md-button:first-child {
+      border-radius: 2px 0px 0px 2px; }
+    .md-button-group > .md-button:last-child {
       border-right-width: 1px;
-      border-radius: 0px 2px 2px 0px; ***REMOVED***
+      border-radius: 0px 2px 2px 0px; }
 
-@media screen and (-ms-high-contrast: active) ***REMOVED***
+@media screen and (-ms-high-contrast: active) {
   .md-button.md-raised,
-  .md-button.md-fab ***REMOVED***
-    border: 1px solid #fff; ***REMOVED*** ***REMOVED***
+  .md-button.md-fab {
+    border: 1px solid #fff; } }

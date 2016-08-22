@@ -4,7 +4,7 @@
  * @license MIT
  * v1.1.0
  */
-md-icon ***REMOVED***
+md-icon {
   margin: auto;
   background-repeat: no-repeat no-repeat;
   display: inline-block;
@@ -13,10 +13,10 @@ md-icon ***REMOVED***
   height: 24px;
   width: 24px;
   min-height: 24px;
-  min-width: 24px; ***REMOVED***
-  md-icon svg ***REMOVED***
+  min-width: 24px; }
+  md-icon svg {
     pointer-events: none;
-    display: block; ***REMOVED***
-  md-icon[md-font-icon] ***REMOVED***
+    display: block; }
+  md-icon[md-font-icon] {
     line-height: 24px;
-    width: auto; ***REMOVED***
+    width: auto; }

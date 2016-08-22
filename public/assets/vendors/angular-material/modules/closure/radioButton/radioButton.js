@@ -38,8 +38,8 @@ angular.module('material.components.radioButton', [
  * force the user to tab through all the radio buttons, `<md-radio-group>`
  * is focusable, and by default the `<md-radio-button>`s are not.
  *
- * @param ***REMOVED***string***REMOVED*** ng-model Assignable angular expression to data-bind to.
- * @param ***REMOVED***boolean=***REMOVED*** md-no-ink Use of attribute indicates flag to disable ink ripple effects.
+ * @param {string} ng-model Assignable angular expression to data-bind to.
+ * @param {boolean=} md-no-ink Use of attribute indicates flag to disable ink ripple effects.
  *
  * @usage
  * <hljs lang="html">
@@ -47,9 +47,9 @@ angular.module('material.components.radioButton', [
  *
  *   <md-radio-button
  *        ng-repeat="d in colorOptions"
- *        ng-value="d.value" aria-label="***REMOVED******REMOVED*** d.label ***REMOVED******REMOVED***">
+ *        ng-value="d.value" aria-label="{{ d.label }}">
  *
- *          ***REMOVED******REMOVED*** d.label ***REMOVED******REMOVED***
+ *          {{ d.label }}
  *
  *   </md-radio-button>
  *
@@ -57,17 +57,17 @@ angular.module('material.components.radioButton', [
  * </hljs>
  *
  */
-function mdRadioGroupDirective($mdUtil, $mdConstant, $mdTheming, $timeout) ***REMOVED***
+function mdRadioGroupDirective($mdUtil, $mdConstant, $mdTheming, $timeout) {
   RadioGroupController.prototype = createRadioGroupControllerProto();
 
-  return ***REMOVED***
+  return {
     restrict: 'E',
     controller: ['$element', RadioGroupController],
     require: ['mdRadioGroup', '?ngModel'],
-    link: ***REMOVED*** pre: linkRadioGroup ***REMOVED***
-  ***REMOVED***;
+    link: { pre: linkRadioGroup }
+  };
 
-  function linkRadioGroup(scope, element, attr, ctrls) ***REMOVED***
+  function linkRadioGroup(scope, element, attr, ctrls) {
     element.addClass('_md');     // private md component indicator for styling
     $mdTheming(element);
     
@@ -79,37 +79,37 @@ function mdRadioGroupDirective($mdUtil, $mdConstant, $mdTheming, $timeout) ***RE
     scope.mouseActive = false;
 
     element
-      .attr(***REMOVED***
+      .attr({
         'role': 'radiogroup',
         'tabIndex': element.attr('tabindex') || '0'
-      ***REMOVED***)
+      })
       .on('keydown', keydownListener)
-      .on('mousedown', function(event) ***REMOVED***
+      .on('mousedown', function(event) {
         scope.mouseActive = true;
-        $timeout(function() ***REMOVED***
+        $timeout(function() {
           scope.mouseActive = false;
-        ***REMOVED***, 100);
-      ***REMOVED***)
-      .on('focus', function() ***REMOVED***
-        if(scope.mouseActive === false) ***REMOVED***
+        }, 100);
+      })
+      .on('focus', function() {
+        if(scope.mouseActive === false) {
           rgCtrl.$element.addClass('md-focused');
-        ***REMOVED***
-      ***REMOVED***)
-      .on('blur', function() ***REMOVED***
+        }
+      })
+      .on('blur', function() {
         rgCtrl.$element.removeClass('md-focused');
-      ***REMOVED***);
+      });
 
     /**
      *
      */
-    function setFocus() ***REMOVED***
-      if (!element.hasClass('md-focused')) ***REMOVED*** element.addClass('md-focused'); ***REMOVED***
-    ***REMOVED***
+    function setFocus() {
+      if (!element.hasClass('md-focused')) { element.addClass('md-focused'); }
+    }
 
     /**
      *
      */
-    function keydownListener(ev) ***REMOVED***
+    function keydownListener(ev) {
       var keyCode = ev.which || ev.keyCode;
 
       // Only listen to events that we originated ourselves
@@ -117,11 +117,11 @@ function mdRadioGroupDirective($mdUtil, $mdConstant, $mdTheming, $timeout) ***RE
       // inputs.
 
       if (keyCode != $mdConstant.KEY_CODE.ENTER &&
-          ev.currentTarget != ev.target) ***REMOVED***
+          ev.currentTarget != ev.target) {
         return;
-      ***REMOVED***
+      }
 
-      switch (keyCode) ***REMOVED***
+      switch (keyCode) {
         case $mdConstant.KEY_CODE.LEFT_ARROW:
         case $mdConstant.KEY_CODE.UP_ARROW:
           ev.preventDefault();
@@ -138,75 +138,75 @@ function mdRadioGroupDirective($mdUtil, $mdConstant, $mdTheming, $timeout) ***RE
 
         case $mdConstant.KEY_CODE.ENTER:
           var form = angular.element($mdUtil.getClosest(element[0], 'form'));
-          if (form.length > 0) ***REMOVED***
+          if (form.length > 0) {
             form.triggerHandler('submit');
-          ***REMOVED***
+          }
           break;
-      ***REMOVED***
+      }
 
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
-  function RadioGroupController($element) ***REMOVED***
+  function RadioGroupController($element) {
     this._radioButtonRenderFns = [];
     this.$element = $element;
-  ***REMOVED***
+  }
 
-  function createRadioGroupControllerProto() ***REMOVED***
-    return ***REMOVED***
-      init: function(ngModelCtrl) ***REMOVED***
+  function createRadioGroupControllerProto() {
+    return {
+      init: function(ngModelCtrl) {
         this._ngModelCtrl = ngModelCtrl;
         this._ngModelCtrl.$render = angular.bind(this, this.render);
-      ***REMOVED***,
-      add: function(rbRender) ***REMOVED***
+      },
+      add: function(rbRender) {
         this._radioButtonRenderFns.push(rbRender);
-      ***REMOVED***,
-      remove: function(rbRender) ***REMOVED***
+      },
+      remove: function(rbRender) {
         var index = this._radioButtonRenderFns.indexOf(rbRender);
-        if (index !== -1) ***REMOVED***
+        if (index !== -1) {
           this._radioButtonRenderFns.splice(index, 1);
-        ***REMOVED***
-      ***REMOVED***,
-      render: function() ***REMOVED***
-        this._radioButtonRenderFns.forEach(function(rbRender) ***REMOVED***
+        }
+      },
+      render: function() {
+        this._radioButtonRenderFns.forEach(function(rbRender) {
           rbRender();
-        ***REMOVED***);
-      ***REMOVED***,
-      setViewValue: function(value, eventType) ***REMOVED***
+        });
+      },
+      setViewValue: function(value, eventType) {
         this._ngModelCtrl.$setViewValue(value, eventType);
         // update the other radio buttons as well
         this.render();
-      ***REMOVED***,
-      getViewValue: function() ***REMOVED***
+      },
+      getViewValue: function() {
         return this._ngModelCtrl.$viewValue;
-      ***REMOVED***,
-      selectNext: function() ***REMOVED***
+      },
+      selectNext: function() {
         return changeSelectedButton(this.$element, 1);
-      ***REMOVED***,
-      selectPrevious: function() ***REMOVED***
+      },
+      selectPrevious: function() {
         return changeSelectedButton(this.$element, -1);
-      ***REMOVED***,
-      setActiveDescendant: function (radioId) ***REMOVED***
+      },
+      setActiveDescendant: function (radioId) {
         this.$element.attr('aria-activedescendant', radioId);
-      ***REMOVED***,
-      isDisabled: function() ***REMOVED***
+      },
+      isDisabled: function() {
         return this.$element[0].hasAttribute('disabled');
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***
+      }
+    };
+  }
   /**
    * Change the radio group's selected button by a given increment.
    * If no button is selected, select the first button.
    */
-  function changeSelectedButton(parent, increment) ***REMOVED***
+  function changeSelectedButton(parent, increment) {
     // Coerce all child radio buttons into an array, then wrap then in an iterator
     var buttons = $mdUtil.iterator(parent[0].querySelectorAll('md-radio-button'), true);
 
-    if (buttons.count()) ***REMOVED***
-      var validate = function (button) ***REMOVED***
+    if (buttons.count()) {
+      var validate = function (button) {
         // If disabled, then NOT valid
         return !angular.element(button).attr("disabled");
-      ***REMOVED***;
+      };
 
       var selected = parent[0].querySelector('md-radio-button.md-checked');
       var target = buttons[increment < 0 ? 'previous' : 'next'](selected, validate) || buttons.first();
@@ -215,10 +215,10 @@ function mdRadioGroupDirective($mdUtil, $mdConstant, $mdTheming, $timeout) ***RE
       angular.element(target).triggerHandler('click');
 
 
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
-***REMOVED***
+}
 mdRadioGroupDirective.$inject = ["$mdUtil", "$mdConstant", "$mdTheming", "$timeout"];
 
 /**
@@ -235,14 +235,14 @@ mdRadioGroupDirective.$inject = ["$mdUtil", "$mdConstant", "$mdTheming", "$timeo
  * the `<md-radio-button>` directive provides ink effects, ARIA support, and
  * supports use within named radio groups.
  *
- * @param ***REMOVED***string***REMOVED*** ngModel Assignable angular expression to data-bind to.
- * @param ***REMOVED***string=***REMOVED*** ngChange Angular expression to be executed when input changes due to user
+ * @param {string} ngModel Assignable angular expression to data-bind to.
+ * @param {string=} ngChange Angular expression to be executed when input changes due to user
  *    interaction with the input element.
- * @param ***REMOVED***string***REMOVED*** ngValue Angular expression which sets the value to which the expression should
+ * @param {string} ngValue Angular expression which sets the value to which the expression should
  *    be set when selected.
- * @param ***REMOVED***string***REMOVED*** value The value to which the expression should be set when selected.
- * @param ***REMOVED***string=***REMOVED*** name Property name of the form under which the control is published.
- * @param ***REMOVED***string=***REMOVED*** aria-label Adds label to radio button for accessibility.
+ * @param {string} value The value to which the expression should be set when selected.
+ * @param {string=} name Property name of the form under which the control is published.
+ * @param {string=} aria-label Adds label to radio button for accessibility.
  * Defaults to radio button's text. If no text content is available, a warning will be logged.
  *
  * @usage
@@ -259,11 +259,11 @@ mdRadioGroupDirective.$inject = ["$mdUtil", "$mdConstant", "$mdTheming", "$timeo
  * </hljs>
  *
  */
-function mdRadioButtonDirective($mdAria, $mdUtil, $mdTheming) ***REMOVED***
+function mdRadioButtonDirective($mdAria, $mdUtil, $mdTheming) {
 
   var CHECKED_CSS = 'md-checked';
 
-  return ***REMOVED***
+  return {
     restrict: 'E',
     require: '^mdRadioGroup',
     transclude: true,
@@ -273,9 +273,9 @@ function mdRadioButtonDirective($mdAria, $mdUtil, $mdTheming) ***REMOVED***
               '</div>' +
               '<div ng-transclude class="md-label"></div>',
     link: link
-  ***REMOVED***;
+  };
 
-  function link(scope, element, attr, rgCtrl) ***REMOVED***
+  function link(scope, element, attr, rgCtrl) {
     var lastChecked;
 
     $mdTheming(element);
@@ -286,92 +286,92 @@ function mdRadioButtonDirective($mdAria, $mdUtil, $mdTheming) ***REMOVED***
     /**
      *
      */
-    function initialize() ***REMOVED***
-      if (!rgCtrl) ***REMOVED***
+    function initialize() {
+      if (!rgCtrl) {
         throw 'RadioButton: No RadioGroupController could be found.';
-      ***REMOVED***
+      }
 
       rgCtrl.add(render);
       attr.$observe('value', render);
 
       element
         .on('click', listener)
-        .on('$destroy', function() ***REMOVED***
+        .on('$destroy', function() {
           rgCtrl.remove(render);
-        ***REMOVED***);
-    ***REMOVED***
+        });
+    }
 
     /**
      *
      */
-    function listener(ev) ***REMOVED***
+    function listener(ev) {
       if (element[0].hasAttribute('disabled') || rgCtrl.isDisabled()) return;
 
-      scope.$apply(function() ***REMOVED***
+      scope.$apply(function() {
         rgCtrl.setViewValue(attr.value, ev && ev.type);
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
 
     /**
      *  Add or remove the `.md-checked` class from the RadioButton (and conditionally its parent).
      *  Update the `aria-activedescendant` attribute.
      */
-    function render() ***REMOVED***
+    function render() {
       var checked = (rgCtrl.getViewValue() == attr.value);
-      if (checked === lastChecked) ***REMOVED***
+      if (checked === lastChecked) {
         return;
-      ***REMOVED***
+      }
 
       lastChecked = checked;
       element.attr('aria-checked', checked);
 
-      if (checked) ***REMOVED***
+      if (checked) {
         markParentAsChecked(true);
         element.addClass(CHECKED_CSS);
 
         rgCtrl.setActiveDescendant(element.attr('id'));
 
-      ***REMOVED*** else ***REMOVED***
+      } else {
         markParentAsChecked(false);
         element.removeClass(CHECKED_CSS);
-      ***REMOVED***
+      }
 
       /**
        * If the radioButton is inside a div, then add class so highlighting will work...
        */
-      function markParentAsChecked(addClass ) ***REMOVED***
-        if ( element.parent()[0].nodeName != "MD-RADIO-GROUP") ***REMOVED***
+      function markParentAsChecked(addClass ) {
+        if ( element.parent()[0].nodeName != "MD-RADIO-GROUP") {
           element.parent()[ !!addClass ? 'addClass' : 'removeClass'](CHECKED_CSS);
-        ***REMOVED***
+        }
 
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     /**
      * Inject ARIA-specific attributes appropriate for each radio button
      */
-    function configureAria( element, scope )***REMOVED***
+    function configureAria( element, scope ){
       scope.ariaId = buildAriaID();
 
-      element.attr(***REMOVED***
+      element.attr({
         'id' :  scope.ariaId,
         'role' : 'radio',
         'aria-checked' : 'false'
-      ***REMOVED***);
+      });
 
       $mdAria.expectWithText(element, 'aria-label');
 
       /**
        * Build a unique ID for each radio button that will be used with aria-activedescendant.
        * Preserve existing ID if already specified.
-       * @returns ***REMOVED****|string***REMOVED***
+       * @returns {*|string}
        */
-      function buildAriaID() ***REMOVED***
+      function buildAriaID() {
         return attr.id || ( 'radio' + "_" + $mdUtil.nextUid() );
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
-***REMOVED***
+      }
+    }
+  }
+}
 mdRadioButtonDirective.$inject = ["$mdAria", "$mdUtil", "$mdTheming"];
 
 ngmaterial.components.radioButton = angular.module("material.components.radioButton");

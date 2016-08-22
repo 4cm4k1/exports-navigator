@@ -42,9 +42,9 @@ angular.module('material.components.navBar', ['material.core'])
  * listbox, according to
  * https://www.w3.org/TR/wai-aria-practices/#Site_Navigator_Tabbed_Style
  *
- * @param ***REMOVED***string=***REMOVED*** mdSelectedNavItem The name of the current tab; this must
+ * @param {string=} mdSelectedNavItem The name of the current tab; this must
  * match the name attribute of `<md-nav-item>`
- * @param ***REMOVED***string=***REMOVED*** navBarAriaLabel An aria-label for the nav-bar
+ * @param {string=} navBarAriaLabel An aria-label for the nav-bar
  *
  * @usage
  * <hljs lang="html">
@@ -55,13 +55,13 @@ angular.module('material.components.navBar', ['material.core'])
  *  </md-nav-bar>
  *</hljs>
  * <hljs lang="js">
- * (function() ***REMOVED***
+ * (function() {
  *   ‘use strict’;
  *
- *    $rootScope.$on('$routeChangeSuccess', function(event, current) ***REMOVED***
+ *    $rootScope.$on('$routeChangeSuccess', function(event, current) {
  *      $scope.currentLink = getCurrentLinkFromRoute(current);
- *    ***REMOVED***);
- * ***REMOVED***);
+ *    });
+ * });
  * </hljs>
  */
 
@@ -82,13 +82,13 @@ angular.module('material.components.navBar', ['material.core'])
  * Exactly one of the mdNavClick, mdNavHref, mdNavSref attributes are required to be
  * specified.
  *
- * @param ***REMOVED***Function=***REMOVED*** mdNavClick Function which will be called when the
+ * @param {Function=} mdNavClick Function which will be called when the
  * link is clicked to change the page. Renders as an `ng-click`.
- * @param ***REMOVED***string=***REMOVED*** mdNavHref url to transition to when this link is clicked.
+ * @param {string=} mdNavHref url to transition to when this link is clicked.
  * Renders as an `ng-href`.
- * @param ***REMOVED***string=***REMOVED*** mdNavSref Ui-router state to transition to when this link is
+ * @param {string=} mdNavSref Ui-router state to transition to when this link is
  * clicked. Renders as a `ui-sref`.
- * @param ***REMOVED***string=***REMOVED*** name The name of this link. Used by the nav bar to know
+ * @param {string=} name The name of this link. Used by the nav bar to know
  * which link is currently selected.
  *
  * @usage
@@ -100,17 +100,17 @@ angular.module('material.components.navBar', ['material.core'])
  *                                IMPLEMENTATION                             *
  *****************************************************************************/
 
-function MdNavBar($mdAria) ***REMOVED***
-  return ***REMOVED***
+function MdNavBar($mdAria) {
+  return {
     restrict: 'E',
     transclude: true,
     controller: MdNavBarController,
     controllerAs: 'ctrl',
     bindToController: true,
-    scope: ***REMOVED***
+    scope: {
       'mdSelectedNavItem': '=?',
       'navBarAriaLabel': '@?',
-    ***REMOVED***,
+    },
     template:
       '<div class="md-nav-bar">' +
         '<nav role="navigation">' +
@@ -119,18 +119,18 @@ function MdNavBar($mdAria) ***REMOVED***
             'ng-focus="ctrl.onFocus()"' +
             'ng-blur="ctrl.onBlur()"' +
             'ng-keydown="ctrl.onKeydown($event)"' +
-            'aria-label="***REMOVED******REMOVED***ctrl.navBarAriaLabel***REMOVED******REMOVED***">' +
+            'aria-label="{{ctrl.navBarAriaLabel}}">' +
           '</ul>' +
         '</nav>' +
         '<md-nav-ink-bar></md-nav-ink-bar>' +
       '</div>',
-    link: function(scope, element, attrs, ctrl) ***REMOVED***
-      if (!ctrl.navBarAriaLabel) ***REMOVED***
+    link: function(scope, element, attrs, ctrl) {
+      if (!ctrl.navBarAriaLabel) {
         $mdAria.expectAsync(element, 'aria-label', angular.noop);
-      ***REMOVED***
-    ***REMOVED***,
-  ***REMOVED***;
-***REMOVED***
+      }
+    },
+  };
+}
 MdNavBar.$inject = ["$mdAria"];
 
 /**
@@ -139,52 +139,52 @@ MdNavBar.$inject = ["$mdAria"];
  * Accessibility functionality is implemented as a site navigator with a
  * listbox, according to
  * https://www.w3.org/TR/wai-aria-practices/#Site_Navigator_Tabbed_Style
- * @param ***REMOVED***!angular.JQLite***REMOVED*** $element
- * @param ***REMOVED***!angular.Scope***REMOVED*** $scope
- * @param ***REMOVED***!angular.Timeout***REMOVED*** $timeout
- * @param ***REMOVED***!Object***REMOVED*** $mdConstant
+ * @param {!angular.JQLite} $element
+ * @param {!angular.Scope} $scope
+ * @param {!angular.Timeout} $timeout
+ * @param {!Object} $mdConstant
  * @constructor
  * @final
  * ngInject
  */
-function MdNavBarController($element, $scope, $timeout, $mdConstant) ***REMOVED***
+function MdNavBarController($element, $scope, $timeout, $mdConstant) {
   // Injected variables
-  /** @private @const ***REMOVED***!angular.Timeout***REMOVED*** */
+  /** @private @const {!angular.Timeout} */
   this._$timeout = $timeout;
 
-  /** @private @const ***REMOVED***!angular.Scope***REMOVED*** */
+  /** @private @const {!angular.Scope} */
   this._$scope = $scope;
 
-  /** @private @const ***REMOVED***!Object***REMOVED*** */
+  /** @private @const {!Object} */
   this._$mdConstant = $mdConstant;
 
   // Data-bound variables.
-  /** @type ***REMOVED***string***REMOVED*** */
+  /** @type {string} */
   this.mdSelectedNavItem;
 
-  /** @type ***REMOVED***string***REMOVED*** */
+  /** @type {string} */
   this.navBarAriaLabel;
 
   // State variables.
 
-  /** @type ***REMOVED***?angular.JQLite***REMOVED*** */
+  /** @type {?angular.JQLite} */
   this._navBarEl = $element[0];
 
-  /** @type ***REMOVED***?angular.JQLite***REMOVED*** */
+  /** @type {?angular.JQLite} */
   this._inkbar;
 
   var self = this;
   // need to wait for transcluded content to be available
-  var deregisterTabWatch = this._$scope.$watch(function() ***REMOVED***
+  var deregisterTabWatch = this._$scope.$watch(function() {
     return self._navBarEl.querySelectorAll('._md-nav-button').length;
-  ***REMOVED***,
-  function(newLength) ***REMOVED***
-    if (newLength > 0) ***REMOVED***
+  },
+  function(newLength) {
+    if (newLength > 0) {
       self._initTabs();
       deregisterTabWatch();
-    ***REMOVED***
-  ***REMOVED***);
-***REMOVED***
+    }
+  });
+}
 MdNavBarController.$inject = ["$element", "$scope", "$timeout", "$mdConstant"];
 
 
@@ -193,30 +193,30 @@ MdNavBarController.$inject = ["$element", "$scope", "$timeout", "$mdConstant"];
  * Initializes the tab components once they exist.
  * @private
  */
-MdNavBarController.prototype._initTabs = function() ***REMOVED***
+MdNavBarController.prototype._initTabs = function() {
   this._inkbar = angular.element(this._navBarEl.getElementsByTagName('md-nav-ink-bar')[0]);
 
   var self = this;
-  this._$timeout(function() ***REMOVED***
+  this._$timeout(function() {
     self._updateTabs(self.mdSelectedNavItem, undefined);
-  ***REMOVED***);
+  });
 
-  this._$scope.$watch('ctrl.mdSelectedNavItem', function(newValue, oldValue) ***REMOVED***
+  this._$scope.$watch('ctrl.mdSelectedNavItem', function(newValue, oldValue) {
     // Wait a digest before update tabs for products doing
     // anything dynamic in the template.
-    self._$timeout(function() ***REMOVED***
+    self._$timeout(function() {
       self._updateTabs(newValue, oldValue);
-    ***REMOVED***);
-  ***REMOVED***);
-***REMOVED***;
+    });
+  });
+};
 
 /**
  * Set the current tab to be selected.
- * @param ***REMOVED***string|undefined***REMOVED*** newValue New current tab name.
- * @param ***REMOVED***string|undefined***REMOVED*** oldValue Previous tab name.
+ * @param {string|undefined} newValue New current tab name.
+ * @param {string|undefined} oldValue Previous tab name.
  * @private
  */
-MdNavBarController.prototype._updateTabs = function(newValue, oldValue) ***REMOVED***
+MdNavBarController.prototype._updateTabs = function(newValue, oldValue) {
   var self = this;
   var tabs = this._getTabs();
   var oldIndex = -1;
@@ -224,136 +224,136 @@ MdNavBarController.prototype._updateTabs = function(newValue, oldValue) ***REMOV
   var newTab = this._getTabByName(newValue);
   var oldTab = this._getTabByName(oldValue);
 
-  if (oldTab) ***REMOVED***
+  if (oldTab) {
     oldTab.setSelected(false);
     oldIndex = tabs.indexOf(oldTab);
-  ***REMOVED***
+  }
 
-  if (newTab) ***REMOVED***
+  if (newTab) {
     newTab.setSelected(true);
     newIndex = tabs.indexOf(newTab);
-  ***REMOVED***
+  }
 
-  this._$timeout(function() ***REMOVED***
+  this._$timeout(function() {
     self._updateInkBarStyles(newTab, newIndex, oldIndex);
-  ***REMOVED***);
-***REMOVED***;
+  });
+};
 
 /**
  * Repositions the ink bar to the selected tab.
  * @private
  */
-MdNavBarController.prototype._updateInkBarStyles = function(tab, newIndex, oldIndex) ***REMOVED***
+MdNavBarController.prototype._updateInkBarStyles = function(tab, newIndex, oldIndex) {
   this._inkbar.toggleClass('_md-left', newIndex < oldIndex)
       .toggleClass('_md-right', newIndex > oldIndex);
 
-  this._inkbar.css(***REMOVED***display: newIndex < 0 ? 'none' : ''***REMOVED***);
+  this._inkbar.css({display: newIndex < 0 ? 'none' : ''});
 
-  if(tab)***REMOVED***
+  if(tab){
     var tabEl = tab.getButtonEl();
     var left = tabEl.offsetLeft;
 
-    this._inkbar.css(***REMOVED***left: left + 'px', width: tabEl.offsetWidth + 'px'***REMOVED***);
-  ***REMOVED***
-***REMOVED***;
+    this._inkbar.css({left: left + 'px', width: tabEl.offsetWidth + 'px'});
+  }
+};
 
 /**
  * Returns an array of the current tabs.
- * @return ***REMOVED***!Array<!NavItemController>***REMOVED***
+ * @return {!Array<!NavItemController>}
  * @private
  */
-MdNavBarController.prototype._getTabs = function() ***REMOVED***
+MdNavBarController.prototype._getTabs = function() {
   var linkArray = Array.prototype.slice.call(
       this._navBarEl.querySelectorAll('.md-nav-item'));
-  return linkArray.map(function(el) ***REMOVED***
+  return linkArray.map(function(el) {
     return angular.element(el).controller('mdNavItem')
-  ***REMOVED***);
-***REMOVED***;
+  });
+};
 
 /**
  * Returns the tab with the specified name.
- * @param ***REMOVED***string***REMOVED*** name The name of the tab, found in its name attribute.
- * @return ***REMOVED***!NavItemController|undefined***REMOVED***
+ * @param {string} name The name of the tab, found in its name attribute.
+ * @return {!NavItemController|undefined}
  * @private
  */
-MdNavBarController.prototype._getTabByName = function(name) ***REMOVED***
-  return this._findTab(function(tab) ***REMOVED***
+MdNavBarController.prototype._getTabByName = function(name) {
+  return this._findTab(function(tab) {
     return tab.getName() == name;
-  ***REMOVED***);
-***REMOVED***;
+  });
+};
 
 /**
  * Returns the selected tab.
- * @return ***REMOVED***!NavItemController|undefined***REMOVED***
+ * @return {!NavItemController|undefined}
  * @private
  */
-MdNavBarController.prototype._getSelectedTab = function() ***REMOVED***
-  return this._findTab(function(tab) ***REMOVED***
+MdNavBarController.prototype._getSelectedTab = function() {
+  return this._findTab(function(tab) {
     return tab.isSelected()
-  ***REMOVED***);
-***REMOVED***;
+  });
+};
 
 /**
  * Returns the focused tab.
- * @return ***REMOVED***!NavItemController|undefined***REMOVED***
+ * @return {!NavItemController|undefined}
  */
-MdNavBarController.prototype.getFocusedTab = function() ***REMOVED***
-  return this._findTab(function(tab) ***REMOVED***
+MdNavBarController.prototype.getFocusedTab = function() {
+  return this._findTab(function(tab) {
     return tab.hasFocus()
-  ***REMOVED***);
-***REMOVED***;
+  });
+};
 
 /**
  * Find a tab that matches the specified function.
  * @private
  */
-MdNavBarController.prototype._findTab = function(fn) ***REMOVED***
+MdNavBarController.prototype._findTab = function(fn) {
   var tabs = this._getTabs();
-  for (var i = 0; i < tabs.length; i++) ***REMOVED***
-    if (fn(tabs[i])) ***REMOVED***
+  for (var i = 0; i < tabs.length; i++) {
+    if (fn(tabs[i])) {
       return tabs[i];
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
   return null;
-***REMOVED***;
+};
 
 /**
  * Direct focus to the selected tab when focus enters the nav bar.
  */
-MdNavBarController.prototype.onFocus = function() ***REMOVED***
+MdNavBarController.prototype.onFocus = function() {
   var tab = this._getSelectedTab();
-  if (tab) ***REMOVED***
+  if (tab) {
     tab.setFocused(true);
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 /**
  * Clear tab focus when focus leaves the nav bar.
  */
-MdNavBarController.prototype.onBlur = function() ***REMOVED***
+MdNavBarController.prototype.onBlur = function() {
   var tab = this.getFocusedTab();
-  if (tab) ***REMOVED***
+  if (tab) {
     tab.setFocused(false);
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 /**
  * Move focus from oldTab to newTab.
- * @param ***REMOVED***!NavItemController***REMOVED*** oldTab
- * @param ***REMOVED***!NavItemController***REMOVED*** newTab
+ * @param {!NavItemController} oldTab
+ * @param {!NavItemController} newTab
  * @private
  */
-MdNavBarController.prototype._moveFocus = function(oldTab, newTab) ***REMOVED***
+MdNavBarController.prototype._moveFocus = function(oldTab, newTab) {
   oldTab.setFocused(false);
   newTab.setFocused(true);
-***REMOVED***;
+};
 
 /**
  * Responds to keypress events.
- * @param ***REMOVED***!Event***REMOVED*** e
+ * @param {!Event} e
  */
-MdNavBarController.prototype.onKeydown = function(e) ***REMOVED***
+MdNavBarController.prototype.onKeydown = function(e) {
   var keyCodes = this._$mdConstant.KEY_CODE;
   var tabs = this._getTabs();
   var focusedTab = this.getFocusedTab();
@@ -362,34 +362,34 @@ MdNavBarController.prototype.onKeydown = function(e) ***REMOVED***
   var focusedTabIndex = tabs.indexOf(focusedTab);
 
   // use arrow keys to navigate between tabs
-  switch (e.keyCode) ***REMOVED***
+  switch (e.keyCode) {
     case keyCodes.UP_ARROW:
     case keyCodes.LEFT_ARROW:
-      if (focusedTabIndex > 0) ***REMOVED***
+      if (focusedTabIndex > 0) {
         this._moveFocus(focusedTab, tabs[focusedTabIndex - 1]);
-      ***REMOVED***
+      }
       break;
     case keyCodes.DOWN_ARROW:
     case keyCodes.RIGHT_ARROW:
-      if (focusedTabIndex < tabs.length - 1) ***REMOVED***
+      if (focusedTabIndex < tabs.length - 1) {
         this._moveFocus(focusedTab, tabs[focusedTabIndex + 1]);
-      ***REMOVED***
+      }
       break;
     case keyCodes.SPACE:
     case keyCodes.ENTER:
       // timeout to avoid a "digest already in progress" console error
-      this._$timeout(function() ***REMOVED***
+      this._$timeout(function() {
         focusedTab.getButtonEl().click();
-      ***REMOVED***);
+      });
       break;
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 /**
  * ngInject
  */
-function MdNavItem($$rAF) ***REMOVED***
-  return ***REMOVED***
+function MdNavItem($$rAF) {
+  return {
     restrict: 'E',
     require: ['mdNavItem', '^mdNavBar'],
     controller: MdNavItemController,
@@ -398,17 +398,17 @@ function MdNavItem($$rAF) ***REMOVED***
     replace: true,
     transclude: true,
     template:
-      '<li class="md-nav-item" role="option" aria-selected="***REMOVED******REMOVED***ctrl.isSelected()***REMOVED******REMOVED***">' +
+      '<li class="md-nav-item" role="option" aria-selected="{{ctrl.isSelected()}}">' +
         '<md-button ng-if="ctrl.mdNavSref" class="_md-nav-button md-accent"' +
           'ng-class="ctrl.getNgClassMap()"' +
           'tabindex="-1"' +
-          'ui-sref="***REMOVED******REMOVED***ctrl.mdNavSref***REMOVED******REMOVED***">' +
+          'ui-sref="{{ctrl.mdNavSref}}">' +
           '<span ng-transclude class="_md-nav-button-text"></span>' +
         '</md-button>' +
         '<md-button ng-if="ctrl.mdNavHref" class="_md-nav-button md-accent"' +
           'ng-class="ctrl.getNgClassMap()"' +
           'tabindex="-1"' +
-          'ng-href="***REMOVED******REMOVED***ctrl.mdNavHref***REMOVED******REMOVED***">' +
+          'ng-href="{{ctrl.mdNavHref}}">' +
           '<span ng-transclude class="_md-nav-button-text"></span>' +
         '</md-button>' +
         '<md-button ng-if="ctrl.mdNavClick" class="_md-nav-button md-accent"' +
@@ -418,61 +418,61 @@ function MdNavItem($$rAF) ***REMOVED***
           '<span ng-transclude class="_md-nav-button-text"></span>' +
         '</md-button>' +
       '</li>',
-    scope: ***REMOVED***
+    scope: {
       'mdNavClick': '&?',
       'mdNavHref': '@?',
       'mdNavSref': '@?',
       'name': '@',
-    ***REMOVED***,
-    link: function(scope, element, attrs, controllers) ***REMOVED***
+    },
+    link: function(scope, element, attrs, controllers) {
       var mdNavItem = controllers[0];
       var mdNavBar = controllers[1];
 
       // When accessing the element's contents synchronously, they
       // may not be defined yet because of transclusion. There is a higher chance
       // that it will be accessible if we wait one frame.
-      $$rAF(function() ***REMOVED***
-        if (!mdNavItem.name) ***REMOVED***
+      $$rAF(function() {
+        if (!mdNavItem.name) {
           mdNavItem.name = angular.element(element[0].querySelector('._md-nav-button-text'))
             .text().trim();
-        ***REMOVED***
+        }
 
         var navButton = angular.element(element[0].querySelector('._md-nav-button'));
-        navButton.on('click', function() ***REMOVED***
+        navButton.on('click', function() {
           mdNavBar.mdSelectedNavItem = mdNavItem.name;
           scope.$apply();
-        ***REMOVED***);
-      ***REMOVED***);
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***
+        });
+      });
+    }
+  };
+}
 MdNavItem.$inject = ["$$rAF"];
 
 /**
  * Controller for the nav-item component.
- * @param ***REMOVED***!angular.JQLite***REMOVED*** $element
+ * @param {!angular.JQLite} $element
  * @constructor
  * @final
  * ngInject
  */
-function MdNavItemController($element) ***REMOVED***
+function MdNavItemController($element) {
 
-  /** @private @const ***REMOVED***!angular.JQLite***REMOVED*** */
+  /** @private @const {!angular.JQLite} */
   this._$element = $element;
 
   // Data-bound variables
-  /** @const ***REMOVED***?Function***REMOVED*** */
+  /** @const {?Function} */
   this.mdNavClick;
-  /** @const ***REMOVED***?string***REMOVED*** */
+  /** @const {?string} */
   this.mdNavHref;
-  /** @const ***REMOVED***?string***REMOVED*** */
+  /** @const {?string} */
   this.name;
 
   // State variables
-  /** @private ***REMOVED***boolean***REMOVED*** */
+  /** @private {boolean} */
   this._selected = false;
 
-  /** @private ***REMOVED***boolean***REMOVED*** */
+  /** @private {boolean} */
   this._focused = false;
 
   var hasNavClick = !!($element.attr('md-nav-click'));
@@ -480,71 +480,71 @@ function MdNavItemController($element) ***REMOVED***
   var hasNavSref = !!($element.attr('md-nav-sref'));
 
   // Cannot specify more than one nav attribute
-  if ((hasNavClick ? 1:0) + (hasNavHref ? 1:0) + (hasNavSref ? 1:0) > 1) ***REMOVED***
+  if ((hasNavClick ? 1:0) + (hasNavHref ? 1:0) + (hasNavSref ? 1:0) > 1) {
     throw Error(
         'Must specify exactly one of md-nav-click, md-nav-href, ' +
         'md-nav-sref for nav-item directive');
-  ***REMOVED***
-***REMOVED***
+  }
+}
 MdNavItemController.$inject = ["$element"];
 
 /**
  * Returns a map of class names and values for use by ng-class.
- * @return ***REMOVED***!Object<string,boolean>***REMOVED***
+ * @return {!Object<string,boolean>}
  */
-MdNavItemController.prototype.getNgClassMap = function() ***REMOVED***
-  return ***REMOVED***
+MdNavItemController.prototype.getNgClassMap = function() {
+  return {
     'md-active': this._selected,
     'md-primary': this._selected,
     'md-unselected': !this._selected,
     'md-focused': this._focused,
-  ***REMOVED***;
-***REMOVED***;
+  };
+};
 
 /**
  * Get the name attribute of the tab.
- * @return ***REMOVED***string***REMOVED***
+ * @return {string}
  */
-MdNavItemController.prototype.getName = function() ***REMOVED***
+MdNavItemController.prototype.getName = function() {
   return this.name;
-***REMOVED***;
+};
 
 /**
  * Get the button element associated with the tab.
- * @return ***REMOVED***!Element***REMOVED***
+ * @return {!Element}
  */
-MdNavItemController.prototype.getButtonEl = function() ***REMOVED***
+MdNavItemController.prototype.getButtonEl = function() {
   return this._$element[0].querySelector('._md-nav-button');
-***REMOVED***;
+};
 
 /**
  * Set the selected state of the tab.
- * @param ***REMOVED***boolean***REMOVED*** isSelected
+ * @param {boolean} isSelected
  */
-MdNavItemController.prototype.setSelected = function(isSelected) ***REMOVED***
+MdNavItemController.prototype.setSelected = function(isSelected) {
   this._selected = isSelected;
-***REMOVED***;
+};
 
 /**
- * @return ***REMOVED***boolean***REMOVED***
+ * @return {boolean}
  */
-MdNavItemController.prototype.isSelected = function() ***REMOVED***
+MdNavItemController.prototype.isSelected = function() {
   return this._selected;
-***REMOVED***;
+};
 
 /**
  * Set the focused state of the tab.
- * @param ***REMOVED***boolean***REMOVED*** isFocused
+ * @param {boolean} isFocused
  */
-MdNavItemController.prototype.setFocused = function(isFocused) ***REMOVED***
+MdNavItemController.prototype.setFocused = function(isFocused) {
   this._focused = isFocused;
-***REMOVED***;
+};
 
 /**
- * @return ***REMOVED***boolean***REMOVED***
+ * @return {boolean}
  */
-MdNavItemController.prototype.hasFocus = function() ***REMOVED***
+MdNavItemController.prototype.hasFocus = function() {
   return this._focused;
-***REMOVED***;
+};
 
 ngmaterial.components.navBar = angular.module("material.components.navBar");

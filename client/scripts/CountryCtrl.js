@@ -1,18 +1,18 @@
 // //client/scripts/CountryCtrl.js User Country View Controller
-// (function() ***REMOVED***
+// (function() {
 //     'use strict';
 //
 //     angular.module('exportsNavigator').controller('CountryCtrl', CountryCtrl);
 //     CountryCtrl.$inject = ['$state', 'countryService', 'countries', 'country'];
 //
-//     function CountryCtrl(Country) ***REMOVED***
+//     function CountryCtrl(Country) {
 //         var vm = this;
 //
 //
-//     ***REMOVED***
-// ***REMOVED***)();
+//     }
+// })();
 //
-//     function countryData($state, countryService, countries, country) ***REMOVED***
+//     function countryData($state, countryService, countries, country) {
 //
 //     this.country = country.data;
 //
@@ -20,17 +20,17 @@
 //
 //     this.country = countries.data;
 //
-//     this.saveCountry = function() ***REMOVED***
+//     this.saveCountry = function() {
 //         countryService.saveCountry(this.country)
-//             .then(function() ***REMOVED***
+//             .then(function() {
 //                 $state.go('countries');
-//             ***REMOVED***);
-//     ***REMOVED***;
+//             });
+//     };
 //
-//     this.searchCountries = function(query) ***REMOVED***
+//     this.searchCountries = function(query) {
 //         if (!query.length) return $state.go('countries');
 //
-//         $state.go('search', ***REMOVED***query: query***REMOVED***);
-//     ***REMOVED***;
+//         $state.go('search', {query: query});
+//     };
 //
-// ***REMOVED***
+// }

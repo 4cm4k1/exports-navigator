@@ -4,18 +4,18 @@
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
 .ng-cloak, .x-ng-cloak,
-.ng-hide:not(.ng-hide-animate) ***REMOVED***
+.ng-hide:not(.ng-hide-animate) {
   display: none !important;
-***REMOVED***
+}
 
-ng\:form ***REMOVED***
+ng\:form {
   display: block;
-***REMOVED***
+}
 
-.ng-animate-shim ***REMOVED***
+.ng-animate-shim {
   visibility:hidden;
-***REMOVED***
+}
 
-.ng-anchor ***REMOVED***
+.ng-anchor {
   position:absolute;
-***REMOVED***
+}

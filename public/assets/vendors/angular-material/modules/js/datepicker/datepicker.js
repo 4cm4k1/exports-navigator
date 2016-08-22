@@ -4,7 +4,7 @@
  * @license MIT
  * v1.1.0
  */
-(function( window, angular, undefined )***REMOVED***
+(function( window, angular, undefined ){
 "use strict";
 
 /**
@@ -19,7 +19,7 @@ angular.module('material.components.datepicker', [
   'material.components.virtualRepeat'
 ]);
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   /**
@@ -27,10 +27,10 @@ angular.module('material.components.datepicker', [
    * @name mdCalendar
    * @module material.components.datepicker
    *
-   * @param ***REMOVED***Date***REMOVED*** ng-model The component's model. Should be a Date object.
-   * @param ***REMOVED***Date=***REMOVED*** md-min-date Expression representing the minimum date.
-   * @param ***REMOVED***Date=***REMOVED*** md-max-date Expression representing the maximum date.
-   * @param ***REMOVED***(function(Date): boolean)=***REMOVED*** md-date-filter Function expecting a date and returning a boolean whether it can be selected or not.
+   * @param {Date} ng-model The component's model. Should be a Date object.
+   * @param {Date=} md-min-date Expression representing the minimum date.
+   * @param {Date=} md-max-date Expression representing the maximum date.
+   * @param {(function(Date): boolean)=} md-date-filter Function expecting a date and returning a boolean whether it can be selected or not.
    *
    * @description
    * `<md-calendar>` is a component that renders a calendar that can be used to select a date.
@@ -58,9 +58,9 @@ angular.module('material.components.datepicker', [
   //     announcement and key handling).
   // Read-only calendar (not just date-picker).
 
-  function calendarDirective() ***REMOVED***
-    return ***REMOVED***
-      template: function(tElement, tAttr) ***REMOVED***
+  function calendarDirective() {
+    return {
+      template: function(tElement, tAttr) {
         // TODO(crisbeto): This is a workaround that allows the calendar to work, without
         // a datepicker, until issue #8585 gets resolved. It can safely be removed
         // afterwards. This ensures that the virtual repeater scrolls to the proper place on load by
@@ -74,24 +74,24 @@ angular.module('material.components.datepicker', [
           '</div>';
 
         return template;
-      ***REMOVED***,
-      scope: ***REMOVED***
+      },
+      scope: {
         minDate: '=mdMinDate',
         maxDate: '=mdMaxDate',
         dateFilter: '=mdDateFilter',
         _currentView: '@mdCurrentView'
-      ***REMOVED***,
+      },
       require: ['ngModel', 'mdCalendar'],
       controller: CalendarCtrl,
       controllerAs: 'calendarCtrl',
       bindToController: true,
-      link: function(scope, element, attrs, controllers) ***REMOVED***
+      link: function(scope, element, attrs, controllers) {
         var ngModelCtrl = controllers[0];
         var mdCalendarCtrl = controllers[1];
         mdCalendarCtrl.configureNgModel(ngModelCtrl);
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***
+      }
+    };
+  }
 
   /**
    * Occasionally the hideVerticalScrollbar method might read an element's
@@ -110,14 +110,14 @@ angular.module('material.components.datepicker', [
    * ngInject @constructor
    */
   function CalendarCtrl($element, $scope, $$mdDateUtil, $mdUtil,
-    $mdConstant, $mdTheming, $$rAF, $attrs) ***REMOVED***
+    $mdConstant, $mdTheming, $$rAF, $attrs) {
 
     $mdTheming($element);
 
-    /** @final ***REMOVED***!angular.JQLite***REMOVED*** */
+    /** @final {!angular.JQLite} */
     this.$element = $element;
 
-    /** @final ***REMOVED***!angular.Scope***REMOVED*** */
+    /** @final {!angular.Scope} */
     this.$scope = $scope;
 
     /** @final */
@@ -132,30 +132,30 @@ angular.module('material.components.datepicker', [
     /** @final */
     this.$$rAF = $$rAF;
 
-    /** @final ***REMOVED***Date***REMOVED*** */
+    /** @final {Date} */
     this.today = this.dateUtil.createDateAtMidnight();
 
-    /** @type ***REMOVED***!angular.NgModelController***REMOVED*** */
+    /** @type {!angular.NgModelController} */
     this.ngModelCtrl = null;
 
     /**
      * The currently visible calendar view. Note the prefix on the scope value,
      * which is necessary, because the datepicker seems to reset the real one value if the
      * calendar is open, but the value on the datepicker's scope is empty.
-     * @type ***REMOVED***String***REMOVED***
+     * @type {String}
      */
     this.currentView = this._currentView || 'month';
 
-    /** @type ***REMOVED***String***REMOVED*** Class applied to the selected date cell. */
+    /** @type {String} Class applied to the selected date cell. */
     this.SELECTED_DATE_CLASS = 'md-calendar-selected-date';
 
-    /** @type ***REMOVED***String***REMOVED*** Class applied to the cell for today. */
+    /** @type {String} Class applied to the cell for today. */
     this.TODAY_CLASS = 'md-calendar-date-today';
 
-    /** @type ***REMOVED***String***REMOVED*** Class applied to the focused cell. */
+    /** @type {String} Class applied to the focused cell. */
     this.FOCUSED_DATE_CLASS = 'md-focus';
 
-    /** @final ***REMOVED***number***REMOVED*** Unique ID for this calendar instance. */
+    /** @final {number} Unique ID for this calendar instance. */
     this.id = nextUniqueId++;
 
     /**
@@ -163,7 +163,7 @@ angular.module('material.components.datepicker', [
      * to the ng-model value if set, otherwise to today. It will be updated as the user navigates
      * to other months. The cell corresponding to the displayDate does not necesarily always have
      * focus in the document (such as for cases when the user is scrolling the calendar).
-     * @type ***REMOVED***Date***REMOVED***
+     * @type {Date}
      */
     this.displayDate = null;
 
@@ -172,139 +172,139 @@ angular.module('material.components.datepicker', [
      * can know, when the ng-model value changes, what the previous value was before it's updated
      * in the component's UI.
      *
-     * @type ***REMOVED***Date***REMOVED***
+     * @type {Date}
      */
     this.selectedDate = null;
 
     /**
      * Used to toggle initialize the root element in the next digest.
-     * @type ***REMOVED***Boolean***REMOVED***
+     * @type {Boolean}
      */
     this.isInitialized = false;
 
     /**
      * Cache for the  width of the element without a scrollbar. Used to hide the scrollbar later on
      * and to avoid extra reflows when switching between views.
-     * @type ***REMOVED***Number***REMOVED***
+     * @type {Number}
      */
     this.width = 0;
 
     /**
      * Caches the width of the scrollbar in order to be used when hiding it and to avoid extra reflows.
-     * @type ***REMOVED***Number***REMOVED***
+     * @type {Number}
      */
     this.scrollbarWidth = 0;
 
     // Unless the user specifies so, the calendar should not be a tab stop.
     // This is necessary because ngAria might add a tabindex to anything with an ng-model
     // (based on whether or not the user has turned that particular feature on/off).
-    if (!$attrs.tabindex) ***REMOVED***
+    if (!$attrs.tabindex) {
       $element.attr('tabindex', '-1');
-    ***REMOVED***
+    }
 
     $element.on('keydown', angular.bind(this, this.handleKeyEvent));
-  ***REMOVED***
+  }
   CalendarCtrl.$inject = ["$element", "$scope", "$$mdDateUtil", "$mdUtil", "$mdConstant", "$mdTheming", "$$rAF", "$attrs"];
 
   /**
    * Sets up the controller's reference to ngModelController.
-   * @param ***REMOVED***!angular.NgModelController***REMOVED*** ngModelCtrl
+   * @param {!angular.NgModelController} ngModelCtrl
    */
-  CalendarCtrl.prototype.configureNgModel = function(ngModelCtrl) ***REMOVED***
+  CalendarCtrl.prototype.configureNgModel = function(ngModelCtrl) {
     var self = this;
 
     self.ngModelCtrl = ngModelCtrl;
 
-    self.$mdUtil.nextTick(function() ***REMOVED***
+    self.$mdUtil.nextTick(function() {
       self.isInitialized = true;
-    ***REMOVED***);
+    });
 
-    ngModelCtrl.$render = function() ***REMOVED***
+    ngModelCtrl.$render = function() {
       var value = this.$viewValue;
 
       // Notify the child scopes of any changes.
       self.$scope.$broadcast('md-calendar-parent-changed', value);
 
       // Set up the selectedDate if it hasn't been already.
-      if (!self.selectedDate) ***REMOVED***
+      if (!self.selectedDate) {
         self.selectedDate = value;
-      ***REMOVED***
+      }
 
       // Also set up the displayDate.
-      if (!self.displayDate) ***REMOVED***
+      if (!self.displayDate) {
         self.displayDate = self.selectedDate || self.today;
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***;
+      }
+    };
+  };
 
   /**
    * Sets the ng-model value for the calendar and emits a change event.
-   * @param ***REMOVED***Date***REMOVED*** date
+   * @param {Date} date
    */
-  CalendarCtrl.prototype.setNgModelValue = function(date) ***REMOVED***
+  CalendarCtrl.prototype.setNgModelValue = function(date) {
     var value = this.dateUtil.createDateAtMidnight(date);
     this.focus(value);
     this.$scope.$emit('md-calendar-change', value);
     this.ngModelCtrl.$setViewValue(value);
     this.ngModelCtrl.$render();
     return value;
-  ***REMOVED***;
+  };
 
   /**
    * Sets the current view that should be visible in the calendar
-   * @param ***REMOVED***string***REMOVED*** newView View name to be set.
-   * @param ***REMOVED***number|Date***REMOVED*** time Date object or a timestamp for the new display date.
+   * @param {string} newView View name to be set.
+   * @param {number|Date} time Date object or a timestamp for the new display date.
    */
-  CalendarCtrl.prototype.setCurrentView = function(newView, time) ***REMOVED***
+  CalendarCtrl.prototype.setCurrentView = function(newView, time) {
     var self = this;
 
-    self.$mdUtil.nextTick(function() ***REMOVED***
+    self.$mdUtil.nextTick(function() {
       self.currentView = newView;
 
-      if (time) ***REMOVED***
+      if (time) {
         self.displayDate = angular.isDate(time) ? time : new Date(time);
-      ***REMOVED***
-    ***REMOVED***);
-  ***REMOVED***;
+      }
+    });
+  };
 
   /**
    * Focus the cell corresponding to the given date.
-   * @param ***REMOVED***Date***REMOVED*** date The date to be focused.
+   * @param {Date} date The date to be focused.
    */
-  CalendarCtrl.prototype.focus = function(date) ***REMOVED***
-    if (this.dateUtil.isValidDate(date)) ***REMOVED***
+  CalendarCtrl.prototype.focus = function(date) {
+    if (this.dateUtil.isValidDate(date)) {
       var previousFocus = this.$element[0].querySelector('.md-focus');
-      if (previousFocus) ***REMOVED***
+      if (previousFocus) {
         previousFocus.classList.remove(this.FOCUSED_DATE_CLASS);
-      ***REMOVED***
+      }
 
       var cellId = this.getDateId(date, this.currentView);
       var cell = document.getElementById(cellId);
-      if (cell) ***REMOVED***
+      if (cell) {
         cell.classList.add(this.FOCUSED_DATE_CLASS);
         cell.focus();
         this.displayDate = date;
-      ***REMOVED***
-    ***REMOVED*** else ***REMOVED***
+      }
+    } else {
       var rootElement = this.$element[0].querySelector('[ng-switch]');
 
-      if (rootElement) ***REMOVED***
+      if (rootElement) {
         rootElement.focus();
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***;
+      }
+    }
+  };
 
   /**
    * Normalizes the key event into an action name. The action will be broadcast
    * to the child controllers.
-   * @param ***REMOVED***KeyboardEvent***REMOVED*** event
-   * @returns ***REMOVED***String***REMOVED*** The action that should be taken, or null if the key
+   * @param {KeyboardEvent} event
+   * @returns {String} The action that should be taken, or null if the key
    * does not match a calendar shortcut.
    */
-  CalendarCtrl.prototype.getActionFromKeyEvent = function(event) ***REMOVED***
+  CalendarCtrl.prototype.getActionFromKeyEvent = function(event) {
     var keyCode = this.keyCode;
 
-    switch (event.which) ***REMOVED***
+    switch (event.which) {
       case keyCode.ENTER: return 'select';
 
       case keyCode.RIGHT_ARROW: return 'move-right';
@@ -322,39 +322,39 @@ angular.module('material.components.datepicker', [
       case keyCode.END: return 'end';
 
       default: return null;
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
   /**
    * Handles a key event in the calendar with the appropriate action. The action will either
    * be to select the focused date or to navigate to focus a new date.
-   * @param ***REMOVED***KeyboardEvent***REMOVED*** event
+   * @param {KeyboardEvent} event
    */
-  CalendarCtrl.prototype.handleKeyEvent = function(event) ***REMOVED***
+  CalendarCtrl.prototype.handleKeyEvent = function(event) {
     var self = this;
 
-    this.$scope.$apply(function() ***REMOVED***
+    this.$scope.$apply(function() {
       // Capture escape and emit back up so that a wrapping component
       // (such as a date-picker) can decide to close.
-      if (event.which == self.keyCode.ESCAPE || event.which == self.keyCode.TAB) ***REMOVED***
+      if (event.which == self.keyCode.ESCAPE || event.which == self.keyCode.TAB) {
         self.$scope.$emit('md-calendar-close');
 
-        if (event.which == self.keyCode.TAB) ***REMOVED***
+        if (event.which == self.keyCode.TAB) {
           event.preventDefault();
-        ***REMOVED***
+        }
 
         return;
-      ***REMOVED***
+      }
 
       // Broadcast the action that any child controllers should take.
       var action = self.getActionFromKeyEvent(event);
-      if (action) ***REMOVED***
+      if (action) {
         event.preventDefault();
         event.stopPropagation();
         self.$scope.$broadcast('md-calendar-parent-action', action);
-      ***REMOVED***
-    ***REMOVED***);
-  ***REMOVED***;
+      }
+    });
+  };
 
   /**
    * Hides the vertical scrollbar on the calendar scroller of a child controller by
@@ -364,26 +364,26 @@ angular.module('material.components.datepicker', [
    *
    * This will cause a reflow.
    *
-   * @param ***REMOVED***object***REMOVED*** childCtrl The child controller whose scrollbar should be hidden.
+   * @param {object} childCtrl The child controller whose scrollbar should be hidden.
    */
-  CalendarCtrl.prototype.hideVerticalScrollbar = function(childCtrl) ***REMOVED***
+  CalendarCtrl.prototype.hideVerticalScrollbar = function(childCtrl) {
     var self = this;
     var element = childCtrl.$element[0];
     var scrollMask = element.querySelector('.md-calendar-scroll-mask');
 
-    if (self.width > 0) ***REMOVED***
+    if (self.width > 0) {
       setWidth();
-    ***REMOVED*** else ***REMOVED***
-      self.$$rAF(function() ***REMOVED***
+    } else {
+      self.$$rAF(function() {
         var scroller = childCtrl.calendarScroller;
 
         self.scrollbarWidth = scroller.offsetWidth - scroller.clientWidth;
         self.width = element.querySelector('table').offsetWidth;
         setWidth();
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
 
-    function setWidth() ***REMOVED***
+    function setWidth() {
       var width = self.width || FALLBACK_WIDTH;
       var scrollbarWidth = self.scrollbarWidth;
       var scroller = childCtrl.calendarScroller;
@@ -391,20 +391,20 @@ angular.module('material.components.datepicker', [
       scrollMask.style.width = width + 'px';
       scroller.style.width = (width + scrollbarWidth) + 'px';
       scroller.style.paddingRight = scrollbarWidth + 'px';
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
   /**
    * Gets an identifier for a date unique to the calendar instance for internal
    * purposes. Not to be displayed.
-   * @param ***REMOVED***Date***REMOVED*** date The date for which the id is being generated
-   * @param ***REMOVED***string***REMOVED*** namespace Namespace for the id. (month, year etc.)
-   * @returns ***REMOVED***string***REMOVED***
+   * @param {Date} date The date for which the id is being generated
+   * @param {string} namespace Namespace for the id. (month, year etc.)
+   * @returns {string}
    */
-  CalendarCtrl.prototype.getDateId = function(date, namespace) ***REMOVED***
-    if (!namespace) ***REMOVED***
+  CalendarCtrl.prototype.getDateId = function(date, namespace) {
+    if (!namespace) {
       throw new Error('A namespace for the date id has to be specified.');
-    ***REMOVED***
+    }
 
     return [
       'md',
@@ -414,7 +414,7 @@ angular.module('material.components.datepicker', [
       date.getMonth(),
       date.getDate()
     ].join('-');
-  ***REMOVED***;
+  };
 
   /**
    * Util to trigger an extra digest on a parent scope, in order to to ensure that
@@ -423,19 +423,19 @@ angular.module('material.components.datepicker', [
    * in place yet. The case, in which this is an issue, is when the repeater has less
    * than a page of content (e.g. a month or year view has a min or max date).
    */
-  CalendarCtrl.prototype.updateVirtualRepeat = function() ***REMOVED***
+  CalendarCtrl.prototype.updateVirtualRepeat = function() {
     var scope = this.$scope;
-    var virtualRepeatResizeListener = scope.$on('$md-resize-enable', function() ***REMOVED***
-      if (!scope.$$phase) ***REMOVED***
+    var virtualRepeatResizeListener = scope.$on('$md-resize-enable', function() {
+      if (!scope.$$phase) {
         scope.$apply();
-      ***REMOVED***
+      }
 
       virtualRepeatResizeListener();
-    ***REMOVED***);
-  ***REMOVED***;
-***REMOVED***)();
+    });
+  };
+})();
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   angular.module('material.components.datepicker')
@@ -454,8 +454,8 @@ angular.module('material.components.datepicker', [
   var TBODY_SINGLE_ROW_HEIGHT = 45;
 
   /** Private directive that represents a list of months inside the calendar. */
-  function calendarDirective() ***REMOVED***
-    return ***REMOVED***
+  function calendarDirective() {
+    return {
       template:
         '<table aria-hidden="true" class="md-calendar-day-header"><thead></thead></table>' +
         '<div class="md-calendar-scroll-mask">' +
@@ -477,31 +477,31 @@ angular.module('material.components.datepicker', [
       controller: CalendarMonthCtrl,
       controllerAs: 'monthCtrl',
       bindToController: true,
-      link: function(scope, element, attrs, controllers) ***REMOVED***
+      link: function(scope, element, attrs, controllers) {
         var calendarCtrl = controllers[0];
         var monthCtrl = controllers[1];
         monthCtrl.initialize(calendarCtrl);
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***
+      }
+    };
+  }
 
   /**
    * Controller for the calendar month component.
    * ngInject @constructor
    */
   function CalendarMonthCtrl($element, $scope, $animate, $q,
-    $$mdDateUtil, $mdDateLocale) ***REMOVED***
+    $$mdDateUtil, $mdDateLocale) {
 
-    /** @final ***REMOVED***!angular.JQLite***REMOVED*** */
+    /** @final {!angular.JQLite} */
     this.$element = $element;
 
-    /** @final ***REMOVED***!angular.Scope***REMOVED*** */
+    /** @final {!angular.Scope} */
     this.$scope = $scope;
 
-    /** @final ***REMOVED***!angular.$animate***REMOVED*** */
+    /** @final {!angular.$animate} */
     this.$animate = $animate;
 
-    /** @final ***REMOVED***!angular.$q***REMOVED*** */
+    /** @final {!angular.$q} */
     this.$q = $q;
 
     /** @final */
@@ -510,16 +510,16 @@ angular.module('material.components.datepicker', [
     /** @final */
     this.dateLocale = $mdDateLocale;
 
-    /** @final ***REMOVED***HTMLElement***REMOVED*** */
+    /** @final {HTMLElement} */
     this.calendarScroller = $element[0].querySelector('.md-virtual-repeat-scroller');
 
-    /** @type ***REMOVED***Date***REMOVED*** */
+    /** @type {Date} */
     this.firstRenderableDate = null;
 
-    /** @type ***REMOVED***boolean***REMOVED*** */
+    /** @type {boolean} */
     this.isInitialized = false;
 
-    /** @type ***REMOVED***boolean***REMOVED*** */
+    /** @type {boolean} */
     this.isMonthTransitionInProgress = false;
 
     var self = this;
@@ -527,24 +527,24 @@ angular.module('material.components.datepicker', [
     /**
      * Handles a click event on a date cell.
      * Created here so that every cell can use the same function instance.
-     * @this ***REMOVED***HTMLTableCellElement***REMOVED*** The cell that was clicked.
+     * @this {HTMLTableCellElement} The cell that was clicked.
      */
-    this.cellClickHandler = function() ***REMOVED***
+    this.cellClickHandler = function() {
       var timestamp = $$mdDateUtil.getTimestampFromNode(this);
-      self.$scope.$apply(function() ***REMOVED***
+      self.$scope.$apply(function() {
         self.calendarCtrl.setNgModelValue(timestamp);
-      ***REMOVED***);
-    ***REMOVED***;
+      });
+    };
 
     /**
      * Handles click events on the month headers. Switches
      * the calendar to the year view.
-     * @this ***REMOVED***HTMLTableCellElement***REMOVED*** The cell that was clicked.
+     * @this {HTMLTableCellElement} The cell that was clicked.
      */
-    this.headerClickHandler = function() ***REMOVED***
+    this.headerClickHandler = function() {
       self.calendarCtrl.setCurrentView('year', $$mdDateUtil.getTimestampFromNode(this));
-    ***REMOVED***;
-  ***REMOVED***
+    };
+  }
   CalendarMonthCtrl.$inject = ["$element", "$scope", "$animate", "$q", "$$mdDateUtil", "$mdDateLocale"];
 
   /*** Initialization ***/
@@ -553,7 +553,7 @@ angular.module('material.components.datepicker', [
    * Initialize the controller by saving a reference to the calendar and
    * setting up the object that will be iterated by the virtual repeater.
    */
-  CalendarMonthCtrl.prototype.initialize = function(calendarCtrl) ***REMOVED***
+  CalendarMonthCtrl.prototype.initialize = function(calendarCtrl) {
     var minDate = calendarCtrl.minDate;
     var maxDate = calendarCtrl.maxDate;
     this.calendarCtrl = calendarCtrl;
@@ -563,98 +563,98 @@ angular.module('material.components.datepicker', [
      * number of months that can be viewed. This is shorter than ideal because of (potential)
      * Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=1181658.
      */
-    this.items = ***REMOVED*** length: 2000 ***REMOVED***;
+    this.items = { length: 2000 };
 
-    if (maxDate && minDate) ***REMOVED***
+    if (maxDate && minDate) {
       // Limit the number of months if min and max dates are set.
       var numMonths = this.dateUtil.getMonthDistance(minDate, maxDate) + 1;
       numMonths = Math.max(numMonths, 1);
       // Add an additional month as the final dummy month for rendering purposes.
       numMonths += 1;
       this.items.length = numMonths;
-    ***REMOVED***
+    }
 
     this.firstRenderableDate = this.dateUtil.incrementMonths(calendarCtrl.today, -this.items.length / 2);
 
-    if (minDate && minDate > this.firstRenderableDate) ***REMOVED***
+    if (minDate && minDate > this.firstRenderableDate) {
       this.firstRenderableDate = minDate;
-    ***REMOVED*** else if (maxDate) ***REMOVED***
+    } else if (maxDate) {
       // Calculate the difference between the start date and max date.
       // Subtract 1 because it's an inclusive difference and 1 for the final dummy month.
       var monthDifference = this.items.length - 2;
       this.firstRenderableDate = this.dateUtil.incrementMonths(maxDate, -(this.items.length - 2));
-    ***REMOVED***
+    }
 
     this.attachScopeListeners();
     calendarCtrl.updateVirtualRepeat();
 
     // Fire the initial render, since we might have missed it the first time it fired.
     calendarCtrl.ngModelCtrl && calendarCtrl.ngModelCtrl.$render();
-  ***REMOVED***;
+  };
 
   /**
    * Gets the "index" of the currently selected date as it would be in the virtual-repeat.
-   * @returns ***REMOVED***number***REMOVED***
+   * @returns {number}
    */
-  CalendarMonthCtrl.prototype.getSelectedMonthIndex = function() ***REMOVED***
+  CalendarMonthCtrl.prototype.getSelectedMonthIndex = function() {
     var calendarCtrl = this.calendarCtrl;
     return this.dateUtil.getMonthDistance(this.firstRenderableDate,
         calendarCtrl.displayDate || calendarCtrl.selectedDate || calendarCtrl.today);
-  ***REMOVED***;
+  };
 
   /**
    * Change the selected date in the calendar (ngModel value has already been changed).
-   * @param ***REMOVED***Date***REMOVED*** date
+   * @param {Date} date
    */
-  CalendarMonthCtrl.prototype.changeSelectedDate = function(date) ***REMOVED***
+  CalendarMonthCtrl.prototype.changeSelectedDate = function(date) {
     var self = this;
     var calendarCtrl = self.calendarCtrl;
     var previousSelectedDate = calendarCtrl.selectedDate;
     calendarCtrl.selectedDate = date;
 
-    this.changeDisplayDate(date).then(function() ***REMOVED***
+    this.changeDisplayDate(date).then(function() {
       var selectedDateClass = calendarCtrl.SELECTED_DATE_CLASS;
       var namespace = 'month';
 
       // Remove the selected class from the previously selected date, if any.
-      if (previousSelectedDate) ***REMOVED***
+      if (previousSelectedDate) {
         var prevDateCell = document.getElementById(calendarCtrl.getDateId(previousSelectedDate, namespace));
-        if (prevDateCell) ***REMOVED***
+        if (prevDateCell) {
           prevDateCell.classList.remove(selectedDateClass);
           prevDateCell.setAttribute('aria-selected', 'false');
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
       // Apply the select class to the new selected date if it is set.
-      if (date) ***REMOVED***
+      if (date) {
         var dateCell = document.getElementById(calendarCtrl.getDateId(date, namespace));
-        if (dateCell) ***REMOVED***
+        if (dateCell) {
           dateCell.classList.add(selectedDateClass);
           dateCell.setAttribute('aria-selected', 'true');
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***);
-  ***REMOVED***;
+        }
+      }
+    });
+  };
 
   /**
    * Change the date that is being shown in the calendar. If the given date is in a different
    * month, the displayed month will be transitioned.
-   * @param ***REMOVED***Date***REMOVED*** date
+   * @param {Date} date
    */
-  CalendarMonthCtrl.prototype.changeDisplayDate = function(date) ***REMOVED***
+  CalendarMonthCtrl.prototype.changeDisplayDate = function(date) {
     // Initialization is deferred until this function is called because we want to reflect
     // the starting value of ngModel.
-    if (!this.isInitialized) ***REMOVED***
+    if (!this.isInitialized) {
       this.buildWeekHeader();
       this.calendarCtrl.hideVerticalScrollbar(this);
       this.isInitialized = true;
       return this.$q.when();
-    ***REMOVED***
+    }
 
     // If trying to show an invalid date or a transition is in progress, do nothing.
-    if (!this.dateUtil.isValidDate(date) || this.isMonthTransitionInProgress) ***REMOVED***
+    if (!this.dateUtil.isValidDate(date) || this.isMonthTransitionInProgress) {
       return this.$q.when();
-    ***REMOVED***
+    }
 
     this.isMonthTransitionInProgress = true;
     var animationPromise = this.animateDateChange(date);
@@ -662,74 +662,74 @@ angular.module('material.components.datepicker', [
     this.calendarCtrl.displayDate = date;
 
     var self = this;
-    animationPromise.then(function() ***REMOVED***
+    animationPromise.then(function() {
       self.isMonthTransitionInProgress = false;
-    ***REMOVED***);
+    });
 
     return animationPromise;
-  ***REMOVED***;
+  };
 
   /**
    * Animates the transition from the calendar's current month to the given month.
-   * @param ***REMOVED***Date***REMOVED*** date
-   * @returns ***REMOVED***angular.$q.Promise***REMOVED*** The animation promise.
+   * @param {Date} date
+   * @returns {angular.$q.Promise} The animation promise.
    */
-  CalendarMonthCtrl.prototype.animateDateChange = function(date) ***REMOVED***
-    if (this.dateUtil.isValidDate(date)) ***REMOVED***
+  CalendarMonthCtrl.prototype.animateDateChange = function(date) {
+    if (this.dateUtil.isValidDate(date)) {
       var monthDistance = this.dateUtil.getMonthDistance(this.firstRenderableDate, date);
       this.calendarScroller.scrollTop = monthDistance * TBODY_HEIGHT;
-    ***REMOVED***
+    }
 
     return this.$q.when();
-  ***REMOVED***;
+  };
 
   /**
    * Builds and appends a day-of-the-week header to the calendar.
    * This should only need to be called once during initialization.
    */
-  CalendarMonthCtrl.prototype.buildWeekHeader = function() ***REMOVED***
+  CalendarMonthCtrl.prototype.buildWeekHeader = function() {
     var firstDayOfWeek = this.dateLocale.firstDayOfWeek;
     var shortDays = this.dateLocale.shortDays;
 
     var row = document.createElement('tr');
-    for (var i = 0; i < 7; i++) ***REMOVED***
+    for (var i = 0; i < 7; i++) {
       var th = document.createElement('th');
       th.textContent = shortDays[(i + firstDayOfWeek) % 7];
       row.appendChild(th);
-    ***REMOVED***
+    }
 
     this.$element.find('thead').append(row);
-  ***REMOVED***;
+  };
 
   /**
    * Attaches listeners for the scope events that are broadcast by the calendar.
    */
-  CalendarMonthCtrl.prototype.attachScopeListeners = function() ***REMOVED***
+  CalendarMonthCtrl.prototype.attachScopeListeners = function() {
     var self = this;
 
-    self.$scope.$on('md-calendar-parent-changed', function(event, value) ***REMOVED***
+    self.$scope.$on('md-calendar-parent-changed', function(event, value) {
       self.changeSelectedDate(value);
-    ***REMOVED***);
+    });
 
     self.$scope.$on('md-calendar-parent-action', angular.bind(this, this.handleKeyEvent));
-  ***REMOVED***;
+  };
 
   /**
    * Handles the month-specific keyboard interactions.
-   * @param ***REMOVED***Object***REMOVED*** event Scope event object passed by the calendar.
-   * @param ***REMOVED***String***REMOVED*** action Action, corresponding to the key that was pressed.
+   * @param {Object} event Scope event object passed by the calendar.
+   * @param {String} action Action, corresponding to the key that was pressed.
    */
-  CalendarMonthCtrl.prototype.handleKeyEvent = function(event, action) ***REMOVED***
+  CalendarMonthCtrl.prototype.handleKeyEvent = function(event, action) {
     var calendarCtrl = this.calendarCtrl;
     var displayDate = calendarCtrl.displayDate;
 
-    if (action === 'select') ***REMOVED***
+    if (action === 'select') {
       calendarCtrl.setNgModelValue(displayDate);
-    ***REMOVED*** else ***REMOVED***
+    } else {
       var date = null;
       var dateUtil = this.dateUtil;
 
-      switch (action) ***REMOVED***
+      switch (action) {
         case 'move-right': date = dateUtil.incrementDays(displayDate, 1); break;
         case 'move-left': date = dateUtil.incrementDays(displayDate, -1); break;
 
@@ -741,20 +741,20 @@ angular.module('material.components.datepicker', [
 
         case 'start': date = dateUtil.getFirstDateOfMonth(displayDate); break;
         case 'end': date = dateUtil.getLastDateOfMonth(displayDate); break;
-      ***REMOVED***
+      }
 
-      if (date) ***REMOVED***
+      if (date) {
         date = this.dateUtil.clampDate(date, calendarCtrl.minDate, calendarCtrl.maxDate);
 
-        this.changeDisplayDate(date).then(function() ***REMOVED***
+        this.changeDisplayDate(date).then(function() {
           calendarCtrl.focus(date);
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***)();
+        });
+      }
+    }
+  };
+})();
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   angular.module('material.components.datepicker')
@@ -766,17 +766,17 @@ angular.module('material.components.datepicker', [
    * the rest of the calendar controller logic.
    * ngInject
    */
-  function mdCalendarMonthBodyDirective($compile, $$mdSvgRegistry) ***REMOVED***
+  function mdCalendarMonthBodyDirective($compile, $$mdSvgRegistry) {
     var ARROW_ICON = $compile('<md-icon md-svg-src="' +
-      $$mdSvgRegistry.mdTabsArrow + '"></md-icon>')(***REMOVED******REMOVED***)[0];
+      $$mdSvgRegistry.mdTabsArrow + '"></md-icon>')({})[0];
 
-    return ***REMOVED***
+    return {
       require: ['^^mdCalendar', '^^mdCalendarMonth', 'mdCalendarMonthBody'],
-      scope: ***REMOVED*** offset: '=mdMonthOffset' ***REMOVED***,
+      scope: { offset: '=mdMonthOffset' },
       controller: CalendarMonthBodyCtrl,
       controllerAs: 'mdMonthBodyCtrl',
       bindToController: true,
-      link: function(scope, element, attrs, controllers) ***REMOVED***
+      link: function(scope, element, attrs, controllers) {
         var calendarCtrl = controllers[0];
         var monthCtrl = controllers[1];
         var monthBodyCtrl = controllers[2];
@@ -790,22 +790,22 @@ angular.module('material.components.datepicker', [
         // of repeated items that are linked, and then those elements have their bindings updated.
         // Since the months are not generated by bindings, we simply regenerate the entire thing
         // when the binding (offset) changes.
-        scope.$watch(function() ***REMOVED*** return monthBodyCtrl.offset; ***REMOVED***, function(offset, oldOffset) ***REMOVED***
-          if (offset !== oldOffset) ***REMOVED***
+        scope.$watch(function() { return monthBodyCtrl.offset; }, function(offset, oldOffset) {
+          if (offset !== oldOffset) {
             monthBodyCtrl.generateContent();
-          ***REMOVED***
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***
+          }
+        });
+      }
+    };
+  }
   mdCalendarMonthBodyDirective.$inject = ["$compile", "$$mdSvgRegistry"];
 
   /**
    * Controller for a single calendar month.
    * ngInject @constructor
    */
-  function CalendarMonthBodyCtrl($element, $$mdDateUtil, $mdDateLocale) ***REMOVED***
-    /** @final ***REMOVED***!angular.JQLite***REMOVED*** */
+  function CalendarMonthBodyCtrl($element, $$mdDateUtil, $mdDateLocale) {
+    /** @final {!angular.JQLite} */
     this.$element = $element;
 
     /** @final */
@@ -814,49 +814,49 @@ angular.module('material.components.datepicker', [
     /** @final */
     this.dateLocale = $mdDateLocale;
 
-    /** @type ***REMOVED***Object***REMOVED*** Reference to the month view. */
+    /** @type {Object} Reference to the month view. */
     this.monthCtrl = null;
 
-    /** @type ***REMOVED***Object***REMOVED*** Reference to the calendar. */
+    /** @type {Object} Reference to the calendar. */
     this.calendarCtrl = null;
 
     /**
      * Number of months from the start of the month "items" that the currently rendered month
      * occurs. Set via angular data binding.
-     * @type ***REMOVED***number***REMOVED***
+     * @type {number}
      */
     this.offset = null;
 
     /**
      * Date cell to focus after appending the month to the document.
-     * @type ***REMOVED***HTMLElement***REMOVED***
+     * @type {HTMLElement}
      */
     this.focusAfterAppend = null;
-  ***REMOVED***
+  }
   CalendarMonthBodyCtrl.$inject = ["$element", "$$mdDateUtil", "$mdDateLocale"];
 
   /** Generate and append the content for this month to the directive element. */
-  CalendarMonthBodyCtrl.prototype.generateContent = function() ***REMOVED***
+  CalendarMonthBodyCtrl.prototype.generateContent = function() {
     var date = this.dateUtil.incrementMonths(this.monthCtrl.firstRenderableDate, this.offset);
 
     this.$element.empty();
     this.$element.append(this.buildCalendarForMonth(date));
 
-    if (this.focusAfterAppend) ***REMOVED***
+    if (this.focusAfterAppend) {
       this.focusAfterAppend.classList.add(this.calendarCtrl.FOCUSED_DATE_CLASS);
       this.focusAfterAppend.focus();
       this.focusAfterAppend = null;
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
   /**
    * Creates a single cell to contain a date in the calendar with all appropriate
    * attributes and classes added. If a date is given, the cell content will be set
    * based on the date.
-   * @param ***REMOVED***Date=***REMOVED*** opt_date
-   * @returns ***REMOVED***HTMLElement***REMOVED***
+   * @param {Date=} opt_date
+   * @returns {HTMLElement}
    */
-  CalendarMonthBodyCtrl.prototype.buildDateCell = function(opt_date) ***REMOVED***
+  CalendarMonthBodyCtrl.prototype.buildDateCell = function(opt_date) {
     var monthCtrl = this.monthCtrl;
     var calendarCtrl = this.calendarCtrl;
 
@@ -866,7 +866,7 @@ angular.module('material.components.datepicker', [
     cell.classList.add('md-calendar-date');
     cell.setAttribute('role', 'gridcell');
 
-    if (opt_date) ***REMOVED***
+    if (opt_date) {
       cell.setAttribute('tabindex', '-1');
       cell.setAttribute('aria-label', this.dateLocale.longDateFormatter(opt_date));
       cell.id = calendarCtrl.getDateId(opt_date, 'month');
@@ -876,19 +876,19 @@ angular.module('material.components.datepicker', [
 
       // TODO(jelourn): Doing these comparisons for class addition during generation might be slow.
       // It may be better to finish the construction and then query the node and add the class.
-      if (this.dateUtil.isSameDay(opt_date, calendarCtrl.today)) ***REMOVED***
+      if (this.dateUtil.isSameDay(opt_date, calendarCtrl.today)) {
         cell.classList.add(calendarCtrl.TODAY_CLASS);
-      ***REMOVED***
+      }
 
       if (this.dateUtil.isValidDate(calendarCtrl.selectedDate) &&
-          this.dateUtil.isSameDay(opt_date, calendarCtrl.selectedDate)) ***REMOVED***
+          this.dateUtil.isSameDay(opt_date, calendarCtrl.selectedDate)) {
         cell.classList.add(calendarCtrl.SELECTED_DATE_CLASS);
         cell.setAttribute('aria-selected', 'true');
-      ***REMOVED***
+      }
 
       var cellText = this.dateLocale.dates[opt_date.getDate()];
 
-      if (this.isDateEnabled(opt_date)) ***REMOVED***
+      if (this.isDateEnabled(opt_date)) {
         // Add a indicator for select, hover, and focus states.
         var selectionIndicator = document.createElement('span');
         selectionIndicator.classList.add('md-calendar-date-selection-indicator');
@@ -896,36 +896,36 @@ angular.module('material.components.datepicker', [
         cell.appendChild(selectionIndicator);
         cell.addEventListener('click', monthCtrl.cellClickHandler);
 
-        if (calendarCtrl.displayDate && this.dateUtil.isSameDay(opt_date, calendarCtrl.displayDate)) ***REMOVED***
+        if (calendarCtrl.displayDate && this.dateUtil.isSameDay(opt_date, calendarCtrl.displayDate)) {
           this.focusAfterAppend = cell;
-        ***REMOVED***
-      ***REMOVED*** else ***REMOVED***
+        }
+      } else {
         cell.classList.add('md-calendar-date-disabled');
         cell.textContent = cellText;
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     return cell;
-  ***REMOVED***;
+  };
 
   /**
    * Check whether date is in range and enabled
-   * @param ***REMOVED***Date=***REMOVED*** opt_date
-   * @return ***REMOVED***boolean***REMOVED*** Whether the date is enabled.
+   * @param {Date=} opt_date
+   * @return {boolean} Whether the date is enabled.
    */
-  CalendarMonthBodyCtrl.prototype.isDateEnabled = function(opt_date) ***REMOVED***
+  CalendarMonthBodyCtrl.prototype.isDateEnabled = function(opt_date) {
     return this.dateUtil.isDateWithinRange(opt_date,
           this.calendarCtrl.minDate, this.calendarCtrl.maxDate) &&
           (!angular.isFunction(this.calendarCtrl.dateFilter)
            || this.calendarCtrl.dateFilter(opt_date));
-  ***REMOVED***;
+  };
 
   /**
    * Builds a `tr` element for the calendar grid.
    * @param rowNumber The week number within the month.
-   * @returns ***REMOVED***HTMLElement***REMOVED***
+   * @returns {HTMLElement}
    */
-  CalendarMonthBodyCtrl.prototype.buildDateRow = function(rowNumber) ***REMOVED***
+  CalendarMonthBodyCtrl.prototype.buildDateRow = function(rowNumber) {
     var row = document.createElement('tr');
     row.setAttribute('role', 'row');
 
@@ -935,14 +935,14 @@ angular.module('material.components.datepicker', [
     row.setAttribute('aria-label', this.dateLocale.weekNumberFormatter(rowNumber));
 
     return row;
-  ***REMOVED***;
+  };
 
   /**
    * Builds the <tbody> content for the given date's month.
-   * @param ***REMOVED***Date=***REMOVED*** opt_dateInMonth
-   * @returns ***REMOVED***DocumentFragment***REMOVED*** A document fragment containing the <tr> elements.
+   * @param {Date=} opt_dateInMonth
+   * @returns {DocumentFragment} A document fragment containing the <tr> elements.
    */
-  CalendarMonthBodyCtrl.prototype.buildCalendarForMonth = function(opt_dateInMonth) ***REMOVED***
+  CalendarMonthBodyCtrl.prototype.buildCalendarForMonth = function(opt_dateInMonth) {
     var date = this.dateUtil.isValidDate(opt_dateInMonth) ? opt_dateInMonth : new Date();
 
     var firstDayOfMonth = this.dateUtil.getFirstDateOfMonth(date);
@@ -972,92 +972,92 @@ angular.module('material.components.datepicker', [
     monthLabelCell.appendChild(monthLabelCellContent);
     monthLabelCell.classList.add('md-calendar-month-label');
     // If the entire month is after the max date, render the label as a disabled state.
-    if (this.calendarCtrl.maxDate && firstDayOfMonth > this.calendarCtrl.maxDate) ***REMOVED***
+    if (this.calendarCtrl.maxDate && firstDayOfMonth > this.calendarCtrl.maxDate) {
       monthLabelCell.classList.add('md-calendar-month-label-disabled');
-    ***REMOVED*** else ***REMOVED***
+    } else {
       monthLabelCell.addEventListener('click', this.monthCtrl.headerClickHandler);
       monthLabelCell.setAttribute('data-timestamp', firstDayOfMonth.getTime());
       monthLabelCell.setAttribute('aria-label', this.dateLocale.monthFormatter(date));
       monthLabelCell.appendChild(this.arrowIcon.cloneNode(true));
-    ***REMOVED***
+    }
 
-    if (firstDayOfTheWeek <= 2) ***REMOVED***
+    if (firstDayOfTheWeek <= 2) {
       monthLabelCell.setAttribute('colspan', '7');
 
       var monthLabelRow = this.buildDateRow();
       monthLabelRow.appendChild(monthLabelCell);
       monthBody.insertBefore(monthLabelRow, row);
 
-      if (isFinalMonth) ***REMOVED***
+      if (isFinalMonth) {
         return monthBody;
-      ***REMOVED***
-    ***REMOVED*** else ***REMOVED***
+      }
+    } else {
       blankCellOffset = 3;
       monthLabelCell.setAttribute('colspan', '3');
       row.appendChild(monthLabelCell);
-    ***REMOVED***
+    }
 
     // Add a blank cell for each day of the week that occurs before the first of the month.
     // For example, if the first day of the month is a Tuesday, add blank cells for Sun and Mon.
     // The blankCellOffset is needed in cases where the first N cells are used by the month label.
-    for (var i = blankCellOffset; i < firstDayOfTheWeek; i++) ***REMOVED***
+    for (var i = blankCellOffset; i < firstDayOfTheWeek; i++) {
       row.appendChild(this.buildDateCell());
-    ***REMOVED***
+    }
 
     // Add a cell for each day of the month, keeping track of the day of the week so that
     // we know when to start a new row.
     var dayOfWeek = firstDayOfTheWeek;
     var iterationDate = firstDayOfMonth;
-    for (var d = 1; d <= numberOfDaysInMonth; d++) ***REMOVED***
+    for (var d = 1; d <= numberOfDaysInMonth; d++) {
       // If we've reached the end of the week, start a new row.
-      if (dayOfWeek === 7) ***REMOVED***
+      if (dayOfWeek === 7) {
         // We've finished the first row, so we're done if this is the final month.
-        if (isFinalMonth) ***REMOVED***
+        if (isFinalMonth) {
           return monthBody;
-        ***REMOVED***
+        }
         dayOfWeek = 0;
         rowNumber++;
         row = this.buildDateRow(rowNumber);
         monthBody.appendChild(row);
-      ***REMOVED***
+      }
 
       iterationDate.setDate(d);
       var cell = this.buildDateCell(iterationDate);
       row.appendChild(cell);
 
       dayOfWeek++;
-    ***REMOVED***
+    }
 
     // Ensure that the last row of the month has 7 cells.
-    while (row.childNodes.length < 7) ***REMOVED***
+    while (row.childNodes.length < 7) {
       row.appendChild(this.buildDateCell());
-    ***REMOVED***
+    }
 
     // Ensure that all months have 6 rows. This is necessary for now because the virtual-repeat
     // requires that all items have exactly the same height.
-    while (monthBody.childNodes.length < 6) ***REMOVED***
+    while (monthBody.childNodes.length < 6) {
       var whitespaceRow = this.buildDateRow();
-      for (var j = 0; j < 7; j++) ***REMOVED***
+      for (var j = 0; j < 7; j++) {
         whitespaceRow.appendChild(this.buildDateCell());
-      ***REMOVED***
+      }
       monthBody.appendChild(whitespaceRow);
-    ***REMOVED***
+    }
 
     return monthBody;
-  ***REMOVED***;
+  };
 
   /**
    * Gets the day-of-the-week index for a date for the current locale.
    * @private
-   * @param ***REMOVED***Date***REMOVED*** date
-   * @returns ***REMOVED***number***REMOVED*** The column index of the date in the calendar.
+   * @param {Date} date
+   * @returns {number} The column index of the date in the calendar.
    */
-  CalendarMonthBodyCtrl.prototype.getLocaleDay_ = function(date) ***REMOVED***
+  CalendarMonthBodyCtrl.prototype.getLocaleDay_ = function(date) {
     return (date.getDay() + (7 - this.dateLocale.firstDayOfWeek)) % 7;
-  ***REMOVED***;
-***REMOVED***)();
+  };
+})();
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   angular.module('material.components.datepicker')
@@ -1070,8 +1070,8 @@ angular.module('material.components.datepicker', [
   var TBODY_HEIGHT = 88;
 
   /** Private component, representing a list of years in the calendar. */
-  function calendarDirective() ***REMOVED***
-    return ***REMOVED***
+  function calendarDirective() {
+    return {
       template:
         '<div class="md-calendar-scroll-mask">' +
           '<md-virtual-repeat-container class="md-calendar-scroll-container">' +
@@ -1090,45 +1090,45 @@ angular.module('material.components.datepicker', [
       controller: CalendarYearCtrl,
       controllerAs: 'yearCtrl',
       bindToController: true,
-      link: function(scope, element, attrs, controllers) ***REMOVED***
+      link: function(scope, element, attrs, controllers) {
         var calendarCtrl = controllers[0];
         var yearCtrl = controllers[1];
         yearCtrl.initialize(calendarCtrl);
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***
+      }
+    };
+  }
 
   /**
    * Controller for the mdCalendar component.
    * ngInject @constructor
    */
-  function CalendarYearCtrl($element, $scope, $animate, $q, $$mdDateUtil) ***REMOVED***
+  function CalendarYearCtrl($element, $scope, $animate, $q, $$mdDateUtil) {
 
-    /** @final ***REMOVED***!angular.JQLite***REMOVED*** */
+    /** @final {!angular.JQLite} */
     this.$element = $element;
 
-    /** @final ***REMOVED***!angular.Scope***REMOVED*** */
+    /** @final {!angular.Scope} */
     this.$scope = $scope;
 
-    /** @final ***REMOVED***!angular.$animate***REMOVED*** */
+    /** @final {!angular.$animate} */
     this.$animate = $animate;
 
-    /** @final ***REMOVED***!angular.$q***REMOVED*** */
+    /** @final {!angular.$q} */
     this.$q = $q;
 
     /** @final */
     this.dateUtil = $$mdDateUtil;
 
-    /** @final ***REMOVED***HTMLElement***REMOVED*** */
+    /** @final {HTMLElement} */
     this.calendarScroller = $element[0].querySelector('.md-virtual-repeat-scroller');
 
-    /** @type ***REMOVED***Date***REMOVED*** */
+    /** @type {Date} */
     this.firstRenderableDate = null;
 
-    /** @type ***REMOVED***boolean***REMOVED*** */
+    /** @type {boolean} */
     this.isInitialized = false;
 
-    /** @type ***REMOVED***boolean***REMOVED*** */
+    /** @type {boolean} */
     this.isMonthTransitionInProgress = false;
 
     var self = this;
@@ -1136,19 +1136,19 @@ angular.module('material.components.datepicker', [
     /**
      * Handles a click event on a date cell.
      * Created here so that every cell can use the same function instance.
-     * @this ***REMOVED***HTMLTableCellElement***REMOVED*** The cell that was clicked.
+     * @this {HTMLTableCellElement} The cell that was clicked.
      */
-    this.cellClickHandler = function() ***REMOVED***
+    this.cellClickHandler = function() {
       self.calendarCtrl.setCurrentView('month', $$mdDateUtil.getTimestampFromNode(this));
-    ***REMOVED***;
-  ***REMOVED***
+    };
+  }
   CalendarYearCtrl.$inject = ["$element", "$scope", "$animate", "$q", "$$mdDateUtil"];
 
   /**
    * Initialize the controller by saving a reference to the calendar and
    * setting up the object that will be iterated by the virtual repeater.
    */
-  CalendarYearCtrl.prototype.initialize = function(calendarCtrl) ***REMOVED***
+  CalendarYearCtrl.prototype.initialize = function(calendarCtrl) {
     var minDate = calendarCtrl.minDate;
     var maxDate = calendarCtrl.maxDate;
     this.calendarCtrl = calendarCtrl;
@@ -1158,132 +1158,132 @@ angular.module('material.components.datepicker', [
      * number of months that can be viewed. This is shorter than ideal because of (potential)
      * Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=1181658.
      */
-    this.items = ***REMOVED*** length: 400 ***REMOVED***;
+    this.items = { length: 400 };
 
     this.firstRenderableDate = this.dateUtil.incrementYears(calendarCtrl.today, - (this.items.length / 2));
 
-    if (minDate && minDate > this.firstRenderableDate) ***REMOVED***
+    if (minDate && minDate > this.firstRenderableDate) {
       this.firstRenderableDate = minDate;
-    ***REMOVED*** else if (maxDate) ***REMOVED***
+    } else if (maxDate) {
       // Calculate the year difference between the start date and max date.
       // Subtract 1 because it's an inclusive difference.
       this.firstRenderableDate = this.dateUtil.incrementMonths(maxDate, - (this.items.length - 1));
-    ***REMOVED***
+    }
 
-    if (maxDate && minDate) ***REMOVED***
+    if (maxDate && minDate) {
       // Limit the number of years if min and max dates are set.
       var numYears = this.dateUtil.getYearDistance(this.firstRenderableDate, maxDate) + 1;
       this.items.length = Math.max(numYears, 1);
-    ***REMOVED***
+    }
 
     this.attachScopeListeners();
     calendarCtrl.updateVirtualRepeat();
 
     // Fire the initial render, since we might have missed it the first time it fired.
     calendarCtrl.ngModelCtrl && calendarCtrl.ngModelCtrl.$render();
-  ***REMOVED***;
+  };
 
   /**
    * Gets the "index" of the currently selected date as it would be in the virtual-repeat.
-   * @returns ***REMOVED***number***REMOVED***
+   * @returns {number}
    */
-  CalendarYearCtrl.prototype.getFocusedYearIndex = function() ***REMOVED***
+  CalendarYearCtrl.prototype.getFocusedYearIndex = function() {
     var calendarCtrl = this.calendarCtrl;
     return this.dateUtil.getYearDistance(this.firstRenderableDate,
       calendarCtrl.displayDate || calendarCtrl.selectedDate || calendarCtrl.today);
-  ***REMOVED***;
+  };
 
   /**
    * Change the date that is highlighted in the calendar.
-   * @param ***REMOVED***Date***REMOVED*** date
+   * @param {Date} date
    */
-  CalendarYearCtrl.prototype.changeDate = function(date) ***REMOVED***
+  CalendarYearCtrl.prototype.changeDate = function(date) {
     // Initialization is deferred until this function is called because we want to reflect
     // the starting value of ngModel.
-    if (!this.isInitialized) ***REMOVED***
+    if (!this.isInitialized) {
       this.calendarCtrl.hideVerticalScrollbar(this);
       this.isInitialized = true;
       return this.$q.when();
-    ***REMOVED*** else if (this.dateUtil.isValidDate(date) && !this.isMonthTransitionInProgress) ***REMOVED***
+    } else if (this.dateUtil.isValidDate(date) && !this.isMonthTransitionInProgress) {
       var self = this;
       var animationPromise = this.animateDateChange(date);
 
       self.isMonthTransitionInProgress = true;
       self.calendarCtrl.displayDate = date;
 
-      return animationPromise.then(function() ***REMOVED***
+      return animationPromise.then(function() {
         self.isMonthTransitionInProgress = false;
-      ***REMOVED***);
-    ***REMOVED***
-  ***REMOVED***;
+      });
+    }
+  };
 
   /**
    * Animates the transition from the calendar's current month to the given month.
-   * @param ***REMOVED***Date***REMOVED*** date
-   * @returns ***REMOVED***angular.$q.Promise***REMOVED*** The animation promise.
+   * @param {Date} date
+   * @returns {angular.$q.Promise} The animation promise.
    */
-  CalendarYearCtrl.prototype.animateDateChange = function(date) ***REMOVED***
-    if (this.dateUtil.isValidDate(date)) ***REMOVED***
+  CalendarYearCtrl.prototype.animateDateChange = function(date) {
+    if (this.dateUtil.isValidDate(date)) {
       var monthDistance = this.dateUtil.getYearDistance(this.firstRenderableDate, date);
       this.calendarScroller.scrollTop = monthDistance * TBODY_HEIGHT;
-    ***REMOVED***
+    }
 
     return this.$q.when();
-  ***REMOVED***;
+  };
 
   /**
    * Handles the year-view-specific keyboard interactions.
-   * @param ***REMOVED***Object***REMOVED*** event Scope event object passed by the calendar.
-   * @param ***REMOVED***String***REMOVED*** action Action, corresponding to the key that was pressed.
+   * @param {Object} event Scope event object passed by the calendar.
+   * @param {String} action Action, corresponding to the key that was pressed.
    */
-  CalendarYearCtrl.prototype.handleKeyEvent = function(event, action) ***REMOVED***
+  CalendarYearCtrl.prototype.handleKeyEvent = function(event, action) {
     var calendarCtrl = this.calendarCtrl;
     var displayDate = calendarCtrl.displayDate;
 
-    if (action === 'select') ***REMOVED***
-      this.changeDate(displayDate).then(function() ***REMOVED***
+    if (action === 'select') {
+      this.changeDate(displayDate).then(function() {
         calendarCtrl.setCurrentView('month', displayDate);
         calendarCtrl.focus(displayDate);
-      ***REMOVED***);
-    ***REMOVED*** else ***REMOVED***
+      });
+    } else {
       var date = null;
       var dateUtil = this.dateUtil;
 
-      switch (action) ***REMOVED***
+      switch (action) {
         case 'move-right': date = dateUtil.incrementMonths(displayDate, 1); break;
         case 'move-left': date = dateUtil.incrementMonths(displayDate, -1); break;
 
         case 'move-row-down': date = dateUtil.incrementMonths(displayDate, 6); break;
         case 'move-row-up': date = dateUtil.incrementMonths(displayDate, -6); break;
-      ***REMOVED***
+      }
 
-      if (date) ***REMOVED***
+      if (date) {
         var min = calendarCtrl.minDate ? dateUtil.incrementMonths(dateUtil.getFirstDateOfMonth(calendarCtrl.minDate), 1) : null;
         var max = calendarCtrl.maxDate ? dateUtil.getFirstDateOfMonth(calendarCtrl.maxDate) : null;
         date = dateUtil.getFirstDateOfMonth(this.dateUtil.clampDate(date, min, max));
 
-        this.changeDate(date).then(function() ***REMOVED***
+        this.changeDate(date).then(function() {
           calendarCtrl.focus(date);
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***;
+        });
+      }
+    }
+  };
 
   /**
    * Attaches listeners for the scope events that are broadcast by the calendar.
    */
-  CalendarYearCtrl.prototype.attachScopeListeners = function() ***REMOVED***
+  CalendarYearCtrl.prototype.attachScopeListeners = function() {
     var self = this;
 
-    self.$scope.$on('md-calendar-parent-changed', function(event, value) ***REMOVED***
+    self.$scope.$on('md-calendar-parent-changed', function(event, value) {
       self.changeDate(value);
-    ***REMOVED***);
+    });
 
     self.$scope.$on('md-calendar-parent-action', angular.bind(self, self.handleKeyEvent));
-  ***REMOVED***;
-***REMOVED***)();
+  };
+})();
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   angular.module('material.components.datepicker')
@@ -1293,14 +1293,14 @@ angular.module('material.components.datepicker', [
    * Private component, consumed by the md-calendar-year, which separates the DOM construction logic
    * and allows for the year view to use md-virtual-repeat.
    */
-  function mdCalendarYearDirective() ***REMOVED***
-    return ***REMOVED***
+  function mdCalendarYearDirective() {
+    return {
       require: ['^^mdCalendar', '^^mdCalendarYear', 'mdCalendarYearBody'],
-      scope: ***REMOVED*** offset: '=mdYearOffset' ***REMOVED***,
+      scope: { offset: '=mdYearOffset' },
       controller: CalendarYearBodyCtrl,
       controllerAs: 'mdYearBodyCtrl',
       bindToController: true,
-      link: function(scope, element, attrs, controllers) ***REMOVED***
+      link: function(scope, element, attrs, controllers) {
         var calendarCtrl = controllers[0];
         var yearCtrl = controllers[1];
         var yearBodyCtrl = controllers[2];
@@ -1309,21 +1309,21 @@ angular.module('material.components.datepicker', [
         yearBodyCtrl.yearCtrl = yearCtrl;
         yearBodyCtrl.generateContent();
 
-        scope.$watch(function() ***REMOVED*** return yearBodyCtrl.offset; ***REMOVED***, function(offset, oldOffset) ***REMOVED***
-          if (offset != oldOffset) ***REMOVED***
+        scope.$watch(function() { return yearBodyCtrl.offset; }, function(offset, oldOffset) {
+          if (offset != oldOffset) {
             yearBodyCtrl.generateContent();
-          ***REMOVED***
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***
+          }
+        });
+      }
+    };
+  }
 
   /**
    * Controller for a single year.
    * ngInject @constructor
    */
-  function CalendarYearBodyCtrl($element, $$mdDateUtil, $mdDateLocale) ***REMOVED***
-    /** @final ***REMOVED***!angular.JQLite***REMOVED*** */
+  function CalendarYearBodyCtrl($element, $$mdDateUtil, $mdDateLocale) {
+    /** @final {!angular.JQLite} */
     this.$element = $element;
 
     /** @final */
@@ -1332,48 +1332,48 @@ angular.module('material.components.datepicker', [
     /** @final */
     this.dateLocale = $mdDateLocale;
 
-    /** @type ***REMOVED***Object***REMOVED*** Reference to the calendar. */
+    /** @type {Object} Reference to the calendar. */
     this.calendarCtrl = null;
 
-    /** @type ***REMOVED***Object***REMOVED*** Reference to the year view. */
+    /** @type {Object} Reference to the year view. */
     this.yearCtrl = null;
 
     /**
      * Number of months from the start of the month "items" that the currently rendered month
      * occurs. Set via angular data binding.
-     * @type ***REMOVED***number***REMOVED***
+     * @type {number}
      */
     this.offset = null;
 
     /**
      * Date cell to focus after appending the month to the document.
-     * @type ***REMOVED***HTMLElement***REMOVED***
+     * @type {HTMLElement}
      */
     this.focusAfterAppend = null;
-  ***REMOVED***
+  }
   CalendarYearBodyCtrl.$inject = ["$element", "$$mdDateUtil", "$mdDateLocale"];
 
   /** Generate and append the content for this year to the directive element. */
-  CalendarYearBodyCtrl.prototype.generateContent = function() ***REMOVED***
+  CalendarYearBodyCtrl.prototype.generateContent = function() {
     var date = this.dateUtil.incrementYears(this.yearCtrl.firstRenderableDate, this.offset);
 
     this.$element.empty();
     this.$element.append(this.buildCalendarForYear(date));
 
-    if (this.focusAfterAppend) ***REMOVED***
+    if (this.focusAfterAppend) {
       this.focusAfterAppend.classList.add(this.calendarCtrl.FOCUSED_DATE_CLASS);
       this.focusAfterAppend.focus();
       this.focusAfterAppend = null;
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
   /**
    * Creates a single cell to contain a year in the calendar.
-   * @param ***REMOVED***number***REMOVED*** opt_year Four-digit year.
-   * @param ***REMOVED***number***REMOVED*** opt_month Zero-indexed month.
-   * @returns ***REMOVED***HTMLElement***REMOVED***
+   * @param {number} opt_year Four-digit year.
+   * @param {number} opt_month Zero-indexed month.
+   * @returns {HTMLElement}
    */
-  CalendarYearBodyCtrl.prototype.buildMonthCell = function(year, month) ***REMOVED***
+  CalendarYearBodyCtrl.prototype.buildMonthCell = function(year, month) {
     var calendarCtrl = this.calendarCtrl;
     var yearCtrl = this.yearCtrl;
     var cell = this.buildBlankCell();
@@ -1386,42 +1386,42 @@ angular.module('material.components.datepicker', [
     // Use `data-timestamp` attribute because IE10 does not support the `dataset` property.
     cell.setAttribute('data-timestamp', firstOfMonth.getTime());
 
-    if (this.dateUtil.isSameMonthAndYear(firstOfMonth, calendarCtrl.today)) ***REMOVED***
+    if (this.dateUtil.isSameMonthAndYear(firstOfMonth, calendarCtrl.today)) {
       cell.classList.add(calendarCtrl.TODAY_CLASS);
-    ***REMOVED***
+    }
 
     if (this.dateUtil.isValidDate(calendarCtrl.selectedDate) &&
-        this.dateUtil.isSameMonthAndYear(firstOfMonth, calendarCtrl.selectedDate)) ***REMOVED***
+        this.dateUtil.isSameMonthAndYear(firstOfMonth, calendarCtrl.selectedDate)) {
       cell.classList.add(calendarCtrl.SELECTED_DATE_CLASS);
       cell.setAttribute('aria-selected', 'true');
-    ***REMOVED***
+    }
 
     var cellText = this.dateLocale.shortMonths[month];
 
     if (this.dateUtil.isMonthWithinRange(firstOfMonth,
-        calendarCtrl.minDate, calendarCtrl.maxDate)) ***REMOVED***
+        calendarCtrl.minDate, calendarCtrl.maxDate)) {
       var selectionIndicator = document.createElement('span');
       selectionIndicator.classList.add('md-calendar-date-selection-indicator');
       selectionIndicator.textContent = cellText;
       cell.appendChild(selectionIndicator);
       cell.addEventListener('click', yearCtrl.cellClickHandler);
 
-      if (calendarCtrl.displayDate && this.dateUtil.isSameMonthAndYear(firstOfMonth, calendarCtrl.displayDate)) ***REMOVED***
+      if (calendarCtrl.displayDate && this.dateUtil.isSameMonthAndYear(firstOfMonth, calendarCtrl.displayDate)) {
         this.focusAfterAppend = cell;
-      ***REMOVED***
-    ***REMOVED*** else ***REMOVED***
+      }
+    } else {
       cell.classList.add('md-calendar-date-disabled');
       cell.textContent = cellText;
-    ***REMOVED***
+    }
 
     return cell;
-  ***REMOVED***;
+  };
 
   /**
    * Builds a blank cell.
-   * @return ***REMOVED***HTMLTableCellElement***REMOVED***
+   * @return {HTMLTableCellElement}
    */
-  CalendarYearBodyCtrl.prototype.buildBlankCell = function() ***REMOVED***
+  CalendarYearBodyCtrl.prototype.buildBlankCell = function() {
     var cell = document.createElement('td');
     cell.tabIndex = -1;
     cell.classList.add('md-calendar-date');
@@ -1429,14 +1429,14 @@ angular.module('material.components.datepicker', [
 
     cell.setAttribute('tabindex', '-1');
     return cell;
-  ***REMOVED***;
+  };
 
   /**
    * Builds the <tbody> content for the given year.
-   * @param ***REMOVED***Date***REMOVED*** date Date for which the content should be built.
-   * @returns ***REMOVED***DocumentFragment***REMOVED*** A document fragment containing the months within the year.
+   * @param {Date} date Date for which the content should be built.
+   * @returns {DocumentFragment} A document fragment containing the months within the year.
    */
-  CalendarYearBodyCtrl.prototype.buildCalendarForYear = function(date) ***REMOVED***
+  CalendarYearBodyCtrl.prototype.buildCalendarForYear = function(date) {
     // Store rows for the month in a document fragment so that we can append them all at once.
     var year = date.getFullYear();
     var yearBody = document.createDocumentFragment();
@@ -1449,24 +1449,24 @@ angular.module('material.components.datepicker', [
     labelCell.textContent = year;
     firstRow.appendChild(labelCell);
 
-    for (i = 0; i < 6; i++) ***REMOVED***
+    for (i = 0; i < 6; i++) {
       firstRow.appendChild(this.buildMonthCell(year, i));
-    ***REMOVED***
+    }
     yearBody.appendChild(firstRow);
 
     // Second row contains a blank cell and Jul-Dec.
     var secondRow = document.createElement('tr');
     secondRow.appendChild(this.buildBlankCell());
-    for (i = 6; i < 12; i++) ***REMOVED***
+    for (i = 6; i < 12; i++) {
       secondRow.appendChild(this.buildMonthCell(year, i));
-    ***REMOVED***
+    }
     yearBody.appendChild(secondRow);
 
     return yearBody;
-  ***REMOVED***;
-***REMOVED***)();
+  };
+})();
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   /**
@@ -1480,29 +1480,29 @@ angular.module('material.components.datepicker', [
    * internationalization. The `$mdDateLocale` service itself is consumed by Angular Material
    * components that deal with dates.
    *
-   * @property ***REMOVED***(Array<string>)=***REMOVED*** months Array of month names (in order).
-   * @property ***REMOVED***(Array<string>)=***REMOVED*** shortMonths Array of abbreviated month names.
-   * @property ***REMOVED***(Array<string>)=***REMOVED*** days Array of the days of the week (in order).
-   * @property ***REMOVED***(Array<string>)=***REMOVED*** shortDays Array of abbreviated dayes of the week.
-   * @property ***REMOVED***(Array<string>)=***REMOVED*** dates Array of dates of the month. Only necessary for locales
+   * @property {(Array<string>)=} months Array of month names (in order).
+   * @property {(Array<string>)=} shortMonths Array of abbreviated month names.
+   * @property {(Array<string>)=} days Array of the days of the week (in order).
+   * @property {(Array<string>)=} shortDays Array of abbreviated dayes of the week.
+   * @property {(Array<string>)=} dates Array of dates of the month. Only necessary for locales
    *     using a numeral system other than [1, 2, 3...].
-   * @property ***REMOVED***(Array<string>)=***REMOVED*** firstDayOfWeek The first day of the week. Sunday = 0, Monday = 1,
+   * @property {(Array<string>)=} firstDayOfWeek The first day of the week. Sunday = 0, Monday = 1,
    *    etc.
-   * @property ***REMOVED***(function(string): Date)=***REMOVED*** parseDate Function to parse a date object from a string.
-   * @property ***REMOVED***(function(Date): string)=***REMOVED*** formatDate Function to format a date object to a string.
-   * @property ***REMOVED***(function(Date): string)=***REMOVED*** monthHeaderFormatter Function that returns the label for
+   * @property {(function(string): Date)=} parseDate Function to parse a date object from a string.
+   * @property {(function(Date): string)=} formatDate Function to format a date object to a string.
+   * @property {(function(Date): string)=} monthHeaderFormatter Function that returns the label for
    *     a month given a date.
-   * @property ***REMOVED***(function(Date): string)=***REMOVED*** monthFormatter Function that returns the full name of a month
+   * @property {(function(Date): string)=} monthFormatter Function that returns the full name of a month
    *     for a giben date.
-   * @property ***REMOVED***(function(number): string)=***REMOVED*** weekNumberFormatter Function that returns a label for
+   * @property {(function(number): string)=} weekNumberFormatter Function that returns a label for
    *     a week given the week number.
-   * @property ***REMOVED***(string)=***REMOVED*** msgCalendar Translation of the label "Calendar" for the current locale.
-   * @property ***REMOVED***(string)=***REMOVED*** msgOpenCalendar Translation of the button label "Open calendar" for the
+   * @property {(string)=} msgCalendar Translation of the label "Calendar" for the current locale.
+   * @property {(string)=} msgOpenCalendar Translation of the button label "Open calendar" for the
    *     current locale.
    *
    * @usage
    * <hljs lang="js">
-   *   myAppModule.config(function($mdDateLocaleProvider) ***REMOVED***
+   *   myAppModule.config(function($mdDateLocaleProvider) {
    *
    *     // Example of a French localization.
    *     $mdDateLocaleProvider.months = ['janvier', 'février', 'mars', ...];
@@ -1517,40 +1517,40 @@ angular.module('material.components.datepicker', [
    *     $mdDateLocaleProvider.dates = [1, 2, 3, 4, 5, 6, ...];
    *
    *     // Example uses moment.js to parse and format dates.
-   *     $mdDateLocaleProvider.parseDate = function(dateString) ***REMOVED***
+   *     $mdDateLocaleProvider.parseDate = function(dateString) {
    *       var m = moment(dateString, 'L', true);
    *       return m.isValid() ? m.toDate() : new Date(NaN);
-   *     ***REMOVED***;
+   *     };
    *
-   *     $mdDateLocaleProvider.formatDate = function(date) ***REMOVED***
+   *     $mdDateLocaleProvider.formatDate = function(date) {
    *       var m = moment(date);
    *       return m.isValid() ? m.format('L') : '';
-   *     ***REMOVED***;
+   *     };
    *
-   *     $mdDateLocaleProvider.monthHeaderFormatter = function(date) ***REMOVED***
+   *     $mdDateLocaleProvider.monthHeaderFormatter = function(date) {
    *       return myShortMonths[date.getMonth()] + ' ' + date.getFullYear();
-   *     ***REMOVED***;
+   *     };
    *
    *     // In addition to date display, date components also need localized messages
    *     // for aria-labels for screen-reader users.
    *
-   *     $mdDateLocaleProvider.weekNumberFormatter = function(weekNumber) ***REMOVED***
+   *     $mdDateLocaleProvider.weekNumberFormatter = function(weekNumber) {
    *       return 'Semaine ' + weekNumber;
-   *     ***REMOVED***;
+   *     };
    *
    *     $mdDateLocaleProvider.msgCalendar = 'Calendrier';
    *     $mdDateLocaleProvider.msgOpenCalendar = 'Ouvrir le calendrier';
    *
-   * ***REMOVED***);
+   * });
    * </hljs>
    *
    */
 
-  angular.module('material.components.datepicker').config(["$provide", function($provide) ***REMOVED***
+  angular.module('material.components.datepicker').config(["$provide", function($provide) {
     // TODO(jelbourn): Assert provided values are correctly formatted. Need assertions.
 
     /** @constructor */
-    function DateLocaleProvider() ***REMOVED***
+    function DateLocaleProvider() {
       /** Array of full month names. E.g., ['January', 'Febuary', ...] */
       this.months = null;
 
@@ -1571,64 +1571,64 @@ angular.module('material.components.datepicker', [
 
       /**
        * Function that converts the date portion of a Date to a string.
-       * @type ***REMOVED***(function(Date): string)***REMOVED***
+       * @type {(function(Date): string)}
        */
       this.formatDate = null;
 
       /**
        * Function that converts a date string to a Date object (the date portion)
-       * @type ***REMOVED***function(string): Date***REMOVED***
+       * @type {function(string): Date}
        */
       this.parseDate = null;
 
       /**
        * Function that formats a Date into a month header string.
-       * @type ***REMOVED***function(Date): string***REMOVED***
+       * @type {function(Date): string}
        */
       this.monthHeaderFormatter = null;
 
       /**
        * Function that formats a week number into a label for the week.
-       * @type ***REMOVED***function(number): string***REMOVED***
+       * @type {function(number): string}
        */
       this.weekNumberFormatter = null;
 
       /**
        * Function that formats a date into a long aria-label that is read
        * when the focused date changes.
-       * @type ***REMOVED***function(Date): string***REMOVED***
+       * @type {function(Date): string}
        */
       this.longDateFormatter = null;
 
       /**
        * ARIA label for the calendar "dialog" used in the datepicker.
-       * @type ***REMOVED***string***REMOVED***
+       * @type {string}
        */
       this.msgCalendar = '';
 
       /**
        * ARIA label for the datepicker's "Open calendar" buttons.
-       * @type ***REMOVED***string***REMOVED***
+       * @type {string}
        */
       this.msgOpenCalendar = '';
-    ***REMOVED***
+    }
 
     /**
      * Factory function that returns an instance of the dateLocale service.
      * ngInject
      * @param $locale
-     * @returns ***REMOVED***DateLocale***REMOVED***
+     * @returns {DateLocale}
      */
-    DateLocaleProvider.prototype.$get = function($locale, $filter) ***REMOVED***
+    DateLocaleProvider.prototype.$get = function($locale, $filter) {
       /**
        * Default date-to-string formatting function.
-       * @param ***REMOVED***!Date***REMOVED*** date
-       * @returns ***REMOVED***string***REMOVED***
+       * @param {!Date} date
+       * @returns {string}
        */
-      function defaultFormatDate(date) ***REMOVED***
-        if (!date) ***REMOVED***
+      function defaultFormatDate(date) {
+        if (!date) {
           return '';
-        ***REMOVED***
+        }
 
         // All of the dates created through ng-material *should* be set to midnight.
         // If we encounter a date where the localeTime shows at 11pm instead of midnight,
@@ -1638,21 +1638,21 @@ angular.module('material.components.datepicker', [
         var localeTime = date.toLocaleTimeString();
         var formatDate = date;
         if (date.getHours() == 0 &&
-            (localeTime.indexOf('11:') !== -1 || localeTime.indexOf('23:') !== -1)) ***REMOVED***
+            (localeTime.indexOf('11:') !== -1 || localeTime.indexOf('23:') !== -1)) {
           formatDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 1, 0, 0);
-        ***REMOVED***
+        }
 
         return $filter('date')(formatDate, 'M/d/yyyy');
-      ***REMOVED***
+      }
 
       /**
        * Default string-to-date parsing function.
-       * @param ***REMOVED***string***REMOVED*** dateString
-       * @returns ***REMOVED***!Date***REMOVED***
+       * @param {string} dateString
+       * @returns {!Date}
        */
-      function defaultParseDate(dateString) ***REMOVED***
+      function defaultParseDate(dateString) {
         return new Date(dateString);
-      ***REMOVED***
+      }
 
       /**
        * Default function to determine whether a string makes sense to be
@@ -1660,51 +1660,51 @@ angular.module('material.components.datepicker', [
        *
        * This is very permissive and is just a basic sanity check to ensure that
        * things like single integers aren't able to be parsed into dates.
-       * @param ***REMOVED***string***REMOVED*** dateString
-       * @returns ***REMOVED***boolean***REMOVED***
+       * @param {string} dateString
+       * @returns {boolean}
        */
-      function defaultIsDateComplete(dateString) ***REMOVED***
+      function defaultIsDateComplete(dateString) {
         dateString = dateString.trim();
 
         // Looks for three chunks of content (either numbers or text) separated
         // by delimiters.
-        var re = /^(([a-zA-Z]***REMOVED***3,***REMOVED***|[0-9]***REMOVED***1,4***REMOVED***)([ \.,]+|[\/\-]))***REMOVED***2***REMOVED***([a-zA-Z]***REMOVED***3,***REMOVED***|[0-9]***REMOVED***1,4***REMOVED***)$/;
+        var re = /^(([a-zA-Z]{3,}|[0-9]{1,4})([ \.,]+|[\/\-])){2}([a-zA-Z]{3,}|[0-9]{1,4})$/;
         return re.test(dateString);
-      ***REMOVED***
+      }
 
       /**
        * Default date-to-string formatter to get a month header.
-       * @param ***REMOVED***!Date***REMOVED*** date
-       * @returns ***REMOVED***string***REMOVED***
+       * @param {!Date} date
+       * @returns {string}
        */
-      function defaultMonthHeaderFormatter(date) ***REMOVED***
+      function defaultMonthHeaderFormatter(date) {
         return service.shortMonths[date.getMonth()] + ' ' + date.getFullYear();
-      ***REMOVED***
+      }
 
       /**
        * Default formatter for a month.
-       * @param ***REMOVED***!Date***REMOVED*** date
-       * @returns ***REMOVED***string***REMOVED***
+       * @param {!Date} date
+       * @returns {string}
        */
-      function defaultMonthFormatter(date) ***REMOVED***
+      function defaultMonthFormatter(date) {
         return service.months[date.getMonth()] + ' ' + date.getFullYear();
-      ***REMOVED***
+      }
 
       /**
        * Default week number formatter.
        * @param number
-       * @returns ***REMOVED***string***REMOVED***
+       * @returns {string}
        */
-      function defaultWeekNumberFormatter(number) ***REMOVED***
+      function defaultWeekNumberFormatter(number) {
         return 'Week ' + number;
-      ***REMOVED***
+      }
 
       /**
        * Default formatter for date cell aria-labels.
-       * @param ***REMOVED***!Date***REMOVED*** date
-       * @returns ***REMOVED***string***REMOVED***
+       * @param {!Date} date
+       * @returns {string}
        */
-      function defaultLongDateFormatter(date) ***REMOVED***
+      function defaultLongDateFormatter(date) {
         // Example: 'Thursday June 18 2015'
         return [
           service.days[date.getDay()],
@@ -1712,25 +1712,25 @@ angular.module('material.components.datepicker', [
           service.dates[date.getDate()],
           date.getFullYear()
         ].join(' ');
-      ***REMOVED***
+      }
 
       // The default "short" day strings are the first character of each day,
       // e.g., "Monday" => "M".
-      var defaultShortDays = $locale.DATETIME_FORMATS.SHORTDAY.map(function(day) ***REMOVED***
+      var defaultShortDays = $locale.DATETIME_FORMATS.SHORTDAY.map(function(day) {
         return day.substring(0, 1);
-      ***REMOVED***);
+      });
 
       // The default dates are simply the numbers 1 through 31.
       var defaultDates = Array(32);
-      for (var i = 1; i <= 31; i++) ***REMOVED***
+      for (var i = 1; i <= 31; i++) {
         defaultDates[i] = i;
-      ***REMOVED***
+      }
 
       // Default ARIA messages are in English (US).
       var defaultMsgCalendar = 'Calendar';
       var defaultMsgOpenCalendar = 'Open calendar';
 
-      var service = ***REMOVED***
+      var service = {
         months: this.months || $locale.DATETIME_FORMATS.MONTH,
         shortMonths: this.shortMonths || $locale.DATETIME_FORMATS.SHORTMONTH,
         days: this.days || $locale.DATETIME_FORMATS.DAY,
@@ -1746,25 +1746,25 @@ angular.module('material.components.datepicker', [
         longDateFormatter: this.longDateFormatter || defaultLongDateFormatter,
         msgCalendar: this.msgCalendar || defaultMsgCalendar,
         msgOpenCalendar: this.msgOpenCalendar || defaultMsgOpenCalendar
-      ***REMOVED***;
+      };
 
       return service;
-    ***REMOVED***;
+    };
     DateLocaleProvider.prototype.$get.$inject = ["$locale", "$filter"];
 
     $provide.provider('$mdDateLocale', new DateLocaleProvider());
-  ***REMOVED***]);
-***REMOVED***)();
+  }]);
+})();
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   /**
    * Utility for performing date calculations to facilitate operation of the calendar and
    * datepicker.
    */
-  angular.module('material.components.datepicker').factory('$$mdDateUtil', function() ***REMOVED***
-    return ***REMOVED***
+  angular.module('material.components.datepicker').factory('$$mdDateUtil', function() {
+    return {
       getFirstDateOfMonth: getFirstDateOfMonth,
       getNumberOfDaysInMonth: getNumberOfDaysInMonth,
       getDateInNextMonth: getDateInNextMonth,
@@ -1788,180 +1788,180 @@ angular.module('material.components.datepicker', [
       clampDate: clampDate,
       getTimestampFromNode: getTimestampFromNode,
       isMonthWithinRange: isMonthWithinRange
-    ***REMOVED***;
+    };
 
     /**
      * Gets the first day of the month for the given date's month.
-     * @param ***REMOVED***Date***REMOVED*** date
-     * @returns ***REMOVED***Date***REMOVED***
+     * @param {Date} date
+     * @returns {Date}
      */
-    function getFirstDateOfMonth(date) ***REMOVED***
+    function getFirstDateOfMonth(date) {
       return new Date(date.getFullYear(), date.getMonth(), 1);
-    ***REMOVED***
+    }
 
     /**
      * Gets the number of days in the month for the given date's month.
      * @param date
-     * @returns ***REMOVED***number***REMOVED***
+     * @returns {number}
      */
-    function getNumberOfDaysInMonth(date) ***REMOVED***
+    function getNumberOfDaysInMonth(date) {
       return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-    ***REMOVED***
+    }
 
     /**
      * Get an arbitrary date in the month after the given date's month.
      * @param date
-     * @returns ***REMOVED***Date***REMOVED***
+     * @returns {Date}
      */
-    function getDateInNextMonth(date) ***REMOVED***
+    function getDateInNextMonth(date) {
       return new Date(date.getFullYear(), date.getMonth() + 1, 1);
-    ***REMOVED***
+    }
 
     /**
      * Get an arbitrary date in the month before the given date's month.
      * @param date
-     * @returns ***REMOVED***Date***REMOVED***
+     * @returns {Date}
      */
-    function getDateInPreviousMonth(date) ***REMOVED***
+    function getDateInPreviousMonth(date) {
       return new Date(date.getFullYear(), date.getMonth() - 1, 1);
-    ***REMOVED***
+    }
 
     /**
      * Gets whether two dates have the same month and year.
-     * @param ***REMOVED***Date***REMOVED*** d1
-     * @param ***REMOVED***Date***REMOVED*** d2
-     * @returns ***REMOVED***boolean***REMOVED***
+     * @param {Date} d1
+     * @param {Date} d2
+     * @returns {boolean}
      */
-    function isSameMonthAndYear(d1, d2) ***REMOVED***
+    function isSameMonthAndYear(d1, d2) {
       return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth();
-    ***REMOVED***
+    }
 
     /**
      * Gets whether two dates are the same day (not not necesarily the same time).
-     * @param ***REMOVED***Date***REMOVED*** d1
-     * @param ***REMOVED***Date***REMOVED*** d2
-     * @returns ***REMOVED***boolean***REMOVED***
+     * @param {Date} d1
+     * @param {Date} d2
+     * @returns {boolean}
      */
-    function isSameDay(d1, d2) ***REMOVED***
+    function isSameDay(d1, d2) {
       return d1.getDate() == d2.getDate() && isSameMonthAndYear(d1, d2);
-    ***REMOVED***
+    }
 
     /**
      * Gets whether a date is in the month immediately after some date.
-     * @param ***REMOVED***Date***REMOVED*** startDate The date from which to compare.
-     * @param ***REMOVED***Date***REMOVED*** endDate The date to check.
-     * @returns ***REMOVED***boolean***REMOVED***
+     * @param {Date} startDate The date from which to compare.
+     * @param {Date} endDate The date to check.
+     * @returns {boolean}
      */
-    function isInNextMonth(startDate, endDate) ***REMOVED***
+    function isInNextMonth(startDate, endDate) {
       var nextMonth = getDateInNextMonth(startDate);
       return isSameMonthAndYear(nextMonth, endDate);
-    ***REMOVED***
+    }
 
     /**
      * Gets whether a date is in the month immediately before some date.
-     * @param ***REMOVED***Date***REMOVED*** startDate The date from which to compare.
-     * @param ***REMOVED***Date***REMOVED*** endDate The date to check.
-     * @returns ***REMOVED***boolean***REMOVED***
+     * @param {Date} startDate The date from which to compare.
+     * @param {Date} endDate The date to check.
+     * @returns {boolean}
      */
-    function isInPreviousMonth(startDate, endDate) ***REMOVED***
+    function isInPreviousMonth(startDate, endDate) {
       var previousMonth = getDateInPreviousMonth(startDate);
       return isSameMonthAndYear(endDate, previousMonth);
-    ***REMOVED***
+    }
 
     /**
      * Gets the midpoint between two dates.
-     * @param ***REMOVED***Date***REMOVED*** d1
-     * @param ***REMOVED***Date***REMOVED*** d2
-     * @returns ***REMOVED***Date***REMOVED***
+     * @param {Date} d1
+     * @param {Date} d2
+     * @returns {Date}
      */
-    function getDateMidpoint(d1, d2) ***REMOVED***
+    function getDateMidpoint(d1, d2) {
       return createDateAtMidnight((d1.getTime() + d2.getTime()) / 2);
-    ***REMOVED***
+    }
 
     /**
      * Gets the week of the month that a given date occurs in.
-     * @param ***REMOVED***Date***REMOVED*** date
-     * @returns ***REMOVED***number***REMOVED*** Index of the week of the month (zero-based).
+     * @param {Date} date
+     * @returns {number} Index of the week of the month (zero-based).
      */
-    function getWeekOfMonth(date) ***REMOVED***
+    function getWeekOfMonth(date) {
       var firstDayOfMonth = getFirstDateOfMonth(date);
       return Math.floor((firstDayOfMonth.getDay() + date.getDate() - 1) / 7);
-    ***REMOVED***
+    }
 
     /**
      * Gets a new date incremented by the given number of days. Number of days can be negative.
-     * @param ***REMOVED***Date***REMOVED*** date
-     * @param ***REMOVED***number***REMOVED*** numberOfDays
-     * @returns ***REMOVED***Date***REMOVED***
+     * @param {Date} date
+     * @param {number} numberOfDays
+     * @returns {Date}
      */
-    function incrementDays(date, numberOfDays) ***REMOVED***
+    function incrementDays(date, numberOfDays) {
       return new Date(date.getFullYear(), date.getMonth(), date.getDate() + numberOfDays);
-    ***REMOVED***
+    }
 
     /**
      * Gets a new date incremented by the given number of months. Number of months can be negative.
      * If the date of the given month does not match the target month, the date will be set to the
      * last day of the month.
-     * @param ***REMOVED***Date***REMOVED*** date
-     * @param ***REMOVED***number***REMOVED*** numberOfMonths
-     * @returns ***REMOVED***Date***REMOVED***
+     * @param {Date} date
+     * @param {number} numberOfMonths
+     * @returns {Date}
      */
-    function incrementMonths(date, numberOfMonths) ***REMOVED***
+    function incrementMonths(date, numberOfMonths) {
       // If the same date in the target month does not actually exist, the Date object will
       // automatically advance *another* month by the number of missing days.
       // For example, if you try to go from Jan. 30 to Feb. 30, you'll end up on March 2.
       // So, we check if the month overflowed and go to the last day of the target month instead.
       var dateInTargetMonth = new Date(date.getFullYear(), date.getMonth() + numberOfMonths, 1);
       var numberOfDaysInMonth = getNumberOfDaysInMonth(dateInTargetMonth);
-      if (numberOfDaysInMonth < date.getDate()) ***REMOVED***
+      if (numberOfDaysInMonth < date.getDate()) {
         dateInTargetMonth.setDate(numberOfDaysInMonth);
-      ***REMOVED*** else ***REMOVED***
+      } else {
         dateInTargetMonth.setDate(date.getDate());
-      ***REMOVED***
+      }
 
       return dateInTargetMonth;
-    ***REMOVED***
+    }
 
     /**
      * Get the integer distance between two months. This *only* considers the month and year
      * portion of the Date instances.
      *
-     * @param ***REMOVED***Date***REMOVED*** start
-     * @param ***REMOVED***Date***REMOVED*** end
-     * @returns ***REMOVED***number***REMOVED*** Number of months between `start` and `end`. If `end` is before `start`
+     * @param {Date} start
+     * @param {Date} end
+     * @returns {number} Number of months between `start` and `end`. If `end` is before `start`
      *     chronologically, this number will be negative.
      */
-    function getMonthDistance(start, end) ***REMOVED***
+    function getMonthDistance(start, end) {
       return (12 * (end.getFullYear() - start.getFullYear())) + (end.getMonth() - start.getMonth());
-    ***REMOVED***
+    }
 
     /**
      * Gets the last day of the month for the given date.
-     * @param ***REMOVED***Date***REMOVED*** date
-     * @returns ***REMOVED***Date***REMOVED***
+     * @param {Date} date
+     * @returns {Date}
      */
-    function getLastDateOfMonth(date) ***REMOVED***
+    function getLastDateOfMonth(date) {
       return new Date(date.getFullYear(), date.getMonth(), getNumberOfDaysInMonth(date));
-    ***REMOVED***
+    }
 
     /**
      * Checks whether a date is valid.
-     * @param ***REMOVED***Date***REMOVED*** date
-     * @return ***REMOVED***boolean***REMOVED*** Whether the date is a valid Date.
+     * @param {Date} date
+     * @return {boolean} Whether the date is a valid Date.
      */
-    function isValidDate(date) ***REMOVED***
+    function isValidDate(date) {
       return date != null && date.getTime && !isNaN(date.getTime());
-    ***REMOVED***
+    }
 
     /**
      * Sets a date's time to midnight.
-     * @param ***REMOVED***Date***REMOVED*** date
+     * @param {Date} date
      */
-    function setDateTimeToMidnight(date) ***REMOVED***
-      if (isValidDate(date)) ***REMOVED***
+    function setDateTimeToMidnight(date) {
+      if (isValidDate(date)) {
         date.setHours(0, 0, 0, 0);
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     /**
      * Creates a date with the time set to midnight.
@@ -1969,106 +1969,106 @@ angular.module('material.components.datepicker', [
      * 1. No argument for Date representing now.
      * 2. Single-argument value representing number of seconds since Unix Epoch
      * or a Date object.
-     * @param ***REMOVED***number|Date=***REMOVED*** opt_value
-     * @return ***REMOVED***Date***REMOVED*** New date with time set to midnight.
+     * @param {number|Date=} opt_value
+     * @return {Date} New date with time set to midnight.
      */
-    function createDateAtMidnight(opt_value) ***REMOVED***
+    function createDateAtMidnight(opt_value) {
       var date;
-      if (angular.isUndefined(opt_value)) ***REMOVED***
+      if (angular.isUndefined(opt_value)) {
         date = new Date();
-      ***REMOVED*** else ***REMOVED***
+      } else {
         date = new Date(opt_value);
-      ***REMOVED***
+      }
       setDateTimeToMidnight(date);
       return date;
-    ***REMOVED***
+    }
 
      /**
       * Checks if a date is within a min and max range, ignoring the time component.
       * If minDate or maxDate are not dates, they are ignored.
-      * @param ***REMOVED***Date***REMOVED*** date
-      * @param ***REMOVED***Date***REMOVED*** minDate
-      * @param ***REMOVED***Date***REMOVED*** maxDate
+      * @param {Date} date
+      * @param {Date} minDate
+      * @param {Date} maxDate
       */
-     function isDateWithinRange(date, minDate, maxDate) ***REMOVED***
+     function isDateWithinRange(date, minDate, maxDate) {
        var dateAtMidnight = createDateAtMidnight(date);
        var minDateAtMidnight = isValidDate(minDate) ? createDateAtMidnight(minDate) : null;
        var maxDateAtMidnight = isValidDate(maxDate) ? createDateAtMidnight(maxDate) : null;
        return (!minDateAtMidnight || minDateAtMidnight <= dateAtMidnight) &&
            (!maxDateAtMidnight || maxDateAtMidnight >= dateAtMidnight);
-     ***REMOVED***
+     }
 
     /**
      * Gets a new date incremented by the given number of years. Number of years can be negative.
      * See `incrementMonths` for notes on overflow for specific dates.
-     * @param ***REMOVED***Date***REMOVED*** date
-     * @param ***REMOVED***number***REMOVED*** numberOfYears
-     * @returns ***REMOVED***Date***REMOVED***
+     * @param {Date} date
+     * @param {number} numberOfYears
+     * @returns {Date}
      */
-     function incrementYears(date, numberOfYears) ***REMOVED***
+     function incrementYears(date, numberOfYears) {
        return incrementMonths(date, numberOfYears * 12);
-     ***REMOVED***
+     }
 
      /**
       * Get the integer distance between two years. This *only* considers the year portion of the
       * Date instances.
       *
-      * @param ***REMOVED***Date***REMOVED*** start
-      * @param ***REMOVED***Date***REMOVED*** end
-      * @returns ***REMOVED***number***REMOVED*** Number of months between `start` and `end`. If `end` is before `start`
+      * @param {Date} start
+      * @param {Date} end
+      * @returns {number} Number of months between `start` and `end`. If `end` is before `start`
       *     chronologically, this number will be negative.
       */
-     function getYearDistance(start, end) ***REMOVED***
+     function getYearDistance(start, end) {
        return end.getFullYear() - start.getFullYear();
-     ***REMOVED***
+     }
 
      /**
       * Clamps a date between a minimum and a maximum date.
-      * @param ***REMOVED***Date***REMOVED*** date Date to be clamped
-      * @param ***REMOVED***Date=***REMOVED*** minDate Minimum date
-      * @param ***REMOVED***Date=***REMOVED*** maxDate Maximum date
-      * @return ***REMOVED***Date***REMOVED***
+      * @param {Date} date Date to be clamped
+      * @param {Date=} minDate Minimum date
+      * @param {Date=} maxDate Maximum date
+      * @return {Date}
       */
-     function clampDate(date, minDate, maxDate) ***REMOVED***
+     function clampDate(date, minDate, maxDate) {
        var boundDate = date;
-       if (minDate && date < minDate) ***REMOVED***
+       if (minDate && date < minDate) {
          boundDate = new Date(minDate.getTime());
-       ***REMOVED***
-       if (maxDate && date > maxDate) ***REMOVED***
+       }
+       if (maxDate && date > maxDate) {
          boundDate = new Date(maxDate.getTime());
-       ***REMOVED***
+       }
        return boundDate;
-     ***REMOVED***
+     }
 
      /**
       * Extracts and parses the timestamp from a DOM node.
-      * @param  ***REMOVED***HTMLElement***REMOVED*** node Node from which the timestamp will be extracted.
-      * @return ***REMOVED***number***REMOVED*** Time since epoch.
+      * @param  {HTMLElement} node Node from which the timestamp will be extracted.
+      * @return {number} Time since epoch.
       */
-     function getTimestampFromNode(node) ***REMOVED***
-       if (node && node.hasAttribute('data-timestamp')) ***REMOVED***
+     function getTimestampFromNode(node) {
+       if (node && node.hasAttribute('data-timestamp')) {
          return Number(node.getAttribute('data-timestamp'));
-       ***REMOVED***
-     ***REMOVED***
+       }
+     }
 
      /**
       * Checks if a month is within a min and max range, ignoring the date and time components.
       * If minDate or maxDate are not dates, they are ignored.
-      * @param ***REMOVED***Date***REMOVED*** date
-      * @param ***REMOVED***Date***REMOVED*** minDate
-      * @param ***REMOVED***Date***REMOVED*** maxDate
+      * @param {Date} date
+      * @param {Date} minDate
+      * @param {Date} maxDate
       */
-     function isMonthWithinRange(date, minDate, maxDate) ***REMOVED***
+     function isMonthWithinRange(date, minDate, maxDate) {
        var month = date.getMonth();
        var year = date.getFullYear();
 
        return (!minDate || minDate.getFullYear() < year || minDate.getMonth() <= month) &&
         (!maxDate || maxDate.getFullYear() > year || maxDate.getMonth() >= month);
-     ***REMOVED***
-  ***REMOVED***);
-***REMOVED***)();
+     }
+  });
+})();
 
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   // POST RELEASE
@@ -2089,24 +2089,24 @@ angular.module('material.components.datepicker', [
    * @name mdDatepicker
    * @module material.components.datepicker
    *
-   * @param ***REMOVED***Date***REMOVED*** ng-model The component's model. Expects a JavaScript Date object.
-   * @param ***REMOVED***expression=***REMOVED*** ng-change Expression evaluated when the model value changes.
-   * @param ***REMOVED***expression=***REMOVED*** ng-focus Expression evaluated when the input is focused or the calendar is opened.
-   * @param ***REMOVED***expression=***REMOVED*** ng-blur Expression evaluated when focus is removed from the input or the calendar is closed.
-   * @param ***REMOVED***Date=***REMOVED*** md-min-date Expression representing a min date (inclusive).
-   * @param ***REMOVED***Date=***REMOVED*** md-max-date Expression representing a max date (inclusive).
-   * @param ***REMOVED***(function(Date): boolean)=***REMOVED*** md-date-filter Function expecting a date and returning a boolean whether it can be selected or not.
-   * @param ***REMOVED***String=***REMOVED*** md-placeholder The date input placeholder value.
-   * @param ***REMOVED***String=***REMOVED*** md-open-on-focus When present, the calendar will be opened when the input is focused.
-   * @param ***REMOVED***Boolean=***REMOVED*** md-is-open Expression that can be used to open the datepicker's calendar on-demand.
-   * @param ***REMOVED***String=***REMOVED*** md-current-view Default open view of the calendar pane. Can be either "month" or "year".
-   * @param ***REMOVED***String=***REMOVED*** md-hide-icons Determines which datepicker icons should be hidden. Note that this may cause the
+   * @param {Date} ng-model The component's model. Expects a JavaScript Date object.
+   * @param {expression=} ng-change Expression evaluated when the model value changes.
+   * @param {expression=} ng-focus Expression evaluated when the input is focused or the calendar is opened.
+   * @param {expression=} ng-blur Expression evaluated when focus is removed from the input or the calendar is closed.
+   * @param {Date=} md-min-date Expression representing a min date (inclusive).
+   * @param {Date=} md-max-date Expression representing a max date (inclusive).
+   * @param {(function(Date): boolean)=} md-date-filter Function expecting a date and returning a boolean whether it can be selected or not.
+   * @param {String=} md-placeholder The date input placeholder value.
+   * @param {String=} md-open-on-focus When present, the calendar will be opened when the input is focused.
+   * @param {Boolean=} md-is-open Expression that can be used to open the datepicker's calendar on-demand.
+   * @param {String=} md-current-view Default open view of the calendar pane. Can be either "month" or "year".
+   * @param {String=} md-hide-icons Determines which datepicker icons should be hidden. Note that this may cause the
    * datepicker to not align properly with other components. **Use at your own risk.** Possible values are:
    * * `"all"` - Hides all icons.
    * * `"calendar"` - Only hides the calendar icon.
    * * `"triangle"` - Only hides the triangle icon.
-   * @param ***REMOVED***boolean=***REMOVED*** ng-disabled Whether the datepicker is disabled.
-   * @param ***REMOVED***boolean=***REMOVED*** ng-required Whether a value is required for the datepicker.
+   * @param {boolean=} ng-disabled Whether the datepicker is disabled.
+   * @param {boolean=} ng-required Whether a value is required for the datepicker.
    *
    * @description
    * `<md-datepicker>` is a component used to select a single date.
@@ -2127,9 +2127,9 @@ angular.module('material.components.datepicker', [
    *
    */
 
-  function datePickerDirective($$mdSvgRegistry, $mdUtil, $mdAria) ***REMOVED***
-    return ***REMOVED***
-      template: function(tElement, tAttrs) ***REMOVED***
+  function datePickerDirective($$mdSvgRegistry, $mdUtil, $mdAria) {
+    return {
+      template: function(tElement, tAttrs) {
         // Buttons are not in the tab order because users can open the calendar via keyboard
         // interaction on the text input, and multiple tab stops for one component (picker)
         // may be confusing.
@@ -2147,14 +2147,14 @@ angular.module('material.components.datepicker', [
           '<md-button type="button" md-no-ink ' +
               'class="md-datepicker-triangle-button md-icon-button" ' +
               'ng-click="ctrl.openCalendarPane($event)" ' +
-              'aria-label="***REMOVED******REMOVED***::ctrl.dateLocale.msgOpenCalendar***REMOVED******REMOVED***">' +
+              'aria-label="{{::ctrl.dateLocale.msgOpenCalendar}}">' +
             '<div class="md-datepicker-expand-triangle"></div>' +
           '</md-button>';
 
         return '' +
         calendarButton +
         '<div class="md-datepicker-input-container" ' +
-            'ng-class="***REMOVED***\'md-datepicker-focused\': ctrl.isFocused***REMOVED***">' +
+            'ng-class="{\'md-datepicker-focused\': ctrl.isFocused}">' +
           '<input class="md-datepicker-input" aria-haspopup="true" ' +
               'ng-focus="ctrl.setFocused(true)" ng-blur="ctrl.setFocused(false)">' +
           triangleButton +
@@ -2166,8 +2166,8 @@ angular.module('material.components.datepicker', [
             '<div class="md-datepicker-input-mask-opaque"></div>' +
           '</div>' +
           '<div class="md-datepicker-calendar">' +
-            '<md-calendar role="dialog" aria-label="***REMOVED******REMOVED***::ctrl.dateLocale.msgCalendar***REMOVED******REMOVED***" ' +
-                'md-current-view="***REMOVED******REMOVED***::ctrl.currentView***REMOVED******REMOVED***"' +
+            '<md-calendar role="dialog" aria-label="{{::ctrl.dateLocale.msgCalendar}}" ' +
+                'md-current-view="{{::ctrl.currentView}}"' +
                 'md-min-date="ctrl.minDate"' +
                 'md-max-date="ctrl.maxDate"' +
                 'md-date-filter="ctrl.dateFilter"' +
@@ -2175,9 +2175,9 @@ angular.module('material.components.datepicker', [
             '</md-calendar>' +
           '</div>' +
         '</div>';
-      ***REMOVED***,
+      },
       require: ['ngModel', 'mdDatepicker', '?^mdInputContainer', '?^form'],
-      scope: ***REMOVED***
+      scope: {
         minDate: '=mdMinDate',
         maxDate: '=mdMaxDate',
         placeholder: '@mdPlaceholder',
@@ -2185,11 +2185,11 @@ angular.module('material.components.datepicker', [
         dateFilter: '=mdDateFilter',
         isOpen: '=?mdIsOpen',
         debounceInterval: '=mdDebounceInterval'
-      ***REMOVED***,
+      },
       controller: DatePickerCtrl,
       controllerAs: 'ctrl',
       bindToController: true,
-      link: function(scope, element, attr, controllers) ***REMOVED***
+      link: function(scope, element, attr, controllers) {
         var ngModelCtrl = controllers[0];
         var mdDatePickerCtrl = controllers[1];
         var mdInputContainer = controllers[2];
@@ -2198,7 +2198,7 @@ angular.module('material.components.datepicker', [
 
         mdDatePickerCtrl.configureNgModel(ngModelCtrl, mdInputContainer);
 
-        if (mdInputContainer) ***REMOVED***
+        if (mdInputContainer) {
           // We need to move the spacer after the datepicker itself,
           // because md-input-container adds it after the
           // md-datepicker-input by default. The spacer gets wrapped in a
@@ -2208,9 +2208,9 @@ angular.module('material.components.datepicker', [
           // break the alignment with any other form controls.
           var spacer = element[0].querySelector('.md-errors-spacer');
 
-          if (spacer) ***REMOVED***
+          if (spacer) {
             element.after(angular.element('<div>').append(spacer));
-          ***REMOVED***
+          }
 
           mdInputContainer.setHasPlaceholder(attr.mdPlaceholder);
           mdInputContainer.input = element;
@@ -2218,31 +2218,31 @@ angular.module('material.components.datepicker', [
             .addClass(INPUT_CONTAINER_CLASS)
             .toggleClass(HAS_ICON_CLASS, attr.mdHideIcons !== 'calendar' && attr.mdHideIcons !== 'all');
 
-          if (!mdInputContainer.label) ***REMOVED***
+          if (!mdInputContainer.label) {
             $mdAria.expect(element, 'aria-label', attr.mdPlaceholder);
-          ***REMOVED*** else if(!mdNoAsterisk) ***REMOVED***
-            attr.$observe('required', function(value) ***REMOVED***
+          } else if(!mdNoAsterisk) {
+            attr.$observe('required', function(value) {
               mdInputContainer.label.toggleClass('md-required', !!value);
-            ***REMOVED***);
-          ***REMOVED***
+            });
+          }
 
-          scope.$watch(mdInputContainer.isErrorGetter || function() ***REMOVED***
+          scope.$watch(mdInputContainer.isErrorGetter || function() {
             return ngModelCtrl.$invalid && (ngModelCtrl.$touched || (parentForm && parentForm.$submitted));
-          ***REMOVED***, mdInputContainer.setInvalid);
-        ***REMOVED*** else if (parentForm) ***REMOVED***
+          }, mdInputContainer.setInvalid);
+        } else if (parentForm) {
           // If invalid, highlights the input when the parent form is submitted.
-          var parentSubmittedWatcher = scope.$watch(function() ***REMOVED***
+          var parentSubmittedWatcher = scope.$watch(function() {
             return parentForm.$submitted;
-          ***REMOVED***, function(isSubmitted) ***REMOVED***
-            if (isSubmitted) ***REMOVED***
+          }, function(isSubmitted) {
+            if (isSubmitted) {
               mdDatePickerCtrl.updateErrorState();
               parentSubmittedWatcher();
-            ***REMOVED***
-          ***REMOVED***);
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***
+            }
+          });
+        }
+      }
+    };
+  }
   datePickerDirective.$inject = ["$$mdSvgRegistry", "$mdUtil", "$mdAria"];
 
   /** Additional offset for the input's `size` attribute, which is updated based on its content. */
@@ -2289,7 +2289,7 @@ angular.module('material.components.datepicker', [
    * ngInject @constructor
    */
   function DatePickerCtrl($scope, $element, $attrs, $window, $mdConstant,
-    $mdTheming, $mdUtil, $mdDateLocale, $$mdDateUtil, $$rAF, $mdGesture) ***REMOVED***
+    $mdTheming, $mdUtil, $mdDateLocale, $$mdDateUtil, $$rAF, $mdGesture) {
 
     /** @final */
     this.$window = $window;
@@ -2314,57 +2314,57 @@ angular.module('material.components.datepicker', [
      * close the calendar panel when a click outside said panel occurs. We use `documentElement`
      * instead of body because, when scrolling is disabled, some browsers consider the body element
      * to be completely off the screen and propagate events directly to the html element.
-     * @type ***REMOVED***!angular.JQLite***REMOVED***
+     * @type {!angular.JQLite}
      */
     this.documentElement = angular.element(document.documentElement);
 
-    /** @type ***REMOVED***!angular.NgModelController***REMOVED*** */
+    /** @type {!angular.NgModelController} */
     this.ngModelCtrl = null;
 
-    /** @type ***REMOVED***HTMLInputElement***REMOVED*** */
+    /** @type {HTMLInputElement} */
     this.inputElement = $element[0].querySelector('input');
 
-    /** @final ***REMOVED***!angular.JQLite***REMOVED*** */
+    /** @final {!angular.JQLite} */
     this.ngInputElement = angular.element(this.inputElement);
 
-    /** @type ***REMOVED***HTMLElement***REMOVED*** */
+    /** @type {HTMLElement} */
     this.inputContainer = $element[0].querySelector('.md-datepicker-input-container');
 
-    /** @type ***REMOVED***HTMLElement***REMOVED*** Floating calendar pane. */
+    /** @type {HTMLElement} Floating calendar pane. */
     this.calendarPane = $element[0].querySelector('.md-datepicker-calendar-pane');
 
-    /** @type ***REMOVED***HTMLElement***REMOVED*** Calendar icon button. */
+    /** @type {HTMLElement} Calendar icon button. */
     this.calendarButton = $element[0].querySelector('.md-datepicker-button');
 
     /**
      * Element covering everything but the input in the top of the floating calendar pane.
-     * @type ***REMOVED***HTMLElement***REMOVED***
+     * @type {HTMLElement}
      */
     this.inputMask = $element[0].querySelector('.md-datepicker-input-mask-opaque');
 
-    /** @final ***REMOVED***!angular.JQLite***REMOVED*** */
+    /** @final {!angular.JQLite} */
     this.$element = $element;
 
-    /** @final ***REMOVED***!angular.Attributes***REMOVED*** */
+    /** @final {!angular.Attributes} */
     this.$attrs = $attrs;
 
-    /** @final ***REMOVED***!angular.Scope***REMOVED*** */
+    /** @final {!angular.Scope} */
     this.$scope = $scope;
 
-    /** @type ***REMOVED***Date***REMOVED*** */
+    /** @type {Date} */
     this.date = null;
 
-    /** @type ***REMOVED***boolean***REMOVED*** */
+    /** @type {boolean} */
     this.isFocused = false;
 
-    /** @type ***REMOVED***boolean***REMOVED*** */
+    /** @type {boolean} */
     this.isDisabled;
     this.setDisabled($element[0].disabled || angular.isString($attrs.disabled));
 
-    /** @type ***REMOVED***boolean***REMOVED*** Whether the date-picker's calendar pane is open. */
+    /** @type {boolean} Whether the date-picker's calendar pane is open. */
     this.isCalendarOpen = false;
 
-    /** @type ***REMOVED***boolean***REMOVED*** Whether the calendar should open when the input is focused. */
+    /** @type {boolean} Whether the calendar should open when the input is focused. */
     this.openOnFocus = $attrs.hasOwnProperty('mdOpenOnFocus');
 
     /** @final */
@@ -2373,11 +2373,11 @@ angular.module('material.components.datepicker', [
     /**
      * Element from which the calendar pane was opened. Keep track of this so that we can return
      * focus to it when the pane is closed.
-     * @type ***REMOVED***HTMLElement***REMOVED***
+     * @type {HTMLElement}
      */
     this.calendarPaneOpenedFrom = null;
 
-    /** @type ***REMOVED***String***REMOVED*** Unique id for the calendar pane. */
+    /** @type {String} Unique id for the calendar pane. */
     this.calendarPane.id = 'md-date-pane' + $mdUtil.nextUid();
 
     /** Pre-bound click handler is saved so that the event listener can be removed. */
@@ -2399,9 +2399,9 @@ angular.module('material.components.datepicker', [
     // Unless the user specifies so, the datepicker should not be a tab stop.
     // This is necessary because ngAria might add a tabindex to anything with an ng-model
     // (based on whether or not the user has turned that particular feature on/off).
-    if (!$attrs.tabindex) ***REMOVED***
+    if (!$attrs.tabindex) {
       $element.attr('tabindex', '-1');
-    ***REMOVED***
+    }
 
     $mdTheming($element);
     $mdTheming(angular.element(this.calendarPane));
@@ -2412,61 +2412,61 @@ angular.module('material.components.datepicker', [
 
     var self = this;
 
-    $scope.$on('$destroy', function() ***REMOVED***
+    $scope.$on('$destroy', function() {
       self.detachCalendarPane();
-    ***REMOVED***);
+    });
 
-    if ($attrs.mdIsOpen) ***REMOVED***
-      $scope.$watch('ctrl.isOpen', function(shouldBeOpen) ***REMOVED***
-        if (shouldBeOpen) ***REMOVED***
-          self.openCalendarPane(***REMOVED***
+    if ($attrs.mdIsOpen) {
+      $scope.$watch('ctrl.isOpen', function(shouldBeOpen) {
+        if (shouldBeOpen) {
+          self.openCalendarPane({
             target: self.inputElement
-          ***REMOVED***);
-        ***REMOVED*** else ***REMOVED***
+          });
+        } else {
           self.closeCalendarPane();
-        ***REMOVED***
-      ***REMOVED***);
-    ***REMOVED***
-  ***REMOVED***
+        }
+      });
+    }
+  }
   DatePickerCtrl.$inject = ["$scope", "$element", "$attrs", "$window", "$mdConstant", "$mdTheming", "$mdUtil", "$mdDateLocale", "$$mdDateUtil", "$$rAF", "$mdGesture"];
 
   /**
    * Sets up the controller's reference to ngModelController.
-   * @param ***REMOVED***!angular.NgModelController***REMOVED*** ngModelCtrl
+   * @param {!angular.NgModelController} ngModelCtrl
    */
-  DatePickerCtrl.prototype.configureNgModel = function(ngModelCtrl, mdInputContainer) ***REMOVED***
+  DatePickerCtrl.prototype.configureNgModel = function(ngModelCtrl, mdInputContainer) {
     this.ngModelCtrl = ngModelCtrl;
     this.mdInputContainer = mdInputContainer;
 
     var self = this;
-    ngModelCtrl.$render = function() ***REMOVED***
+    ngModelCtrl.$render = function() {
       var value = self.ngModelCtrl.$viewValue;
 
-      if (value && !(value instanceof Date)) ***REMOVED***
+      if (value && !(value instanceof Date)) {
         throw Error('The ng-model for md-datepicker must be a Date instance. ' +
             'Currently the model is a: ' + (typeof value));
-      ***REMOVED***
+      }
 
       self.date = value;
       self.inputElement.value = self.dateLocale.formatDate(value);
       self.mdInputContainer && self.mdInputContainer.setHasValue(!!value);
       self.resizeInputElement();
       self.updateErrorState();
-    ***REMOVED***;
+    };
 
     // Responds to external error state changes (e.g. ng-required based on another input).
     ngModelCtrl.$viewChangeListeners.unshift(angular.bind(this, this.updateErrorState));
-  ***REMOVED***;
+  };
 
   /**
    * Attach event listeners for both the text input and the md-calendar.
    * Events are used instead of ng-model so that updates don't infinitely update the other
    * on a change. This should also be more performant than using a $watch.
    */
-  DatePickerCtrl.prototype.attachChangeListeners = function() ***REMOVED***
+  DatePickerCtrl.prototype.attachChangeListeners = function() {
     var self = this;
 
-    self.$scope.$on('md-calendar-change', function(event, date) ***REMOVED***
+    self.$scope.$on('md-calendar-change', function(event, date) {
       self.ngModelCtrl.$setViewValue(date);
       self.date = date;
       self.inputElement.value = self.dateLocale.formatDate(date);
@@ -2474,7 +2474,7 @@ angular.module('material.components.datepicker', [
       self.closeCalendarPane();
       self.resizeInputElement();
       self.updateErrorState();
-    ***REMOVED***);
+    });
 
     self.ngInputElement.on('input', angular.bind(self, self.resizeInputElement));
 
@@ -2482,73 +2482,73 @@ angular.module('material.components.datepicker', [
         this.debounceInterval : DEFAULT_DEBOUNCE_INTERVAL;
     self.ngInputElement.on('input', self.$mdUtil.debounce(self.handleInputEvent,
         debounceInterval, self));
-  ***REMOVED***;
+  };
 
   /** Attach event listeners for user interaction. */
-  DatePickerCtrl.prototype.attachInteractionListeners = function() ***REMOVED***
+  DatePickerCtrl.prototype.attachInteractionListeners = function() {
     var self = this;
     var $scope = this.$scope;
     var keyCodes = this.$mdConstant.KEY_CODE;
 
     // Add event listener through angular so that we can triggerHandler in unit tests.
-    self.ngInputElement.on('keydown', function(event) ***REMOVED***
-      if (event.altKey && event.keyCode == keyCodes.DOWN_ARROW) ***REMOVED***
+    self.ngInputElement.on('keydown', function(event) {
+      if (event.altKey && event.keyCode == keyCodes.DOWN_ARROW) {
         self.openCalendarPane(event);
         $scope.$digest();
-      ***REMOVED***
-    ***REMOVED***);
+      }
+    });
 
-    if (self.openOnFocus) ***REMOVED***
+    if (self.openOnFocus) {
       self.ngInputElement.on('focus', angular.bind(self, self.openCalendarPane));
       angular.element(self.$window).on('blur', self.windowBlurHandler);
 
-      $scope.$on('$destroy', function() ***REMOVED***
+      $scope.$on('$destroy', function() {
         angular.element(self.$window).off('blur', self.windowBlurHandler);
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
 
-    $scope.$on('md-calendar-close', function() ***REMOVED***
+    $scope.$on('md-calendar-close', function() {
       self.closeCalendarPane();
-    ***REMOVED***);
-  ***REMOVED***;
+    });
+  };
 
   /**
    * Capture properties set to the date-picker and imperitively handle internal changes.
    * This is done to avoid setting up additional $watches.
    */
-  DatePickerCtrl.prototype.installPropertyInterceptors = function() ***REMOVED***
+  DatePickerCtrl.prototype.installPropertyInterceptors = function() {
     var self = this;
 
-    if (this.$attrs.ngDisabled) ***REMOVED***
+    if (this.$attrs.ngDisabled) {
       // The expression is to be evaluated against the directive element's scope and not
       // the directive's isolate scope.
       var scope = this.$scope.$parent;
 
-      if (scope) ***REMOVED***
-        scope.$watch(this.$attrs.ngDisabled, function(isDisabled) ***REMOVED***
+      if (scope) {
+        scope.$watch(this.$attrs.ngDisabled, function(isDisabled) {
           self.setDisabled(isDisabled);
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***
+        });
+      }
+    }
 
-    Object.defineProperty(this, 'placeholder', ***REMOVED***
-      get: function() ***REMOVED*** return self.inputElement.placeholder; ***REMOVED***,
-      set: function(value) ***REMOVED*** self.inputElement.placeholder = value || ''; ***REMOVED***
-    ***REMOVED***);
-  ***REMOVED***;
+    Object.defineProperty(this, 'placeholder', {
+      get: function() { return self.inputElement.placeholder; },
+      set: function(value) { self.inputElement.placeholder = value || ''; }
+    });
+  };
 
   /**
    * Sets whether the date-picker is disabled.
-   * @param ***REMOVED***boolean***REMOVED*** isDisabled
+   * @param {boolean} isDisabled
    */
-  DatePickerCtrl.prototype.setDisabled = function(isDisabled) ***REMOVED***
+  DatePickerCtrl.prototype.setDisabled = function(isDisabled) {
     this.isDisabled = isDisabled;
     this.inputElement.disabled = isDisabled;
 
-    if (this.calendarButton) ***REMOVED***
+    if (this.calendarButton) {
       this.calendarButton.disabled = isDisabled;
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
   /**
    * Sets the custom ngModel.$error flags to be consumed by ngMessages. Flags are:
@@ -2559,63 +2559,63 @@ angular.module('material.components.datepicker', [
    *
    * The 'required' flag is handled automatically by ngModel.
    *
-   * @param ***REMOVED***Date=***REMOVED*** opt_date Date to check. If not given, defaults to the datepicker's model value.
+   * @param {Date=} opt_date Date to check. If not given, defaults to the datepicker's model value.
    */
-  DatePickerCtrl.prototype.updateErrorState = function(opt_date) ***REMOVED***
+  DatePickerCtrl.prototype.updateErrorState = function(opt_date) {
     var date = opt_date || this.date;
 
     // Clear any existing errors to get rid of anything that's no longer relevant.
     this.clearErrorState();
 
-    if (this.dateUtil.isValidDate(date)) ***REMOVED***
+    if (this.dateUtil.isValidDate(date)) {
       // Force all dates to midnight in order to ignore the time portion.
       date = this.dateUtil.createDateAtMidnight(date);
 
-      if (this.dateUtil.isValidDate(this.minDate)) ***REMOVED***
+      if (this.dateUtil.isValidDate(this.minDate)) {
         var minDate = this.dateUtil.createDateAtMidnight(this.minDate);
         this.ngModelCtrl.$setValidity('mindate', date >= minDate);
-      ***REMOVED***
+      }
 
-      if (this.dateUtil.isValidDate(this.maxDate)) ***REMOVED***
+      if (this.dateUtil.isValidDate(this.maxDate)) {
         var maxDate = this.dateUtil.createDateAtMidnight(this.maxDate);
         this.ngModelCtrl.$setValidity('maxdate', date <= maxDate);
-      ***REMOVED***
+      }
 
-      if (angular.isFunction(this.dateFilter)) ***REMOVED***
+      if (angular.isFunction(this.dateFilter)) {
         this.ngModelCtrl.$setValidity('filtered', this.dateFilter(date));
-      ***REMOVED***
-    ***REMOVED*** else ***REMOVED***
+      }
+    } else {
       // The date is seen as "not a valid date" if there is *something* set
       // (i.e.., not null or undefined), but that something isn't a valid date.
       this.ngModelCtrl.$setValidity('valid', date == null);
-    ***REMOVED***
+    }
 
     // TODO(jelbourn): Change this to classList.toggle when we stop using PhantomJS in unit tests
     // because it doesn't conform to the DOMTokenList spec.
     // See https://github.com/ariya/phantomjs/issues/12782.
-    if (!this.ngModelCtrl.$valid) ***REMOVED***
+    if (!this.ngModelCtrl.$valid) {
       this.inputContainer.classList.add(INVALID_CLASS);
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
   /** Clears any error flags set by `updateErrorState`. */
-  DatePickerCtrl.prototype.clearErrorState = function() ***REMOVED***
+  DatePickerCtrl.prototype.clearErrorState = function() {
     this.inputContainer.classList.remove(INVALID_CLASS);
-    ['mindate', 'maxdate', 'filtered', 'valid'].forEach(function(field) ***REMOVED***
+    ['mindate', 'maxdate', 'filtered', 'valid'].forEach(function(field) {
       this.ngModelCtrl.$setValidity(field, true);
-    ***REMOVED***, this);
-  ***REMOVED***;
+    }, this);
+  };
 
   /** Resizes the input element based on the size of its content. */
-  DatePickerCtrl.prototype.resizeInputElement = function() ***REMOVED***
+  DatePickerCtrl.prototype.resizeInputElement = function() {
     this.inputElement.size = this.inputElement.value.length + EXTRA_INPUT_SIZE;
-  ***REMOVED***;
+  };
 
   /**
    * Sets the model value if the user input is a valid date.
    * Adds an invalid class to the input element if not.
    */
-  DatePickerCtrl.prototype.handleInputEvent = function() ***REMOVED***
+  DatePickerCtrl.prototype.handleInputEvent = function() {
     var inputString = this.inputElement.value;
     var parsedDate = inputString ? this.dateLocale.parseDate(inputString) : null;
     this.dateUtil.setDateTimeToMidnight(parsedDate);
@@ -2629,26 +2629,26 @@ angular.module('material.components.datepicker', [
     );
 
     // The datepicker's model is only updated when there is a valid input.
-    if (isValidInput) ***REMOVED***
+    if (isValidInput) {
       this.ngModelCtrl.$setViewValue(parsedDate);
       this.date = parsedDate;
-    ***REMOVED***
+    }
 
     this.updateErrorState(parsedDate);
-  ***REMOVED***;
+  };
 
   /**
    * Check whether date is in range and enabled
-   * @param ***REMOVED***Date=***REMOVED*** opt_date
-   * @return ***REMOVED***boolean***REMOVED*** Whether the date is enabled.
+   * @param {Date=} opt_date
+   * @return {boolean} Whether the date is enabled.
    */
-  DatePickerCtrl.prototype.isDateEnabled = function(opt_date) ***REMOVED***
+  DatePickerCtrl.prototype.isDateEnabled = function(opt_date) {
     return this.dateUtil.isDateWithinRange(opt_date, this.minDate, this.maxDate) &&
           (!angular.isFunction(this.dateFilter) || this.dateFilter(opt_date));
-  ***REMOVED***;
+  };
 
   /** Position and attach the floating calendar to the document. */
-  DatePickerCtrl.prototype.attachCalendarPane = function() ***REMOVED***
+  DatePickerCtrl.prototype.attachCalendarPane = function() {
     var calendarPane = this.calendarPane;
     var body = document.body;
 
@@ -2684,25 +2684,25 @@ angular.module('material.components.datepicker', [
     // difference would not go past the left edge of the screen. If the calendar pane is too
     // big to fit on the screen at all, move it to the left of the screen and scale the entire
     // element down to fit.
-    if (paneLeft + CALENDAR_PANE_WIDTH > viewportRight) ***REMOVED***
-      if (viewportRight - CALENDAR_PANE_WIDTH > 0) ***REMOVED***
+    if (paneLeft + CALENDAR_PANE_WIDTH > viewportRight) {
+      if (viewportRight - CALENDAR_PANE_WIDTH > 0) {
         paneLeft = viewportRight - CALENDAR_PANE_WIDTH;
-      ***REMOVED*** else ***REMOVED***
+      } else {
         paneLeft = viewportLeft;
         var scale = this.$window.innerWidth / CALENDAR_PANE_WIDTH;
         calendarPane.style.transform = 'scale(' + scale + ')';
-      ***REMOVED***
+      }
 
       calendarPane.classList.add('md-datepicker-pos-adjusted');
-    ***REMOVED***
+    }
 
     // If the bottom edge of the pane would be off the screen and shifting it up by the
     // difference would not go past the top edge of the screen.
     if (paneTop + CALENDAR_PANE_HEIGHT > viewportBottom &&
-        viewportBottom - CALENDAR_PANE_HEIGHT > viewportTop) ***REMOVED***
+        viewportBottom - CALENDAR_PANE_HEIGHT > viewportTop) {
       paneTop = viewportBottom - CALENDAR_PANE_HEIGHT;
       calendarPane.classList.add('md-datepicker-pos-adjusted');
-    ***REMOVED***
+    }
 
     calendarPane.style.left = paneLeft + 'px';
     calendarPane.style.top = paneTop + 'px';
@@ -2715,36 +2715,36 @@ angular.module('material.components.datepicker', [
     this.inputMask.style.left = elementRect.width + 'px';
 
     // Add CSS class after one frame to trigger open animation.
-    this.$$rAF(function() ***REMOVED***
+    this.$$rAF(function() {
       calendarPane.classList.add('md-pane-open');
-    ***REMOVED***);
-  ***REMOVED***;
+    });
+  };
 
   /** Detach the floating calendar pane from the document. */
-  DatePickerCtrl.prototype.detachCalendarPane = function() ***REMOVED***
+  DatePickerCtrl.prototype.detachCalendarPane = function() {
     this.$element.removeClass(OPEN_CLASS);
     this.mdInputContainer && this.mdInputContainer.element.removeClass(OPEN_CLASS);
     angular.element(document.body).removeClass('md-datepicker-is-showing');
     this.calendarPane.classList.remove('md-pane-open');
     this.calendarPane.classList.remove('md-datepicker-pos-adjusted');
 
-    if (this.isCalendarOpen) ***REMOVED***
+    if (this.isCalendarOpen) {
       this.$mdUtil.enableScrolling();
-    ***REMOVED***
+    }
 
-    if (this.calendarPane.parentNode) ***REMOVED***
+    if (this.calendarPane.parentNode) {
       // Use native DOM removal because we do not want any of the
       // angular state of this element to be disposed.
       this.calendarPane.parentNode.removeChild(this.calendarPane);
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
   /**
    * Open the floating calendar pane.
-   * @param ***REMOVED***Event***REMOVED*** event
+   * @param {Event} event
    */
-  DatePickerCtrl.prototype.openCalendarPane = function(event) ***REMOVED***
-    if (!this.isCalendarOpen && !this.isDisabled && !this.inputFocusedOnWindowBlur) ***REMOVED***
+  DatePickerCtrl.prototype.openCalendarPane = function(event) {
+    if (!this.isCalendarOpen && !this.isDisabled && !this.inputFocusedOnWindowBlur) {
       this.isCalendarOpen = this.isOpen = true;
       this.calendarPaneOpenedFrom = event.target;
 
@@ -2762,20 +2762,20 @@ angular.module('material.components.datepicker', [
       // Attach click listener inside of a timeout because, if this open call was triggered by a
       // click, we don't want it to be immediately propogated up to the body and handled.
       var self = this;
-      this.$mdUtil.nextTick(function() ***REMOVED***
+      this.$mdUtil.nextTick(function() {
         // Use 'touchstart` in addition to click in order to work on iOS Safari, where click
         // events aren't propogated under most circumstances.
         // See http://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
         self.documentElement.on('click touchstart', self.bodyClickHandler);
-      ***REMOVED***, false);
+      }, false);
 
       window.addEventListener(this.windowEventName, this.windowEventHandler);
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
   /** Close the floating calendar pane. */
-  DatePickerCtrl.prototype.closeCalendarPane = function() ***REMOVED***
-    if (this.isCalendarOpen) ***REMOVED***
+  DatePickerCtrl.prototype.closeCalendarPane = function() {
+    if (this.isCalendarOpen) {
       var self = this;
 
       self.detachCalendarPane();
@@ -2788,90 +2788,90 @@ angular.module('material.components.datepicker', [
       self.calendarPaneOpenedFrom.focus();
       self.calendarPaneOpenedFrom = null;
 
-      if (self.openOnFocus) ***REMOVED***
+      if (self.openOnFocus) {
         // Ensures that all focus events have fired before resetting
         // the calendar. Prevents the calendar from reopening immediately
         // in IE when md-open-on-focus is set. Also it needs to trigger
         // a digest, in order to prevent issues where the calendar wasn't
         // showing up on the next open.
         self.$mdUtil.nextTick(reset);
-      ***REMOVED*** else ***REMOVED***
+      } else {
         reset();
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
-    function reset()***REMOVED***
+    function reset(){
       self.isCalendarOpen = self.isOpen = false;
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
   /** Gets the controller instance for the calendar in the floating pane. */
-  DatePickerCtrl.prototype.getCalendarCtrl = function() ***REMOVED***
+  DatePickerCtrl.prototype.getCalendarCtrl = function() {
     return angular.element(this.calendarPane.querySelector('md-calendar')).controller('mdCalendar');
-  ***REMOVED***;
+  };
 
   /** Focus the calendar in the floating pane. */
-  DatePickerCtrl.prototype.focusCalendar = function() ***REMOVED***
+  DatePickerCtrl.prototype.focusCalendar = function() {
     // Use a timeout in order to allow the calendar to be rendered, as it is gated behind an ng-if.
     var self = this;
-    this.$mdUtil.nextTick(function() ***REMOVED***
+    this.$mdUtil.nextTick(function() {
       self.getCalendarCtrl().focus();
-    ***REMOVED***, false);
-  ***REMOVED***;
+    }, false);
+  };
 
   /**
    * Sets whether the input is currently focused.
-   * @param ***REMOVED***boolean***REMOVED*** isFocused
+   * @param {boolean} isFocused
    */
-  DatePickerCtrl.prototype.setFocused = function(isFocused) ***REMOVED***
-    if (!isFocused) ***REMOVED***
+  DatePickerCtrl.prototype.setFocused = function(isFocused) {
+    if (!isFocused) {
       this.ngModelCtrl.$setTouched();
-    ***REMOVED***
+    }
 
     // The ng* expressions shouldn't be evaluated when mdOpenOnFocus is on,
     // because they also get called when the calendar is opened/closed.
-    if (!this.openOnFocus) ***REMOVED***
+    if (!this.openOnFocus) {
       this.evalAttr(isFocused ? 'ngFocus' : 'ngBlur');
-    ***REMOVED***
+    }
 
     this.isFocused = isFocused;
-  ***REMOVED***;
+  };
 
   /**
    * Handles a click on the document body when the floating calendar pane is open.
    * Closes the floating calendar pane if the click is not inside of it.
-   * @param ***REMOVED***MouseEvent***REMOVED*** event
+   * @param {MouseEvent} event
    */
-  DatePickerCtrl.prototype.handleBodyClick = function(event) ***REMOVED***
-    if (this.isCalendarOpen) ***REMOVED***
+  DatePickerCtrl.prototype.handleBodyClick = function(event) {
+    if (this.isCalendarOpen) {
       var isInCalendar = this.$mdUtil.getClosest(event.target, 'md-calendar');
 
-      if (!isInCalendar) ***REMOVED***
+      if (!isInCalendar) {
         this.closeCalendarPane();
-      ***REMOVED***
+      }
 
       this.$scope.$digest();
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
   /**
    * Handles the event when the user navigates away from the current tab. Keeps track of
    * whether the input was focused when the event happened, in order to prevent the calendar
    * from re-opening.
    */
-  DatePickerCtrl.prototype.handleWindowBlur = function() ***REMOVED***
+  DatePickerCtrl.prototype.handleWindowBlur = function() {
     this.inputFocusedOnWindowBlur = document.activeElement === this.inputElement;
-  ***REMOVED***;
+  };
 
   /**
    * Evaluates an attribute expression against the parent scope.
-   * @param ***REMOVED***String***REMOVED*** attr Name of the attribute to be evaluated.
+   * @param {String} attr Name of the attribute to be evaluated.
    */
-  DatePickerCtrl.prototype.evalAttr = function(attr) ***REMOVED***
-    if (this.$attrs[attr]) ***REMOVED***
+  DatePickerCtrl.prototype.evalAttr = function(attr) {
+    if (this.$attrs[attr]) {
       this.$scope.$parent.$eval(this.$attrs[attr]);
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***)();
+    }
+  };
+})();
 
-***REMOVED***)(window, window.angular);
+})(window, window.angular);

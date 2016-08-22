@@ -4,10 +4,10 @@
  * @license MIT
  * v1.1.0
  */
-.md-inline-form md-checkbox ***REMOVED***
-  margin: 19px 0 18px; ***REMOVED***
+.md-inline-form md-checkbox {
+  margin: 19px 0 18px; }
 
-md-checkbox ***REMOVED***
+md-checkbox {
   box-sizing: border-box;
   display: inline-block;
   margin-bottom: 16px;
@@ -22,24 +22,24 @@ md-checkbox ***REMOVED***
   min-width: 20px;
   min-height: 20px;
   margin-left: 0;
-  margin-right: 16px; ***REMOVED***
-  [dir=rtl] md-checkbox ***REMOVED***
-    margin-left: 16px; ***REMOVED***
-  [dir=rtl] md-checkbox ***REMOVED***
-    margin-right: 0; ***REMOVED***
-  md-checkbox:last-of-type ***REMOVED***
+  margin-right: 16px; }
+  [dir=rtl] md-checkbox {
+    margin-left: 16px; }
+  [dir=rtl] md-checkbox {
+    margin-right: 0; }
+  md-checkbox:last-of-type {
     margin-left: 0;
-    margin-right: 0; ***REMOVED***
-  md-checkbox.md-focused:not([disabled]) .md-container:before ***REMOVED***
+    margin-right: 0; }
+  md-checkbox.md-focused:not([disabled]) .md-container:before {
     left: -8px;
     top: -8px;
     right: -8px;
-    bottom: -8px; ***REMOVED***
-  md-checkbox.md-focused:not([disabled]):not(.md-checked) .md-container:before ***REMOVED***
-    background-color: rgba(0, 0, 0, 0.12); ***REMOVED***
-  md-checkbox.md-align-top-left > div.md-container ***REMOVED***
-    top: 12px; ***REMOVED***
-  md-checkbox .md-container ***REMOVED***
+    bottom: -8px; }
+  md-checkbox.md-focused:not([disabled]):not(.md-checked) .md-container:before {
+    background-color: rgba(0, 0, 0, 0.12); }
+  md-checkbox.md-align-top-left > div.md-container {
+    top: 12px; }
+  md-checkbox .md-container {
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -49,12 +49,12 @@ md-checkbox ***REMOVED***
     width: 20px;
     height: 20px;
     left: 0;
-    right: auto; ***REMOVED***
-    [dir=rtl] md-checkbox .md-container ***REMOVED***
-      left: auto; ***REMOVED***
-    [dir=rtl] md-checkbox .md-container ***REMOVED***
-      right: 0; ***REMOVED***
-    md-checkbox .md-container:before ***REMOVED***
+    right: auto; }
+    [dir=rtl] md-checkbox .md-container {
+      left: auto; }
+    [dir=rtl] md-checkbox .md-container {
+      right: 0; }
+    md-checkbox .md-container:before {
       box-sizing: border-box;
       background-color: transparent;
       border-radius: 50%;
@@ -68,16 +68,16 @@ md-checkbox ***REMOVED***
       bottom: 0;
       -webkit-transition: all 0.5s;
       transition: all 0.5s;
-      width: auto; ***REMOVED***
-    md-checkbox .md-container:after ***REMOVED***
+      width: auto; }
+    md-checkbox .md-container:after {
       box-sizing: border-box;
       content: '';
       position: absolute;
       top: -10px;
       right: -10px;
       bottom: -10px;
-      left: -10px; ***REMOVED***
-    md-checkbox .md-container .md-ripple-container ***REMOVED***
+      left: -10px; }
+    md-checkbox .md-container .md-ripple-container {
       position: absolute;
       display: block;
       width: auto;
@@ -85,8 +85,8 @@ md-checkbox ***REMOVED***
       left: -15px;
       top: -15px;
       right: -15px;
-      bottom: -15px; ***REMOVED***
-  md-checkbox .md-icon ***REMOVED***
+      bottom: -15px; }
+  md-checkbox .md-icon {
     box-sizing: border-box;
     -webkit-transition: 240ms;
     transition: 240ms;
@@ -97,10 +97,10 @@ md-checkbox ***REMOVED***
     height: 20px;
     border-width: 2px;
     border-style: solid;
-    border-radius: 2px; ***REMOVED***
-  md-checkbox.md-checked .md-icon ***REMOVED***
-    border-color: transparent; ***REMOVED***
-    md-checkbox.md-checked .md-icon:after ***REMOVED***
+    border-radius: 2px; }
+  md-checkbox.md-checked .md-icon {
+    border-color: transparent; }
+    md-checkbox.md-checked .md-icon:after {
       box-sizing: border-box;
       -webkit-transform: rotate(45deg);
               transform: rotate(45deg);
@@ -114,10 +114,10 @@ md-checkbox ***REMOVED***
       border-style: solid;
       border-top: 0;
       border-left: 0;
-      content: ''; ***REMOVED***
-  md-checkbox[disabled] ***REMOVED***
-    cursor: default; ***REMOVED***
-  md-checkbox.md-indeterminate .md-icon:after ***REMOVED***
+      content: ''; }
+  md-checkbox[disabled] {
+    cursor: default; }
+  md-checkbox.md-indeterminate .md-icon:after {
     box-sizing: border-box;
     position: absolute;
     top: 50%;
@@ -131,8 +131,8 @@ md-checkbox ***REMOVED***
     border-style: solid;
     border-top: 0;
     border-left: 0;
-    content: ''; ***REMOVED***
-  md-checkbox .md-label ***REMOVED***
+    content: ''; }
+  md-checkbox .md-label {
     box-sizing: border-box;
     position: relative;
     display: inline-block;
@@ -143,8 +143,8 @@ md-checkbox ***REMOVED***
         -ms-user-select: text;
             user-select: text;
     margin-left: 30px;
-    margin-right: 0; ***REMOVED***
-    [dir=rtl] md-checkbox .md-label ***REMOVED***
-      margin-left: 0; ***REMOVED***
-    [dir=rtl] md-checkbox .md-label ***REMOVED***
-      margin-right: 30px; ***REMOVED***
+    margin-right: 0; }
+    [dir=rtl] md-checkbox .md-label {
+      margin-left: 0; }
+    [dir=rtl] md-checkbox .md-label {
+      margin-right: 30px; }

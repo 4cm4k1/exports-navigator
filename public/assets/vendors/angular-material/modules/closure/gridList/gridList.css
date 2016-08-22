@@ -4,19 +4,19 @@
  * @license MIT
  * v1.1.0
  */
-md-grid-list ***REMOVED***
+md-grid-list {
   box-sizing: border-box;
   display: block;
-  position: relative; ***REMOVED***
+  position: relative; }
   md-grid-list md-grid-tile,
   md-grid-list md-grid-tile > figure,
   md-grid-list md-grid-tile-header,
-  md-grid-list md-grid-tile-footer ***REMOVED***
-    box-sizing: border-box; ***REMOVED***
-  md-grid-list md-grid-tile ***REMOVED***
+  md-grid-list md-grid-tile-footer {
+    box-sizing: border-box; }
+  md-grid-list md-grid-tile {
     display: block;
-    position: absolute; ***REMOVED***
-    md-grid-list md-grid-tile figure ***REMOVED***
+    position: absolute; }
+    md-grid-list md-grid-tile figure {
       display: -webkit-box;
       display: -webkit-flex;
       display: flex;
@@ -33,9 +33,9 @@ md-grid-list ***REMOVED***
       bottom: 0;
       left: 0;
       padding: 0;
-      margin: 0; ***REMOVED***
+      margin: 0; }
     md-grid-list md-grid-tile md-grid-tile-header,
-    md-grid-list md-grid-tile md-grid-tile-footer ***REMOVED***
+    md-grid-list md-grid-tile md-grid-tile-footer {
       display: -webkit-box;
       display: -webkit-flex;
       display: flex;
@@ -52,26 +52,26 @@ md-grid-list ***REMOVED***
       overflow: hidden;
       position: absolute;
       left: 0;
-      right: 0; ***REMOVED***
+      right: 0; }
       md-grid-list md-grid-tile md-grid-tile-header h3,
       md-grid-list md-grid-tile md-grid-tile-header h4,
       md-grid-list md-grid-tile md-grid-tile-footer h3,
-      md-grid-list md-grid-tile md-grid-tile-footer h4 ***REMOVED***
+      md-grid-list md-grid-tile md-grid-tile-footer h4 {
         font-weight: 400;
-        margin: 0 0 0 16px; ***REMOVED***
+        margin: 0 0 0 16px; }
       md-grid-list md-grid-tile md-grid-tile-header h3,
-      md-grid-list md-grid-tile md-grid-tile-footer h3 ***REMOVED***
-        font-size: 14px; ***REMOVED***
+      md-grid-list md-grid-tile md-grid-tile-footer h3 {
+        font-size: 14px; }
       md-grid-list md-grid-tile md-grid-tile-header h4,
-      md-grid-list md-grid-tile md-grid-tile-footer h4 ***REMOVED***
-        font-size: 12px; ***REMOVED***
-    md-grid-list md-grid-tile md-grid-tile-header ***REMOVED***
-      top: 0; ***REMOVED***
-    md-grid-list md-grid-tile md-grid-tile-footer ***REMOVED***
-      bottom: 0; ***REMOVED***
+      md-grid-list md-grid-tile md-grid-tile-footer h4 {
+        font-size: 12px; }
+    md-grid-list md-grid-tile md-grid-tile-header {
+      top: 0; }
+    md-grid-list md-grid-tile md-grid-tile-footer {
+      bottom: 0; }
 
-@media screen and (-ms-high-contrast: active) ***REMOVED***
-  md-grid-tile ***REMOVED***
-    border: 1px solid #fff; ***REMOVED***
-  md-grid-tile-footer ***REMOVED***
-    border-top: 1px solid #fff; ***REMOVED*** ***REMOVED***
+@media screen and (-ms-high-contrast: active) {
+  md-grid-tile {
+    border: 1px solid #fff; }
+  md-grid-tile-footer {
+    border-top: 1px solid #fff; } }

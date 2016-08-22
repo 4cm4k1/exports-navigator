@@ -4,7 +4,7 @@
  * @license MIT
  * v1.1.0
  */
-(function( window, angular, undefined )***REMOVED***
+(function( window, angular, undefined ){
 "use strict";
 
 /**
@@ -129,15 +129,15 @@ angular.module('material.components.card', [
  * </md-card>
  * </hljs>
  */
-function mdCardDirective($mdTheming) ***REMOVED***
-  return ***REMOVED***
+function mdCardDirective($mdTheming) {
+  return {
     restrict: 'E',
-    link: function ($scope, $element, attr) ***REMOVED***
+    link: function ($scope, $element, attr) {
       $element.addClass('_md');     // private md component indicator for styling
       $mdTheming($element);
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***
+    }
+  };
+}
 mdCardDirective.$inject = ["$mdTheming"];
 
-***REMOVED***)(window, window.angular);
+})(window, window.angular);

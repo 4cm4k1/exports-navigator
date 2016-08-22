@@ -4,7 +4,7 @@
  * @license MIT
  * v1.1.0
  */
-md-tooltip.md-THEME_NAME-theme ***REMOVED***
-  color: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***'; ***REMOVED***
-  md-tooltip.md-THEME_NAME-theme .md-content ***REMOVED***
-    background-color: '***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'; ***REMOVED***
+md-tooltip.md-THEME_NAME-theme {
+  color: '{{background-A100}}'; }
+  md-tooltip.md-THEME_NAME-theme .md-content {
+    background-color: '{{foreground-2}}'; }

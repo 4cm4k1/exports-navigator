@@ -21,38 +21,38 @@ angular.module('material.components.showHide', [
   .directive('ngHide', createDirective('ngHide', false));
 
 
-function createDirective(name, targetValue) ***REMOVED***
-  return ['$mdUtil', '$window', function($mdUtil, $window) ***REMOVED***
-    return ***REMOVED***
+function createDirective(name, targetValue) {
+  return ['$mdUtil', '$window', function($mdUtil, $window) {
+    return {
       restrict: 'A',
       multiElement: true,
-      link: function($scope, $element, $attr) ***REMOVED***
-        var unregister = $scope.$on('$md-resize-enable', function() ***REMOVED***
+      link: function($scope, $element, $attr) {
+        var unregister = $scope.$on('$md-resize-enable', function() {
           unregister();
 
           var node = $element[0];
           var cachedTransitionStyles = node.nodeType === $window.Node.ELEMENT_NODE ?
-            $window.getComputedStyle(node) : ***REMOVED******REMOVED***;
+            $window.getComputedStyle(node) : {};
 
-          $scope.$watch($attr[name], function(value) ***REMOVED***
-            if (!!value === targetValue) ***REMOVED***
-              $mdUtil.nextTick(function() ***REMOVED***
+          $scope.$watch($attr[name], function(value) {
+            if (!!value === targetValue) {
+              $mdUtil.nextTick(function() {
                 $scope.$broadcast('$md-resize');
-              ***REMOVED***);
+              });
 
-              var opts = ***REMOVED***
+              var opts = {
                 cachedTransitionStyles: cachedTransitionStyles
-              ***REMOVED***;
+              };
 
-              $mdUtil.dom.animator.waitTransitionEnd($element, opts).then(function() ***REMOVED***
+              $mdUtil.dom.animator.waitTransitionEnd($element, opts).then(function() {
                 $scope.$broadcast('$md-resize');
-              ***REMOVED***);
-            ***REMOVED***
-          ***REMOVED***);
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***];
-***REMOVED***
+              });
+            }
+          });
+        });
+      }
+    };
+  }];
+}
 
 ngmaterial.components.showHide = angular.module("material.components.showHide");

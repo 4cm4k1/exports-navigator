@@ -34,16 +34,16 @@ angular
  *  </md-content>
  * </hljs>
  */
-function MdAnchorDirective($mdTheming) ***REMOVED***
-  return ***REMOVED***
+function MdAnchorDirective($mdTheming) {
+  return {
     restrict : 'E',
-    link : function postLink(scope, element) ***REMOVED***
+    link : function postLink(scope, element) {
       // Make sure to inherit theme so stand-alone anchors
       // support theme colors for md-primary, md-accent, etc.
       $mdTheming(element);
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***
+    }
+  };
+}
 MdAnchorDirective.$inject = ["$mdTheming"];
 
 
@@ -85,10 +85,10 @@ MdAnchorDirective.$inject = ["$mdTheming"];
  *   <md-button class="md-no-focus">No Focus Style</md-button>
  * </hljs>
  *
- * @param ***REMOVED***boolean=***REMOVED*** md-no-ink If present, disable ripple ink effects.
- * @param ***REMOVED***expression=***REMOVED*** ng-disabled En/Disable based on the expression
- * @param ***REMOVED***string=***REMOVED*** md-ripple-size Overrides the default ripple size logic. Options: `full`, `partial`, `auto`
- * @param ***REMOVED***string=***REMOVED*** aria-label Adds alternative text to button for accessibility, useful for icon buttons.
+ * @param {boolean=} md-no-ink If present, disable ripple ink effects.
+ * @param {expression=} ng-disabled En/Disable based on the expression
+ * @param {string=} md-ripple-size Overrides the default ripple size logic. Options: `full`, `partial`, `auto`
+ * @param {string=} aria-label Adds alternative text to button for accessibility, useful for icon buttons.
  * If no default text is found, a warning will be logged.
  *
  * @usage
@@ -122,31 +122,31 @@ MdAnchorDirective.$inject = ["$mdTheming"];
  *  </md-button>
  * </hljs>
  */
-function MdButtonDirective($mdButtonInkRipple, $mdTheming, $mdAria, $timeout) ***REMOVED***
+function MdButtonDirective($mdButtonInkRipple, $mdTheming, $mdAria, $timeout) {
 
-  return ***REMOVED***
+  return {
     restrict: 'EA',
     replace: true,
     transclude: true,
     template: getTemplate,
     link: postLink
-  ***REMOVED***;
+  };
 
-  function isAnchor(attr) ***REMOVED***
+  function isAnchor(attr) {
     return angular.isDefined(attr.href) || angular.isDefined(attr.ngHref) || angular.isDefined(attr.ngLink) || angular.isDefined(attr.uiSref);
-  ***REMOVED***
+  }
 
-  function getTemplate(element, attr) ***REMOVED***
-    if (isAnchor(attr)) ***REMOVED***
+  function getTemplate(element, attr) {
+    if (isAnchor(attr)) {
       return '<a class="md-button" ng-transclude></a>';
-    ***REMOVED*** else ***REMOVED***
+    } else {
       //If buttons don't have type="button", they will submit forms automatically.
       var btnType = (typeof attr.type === 'undefined') ? 'button' : attr.type;
       return '<button class="md-button" type="' + btnType + '" ng-transclude></button>';
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
-  function postLink(scope, element, attr) ***REMOVED***
+  function postLink(scope, element, attr) {
     $mdTheming(element);
     $mdButtonInkRipple.attach(scope, element);
 
@@ -155,42 +155,42 @@ function MdButtonDirective($mdButtonInkRipple, $mdTheming, $mdAria, $timeout) **
 
     // For anchor elements, we have to set tabindex manually when the
     // element is disabled
-    if (isAnchor(attr) && angular.isDefined(attr.ngDisabled) ) ***REMOVED***
-      scope.$watch(attr.ngDisabled, function(isDisabled) ***REMOVED***
+    if (isAnchor(attr) && angular.isDefined(attr.ngDisabled) ) {
+      scope.$watch(attr.ngDisabled, function(isDisabled) {
         element.attr('tabindex', isDisabled ? -1 : 0);
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
 
     // disabling click event when disabled is true
-    element.on('click', function(e)***REMOVED***
-      if (attr.disabled === true) ***REMOVED***
+    element.on('click', function(e){
+      if (attr.disabled === true) {
         e.preventDefault();
         e.stopImmediatePropagation();
-      ***REMOVED***
-    ***REMOVED***);
+      }
+    });
 
-    if (!element.hasClass('md-no-focus')) ***REMOVED***
+    if (!element.hasClass('md-no-focus')) {
       // restrict focus styles to the keyboard
       scope.mouseActive = false;
-      element.on('mousedown', function() ***REMOVED***
+      element.on('mousedown', function() {
         scope.mouseActive = true;
-        $timeout(function()***REMOVED***
+        $timeout(function(){
           scope.mouseActive = false;
-        ***REMOVED***, 100);
-      ***REMOVED***)
-      .on('focus', function() ***REMOVED***
-        if (scope.mouseActive === false) ***REMOVED***
+        }, 100);
+      })
+      .on('focus', function() {
+        if (scope.mouseActive === false) {
           element.addClass('md-focused');
-        ***REMOVED***
-      ***REMOVED***)
-      .on('blur', function(ev) ***REMOVED***
+        }
+      })
+      .on('blur', function(ev) {
         element.removeClass('md-focused');
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
 
-  ***REMOVED***
+  }
 
-***REMOVED***
+}
 MdButtonDirective.$inject = ["$mdButtonInkRipple", "$mdTheming", "$mdAria", "$timeout"];
 
 ngmaterial.components.button = angular.module("material.components.button");

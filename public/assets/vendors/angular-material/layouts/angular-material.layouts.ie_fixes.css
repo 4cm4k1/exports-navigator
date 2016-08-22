@@ -4,101 +4,101 @@
 /*  Also use 0% instead of 0px since minifiers will often convert 0px to 0 (which is unitless and will have the same problem).  */
 /*  Safari, however, fails with flex-basis : 0% and requires flex-basis : 0px  */
 
-@media screen\0 ***REMOVED***
-    .flex ***REMOVED***
+@media screen\0 {
+    .flex {
         -webkit-flex: 1 1 0%;
         -ms-flex: 1 1 0%;
         flex: 1 1 0%;
-    ***REMOVED***
-***REMOVED***
+    }
+}
 
-@media screen\0 ***REMOVED***
-    .flex ***REMOVED***
+@media screen\0 {
+    .flex {
         -webkit-flex: 1 1 0%;
         -ms-flex: 1 1 0%;
         flex: 1 1 0%;
-    ***REMOVED***
-***REMOVED***
-
-@media screen\0
-and (max-width: 599px) ***REMOVED***
-    .flex-xs ***REMOVED***
-        -webkit-flex: 1 1 0%;
-        -ms-flex: 1 1 0%;
-        flex: 1 1 0%;
-    ***REMOVED***
-***REMOVED***
+    }
+}
 
 @media screen\0
-and (min-width: 600px) ***REMOVED***
-    .flex-gt-xs ***REMOVED***
+and (max-width: 599px) {
+    .flex-xs {
         -webkit-flex: 1 1 0%;
         -ms-flex: 1 1 0%;
         flex: 1 1 0%;
-    ***REMOVED***
-***REMOVED***
+    }
+}
 
 @media screen\0
-and (min-width: 600px) and (max-width: 959px) ***REMOVED***
-    .flex-sm ***REMOVED***
+and (min-width: 600px) {
+    .flex-gt-xs {
         -webkit-flex: 1 1 0%;
         -ms-flex: 1 1 0%;
         flex: 1 1 0%;
-    ***REMOVED***
-***REMOVED***
+    }
+}
 
 @media screen\0
-and (min-width: 960px) ***REMOVED***
-    .flex-gt-sm ***REMOVED***
+and (min-width: 600px) and (max-width: 959px) {
+    .flex-sm {
         -webkit-flex: 1 1 0%;
         -ms-flex: 1 1 0%;
         flex: 1 1 0%;
-    ***REMOVED***
-***REMOVED***
+    }
+}
 
 @media screen\0
-and (min-width: 960px) and (max-width: 1279px) ***REMOVED***
-    .flex-md ***REMOVED***
+and (min-width: 960px) {
+    .flex-gt-sm {
         -webkit-flex: 1 1 0%;
         -ms-flex: 1 1 0%;
         flex: 1 1 0%;
-    ***REMOVED***
-***REMOVED***
+    }
+}
 
 @media screen\0
-and (min-width: 1280px) ***REMOVED***
-    .flex-gt-md ***REMOVED***
+and (min-width: 960px) and (max-width: 1279px) {
+    .flex-md {
         -webkit-flex: 1 1 0%;
         -ms-flex: 1 1 0%;
         flex: 1 1 0%;
-    ***REMOVED***
-***REMOVED***
+    }
+}
 
 @media screen\0
-and (min-width: 1280px) and (max-width: 1919px) ***REMOVED***
-    .flex-lg ***REMOVED***
+and (min-width: 1280px) {
+    .flex-gt-md {
         -webkit-flex: 1 1 0%;
         -ms-flex: 1 1 0%;
         flex: 1 1 0%;
-    ***REMOVED***
-***REMOVED***
+    }
+}
 
 @media screen\0
-and (min-width: 1920px) ***REMOVED***
-    .flex-gt-lg ***REMOVED***
+and (min-width: 1280px) and (max-width: 1919px) {
+    .flex-lg {
         -webkit-flex: 1 1 0%;
         -ms-flex: 1 1 0%;
         flex: 1 1 0%;
-    ***REMOVED***
-***REMOVED***
+    }
+}
 
 @media screen\0
-and (min-width: 1920px) ***REMOVED***
-    .flex-xl ***REMOVED***
+and (min-width: 1920px) {
+    .flex-gt-lg {
         -webkit-flex: 1 1 0%;
         -ms-flex: 1 1 0%;
         flex: 1 1 0%;
-    ***REMOVED***
-***REMOVED***
+    }
+}
+
+@media screen\0
+and (min-width: 1920px) {
+    .flex-xl {
+        -webkit-flex: 1 1 0%;
+        -ms-flex: 1 1 0%;
+        flex: 1 1 0%;
+    }
+}
 
 

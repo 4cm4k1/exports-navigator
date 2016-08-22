@@ -1,13 +1,13 @@
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   angular.module('exportsNavigator').controller('AdminCountriesController', AdminCountriesController);
 
   AdminCountriesController.$inject = ['currentAuth'];
 
-  function AdminCountriesController(currentAuth) ***REMOVED***
+  function AdminCountriesController(currentAuth) {
     var vm = this;
 
     
-  ***REMOVED***
-***REMOVED***)();
+  }
+})();

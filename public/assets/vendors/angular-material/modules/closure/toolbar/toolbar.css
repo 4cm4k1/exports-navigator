@@ -4,7 +4,7 @@
  * @license MIT
  * v1.1.0
  */
-md-toolbar ***REMOVED***
+md-toolbar {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -17,49 +17,49 @@ md-toolbar ***REMOVED***
   z-index: 2;
   font-size: 20px;
   min-height: 64px;
-  width: 100%; ***REMOVED***
-  md-toolbar._md-toolbar-transitions ***REMOVED***
+  width: 100%; }
+  md-toolbar._md-toolbar-transitions {
     -webkit-transition-duration: 0.5s;
             transition-duration: 0.5s;
     -webkit-transition-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
             transition-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
     -webkit-transition-property: background-color, fill, color;
-    transition-property: background-color, fill, color; ***REMOVED***
-  md-toolbar.md-whiteframe-z1-add, md-toolbar.md-whiteframe-z1-remove ***REMOVED***
+    transition-property: background-color, fill, color; }
+  md-toolbar.md-whiteframe-z1-add, md-toolbar.md-whiteframe-z1-remove {
     -webkit-transition: box-shadow 0.5s linear;
-    transition: box-shadow 0.5s linear; ***REMOVED***
-  md-toolbar md-toolbar-filler ***REMOVED***
-    width: 72px; ***REMOVED***
+    transition: box-shadow 0.5s linear; }
+  md-toolbar md-toolbar-filler {
+    width: 72px; }
   md-toolbar *,
   md-toolbar *:before,
-  md-toolbar *:after ***REMOVED***
-    box-sizing: border-box; ***REMOVED***
-  md-toolbar.ng-animate ***REMOVED***
+  md-toolbar *:after {
+    box-sizing: border-box; }
+  md-toolbar.ng-animate {
     -webkit-transition: none;
-    transition: none; ***REMOVED***
-  md-toolbar.md-tall ***REMOVED***
+    transition: none; }
+  md-toolbar.md-tall {
     height: 128px;
     min-height: 128px;
-    max-height: 128px; ***REMOVED***
-  md-toolbar.md-medium-tall ***REMOVED***
+    max-height: 128px; }
+  md-toolbar.md-medium-tall {
     height: 88px;
     min-height: 88px;
-    max-height: 88px; ***REMOVED***
-    md-toolbar.md-medium-tall .md-toolbar-tools ***REMOVED***
+    max-height: 88px; }
+    md-toolbar.md-medium-tall .md-toolbar-tools {
       height: 48px;
       min-height: 48px;
-      max-height: 48px; ***REMOVED***
-  md-toolbar > .md-indent ***REMOVED***
-    margin-left: 64px; ***REMOVED***
-    [dir=rtl] md-toolbar > .md-indent ***REMOVED***
+      max-height: 48px; }
+  md-toolbar > .md-indent {
+    margin-left: 64px; }
+    [dir=rtl] md-toolbar > .md-indent {
       margin-left: auto;
-      margin-right: 64px; ***REMOVED***
-  md-toolbar ~ md-content > md-list ***REMOVED***
-    padding: 0; ***REMOVED***
-    md-toolbar ~ md-content > md-list md-list-item:last-child md-divider ***REMOVED***
-      display: none; ***REMOVED***
+      margin-right: 64px; }
+  md-toolbar ~ md-content > md-list {
+    padding: 0; }
+    md-toolbar ~ md-content > md-list md-list-item:last-child md-divider {
+      display: none; }
 
-.md-toolbar-tools ***REMOVED***
+.md-toolbar-tools {
   font-size: 20px;
   letter-spacing: 0.005em;
   box-sizing: border-box;
@@ -78,68 +78,68 @@ md-toolbar ***REMOVED***
   height: 64px;
   max-height: 64px;
   padding: 0 16px;
-  margin: 0; ***REMOVED***
-  .md-toolbar-tools h1, .md-toolbar-tools h2, .md-toolbar-tools h3 ***REMOVED***
+  margin: 0; }
+  .md-toolbar-tools h1, .md-toolbar-tools h2, .md-toolbar-tools h3 {
     font-size: inherit;
     font-weight: inherit;
-    margin: inherit; ***REMOVED***
-  .md-toolbar-tools a ***REMOVED***
+    margin: inherit; }
+  .md-toolbar-tools a {
     color: inherit;
-    text-decoration: none; ***REMOVED***
-  .md-toolbar-tools .fill-height ***REMOVED***
+    text-decoration: none; }
+  .md-toolbar-tools .fill-height {
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
     -webkit-box-align: center;
     -webkit-align-items: center;
-            align-items: center; ***REMOVED***
-  .md-toolbar-tools .md-button ***REMOVED***
+            align-items: center; }
+  .md-toolbar-tools .md-button {
     margin-top: 0;
-    margin-bottom: 0; ***REMOVED***
-    .md-toolbar-tools .md-button, .md-toolbar-tools .md-button.md-icon-button md-icon ***REMOVED***
+    margin-bottom: 0; }
+    .md-toolbar-tools .md-button, .md-toolbar-tools .md-button.md-icon-button md-icon {
       -webkit-transition-duration: 0.5s;
               transition-duration: 0.5s;
       -webkit-transition-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
               transition-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
       -webkit-transition-property: background-color, fill, color;
-      transition-property: background-color, fill, color; ***REMOVED***
-      .md-toolbar-tools .md-button.ng-animate, .md-toolbar-tools .md-button.md-icon-button md-icon.ng-animate ***REMOVED***
+      transition-property: background-color, fill, color; }
+      .md-toolbar-tools .md-button.ng-animate, .md-toolbar-tools .md-button.md-icon-button md-icon.ng-animate {
         -webkit-transition: none;
-        transition: none; ***REMOVED***
-  .md-toolbar-tools > .md-button:first-child ***REMOVED***
-    margin-left: -8px; ***REMOVED***
-    [dir=rtl] .md-toolbar-tools > .md-button:first-child ***REMOVED***
+        transition: none; }
+  .md-toolbar-tools > .md-button:first-child {
+    margin-left: -8px; }
+    [dir=rtl] .md-toolbar-tools > .md-button:first-child {
       margin-left: auto;
-      margin-right: -8px; ***REMOVED***
-  .md-toolbar-tools > .md-button:last-child ***REMOVED***
-    margin-right: -8px; ***REMOVED***
-    [dir=rtl] .md-toolbar-tools > .md-button:last-child ***REMOVED***
+      margin-right: -8px; }
+  .md-toolbar-tools > .md-button:last-child {
+    margin-right: -8px; }
+    [dir=rtl] .md-toolbar-tools > .md-button:last-child {
       margin-right: auto;
-      margin-left: -8px; ***REMOVED***
-  .md-toolbar-tools > md-menu:last-child ***REMOVED***
-    margin-right: -8px; ***REMOVED***
-    [dir=rtl] .md-toolbar-tools > md-menu:last-child ***REMOVED***
+      margin-left: -8px; }
+  .md-toolbar-tools > md-menu:last-child {
+    margin-right: -8px; }
+    [dir=rtl] .md-toolbar-tools > md-menu:last-child {
       margin-right: auto;
-      margin-left: -8px; ***REMOVED***
-    .md-toolbar-tools > md-menu:last-child > .md-button ***REMOVED***
-      margin-right: 0; ***REMOVED***
-      [dir=rtl] .md-toolbar-tools > md-menu:last-child > .md-button ***REMOVED***
+      margin-left: -8px; }
+    .md-toolbar-tools > md-menu:last-child > .md-button {
+      margin-right: 0; }
+      [dir=rtl] .md-toolbar-tools > md-menu:last-child > .md-button {
         margin-right: auto;
-        margin-left: 0; ***REMOVED***
-  @media screen and (-ms-high-contrast: active) ***REMOVED***
-    .md-toolbar-tools ***REMOVED***
-      border-bottom: 1px solid #fff; ***REMOVED*** ***REMOVED***
+        margin-left: 0; }
+  @media screen and (-ms-high-contrast: active) {
+    .md-toolbar-tools {
+      border-bottom: 1px solid #fff; } }
 
-@media (min-width: 0) and (max-width: 959px) and (orientation: portrait) ***REMOVED***
-  md-toolbar ***REMOVED***
-    min-height: 56px; ***REMOVED***
-  .md-toolbar-tools ***REMOVED***
+@media (min-width: 0) and (max-width: 959px) and (orientation: portrait) {
+  md-toolbar {
+    min-height: 56px; }
+  .md-toolbar-tools {
     height: 56px;
-    max-height: 56px; ***REMOVED*** ***REMOVED***
+    max-height: 56px; } }
 
-@media (min-width: 0) and (max-width: 959px) and (orientation: landscape) ***REMOVED***
-  md-toolbar ***REMOVED***
-    min-height: 48px; ***REMOVED***
-  .md-toolbar-tools ***REMOVED***
+@media (min-width: 0) and (max-width: 959px) and (orientation: landscape) {
+  md-toolbar {
+    min-height: 48px; }
+  .md-toolbar-tools {
     height: 48px;
-    max-height: 48px; ***REMOVED*** ***REMOVED***
+    max-height: 48px; } }

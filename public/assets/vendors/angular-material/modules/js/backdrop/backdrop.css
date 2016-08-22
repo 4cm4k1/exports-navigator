@@ -4,7 +4,7 @@
  * @license MIT
  * v1.1.0
  */
-md-backdrop ***REMOVED***
+md-backdrop {
   -webkit-transition: opacity 450ms;
   transition: opacity 450ms;
   position: absolute;
@@ -12,31 +12,31 @@ md-backdrop ***REMOVED***
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 50; ***REMOVED***
-  md-backdrop.md-menu-backdrop ***REMOVED***
+  z-index: 50; }
+  md-backdrop.md-menu-backdrop {
     position: fixed !important;
-    z-index: 99; ***REMOVED***
-  md-backdrop.md-select-backdrop ***REMOVED***
+    z-index: 99; }
+  md-backdrop.md-select-backdrop {
     z-index: 81;
     -webkit-transition-duration: 0;
-            transition-duration: 0; ***REMOVED***
-  md-backdrop.md-dialog-backdrop ***REMOVED***
-    z-index: 79; ***REMOVED***
-  md-backdrop.md-bottom-sheet-backdrop ***REMOVED***
-    z-index: 69; ***REMOVED***
-  md-backdrop.md-sidenav-backdrop ***REMOVED***
-    z-index: 59; ***REMOVED***
-  md-backdrop.md-click-catcher ***REMOVED***
-    position: absolute; ***REMOVED***
-  md-backdrop.md-opaque ***REMOVED***
-    opacity: .48; ***REMOVED***
-    md-backdrop.md-opaque.ng-enter ***REMOVED***
-      opacity: 0; ***REMOVED***
-    md-backdrop.md-opaque.ng-enter.md-opaque.ng-enter-active ***REMOVED***
-      opacity: .48; ***REMOVED***
-    md-backdrop.md-opaque.ng-leave ***REMOVED***
+            transition-duration: 0; }
+  md-backdrop.md-dialog-backdrop {
+    z-index: 79; }
+  md-backdrop.md-bottom-sheet-backdrop {
+    z-index: 69; }
+  md-backdrop.md-sidenav-backdrop {
+    z-index: 59; }
+  md-backdrop.md-click-catcher {
+    position: absolute; }
+  md-backdrop.md-opaque {
+    opacity: .48; }
+    md-backdrop.md-opaque.ng-enter {
+      opacity: 0; }
+    md-backdrop.md-opaque.ng-enter.md-opaque.ng-enter-active {
+      opacity: .48; }
+    md-backdrop.md-opaque.ng-leave {
       opacity: .48;
       -webkit-transition: opacity 400ms;
-      transition: opacity 400ms; ***REMOVED***
-    md-backdrop.md-opaque.ng-leave.md-opaque.ng-leave-active ***REMOVED***
-      opacity: 0; ***REMOVED***
+      transition: opacity 400ms; }
+    md-backdrop.md-opaque.ng-leave.md-opaque.ng-leave-active {
+      opacity: 0; }

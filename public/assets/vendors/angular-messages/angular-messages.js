@@ -3,7 +3,7 @@
  * (c) 2010-2016 Google, Inc. http://angularjs.org
  * License: MIT
  */
-(function(window, angular) ***REMOVED***'use strict';
+(function(window, angular) {'use strict';
 
 var forEach;
 var isArray;
@@ -29,14 +29,14 @@ var jqLite;
  * The `ngMessages` directive allows keys in a key/value collection to be associated with a child element
  * (or 'message') that will show or hide based on the truthiness of that key's value in the collection. A common use
  * case for `ngMessages` is to display error messages for inputs using the `$error` object exposed by the
- * ***REMOVED***@link ngModel ngModel***REMOVED*** directive.
+ * {@link ngModel ngModel} directive.
  *
  * The child elements of the `ngMessages` directive are matched to the collection keys by a `ngMessage` or
  * `ngMessageExp` directive. The value of these attributes must match a key in the collection that is provided by
  * the `ngMessages` directive.
  *
  * Consider the following example, which illustrates a typical use case of `ngMessages`. Within the form `myForm` we
- * have a text input named `myField` which is bound to the scope variable `field` using the ***REMOVED***@link ngModel ngModel***REMOVED***
+ * have a text input named `myField` which is bound to the scope variable `field` using the {@link ngModel ngModel}
  * directive.
  *
  * The `myField` field is a required input of type `email` with a maximum length of 15 characters.
@@ -76,7 +76,7 @@ var jqLite;
  *
  * ```javascript
  * <!-- keep in mind that ngModel automatically sets these error flags -->
- * myField.$error = ***REMOVED*** required : true, email: true, maxlength: false ***REMOVED***;
+ * myField.$error = { required : true, email: true, maxlength: false };
  * ```
  * The `required` message will be displayed to the user since it appears before the `email` message in the DOM.
  * Once the user types a single character, the `required` message will disappear (since the field now has a value)
@@ -171,7 +171,7 @@ var jqLite;
  *     <div ng-message="required">You did not enter your email address</div>
  *     <div ng-repeat="errorMessage in errorMessages">
  *       <!-- use ng-message-exp for a message whose key is given by an expression -->
- *       <div ng-message-exp="errorMessage.type">***REMOVED******REMOVED*** errorMessage.text ***REMOVED******REMOVED***</div>
+ *       <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
  *     </div>
  *   </div>
  * </form>
@@ -234,15 +234,15 @@ var jqLite;
  * Then the CSS animation code for the message container looks like so:
  *
  * ```css
- * .my-messages ***REMOVED***
+ * .my-messages {
  *   transition:1s linear all;
- * ***REMOVED***
- * .my-messages.ng-active ***REMOVED***
+ * }
+ * .my-messages.ng-active {
  *   // messages are visible
- * ***REMOVED***
- * .my-messages.ng-inactive ***REMOVED***
+ * }
+ * .my-messages.ng-inactive {
  *   // messages are hidden
- * ***REMOVED***
+ * }
  * ```
  *
  * Whenever an inner message is attached (becomes visible) or removed (becomes hidden) then the enter
@@ -251,27 +251,27 @@ var jqLite;
  * Therefore, the CSS code for the inner messages looks like so:
  *
  * ```css
- * .some-message ***REMOVED***
+ * .some-message {
  *   transition:1s linear all;
- * ***REMOVED***
+ * }
  *
- * .some-message.ng-enter ***REMOVED******REMOVED***
- * .some-message.ng-enter.ng-enter-active ***REMOVED******REMOVED***
+ * .some-message.ng-enter {}
+ * .some-message.ng-enter.ng-enter-active {}
  *
- * .some-message.ng-leave ***REMOVED******REMOVED***
- * .some-message.ng-leave.ng-leave-active ***REMOVED******REMOVED***
+ * .some-message.ng-leave {}
+ * .some-message.ng-leave.ng-leave-active {}
  * ```
  *
- * ***REMOVED***@link ngAnimate Click here***REMOVED*** to learn how to use JavaScript animations or to learn more about ngAnimate.
+ * {@link ngAnimate Click here} to learn how to use JavaScript animations or to learn more about ngAnimate.
  */
-angular.module('ngMessages', [], function initAngularHelpers() ***REMOVED***
+angular.module('ngMessages', [], function initAngularHelpers() {
   // Access helpers from angular core.
   // Do it inside a `config` block to ensure `window.angular` is available.
   forEach = angular.forEach;
   isArray = angular.isArray;
   isString = angular.isString;
   jqLite = angular.element;
-***REMOVED***)
+})
 
   /**
    * @ngdoc directive
@@ -293,7 +293,7 @@ angular.module('ngMessages', [], function initAngularHelpers() ***REMOVED***
    * A remote template can also be used to promote message reusability and messages can also be
    * overridden.
    *
-   * ***REMOVED***@link module:ngMessages Click here***REMOVED*** to learn more about `ngMessages` and `ngMessage`.
+   * {@link module:ngMessages Click here} to learn more about `ngMessages` and `ngMessage`.
    *
    * @usage
    * ```html
@@ -312,9 +312,9 @@ angular.module('ngMessages', [], function initAngularHelpers() ***REMOVED***
    * </ng-messages>
    * ```
    *
-   * @param ***REMOVED***string***REMOVED*** ngMessages an angular expression evaluating to a key/value object
+   * @param {string} ngMessages an angular expression evaluating to a key/value object
    *                 (this is typically the $error object on an ngModel instance).
-   * @param ***REMOVED***string=***REMOVED*** ngMessagesMultiple|multiple when set, all messages will be displayed with true
+   * @param {string=} ngMessagesMultiple|multiple when set, all messages will be displayed with true
    *
    * @example
    * <example name="ngMessages-directive" module="ngMessagesExample"
@@ -331,7 +331,7 @@ angular.module('ngMessages', [], function initAngularHelpers() ***REMOVED***
    *                ng-maxlength="20"
    *                required />
    *       </label>
-   *       <pre>myForm.myName.$error = ***REMOVED******REMOVED*** myForm.myName.$error | json ***REMOVED******REMOVED***</pre>
+   *       <pre>myForm.myName.$error = {{ myForm.myName.$error | json }}</pre>
    *
    *       <div ng-messages="myForm.myName.$error" style="color:maroon" role="alert">
    *         <div ng-message="required">You did not enter a field</div>
@@ -345,25 +345,25 @@ angular.module('ngMessages', [], function initAngularHelpers() ***REMOVED***
    *   </file>
    * </example>
    */
-  .directive('ngMessages', ['$animate', function($animate) ***REMOVED***
+  .directive('ngMessages', ['$animate', function($animate) {
     var ACTIVE_CLASS = 'ng-active';
     var INACTIVE_CLASS = 'ng-inactive';
 
-    return ***REMOVED***
+    return {
       require: 'ngMessages',
       restrict: 'AE',
-      controller: ['$element', '$scope', '$attrs', function($element, $scope, $attrs) ***REMOVED***
+      controller: ['$element', '$scope', '$attrs', function($element, $scope, $attrs) {
         var ctrl = this;
         var latestKey = 0;
         var nextAttachId = 0;
 
-        this.getAttachId = function getAttachId() ***REMOVED*** return nextAttachId++; ***REMOVED***;
+        this.getAttachId = function getAttachId() { return nextAttachId++; };
 
-        var messages = this.messages = ***REMOVED******REMOVED***;
+        var messages = this.messages = {};
         var renderLater, cachedCollection;
 
-        this.render = function(collection) ***REMOVED***
-          collection = collection || ***REMOVED******REMOVED***;
+        this.render = function(collection) {
+          collection = collection || {};
 
           renderLater = false;
           cachedCollection = collection;
@@ -373,152 +373,152 @@ angular.module('ngMessages', [], function initAngularHelpers() ***REMOVED***
                          isAttrTruthy($scope, $attrs.multiple);
 
           var unmatchedMessages = [];
-          var matchedKeys = ***REMOVED******REMOVED***;
+          var matchedKeys = {};
           var messageItem = ctrl.head;
           var messageFound = false;
           var totalMessages = 0;
 
           // we use != instead of !== to allow for both undefined and null values
-          while (messageItem != null) ***REMOVED***
+          while (messageItem != null) {
             totalMessages++;
             var messageCtrl = messageItem.message;
 
             var messageUsed = false;
-            if (!messageFound) ***REMOVED***
-              forEach(collection, function(value, key) ***REMOVED***
-                if (!messageUsed && truthy(value) && messageCtrl.test(key)) ***REMOVED***
+            if (!messageFound) {
+              forEach(collection, function(value, key) {
+                if (!messageUsed && truthy(value) && messageCtrl.test(key)) {
                   // this is to prevent the same error name from showing up twice
                   if (matchedKeys[key]) return;
                   matchedKeys[key] = true;
 
                   messageUsed = true;
                   messageCtrl.attach();
-                ***REMOVED***
-              ***REMOVED***);
-            ***REMOVED***
+                }
+              });
+            }
 
-            if (messageUsed) ***REMOVED***
+            if (messageUsed) {
               // unless we want to display multiple messages then we should
               // set a flag here to avoid displaying the next message in the list
               messageFound = !multiple;
-            ***REMOVED*** else ***REMOVED***
+            } else {
               unmatchedMessages.push(messageCtrl);
-            ***REMOVED***
+            }
 
             messageItem = messageItem.next;
-          ***REMOVED***
+          }
 
-          forEach(unmatchedMessages, function(messageCtrl) ***REMOVED***
+          forEach(unmatchedMessages, function(messageCtrl) {
             messageCtrl.detach();
-          ***REMOVED***);
+          });
 
           unmatchedMessages.length !== totalMessages
               ? $animate.setClass($element, ACTIVE_CLASS, INACTIVE_CLASS)
               : $animate.setClass($element, INACTIVE_CLASS, ACTIVE_CLASS);
-        ***REMOVED***;
+        };
 
         $scope.$watchCollection($attrs.ngMessages || $attrs['for'], ctrl.render);
 
         // If the element is destroyed, proactively destroy all the currently visible messages
-        $element.on('$destroy', function() ***REMOVED***
-          forEach(messages, function(item) ***REMOVED***
+        $element.on('$destroy', function() {
+          forEach(messages, function(item) {
             item.message.detach();
-          ***REMOVED***);
-        ***REMOVED***);
+          });
+        });
 
-        this.reRender = function() ***REMOVED***
-          if (!renderLater) ***REMOVED***
+        this.reRender = function() {
+          if (!renderLater) {
             renderLater = true;
-            $scope.$evalAsync(function() ***REMOVED***
-              if (renderLater) ***REMOVED***
+            $scope.$evalAsync(function() {
+              if (renderLater) {
                 cachedCollection && ctrl.render(cachedCollection);
-              ***REMOVED***
-            ***REMOVED***);
-          ***REMOVED***
-        ***REMOVED***;
+              }
+            });
+          }
+        };
 
-        this.register = function(comment, messageCtrl) ***REMOVED***
+        this.register = function(comment, messageCtrl) {
           var nextKey = latestKey.toString();
-          messages[nextKey] = ***REMOVED***
+          messages[nextKey] = {
             message: messageCtrl
-          ***REMOVED***;
+          };
           insertMessageNode($element[0], comment, nextKey);
           comment.$$ngMessageNode = nextKey;
           latestKey++;
 
           ctrl.reRender();
-        ***REMOVED***;
+        };
 
-        this.deregister = function(comment) ***REMOVED***
+        this.deregister = function(comment) {
           var key = comment.$$ngMessageNode;
           delete comment.$$ngMessageNode;
           removeMessageNode($element[0], comment, key);
           delete messages[key];
           ctrl.reRender();
-        ***REMOVED***;
+        };
 
-        function findPreviousMessage(parent, comment) ***REMOVED***
+        function findPreviousMessage(parent, comment) {
           var prevNode = comment;
           var parentLookup = [];
 
-          while (prevNode && prevNode !== parent) ***REMOVED***
+          while (prevNode && prevNode !== parent) {
             var prevKey = prevNode.$$ngMessageNode;
-            if (prevKey && prevKey.length) ***REMOVED***
+            if (prevKey && prevKey.length) {
               return messages[prevKey];
-            ***REMOVED***
+            }
 
             // dive deeper into the DOM and examine its children for any ngMessage
             // comments that may be in an element that appears deeper in the list
-            if (prevNode.childNodes.length && parentLookup.indexOf(prevNode) === -1) ***REMOVED***
+            if (prevNode.childNodes.length && parentLookup.indexOf(prevNode) === -1) {
               parentLookup.push(prevNode);
               prevNode = prevNode.childNodes[prevNode.childNodes.length - 1];
-            ***REMOVED*** else if (prevNode.previousSibling) ***REMOVED***
+            } else if (prevNode.previousSibling) {
               prevNode = prevNode.previousSibling;
-            ***REMOVED*** else ***REMOVED***
+            } else {
               prevNode = prevNode.parentNode;
               parentLookup.push(prevNode);
-            ***REMOVED***
-          ***REMOVED***
-        ***REMOVED***
+            }
+          }
+        }
 
-        function insertMessageNode(parent, comment, key) ***REMOVED***
+        function insertMessageNode(parent, comment, key) {
           var messageNode = messages[key];
-          if (!ctrl.head) ***REMOVED***
+          if (!ctrl.head) {
             ctrl.head = messageNode;
-          ***REMOVED*** else ***REMOVED***
+          } else {
             var match = findPreviousMessage(parent, comment);
-            if (match) ***REMOVED***
+            if (match) {
               messageNode.next = match.next;
               match.next = messageNode;
-            ***REMOVED*** else ***REMOVED***
+            } else {
               messageNode.next = ctrl.head;
               ctrl.head = messageNode;
-            ***REMOVED***
-          ***REMOVED***
-        ***REMOVED***
+            }
+          }
+        }
 
-        function removeMessageNode(parent, comment, key) ***REMOVED***
+        function removeMessageNode(parent, comment, key) {
           var messageNode = messages[key];
 
           var match = findPreviousMessage(parent, comment);
-          if (match) ***REMOVED***
+          if (match) {
             match.next = messageNode.next;
-          ***REMOVED*** else ***REMOVED***
+          } else {
             ctrl.head = messageNode.next;
-          ***REMOVED***
-        ***REMOVED***
-      ***REMOVED***]
-    ***REMOVED***;
+          }
+        }
+      }]
+    };
 
-    function isAttrTruthy(scope, attr) ***REMOVED***
+    function isAttrTruthy(scope, attr) {
      return (isString(attr) && attr.length === 0) || //empty attribute
             truthy(scope.$eval(attr));
-    ***REMOVED***
+    }
 
-    function truthy(val) ***REMOVED***
+    function truthy(val) {
       return isString(val) ? val.length : !!val;
-    ***REMOVED***
-  ***REMOVED***])
+    }
+  }])
 
   /**
    * @ngdoc directive
@@ -546,37 +546,37 @@ angular.module('ngMessages', [], function initAngularHelpers() ***REMOVED***
    * </ng-messages>
    * ```
    *
-   * ***REMOVED***@link module:ngMessages Click here***REMOVED*** to learn more about `ngMessages` and `ngMessage`.
+   * {@link module:ngMessages Click here} to learn more about `ngMessages` and `ngMessage`.
    *
-   * @param ***REMOVED***string***REMOVED*** ngMessagesInclude|src a string value corresponding to the remote template.
+   * @param {string} ngMessagesInclude|src a string value corresponding to the remote template.
    */
   .directive('ngMessagesInclude',
-    ['$templateRequest', '$document', '$compile', function($templateRequest, $document, $compile) ***REMOVED***
+    ['$templateRequest', '$document', '$compile', function($templateRequest, $document, $compile) {
 
-    return ***REMOVED***
+    return {
       restrict: 'AE',
       require: '^^ngMessages', // we only require this for validation sake
-      link: function($scope, element, attrs) ***REMOVED***
+      link: function($scope, element, attrs) {
         var src = attrs.ngMessagesInclude || attrs.src;
-        $templateRequest(src).then(function(html) ***REMOVED***
+        $templateRequest(src).then(function(html) {
           if ($scope.$$destroyed) return;
 
-          if (isString(html) && !html.trim()) ***REMOVED***
+          if (isString(html) && !html.trim()) {
             // Empty template - nothing to compile
             replaceElementWithMarker(element, src);
-          ***REMOVED*** else ***REMOVED***
+          } else {
             // Non-empty template - compile and link
-            $compile(html)($scope, function(contents) ***REMOVED***
+            $compile(html)($scope, function(contents) {
               element.after(contents);
               replaceElementWithMarker(element, src);
-            ***REMOVED***);
-          ***REMOVED***
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***;
+            });
+          }
+        });
+      }
+    };
 
     // Helpers
-    function replaceElementWithMarker(element, src) ***REMOVED***
+    function replaceElementWithMarker(element, src) {
       // A comment marker is placed for debugging purposes
       var comment = $compile.$$createComment ?
           $compile.$$createComment('ngMessagesInclude', src) :
@@ -586,8 +586,8 @@ angular.module('ngMessages', [], function initAngularHelpers() ***REMOVED***
 
       // Don't pollute the DOM anymore by keeping an empty directive element
       element.remove();
-    ***REMOVED***
-  ***REMOVED***])
+    }
+  }])
 
   /**
    * @ngdoc directive
@@ -602,7 +602,7 @@ angular.module('ngMessages', [], function initAngularHelpers() ***REMOVED***
    * of the provided key/value map that `ngMessages` listens on.
    *
    * More information about using `ngMessage` can be found in the
-   * ***REMOVED***@link module:ngMessages `ngMessages` module documentation***REMOVED***.
+   * {@link module:ngMessages `ngMessages` module documentation}.
    *
    * @usage
    * ```html
@@ -619,7 +619,7 @@ angular.module('ngMessages', [], function initAngularHelpers() ***REMOVED***
    * </ng-messages>
    * ```
    *
-   * @param ***REMOVED***expression***REMOVED*** ngMessage|when a string value corresponding to the message key.
+   * @param {expression} ngMessage|when a string value corresponding to the message key.
    */
   .directive('ngMessage', ngMessageDirectiveFactory())
 
@@ -650,50 +650,50 @@ angular.module('ngMessages', [], function initAngularHelpers() ***REMOVED***
    * </ng-messages>
    * ```
    *
-   * ***REMOVED***@link module:ngMessages Click here***REMOVED*** to learn more about `ngMessages` and `ngMessage`.
+   * {@link module:ngMessages Click here} to learn more about `ngMessages` and `ngMessage`.
    *
-   * @param ***REMOVED***expression***REMOVED*** ngMessageExp|whenExp an expression value corresponding to the message key.
+   * @param {expression} ngMessageExp|whenExp an expression value corresponding to the message key.
    */
   .directive('ngMessageExp', ngMessageDirectiveFactory());
 
-function ngMessageDirectiveFactory() ***REMOVED***
-  return ['$animate', function($animate) ***REMOVED***
-    return ***REMOVED***
+function ngMessageDirectiveFactory() {
+  return ['$animate', function($animate) {
+    return {
       restrict: 'AE',
       transclude: 'element',
       priority: 1, // must run before ngBind, otherwise the text is set on the comment
       terminal: true,
       require: '^^ngMessages',
-      link: function(scope, element, attrs, ngMessagesCtrl, $transclude) ***REMOVED***
+      link: function(scope, element, attrs, ngMessagesCtrl, $transclude) {
         var commentNode = element[0];
 
         var records;
         var staticExp = attrs.ngMessage || attrs.when;
         var dynamicExp = attrs.ngMessageExp || attrs.whenExp;
-        var assignRecords = function(items) ***REMOVED***
+        var assignRecords = function(items) {
           records = items
               ? (isArray(items)
                   ? items
                   : items.split(/[\s,]+/))
               : null;
           ngMessagesCtrl.reRender();
-        ***REMOVED***;
+        };
 
-        if (dynamicExp) ***REMOVED***
+        if (dynamicExp) {
           assignRecords(scope.$eval(dynamicExp));
           scope.$watchCollection(dynamicExp, assignRecords);
-        ***REMOVED*** else ***REMOVED***
+        } else {
           assignRecords(staticExp);
-        ***REMOVED***
+        }
 
         var currentElement, messageCtrl;
-        ngMessagesCtrl.register(commentNode, messageCtrl = ***REMOVED***
-          test: function(name) ***REMOVED***
+        ngMessagesCtrl.register(commentNode, messageCtrl = {
+          test: function(name) {
             return contains(records, name);
-          ***REMOVED***,
-          attach: function() ***REMOVED***
-            if (!currentElement) ***REMOVED***
-              $transclude(function(elm, newScope) ***REMOVED***
+          },
+          attach: function() {
+            if (!currentElement) {
+              $transclude(function(elm, newScope) {
                 $animate.enter(elm, null, element);
                 currentElement = elm;
 
@@ -704,36 +704,36 @@ function ngMessageDirectiveFactory() ***REMOVED***
                 // in the event that the element or a parent element is destroyed
                 // by another structural directive then it's time
                 // to deregister the message from the controller
-                currentElement.on('$destroy', function() ***REMOVED***
-                  if (currentElement && currentElement.$$attachId === $$attachId) ***REMOVED***
+                currentElement.on('$destroy', function() {
+                  if (currentElement && currentElement.$$attachId === $$attachId) {
                     ngMessagesCtrl.deregister(commentNode);
                     messageCtrl.detach();
-                  ***REMOVED***
+                  }
                   newScope.$destroy();
-                ***REMOVED***);
-              ***REMOVED***);
-            ***REMOVED***
-          ***REMOVED***,
-          detach: function() ***REMOVED***
-            if (currentElement) ***REMOVED***
+                });
+              });
+            }
+          },
+          detach: function() {
+            if (currentElement) {
               var elm = currentElement;
               currentElement = null;
               $animate.leave(elm);
-            ***REMOVED***
-          ***REMOVED***
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***;
-  ***REMOVED***];
+            }
+          }
+        });
+      }
+    };
+  }];
 
-  function contains(collection, key) ***REMOVED***
-    if (collection) ***REMOVED***
+  function contains(collection, key) {
+    if (collection) {
       return isArray(collection)
           ? collection.indexOf(key) >= 0
           : collection.hasOwnProperty(key);
-    ***REMOVED***
-  ***REMOVED***
-***REMOVED***
+    }
+  }
+}
 
 
-***REMOVED***)(window, window.angular);
+})(window, window.angular);

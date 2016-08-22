@@ -4,7 +4,7 @@
  * @license MIT
  * v1.1.0
  */
-(function( window, angular, undefined )***REMOVED***
+(function( window, angular, undefined ){
 "use strict";
 
 /**
@@ -47,48 +47,48 @@ angular.module('material.components.virtualRepeat', [
  * <hljs lang="html">
  *
  * <md-virtual-repeat-container md-top-index="topIndex">
- *   <div md-virtual-repeat="i in items" md-item-size="20">Hello ***REMOVED******REMOVED***i***REMOVED******REMOVED***!</div>
+ *   <div md-virtual-repeat="i in items" md-item-size="20">Hello {{i}}!</div>
  * </md-virtual-repeat-container>
  * </hljs>
  *
- * @param ***REMOVED***number=***REMOVED*** md-top-index Binds the index of the item that is at the top of the scroll
+ * @param {number=} md-top-index Binds the index of the item that is at the top of the scroll
  *     container to $scope. It can both read and set the scroll position.
- * @param ***REMOVED***boolean=***REMOVED*** md-orient-horizontal Whether the container should scroll horizontally
+ * @param {boolean=} md-orient-horizontal Whether the container should scroll horizontally
  *     (defaults to orientation and scrolling vertically).
- * @param ***REMOVED***boolean=***REMOVED*** md-auto-shrink When present, the container will shrink to fit
+ * @param {boolean=} md-auto-shrink When present, the container will shrink to fit
  *     the number of items when that number is less than its original size.
- * @param ***REMOVED***number=***REMOVED*** md-auto-shrink-min Minimum number of items that md-auto-shrink
+ * @param {number=} md-auto-shrink-min Minimum number of items that md-auto-shrink
  *     will shrink to (default: 0).
  */
-function VirtualRepeatContainerDirective() ***REMOVED***
-  return ***REMOVED***
+function VirtualRepeatContainerDirective() {
+  return {
     controller: VirtualRepeatContainerController,
     template: virtualRepeatContainerTemplate,
-    compile: function virtualRepeatContainerCompile($element, $attrs) ***REMOVED***
+    compile: function virtualRepeatContainerCompile($element, $attrs) {
       $element
           .addClass('md-virtual-repeat-container')
           .addClass($attrs.hasOwnProperty('mdOrientHorizontal')
               ? 'md-orient-horizontal'
               : 'md-orient-vertical');
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***
+    }
+  };
+}
 
 
-function virtualRepeatContainerTemplate($element) ***REMOVED***
+function virtualRepeatContainerTemplate($element) {
   return '<div class="md-virtual-repeat-scroller">' +
     '<div class="md-virtual-repeat-sizer"></div>' +
     '<div class="md-virtual-repeat-offsetter">' +
       $element[0].innerHTML +
     '</div></div>';
-***REMOVED***
+}
 
 /**
  * Maximum size, in pixels, that can be explicitly set to an element. The actual value varies
  * between browsers, but IE11 has the very lowest size at a mere 1,533,917px. Ideally we could
  * *compute* this value, but Firefox always reports an element to have a size of zero if it
  * goes over the max, meaning that we'd have to binary search for the value.
- * @const ***REMOVED***number***REMOVED***
+ * @const {number}
  */
 var MAX_ELEMENT_SIZE = 1533917;
 
@@ -96,58 +96,58 @@ var MAX_ELEMENT_SIZE = 1533917;
  * Number of additional elements to render above and below the visible area inside
  * of the virtual repeat container. A higher number results in less flicker when scrolling
  * very quickly in Safari, but comes with a higher rendering and dirty-checking cost.
- * @const ***REMOVED***number***REMOVED***
+ * @const {number}
  */
 var NUM_EXTRA = 3;
 
 /** ngInject */
 function VirtualRepeatContainerController(
-    $$rAF, $mdUtil, $parse, $rootScope, $window, $scope, $element, $attrs) ***REMOVED***
+    $$rAF, $mdUtil, $parse, $rootScope, $window, $scope, $element, $attrs) {
   this.$rootScope = $rootScope;
   this.$scope = $scope;
   this.$element = $element;
   this.$attrs = $attrs;
 
-  /** @type ***REMOVED***number***REMOVED*** The width or height of the container */
+  /** @type {number} The width or height of the container */
   this.size = 0;
-  /** @type ***REMOVED***number***REMOVED*** The scroll width or height of the scroller */
+  /** @type {number} The scroll width or height of the scroller */
   this.scrollSize = 0;
-  /** @type ***REMOVED***number***REMOVED*** The scrollLeft or scrollTop of the scroller */
+  /** @type {number} The scrollLeft or scrollTop of the scroller */
   this.scrollOffset = 0;
-  /** @type ***REMOVED***boolean***REMOVED*** Whether the scroller is oriented horizontally */
+  /** @type {boolean} Whether the scroller is oriented horizontally */
   this.horizontal = this.$attrs.hasOwnProperty('mdOrientHorizontal');
-  /** @type ***REMOVED***!VirtualRepeatController***REMOVED*** The repeater inside of this container */
+  /** @type {!VirtualRepeatController} The repeater inside of this container */
   this.repeater = null;
-  /** @type ***REMOVED***boolean***REMOVED*** Whether auto-shrink is enabled */
+  /** @type {boolean} Whether auto-shrink is enabled */
   this.autoShrink = this.$attrs.hasOwnProperty('mdAutoShrink');
-  /** @type ***REMOVED***number***REMOVED*** Minimum number of items to auto-shrink to */
+  /** @type {number} Minimum number of items to auto-shrink to */
   this.autoShrinkMin = parseInt(this.$attrs.mdAutoShrinkMin, 10) || 0;
-  /** @type ***REMOVED***?number***REMOVED*** Original container size when shrank */
+  /** @type {?number} Original container size when shrank */
   this.originalSize = null;
-  /** @type ***REMOVED***number***REMOVED*** Amount to offset the total scroll size by. */
+  /** @type {number} Amount to offset the total scroll size by. */
   this.offsetSize = parseInt(this.$attrs.mdOffsetSize, 10) || 0;
-  /** @type ***REMOVED***?string***REMOVED*** height or width element style on the container prior to auto-shrinking. */
+  /** @type {?string} height or width element style on the container prior to auto-shrinking. */
   this.oldElementSize = null;
 
-  if (this.$attrs.mdTopIndex) ***REMOVED***
-    /** @type ***REMOVED***function(angular.Scope): number***REMOVED*** Binds to topIndex on Angular scope */
+  if (this.$attrs.mdTopIndex) {
+    /** @type {function(angular.Scope): number} Binds to topIndex on Angular scope */
     this.bindTopIndex = $parse(this.$attrs.mdTopIndex);
-    /** @type ***REMOVED***number***REMOVED*** The index of the item that is at the top of the scroll container */
+    /** @type {number} The index of the item that is at the top of the scroll container */
     this.topIndex = this.bindTopIndex(this.$scope);
 
-    if (!angular.isDefined(this.topIndex)) ***REMOVED***
+    if (!angular.isDefined(this.topIndex)) {
       this.topIndex = 0;
       this.bindTopIndex.assign(this.$scope, 0);
-    ***REMOVED***
+    }
 
-    this.$scope.$watch(this.bindTopIndex, angular.bind(this, function(newIndex) ***REMOVED***
-      if (newIndex !== this.topIndex) ***REMOVED***
+    this.$scope.$watch(this.bindTopIndex, angular.bind(this, function(newIndex) {
+      if (newIndex !== this.topIndex) {
         this.scrollToIndex(newIndex);
-      ***REMOVED***
-    ***REMOVED***));
-  ***REMOVED*** else ***REMOVED***
+      }
+    }));
+  } else {
     this.topIndex = 0;
-  ***REMOVED***
+  }
 
   this.scroller = $element[0].querySelector('.md-virtual-repeat-scroller');
   this.sizer = this.scroller.querySelector('.md-virtual-repeat-sizer');
@@ -157,7 +157,7 @@ function VirtualRepeatContainerController(
   // make a best effort at re-measuring as it changes.
   var boundUpdateSize = angular.bind(this, this.updateSize);
 
-  $$rAF(angular.bind(this, function() ***REMOVED***
+  $$rAF(angular.bind(this, function() {
     boundUpdateSize();
 
     var debouncedUpdateSize = $mdUtil.debounce(boundUpdateSize, 10, null, false);
@@ -166,64 +166,64 @@ function VirtualRepeatContainerController(
     // Make one more attempt to get the size if it is 0.
     // This is not by any means a perfect approach, but there's really no
     // silver bullet here.
-    if (!this.size) ***REMOVED***
+    if (!this.size) {
       debouncedUpdateSize();
-    ***REMOVED***
+    }
 
     jWindow.on('resize', debouncedUpdateSize);
-    $scope.$on('$destroy', function() ***REMOVED***
+    $scope.$on('$destroy', function() {
       jWindow.off('resize', debouncedUpdateSize);
-    ***REMOVED***);
+    });
 
     $scope.$emit('$md-resize-enable');
     $scope.$on('$md-resize', boundUpdateSize);
-  ***REMOVED***));
-***REMOVED***
+  }));
+}
 VirtualRepeatContainerController.$inject = ["$$rAF", "$mdUtil", "$parse", "$rootScope", "$window", "$scope", "$element", "$attrs"];
 
 
 /** Called by the md-virtual-repeat inside of the container at startup. */
-VirtualRepeatContainerController.prototype.register = function(repeaterCtrl) ***REMOVED***
+VirtualRepeatContainerController.prototype.register = function(repeaterCtrl) {
   this.repeater = repeaterCtrl;
 
   angular.element(this.scroller)
       .on('scroll wheel touchmove touchend', angular.bind(this, this.handleScroll_));
-***REMOVED***;
+};
 
 
-/** @return ***REMOVED***boolean***REMOVED*** Whether the container is configured for horizontal scrolling. */
-VirtualRepeatContainerController.prototype.isHorizontal = function() ***REMOVED***
+/** @return {boolean} Whether the container is configured for horizontal scrolling. */
+VirtualRepeatContainerController.prototype.isHorizontal = function() {
   return this.horizontal;
-***REMOVED***;
+};
 
 
-/** @return ***REMOVED***number***REMOVED*** The size (width or height) of the container. */
-VirtualRepeatContainerController.prototype.getSize = function() ***REMOVED***
+/** @return {number} The size (width or height) of the container. */
+VirtualRepeatContainerController.prototype.getSize = function() {
   return this.size;
-***REMOVED***;
+};
 
 
 /**
  * Resizes the container.
  * @private
- * @param ***REMOVED***number***REMOVED*** size The new size to set.
+ * @param {number} size The new size to set.
  */
-VirtualRepeatContainerController.prototype.setSize_ = function(size) ***REMOVED***
+VirtualRepeatContainerController.prototype.setSize_ = function(size) {
   var dimension = this.getDimensionName_();
 
   this.size = size;
   this.$element[0].style[dimension] = size + 'px';
-***REMOVED***;
+};
 
 
-VirtualRepeatContainerController.prototype.unsetSize_ = function() ***REMOVED***
+VirtualRepeatContainerController.prototype.unsetSize_ = function() {
   this.$element[0].style[this.getDimensionName_()] = this.oldElementSize;
   this.oldElementSize = null;
-***REMOVED***;
+};
 
 
 /** Instructs the container to re-measure its size. */
-VirtualRepeatContainerController.prototype.updateSize = function() ***REMOVED***
+VirtualRepeatContainerController.prototype.updateSize = function() {
   // If the original size is already determined, we can skip the update.
   if (this.originalSize) return;
 
@@ -237,26 +237,26 @@ VirtualRepeatContainerController.prototype.updateSize = function() ***REMOVED***
   this.handleScroll_();
 
   this.repeater && this.repeater.containerUpdated();
-***REMOVED***;
+};
 
 
-/** @return ***REMOVED***number***REMOVED*** The container's scrollHeight or scrollWidth. */
-VirtualRepeatContainerController.prototype.getScrollSize = function() ***REMOVED***
+/** @return {number} The container's scrollHeight or scrollWidth. */
+VirtualRepeatContainerController.prototype.getScrollSize = function() {
   return this.scrollSize;
-***REMOVED***;
+};
 
 
-VirtualRepeatContainerController.prototype.getDimensionName_ = function() ***REMOVED***
+VirtualRepeatContainerController.prototype.getDimensionName_ = function() {
   return this.isHorizontal() ? 'width' : 'height';
-***REMOVED***;
+};
 
 
 /**
  * Sets the scroller element to the specified size.
  * @private
- * @param ***REMOVED***number***REMOVED*** size The new size.
+ * @param {number} size The new size.
  */
-VirtualRepeatContainerController.prototype.sizeScroller_ = function(size) ***REMOVED***
+VirtualRepeatContainerController.prototype.sizeScroller_ = function(size) {
   var dimension =  this.getDimensionName_();
   var crossDimension = this.isHorizontal() ? 'height' : 'width';
 
@@ -266,9 +266,9 @@ VirtualRepeatContainerController.prototype.sizeScroller_ = function(size) ***REM
   // If the size falls within the browser's maximum explicit size for a single element, we can
   // set the size and be done. Otherwise, we have to create children that add up the the desired
   // size.
-  if (size < MAX_ELEMENT_SIZE) ***REMOVED***
+  if (size < MAX_ELEMENT_SIZE) {
     this.sizer.style[dimension] = size + 'px';
-  ***REMOVED*** else ***REMOVED***
+  } else {
     this.sizer.style[dimension] = 'auto';
     this.sizer.style[crossDimension] = 'auto';
 
@@ -280,40 +280,40 @@ VirtualRepeatContainerController.prototype.sizeScroller_ = function(size) ***REM
     sizerChild.style[dimension] = MAX_ELEMENT_SIZE + 'px';
     sizerChild.style[crossDimension] = '1px';
 
-    for (var i = 0; i < numChildren; i++) ***REMOVED***
+    for (var i = 0; i < numChildren; i++) {
       this.sizer.appendChild(sizerChild.cloneNode(false));
-    ***REMOVED***
+    }
 
     // Re-use the element template for the remainder.
     sizerChild.style[dimension] = (size - (numChildren * MAX_ELEMENT_SIZE)) + 'px';
     this.sizer.appendChild(sizerChild);
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 
 /**
  * If auto-shrinking is enabled, shrinks or unshrinks as appropriate.
  * @private
- * @param ***REMOVED***number***REMOVED*** size The new size.
+ * @param {number} size The new size.
  */
-VirtualRepeatContainerController.prototype.autoShrink_ = function(size) ***REMOVED***
+VirtualRepeatContainerController.prototype.autoShrink_ = function(size) {
   var shrinkSize = Math.max(size, this.autoShrinkMin * this.repeater.getItemSize());
 
-  if (this.autoShrink && shrinkSize !== this.size) ***REMOVED***
-    if (this.oldElementSize === null) ***REMOVED***
+  if (this.autoShrink && shrinkSize !== this.size) {
+    if (this.oldElementSize === null) {
       this.oldElementSize = this.$element[0].style[this.getDimensionName_()];
-    ***REMOVED***
+    }
 
     var currentSize = this.originalSize || this.size;
 
-    if (!currentSize || shrinkSize < currentSize) ***REMOVED***
-      if (!this.originalSize) ***REMOVED***
+    if (!currentSize || shrinkSize < currentSize) {
+      if (!this.originalSize) {
         this.originalSize = this.size;
-      ***REMOVED***
+      }
 
       // Now we update the containers size, because shrinking is enabled.
       this.setSize_(shrinkSize);
-    ***REMOVED*** else if (this.originalSize !== null) ***REMOVED***
+    } else if (this.originalSize !== null) {
       // Set the size back to our initial size.
       this.unsetSize_();
 
@@ -327,67 +327,67 @@ VirtualRepeatContainerController.prototype.autoShrink_ = function(size) ***REMOV
       // Apply the original size or the determined size back to the container, because
       // it has been overwritten before, in the shrink block.
       this.setSize_(_originalSize || this.size);
-    ***REMOVED***
+    }
 
     this.repeater.containerUpdated();
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 
 /**
  * Sets the scrollHeight or scrollWidth. Called by the repeater based on
  * its item count and item size.
- * @param ***REMOVED***number***REMOVED*** itemsSize The total size of the items.
+ * @param {number} itemsSize The total size of the items.
  */
-VirtualRepeatContainerController.prototype.setScrollSize = function(itemsSize) ***REMOVED***
+VirtualRepeatContainerController.prototype.setScrollSize = function(itemsSize) {
   var size = itemsSize + this.offsetSize;
   if (this.scrollSize === size) return;
 
   this.sizeScroller_(size);
   this.autoShrink_(size);
   this.scrollSize = size;
-***REMOVED***;
+};
 
 
-/** @return ***REMOVED***number***REMOVED*** The container's current scroll offset. */
-VirtualRepeatContainerController.prototype.getScrollOffset = function() ***REMOVED***
+/** @return {number} The container's current scroll offset. */
+VirtualRepeatContainerController.prototype.getScrollOffset = function() {
   return this.scrollOffset;
-***REMOVED***;
+};
 
 /**
  * Scrolls to a given scrollTop position.
- * @param ***REMOVED***number***REMOVED*** position
+ * @param {number} position
  */
-VirtualRepeatContainerController.prototype.scrollTo = function(position) ***REMOVED***
+VirtualRepeatContainerController.prototype.scrollTo = function(position) {
   this.scroller[this.isHorizontal() ? 'scrollLeft' : 'scrollTop'] = position;
   this.handleScroll_();
-***REMOVED***;
+};
 
 /**
  * Scrolls the item with the given index to the top of the scroll container.
- * @param ***REMOVED***number***REMOVED*** index
+ * @param {number} index
  */
-VirtualRepeatContainerController.prototype.scrollToIndex = function(index) ***REMOVED***
+VirtualRepeatContainerController.prototype.scrollToIndex = function(index) {
   var itemSize = this.repeater.getItemSize();
   var itemsLength = this.repeater.itemsLength;
-  if(index > itemsLength) ***REMOVED***
+  if(index > itemsLength) {
     index = itemsLength - 1;
-  ***REMOVED***
+  }
   this.scrollTo(itemSize * index);
-***REMOVED***;
+};
 
-VirtualRepeatContainerController.prototype.resetScroll = function() ***REMOVED***
+VirtualRepeatContainerController.prototype.resetScroll = function() {
   this.scrollTo(0);
-***REMOVED***;
+};
 
 
-VirtualRepeatContainerController.prototype.handleScroll_ = function() ***REMOVED***
+VirtualRepeatContainerController.prototype.handleScroll_ = function() {
   var doc = angular.element(document)[0];
   var ltr = doc.dir != 'rtl' && doc.body.dir != 'rtl';
-  if(!ltr && !this.maxSize) ***REMOVED***
+  if(!ltr && !this.maxSize) {
     this.scroller.scrollLeft = this.scrollSize;
     this.maxSize = this.scroller.scrollLeft;
-  ***REMOVED***
+  }
   var offset = this.isHorizontal() ?
       (ltr?this.scroller.scrollLeft : this.maxSize - this.scroller.scrollLeft)
       : this.scroller.scrollTop;
@@ -405,17 +405,17 @@ VirtualRepeatContainerController.prototype.handleScroll_ = function() ***REMOVED
   this.offsetter.style.webkitTransform = transform;
   this.offsetter.style.transform = transform;
 
-  if (this.bindTopIndex) ***REMOVED***
+  if (this.bindTopIndex) {
     var topIndex = Math.floor(offset / itemSize);
-    if (topIndex !== this.topIndex && topIndex < this.repeater.getItemCount()) ***REMOVED***
+    if (topIndex !== this.topIndex && topIndex < this.repeater.getItemCount()) {
       this.topIndex = topIndex;
       this.bindTopIndex.assign(this.$scope, topIndex);
       if (!this.$rootScope.$$phase) this.$scope.$digest();
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
   this.repeater.containerUpdated();
-***REMOVED***;
+};
 
 
 /**
@@ -435,20 +435,20 @@ VirtualRepeatContainerController.prototype.handleScroll_ = function() ***REMOVED
  * @usage
  * <hljs lang="html">
  * <md-virtual-repeat-container>
- *   <div md-virtual-repeat="i in items">Hello ***REMOVED******REMOVED***i***REMOVED******REMOVED***!</div>
+ *   <div md-virtual-repeat="i in items">Hello {{i}}!</div>
  * </md-virtual-repeat-container>
  *
  * <md-virtual-repeat-container md-orient-horizontal>
- *   <div md-virtual-repeat="i in items" md-item-size="20">Hello ***REMOVED******REMOVED***i***REMOVED******REMOVED***!</div>
+ *   <div md-virtual-repeat="i in items" md-item-size="20">Hello {{i}}!</div>
  * </md-virtual-repeat-container>
  * </hljs>
  *
- * @param ***REMOVED***number=***REMOVED*** md-item-size The height or width of the repeated elements (which must be
+ * @param {number=} md-item-size The height or width of the repeated elements (which must be
  *   identical for each element). Optional. Will attempt to read the size from the dom if missing,
  *   but still assumes that all repeated nodes have same height or width.
- * @param ***REMOVED***string=***REMOVED*** md-extra-name Evaluates to an additional name to which the current iterated item
+ * @param {string=} md-extra-name Evaluates to an additional name to which the current iterated item
  *   can be assigned on the repeated scope (needed for use in `md-autocomplete`).
- * @param ***REMOVED***boolean=***REMOVED*** md-on-demand When present, treats the md-virtual-repeat argument as an object
+ * @param {boolean=} md-on-demand When present, treats the md-virtual-repeat argument as an object
  *   that can fetch rows rather than an array.
  *
  *   **NOTE:** This object must implement the following interface with two (2) methods:
@@ -460,33 +460,33 @@ VirtualRepeatContainerController.prototype.handleScroll_ = function() ***REMOVED
  *     Otherwise, return a higher number than the currently loaded items to produce an
  *     infinite-scroll behavior.
  */
-function VirtualRepeatDirective($parse) ***REMOVED***
-  return ***REMOVED***
+function VirtualRepeatDirective($parse) {
+  return {
     controller: VirtualRepeatController,
     priority: 1000,
     require: ['mdVirtualRepeat', '^^mdVirtualRepeatContainer'],
     restrict: 'A',
     terminal: true,
     transclude: 'element',
-    compile: function VirtualRepeatCompile($element, $attrs) ***REMOVED***
+    compile: function VirtualRepeatCompile($element, $attrs) {
       var expression = $attrs.mdVirtualRepeat;
       var match = expression.match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)\s*$/);
       var repeatName = match[1];
       var repeatListExpression = $parse(match[2]);
       var extraName = $attrs.mdExtraName && $parse($attrs.mdExtraName);
 
-      return function VirtualRepeatLink($scope, $element, $attrs, ctrl, $transclude) ***REMOVED***
+      return function VirtualRepeatLink($scope, $element, $attrs, ctrl, $transclude) {
         ctrl[0].link_(ctrl[1], $transclude, repeatName, repeatListExpression, extraName);
-      ***REMOVED***;
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***
+      };
+    }
+  };
+}
 VirtualRepeatDirective.$inject = ["$parse"];
 
 
 /** ngInject */
 function VirtualRepeatController($scope, $element, $attrs, $browser, $document, $rootScope,
-    $$rAF, $mdUtil) ***REMOVED***
+    $$rAF, $mdUtil) {
   this.$scope = $scope;
   this.$element = $element;
   this.$attrs = $attrs;
@@ -495,75 +495,75 @@ function VirtualRepeatController($scope, $element, $attrs, $browser, $document, 
   this.$rootScope = $rootScope;
   this.$$rAF = $$rAF;
 
-  /** @type ***REMOVED***boolean***REMOVED*** Whether we are in on-demand mode. */
+  /** @type {boolean} Whether we are in on-demand mode. */
   this.onDemand = $mdUtil.parseAttributeBoolean($attrs.mdOnDemand);
-  /** @type ***REMOVED***!Function***REMOVED*** Backup reference to $browser.$$checkUrlChange */
+  /** @type {!Function} Backup reference to $browser.$$checkUrlChange */
   this.browserCheckUrlChange = $browser.$$checkUrlChange;
-  /** @type ***REMOVED***number***REMOVED*** Most recent starting repeat index (based on scroll offset) */
+  /** @type {number} Most recent starting repeat index (based on scroll offset) */
   this.newStartIndex = 0;
-  /** @type ***REMOVED***number***REMOVED*** Most recent ending repeat index (based on scroll offset) */
+  /** @type {number} Most recent ending repeat index (based on scroll offset) */
   this.newEndIndex = 0;
-  /** @type ***REMOVED***number***REMOVED*** Most recent end visible index (based on scroll offset) */
+  /** @type {number} Most recent end visible index (based on scroll offset) */
   this.newVisibleEnd = 0;
-  /** @type ***REMOVED***number***REMOVED*** Previous starting repeat index (based on scroll offset) */
+  /** @type {number} Previous starting repeat index (based on scroll offset) */
   this.startIndex = 0;
-  /** @type ***REMOVED***number***REMOVED*** Previous ending repeat index (based on scroll offset) */
+  /** @type {number} Previous ending repeat index (based on scroll offset) */
   this.endIndex = 0;
   // TODO: measure width/height of first element from dom if not provided.
   // getComputedStyle?
-  /** @type ***REMOVED***?number***REMOVED*** Height/width of repeated elements. */
+  /** @type {?number} Height/width of repeated elements. */
   this.itemSize = $scope.$eval($attrs.mdItemSize) || null;
 
-  /** @type ***REMOVED***boolean***REMOVED*** Whether this is the first time that items are rendered. */
+  /** @type {boolean} Whether this is the first time that items are rendered. */
   this.isFirstRender = true;
 
   /**
-   * @private ***REMOVED***boolean***REMOVED*** Whether the items in the list are already being updated. Used to prevent
+   * @private {boolean} Whether the items in the list are already being updated. Used to prevent
    *     nested calls to virtualRepeatUpdate_.
    */
   this.isVirtualRepeatUpdating_ = false;
 
-  /** @type ***REMOVED***number***REMOVED*** Most recently seen length of items. */
+  /** @type {number} Most recently seen length of items. */
   this.itemsLength = 0;
 
   /**
-   * @type ***REMOVED***!Function***REMOVED*** Unwatch callback for item size (when md-items-size is
+   * @type {!Function} Unwatch callback for item size (when md-items-size is
    *     not specified), or angular.noop otherwise.
    */
   this.unwatchItemSize_ = angular.noop;
 
   /**
    * Presently rendered blocks by repeat index.
-   * @type ***REMOVED***Object<number, !VirtualRepeatController.Block***REMOVED***
+   * @type {Object<number, !VirtualRepeatController.Block}
    */
-  this.blocks = ***REMOVED******REMOVED***;
-  /** @type ***REMOVED***Array<!VirtualRepeatController.Block>***REMOVED*** A pool of presently unused blocks. */
+  this.blocks = {};
+  /** @type {Array<!VirtualRepeatController.Block>} A pool of presently unused blocks. */
   this.pooledBlocks = [];
 
   $scope.$on('$destroy', angular.bind(this, this.cleanupBlocks_));
-***REMOVED***
+}
 VirtualRepeatController.$inject = ["$scope", "$element", "$attrs", "$browser", "$document", "$rootScope", "$$rAF", "$mdUtil"];
 
 
 /**
  * An object representing a repeated item.
- * @typedef ***REMOVED******REMOVED***element: !jqLite, new: boolean, scope: !angular.Scope***REMOVED******REMOVED***
+ * @typedef {{element: !jqLite, new: boolean, scope: !angular.Scope}}
  */
 VirtualRepeatController.Block;
 
 
 /**
  * Called at startup by the md-virtual-repeat postLink function.
- * @param ***REMOVED***!VirtualRepeatContainerController***REMOVED*** container The container's controller.
- * @param ***REMOVED***!Function***REMOVED*** transclude The repeated element's bound transclude function.
- * @param ***REMOVED***string***REMOVED*** repeatName The left hand side of the repeat expression, indicating
+ * @param {!VirtualRepeatContainerController} container The container's controller.
+ * @param {!Function} transclude The repeated element's bound transclude function.
+ * @param {string} repeatName The left hand side of the repeat expression, indicating
  *     the name for each item in the array.
- * @param ***REMOVED***!Function***REMOVED*** repeatListExpression A compiled expression based on the right hand side
+ * @param {!Function} repeatListExpression A compiled expression based on the right hand side
  *     of the repeat expression. Points to the array to repeat over.
- * @param ***REMOVED***string|undefined***REMOVED*** extraName The optional extra repeatName.
+ * @param {string|undefined} extraName The optional extra repeatName.
  */
 VirtualRepeatController.prototype.link_ =
-    function(container, transclude, repeatName, repeatListExpression, extraName) ***REMOVED***
+    function(container, transclude, repeatName, repeatListExpression, extraName) {
   this.container = container;
   this.transclude = transclude;
   this.repeatName = repeatName;
@@ -574,30 +574,30 @@ VirtualRepeatController.prototype.link_ =
   this.repeatListExpression = angular.bind(this, this.repeatListExpression_);
 
   this.container.register(this);
-***REMOVED***;
+};
 
 
 /** @private Cleans up unused blocks. */
-VirtualRepeatController.prototype.cleanupBlocks_ = function() ***REMOVED***
-  angular.forEach(this.pooledBlocks, function cleanupBlock(block) ***REMOVED***
+VirtualRepeatController.prototype.cleanupBlocks_ = function() {
+  angular.forEach(this.pooledBlocks, function cleanupBlock(block) {
     block.element.remove();
-  ***REMOVED***);
-***REMOVED***;
+  });
+};
 
 
 /** @private Attempts to set itemSize by measuring a repeated element in the dom */
-VirtualRepeatController.prototype.readItemSize_ = function() ***REMOVED***
-  if (this.itemSize) ***REMOVED***
+VirtualRepeatController.prototype.readItemSize_ = function() {
+  if (this.itemSize) {
     // itemSize was successfully read in a different asynchronous call.
     return;
-  ***REMOVED***
+  }
 
   this.items = this.repeatListExpression(this.$scope);
   this.parentNode = this.$element[0].parentNode;
   var block = this.getBlock_(0);
-  if (!block.element[0].parentNode) ***REMOVED***
+  if (!block.element[0].parentNode) {
     this.parentNode.appendChild(block.element[0]);
-  ***REMOVED***
+  }
 
   this.itemSize = block.element[0][
       this.container.isHorizontal() ? 'offsetWidth' : 'offsetHeight'] || null;
@@ -605,96 +605,96 @@ VirtualRepeatController.prototype.readItemSize_ = function() ***REMOVED***
   this.blocks[0] = block;
   this.poolBlock_(0);
 
-  if (this.itemSize) ***REMOVED***
+  if (this.itemSize) {
     this.containerUpdated();
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 
 /**
  * Returns the user-specified repeat list, transforming it into an array-like
  * object in the case of infinite scroll/dynamic load mode.
- * @param ***REMOVED***!angular.Scope***REMOVED*** The scope.
- * @return ***REMOVED***!Array|!Object***REMOVED*** An array or array-like object for iteration.
+ * @param {!angular.Scope} The scope.
+ * @return {!Array|!Object} An array or array-like object for iteration.
  */
-VirtualRepeatController.prototype.repeatListExpression_ = function(scope) ***REMOVED***
+VirtualRepeatController.prototype.repeatListExpression_ = function(scope) {
   var repeatList = this.rawRepeatListExpression(scope);
 
-  if (this.onDemand && repeatList) ***REMOVED***
+  if (this.onDemand && repeatList) {
     var virtualList = new VirtualRepeatModelArrayLike(repeatList);
     virtualList.$$includeIndexes(this.newStartIndex, this.newVisibleEnd);
     return virtualList;
-  ***REMOVED*** else ***REMOVED***
+  } else {
     return repeatList;
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 
 /**
  * Called by the container. Informs us that the containers scroll or size has
  * changed.
  */
-VirtualRepeatController.prototype.containerUpdated = function() ***REMOVED***
+VirtualRepeatController.prototype.containerUpdated = function() {
   // If itemSize is unknown, attempt to measure it.
-  if (!this.itemSize) ***REMOVED***
+  if (!this.itemSize) {
     // Make sure to clean up watchers if we can (see #8178)
-    if(this.unwatchItemSize_ && this.unwatchItemSize_ !== angular.noop)***REMOVED***
+    if(this.unwatchItemSize_ && this.unwatchItemSize_ !== angular.noop){
       this.unwatchItemSize_();
-    ***REMOVED***
+    }
     this.unwatchItemSize_ = this.$scope.$watchCollection(
         this.repeatListExpression,
-        angular.bind(this, function(items) ***REMOVED***
-          if (items && items.length) ***REMOVED***
+        angular.bind(this, function(items) {
+          if (items && items.length) {
             this.readItemSize_();
-          ***REMOVED***
-        ***REMOVED***));
+          }
+        }));
     if (!this.$rootScope.$$phase) this.$scope.$digest();
 
     return;
-  ***REMOVED*** else if (!this.sized) ***REMOVED***
+  } else if (!this.sized) {
     this.items = this.repeatListExpression(this.$scope);
-  ***REMOVED***
+  }
 
-  if (!this.sized) ***REMOVED***
+  if (!this.sized) {
     this.unwatchItemSize_();
     this.sized = true;
     this.$scope.$watchCollection(this.repeatListExpression,
-        angular.bind(this, function(items, oldItems) ***REMOVED***
-          if (!this.isVirtualRepeatUpdating_) ***REMOVED***
+        angular.bind(this, function(items, oldItems) {
+          if (!this.isVirtualRepeatUpdating_) {
             this.virtualRepeatUpdate_(items, oldItems);
-          ***REMOVED***
-        ***REMOVED***));
-  ***REMOVED***
+          }
+        }));
+  }
 
   this.updateIndexes_();
 
   if (this.newStartIndex !== this.startIndex ||
       this.newEndIndex !== this.endIndex ||
-      this.container.getScrollOffset() > this.container.getScrollSize()) ***REMOVED***
-    if (this.items instanceof VirtualRepeatModelArrayLike) ***REMOVED***
+      this.container.getScrollOffset() > this.container.getScrollSize()) {
+    if (this.items instanceof VirtualRepeatModelArrayLike) {
       this.items.$$includeIndexes(this.newStartIndex, this.newEndIndex);
-    ***REMOVED***
+    }
     this.virtualRepeatUpdate_(this.items, this.items);
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 
 /**
  * Called by the container. Returns the size of a single repeated item.
- * @return ***REMOVED***?number***REMOVED*** Size of a repeated item.
+ * @return {?number} Size of a repeated item.
  */
-VirtualRepeatController.prototype.getItemSize = function() ***REMOVED***
+VirtualRepeatController.prototype.getItemSize = function() {
   return this.itemSize;
-***REMOVED***;
+};
 
 
 /**
  * Called by the container. Returns the size of a single repeated item.
- * @return ***REMOVED***?number***REMOVED*** Size of a repeated item.
+ * @return {?number} Size of a repeated item.
  */
-VirtualRepeatController.prototype.getItemCount = function() ***REMOVED***
+VirtualRepeatController.prototype.getItemCount = function() {
   return this.itemsLength;
-***REMOVED***;
+};
 
 
 /**
@@ -702,52 +702,52 @@ VirtualRepeatController.prototype.getItemCount = function() ***REMOVED***
  * or items updates.
  * @private
  */
-VirtualRepeatController.prototype.virtualRepeatUpdate_ = function(items, oldItems) ***REMOVED***
+VirtualRepeatController.prototype.virtualRepeatUpdate_ = function(items, oldItems) {
   this.isVirtualRepeatUpdating_ = true;
 
   var itemsLength = items && items.length || 0;
   var lengthChanged = false;
 
   // If the number of items shrank
-  if (this.items && itemsLength < this.items.length && this.container.getScrollOffset() !== 0) ***REMOVED***
+  if (this.items && itemsLength < this.items.length && this.container.getScrollOffset() !== 0) {
     this.items = items;
     var previousScrollOffset = this.container.getScrollOffset();
     this.container.resetScroll();
     this.container.scrollTo(previousScrollOffset);
     return;
-  ***REMOVED***
+  }
 
-  if (itemsLength !== this.itemsLength) ***REMOVED***
+  if (itemsLength !== this.itemsLength) {
     lengthChanged = true;
     this.itemsLength = itemsLength;
-  ***REMOVED***
+  }
 
   this.items = items;
-  if (items !== oldItems || lengthChanged) ***REMOVED***
+  if (items !== oldItems || lengthChanged) {
     this.updateIndexes_();
-  ***REMOVED***
+  }
 
   this.parentNode = this.$element[0].parentNode;
 
-  if (lengthChanged) ***REMOVED***
+  if (lengthChanged) {
     this.container.setScrollSize(itemsLength * this.itemSize);
-  ***REMOVED***
+  }
 
-  if (this.isFirstRender) ***REMOVED***
+  if (this.isFirstRender) {
     this.isFirstRender = false;
     var startIndex = this.$attrs.mdStartIndex ?
       this.$scope.$eval(this.$attrs.mdStartIndex) :
       this.container.topIndex;
     this.container.scrollToIndex(startIndex);
-  ***REMOVED***
+  }
 
   // Detach and pool any blocks that are no longer in the viewport.
-  Object.keys(this.blocks).forEach(function(blockIndex) ***REMOVED***
+  Object.keys(this.blocks).forEach(function(blockIndex) {
     var index = parseInt(blockIndex, 10);
-    if (index < this.newStartIndex || index >= this.newEndIndex) ***REMOVED***
+    if (index < this.newStartIndex || index >= this.newEndIndex) {
       this.poolBlock_(index);
-    ***REMOVED***
-  ***REMOVED***, this);
+    }
+  }, this);
 
   // Add needed blocks.
   // For performance reasons, temporarily block browser url checks as we digest
@@ -761,36 +761,36 @@ VirtualRepeatController.prototype.virtualRepeatUpdate_ = function(items, oldItem
       newEndBlocks = [];
 
   // Collect blocks at the top.
-  for (i = this.newStartIndex; i < this.newEndIndex && this.blocks[i] == null; i++) ***REMOVED***
+  for (i = this.newStartIndex; i < this.newEndIndex && this.blocks[i] == null; i++) {
     block = this.getBlock_(i);
     this.updateBlock_(block, i);
     newStartBlocks.push(block);
-  ***REMOVED***
+  }
 
   // Update blocks that are already rendered.
-  for (; this.blocks[i] != null; i++) ***REMOVED***
+  for (; this.blocks[i] != null; i++) {
     this.updateBlock_(this.blocks[i], i);
-  ***REMOVED***
+  }
   var maxIndex = i - 1;
 
   // Collect blocks at the end.
-  for (; i < this.newEndIndex; i++) ***REMOVED***
+  for (; i < this.newEndIndex; i++) {
     block = this.getBlock_(i);
     this.updateBlock_(block, i);
     newEndBlocks.push(block);
-  ***REMOVED***
+  }
 
   // Attach collected blocks to the document.
-  if (newStartBlocks.length) ***REMOVED***
+  if (newStartBlocks.length) {
     this.parentNode.insertBefore(
         this.domFragmentFromBlocks_(newStartBlocks),
         this.$element[0].nextSibling);
-  ***REMOVED***
-  if (newEndBlocks.length) ***REMOVED***
+  }
+  if (newEndBlocks.length) {
     this.parentNode.insertBefore(
         this.domFragmentFromBlocks_(newEndBlocks),
         this.blocks[maxIndex] && this.blocks[maxIndex].element[0].nextSibling);
-  ***REMOVED***
+  }
 
   // Restore $$checkUrlChange.
   this.$browser.$$checkUrlChange = this.browserCheckUrlChange;
@@ -799,49 +799,49 @@ VirtualRepeatController.prototype.virtualRepeatUpdate_ = function(items, oldItem
   this.endIndex = this.newEndIndex;
 
   this.isVirtualRepeatUpdating_ = false;
-***REMOVED***;
+};
 
 
 /**
- * @param ***REMOVED***number***REMOVED*** index Where the block is to be in the repeated list.
- * @return ***REMOVED***!VirtualRepeatController.Block***REMOVED*** A new or pooled block to place at the specified index.
+ * @param {number} index Where the block is to be in the repeated list.
+ * @return {!VirtualRepeatController.Block} A new or pooled block to place at the specified index.
  * @private
  */
-VirtualRepeatController.prototype.getBlock_ = function(index) ***REMOVED***
-  if (this.pooledBlocks.length) ***REMOVED***
+VirtualRepeatController.prototype.getBlock_ = function(index) {
+  if (this.pooledBlocks.length) {
     return this.pooledBlocks.pop();
-  ***REMOVED***
+  }
 
   var block;
-  this.transclude(angular.bind(this, function(clone, scope) ***REMOVED***
-    block = ***REMOVED***
+  this.transclude(angular.bind(this, function(clone, scope) {
+    block = {
       element: clone,
       new: true,
       scope: scope
-    ***REMOVED***;
+    };
 
     this.updateScope_(scope, index);
     this.parentNode.appendChild(clone[0]);
-  ***REMOVED***));
+  }));
 
   return block;
-***REMOVED***;
+};
 
 
 /**
  * Updates and if not in a digest cycle, digests the specified block's scope to the data
  * at the specified index.
- * @param ***REMOVED***!VirtualRepeatController.Block***REMOVED*** block The block whose scope should be updated.
- * @param ***REMOVED***number***REMOVED*** index The index to set.
+ * @param {!VirtualRepeatController.Block} block The block whose scope should be updated.
+ * @param {number} index The index to set.
  * @private
  */
-VirtualRepeatController.prototype.updateBlock_ = function(block, index) ***REMOVED***
+VirtualRepeatController.prototype.updateBlock_ = function(block, index) {
   this.blocks[index] = block;
 
   if (!block.new &&
-      (block.scope.$index === index && block.scope[this.repeatName] === this.items[index])) ***REMOVED***
+      (block.scope.$index === index && block.scope[this.repeatName] === this.items[index])) {
     return;
-  ***REMOVED***
+  }
   block.new = false;
 
   // Update and digest the block's scope.
@@ -850,58 +850,58 @@ VirtualRepeatController.prototype.updateBlock_ = function(block, index) ***REMOV
   // Perform digest before reattaching the block.
   // Any resulting synchronous dom mutations should be much faster as a result.
   // This might break some directives, but I'm going to try it for now.
-  if (!this.$rootScope.$$phase) ***REMOVED***
+  if (!this.$rootScope.$$phase) {
     block.scope.$digest();
-  ***REMOVED***
-***REMOVED***;
+  }
+};
 
 
 /**
  * Updates scope to the data at the specified index.
- * @param ***REMOVED***!angular.Scope***REMOVED*** scope The scope which should be updated.
- * @param ***REMOVED***number***REMOVED*** index The index to set.
+ * @param {!angular.Scope} scope The scope which should be updated.
+ * @param {number} index The index to set.
  * @private
  */
-VirtualRepeatController.prototype.updateScope_ = function(scope, index) ***REMOVED***
+VirtualRepeatController.prototype.updateScope_ = function(scope, index) {
   scope.$index = index;
   scope[this.repeatName] = this.items && this.items[index];
   if (this.extraName) scope[this.extraName(this.$scope)] = this.items[index];
-***REMOVED***;
+};
 
 
 /**
  * Pools the block at the specified index (Pulls its element out of the dom and stores it).
- * @param ***REMOVED***number***REMOVED*** index The index at which the block to pool is stored.
+ * @param {number} index The index at which the block to pool is stored.
  * @private
  */
-VirtualRepeatController.prototype.poolBlock_ = function(index) ***REMOVED***
+VirtualRepeatController.prototype.poolBlock_ = function(index) {
   this.pooledBlocks.push(this.blocks[index]);
   this.parentNode.removeChild(this.blocks[index].element[0]);
   delete this.blocks[index];
-***REMOVED***;
+};
 
 
 /**
  * Produces a dom fragment containing the elements from the list of blocks.
- * @param ***REMOVED***!Array<!VirtualRepeatController.Block>***REMOVED*** blocks The blocks whose elements
+ * @param {!Array<!VirtualRepeatController.Block>} blocks The blocks whose elements
  *     should be added to the document fragment.
- * @return ***REMOVED***DocumentFragment***REMOVED***
+ * @return {DocumentFragment}
  * @private
  */
-VirtualRepeatController.prototype.domFragmentFromBlocks_ = function(blocks) ***REMOVED***
+VirtualRepeatController.prototype.domFragmentFromBlocks_ = function(blocks) {
   var fragment = this.$document[0].createDocumentFragment();
-  blocks.forEach(function(block) ***REMOVED***
+  blocks.forEach(function(block) {
     fragment.appendChild(block.element[0]);
-  ***REMOVED***);
+  });
   return fragment;
-***REMOVED***;
+};
 
 
 /**
  * Updates start and end indexes based on length of repeated items and container size.
  * @private
  */
-VirtualRepeatController.prototype.updateIndexes_ = function() ***REMOVED***
+VirtualRepeatController.prototype.updateIndexes_ = function() {
   var itemsLength = this.items ? this.items.length : 0;
   var containerLength = Math.ceil(this.container.getSize() / this.itemSize);
 
@@ -911,7 +911,7 @@ VirtualRepeatController.prototype.updateIndexes_ = function() ***REMOVED***
   this.newVisibleEnd = this.newStartIndex + containerLength + NUM_EXTRA;
   this.newEndIndex = Math.min(itemsLength, this.newVisibleEnd);
   this.newStartIndex = Math.max(0, this.newStartIndex - NUM_EXTRA);
-***REMOVED***;
+};
 
 /**
  * This VirtualRepeatModelArrayLike class enforces the interface requirements
@@ -930,35 +930,35 @@ VirtualRepeatController.prototype.updateIndexes_ = function() ***REMOVED***
  * <hljs lang="html">
  *  <md-virtual-repeat-container md-orient-horizontal>
  *    <div md-virtual-repeat="i in items" md-on-demand>
- *      Hello ***REMOVED******REMOVED***i***REMOVED******REMOVED***!
+ *      Hello {{i}}!
  *    </div>
  *  </md-virtual-repeat-container>
  * </hljs>
  *
  */
-function VirtualRepeatModelArrayLike(model) ***REMOVED***
+function VirtualRepeatModelArrayLike(model) {
   if (!angular.isFunction(model.getItemAtIndex) ||
-      !angular.isFunction(model.getLength)) ***REMOVED***
+      !angular.isFunction(model.getLength)) {
     throw Error('When md-on-demand is enabled, the Object passed to md-virtual-repeat must implement ' +
         'functions getItemAtIndex() and getLength() ');
-  ***REMOVED***
+  }
 
   this.model = model;
-***REMOVED***
+}
 
 
-VirtualRepeatModelArrayLike.prototype.$$includeIndexes = function(start, end) ***REMOVED***
-  for (var i = start; i < end; i++) ***REMOVED***
-    if (!this.hasOwnProperty(i)) ***REMOVED***
+VirtualRepeatModelArrayLike.prototype.$$includeIndexes = function(start, end) {
+  for (var i = start; i < end; i++) {
+    if (!this.hasOwnProperty(i)) {
       this[i] = this.model.getItemAtIndex(i);
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
   this.length = this.model.getLength();
-***REMOVED***;
+};
 
 
-function abstractMethod() ***REMOVED***
+function abstractMethod() {
   throw Error('Non-overridden abstract method called.');
-***REMOVED***
+}
 
-***REMOVED***)(window, window.angular);
+})(window, window.angular);

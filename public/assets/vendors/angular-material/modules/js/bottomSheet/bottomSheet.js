@@ -4,7 +4,7 @@
  * @license MIT
  * v1.1.0
  */
-(function( window, angular, undefined )***REMOVED***
+(function( window, angular, undefined ){
 "use strict";
 
 /**
@@ -22,20 +22,20 @@ angular
   .provider('$mdBottomSheet', MdBottomSheetProvider);
 
 /* ngInject */
-function MdBottomSheetDirective($mdBottomSheet) ***REMOVED***
-  return ***REMOVED***
+function MdBottomSheetDirective($mdBottomSheet) {
+  return {
     restrict: 'E',
-    link : function postLink(scope, element) ***REMOVED***
+    link : function postLink(scope, element) {
       element.addClass('_md');     // private md component indicator for styling
 
       // When navigation force destroys an interimElement, then
       // listen and $destroy() that interim instance...
-      scope.$on('$destroy', function() ***REMOVED***
+      scope.$on('$destroy', function() {
         $mdBottomSheet.destroy();
-      ***REMOVED***);
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***
+      });
+    }
+  };
+}
 MdBottomSheetDirective.$inject = ["$mdBottomSheet"];
 
 
@@ -63,13 +63,13 @@ MdBottomSheetDirective.$inject = ["$mdBottomSheet"];
  * </hljs>
  * <hljs lang="js">
  * var app = angular.module('app', ['ngMaterial']);
- * app.controller('MyController', function($scope, $mdBottomSheet) ***REMOVED***
- *   $scope.openBottomSheet = function() ***REMOVED***
- *     $mdBottomSheet.show(***REMOVED***
+ * app.controller('MyController', function($scope, $mdBottomSheet) {
+ *   $scope.openBottomSheet = function() {
+ *     $mdBottomSheet.show({
  *       template: '<md-bottom-sheet>Hello!</md-bottom-sheet>'
- *     ***REMOVED***);
- *   ***REMOVED***;
- * ***REMOVED***);
+ *     });
+ *   };
+ * });
  * </hljs>
  */
 
@@ -80,36 +80,36 @@ MdBottomSheetDirective.$inject = ["$mdBottomSheet"];
  * @description
  * Show a bottom sheet with the specified options.
  *
- * @param ***REMOVED***object***REMOVED*** options An options object, with the following properties:
+ * @param {object} options An options object, with the following properties:
  *
- *   - `templateUrl` - `***REMOVED***string=***REMOVED***`: The url of an html template file that will
+ *   - `templateUrl` - `{string=}`: The url of an html template file that will
  *   be used as the content of the bottom sheet. Restrictions: the template must
  *   have an outer `md-bottom-sheet` element.
- *   - `template` - `***REMOVED***string=***REMOVED***`: Same as templateUrl, except this is an actual
+ *   - `template` - `{string=}`: Same as templateUrl, except this is an actual
  *   template string.
- *   - `scope` - `***REMOVED***object=***REMOVED***`: the scope to link the template / controller to. If none is specified, it will create a new child scope.
+ *   - `scope` - `{object=}`: the scope to link the template / controller to. If none is specified, it will create a new child scope.
  *     This scope will be destroyed when the bottom sheet is removed unless `preserveScope` is set to true.
- *   - `preserveScope` - `***REMOVED***boolean=***REMOVED***`: whether to preserve the scope when the element is removed. Default is false
- *   - `controller` - `***REMOVED***string=***REMOVED***`: The controller to associate with this bottom sheet.
- *   - `locals` - `***REMOVED***string=***REMOVED***`: An object containing key/value pairs. The keys will
+ *   - `preserveScope` - `{boolean=}`: whether to preserve the scope when the element is removed. Default is false
+ *   - `controller` - `{string=}`: The controller to associate with this bottom sheet.
+ *   - `locals` - `{string=}`: An object containing key/value pairs. The keys will
  *   be used as names of values to inject into the controller. For example,
- *   `locals: ***REMOVED***three: 3***REMOVED***` would inject `three` into the controller with the value
+ *   `locals: {three: 3}` would inject `three` into the controller with the value
  *   of 3.
- *   - `clickOutsideToClose` - `***REMOVED***boolean=***REMOVED***`: Whether the user can click outside the bottom sheet to
+ *   - `clickOutsideToClose` - `{boolean=}`: Whether the user can click outside the bottom sheet to
  *     close it. Default true.
- *   - `disableBackdrop` - `***REMOVED***boolean=***REMOVED***`: When set to true, the bottomsheet will not show a backdrop.
- *   - `escapeToClose` - `***REMOVED***boolean=***REMOVED***`: Whether the user can press escape to close the bottom sheet.
+ *   - `disableBackdrop` - `{boolean=}`: When set to true, the bottomsheet will not show a backdrop.
+ *   - `escapeToClose` - `{boolean=}`: Whether the user can press escape to close the bottom sheet.
  *     Default true.
- *   - `resolve` - `***REMOVED***object=***REMOVED***`: Similar to locals, except it takes promises as values
+ *   - `resolve` - `{object=}`: Similar to locals, except it takes promises as values
  *   and the bottom sheet will not open until the promises resolve.
- *   - `controllerAs` - `***REMOVED***string=***REMOVED***`: An alias to assign the controller to on the scope.
- *   - `parent` - `***REMOVED***element=***REMOVED***`: The element to append the bottom sheet to. The `parent` may be a `function`, `string`,
+ *   - `controllerAs` - `{string=}`: An alias to assign the controller to on the scope.
+ *   - `parent` - `{element=}`: The element to append the bottom sheet to. The `parent` may be a `function`, `string`,
  *   `object`, or null. Defaults to appending to the body of the root element (or the root element) of the application.
  *   e.g. angular.element(document.getElementById('content')) or "#content"
- *   - `disableParentScroll` - `***REMOVED***boolean=***REMOVED***`: Whether to disable scrolling while the bottom sheet is open.
+ *   - `disableParentScroll` - `{boolean=}`: Whether to disable scrolling while the bottom sheet is open.
  *     Default true.
  *
- * @returns ***REMOVED***promise***REMOVED*** A promise that can be resolved with `$mdBottomSheet.hide()` or
+ * @returns {promise} A promise that can be resolved with `$mdBottomSheet.hide()` or
  * rejected with `$mdBottomSheet.cancel()`.
  */
 
@@ -121,7 +121,7 @@ MdBottomSheetDirective.$inject = ["$mdBottomSheet"];
  * Hide the existing bottom sheet and resolve the promise returned from
  * `$mdBottomSheet.show()`. This call will close the most recently opened/current bottomsheet (if any).
  *
- * @param ***REMOVED****=***REMOVED*** response An argument for the resolved promise.
+ * @param {*=} response An argument for the resolved promise.
  *
  */
 
@@ -133,28 +133,28 @@ MdBottomSheetDirective.$inject = ["$mdBottomSheet"];
  * Hide the existing bottom sheet and reject the promise returned from
  * `$mdBottomSheet.show()`.
  *
- * @param ***REMOVED****=***REMOVED*** response An argument for the rejected promise.
+ * @param {*=} response An argument for the rejected promise.
  *
  */
 
-function MdBottomSheetProvider($$interimElementProvider) ***REMOVED***
+function MdBottomSheetProvider($$interimElementProvider) {
   // how fast we need to flick down to close the sheet, pixels/ms
   var CLOSING_VELOCITY = 0.5;
   var PADDING = 80; // same as css
 
   bottomSheetDefaults.$inject = ["$animate", "$mdConstant", "$mdUtil", "$mdTheming", "$mdBottomSheet", "$rootElement", "$mdGesture", "$log"];
   return $$interimElementProvider('$mdBottomSheet')
-    .setDefaults(***REMOVED***
+    .setDefaults({
       methods: ['disableParentScroll', 'escapeToClose', 'clickOutsideToClose'],
       options: bottomSheetDefaults
-    ***REMOVED***);
+    });
 
   /* ngInject */
   function bottomSheetDefaults($animate, $mdConstant, $mdUtil, $mdTheming, $mdBottomSheet, $rootElement,
-                               $mdGesture, $log) ***REMOVED***
+                               $mdGesture, $log) {
     var backdrop;
 
-    return ***REMOVED***
+    return {
       themable: true,
       onShow: onShow,
       onRemove: onRemove,
@@ -162,10 +162,10 @@ function MdBottomSheetProvider($$interimElementProvider) ***REMOVED***
       escapeToClose: true,
       clickOutsideToClose: true,
       disableParentScroll: true
-    ***REMOVED***;
+    };
 
 
-    function onShow(scope, element, options, controller) ***REMOVED***
+    function onShow(scope, element, options, controller) {
 
       element = $mdUtil.extractElementByName(element, 'md-bottom-sheet');
 
@@ -174,12 +174,12 @@ function MdBottomSheetProvider($$interimElementProvider) ***REMOVED***
 
       // Once the md-bottom-sheet has `ng-cloak` applied on his template the opening animation will not work properly.
       // This is a very common problem, so we have to notify the developer about this.
-      if (element.hasClass('ng-cloak')) ***REMOVED***
+      if (element.hasClass('ng-cloak')) {
         var message = '$mdBottomSheet: using `<md-bottom-sheet ng-cloak >` will affect the bottom-sheet opening animations.';
         $log.warn( message, element[0] );
-      ***REMOVED***
+      }
 
-      if (!options.disableBackdrop) ***REMOVED***
+      if (!options.disableBackdrop) {
         // Add a backdrop that will close on click
         backdrop = $mdUtil.createBackdrop(scope, "md-bottom-sheet-backdrop md-opaque");
 
@@ -189,113 +189,113 @@ function MdBottomSheetProvider($$interimElementProvider) ***REMOVED***
         
         backdrop[0].tabIndex = -1;
 
-        if (options.clickOutsideToClose) ***REMOVED***
-          backdrop.on('click', function() ***REMOVED***
+        if (options.clickOutsideToClose) {
+          backdrop.on('click', function() {
             $mdUtil.nextTick($mdBottomSheet.cancel,true);
-          ***REMOVED***);
-        ***REMOVED***
+          });
+        }
 
         $mdTheming.inherit(backdrop, options.parent);
 
         $animate.enter(backdrop, options.parent, null);
-      ***REMOVED***
+      }
 
       var bottomSheet = new BottomSheet(element, options.parent);
       options.bottomSheet = bottomSheet;
 
       $mdTheming.inherit(bottomSheet.element, options.parent);
 
-      if (options.disableParentScroll) ***REMOVED***
+      if (options.disableParentScroll) {
         options.restoreScroll = $mdUtil.disableScrollAround(bottomSheet.element, options.parent);
-      ***REMOVED***
+      }
 
       return $animate.enter(bottomSheet.element, options.parent, backdrop)
-        .then(function() ***REMOVED***
+        .then(function() {
           var focusable = $mdUtil.findFocusTarget(element) || angular.element(
             element[0].querySelector('button') ||
             element[0].querySelector('a') ||
             element[0].querySelector($mdUtil.prefixer('ng-click', true))
           ) || backdrop;
 
-          if (options.escapeToClose) ***REMOVED***
-            options.rootElementKeyupCallback = function(e) ***REMOVED***
-              if (e.keyCode === $mdConstant.KEY_CODE.ESCAPE) ***REMOVED***
+          if (options.escapeToClose) {
+            options.rootElementKeyupCallback = function(e) {
+              if (e.keyCode === $mdConstant.KEY_CODE.ESCAPE) {
                 $mdUtil.nextTick($mdBottomSheet.cancel,true);
-              ***REMOVED***
-            ***REMOVED***;
+              }
+            };
 
             $rootElement.on('keyup', options.rootElementKeyupCallback);
             focusable && focusable.focus();
-          ***REMOVED***
-        ***REMOVED***);
+          }
+        });
 
-    ***REMOVED***
+    }
 
-    function onRemove(scope, element, options) ***REMOVED***
+    function onRemove(scope, element, options) {
 
       var bottomSheet = options.bottomSheet;
 
       if (!options.disableBackdrop) $animate.leave(backdrop);
-      return $animate.leave(bottomSheet.element).then(function() ***REMOVED***
-        if (options.disableParentScroll) ***REMOVED***
+      return $animate.leave(bottomSheet.element).then(function() {
+        if (options.disableParentScroll) {
           options.restoreScroll();
           delete options.restoreScroll;
-        ***REMOVED***
+        }
 
         bottomSheet.cleanup();
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
 
     /**
      * BottomSheet class to apply bottom-sheet behavior to an element
      */
-    function BottomSheet(element, parent) ***REMOVED***
-      var deregister = $mdGesture.register(parent, 'drag', ***REMOVED*** horizontal: false ***REMOVED***);
+    function BottomSheet(element, parent) {
+      var deregister = $mdGesture.register(parent, 'drag', { horizontal: false });
       parent.on('$md.dragstart', onDragStart)
         .on('$md.drag', onDrag)
         .on('$md.dragend', onDragEnd);
 
-      return ***REMOVED***
+      return {
         element: element,
-        cleanup: function cleanup() ***REMOVED***
+        cleanup: function cleanup() {
           deregister();
           parent.off('$md.dragstart', onDragStart);
           parent.off('$md.drag', onDrag);
           parent.off('$md.dragend', onDragEnd);
-        ***REMOVED***
-      ***REMOVED***;
+        }
+      };
 
-      function onDragStart(ev) ***REMOVED***
+      function onDragStart(ev) {
         // Disable transitions on transform so that it feels fast
         element.css($mdConstant.CSS.TRANSITION_DURATION, '0ms');
-      ***REMOVED***
+      }
 
-      function onDrag(ev) ***REMOVED***
+      function onDrag(ev) {
         var transform = ev.pointer.distanceY;
-        if (transform < 5) ***REMOVED***
+        if (transform < 5) {
           // Slow down drag when trying to drag up, and stop after PADDING
           transform = Math.max(-PADDING, transform / 2);
-        ***REMOVED***
+        }
         element.css($mdConstant.CSS.TRANSFORM, 'translate3d(0,' + (PADDING + transform) + 'px,0)');
-      ***REMOVED***
+      }
 
-      function onDragEnd(ev) ***REMOVED***
+      function onDragEnd(ev) {
         if (ev.pointer.distanceY > 0 &&
-            (ev.pointer.distanceY > 20 || Math.abs(ev.pointer.velocityY) > CLOSING_VELOCITY)) ***REMOVED***
+            (ev.pointer.distanceY > 20 || Math.abs(ev.pointer.velocityY) > CLOSING_VELOCITY)) {
           var distanceRemaining = element.prop('offsetHeight') - ev.pointer.distanceY;
           var transitionDuration = Math.min(distanceRemaining / ev.pointer.velocityY * 0.75, 500);
           element.css($mdConstant.CSS.TRANSITION_DURATION, transitionDuration + 'ms');
           $mdUtil.nextTick($mdBottomSheet.cancel,true);
-        ***REMOVED*** else ***REMOVED***
+        } else {
           element.css($mdConstant.CSS.TRANSITION_DURATION, '');
           element.css($mdConstant.CSS.TRANSFORM, '');
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***
+        }
+      }
+    }
 
-  ***REMOVED***
+  }
 
-***REMOVED***
+}
 MdBottomSheetProvider.$inject = ["$$interimElementProvider"];
 
-***REMOVED***)(window, window.angular);
+})(window, window.angular);

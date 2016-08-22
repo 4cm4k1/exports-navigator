@@ -3,7 +3,7 @@
 <h2>Current Managers</h2>
 
 <p ng-repeat="manager in adminManagers.list track by $index">
-    ***REMOVED******REMOVED***manager***REMOVED******REMOVED***
+    {{manager}}
     <button ng-click="adminManagers.update(manager)">Update</button>
     <button ng-click="adminManagers.remove(manager)">Remove</button>
 </p>
@@ -23,4 +23,4 @@
 
 <br />
 
-<p>***REMOVED******REMOVED***adminManagers.noMatch***REMOVED******REMOVED***</p>
+<p>{{adminManagers.noMatch}}</p>

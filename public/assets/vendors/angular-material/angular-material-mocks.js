@@ -12,7 +12,7 @@
  *  - Captures flush exceptions from $$rAF
  *
  */
-(function(window, angular, undefined) ***REMOVED***
+(function(window, angular, undefined) {
 
 'use strict';
 
@@ -31,27 +31,27 @@ angular.module('ngMaterial-mock', [
   'ngAnimateMock',
   'material.core'
   ])
-  .config(['$provide', function($provide) ***REMOVED***
+  .config(['$provide', function($provide) {
 
-    $provide.factory('$material', ['$animate', '$timeout', function($animate, $timeout) ***REMOVED***
-      return ***REMOVED***
-        flushOutstandingAnimations: function() ***REMOVED***
+    $provide.factory('$material', ['$animate', '$timeout', function($animate, $timeout) {
+      return {
+        flushOutstandingAnimations: function() {
           // this code is placed in a try-catch statement
           // since 1.3 and 1.4 handle their animations differently
           // and there may be situations where follow-up animations
           // are run in one version and not the other
-          try ***REMOVED*** $animate.flush(); ***REMOVED*** catch(e) ***REMOVED******REMOVED***
-        ***REMOVED***,
-        flushInterimElement: function() ***REMOVED***
+          try { $animate.flush(); } catch(e) {}
+        },
+        flushInterimElement: function() {
           this.flushOutstandingAnimations();
           $timeout.flush();
           this.flushOutstandingAnimations();
           $timeout.flush();
           this.flushOutstandingAnimations();
           $timeout.flush();
-        ***REMOVED***
-      ***REMOVED***;
-    ***REMOVED***]);
+        }
+      };
+    }]);
 
     /**
       * Angular Material dynamically generates Style tags
@@ -67,45 +67,45 @@ angular.module('ngMaterial-mock', [
      * Add throttle() and wrap .flush() to catch `no callbacks present`
      * errors
      */
-    $provide.decorator('$$rAF', function throttleInjector($delegate)***REMOVED***
+    $provide.decorator('$$rAF', function throttleInjector($delegate){
 
-      $delegate.throttle = function(cb) ***REMOVED***
-        return function() ***REMOVED***
+      $delegate.throttle = function(cb) {
+        return function() {
           cb.apply(this, arguments);
-        ***REMOVED***;
-      ***REMOVED***;
+        };
+      };
 
       var ngFlush = $delegate.flush;
-      $delegate.flush = function() ***REMOVED***
-        try      ***REMOVED*** ngFlush();  ***REMOVED***
-        catch(e) ***REMOVED*** ;           ***REMOVED***
-      ***REMOVED***;
+      $delegate.flush = function() {
+        try      { ngFlush();  }
+        catch(e) { ;           }
+      };
 
       return $delegate;
-    ***REMOVED***);
+    });
 
     /**
      * Capture $timeout.flush() errors: "No deferred tasks to be flushed"
      * errors
      */
-    $provide.decorator('$timeout', function throttleInjector($delegate)***REMOVED***
+    $provide.decorator('$timeout', function throttleInjector($delegate){
 
       var ngFlush = $delegate.flush;
-      $delegate.flush = function() ***REMOVED***
+      $delegate.flush = function() {
           var args = Array.prototype.slice.call(arguments);
-          try      ***REMOVED*** ngFlush.apply($delegate, args);  ***REMOVED***
-          catch(e) ***REMOVED*** ***REMOVED***
-      ***REMOVED***;
+          try      { ngFlush.apply($delegate, args);  }
+          catch(e) { }
+      };
 
       return $delegate;
-    ***REMOVED***);
+    });
 
-  ***REMOVED***]);
+  }]);
 
   /**
    * Stylesheet Mocks used by `animateCss.spec.js`
    */
-  window.createMockStyleSheet = function createMockStyleSheet(doc, wind) ***REMOVED***
+  window.createMockStyleSheet = function createMockStyleSheet(doc, wind) {
     doc = doc ? doc[0] : window.document;
     wind = wind || window;
 
@@ -115,25 +115,25 @@ angular.module('ngMaterial-mock', [
 
     var ss = doc.styleSheets[doc.styleSheets.length - 1];
 
-    return ***REMOVED***
-      addRule: function(selector, styles) ***REMOVED***
+    return {
+      addRule: function(selector, styles) {
         styles = addVendorPrefix(styles);
 
-        try ***REMOVED***
-          ss.insertRule(selector + '***REMOVED*** ' + styles + '***REMOVED***', 0);
-        ***REMOVED***
-        catch (e) ***REMOVED***
-          try ***REMOVED***
+        try {
+          ss.insertRule(selector + '{ ' + styles + '}', 0);
+        }
+        catch (e) {
+          try {
             ss.addRule(selector, styles);
-          ***REMOVED***
-          catch (e2) ***REMOVED******REMOVED***
-        ***REMOVED***
-      ***REMOVED***,
+          }
+          catch (e2) {}
+        }
+      },
 
-      destroy: function() ***REMOVED***
+      destroy: function() {
         head.removeChild(node);
-      ***REMOVED***
-    ***REMOVED***;
+      }
+    };
 
     /**
      * Decompose styles, attached specific vendor prefixes
@@ -143,17 +143,17 @@ angular.module('ngMaterial-mock', [
      * becomes
      *    '-webkit-transition:0.5s linear all; transition:0.5s linear all; font-size:100px;'
      */
-    function addVendorPrefix(styles) ***REMOVED***
-      var cache = ***REMOVED*** ***REMOVED***;
+    function addVendorPrefix(styles) {
+      var cache = { };
 
       // Decompose into cache registry
       styles
         .match(/([\-A-Za-z]*)\w\:\w*([A-Za-z0-9\.\-\s]*)/gi)
-        .forEach(function(style)***REMOVED***
+        .forEach(function(style){
           var pair = style.split(":");
           var key = pair[0];
 
-          switch(key) ***REMOVED***
+          switch(key) {
             case 'transition':
             case 'transform':
             case 'animation':
@@ -163,18 +163,18 @@ angular.module('ngMaterial-mock', [
               break;
             default:
               cache[key] = pair[1];
-          ***REMOVED***
-        ***REMOVED***);
+          }
+        });
 
         // Recompose full style object (as string)
         styles = "";
-        angular.forEach(cache, function(value, key) ***REMOVED***
+        angular.forEach(cache, function(value, key) {
           styles = styles + key + ":" + value + "; ";
-        ***REMOVED***);
+        });
 
         return styles;
-    ***REMOVED***
+    }
 
-  ***REMOVED***;
+  };
 
-***REMOVED***)(window, window.angular);
+})(window, window.angular);

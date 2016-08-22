@@ -190,7 +190,7 @@ If you are using Angular Material and will be using Jasmine to test your own cus
 Shown below is a karma-configuration file (`karma.conf.js`) sample that may be a useful template for your own testing purposes:<br/><br/>
 
 ```js
-module.exports = function(config) ***REMOVED***
+module.exports = function(config) {
 
   var SRC = [
     'src/myApp/**/*.js',
@@ -207,7 +207,7 @@ module.exports = function(config) ***REMOVED***
     'node_modules/angular-material/angular-material-mocks.js'
   ];
 
-  config.set(***REMOVED***
+  config.set({
 
     basePath: __dirname + '/..',
     frameworks: ['jasmine'],
@@ -222,8 +222,8 @@ module.exports = function(config) ***REMOVED***
     singleRun: true,
     browsers: ['PhantomJS,Chrome']
 
-  ***REMOVED***);
+  });
 
-***REMOVED***;
+};
 ```
 

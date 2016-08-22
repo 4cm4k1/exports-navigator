@@ -23,17 +23,17 @@
  * Access the Database service for the default App (or a given app).
  *
  * `firebase.database()` can be called as a function to access the default
- * ***REMOVED***@link firebase.database.Database***REMOVED***, or as `firebase.database(app)` to access
- * the database associated with a specific ***REMOVED***@link firebase.app.App***REMOVED***.
+ * {@link firebase.database.Database}, or as `firebase.database(app)` to access
+ * the database associated with a specific {@link firebase.app.App}.
  *
  * `firebase.database` is also a namespace that can be used to access
  * global constants and methods associated with the database service.
  *
  * @namespace
- * @param ***REMOVED***!firebase.app.App=***REMOVED*** app
- * @return ***REMOVED***!firebase.database.Database***REMOVED***
+ * @param {!firebase.app.App=} app
+ * @return {!firebase.database.Database}
  */
-firebase.database = function(app) ***REMOVED******REMOVED***;
+firebase.database = function(app) {};
 
 /**
  * Access the Database service from an App instance.
@@ -41,9 +41,9 @@ firebase.database = function(app) ***REMOVED******REMOVED***;
  * @example
  * var database = app.database();
  *
- * @return ***REMOVED***!firebase.database.Database***REMOVED***
+ * @return {!firebase.database.Database}
  */
-firebase.app.App.prototype.database = function() ***REMOVED******REMOVED***;
+firebase.app.App.prototype.database = function() {};
 
 
 /**
@@ -52,7 +52,7 @@ firebase.app.App.prototype.database = function() ***REMOVED******REMOVED***;
  * Do not call this constructor directly - use firebase.database() instead.
  * @interface
  */
-firebase.database.Database = function() ***REMOVED******REMOVED***;
+firebase.database.Database = function() {};
 
 /**
  * Log debugging information to the console.
@@ -60,11 +60,11 @@ firebase.database.Database = function() ***REMOVED******REMOVED***;
  * @example
  * firebase.database.enableLogging(true);
  *
- * @param ***REMOVED***(boolean|*)=***REMOVED*** logger
- * @param ***REMOVED***boolean=***REMOVED*** persistent Remembers the logging state between page
+ * @param {(boolean|*)=} logger
+ * @param {boolean=} persistent Remembers the logging state between page
  *     refreshes if true.
  */
-firebase.database.enableLogging = function(logger, persistent) ***REMOVED******REMOVED***;
+firebase.database.enableLogging = function(logger, persistent) {};
 
 /**
  * A placeholder value for auto-populating the current timestamp (time
@@ -74,37 +74,37 @@ firebase.database.enableLogging = function(logger, persistent) ***REMOVED******R
  * @example
  * var sessionsRef = firebase.database().ref('sessions');
  * var mySessionRef = sessionsRef.push();
- * mySessionRef.update(***REMOVED*** startedAt: firebase.database.ServerValue.TIMESTAMP ***REMOVED***);
+ * mySessionRef.update({ startedAt: firebase.database.ServerValue.TIMESTAMP });
  *
- * @const ***REMOVED******REMOVED***
+ * @const {{
  *   TIMESTAMP: !Object
- * ***REMOVED******REMOVED***
+ * }}
  */
 firebase.database.ServerValue;
 
 /**
  * The App associated with the Database service instance.
  *
- * @type ***REMOVED***!firebase.app.App***REMOVED***
+ * @type {!firebase.app.App}
  */
 firebase.database.Database.prototype.app;
 
 /**
  * Returns a `Reference` to the root or the specified path.
  *
- * @param ***REMOVED***string=***REMOVED*** path
- * @return ***REMOVED***!firebase.database.Reference***REMOVED*** Firebase reference.
+ * @param {string=} path
+ * @return {!firebase.database.Reference} Firebase reference.
  */
-firebase.database.Database.prototype.ref = function(path) ***REMOVED******REMOVED***;
+firebase.database.Database.prototype.ref = function(path) {};
 
 /**
  * Returns a reference to the root or the path specified in url. An exception is
  * thrown if the url is not in the same domain as the current database.
  *
- * @param ***REMOVED***string***REMOVED*** url
- * @return ***REMOVED***!firebase.database.Reference***REMOVED*** Firebase reference.
+ * @param {string} url
+ * @return {!firebase.database.Reference} Firebase reference.
  */
-firebase.database.Database.prototype.refFromURL = function(url) ***REMOVED******REMOVED***;
+firebase.database.Database.prototype.refFromURL = function(url) {};
 
 /**
  * Disconnect from the server (all database operations will be completed
@@ -128,7 +128,7 @@ firebase.database.Database.prototype.refFromURL = function(url) ***REMOVED******
  * @example
  * firebase.database().goOffline();
  */
-firebase.database.Database.prototype.goOffline = function() ***REMOVED******REMOVED***;
+firebase.database.Database.prototype.goOffline = function() {};
 
 /**
  * (Re)connect to the server and synchronize the offline database state
@@ -141,7 +141,7 @@ firebase.database.Database.prototype.goOffline = function() ***REMOVED******REMO
  * @example
  * firebase.database().goOnline();
  */
-firebase.database.Database.prototype.goOnline = function() ***REMOVED******REMOVED***;
+firebase.database.Database.prototype.goOnline = function() {};
 
 /**
  * A Reference represents a specific location in your database and can be used
@@ -153,13 +153,13 @@ firebase.database.Database.prototype.goOnline = function() ***REMOVED******REMOV
  * Writing is done with the `set()` method and reading can be done with the
  * `on()` method. See:
  *
- * - ***REMOVED***@link https://firebase.google.com/docs/database/web/save-data Save Data on the Web***REMOVED***
- * - ***REMOVED***@link https://firebase.google.com/docs/database/web/retrieve-data Retrieve Data on the Web***REMOVED***
+ * - {@link https://firebase.google.com/docs/database/web/save-data Save Data on the Web}
+ * - {@link https://firebase.google.com/docs/database/web/retrieve-data Retrieve Data on the Web}
  *
  * @interface
- * @extends ***REMOVED***firebase.database.Query***REMOVED***
+ * @extends {firebase.database.Query}
  */
-firebase.database.Reference = function() ***REMOVED******REMOVED***;
+firebase.database.Reference = function() {};
 
 /**
  * The last part of the current path.
@@ -174,7 +174,7 @@ firebase.database.Reference = function() ***REMOVED******REMOVED***;
  * var key = adaRef.key;                 // key === "ada"
  * key = adaRef.child("name/last").key;  // key === "last"
  *
- * @type ***REMOVED***string|null***REMOVED***
+ * @type {string|null}
  */
 firebase.database.Reference.prototype.key;
 
@@ -192,11 +192,11 @@ firebase.database.Reference.prototype.key;
  * var path = adaFirstNameRef.toString();
  * // path is now 'https://sample-app.firebaseio.com/users/ada/name/first'
  *
- * @param ***REMOVED***string***REMOVED*** path A relative path from this location to the desired child
+ * @param {string} path A relative path from this location to the desired child
  *   location.
- * @return ***REMOVED***!firebase.database.Reference***REMOVED*** The specified child location.
+ * @return {!firebase.database.Reference} The specified child location.
  */
-firebase.database.Reference.prototype.child = function(path) ***REMOVED******REMOVED***;
+firebase.database.Reference.prototype.child = function(path) {};
 
 
 /**
@@ -207,7 +207,7 @@ firebase.database.Reference.prototype.child = function(path) ***REMOVED******REM
  * var path = usersRef.parent.toString();
  * // path is now 'https://sample-app.firebaseio.com'
  *
- * @type ***REMOVED***?firebase.database.Reference***REMOVED***
+ * @type {?firebase.database.Reference}
  */
 firebase.database.Reference.prototype.parent;
 
@@ -220,7 +220,7 @@ firebase.database.Reference.prototype.parent;
  * var path = adaRef.root.toString();
  * // path is now 'https://sample-app.firebaseio.com'
  *
- * @type ***REMOVED***!firebase.database.Reference***REMOVED***
+ * @type {!firebase.database.Reference}
  */
 firebase.database.Reference.prototype.root;
 
@@ -257,28 +257,28 @@ firebase.database.Reference.prototype.root;
  * // and 'Lovelace' to the location storing her last name
  *
  * @example
- * adaNameRef.set(***REMOVED*** first: 'Ada', last: 'Lovelace' ***REMOVED***);
+ * adaNameRef.set({ first: 'Ada', last: 'Lovelace' });
  * // Exact same effect as the previous example, except we've written
  * // ada's first and last name simultaneously.
  *
  * @example
- * adaNameRef.set(***REMOVED*** first: 'Ada', last: 'Lovelace' ***REMOVED***)
- *   .then(function() ***REMOVED***
+ * adaNameRef.set({ first: 'Ada', last: 'Lovelace' })
+ *   .then(function() {
  *     console.log('Synchronization succeeded');
- *   ***REMOVED***)
- *   .catch(function(error) ***REMOVED***
+ *   })
+ *   .catch(function(error) {
  *     console.log('Synchronization failed');
- *   ***REMOVED***);
+ *   });
  * // Same as the previous example, except we will also log a message
  * // when the data has finished synchronizing.
  *
- * @param ***REMOVED*******REMOVED*** value The value to be written (string, number, boolean, object,
+ * @param {*} value The value to be written (string, number, boolean, object,
  *   array, or null).
- * @param ***REMOVED***function(?Error)=***REMOVED*** onComplete Callback called when write to server is
+ * @param {function(?Error)=} onComplete Callback called when write to server is
  *   complete.
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED*** Resolves when write to server is complete.
+ * @return {!firebase.Promise<void>} Resolves when write to server is complete.
  */
-firebase.database.Reference.prototype.set = function(value, onComplete) ***REMOVED******REMOVED***;
+firebase.database.Reference.prototype.set = function(value, onComplete) {};
 
 
 /**
@@ -309,23 +309,23 @@ firebase.database.Reference.prototype.set = function(value, onComplete) ***REMOV
  * Passing `null` to `update()` will remove the data at this location.
  *
  * See
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.googleblog.com/2015/09/introducing-multi-location-updates-and_86.html
- *  Introducing multi-location updates and more***REMOVED***
+ *  Introducing multi-location updates and more}
  *
  * @example
  * var adaNameRef = firebase.database().ref('users/ada/name');
  * // Modify the 'first' and 'last' properties, but leave other data at
  * // adaNameRef unchanged.
- * adaNameRef.update(***REMOVED*** first: 'Ada', last: 'Lovelace' ***REMOVED***);
+ * adaNameRef.update({ first: 'Ada', last: 'Lovelace' });
  *
- * @param ***REMOVED***!Object***REMOVED*** values Object containing multiple values.
- * @param ***REMOVED***function(?Error)=***REMOVED*** onComplete Callback called when write to server is
+ * @param {!Object} values Object containing multiple values.
+ * @param {function(?Error)=} onComplete Callback called when write to server is
  *   complete.
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED*** Resolves when update on server is complete.
+ * @return {!firebase.Promise<void>} Resolves when update on server is complete.
  */
 firebase.database.Reference.prototype.update =
-    function(values, onComplete) ***REMOVED******REMOVED***;
+    function(values, onComplete) {};
 
 
 /**
@@ -334,17 +334,17 @@ firebase.database.Reference.prototype.update =
  *
  * Applications need not use priority, but can order collections by
  * ordinary properties (see
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED***).
+ *  Sorting and filtering data}).
  *
- * @param ***REMOVED*******REMOVED*** newVal
- * @param ***REMOVED***string|number|null***REMOVED*** newPriority
- * @param ***REMOVED***function(?Error)=***REMOVED*** onComplete
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @param {*} newVal
+ * @param {string|number|null} newPriority
+ * @param {function(?Error)=} onComplete
+ * @return {!firebase.Promise<void>}
  */
 firebase.database.Reference.prototype.setWithPriority =
-    function(newVal, newPriority, onComplete) ***REMOVED******REMOVED***;
+    function(newVal, newPriority, onComplete) {};
 
 
 /**
@@ -361,18 +361,18 @@ firebase.database.Reference.prototype.setWithPriority =
  * @example
  * var adaRef = firebase.database().ref('users/ada');
  * adaRef.remove()
- *   .then(function() ***REMOVED***
+ *   .then(function() {
  *     console.log("Remove succeeded.")
- *   ***REMOVED***)
- *   .catch(function(error) ***REMOVED***
+ *   })
+ *   .catch(function(error) {
  *     console.log("Remove failed: " + error.message)
- *   ***REMOVED***);
+ *   });
  *
- * @param ***REMOVED***function(?Error)=***REMOVED*** onComplete Callback called when write to server is
+ * @param {function(?Error)=} onComplete Callback called when write to server is
  *   complete.
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED*** Resolves when remove on server is complete.
+ * @return {!firebase.Promise<void>} Resolves when remove on server is complete.
  */
-firebase.database.Reference.prototype.remove = function(onComplete) ***REMOVED******REMOVED***;
+firebase.database.Reference.prototype.remove = function(onComplete) {};
 
 
 /**
@@ -404,42 +404,42 @@ firebase.database.Reference.prototype.remove = function(onComplete) ***REMOVED**
  * @example
  * // Increment Ada's rank by 1.
  * var adaRankRef = firebase.database().ref('users/ada/rank');
- * adaRankRef.transaction(function(currentRank) ***REMOVED***
+ * adaRankRef.transaction(function(currentRank) {
  *   // If users/ada/rank has never been set, currentRank will be `null`.
  *   return currentRank + 1;
- * ***REMOVED***);
+ * });
  *
  * @example
  * // Try to create a user for ada, but only if the user id 'ada' isn't
  * // already taken
  * var adaRef = firebase.database().ref('users/ada');
- * adaRef.transaction(function(currentData) ***REMOVED***
- *   if (currentData === null) ***REMOVED***
- *     return ***REMOVED*** name: ***REMOVED*** first: 'Ada', last: 'Lovelace' ***REMOVED*** ***REMOVED***;
- *   ***REMOVED*** else ***REMOVED***
+ * adaRef.transaction(function(currentData) {
+ *   if (currentData === null) {
+ *     return { name: { first: 'Ada', last: 'Lovelace' } };
+ *   } else {
  *     console.log('User ada already exists.');
  *     return; // Abort the transaction.
- *   ***REMOVED***
- * ***REMOVED***, function(error, committed, snapshot) ***REMOVED***
- *   if (error) ***REMOVED***
+ *   }
+ * }, function(error, committed, snapshot) {
+ *   if (error) {
  *     console.log('Transaction failed abnormally!', error);
- *   ***REMOVED*** else if (!committed) ***REMOVED***
+ *   } else if (!committed) {
  *     console.log('We aborted the transaction (because ada already exists).');
- *   ***REMOVED*** else ***REMOVED***
+ *   } else {
  *     console.log('User ada added!');
- *   ***REMOVED***
+ *   }
  *   console.log("Ada's data: ", snapshot.val());
- * ***REMOVED***);
+ * });
  *
  *
- * @param ***REMOVED***function(*): ****REMOVED*** transactionUpdate A developer-supplied function which
+ * @param {function(*): *} transactionUpdate A developer-supplied function which
  *   will be passed the current data stored at this location (as a JavaScript
  *   object). The function should return the new value it would like written (as
  *   a JavaScript object). If `undefined` is returned (i.e. you return with no
  *   arguments) the transaction will be aborted and the data at this location
  *   will not be modified.
- * @param ***REMOVED***(function(?Error, boolean,
- *                   ?firebase.database.DataSnapshot))=***REMOVED*** onComplete A callback
+ * @param {(function(?Error, boolean,
+ *                   ?firebase.database.DataSnapshot))=} onComplete A callback
  *   function that will be called when the transaction completes. The callback
  *   is passed three arguments: a possibly-null `Error`, a `boolean` indicating
  *   whether the transaction was committed, and a `DataSnapshot` indicating the
@@ -450,19 +450,19 @@ firebase.database.Reference.prototype.remove = function(onComplete) ***REMOVED**
  *   transaction completed and committed data to Firebase, the second argument
  *   will be true. Regardless, the third argument will be a `DataSnapshot`
  *   containing the resulting data in this location.
- * @param ***REMOVED***boolean=***REMOVED*** applyLocally By default, events are raised each time the
+ * @param {boolean=} applyLocally By default, events are raised each time the
  *   transaction update function runs. So if it is run multiple times, you may
  *   see intermediate states. You can set this to false to suppress these
  *   intermediate states and instead wait until the transaction has completed
  *   before events are raised.
- * @return ***REMOVED***!firebase.Promise<***REMOVED***
+ * @return {!firebase.Promise<{
  *   committed: boolean,
  *   snapshot: ?firebase.database.DataSnapshot
- * ***REMOVED***>***REMOVED*** Returns a Promise that can optionally be used instead of the onComplete
+ * }>} Returns a Promise that can optionally be used instead of the onComplete
  *   callback to handle success and failure.
  */
 firebase.database.Reference.prototype.transaction =
-    function(transactionUpdate, onComplete, applyLocally) ***REMOVED******REMOVED***;
+    function(transactionUpdate, onComplete, applyLocally) {};
 
 
 /**
@@ -470,24 +470,24 @@ firebase.database.Reference.prototype.transaction =
  *
  * Applications need not use priority, but can order collections by
  * ordinary properties (see
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED***).
+ *  Sorting and filtering data}).
  *
- * @param ***REMOVED***string|number|null***REMOVED*** priority
- * @param ***REMOVED***function(?Error)***REMOVED*** onComplete
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @param {string|number|null} priority
+ * @param {function(?Error)} onComplete
+ * @return {!firebase.Promise<void>}
  */
 firebase.database.Reference.prototype.setPriority =
-    function(priority, onComplete) ***REMOVED******REMOVED***;
+    function(priority, onComplete) {};
 
 
 /**
  * @interface
- * @extends ***REMOVED***firebase.database.Reference***REMOVED***
- * @extends ***REMOVED***firebase.Thenable<void>***REMOVED***
+ * @extends {firebase.database.Reference}
+ * @extends {firebase.Thenable<void>}
  */
-firebase.database.ThenableReference = function() ***REMOVED******REMOVED***;
+firebase.database.ThenableReference = function() {};
 
 
 /**
@@ -506,44 +506,44 @@ firebase.database.ThenableReference = function() ***REMOVED******REMOVED***;
  *
  *
  * See
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/save-data#append_to_a_list_of_data
- *  Append to a list of data***REMOVED***
+ *  Append to a list of data}
  * </br>See
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.googleblog.com/2015/02/the-2120-ways-to-ensure-unique_68.html
- *  The 2^120 Ways to Ensure Unique Identifiers***REMOVED***
+ *  The 2^120 Ways to Ensure Unique Identifiers}
  *
  * @example
  * var messageListRef = firebase.database().ref('message_list');
  * var newMessageRef = messageListRef.push();
- * newMessageRef.set(***REMOVED***
+ * newMessageRef.set({
  *   'user_id': 'ada',
  *   'text': 'The Analytical Engine weaves algebraical patterns just as the Jacquard loom weaves flowers and leaves.'
- * ***REMOVED***);
+ * });
  * // We've appended a new message to the message_list location.
  * var path = newMessageRef.toString();
  * // path will be something like
  * // 'https://sample-app.firebaseio.com/message_list/-IKo28nwJLH0Nc5XeFmj'
  *
- * @param ***REMOVED****=***REMOVED*** value Optional value to be written at the generated location.
- * @param ***REMOVED***function(?Error)=***REMOVED*** onComplete Callback called when write to server is
+ * @param {*=} value Optional value to be written at the generated location.
+ * @param {function(?Error)=} onComplete Callback called when write to server is
  *   complete.
- * @return ***REMOVED***!firebase.database.ThenableReference***REMOVED*** Combined Promise and
+ * @return {!firebase.database.ThenableReference} Combined Promise and
  *   reference; resolves when write is complete, but can be used immediately as
  *   the reference to the child location.
  */
-firebase.database.Reference.prototype.push = function(value, onComplete) ***REMOVED******REMOVED***;
+firebase.database.Reference.prototype.push = function(value, onComplete) {};
 
 
 /**
  * Returns an `OnDisconnect` object - see
- * ***REMOVED***@link https://firebase.google.com/docs/database/web/offline-capabilities
- *   Offline Capabilities***REMOVED*** for information on how to use it.
+ * {@link https://firebase.google.com/docs/database/web/offline-capabilities
+ *   Offline Capabilities} for information on how to use it.
  *
- * @return ***REMOVED***!firebase.database.OnDisconnect***REMOVED***
+ * @return {!firebase.database.OnDisconnect}
  */
-firebase.database.Reference.prototype.onDisconnect = function() ***REMOVED******REMOVED***;
+firebase.database.Reference.prototype.onDisconnect = function() {};
 
 
 /**
@@ -559,19 +559,19 @@ firebase.database.Reference.prototype.onDisconnect = function() ***REMOVED******
  * the data that matches your query.
  *
  * Read our documentation on
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED*** for more information.
+ *  Sorting and filtering data} for more information.
  *
  * @interface
  */
-firebase.database.Query = function() ***REMOVED******REMOVED***
+firebase.database.Query = function() {}
 
 
 /**
  * Returns  a `Reference` to the Query's location.
  *
- * @type ***REMOVED***!firebase.database.Reference***REMOVED***
+ * @type {!firebase.database.Reference}
  */
 firebase.database.Query.prototype.ref;
 
@@ -582,7 +582,7 @@ firebase.database.Query.prototype.ref;
  * This is the primary way to read data from a database. Your callback
  * will be triggered for the initial data and again whenever the data changes.
  * Use `off( )` to stop receiving updates. See
- * ***REMOVED***@link https://firebase.google.com/docs/database/web/retrieve-data Retrieve Data on the Web***REMOVED***
+ * {@link https://firebase.google.com/docs/database/web/retrieve-data Retrieve Data on the Web}
  * for more details.
  *
  * <h4>value event</h4>
@@ -633,52 +633,52 @@ firebase.database.Query.prototype.ref;
  * sibling child by priority order (or `null` if it is the first child).
  *
  * @example <caption>Handle a new value:</caption>
- * ref.on('value', function(dataSnapshot) ***REMOVED***
+ * ref.on('value', function(dataSnapshot) {
  *   ...
- * ***REMOVED***);
+ * });
  *
  * @example <caption>Handle a new child:</caption>
- * ref.on('child_added', function(childSnapshot, prevChildKey) ***REMOVED***
+ * ref.on('child_added', function(childSnapshot, prevChildKey) {
  *   ...
- * ***REMOVED***);
+ * });
  *
  * @example <caption>Handle child removal:</caption>
- * ref.on('child_removed', function(oldChildSnapshot) ***REMOVED***
+ * ref.on('child_removed', function(oldChildSnapshot) {
  *   ...
- * ***REMOVED***);
+ * });
  *
  * @example <caption>Handle child data changes:</caption>
- * ref.on('child_changed', function(childSnapshot, prevChildKey) ***REMOVED***
+ * ref.on('child_changed', function(childSnapshot, prevChildKey) {
  *   ...
- * ***REMOVED***);
+ * });
  *
  * @example <caption>Handle child ordering changes:</caption>
- * ref.on('child_moved', function(childSnapshot, prevChildKey) ***REMOVED***
+ * ref.on('child_moved', function(childSnapshot, prevChildKey) {
  *   ...
- * ***REMOVED***);
+ * });
  *
- * @param ***REMOVED***!string***REMOVED*** eventType One of the following strings: "value",
+ * @param {!string} eventType One of the following strings: "value",
  *   "child_added", "child_changed", "child_removed", or "child_moved."
- * @param ***REMOVED***!function(firebase.database.DataSnapshot, string=)***REMOVED*** callback A
+ * @param {!function(firebase.database.DataSnapshot, string=)} callback A
  *   callback that fires when the specified event occurs. The callback will be
  *   passed a DataSnapshot. For ordering purposes, "child_added",
  *   "child_changed", and "child_moved" will also be passed a string containing
  *   the key of the previous child, by priority order (or `null` if it is the
  *   first child).
- * @param ***REMOVED***(function(Error)|Object)=***REMOVED*** cancelCallbackOrContext An optional
+ * @param {(function(Error)|Object)=} cancelCallbackOrContext An optional
  *   callback that will be notified if your event subscription is ever canceled
  *   because your client does not have permission to read this data (or it had
  *   permission but has now lost it). This callback will be passed an `Error`
  *   object indicating why the failure occurred.
- * @param ***REMOVED***Object=***REMOVED*** context If provided, this object will be used as this when
+ * @param {Object=} context If provided, this object will be used as this when
  *   calling your callback(s).
- * @return ***REMOVED***!function(firebase.database.DataSnapshot, string=)***REMOVED*** The provided
+ * @return {!function(firebase.database.DataSnapshot, string=)} The provided
  *   callback function is returned unmodified. This is just for convenience if
  *   you want to pass an inline function to `on()` but store the callback function
  *   for later passing to `off()`.
  */
 firebase.database.Query.prototype.on =
-    function(eventType, callback, cancelCallbackOrContext, context) ***REMOVED******REMOVED***;
+    function(eventType, callback, cancelCallbackOrContext, context) {};
 
 
 /**
@@ -696,7 +696,7 @@ firebase.database.Query.prototype.on =
  * callbacks for the reference will be removed.
  *
  * @example
- * var onValueChange = function(dataSnapshot) ***REMOVED***  ... ***REMOVED***;
+ * var onValueChange = function(dataSnapshot) {  ... };
  * ref.on('value', onValueChange);
  * ref.child('meta-data').on('child_added', onChildAdded);
  * // Sometime later...
@@ -709,18 +709,18 @@ firebase.database.Query.prototype.on =
  * @example
  * // Or you can save a line of code by using an inline function
  * // and on()'s return value.
- * var onValueChange = ref.on('value', function(dataSnapshot) ***REMOVED*** ... ***REMOVED***);
+ * var onValueChange = ref.on('value', function(dataSnapshot) { ... });
  * // Sometime later...
  * ref.off('value', onValueChange);
  *
- * @param ***REMOVED***string=***REMOVED*** eventType One of the following strings: "value",
+ * @param {string=} eventType One of the following strings: "value",
  *   "child_added", "child_changed", "child_removed", or "child_moved."
- * @param ***REMOVED***function(!firebase.database.DataSnapshot, ?string=)=***REMOVED*** callback The
+ * @param {function(!firebase.database.DataSnapshot, ?string=)=} callback The
  *   callback function that was passed to `on()`.
- * @param ***REMOVED***Object=***REMOVED*** context The context that was passed to `on()`.
+ * @param {Object=} context The context that was passed to `on()`.
  */
 firebase.database.Query.prototype.off =
-    function(eventType, callback, context) ***REMOVED******REMOVED***;
+    function(eventType, callback, context) {};
 
 
 /**
@@ -732,27 +732,27 @@ firebase.database.Query.prototype.off =
  * @example
  * // Basic usage of .once() to read the data located at ref.
  * ref.once('value')
- *   .then(function(dataSnapshot) ***REMOVED***
+ *   .then(function(dataSnapshot) {
  *     // handle read data.
- *   ***REMOVED***);
+ *   });
  *
- * @param ***REMOVED***!string***REMOVED*** eventType One of the following strings: "value",
+ * @param {!string} eventType One of the following strings: "value",
  *   "child_added", "child_changed", "child_removed", or "child_moved."
- * @param ***REMOVED***function(!firebase.database.DataSnapshot, string=)=***REMOVED*** successCallback A
+ * @param {function(!firebase.database.DataSnapshot, string=)=} successCallback A
  *   callback that fires when the specified event occurs. The callback will be
  *   passed a DataSnapshot. For ordering purposes, "child_added",
  *   "child_changed", and "child_moved" will also be passed a string containing
  *   the key of the previous child, by priority order (or `null` if it is the
  *   first child).
- * @param ***REMOVED***(function(Error)|Object)=***REMOVED*** failureCallbackOrContext An optional
+ * @param {(function(Error)|Object)=} failureCallbackOrContext An optional
  *   callback that will be notified if your client does not have permission to
  *   read the data. This callback will be passed an `Error` object indicating
  *   why the failure occurred.
- * @param ***REMOVED***Object=***REMOVED*** context If provided, this object will be used as this when
+ * @param {Object=} context If provided, this object will be used as this when
  *   calling your callback(s).
- * @return ***REMOVED***!firebase.Promise<*>***REMOVED***
+ * @return {!firebase.Promise<*>}
  */
-firebase.database.Query.prototype.once = function(eventType, successCallback, failureCallbackOrContext, context) ***REMOVED******REMOVED***;
+firebase.database.Query.prototype.once = function(eventType, successCallback, failureCallbackOrContext, context) {};
 
 
 /**
@@ -768,14 +768,14 @@ firebase.database.Query.prototype.once = function(eventType, successCallback, fa
  * the total number stays at 100.
  *
  * You can read more about `limitToFirst()` in
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED***.
+ *  Sorting and filtering data}.
  *
  * @example
  * // Find the two shortest dinosaurs.
  * var ref = firebase.database().ref("dinosaurs");
- * ref.orderByChild("height").limitToFirst(2).on("child_added", function(snapshot) ***REMOVED***
+ * ref.orderByChild("height").limitToFirst(2).on("child_added", function(snapshot) {
  *   // This will be called exactly two times (unless there are less than two
  *   // dinosaurs in the database.
  *
@@ -783,12 +783,12 @@ firebase.database.Query.prototype.once = function(eventType, successCallback, fa
  *   // removed from the data set, as a new dinosaur will now be the second
  *   // shortest.
  *   console.log(snapshot.key);
- * ***REMOVED***);
+ * });
  *
- * @param ***REMOVED***!number***REMOVED*** limit The maximum number of nodes to include in this query.
- * @return ***REMOVED***!firebase.database.Query***REMOVED***
+ * @param {!number} limit The maximum number of nodes to include in this query.
+ * @return {!firebase.database.Query}
  */
-firebase.database.Query.prototype.limitToFirst = function(limit) ***REMOVED******REMOVED***;
+firebase.database.Query.prototype.limitToFirst = function(limit) {};
 
 
 /**
@@ -804,24 +804,24 @@ firebase.database.Query.prototype.limitToFirst = function(limit) ***REMOVED*****
  * the total number stays at 100.
  *
  * You can read more about `limitToLast()` in
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED***.
+ *  Sorting and filtering data}.
  *
  * @example
  * // Find the two heaviest dinosaurs.
  * var ref = firebase.database().ref("dinosaurs");
- * ref.orderByChild("weight").limitToLast(2).on("child_added", function(snapshot) ***REMOVED***
+ * ref.orderByChild("weight").limitToLast(2).on("child_added", function(snapshot) {
  *   // This callback will be triggered exactly two times, unless there are less
  *   // than two dinosaurs stored in the database. It will also get fired for
  *   // every new, heavier dinosaur that gets added to the data set.
  *   console.log(snapshot.key);
- * ***REMOVED***);
+ * });
  *
- * @param ***REMOVED***!number***REMOVED*** limit The maximum number of nodes to include in this query.
- * @return ***REMOVED***!firebase.database.Query***REMOVED***
+ * @param {!number} limit The maximum number of nodes to include in this query.
+ * @return {!firebase.database.Query}
  */
-firebase.database.Query.prototype.limitToLast = function(limit) ***REMOVED******REMOVED***;
+firebase.database.Query.prototype.limitToLast = function(limit) {};
 
 
 /**
@@ -833,24 +833,24 @@ firebase.database.Query.prototype.limitToLast = function(limit) ***REMOVED******
  * Firebase queries allow you to order your data by any child key, on the fly.
  * However, if you know in advance what your indexes will be, you can define
  * them via the .indexOn rule in your Security Rules for better performance. See
- * the ***REMOVED***@link https://firebase.google.com/docs/database/security/indexing-data
- * .indexOn***REMOVED*** rule for more information.
+ * the {@link https://firebase.google.com/docs/database/security/indexing-data
+ * .indexOn} rule for more information.
  *
  * You can read more about `orderByChild()` in
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED***.
+ *  Sorting and filtering data}.
  *
  * @example
  * var ref = firebase.database().ref("dinosaurs");
- * ref.orderByChild("height").on("child_added", function(snapshot) ***REMOVED***
+ * ref.orderByChild("height").on("child_added", function(snapshot) {
  *   console.log(snapshot.key + " was " + snapshot.val().height + " meters tall");
- * ***REMOVED***);
+ * });
  *
- * @param ***REMOVED***!string***REMOVED*** path
- * @return ***REMOVED***!firebase.database.Query***REMOVED***
+ * @param {!string} path
+ * @return {!firebase.database.Query}
  */
-firebase.database.Query.prototype.orderByChild = function(path) ***REMOVED******REMOVED***;
+firebase.database.Query.prototype.orderByChild = function(path) {};
 
 
 /**
@@ -859,19 +859,19 @@ firebase.database.Query.prototype.orderByChild = function(path) ***REMOVED******
  * Sorts the results of a query by their (ascending) key value.
  *
  * You can read more about `orderByKey()` in
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED***.
+ *  Sorting and filtering data}.
  *
  * @example
  * var ref = firebase.database().ref("dinosaurs");
- * ref.orderByKey().on("child_added", function(snapshot) ***REMOVED***
+ * ref.orderByKey().on("child_added", function(snapshot) {
  *   console.log(snapshot.key);
- * ***REMOVED***);
+ * });
  *
- * @return ***REMOVED***!firebase.database.Query***REMOVED***
+ * @return {!firebase.database.Query}
  */
-firebase.database.Query.prototype.orderByKey = function() ***REMOVED******REMOVED***;
+firebase.database.Query.prototype.orderByKey = function() {};
 
 
 /**
@@ -879,13 +879,13 @@ firebase.database.Query.prototype.orderByKey = function() ***REMOVED******REMOVE
  *
  * Applications need not use priority, but can order collections by
  * ordinary properties (see
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED***).
+ *  Sorting and filtering data}).
  *
- * @return ***REMOVED***!firebase.database.Query***REMOVED***
+ * @return {!firebase.database.Query}
  */
-firebase.database.Query.prototype.orderByPriority = function() ***REMOVED******REMOVED***;
+firebase.database.Query.prototype.orderByPriority = function() {};
 
 
 /**
@@ -895,21 +895,21 @@ firebase.database.Query.prototype.orderByPriority = function() ***REMOVED******R
  * can order the results by their (ascending) values.
  *
  * You can read more about `orderByValue()` in
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED***.
+ *  Sorting and filtering data}.
  *
  * @example
  * var scoresRef = firebase.database().ref("scores");
- * scoresRef.orderByValue().limitToLast(3).on("value", function(snapshot) ***REMOVED***
- *   snapshot.forEach(function(data) ***REMOVED***
+ * scoresRef.orderByValue().limitToLast(3).on("value", function(snapshot) {
+ *   snapshot.forEach(function(data) {
  *     console.log("The " + data.key + " score is " + data.val());
- *   ***REMOVED***);
- * ***REMOVED***);
+ *   });
+ * });
  *
- * @return ***REMOVED***!firebase.database.Query***REMOVED***
+ * @return {!firebase.database.Query}
  */
-firebase.database.Query.prototype.orderByValue = function() ***REMOVED******REMOVED***;
+firebase.database.Query.prototype.orderByValue = function() {};
 
 
 /**
@@ -925,26 +925,26 @@ firebase.database.Query.prototype.orderByValue = function() ***REMOVED******REMO
  * equal to the specified key.
  *
  * You can read more about `startAt()` in
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED***.
+ *  Sorting and filtering data}.
  *
  * @example
  * // Find all dinosaurs that are at least three meters tall.
  * var ref = firebase.database().ref("dinosaurs");
- * ref.orderByChild("height").startAt(3).on("child_added", function(snapshot) ***REMOVED***
+ * ref.orderByChild("height").startAt(3).on("child_added", function(snapshot) {
  *   console.log(snapshot.key)
- * ***REMOVED***);
+ * });
  *
- * @param ***REMOVED***number|string|boolean|null***REMOVED*** value The value to start at. The argument
+ * @param {number|string|boolean|null} value The value to start at. The argument
  *   type depends on which `orderBy*()` function was used in this query. Specify a
  *   value that matches the `orderBy*()` type. When used in combination with
  *   `orderByKey()`, the value must be a string.
- * @param ***REMOVED***string=***REMOVED*** key The child key to start at. This argument is allowed if
+ * @param {string=} key The child key to start at. This argument is allowed if
  *   ordering by child, value, or priority.
- * @return ***REMOVED***!firebase.database.Query***REMOVED***
+ * @return {!firebase.database.Query}
  */
-firebase.database.Query.prototype.startAt = function(value, key) ***REMOVED******REMOVED***;
+firebase.database.Query.prototype.startAt = function(value, key) {};
 
 
 /**
@@ -960,27 +960,27 @@ firebase.database.Query.prototype.startAt = function(value, key) ***REMOVED*****
  * to the specified key.
  *
  * You can read more about `endAt()` in
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED***.
+ *  Sorting and filtering data}.
  *
  * @example
  * // Find all dinosaurs whose names come before Pterodactyl lexicographically.
  * var ref = firebase.database().ref("dinosaurs");
- * ref.orderByKey().endAt("pterodactyl").on("child_added", function(snapshot) ***REMOVED***
+ * ref.orderByKey().endAt("pterodactyl").on("child_added", function(snapshot) {
  *   console.log(snapshot.key);
- * ***REMOVED***);
+ * });
  *
- * @param ***REMOVED***number|string|boolean|null***REMOVED*** value The value to end at. The argument
+ * @param {number|string|boolean|null} value The value to end at. The argument
  *   type depends on which `orderBy*()` function was used in this query. Specify a
  *   value that matches the `orderBy*()` type. When used in combination with
  *   `orderByKey()`, the value must be a string.
- * @param ***REMOVED***string=***REMOVED*** key The child key to end at, among the children with the
+ * @param {string=} key The child key to end at, among the children with the
  *   previously specified priority. This argument is only allowed if ordering by
  *   priority.
- * @return ***REMOVED***!firebase.database.Query***REMOVED***
+ * @return {!firebase.database.Query}
  */
-firebase.database.Query.prototype.endAt = function(value, key) ***REMOVED******REMOVED***;
+firebase.database.Query.prototype.endAt = function(value, key) {};
 
 
 /**
@@ -995,27 +995,27 @@ firebase.database.Query.prototype.endAt = function(value, key) ***REMOVED******R
  * used to filter result sets with many matches for the same value.
  *
  * You can read more about `equalTo()` in
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED***.
+ *  Sorting and filtering data}.
  *
  * @example
  * // Find all dinosaurs whose height is exactly 25 meters.
  * var ref = firebase.database().ref("dinosaurs");
- * ref.orderByChild("height").equalTo(25).on("child_added", function(snapshot) ***REMOVED***
+ * ref.orderByChild("height").equalTo(25).on("child_added", function(snapshot) {
  *   console.log(snapshot.key);
- * ***REMOVED***);
+ * });
  *
- * @param ***REMOVED***number|string|boolean|null***REMOVED*** value The value to match for. The
+ * @param {number|string|boolean|null} value The value to match for. The
  *   argument type depends on which `orderBy*()` function was used in this query.
  *   Specify a value that matches the `orderBy*()` type. When used in combination
  *   with `orderByKey()`, the value must be a string.
- * @param ***REMOVED***string=***REMOVED*** key The child key to start at, among the children with the
+ * @param {string=} key The child key to start at, among the children with the
  *   previously specified priority. This argument is only allowed if ordering by
  *   priority.
- * @return ***REMOVED***!firebase.database.Query***REMOVED***
+ * @return {!firebase.database.Query}
  */
-firebase.database.Query.prototype.equalTo = function(value, key) ***REMOVED******REMOVED***;
+firebase.database.Query.prototype.equalTo = function(value, key) {};
 
 
 /**
@@ -1042,10 +1042,10 @@ firebase.database.Query.prototype.equalTo = function(value, key) ***REMOVED*****
  * var adaURL = adaRef.toString();
  * // adaURL === "https://sample-app.firebaseio.com/users/ada".
  *
- * @return ***REMOVED***string***REMOVED*** The absolute URL for this location.
+ * @return {string} The absolute URL for this location.
  * @override
  */
-firebase.database.Query.prototype.toString = function() ***REMOVED******REMOVED***;
+firebase.database.Query.prototype.toString = function() {};
 
 
 /**
@@ -1064,7 +1064,7 @@ firebase.database.Query.prototype.toString = function() ***REMOVED******REMOVED*
  *
  * @interface
  */
-firebase.database.DataSnapshot = function() ***REMOVED******REMOVED***;
+firebase.database.DataSnapshot = function() {};
 
 
 /**
@@ -1077,30 +1077,30 @@ firebase.database.DataSnapshot = function() ***REMOVED******REMOVED***;
  * @example
  * // Write and then read-back a string from the database.
  * ref.set("hello")
- *   .then(function() ***REMOVED***
+ *   .then(function() {
  *     return ref.once("value");
- *   ***REMOVED***)
- *   .then(function(snapshot) ***REMOVED***
+ *   })
+ *   .then(function(snapshot) {
  *     var data = snapshot.val(); // data === "hello"
- *   ***REMOVED***);
+ *   });
  *
  * @example
  * // Write and then read-back a JavaScript Object from the database.
- * ref.set(***REMOVED*** name: "Ada", age: 36 ***REMOVED***)
- *   .then(function() ***REMOVED***
+ * ref.set({ name: "Ada", age: 36 })
+ *   .then(function() {
  *    return ref.once("value");
- *   ***REMOVED***)
- *   .then(function(snapshot) ***REMOVED***
+ *   })
+ *   .then(function(snapshot) {
  *     var data = snapshot.val();
- *     // data is ***REMOVED*** "name": "Ada", "age": 36 ***REMOVED***
+ *     // data is { "name": "Ada", "age": 36 }
  *     // data.name === "Ada"
  *     // data.age === 36
- *   ***REMOVED***);
+ *   });
  *
- * @return ***REMOVED*******REMOVED*** The DataSnapshot's contents as a JavaScript value (Object,
+ * @return {*} The DataSnapshot's contents as a JavaScript value (Object,
  *  Array, string, number, boolean, or null).
  */
-firebase.database.DataSnapshot.prototype.val = function() ***REMOVED******REMOVED***;
+firebase.database.DataSnapshot.prototype.val = function() {};
 
 
 /**
@@ -1111,13 +1111,13 @@ firebase.database.DataSnapshot.prototype.val = function() ***REMOVED******REMOVE
  *
  * Applications need not use priority, but can order collections by
  * ordinary properties (see
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED***).
+ *  Sorting and filtering data}).
  *
- * @return ***REMOVED*******REMOVED***
+ * @return {*}
  */
-firebase.database.DataSnapshot.prototype.exportVal = function() ***REMOVED******REMOVED***;
+firebase.database.DataSnapshot.prototype.exportVal = function() {};
 
 
 /**
@@ -1126,26 +1126,26 @@ firebase.database.DataSnapshot.prototype.exportVal = function() ***REMOVED******
  *
  * @example
  * // Assume we have the following data in our database:
- * ***REMOVED***
- *   "name": ***REMOVED***
+ * {
+ *   "name": {
  *     "first": "Ada",
  *     "last": "Lovelace"
- *   ***REMOVED***
- * ***REMOVED***
+ *   }
+ * }
  *
  * // Test for the existence of certain keys within a DataSnapshot
  * var ref = firebase.database().ref("users/ada");
  * ref.once("value")
- *   .then(function(snapshot) ***REMOVED***
+ *   .then(function(snapshot) {
  *     var a = snapshot.exists();  // true
  *     var b = snapshot.child("name").exists(); // true
  *     var c = snapshot.child("name/first").exists(); // true
  *     var d = snapshot.child("name/middle").exists(); // false
- *   ***REMOVED***);
+ *   });
  *
- * @return ***REMOVED***boolean***REMOVED***
+ * @return {boolean}
  */
-firebase.database.DataSnapshot.prototype.exists = function() ***REMOVED******REMOVED***;
+firebase.database.DataSnapshot.prototype.exists = function() {};
 
 
 /**
@@ -1160,27 +1160,27 @@ firebase.database.DataSnapshot.prototype.exists = function() ***REMOVED******REM
  *
  * @example
  * // Assume we have the following data in our database:
- * ***REMOVED***
- *   "name": ***REMOVED***
+ * {
+ *   "name": {
  *     "first": "Ada",
  *     "last": "Lovelace"
- *   ***REMOVED***
- * ***REMOVED***
+ *   }
+ * }
  *
  * // Test for the existence of certain keys within a DataSnapshot
  * var ref = firebase.database().ref("users/ada");
  * ref.once("value")
- *   .then(function(snapshot) ***REMOVED***
- *     var name = snapshot.child("name").val(); // ***REMOVED*** first: "Ada", last: "Lovelace"***REMOVED***
+ *   .then(function(snapshot) {
+ *     var name = snapshot.child("name").val(); // { first: "Ada", last: "Lovelace"}
  *     var firstName = snapshot.child("name/first").val(); // "Ada"
  *     var lastName = snapshot.child("name").child("last").val(); // "Lovelace"
  *     var age = snapshot.child("age").val(); // null
- *   ***REMOVED***);
+ *   });
  *
- * @param ***REMOVED***string***REMOVED*** path A relative path to the location of child data.
- * @return ***REMOVED***!firebase.database.DataSnapshot***REMOVED***
+ * @param {string} path A relative path to the location of child data.
+ * @return {!firebase.database.DataSnapshot}
  */
-firebase.database.DataSnapshot.prototype.child = function(path) ***REMOVED******REMOVED***;
+firebase.database.DataSnapshot.prototype.child = function(path) {};
 
 
 /**
@@ -1188,25 +1188,25 @@ firebase.database.DataSnapshot.prototype.child = function(path) ***REMOVED******
  *
  * @example
  * // Assume we have the following data in the database
- * ***REMOVED***
- *   "name": ***REMOVED***
+ * {
+ *   "name": {
  *     "first": "Ada",
  *     "last": "Lovelace"
- *   ***REMOVED***
- * ***REMOVED***
+ *   }
+ * }
  *
  * // Determine which child keys in DataSnapshot have data.
  * var ref = firebase.database().ref("users/ada");
  * ref.once("value")
- *   .then(function(snapshot) ***REMOVED***
+ *   .then(function(snapshot) {
  *     var hasName = snapshot.hasChild("name"); // true
  *     var hasAge = snapshot.hasChild("age"); // false
- *   ***REMOVED***);
+ *   });
  *
- * @param ***REMOVED***string***REMOVED*** path A relative path to the location of a potential child.
- * @return ***REMOVED***boolean***REMOVED*** true if data exists at the specified child path; else false.
+ * @param {string} path A relative path to the location of a potential child.
+ * @return {boolean} true if data exists at the specified child path; else false.
  */
-firebase.database.DataSnapshot.prototype.hasChild = function(path) ***REMOVED******REMOVED***;
+firebase.database.DataSnapshot.prototype.hasChild = function(path) {};
 
 
 /**
@@ -1214,13 +1214,13 @@ firebase.database.DataSnapshot.prototype.hasChild = function(path) ***REMOVED***
  *
  * Applications need not use priority, but can order collections by
  * ordinary properties (see
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED***).
+ *  Sorting and filtering data}).
  *
- * @return ***REMOVED***string|number|null***REMOVED***
+ * @return {string|number|null}
  */
-firebase.database.DataSnapshot.prototype.getPriority = function() ***REMOVED******REMOVED***;
+firebase.database.DataSnapshot.prototype.getPriority = function() {};
 
 
 /**
@@ -1239,31 +1239,31 @@ firebase.database.DataSnapshot.prototype.getPriority = function() ***REMOVED****
  * @example
  *
  * // Assume we have the following data in our database:
- * ***REMOVED***
- *   "users": ***REMOVED***
- *     "ada": ***REMOVED***
+ * {
+ *   "users": {
+ *     "ada": {
  *       "first": "Ada",
  *       "last": "Lovelace"
- *     ***REMOVED***,
- *     "alan": ***REMOVED***
+ *     },
+ *     "alan": {
  *       "first": "Alan",
  *       "last": "Turing"
- *     ***REMOVED***
- *   ***REMOVED***
- * ***REMOVED***
+ *     }
+ *   }
+ * }
  *
  * // Loop through users in order with the forEach() method. The callback provided
  * // to will be called synchronously with a DataSnapshot for each child:
  * var query = firebase.database().ref("users").orderByKey();
  * query.once("value")
- *   .then(function(snapshot) ***REMOVED***
- *     snapshot.forEach(function(childSnapshot) ***REMOVED***
+ *   .then(function(snapshot) {
+ *     snapshot.forEach(function(childSnapshot) {
  *       // key will be "ada" the first time and "alan" the second time
  *       var key = childSnapshot.key;
  *       // childData will be the actual contents of the child
  *       var childData = childSnapshot.val();
- *   ***REMOVED***);
- * ***REMOVED***);
+ *   });
+ * });
  *
  * @example
  * // You can cancel the enumeration at any point by having your callback
@@ -1271,22 +1271,22 @@ firebase.database.DataSnapshot.prototype.getPriority = function() ***REMOVED****
  * // the callback function one time.
  * var query = firebase.database().ref("users").orderByKey();
  * query.once("value")
- *   .then(function(snapshot) ***REMOVED***
- *     snapshot.forEach(function(childSnapshot) ***REMOVED***
+ *   .then(function(snapshot) {
+ *     snapshot.forEach(function(childSnapshot) {
  *       var key = childSnapshot.key; // "ada"
  *
  *       // Cancel enumeration
  *       return true;
- *   ***REMOVED***);
- * ***REMOVED***);
+ *   });
+ * });
  *
- * @param ***REMOVED***function(!firebase.database.DataSnapshot): boolean***REMOVED*** action A function
+ * @param {function(!firebase.database.DataSnapshot): boolean} action A function
  *   which will be called for each child DataSnapshot. The callback can return
  *   true to cancel further enumeration.
- * @return ***REMOVED***boolean***REMOVED*** true if enumeration was canceled due to your callback
+ * @return {boolean} true if enumeration was canceled due to your callback
  *   returning true.
  */
-firebase.database.DataSnapshot.prototype.forEach = function(action) ***REMOVED******REMOVED***;
+firebase.database.DataSnapshot.prototype.forEach = function(action) {};
 
 
 /**
@@ -1299,24 +1299,24 @@ firebase.database.DataSnapshot.prototype.forEach = function(action) ***REMOVED**
  *
  * @example
  * // Assume we have the following data in the database
- * ***REMOVED***
- *   "name": ***REMOVED***
+ * {
+ *   "name": {
  *     "first": "Ada",
  *     "last": "Lovelace"
- *   ***REMOVED***
- * ***REMOVED***
+ *   }
+ * }
  *
  * var ref = firebase.database().ref("users/ada");
  * ref.once("value")
- *   .then(function(snapshot) ***REMOVED***
+ *   .then(function(snapshot) {
  *     var a = snapshot.hasChildren(); // true
  *     var b = snapshot.child("name").hasChildren(); // true
  *     var c = snapshot.child("name/first").hasChildren(); // false
- *   ***REMOVED***);
+ *   });
  *
- * @return ***REMOVED***boolean***REMOVED*** true if this snapshot has any children; else false.
+ * @return {boolean} true if this snapshot has any children; else false.
  */
-firebase.database.DataSnapshot.prototype.hasChildren = function() ***REMOVED******REMOVED***;
+firebase.database.DataSnapshot.prototype.hasChildren = function() {};
 
 
 /**
@@ -1329,29 +1329,29 @@ firebase.database.DataSnapshot.prototype.hasChildren = function() ***REMOVED****
  *
  * @example
  * // Assume we have the following data in the database
- * ***REMOVED***
- *   "name": ***REMOVED***
+ * {
+ *   "name": {
  *     "first": "Ada",
  *     "last": "Lovelace"
- *   ***REMOVED***
- * ***REMOVED***
+ *   }
+ * }
  *
  * var ref = firebase.database().ref("users/ada");
  * ref.once("value")
- *   .then(function(snapshot) ***REMOVED***
+ *   .then(function(snapshot) {
  *     var key = snapshot.key; // "ada"
  *     var childKey = snapshot.child("name/last"); // "last"
- *   ***REMOVED***);
+ *   });
  *
  * @example
  * var rootRef = firebase.database().ref();
  * ref.once("value")
- *   .then(function(snapshot) ***REMOVED***
+ *   .then(function(snapshot) {
  *     var key = snapshot.key; // null
  *     var childKey = snapshot.child("users/ada"); // "ada"
- *   ***REMOVED***);
+ *   });
  *
- * @type ***REMOVED***string|null***REMOVED***
+ * @type {string|null}
  */
 firebase.database.DataSnapshot.prototype.key;
 
@@ -1361,30 +1361,30 @@ firebase.database.DataSnapshot.prototype.key;
  *
  * @example
  * // Assume we have the following data in the database
- * ***REMOVED***
- *   "name": ***REMOVED***
+ * {
+ *   "name": {
  *     "first": "Ada",
  *     "last": "Lovelace"
- *   ***REMOVED***
- * ***REMOVED***
+ *   }
+ * }
  *
  * var ref = firebase.database().ref("users/ada");
  * ref.once("value")
- *   .then(function(snapshot) ***REMOVED***
+ *   .then(function(snapshot) {
  *     var a = snapshot.numChildren(); // 1 ("name")
  *     var b = snapshot.child("name").numChildren(); // 2 ("first", "last")
  *     var c = snapshot.child("name/first").numChildren(); // 0
- *   ***REMOVED***);
+ *   });
  *
- * @return ***REMOVED***number***REMOVED***
+ * @return {number}
  */
-firebase.database.DataSnapshot.prototype.numChildren = function() ***REMOVED******REMOVED***;
+firebase.database.DataSnapshot.prototype.numChildren = function() {};
 
 
 /**
  * The `Reference` for the location that generated this `DataSnapshot`.
  *
- * @type ***REMOVED***!firebase.database.Reference***REMOVED***
+ * @type {!firebase.database.Reference}
  */
 firebase.database.DataSnapshot.prototype.ref;
 
@@ -1399,8 +1399,8 @@ firebase.database.DataSnapshot.prototype.ref;
  * The `onDisconnect` class is most commonly used to manage presence in
  * applications where it is useful to detect how many clients are connected and
  * when other clients disconnect. See
- * ***REMOVED***@link https://firebase.google.com/docs/database/web/offline-capabilities
- *  Offline Capabilities***REMOVED*** for more information.
+ * {@link https://firebase.google.com/docs/database/web/offline-capabilities
+ *  Offline Capabilities} for more information.
  *
  * Note that these functions should be called before any data is written to
  * avoid problems if a connection is dropped before the requests can be
@@ -1412,7 +1412,7 @@ firebase.database.DataSnapshot.prototype.ref;
  *
  * @interface
  */
-firebase.database.OnDisconnect = function() ***REMOVED******REMOVED***;
+firebase.database.OnDisconnect = function() {};
 
 
 /**
@@ -1430,28 +1430,28 @@ firebase.database.OnDisconnect = function() ***REMOVED******REMOVED***;
  * // nevermind
  * ref.onDisconnect().cancel();
  *
- * @param ***REMOVED***function(?Error)=***REMOVED*** onComplete An optional callback function that will
+ * @param {function(?Error)=} onComplete An optional callback function that will
  *   be called when synchronization to the server has completed. The callback
  *   will be passed a single parameter: null for success, or an Error object
  *   indicating a failure.
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED*** Resolves when synchronization to the server
+ * @return {!firebase.Promise<void>} Resolves when synchronization to the server
  *   is complete.
  */
-firebase.database.OnDisconnect.prototype.cancel = function(onComplete) ***REMOVED******REMOVED***;
+firebase.database.OnDisconnect.prototype.cancel = function(onComplete) {};
 
 
 /**
  * Ensures the data at this location is deleted when the client is disconnected
  * (due to closing the browser, navigating to a new page, or network issues).
  *
- * @param ***REMOVED***function(?Error)=***REMOVED*** onComplete An optional callback function that will
+ * @param {function(?Error)=} onComplete An optional callback function that will
  *   be called when synchronization to the server has completed. The callback
  *   will be passed a single parameter: null for success, or an Error object
  *   indicating a failure.
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED*** Resolves when synchronization to the server
+ * @return {!firebase.Promise<void>} Resolves when synchronization to the server
  *   is complete.
  */
-firebase.database.OnDisconnect.prototype.remove = function(onComplete) ***REMOVED******REMOVED***;
+firebase.database.OnDisconnect.prototype.remove = function(onComplete) {};
 
 /**
  * Ensures the data at this location is set to the specified value when the
@@ -1465,8 +1465,8 @@ firebase.database.OnDisconnect.prototype.remove = function(onComplete) ***REMOVE
  * `set()` is especially useful for implementing "presence" systems, where a value
  * should be changed or cleared when a user disconnects so that he appears
  * "offline" to other users. See
- * ***REMOVED***@link https://firebase.google.com/docs/database/web/offline-capabilities
- *  Offline Capabilities***REMOVED*** for more information.
+ * {@link https://firebase.google.com/docs/database/web/offline-capabilities
+ *  Offline Capabilities} for more information.
  *
  * Note that `onDisconnect` operations are only triggered once. If you want an
  * operation to occur each time a disconnect occurs, you'll need to re-establish
@@ -1476,17 +1476,17 @@ firebase.database.OnDisconnect.prototype.remove = function(onComplete) ***REMOVE
  * var ref = firebase.database().ref("users/ada/status");
  * ref.onDisconnect().set("I disconnected!");
  *
- * @param ***REMOVED*******REMOVED*** value The value to be written to this location on
+ * @param {*} value The value to be written to this location on
  *   disconnect (can be an object, array, string, number, boolean, or null).
- * @param ***REMOVED***function(?Error)=***REMOVED*** onComplete An optional callback function that will
+ * @param {function(?Error)=} onComplete An optional callback function that will
  *   be called when synchronization to the database server has completed. The
  *   callback will be passed a single parameter: null for success, or an Error
  *   object indicating a failure.
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED*** Resolves when synchronization to the
+ * @return {!firebase.Promise<void>} Resolves when synchronization to the
  *   database is complete.
  */
 firebase.database.OnDisconnect.prototype.set =
-    function(value, onComplete) ***REMOVED******REMOVED***;
+    function(value, onComplete) {};
 
 
 /**
@@ -1496,17 +1496,17 @@ firebase.database.OnDisconnect.prototype.set =
  *
  * Applications need not use priority, but can order collections by
  * ordinary properties (see
- * ***REMOVED***@link
+ * {@link
  *  https://firebase.google.com/docs/database/web/retrieve-data#sorting_and_filtering_data
- *  Sorting and filtering data***REMOVED***).
+ *  Sorting and filtering data}).
  *
- * @param ***REMOVED*******REMOVED*** value
- * @param ***REMOVED***number|string|null***REMOVED*** priority
- * @param ***REMOVED***function(?Error)=***REMOVED*** onComplete
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @param {*} value
+ * @param {number|string|null} priority
+ * @param {function(?Error)=} onComplete
+ * @return {!firebase.Promise<void>}
  */
 firebase.database.OnDisconnect.prototype.setWithPriority =
-    function(value, priority, onComplete) ***REMOVED******REMOVED***;
+    function(value, priority, onComplete) {};
 
 
 /**
@@ -1522,27 +1522,27 @@ firebase.database.OnDisconnect.prototype.setWithPriority =
  * only the referenced properties at the current location (instead of replacing
  * all the child properties at the current location).
  *
- * See ***REMOVED***@link firebase.database.Reference#update***REMOVED*** for examples of using
+ * See {@link firebase.database.Reference#update} for examples of using
  * the connected version of `update`.
  *
  * @example
  * var ref = firebase.database().ref("users/ada");
- * ref.update(***REMOVED***
+ * ref.update({
  *    onlineState: true,
  *    status: "I'm online."
- * ***REMOVED***);
- * ref.onDisconnect.update(***REMOVED***
+ * });
+ * ref.onDisconnect.update({
  *   onlineState: false,
  *   status: "I'm offline."
- * ***REMOVED***);
+ * });
  *
- * @param ***REMOVED***!Object***REMOVED*** values Object containing multiple values.
- * @param ***REMOVED***function(?Error)=***REMOVED*** onComplete An optional callback function that will
+ * @param {!Object} values Object containing multiple values.
+ * @param {function(?Error)=} onComplete An optional callback function that will
  *   be called when synchronization to the server has completed. The
  *   callback will be passed a single parameter: null for success, or an Error
  *   object indicating a failure.
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED*** Resolves when synchronization to the
+ * @return {!firebase.Promise<void>} Resolves when synchronization to the
  *   database is complete.
  */
 firebase.database.OnDisconnect.prototype.update =
-    function(values, onComplete) ***REMOVED******REMOVED***;
+    function(values, onComplete) {};

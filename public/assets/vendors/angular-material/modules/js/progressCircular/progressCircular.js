@@ -4,7 +4,7 @@
  * @license MIT
  * v1.1.0
  */
-(function( window, angular, undefined )***REMOVED***
+(function( window, angular, undefined ){
 "use strict";
 
 /**
@@ -33,20 +33,20 @@ angular.module('material.components.progressCircular', ['material.core']);
  * not necessary to expose what's happening behind the scenes and how long it will take, use an
  * indeterminate indicator.
  *
- * @param ***REMOVED***string***REMOVED*** md-mode Select from one of two modes: **'determinate'** and **'indeterminate'**.
+ * @param {string} md-mode Select from one of two modes: **'determinate'** and **'indeterminate'**.
  *
  * Note: if the `md-mode` value is set as undefined or specified as not 1 of the two (2) valid modes, then **'indeterminate'**
  * will be auto-applied as the mode.
  *
  * Note: if not configured, the `md-mode="indeterminate"` will be auto injected as an attribute.
  * If `value=""` is also specified, however, then `md-mode="determinate"` would be auto-injected instead.
- * @param ***REMOVED***number=***REMOVED*** value In determinate mode, this number represents the percentage of the
+ * @param {number=} value In determinate mode, this number represents the percentage of the
  *     circular progress. Default: 0
- * @param ***REMOVED***number=***REMOVED*** md-diameter This specifies the diameter of the circular progress. The value
+ * @param {number=} md-diameter This specifies the diameter of the circular progress. The value
  * should be a pixel-size value (eg '100'). If this attribute is
  * not present then a default value of '50px' is assumed.
  *
- * @param ***REMOVED***boolean=***REMOVED*** ng-disabled Determines whether to disable the progress element.
+ * @param {boolean=} ng-disabled Determines whether to disable the progress element.
  *
  * @usage
  * <hljs lang="html">
@@ -66,7 +66,7 @@ angular
 
 /* ngInject */
 function MdProgressCircularDirective($window, $mdProgressCircular, $mdTheming,
-                                     $mdUtil, $interval, $log) ***REMOVED***
+                                     $mdUtil, $interval, $log) {
 
   // Note that this shouldn't use use $$rAF, because it can cause an infinite loop
   // in any tests that call $animate.flush.
@@ -78,40 +78,40 @@ function MdProgressCircularDirective($window, $mdProgressCircular, $mdTheming,
   var DISABLED_CLASS = '_md-progress-circular-disabled';
   var INDETERMINATE_CLASS = 'md-mode-indeterminate';
 
-  return ***REMOVED***
+  return {
     restrict: 'E',
-    scope: ***REMOVED***
+    scope: {
       value: '@',
       mdDiameter: '@',
       mdMode: '@'
-    ***REMOVED***,
+    },
     template:
       '<svg xmlns="http://www.w3.org/2000/svg">' +
         '<path fill="none"/>' +
       '</svg>',
-    compile: function(element, attrs) ***REMOVED***
-      element.attr(***REMOVED***
+    compile: function(element, attrs) {
+      element.attr({
         'aria-valuemin': 0,
         'aria-valuemax': 100,
         'role': 'progressbar'
-      ***REMOVED***);
+      });
 
-      if (angular.isUndefined(attrs.mdMode)) ***REMOVED***
+      if (angular.isUndefined(attrs.mdMode)) {
         var hasValue = angular.isDefined(attrs.value);
         var mode = hasValue ? MODE_DETERMINATE : MODE_INDETERMINATE;
-        var info = "Auto-adding the missing md-mode='***REMOVED***0***REMOVED***' to the ProgressCircular element";
+        var info = "Auto-adding the missing md-mode='{0}' to the ProgressCircular element";
 
           // $log.debug( $mdUtil.supplant(info, [mode]) );
         attrs.$set('mdMode', mode);
-      ***REMOVED*** else ***REMOVED***
+      } else {
         attrs.$set('mdMode', attrs.mdMode.trim());
-      ***REMOVED***
+      }
 
       return MdProgressCircularLink;
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
-  function MdProgressCircularLink(scope, element, attrs) ***REMOVED***
+  function MdProgressCircularLink(scope, element, attrs) {
     var node = element[0];
     var svg = angular.element(node.querySelector('svg'));
     var path = angular.element(node.querySelector('path'));
@@ -127,70 +127,70 @@ function MdProgressCircularDirective($window, $mdProgressCircular, $mdTheming,
 
     // If the mode is indeterminate, it doesn't need to
     // wait for the next digest. It can start right away.
-    if(scope.mdMode === MODE_INDETERMINATE)***REMOVED***
+    if(scope.mdMode === MODE_INDETERMINATE){
       startIndeterminateAnimation();
-    ***REMOVED***
+    }
 
-    scope.$on('$destroy', function()***REMOVED***
+    scope.$on('$destroy', function(){
       cleanupIndeterminateAnimation();
 
-      if (lastDrawFrame) ***REMOVED***
+      if (lastDrawFrame) {
         cAF(lastDrawFrame);
-      ***REMOVED***
-    ***REMOVED***);
+      }
+    });
 
-    scope.$watchGroup(['value', 'mdMode', function() ***REMOVED***
+    scope.$watchGroup(['value', 'mdMode', function() {
       var isDisabled = node.disabled;
 
       // Sometimes the browser doesn't return a boolean, in
       // which case we should check whether the attribute is
       // present.
-      if (isDisabled === true || isDisabled === false)***REMOVED***
+      if (isDisabled === true || isDisabled === false){
         return isDisabled;
-      ***REMOVED***
+      }
       return angular.isDefined(element.attr('disabled'));
 
-    ***REMOVED***], function(newValues, oldValues) ***REMOVED***
+    }], function(newValues, oldValues) {
       var mode = newValues[1];
       var isDisabled = newValues[2];
       var wasDisabled = oldValues[2];
 
-      if (isDisabled !== wasDisabled) ***REMOVED***
+      if (isDisabled !== wasDisabled) {
         element.toggleClass(DISABLED_CLASS, !!isDisabled);
-      ***REMOVED***
+      }
 
-      if (isDisabled) ***REMOVED***
+      if (isDisabled) {
         cleanupIndeterminateAnimation();
-      ***REMOVED*** else ***REMOVED***
-        if (mode !== MODE_DETERMINATE && mode !== MODE_INDETERMINATE) ***REMOVED***
+      } else {
+        if (mode !== MODE_DETERMINATE && mode !== MODE_INDETERMINATE) {
           mode = MODE_INDETERMINATE;
           attrs.$set('mdMode', mode);
-        ***REMOVED***
+        }
 
-        if (mode === MODE_INDETERMINATE) ***REMOVED***
+        if (mode === MODE_INDETERMINATE) {
           startIndeterminateAnimation();
-        ***REMOVED*** else ***REMOVED***
+        } else {
           var newValue = clamp(newValues[0]);
 
           cleanupIndeterminateAnimation();
 
           element.attr('aria-valuenow', newValue);
           renderCircle(clamp(oldValues[0]), newValue);
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
-    ***REMOVED***);
+    });
 
     // This is in a separate watch in order to avoid layout, unless
     // the value has actually changed.
-    scope.$watch('mdDiameter', function(newValue) ***REMOVED***
+    scope.$watch('mdDiameter', function(newValue) {
       var diameter = getSize(newValue);
       var strokeWidth = getStroke(diameter);
       var transformOrigin = (diameter / 2) + 'px';
-      var dimensions = ***REMOVED***
+      var dimensions = {
         width: diameter + 'px',
         height: diameter + 'px'
-      ***REMOVED***;
+      };
 
       // The viewBox has to be applied via setAttribute, because it is
       // case-sensitive. If jQuery is included in the page, `.attr` lowercases
@@ -210,9 +210,9 @@ function MdProgressCircularDirective($window, $mdProgressCircular, $mdTheming,
 
       element.css(dimensions);
       path.css('stroke-width',  strokeWidth + 'px');
-    ***REMOVED***);
+    });
 
-    function renderCircle(animateFrom, animateTo, easing, duration, rotation) ***REMOVED***
+    function renderCircle(animateFrom, animateTo, easing, duration, rotation) {
       var id = ++lastAnimationId;
       var startTime = $mdUtil.now();
       var changeInValue = animateTo - animateFrom;
@@ -222,10 +222,10 @@ function MdProgressCircularDirective($window, $mdProgressCircular, $mdTheming,
       var animationDuration = duration || $mdProgressCircular.duration;
 
       // No need to animate it if the values are the same
-      if (animateTo === animateFrom) ***REMOVED***
+      if (animateTo === animateFrom) {
         path.attr('d', getSvgArc(animateTo, diameter, pathDiameter, rotation));
-      ***REMOVED*** else ***REMOVED***
-        lastDrawFrame = rAF(function animation(now) ***REMOVED***
+      } else {
+        lastDrawFrame = rAF(function animation(now) {
           var currentTime = $window.Math.max(0, $window.Math.min((now || $mdUtil.now()) - startTime, animationDuration));
 
           path.attr('d', getSvgArc(
@@ -236,14 +236,14 @@ function MdProgressCircularDirective($window, $mdProgressCircular, $mdTheming,
           ));
 
           // Do not allow overlapping animations
-          if (id === lastAnimationId && currentTime < animationDuration) ***REMOVED***
+          if (id === lastAnimationId && currentTime < animationDuration) {
             lastDrawFrame = rAF(animation);
-          ***REMOVED***
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***
+          }
+        });
+      }
+    }
 
-    function animateIndeterminate() ***REMOVED***
+    function animateIndeterminate() {
       renderCircle(
         startIndeterminate,
         endIndeterminate,
@@ -259,10 +259,10 @@ function MdProgressCircularDirective($window, $mdProgressCircular, $mdTheming,
       var temp = startIndeterminate;
       startIndeterminate = -endIndeterminate;
       endIndeterminate = -temp;
-    ***REMOVED***
+    }
 
-    function startIndeterminateAnimation() ***REMOVED***
-      if (!interval) ***REMOVED***
+    function startIndeterminateAnimation() {
+      if (!interval) {
         // Note that this interval isn't supposed to trigger a digest.
         interval = $interval(
           animateIndeterminate,
@@ -276,31 +276,31 @@ function MdProgressCircularDirective($window, $mdProgressCircular, $mdTheming,
         element
           .addClass(INDETERMINATE_CLASS)
           .removeAttr('aria-valuenow');
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
-    function cleanupIndeterminateAnimation() ***REMOVED***
-      if (interval) ***REMOVED***
+    function cleanupIndeterminateAnimation() {
+      if (interval) {
         $interval.cancel(interval);
         interval = null;
         element.removeClass(INDETERMINATE_CLASS);
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
+      }
+    }
+  }
 
   /**
    * Generates an arc following the SVG arc syntax.
    * Syntax spec: https://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
    *
-   * @param ***REMOVED***number***REMOVED*** current Current value between 0 and 100.
-   * @param ***REMOVED***number***REMOVED*** diameter Diameter of the container.
-   * @param ***REMOVED***number***REMOVED*** pathDiameter Diameter of the path element.
-   * @param ***REMOVED***number=0***REMOVED*** rotation The point at which the semicircle should start rendering.
+   * @param {number} current Current value between 0 and 100.
+   * @param {number} diameter Diameter of the container.
+   * @param {number} pathDiameter Diameter of the path element.
+   * @param {number=0} rotation The point at which the semicircle should start rendering.
    * Used for doing the indeterminate animation.
    *
-   * @returns ***REMOVED***string***REMOVED*** String representation of an SVG arc.
+   * @returns {string} String representation of an SVG arc.
    */
-  function getSvgArc(current, diameter, pathDiameter, rotation) ***REMOVED***
+  function getSvgArc(current, diameter, pathDiameter, rotation) {
     // The angle can't be exactly 360, because the arc becomes hidden.
     var maximumAngle = 359.99 / 100;
     var startPoint = rotation || 0;
@@ -314,67 +314,67 @@ function MdProgressCircularDirective($window, $mdProgressCircular, $mdTheming,
     var arcSweep = endAngle < 0 ? 0 : 1;
     var largeArcFlag;
 
-    if (endAngle < 0) ***REMOVED***
+    if (endAngle < 0) {
       largeArcFlag = endAngle >= -180 ? 0 : 1;
-    ***REMOVED*** else ***REMOVED***
+    } else {
       largeArcFlag = endAngle <= 180 ? 0 : 1;
-    ***REMOVED***
+    }
 
     return 'M' + start + 'A' + pathRadius + ',' + pathRadius +
       ' 0 ' + largeArcFlag + ',' + arcSweep + ' ' + end;
-  ***REMOVED***
+  }
 
   /**
    * Converts Polar coordinates to Cartesian.
    *
-   * @param ***REMOVED***number***REMOVED*** radius Radius of the container.
-   * @param ***REMOVED***number***REMOVED*** pathRadius Radius of the path element
-   * @param ***REMOVED***number***REMOVED*** angleInDegress Angle at which to place the point.
+   * @param {number} radius Radius of the container.
+   * @param {number} pathRadius Radius of the path element
+   * @param {number} angleInDegress Angle at which to place the point.
    *
-   * @returns ***REMOVED***string***REMOVED*** Cartesian coordinates in the format of `x,y`.
+   * @returns {string} Cartesian coordinates in the format of `x,y`.
    */
-  function polarToCartesian(radius, pathRadius, angleInDegrees) ***REMOVED***
+  function polarToCartesian(radius, pathRadius, angleInDegrees) {
     var angleInRadians = (angleInDegrees - 90) * DEGREE_IN_RADIANS;
 
     return (radius + (pathRadius * $window.Math.cos(angleInRadians))) +
       ',' + (radius + (pathRadius * $window.Math.sin(angleInRadians)));
-  ***REMOVED***
+  }
 
   /**
    * Limits a value between 0 and 100.
    */
-  function clamp(value) ***REMOVED***
+  function clamp(value) {
     return $window.Math.max(0, $window.Math.min(value || 0, 100));
-  ***REMOVED***
+  }
 
   /**
    * Determines the size of a progress circle, based on the provided
    * value in the following formats: `X`, `Ypx`, `Z%`.
    */
-  function getSize(value) ***REMOVED***
+  function getSize(value) {
     var defaultValue = $mdProgressCircular.progressSize;
 
-    if (value) ***REMOVED***
+    if (value) {
       var parsed = parseFloat(value);
 
-      if (value.lastIndexOf('%') === value.length - 1) ***REMOVED***
+      if (value.lastIndexOf('%') === value.length - 1) {
         parsed = (parsed / 100) * defaultValue;
-      ***REMOVED***
+      }
 
       return parsed;
-    ***REMOVED***
+    }
 
     return defaultValue;
-  ***REMOVED***
+  }
 
   /**
    * Determines the circle's stroke width, based on
    * the provided diameter.
    */
-  function getStroke(diameter) ***REMOVED***
+  function getStroke(diameter) {
     return $mdProgressCircular.strokeWidth / 100 * diameter;
-  ***REMOVED***
-***REMOVED***
+  }
+}
 MdProgressCircularDirective.$inject = ["$window", "$mdProgressCircular", "$mdTheming", "$mdUtil", "$interval", "$log"];
 
 /**
@@ -385,31 +385,31 @@ MdProgressCircularDirective.$inject = ["$window", "$mdProgressCircular", "$mdThe
  * @description
  * Allows the user to specify the default options for the `progressCircular` directive.
  *
- * @property ***REMOVED***number***REMOVED*** progressSize Diameter of the progress circle in pixels.
- * @property ***REMOVED***number***REMOVED*** strokeWidth Width of the circle's stroke as a percentage of the circle's size.
- * @property ***REMOVED***number***REMOVED*** duration Length of the circle animation in milliseconds.
- * @property ***REMOVED***function***REMOVED*** easeFn Default easing animation function.
- * @property ***REMOVED***object***REMOVED*** easingPresets Collection of pre-defined easing functions.
+ * @property {number} progressSize Diameter of the progress circle in pixels.
+ * @property {number} strokeWidth Width of the circle's stroke as a percentage of the circle's size.
+ * @property {number} duration Length of the circle animation in milliseconds.
+ * @property {function} easeFn Default easing animation function.
+ * @property {object} easingPresets Collection of pre-defined easing functions.
  *
- * @property ***REMOVED***number***REMOVED*** durationIndeterminate Duration of the indeterminate animation.
- * @property ***REMOVED***number***REMOVED*** startIndeterminate Indeterminate animation start point.
- * @property ***REMOVED***number***REMOVED*** endIndeterminate Indeterminate animation end point.
- * @property ***REMOVED***function***REMOVED*** easeFnIndeterminate Easing function to be used when animating
+ * @property {number} durationIndeterminate Duration of the indeterminate animation.
+ * @property {number} startIndeterminate Indeterminate animation start point.
+ * @property {number} endIndeterminate Indeterminate animation end point.
+ * @property {function} easeFnIndeterminate Easing function to be used when animating
  * between the indeterminate values.
  *
- * @property ***REMOVED***(function(object): object)***REMOVED*** configure Used to modify the default options.
+ * @property {(function(object): object)} configure Used to modify the default options.
  *
  * @usage
  * <hljs lang="js">
- *   myAppModule.config(function($mdProgressCircularProvider) ***REMOVED***
+ *   myAppModule.config(function($mdProgressCircularProvider) {
  *
  *     // Example of changing the default progress options.
- *     $mdProgressCircularProvider.configure(***REMOVED***
+ *     $mdProgressCircularProvider.configure({
  *       progressSize: 100,
  *       strokeWidth: 20,
  *       duration: 800
- *     ***REMOVED***);
- * ***REMOVED***);
+ *     });
+ * });
  * </hljs>
  *
  */
@@ -418,8 +418,8 @@ angular
   .module('material.components.progressCircular')
   .provider("$mdProgressCircular", MdProgressCircularProvider);
 
-function MdProgressCircularProvider() ***REMOVED***
-  var progressConfig = ***REMOVED***
+function MdProgressCircularProvider() {
+  var progressConfig = {
     progressSize: 50,
     strokeWidth: 10,
     duration: 100,
@@ -430,31 +430,31 @@ function MdProgressCircularProvider() ***REMOVED***
     endIndeterminate: 80,
     easeFnIndeterminate: materialEase,
 
-    easingPresets: ***REMOVED***
+    easingPresets: {
       linearEase: linearEase,
       materialEase: materialEase
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
-  return ***REMOVED***
-    configure: function(options) ***REMOVED***
-      progressConfig = angular.extend(progressConfig, options || ***REMOVED******REMOVED***);
+  return {
+    configure: function(options) {
+      progressConfig = angular.extend(progressConfig, options || {});
       return progressConfig;
-    ***REMOVED***,
-    $get: function() ***REMOVED*** return progressConfig; ***REMOVED***
-  ***REMOVED***;
+    },
+    $get: function() { return progressConfig; }
+  };
 
-  function linearEase(t, b, c, d) ***REMOVED***
+  function linearEase(t, b, c, d) {
     return c * t / d + b;
-  ***REMOVED***
+  }
 
-  function materialEase(t, b, c, d) ***REMOVED***
+  function materialEase(t, b, c, d) {
     // via http://www.timotheegroleau.com/Flash/experiments/easing_function_generator.htm
     // with settings of [0, 0, 1, 1]
     var ts = (t /= d) * t;
     var tc = ts * t;
     return b + c * (6 * tc * ts + -15 * ts * ts + 10 * tc);
-  ***REMOVED***
-***REMOVED***
+  }
+}
 
-***REMOVED***)(window, window.angular);
+})(window, window.angular);

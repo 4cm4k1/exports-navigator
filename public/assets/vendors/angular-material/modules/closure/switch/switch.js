@@ -30,14 +30,14 @@ angular.module('material.components.switch', [
  * the switch is in the accent color by default. The primary color palette may be used with
  * the `md-primary` class.
  *
- * @param ***REMOVED***string***REMOVED*** ng-model Assignable angular expression to data-bind to.
- * @param ***REMOVED***string=***REMOVED*** name Property name of the form under which the control is published.
- * @param ***REMOVED***expression=***REMOVED*** ng-true-value The value to which the expression should be set when selected.
- * @param ***REMOVED***expression=***REMOVED*** ng-false-value The value to which the expression should be set when not selected.
- * @param ***REMOVED***string=***REMOVED*** ng-change Angular expression to be executed when input changes due to user interaction with the input element.
- * @param ***REMOVED***expression=***REMOVED*** ng-disabled En/Disable based on the expression.
- * @param ***REMOVED***boolean=***REMOVED*** md-no-ink Use of attribute indicates use of ripple ink effects.
- * @param ***REMOVED***string=***REMOVED*** aria-label Publish the button label used by screen-readers for accessibility. Defaults to the switch's text.
+ * @param {string} ng-model Assignable angular expression to data-bind to.
+ * @param {string=} name Property name of the form under which the control is published.
+ * @param {expression=} ng-true-value The value to which the expression should be set when selected.
+ * @param {expression=} ng-false-value The value to which the expression should be set when not selected.
+ * @param {string=} ng-change Angular expression to be executed when input changes due to user interaction with the input element.
+ * @param {expression=} ng-disabled En/Disable based on the expression.
+ * @param {boolean=} md-no-ink Use of attribute indicates use of ripple ink effects.
+ * @param {string=} aria-label Publish the button label used by screen-readers for accessibility. Defaults to the switch's text.
  *
  * @usage
  * <hljs lang="html">
@@ -55,10 +55,10 @@ angular.module('material.components.switch', [
  *
  * </hljs>
  */
-function MdSwitch(mdCheckboxDirective, $mdUtil, $mdConstant, $parse, $$rAF, $mdGesture, $timeout) ***REMOVED***
+function MdSwitch(mdCheckboxDirective, $mdUtil, $mdConstant, $parse, $$rAF, $mdGesture, $timeout) {
   var checkboxDirective = mdCheckboxDirective[0];
 
-  return ***REMOVED***
+  return {
     restrict: 'E',
     priority: 210, // Run before ngAria
     transclude: true,
@@ -72,38 +72,38 @@ function MdSwitch(mdCheckboxDirective, $mdUtil, $mdConstant, $parse, $$rAF, $mdG
       '<div ng-transclude class="md-label"></div>',
     require: '?ngModel',
     compile: mdSwitchCompile
-  ***REMOVED***;
+  };
 
-  function mdSwitchCompile(element, attr) ***REMOVED***
+  function mdSwitchCompile(element, attr) {
     var checkboxLink = checkboxDirective.compile(element, attr).post;
     // No transition on initial load.
     element.addClass('md-dragging');
 
-    return function (scope, element, attr, ngModel) ***REMOVED***
+    return function (scope, element, attr, ngModel) {
       ngModel = ngModel || $mdUtil.fakeNgModel();
 
       var disabledGetter = null;
-      if (attr.disabled != null) ***REMOVED***
-        disabledGetter = function() ***REMOVED*** return true; ***REMOVED***;
-      ***REMOVED*** else if (attr.ngDisabled) ***REMOVED***
+      if (attr.disabled != null) {
+        disabledGetter = function() { return true; };
+      } else if (attr.ngDisabled) {
         disabledGetter = $parse(attr.ngDisabled);
-      ***REMOVED***
+      }
 
       var thumbContainer = angular.element(element[0].querySelector('.md-thumb-container'));
       var switchContainer = angular.element(element[0].querySelector('.md-container'));
 
       // no transition on initial load
-      $$rAF(function() ***REMOVED***
+      $$rAF(function() {
         element.removeClass('md-dragging');
-      ***REMOVED***);
+      });
 
       checkboxLink(scope, element, attr, ngModel);
 
-      if (disabledGetter) ***REMOVED***
-        scope.$watch(disabledGetter, function(isDisabled) ***REMOVED***
+      if (disabledGetter) {
+        scope.$watch(disabledGetter, function(isDisabled) {
           element.attr('tabindex', isDisabled ? -1 : 0);
-        ***REMOVED***);
-      ***REMOVED***
+        });
+      }
 
       // These events are triggered by setup drag
       $mdGesture.register(switchContainer, 'drag');
@@ -113,16 +113,16 @@ function MdSwitch(mdCheckboxDirective, $mdUtil, $mdConstant, $parse, $$rAF, $mdG
         .on('$md.dragend', onDragEnd);
 
       var drag;
-      function onDragStart(ev) ***REMOVED***
+      function onDragStart(ev) {
         // Don't go if the switch is disabled.
         if (disabledGetter && disabledGetter(scope)) return;
         ev.stopPropagation();
 
         element.addClass('md-dragging');
-        drag = ***REMOVED***width: thumbContainer.prop('offsetWidth')***REMOVED***;
-      ***REMOVED***
+        drag = {width: thumbContainer.prop('offsetWidth')};
+      }
 
-      function onDrag(ev) ***REMOVED***
+      function onDrag(ev) {
         if (!drag) return;
         ev.stopPropagation();
         ev.srcEvent && ev.srcEvent.preventDefault();
@@ -136,9 +136,9 @@ function MdSwitch(mdCheckboxDirective, $mdUtil, $mdConstant, $parse, $$rAF, $mdG
 
         thumbContainer.css($mdConstant.CSS.TRANSFORM, 'translate3d(' + (100*translate) + '%,0,0)');
         drag.translate = translate;
-      ***REMOVED***
+      }
 
-      function onDragEnd(ev) ***REMOVED***
+      function onDragEnd(ev) {
         if (!drag) return;
         ev.stopPropagation();
 
@@ -148,30 +148,30 @@ function MdSwitch(mdCheckboxDirective, $mdUtil, $mdConstant, $parse, $$rAF, $mdG
         // We changed if there is no distance (this is a click a click),
         // or if the drag distance is >50% of the total.
         var isChanged = ngModel.$viewValue ? drag.translate < 0.5 : drag.translate > 0.5;
-        if (isChanged) ***REMOVED***
+        if (isChanged) {
           applyModelValue(!ngModel.$viewValue);
-        ***REMOVED***
+        }
         drag = null;
 
         // Wait for incoming mouse click
         scope.skipToggle = true;
-        $timeout(function() ***REMOVED***
+        $timeout(function() {
           scope.skipToggle = false;
-        ***REMOVED***, 1);
-      ***REMOVED***
+        }, 1);
+      }
 
-      function applyModelValue(newValue) ***REMOVED***
-        scope.$apply(function() ***REMOVED***
+      function applyModelValue(newValue) {
+        scope.$apply(function() {
           ngModel.$setViewValue(newValue);
           ngModel.$render();
-        ***REMOVED***);
-      ***REMOVED***
+        });
+      }
 
-    ***REMOVED***;
-  ***REMOVED***
+    };
+  }
 
 
-***REMOVED***
+}
 MdSwitch.$inject = ["mdCheckboxDirective", "$mdUtil", "$mdConstant", "$parse", "$$rAF", "$mdGesture", "$timeout"];
 
 ngmaterial.components.switch = angular.module("material.components.switch");

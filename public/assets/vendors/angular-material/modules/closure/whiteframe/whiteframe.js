@@ -43,38 +43,38 @@ angular
  * </hljs>
  *
  * <hljs lang="html">
- * <div ng-init="elevation = 5" md-whiteframe="***REMOVED******REMOVED***elevation***REMOVED******REMOVED***">
+ * <div ng-init="elevation = 5" md-whiteframe="{{elevation}}">
  *   <span>Elevation of 5dp with an interpolated value</span>
  * </div>
  * </hljs>
  */
-function MdWhiteframeDirective($log) ***REMOVED***
+function MdWhiteframeDirective($log) {
   var DISABLE_DP = -1;
   var MIN_DP = 1;
   var MAX_DP = 24;
   var DEFAULT_DP = 4;
 
-  return ***REMOVED***
+  return {
     link: postLink
-  ***REMOVED***;
+  };
 
-  function postLink(scope, element, attr) ***REMOVED***
+  function postLink(scope, element, attr) {
     var oldClass = '';
 
-    attr.$observe('mdWhiteframe', function(elevation) ***REMOVED***
+    attr.$observe('mdWhiteframe', function(elevation) {
       elevation = parseInt(elevation, 10) || DEFAULT_DP;
 
-      if (elevation != DISABLE_DP && (elevation > MAX_DP || elevation < MIN_DP)) ***REMOVED***
+      if (elevation != DISABLE_DP && (elevation > MAX_DP || elevation < MIN_DP)) {
         $log.warn('md-whiteframe attribute value is invalid. It should be a number between ' + MIN_DP + ' and ' + MAX_DP, element[0]);
         elevation = DEFAULT_DP;
-      ***REMOVED***
+      }
 
       var newClass = elevation == DISABLE_DP ? '' : 'md-whiteframe-' + elevation + 'dp';
       attr.$updateClass(newClass, oldClass);
       oldClass = newClass;
-    ***REMOVED***);
-  ***REMOVED***
-***REMOVED***
+    });
+  }
+}
 MdWhiteframeDirective.$inject = ["$log"];
 
 

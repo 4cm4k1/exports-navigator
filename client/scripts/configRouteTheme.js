@@ -1,104 +1,104 @@
-(function() ***REMOVED***
+(function() {
     'use strict';
 
     angular.module('exportsNavigator').config(['$routeProvider', '$locationProvider', '$mdThemingProvider', configRouteTheme]);
 
-    function configRouteTheme($routeProvider, $locationProvider, $mdThemingProvider) ***REMOVED***
+    function configRouteTheme($routeProvider, $locationProvider, $mdThemingProvider) {
         //  Route config (with authentication checks)
         $routeProvider
 
         //  public landing view
-        .when('/', ***REMOVED***
+        .when('/', {
             controller: 'HomeCtrl as home',
             templateUrl: 'views/home.html'
-        ***REMOVED***)
+        })
 
         //  results view with $routeParams
-        .when('/results/:category/:searchTerm', ***REMOVED***
+        .when('/results/:category/:searchTerm', {
           controller: 'ResultsCtrl as results',
           templateUrl: 'views/results.html'
-        ***REMOVED***)
+        })
 
         //  admin routes and subroutes views
-        .when('/admin', ***REMOVED***
+        .when('/admin', {
           controller: 'AdminHomeController as adminHome',
           templateUrl: 'views/adminHome.html',
-          resolve: ***REMOVED***
+          resolve: {
             //  This will require the user is logged in
             //  and pass the current session info to the controller
-            'currentAuth': ['Auth', function(Auth)***REMOVED***
+            'currentAuth': ['Auth', function(Auth){
               return Auth.$requireSignIn();
-            ***REMOVED***]
-          ***REMOVED***
-        ***REMOVED***)
+            }]
+          }
+        })
 
         // admin view of all topics
-        .when('/admin/topics', ***REMOVED***
+        .when('/admin/topics', {
           controller: 'AdminTopicsController as adminTopics',
           templateUrl: 'views/adminTopics.html',
-          resolve: ***REMOVED***
-            'currentAuth': ['Auth', function(Auth) ***REMOVED***
+          resolve: {
+            'currentAuth': ['Auth', function(Auth) {
               return Auth.$requireSignIn();
-            ***REMOVED***]
-          ***REMOVED***
-        ***REMOVED***)
+            }]
+          }
+        })
 
         // admin view of editing a topic
-        .when('/admin/topics/:itemID', ***REMOVED***
+        .when('/admin/topics/:itemID', {
           controller: 'AdminTopicsEditController as adminTopicsEdit',
           templateUrl: 'templates/adminTopicsEdit.html',
-          resolve: ***REMOVED***
-            'currentAuth': ['Auth', function(Auth) ***REMOVED***
+          resolve: {
+            'currentAuth': ['Auth', function(Auth) {
               return Auth.$requireSignIn();
-            ***REMOVED***]
-          ***REMOVED***
-        ***REMOVED***)
+            }]
+          }
+        })
 
         // admin view of all countries
-        .when('/admin/countries', ***REMOVED***
+        .when('/admin/countries', {
           controller: 'AdminCountriesController as adminCountries',
           templateUrl: 'views/adminCountries.html',
-          resolve: ***REMOVED***
-            'currentAuth': ['Auth', function(Auth) ***REMOVED***
+          resolve: {
+            'currentAuth': ['Auth', function(Auth) {
               return Auth.$requireSignIn();
-            ***REMOVED***]
-          ***REMOVED***
-        ***REMOVED***)
+            }]
+          }
+        })
 
         // admin view of generated reports
-        .when('/admin/reports', ***REMOVED***
+        .when('/admin/reports', {
           controller: 'AdminReportsController as adminReports',
           templateUrl: 'views/adminReports.html',
-          resolve: ***REMOVED***
-            'currentAuth': ['Auth', function(Auth) ***REMOVED***
+          resolve: {
+            'currentAuth': ['Auth', function(Auth) {
               return Auth.$requireSignIn();
-            ***REMOVED***]
-          ***REMOVED***
-        ***REMOVED***)
+            }]
+          }
+        })
 
         // admin view, where admin can add, edit, or delete managers
-        .when('/admin/managers', ***REMOVED***
+        .when('/admin/managers', {
           controller: 'AdminManagersController as adminManagers',
           templateUrl: 'views/adminManagers.html',
-          resolve: ***REMOVED***
-            'currentAuth': ['Auth', function(Auth) ***REMOVED***
+          resolve: {
+            'currentAuth': ['Auth', function(Auth) {
               return Auth.$requireSignIn();
-            ***REMOVED***]
-          ***REMOVED***
-        ***REMOVED***)
+            }]
+          }
+        })
 
         //  catch-all view
-        .otherwise(***REMOVED***
+        .otherwise({
               controller: 'HomeCtrl as home',
               templateUrl: 'views/home.html'
-        ***REMOVED***);
+        });
 
         //  $locationProvider config
         $locationProvider.html5Mode(true);
 
         //  Angular Material theme config
         $mdThemingProvider
-        .definePalette('GreaterMSPColors', ***REMOVED***
+        .definePalette('GreaterMSPColors', {
           '50': '89ccda',   //  Greater MSP Blue
           '100': 'd0d741',  //  Greater MSP Green
           '200': '3a3431',  //  Greater MSP Brown - headline and body copy, rules, accents
@@ -119,12 +119,12 @@
            '200', '300', '400', 'A100'],
           'contrastLightColors': undefined    // could also specify this if default was 'dark'
 
-        ***REMOVED***);
+        });
         $mdThemingProvider
         .theme('default')
         .primaryPalette('GreaterMSPColors')
         .accentPalette('GreaterMSPColors')
         .warnPalette('GreaterMSPColors')
         .backgroundPalette('grey');
-    ***REMOVED***
-***REMOVED***)();
+    }
+})();

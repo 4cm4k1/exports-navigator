@@ -4,72 +4,72 @@
  * @license MIT
  * v1.1.0
  */
-.md-contact-chips .md-chips md-chip ***REMOVED***
-  padding: 0 25px 0 0; ***REMOVED***
-  [dir=rtl] .md-contact-chips .md-chips md-chip ***REMOVED***
-    padding: 0 0 0 25px; ***REMOVED***
-  .md-contact-chips .md-chips md-chip .md-contact-avatar ***REMOVED***
-    float: left; ***REMOVED***
-    [dir=rtl] .md-contact-chips .md-chips md-chip .md-contact-avatar ***REMOVED***
-      float: right; ***REMOVED***
-    .md-contact-chips .md-chips md-chip .md-contact-avatar img ***REMOVED***
+.md-contact-chips .md-chips md-chip {
+  padding: 0 25px 0 0; }
+  [dir=rtl] .md-contact-chips .md-chips md-chip {
+    padding: 0 0 0 25px; }
+  .md-contact-chips .md-chips md-chip .md-contact-avatar {
+    float: left; }
+    [dir=rtl] .md-contact-chips .md-chips md-chip .md-contact-avatar {
+      float: right; }
+    .md-contact-chips .md-chips md-chip .md-contact-avatar img {
       height: 32px;
-      border-radius: 16px; ***REMOVED***
-  .md-contact-chips .md-chips md-chip .md-contact-name ***REMOVED***
+      border-radius: 16px; }
+  .md-contact-chips .md-chips md-chip .md-contact-name {
     display: inline-block;
     height: 32px;
-    margin-left: 8px; ***REMOVED***
-    [dir=rtl] .md-contact-chips .md-chips md-chip .md-contact-name ***REMOVED***
+    margin-left: 8px; }
+    [dir=rtl] .md-contact-chips .md-chips md-chip .md-contact-name {
       margin-left: auto;
-      margin-right: 8px; ***REMOVED***
+      margin-right: 8px; }
 
-.md-contact-suggestion ***REMOVED***
-  height: 56px; ***REMOVED***
-  .md-contact-suggestion img ***REMOVED***
+.md-contact-suggestion {
+  height: 56px; }
+  .md-contact-suggestion img {
     height: 40px;
     border-radius: 20px;
-    margin-top: 8px; ***REMOVED***
-  .md-contact-suggestion .md-contact-name ***REMOVED***
+    margin-top: 8px; }
+  .md-contact-suggestion .md-contact-name {
     margin-left: 8px;
-    width: 120px; ***REMOVED***
-    [dir=rtl] .md-contact-suggestion .md-contact-name ***REMOVED***
+    width: 120px; }
+    [dir=rtl] .md-contact-suggestion .md-contact-name {
       margin-left: auto;
-      margin-right: 8px; ***REMOVED***
-  .md-contact-suggestion .md-contact-name, .md-contact-suggestion .md-contact-email ***REMOVED***
+      margin-right: 8px; }
+  .md-contact-suggestion .md-contact-name, .md-contact-suggestion .md-contact-email {
     display: inline-block;
     overflow: hidden;
-    text-overflow: ellipsis; ***REMOVED***
+    text-overflow: ellipsis; }
 
-.md-contact-chips-suggestions li ***REMOVED***
-  height: 100%; ***REMOVED***
+.md-contact-chips-suggestions li {
+  height: 100%; }
 
-.md-chips ***REMOVED***
+.md-chips {
   display: block;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 16px;
   padding: 0 0 8px 3px;
-  vertical-align: middle; ***REMOVED***
-  .md-chips:after ***REMOVED***
+  vertical-align: middle; }
+  .md-chips:after {
     content: '';
     display: table;
-    clear: both; ***REMOVED***
-  [dir=rtl] .md-chips ***REMOVED***
-    padding: 0 3px 8px 0; ***REMOVED***
-  .md-chips.md-readonly .md-chip-input-container ***REMOVED***
-    min-height: 32px; ***REMOVED***
-  .md-chips:not(.md-readonly) ***REMOVED***
-    cursor: text; ***REMOVED***
-  .md-chips.md-removable md-chip ***REMOVED***
-    padding-right: 22px; ***REMOVED***
-    [dir=rtl] .md-chips.md-removable md-chip ***REMOVED***
+    clear: both; }
+  [dir=rtl] .md-chips {
+    padding: 0 3px 8px 0; }
+  .md-chips.md-readonly .md-chip-input-container {
+    min-height: 32px; }
+  .md-chips:not(.md-readonly) {
+    cursor: text; }
+  .md-chips.md-removable md-chip {
+    padding-right: 22px; }
+    [dir=rtl] .md-chips.md-removable md-chip {
       padding-right: 0;
-      padding-left: 22px; ***REMOVED***
-    .md-chips.md-removable md-chip .md-chip-content ***REMOVED***
-      padding-right: 4px; ***REMOVED***
-      [dir=rtl] .md-chips.md-removable md-chip .md-chip-content ***REMOVED***
+      padding-left: 22px; }
+    .md-chips.md-removable md-chip .md-chip-content {
+      padding-right: 4px; }
+      [dir=rtl] .md-chips.md-removable md-chip .md-chip-content {
         padding-right: 0;
-        padding-left: 4px; ***REMOVED***
-  .md-chips md-chip ***REMOVED***
+        padding-left: 4px; }
+  .md-chips md-chip {
     cursor: default;
     border-radius: 16px;
     display: block;
@@ -80,23 +80,23 @@
     float: left;
     box-sizing: border-box;
     max-width: 100%;
-    position: relative; ***REMOVED***
-    [dir=rtl] .md-chips md-chip ***REMOVED***
-      margin: 8px 0 0 8px; ***REMOVED***
-    [dir=rtl] .md-chips md-chip ***REMOVED***
-      float: right; ***REMOVED***
-    .md-chips md-chip .md-chip-content ***REMOVED***
+    position: relative; }
+    [dir=rtl] .md-chips md-chip {
+      margin: 8px 0 0 8px; }
+    [dir=rtl] .md-chips md-chip {
+      float: right; }
+    .md-chips md-chip .md-chip-content {
       display: block;
       float: left;
       white-space: nowrap;
       max-width: 100%;
       overflow: hidden;
-      text-overflow: ellipsis; ***REMOVED***
-      [dir=rtl] .md-chips md-chip .md-chip-content ***REMOVED***
-        float: right; ***REMOVED***
-      .md-chips md-chip .md-chip-content:focus ***REMOVED***
-        outline: none; ***REMOVED***
-    .md-chips md-chip._md-chip-content-edit-is-enabled ***REMOVED***
+      text-overflow: ellipsis; }
+      [dir=rtl] .md-chips md-chip .md-chip-content {
+        float: right; }
+      .md-chips md-chip .md-chip-content:focus {
+        outline: none; }
+    .md-chips md-chip._md-chip-content-edit-is-enabled {
       -webkit-user-select: none;
       /* webkit (safari, chrome) browsers */
       -moz-user-select: none;
@@ -104,15 +104,15 @@
       -khtml-user-select: none;
       /* webkit (konqueror) browsers */
       -ms-user-select: none;
-      /* IE10+ */ ***REMOVED***
-    .md-chips md-chip .md-chip-remove-container ***REMOVED***
+      /* IE10+ */ }
+    .md-chips md-chip .md-chip-remove-container {
       position: absolute;
       right: 0;
-      line-height: 22px; ***REMOVED***
-      [dir=rtl] .md-chips md-chip .md-chip-remove-container ***REMOVED***
+      line-height: 22px; }
+      [dir=rtl] .md-chips md-chip .md-chip-remove-container {
         right: auto;
-        left: 0; ***REMOVED***
-    .md-chips md-chip .md-chip-remove ***REMOVED***
+        left: 0; }
+    .md-chips md-chip .md-chip-remove {
       text-align: center;
       width: 32px;
       height: 32px;
@@ -122,65 +122,65 @@
       border: none;
       box-shadow: none;
       margin: 0;
-      position: relative; ***REMOVED***
-      .md-chips md-chip .md-chip-remove md-icon ***REMOVED***
+      position: relative; }
+      .md-chips md-chip .md-chip-remove md-icon {
         height: 18px;
         width: 18px;
         position: absolute;
         top: 50%;
         left: 50%;
         -webkit-transform: translate3d(-50%, -50%, 0);
-                transform: translate3d(-50%, -50%, 0); ***REMOVED***
-  .md-chips .md-chip-input-container ***REMOVED***
+                transform: translate3d(-50%, -50%, 0); }
+  .md-chips .md-chip-input-container {
     display: block;
     line-height: 32px;
     margin: 8px 8px 0 0;
     padding: 0;
-    float: left; ***REMOVED***
-    [dir=rtl] .md-chips .md-chip-input-container ***REMOVED***
-      margin: 8px 0 0 8px; ***REMOVED***
-    [dir=rtl] .md-chips .md-chip-input-container ***REMOVED***
-      float: right; ***REMOVED***
-    .md-chips .md-chip-input-container input:not([type]), .md-chips .md-chip-input-container input[type="email"], .md-chips .md-chip-input-container input[type="number"], .md-chips .md-chip-input-container input[type="tel"], .md-chips .md-chip-input-container input[type="url"], .md-chips .md-chip-input-container input[type="text"] ***REMOVED***
+    float: left; }
+    [dir=rtl] .md-chips .md-chip-input-container {
+      margin: 8px 0 0 8px; }
+    [dir=rtl] .md-chips .md-chip-input-container {
+      float: right; }
+    .md-chips .md-chip-input-container input:not([type]), .md-chips .md-chip-input-container input[type="email"], .md-chips .md-chip-input-container input[type="number"], .md-chips .md-chip-input-container input[type="tel"], .md-chips .md-chip-input-container input[type="url"], .md-chips .md-chip-input-container input[type="text"] {
       border: 0;
       height: 32px;
       line-height: 32px;
-      padding: 0; ***REMOVED***
-      .md-chips .md-chip-input-container input:not([type]):focus, .md-chips .md-chip-input-container input[type="email"]:focus, .md-chips .md-chip-input-container input[type="number"]:focus, .md-chips .md-chip-input-container input[type="tel"]:focus, .md-chips .md-chip-input-container input[type="url"]:focus, .md-chips .md-chip-input-container input[type="text"]:focus ***REMOVED***
-        outline: none; ***REMOVED***
-    .md-chips .md-chip-input-container md-autocomplete, .md-chips .md-chip-input-container md-autocomplete-wrap ***REMOVED***
+      padding: 0; }
+      .md-chips .md-chip-input-container input:not([type]):focus, .md-chips .md-chip-input-container input[type="email"]:focus, .md-chips .md-chip-input-container input[type="number"]:focus, .md-chips .md-chip-input-container input[type="tel"]:focus, .md-chips .md-chip-input-container input[type="url"]:focus, .md-chips .md-chip-input-container input[type="text"]:focus {
+        outline: none; }
+    .md-chips .md-chip-input-container md-autocomplete, .md-chips .md-chip-input-container md-autocomplete-wrap {
       background: transparent;
-      height: 32px; ***REMOVED***
-    .md-chips .md-chip-input-container md-autocomplete md-autocomplete-wrap ***REMOVED***
-      box-shadow: none; ***REMOVED***
-    .md-chips .md-chip-input-container md-autocomplete input ***REMOVED***
-      position: relative; ***REMOVED***
-    .md-chips .md-chip-input-container input ***REMOVED***
+      height: 32px; }
+    .md-chips .md-chip-input-container md-autocomplete md-autocomplete-wrap {
+      box-shadow: none; }
+    .md-chips .md-chip-input-container md-autocomplete input {
+      position: relative; }
+    .md-chips .md-chip-input-container input {
       border: 0;
       height: 32px;
       line-height: 32px;
-      padding: 0; ***REMOVED***
-      .md-chips .md-chip-input-container input:focus ***REMOVED***
-        outline: none; ***REMOVED***
-    .md-chips .md-chip-input-container md-autocomplete, .md-chips .md-chip-input-container md-autocomplete-wrap ***REMOVED***
-      height: 32px; ***REMOVED***
-    .md-chips .md-chip-input-container md-autocomplete ***REMOVED***
-      box-shadow: none; ***REMOVED***
-      .md-chips .md-chip-input-container md-autocomplete input ***REMOVED***
-        position: relative; ***REMOVED***
-    .md-chips .md-chip-input-container:not(:first-child) ***REMOVED***
-      margin: 8px 8px 0 0; ***REMOVED***
-      [dir=rtl] .md-chips .md-chip-input-container:not(:first-child) ***REMOVED***
-        margin: 8px 0 0 8px; ***REMOVED***
-    .md-chips .md-chip-input-container input ***REMOVED***
+      padding: 0; }
+      .md-chips .md-chip-input-container input:focus {
+        outline: none; }
+    .md-chips .md-chip-input-container md-autocomplete, .md-chips .md-chip-input-container md-autocomplete-wrap {
+      height: 32px; }
+    .md-chips .md-chip-input-container md-autocomplete {
+      box-shadow: none; }
+      .md-chips .md-chip-input-container md-autocomplete input {
+        position: relative; }
+    .md-chips .md-chip-input-container:not(:first-child) {
+      margin: 8px 8px 0 0; }
+      [dir=rtl] .md-chips .md-chip-input-container:not(:first-child) {
+        margin: 8px 0 0 8px; }
+    .md-chips .md-chip-input-container input {
       background: transparent;
-      border-width: 0; ***REMOVED***
-  .md-chips md-autocomplete button ***REMOVED***
-    display: none; ***REMOVED***
+      border-width: 0; }
+  .md-chips md-autocomplete button {
+    display: none; }
 
-@media screen and (-ms-high-contrast: active) ***REMOVED***
+@media screen and (-ms-high-contrast: active) {
   .md-chip-input-container,
-  md-chip ***REMOVED***
-    border: 1px solid #fff; ***REMOVED***
-  .md-chip-input-container md-autocomplete ***REMOVED***
-    border: none; ***REMOVED*** ***REMOVED***
+  md-chip {
+    border: 1px solid #fff; }
+  .md-chip-input-container md-autocomplete {
+    border: none; } }

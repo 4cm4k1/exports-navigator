@@ -6,7 +6,7 @@
  */
 goog.provide('ngmaterial.components.fabActions');
 goog.require('ngmaterial.core');
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   /**
@@ -32,29 +32,29 @@ goog.require('ngmaterial.core');
    * @usage
    * See the `<md-fab-speed-dial>` or `<md-fab-toolbar>` directives for example usage.
    */
-  function MdFabActionsDirective($mdUtil) ***REMOVED***
-    return ***REMOVED***
+  function MdFabActionsDirective($mdUtil) {
+    return {
       restrict: 'E',
 
       require: ['^?mdFabSpeedDial', '^?mdFabToolbar'],
 
-      compile: function(element, attributes) ***REMOVED***
+      compile: function(element, attributes) {
         var children = element.children();
 
         var hasNgRepeat = $mdUtil.prefixer().hasAttribute(children, 'ng-repeat');
 
         // Support both ng-repeat and static content
-        if (hasNgRepeat) ***REMOVED***
+        if (hasNgRepeat) {
           children.addClass('md-fab-action-item');
-        ***REMOVED*** else ***REMOVED***
+        } else {
           // Wrap every child in a new div and add a class that we can scale/fling independently
           children.wrap('<div class="md-fab-action-item">');
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
+        }
+      }
+    }
+  }
   MdFabActionsDirective.$inject = ["$mdUtil"];
 
-***REMOVED***)();
+})();
 
 ngmaterial.components.fabActions = angular.module("material.components.fabActions");

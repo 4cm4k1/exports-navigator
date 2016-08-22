@@ -25,17 +25,17 @@
  *
  * @namespace
  */
-var firebase = ***REMOVED******REMOVED***;
+var firebase = {};
 
 /**
  * Create (and intialize) a FirebaseApp.
  *
- * @param ***REMOVED***!Object***REMOVED*** options Options to configure the services use in the App.
- * @param ***REMOVED***string=***REMOVED*** name The optional name of the app to initialize ('[DEFAULT]'
+ * @param {!Object} options Options to configure the services use in the App.
+ * @param {string=} name The optional name of the app to initialize ('[DEFAULT]'
  *     if none)
- * @return ***REMOVED***!firebase.app.App***REMOVED***
+ * @return {!firebase.app.App}
  */
-firebase.initializeApp = function(options, name) ***REMOVED******REMOVED***;
+firebase.initializeApp = function(options, name) {};
 
 /**
  * Retrieve an instance of a FirebaseApp.
@@ -49,21 +49,21 @@ firebase.initializeApp = function(options, name) ***REMOVED******REMOVED***;
  * Usage: firebase.app()
  *
  * @namespace
- * @param ***REMOVED***string***REMOVED*** name The optional name of the app to return ('[DEFAULT]' if
+ * @param {string} name The optional name of the app to return ('[DEFAULT]' if
  *     none)
- * @return ***REMOVED***!firebase.app.App***REMOVED***
+ * @return {!firebase.app.App}
  */
-firebase.app = function(name) ***REMOVED******REMOVED***;
+firebase.app = function(name) {};
 
 /**
  * A (read-only) array of all the initialized Apps.
- * @type ***REMOVED***!Array<firebase.app.App>***REMOVED***
+ * @type {!Array<firebase.app.App>}
  */
 firebase.apps;
 
 /**
  * The current SDK version ('3.3.0').
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.SDK_VERSION;
 
@@ -76,19 +76,19 @@ firebase.SDK_VERSION;
  *
  * @interface
  */
-firebase.app.App = function() ***REMOVED******REMOVED***;
+firebase.app.App = function() {};
 
 /**
  * The (read-only) name (identifier) for this App. '[DEFAULT]' is the name of
  * the default App.
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.app.App.prototype.name;
 
 /**
  * The (read-only) configuration options (the original parameters given
  * in <code>firebase.initializeApp()</code>).
- * @type ***REMOVED***!Object***REMOVED***
+ * @type {!Object}
  */
 firebase.app.App.prototype.options;
 
@@ -96,9 +96,9 @@ firebase.app.App.prototype.options;
  * Make the given App unusable and free the resources of all associated
  * services.
  *
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @return {!firebase.Promise<void>}
  */
-firebase.app.App.prototype.delete = function() ***REMOVED******REMOVED***;
+firebase.app.App.prototype.delete = function() {};
 
 /**
  * A Thenable is the standard interface returned by a Promise.
@@ -106,27 +106,27 @@ firebase.app.App.prototype.delete = function() ***REMOVED******REMOVED***;
  * @template T
  * @interface
  */
-firebase.Thenable = function() ***REMOVED******REMOVED***;
+firebase.Thenable = function() {};
 
 /**
  * Assign callback functions called when the Thenable value either
  * resolves, or is rejected.
  *
- * @param ***REMOVED***(function(T): *)=***REMOVED*** onResolve Called when the Thenable resolves.
- * @param ***REMOVED***(function(!Error): *)=***REMOVED*** onReject Called when the Thenable is rejected
+ * @param {(function(T): *)=} onResolve Called when the Thenable resolves.
+ * @param {(function(!Error): *)=} onReject Called when the Thenable is rejected
  *   (with an error).
- * @return ***REMOVED***!firebase.Thenable<*>***REMOVED***
+ * @return {!firebase.Thenable<*>}
  */
-firebase.Thenable.prototype.then = function(onResolve, onReject) ***REMOVED******REMOVED***;
+firebase.Thenable.prototype.then = function(onResolve, onReject) {};
 
 /**
  * Assign a callback when the Thenable rejects.
  *
- * @param ***REMOVED***(function(!Error): *)=***REMOVED*** onReject Called when the Thenable is rejected
+ * @param {(function(!Error): *)=} onReject Called when the Thenable is rejected
  *   (with an error).
- * @return ***REMOVED***!firebase.Thenable<*>***REMOVED***
+ * @return {!firebase.Thenable<*>}
  */
-firebase.Thenable.prototype.catch = function(onReject) ***REMOVED******REMOVED***;
+firebase.Thenable.prototype.catch = function(onReject) {};
 
 /**
  * A Promise represents an eventual (asynchronous) value. A Promise should
@@ -140,47 +140,47 @@ firebase.Thenable.prototype.catch = function(onReject) ***REMOVED******REMOVED**
  *
  * @template T
  * @constructor
- * @implements ***REMOVED***firebase.Thenable***REMOVED***
- * @param ***REMOVED***function((function(T): void)=,
- *                  (function(!Error): void)=)***REMOVED*** resolver
+ * @implements {firebase.Thenable}
+ * @param {function((function(T): void)=,
+ *                  (function(!Error): void)=)} resolver
  */
-firebase.Promise = function(resolver) ***REMOVED******REMOVED***;
+firebase.Promise = function(resolver) {};
 
 /**
  * Assign callback functions called when the Promise either resolves, or is
  * rejected.
  *
- * @param ***REMOVED***(function(T): *)=***REMOVED*** onResolve Called when the Promise resolves.
- * @param ***REMOVED***(function(!Error): *)=***REMOVED*** onReject Called when the Promise is rejected
+ * @param {(function(T): *)=} onResolve Called when the Promise resolves.
+ * @param {(function(!Error): *)=} onReject Called when the Promise is rejected
  *   (with an error).
- * @return ***REMOVED***!firebase.Promise<*>***REMOVED***
+ * @return {!firebase.Promise<*>}
  */
-firebase.Promise.prototype.then = function(onResolve, onReject) ***REMOVED******REMOVED***;
+firebase.Promise.prototype.then = function(onResolve, onReject) {};
 
 /**
  * Assign a callback when the Promise rejects.
  *
- * @param ***REMOVED***(function(!Error): *)=***REMOVED*** onReject Called when the Promise is rejected
+ * @param {(function(!Error): *)=} onReject Called when the Promise is rejected
  *   (with an error).
  */
-firebase.Promise.prototype.catch = function(onReject) ***REMOVED******REMOVED***;
+firebase.Promise.prototype.catch = function(onReject) {};
 
 /**
  * Return a resolved Promise.
  *
  * @template T
- * @param ***REMOVED***T=***REMOVED*** value The value to be returned by the Promise.
- * @return ***REMOVED***!firebase.Promise<T>***REMOVED***
+ * @param {T=} value The value to be returned by the Promise.
+ * @return {!firebase.Promise<T>}
  */
-firebase.Promise.resolve = function(value) ***REMOVED******REMOVED***;
+firebase.Promise.resolve = function(value) {};
 
 /**
  * Return (an immediately) rejected Promise.
  *
- * @param ***REMOVED***!Error***REMOVED*** error The reason for the Promise being rejected.
- * @return ***REMOVED***!firebase.Promise<*>***REMOVED***
+ * @param {!Error} error The reason for the Promise being rejected.
+ * @return {!firebase.Promise<*>}
  */
-firebase.Promise.reject = function(error) ***REMOVED******REMOVED***;
+firebase.Promise.reject = function(error) {};
 
 /**
  * Convert an array of Promises, to a single array of values.
@@ -190,10 +190,10 @@ firebase.Promise.reject = function(error) ***REMOVED******REMOVED***;
  * <code>Promise.all()</code> rejects when any of the promises in the Array have
  * rejected.
  *
- * @param ***REMOVED***!Array<!firebase.Promise<*>>***REMOVED*** values
- * @return ***REMOVED***!firebase.Promise<!Array<*>>***REMOVED***
+ * @param {!Array<!firebase.Promise<*>>} values
+ * @return {!firebase.Promise<!Array<*>>}
  */
-firebase.Promise.all = function(values) ***REMOVED******REMOVED***;
+firebase.Promise.all = function(values) {};
 
 
 
@@ -214,7 +214,7 @@ firebase.FirebaseError;
  * While the message for a given error can change, the code will remain the same
  * between backward-compatible versions of the Firebase SDK.
  *
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.FirebaseError.prototype.code;
 
@@ -225,13 +225,13 @@ firebase.FirebaseError.prototype.code;
  * is not intended that you display it to the end user of your application
  * (as it will generally not convey meaningful information to them).
  *
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.FirebaseError.prototype.message;
 
 /**
  * The name of the class of Errors.
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.FirebaseError.prototype.name;
 
@@ -242,6 +242,6 @@ firebase.FirebaseError.prototype.name;
  * This information can be useful to you and can be sent to Firebase support to
  * help explain the cause of an error.
  *
- * @type ***REMOVED***string***REMOVED***
+ * @type {string}
  */
 firebase.FirebaseError.prototype.stack;

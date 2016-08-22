@@ -4,83 +4,83 @@
  * @license MIT
  * v1.1.0
  */
-@-webkit-keyframes md-autocomplete-list-out ***REMOVED***
-  0% ***REMOVED***
+@-webkit-keyframes md-autocomplete-list-out {
+  0% {
     -webkit-animation-timing-function: linear;
-            animation-timing-function: linear; ***REMOVED***
-  50% ***REMOVED***
+            animation-timing-function: linear; }
+  50% {
     opacity: 0;
     height: 40px;
     -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in; ***REMOVED***
-  100% ***REMOVED***
+            animation-timing-function: ease-in; }
+  100% {
     height: 0;
-    opacity: 0; ***REMOVED*** ***REMOVED***
+    opacity: 0; } }
 
-@keyframes md-autocomplete-list-out ***REMOVED***
-  0% ***REMOVED***
+@keyframes md-autocomplete-list-out {
+  0% {
     -webkit-animation-timing-function: linear;
-            animation-timing-function: linear; ***REMOVED***
-  50% ***REMOVED***
+            animation-timing-function: linear; }
+  50% {
     opacity: 0;
     height: 40px;
     -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in; ***REMOVED***
-  100% ***REMOVED***
+            animation-timing-function: ease-in; }
+  100% {
     height: 0;
-    opacity: 0; ***REMOVED*** ***REMOVED***
+    opacity: 0; } }
 
-@-webkit-keyframes md-autocomplete-list-in ***REMOVED***
-  0% ***REMOVED***
-    opacity: 0;
-    height: 0;
-    -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out; ***REMOVED***
-  50% ***REMOVED***
-    opacity: 0;
-    height: 40px; ***REMOVED***
-  100% ***REMOVED***
-    opacity: 1;
-    height: 40px; ***REMOVED*** ***REMOVED***
-
-@keyframes md-autocomplete-list-in ***REMOVED***
-  0% ***REMOVED***
+@-webkit-keyframes md-autocomplete-list-in {
+  0% {
     opacity: 0;
     height: 0;
     -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out; ***REMOVED***
-  50% ***REMOVED***
+            animation-timing-function: ease-out; }
+  50% {
     opacity: 0;
-    height: 40px; ***REMOVED***
-  100% ***REMOVED***
+    height: 40px; }
+  100% {
     opacity: 1;
-    height: 40px; ***REMOVED*** ***REMOVED***
+    height: 40px; } }
 
-md-autocomplete ***REMOVED***
+@keyframes md-autocomplete-list-in {
+  0% {
+    opacity: 0;
+    height: 0;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out; }
+  50% {
+    opacity: 0;
+    height: 40px; }
+  100% {
+    opacity: 1;
+    height: 40px; } }
+
+md-autocomplete {
   border-radius: 2px;
   display: block;
   height: 40px;
   position: relative;
   overflow: visible;
-  min-width: 190px; ***REMOVED***
-  md-autocomplete[disabled] input ***REMOVED***
-    cursor: default; ***REMOVED***
-  md-autocomplete[md-floating-label] ***REMOVED***
+  min-width: 190px; }
+  md-autocomplete[disabled] input {
+    cursor: default; }
+  md-autocomplete[md-floating-label] {
     border-radius: 0;
     background: transparent;
-    height: auto; ***REMOVED***
-    md-autocomplete[md-floating-label] md-input-container ***REMOVED***
-      padding-bottom: 0px; ***REMOVED***
-    md-autocomplete[md-floating-label] md-autocomplete-wrap ***REMOVED***
-      height: auto; ***REMOVED***
-    md-autocomplete[md-floating-label] button ***REMOVED***
+    height: auto; }
+    md-autocomplete[md-floating-label] md-input-container {
+      padding-bottom: 0px; }
+    md-autocomplete[md-floating-label] md-autocomplete-wrap {
+      height: auto; }
+    md-autocomplete[md-floating-label] button {
       position: absolute;
       top: auto;
       bottom: 0;
       right: 0;
       width: 30px;
-      height: 30px; ***REMOVED***
-  md-autocomplete md-autocomplete-wrap ***REMOVED***
+      height: 30px; }
+  md-autocomplete md-autocomplete-wrap {
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
@@ -91,47 +91,47 @@ md-autocomplete ***REMOVED***
     box-sizing: border-box;
     position: relative;
     overflow: visible;
-    height: 40px; ***REMOVED***
-    md-autocomplete md-autocomplete-wrap.md-menu-showing ***REMOVED***
-      z-index: 51; ***REMOVED***
-    md-autocomplete md-autocomplete-wrap md-input-container, md-autocomplete md-autocomplete-wrap input ***REMOVED***
+    height: 40px; }
+    md-autocomplete md-autocomplete-wrap.md-menu-showing {
+      z-index: 51; }
+    md-autocomplete md-autocomplete-wrap md-input-container, md-autocomplete md-autocomplete-wrap input {
       -webkit-box-flex: 1;
       -webkit-flex: 1 1 0%;
               flex: 1 1 0%;
       box-sizing: border-box;
-      min-width: 0; ***REMOVED***
-    md-autocomplete md-autocomplete-wrap md-progress-linear ***REMOVED***
+      min-width: 0; }
+    md-autocomplete md-autocomplete-wrap md-progress-linear {
       position: absolute;
       bottom: -2px;
-      left: 0; ***REMOVED***
-      md-autocomplete md-autocomplete-wrap md-progress-linear.md-inline ***REMOVED***
+      left: 0; }
+      md-autocomplete md-autocomplete-wrap md-progress-linear.md-inline {
         bottom: 40px;
         right: 2px;
         left: 2px;
-        width: auto; ***REMOVED***
-      md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate ***REMOVED***
+        width: auto; }
+      md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 3px;
         -webkit-transition: none;
-        transition: none; ***REMOVED***
-        md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate .md-container ***REMOVED***
+        transition: none; }
+        md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate .md-container {
           -webkit-transition: none;
           transition: none;
-          height: 3px; ***REMOVED***
-        md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate.ng-enter ***REMOVED***
+          height: 3px; }
+        md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate.ng-enter {
           -webkit-transition: opacity 0.15s linear;
-          transition: opacity 0.15s linear; ***REMOVED***
-          md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate.ng-enter.ng-enter-active ***REMOVED***
-            opacity: 1; ***REMOVED***
-        md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate.ng-leave ***REMOVED***
+          transition: opacity 0.15s linear; }
+          md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate.ng-enter.ng-enter-active {
+            opacity: 1; }
+        md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate.ng-leave {
           -webkit-transition: opacity 0.15s linear;
-          transition: opacity 0.15s linear; ***REMOVED***
-          md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate.ng-leave.ng-leave-active ***REMOVED***
-            opacity: 0; ***REMOVED***
-  md-autocomplete input:not(.md-input) ***REMOVED***
+          transition: opacity 0.15s linear; }
+          md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate.ng-leave.ng-leave-active {
+            opacity: 0; }
+  md-autocomplete input:not(.md-input) {
     font-size: 14px;
     box-sizing: border-box;
     border: none;
@@ -141,10 +141,10 @@ md-autocomplete ***REMOVED***
     width: 100%;
     padding: 0 15px;
     line-height: 40px;
-    height: 40px; ***REMOVED***
-    md-autocomplete input:not(.md-input)::-ms-clear ***REMOVED***
-      display: none; ***REMOVED***
-  md-autocomplete button ***REMOVED***
+    height: 40px; }
+    md-autocomplete input:not(.md-input)::-ms-clear {
+      display: none; }
+  md-autocomplete button {
     position: relative;
     line-height: 20px;
     text-align: center;
@@ -156,8 +156,8 @@ md-autocomplete ***REMOVED***
     padding: 0;
     font-size: 12px;
     background: transparent;
-    margin: auto 5px; ***REMOVED***
-    md-autocomplete button:after ***REMOVED***
+    margin: auto 5px; }
+    md-autocomplete button:after {
       content: '';
       position: absolute;
       top: -6px;
@@ -169,60 +169,60 @@ md-autocomplete ***REMOVED***
               transform: scale(0);
       opacity: 0;
       -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); ***REMOVED***
-    md-autocomplete button:focus ***REMOVED***
-      outline: none; ***REMOVED***
-      md-autocomplete button:focus:after ***REMOVED***
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+    md-autocomplete button:focus {
+      outline: none; }
+      md-autocomplete button:focus:after {
         -webkit-transform: scale(1);
                 transform: scale(1);
-        opacity: 1; ***REMOVED***
-    md-autocomplete button md-icon ***REMOVED***
+        opacity: 1; }
+    md-autocomplete button md-icon {
       position: absolute;
       top: 50%;
       left: 50%;
       -webkit-transform: translate3d(-50%, -50%, 0) scale(0.9);
-              transform: translate3d(-50%, -50%, 0) scale(0.9); ***REMOVED***
-      md-autocomplete button md-icon path ***REMOVED***
-        stroke-width: 0; ***REMOVED***
-    md-autocomplete button.ng-enter ***REMOVED***
+              transform: translate3d(-50%, -50%, 0) scale(0.9); }
+      md-autocomplete button md-icon path {
+        stroke-width: 0; }
+    md-autocomplete button.ng-enter {
       -webkit-transform: scale(0);
               transform: scale(0);
       -webkit-transition: -webkit-transform 0.15s ease-out;
       transition: -webkit-transform 0.15s ease-out;
       transition: transform 0.15s ease-out;
-      transition: transform 0.15s ease-out, -webkit-transform 0.15s ease-out; ***REMOVED***
-      md-autocomplete button.ng-enter.ng-enter-active ***REMOVED***
+      transition: transform 0.15s ease-out, -webkit-transform 0.15s ease-out; }
+      md-autocomplete button.ng-enter.ng-enter-active {
         -webkit-transform: scale(1);
-                transform: scale(1); ***REMOVED***
-    md-autocomplete button.ng-leave ***REMOVED***
+                transform: scale(1); }
+    md-autocomplete button.ng-leave {
       -webkit-transition: -webkit-transform 0.15s ease-out;
       transition: -webkit-transform 0.15s ease-out;
       transition: transform 0.15s ease-out;
-      transition: transform 0.15s ease-out, -webkit-transform 0.15s ease-out; ***REMOVED***
-      md-autocomplete button.ng-leave.ng-leave-active ***REMOVED***
+      transition: transform 0.15s ease-out, -webkit-transform 0.15s ease-out; }
+      md-autocomplete button.ng-leave.ng-leave-active {
         -webkit-transform: scale(0);
-                transform: scale(0); ***REMOVED***
-  @media screen and (-ms-high-contrast: active) ***REMOVED***
-    md-autocomplete input ***REMOVED***
-      border: 1px solid #fff; ***REMOVED***
-    md-autocomplete li:focus ***REMOVED***
-      color: #fff; ***REMOVED*** ***REMOVED***
+                transform: scale(0); }
+  @media screen and (-ms-high-contrast: active) {
+    md-autocomplete input {
+      border: 1px solid #fff; }
+    md-autocomplete li:focus {
+      color: #fff; } }
 
-.md-virtual-repeat-container.md-autocomplete-suggestions-container ***REMOVED***
+.md-virtual-repeat-container.md-autocomplete-suggestions-container {
   position: absolute;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
   height: 225.5px;
   max-height: 225.5px;
-  z-index: 100; ***REMOVED***
+  z-index: 100; }
 
-.md-virtual-repeat-container.md-not-found ***REMOVED***
-  height: 48px; ***REMOVED***
+.md-virtual-repeat-container.md-not-found {
+  height: 48px; }
 
-.md-autocomplete-suggestions ***REMOVED***
+.md-autocomplete-suggestions {
   margin: 0;
   list-style: none;
-  padding: 0; ***REMOVED***
-  .md-autocomplete-suggestions li ***REMOVED***
+  padding: 0; }
+  .md-autocomplete-suggestions li {
     font-size: 14px;
     overflow: hidden;
     padding: 0 15px;
@@ -232,13 +232,13 @@ md-autocomplete ***REMOVED***
     transition: background 0.15s linear;
     margin: 0;
     white-space: nowrap;
-    text-overflow: ellipsis; ***REMOVED***
-    .md-autocomplete-suggestions li:focus ***REMOVED***
-      outline: none; ***REMOVED***
-    .md-autocomplete-suggestions li:not(.md-not-found-wrapper) ***REMOVED***
-      cursor: pointer; ***REMOVED***
+    text-overflow: ellipsis; }
+    .md-autocomplete-suggestions li:focus {
+      outline: none; }
+    .md-autocomplete-suggestions li:not(.md-not-found-wrapper) {
+      cursor: pointer; }
 
-@media screen and (-ms-high-contrast: active) ***REMOVED***
+@media screen and (-ms-high-contrast: active) {
   md-autocomplete,
-  .md-autocomplete-suggestions ***REMOVED***
-    border: 1px solid #fff; ***REMOVED*** ***REMOVED***
+  .md-autocomplete-suggestions {
+    border: 1px solid #fff; } }

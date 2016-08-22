@@ -478,16 +478,16 @@ This RC3 provides several fixes to Theme foreground and background colors. Also 
 #### Breaking Changes
 
 * `<a>`: anchor tags in md components inherit theme colors
-* Content: `background-color: '***REMOVED******REMOVED***background-default***REMOVED******REMOVED***'`
-* Subheader: `background-color: '***REMOVED******REMOVED***background-default***REMOVED******REMOVED***'`
+* Content: `background-color: '{{background-default}}'`
+* Subheader: `background-color: '{{background-default}}'`
 * Button: use accent palette A700 for hover and focused
 * Checkbox: ripple use accent palette A700
 * Input: use `primary-color` instead of `primary-500`
-* LinearProgress: `background-color: '***REMOVED******REMOVED***accent-A100***REMOVED******REMOVED***'`
-* RadioButton: container uses `color: '***REMOVED******REMOVED***accent-A700***REMOVED******REMOVED***';`
-* Select: accent uses color: `'***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';`
-* Slider: focus reing uses  `background-color: '***REMOVED******REMOVED***accent-A200-0.2***REMOVED******REMOVED***';`
-* Toast: uses `color: '***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';` instead of `color: '***REMOVED******REMOVED***accent-A200***REMOVED******REMOVED***';`
+* LinearProgress: `background-color: '{{accent-A100}}'`
+* RadioButton: container uses `color: '{{accent-A700}}';`
+* Select: accent uses color: `'{{accent-color}}';`
+* Slider: focus reing uses  `background-color: '{{accent-A200-0.2}}';`
+* Toast: uses `color: '{{accent-color}}';` instead of `color: '{{accent-A200}}';`
 
 
 #### Bug Fixes
@@ -568,10 +568,10 @@ Thanks to the great contributors who helped with this release:
 
 #### Breaking Changes
 
-* Button: modified theme CSS  `background-color: '***REMOVED******REMOVED***accent-600***REMOVED******REMOVED***'`
-* Content: restored `background-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***'` in md-content
-* DatePicker: modified theme CSS `background: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***'`
-* Calendar: modified theme CSS ` background: '***REMOVED******REMOVED***background-A100***REMOVED******REMOVED***';`
+* Button: modified theme CSS  `background-color: '{{accent-600}}'`
+* Content: restored `background-color: '{{background-hue-1}}'` in md-content
+* DatePicker: modified theme CSS `background: '{{background-hue-1}}'`
+* Calendar: modified theme CSS ` background: '{{background-A100}}';`
 * Input: inputs with type `hidden` will be skipped by the `input-container`
 * Select: added hover styles and fixes disabled styles to `md-select`
 * privatized CSS for
@@ -579,7 +579,7 @@ Thanks to the great contributors who helped with this release:
   * Chips: Added read-only styles for `.md-readonly ._md-chip-input-container`
   * Chips: Support for editable chips with `._md-chip-editing`
   * Select: updated layout CSS for `._md-text`
-* updated global CSS style for html and body: `color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; background-color: '***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'`
+* updated global CSS style for html and body: `color: '{{foreground-1}}'; background-color: '{{background-color}}'`
 
 #### Bug Fixes
 
@@ -1807,24 +1807,24 @@ Fixes [#4421](https://github.com/angular/material/issues/4421). Fixes [#4409](ht
 Before:
 
 ```css
-md-progress-linear ***REMOVED***
+md-progress-linear {
   display: block;
-***REMOVED***
-md-progress-circular ***REMOVED***
+}
+md-progress-circular {
    // display not set
    // position not set
-***REMOVED***
+}
 ```
 
 ```css
-md-progress-linear ***REMOVED***
+md-progress-linear {
   display: block;
   position: relative;
-***REMOVED***
-md-progress-circular ***REMOVED***
+}
+md-progress-circular {
   display: block;
   position: relative;
-***REMOVED***
+}
 ```
 
 
@@ -1910,19 +1910,19 @@ This release is comprised of three major efforts:
 Before:
 
 ```css
-*,*:before,*:after ***REMOVED***
+*,*:before,*:after {
   box-sizing: border-box;
-***REMOVED***
+}
 
-.md-container ***REMOVED*** ***REMOVED***
+.md-container { }
 ```
 
 After
 
 ```css
-.md-container ***REMOVED***
+.md-container {
    box-sizing: border-box;
-***REMOVED***
+}
 ```
 
 Refs #3516. Closes #4222
@@ -2393,18 +2393,18 @@ changed to `viewBoxSize`
 
   Change your code from this:
     ``` javascript
-        function MyService($mdInkRipple) ***REMOVED***
+        function MyService($mdInkRipple) {
           //... Included for brevity
           $mdInkRipple.attachButtonBehavior(scope, element, options);
-        ***REMOVED***
+        }
     ```
 
   To this:
     ``` javascript
-        function MyService($mdButtonInkRipple) ***REMOVED***
+        function MyService($mdButtonInkRipple) {
           //... Included for brevity
           $mdButtonInkRipple.attach(scope, element, options);
-        ***REMOVED***
+        }
     ```
 * **icons:** Default size for `md-icon` has been changed from `28px` to `24px`
 * **tabs:** Replaces pagination transition with `transform` rather than `left` for performance
@@ -3143,7 +3143,7 @@ closes #1255
 #### Features
 
 * **input:** add error states, md-maxlength ([a2bc3c68](https://github.com/angular/material/commit/a2bc3c68551b4915c40a4eca9ec48fa9ec61f6b7))
-* **layout:** add flex-order-***REMOVED***sm,gt-sm,md,gt-md,lg,gt-lg***REMOVED*** attributes ([3e453078](https://github.com/angular/material/commit/3e4530785c29650ff46cf7688f0b154adb9a7042))
+* **layout:** add flex-order-{sm,gt-sm,md,gt-md,lg,gt-lg} attributes ([3e453078](https://github.com/angular/material/commit/3e4530785c29650ff46cf7688f0b154adb9a7042))
 * **tooltip:** add configurable md-delay attr, default 400ms. ([e4ed530d](https://github.com/angular/material/commit/e4ed530d8000b6e31c9e4e7d52e402b9b76debd2), closes [#713](https://github.com/angular/material/issues/713))
 
 
@@ -3192,7 +3192,7 @@ closes #1255
   * add <md-input-container> parent for inputs/textareas, deprecate md-text-float ([60fcd6f4](https://github.com/angular/material/commit/60fcd6f4d8b895162b37a940c3f33164d8044382), closes [#993](https://github.com/angular/material/issues/993), [#553](https://github.com/angular/material/issues/553), [#654](https://github.com/angular/material/issues/654), [#993](https://github.com/angular/material/issues/993))
   * support md-warn for theming ([6acacc53](https://github.com/angular/material/commit/6acacc5382940a7ce1b393d0f4cdda6a0ffa615c), closes [#1137](https://github.com/angular/material/issues/1137))
 * **textarea:** make textarea autogrow with size of content ([1c653696](https://github.com/angular/material/commit/1c65369629080ddb6b2c4a981ae00533f5c303b1), closes [#565](https://github.com/angular/material/issues/565))
-* **layout:** add layout-align-***REMOVED***sm,gt-sm,md,gt-md,lg,gt-lg***REMOVED*** attrs ([8550bd6c](https://github.com/angular/material/commit/8550bd6c9353914083bf75328c0160027202d237), closes [#631](https://github.com/angular/material/issues/631))
+* **layout:** add layout-align-{sm,gt-sm,md,gt-md,lg,gt-lg} attrs ([8550bd6c](https://github.com/angular/material/commit/8550bd6c9353914083bf75328c0160027202d237), closes [#631](https://github.com/angular/material/issues/631))
 * **mdRadioGroup:** Radio submits on keydown/enter ([03c75927](https://github.com/angular/material/commit/03c7592798f904ac7a59b4a1c580672ca7c4789f), closes [#577](https://github.com/angular/material/issues/577))
 * **mdSlider:** make discrete track ticks themable ([91bc598f](https://github.com/angular/material/commit/91bc598fab00150e26b11a2c7a0e7c9b3b364bec), closes [#621](https://github.com/angular/material/issues/621))
 * **mdSwitch:** add grab/grabbing cursor during drag ([c60640bf](https://github.com/angular/material/commit/c60640bf4305cbd42d899db5b2adfe8601096d1b), closes [#983](https://github.com/angular/material/issues/983))
@@ -3306,11 +3306,11 @@ To this:
 
 ```js
 var app = angular.module('myApp', ['ngMaterial']);
-app.config(function($mdThemingProvider) ***REMOVED***
+app.config(function($mdThemingProvider) {
   //will use the colors from default theme for any color not defined.
   $mdThemingProvider.theme('purple')
     .primaryColor('purple');
-***REMOVED***);
+});
 ```
 ```html
 <div md-theme="purple">
@@ -3372,7 +3372,7 @@ aria improvements, bug fixes, and documentation enhancements.
 #### Bug Fixes
 
 * **button:** add override for transitions on ng-hide ([8fa652cf](https://github.com/angular/material/commit/8fa652cfb85aca2fe454c97b81ab306a4f9eb5e9), closes [#678](https://github.com/angular/material/issues/678))
-* **layout:** add [flex-***REMOVED***sm,md,etc***REMOVED***] attr for 100% flex on screen size ([7acca432](https://github.com/angular/material/commit/7acca432aa0e18cebf1420d00ccc24e011fd9f53), closes [#706](https://github.com/angular/material/issues/706))
+* **layout:** add [flex-{sm,md,etc}] attr for 100% flex on screen size ([7acca432](https://github.com/angular/material/commit/7acca432aa0e18cebf1420d00ccc24e011fd9f53), closes [#706](https://github.com/angular/material/issues/706))
 * **ripple:**
   * fix ripple bug with checkboxes in lists ([7d99f701](https://github.com/angular/material/commit/7d99f701f8eaafc8a3d1210182e82f63ec99fffb), closes [#679](https://github.com/angular/material/issues/679))
   * fix bug with vertical ripple alignment ([5cdcf29a](https://github.com/angular/material/commit/5cdcf29a524d5f371d5f9170129e5166a8ac5b27), closes [#725](https://github.com/angular/material/issues/725))
@@ -3535,17 +3535,17 @@ it is disabled, change it to an ng-disabled expression.
 should now reference the `.md-button` class selector. Change your CSS overrides from this:
 >
 >```css
->md-button ***REMOVED***
+>md-button {
 >  color: red;
->***REMOVED***
+>}
 >```
 >
 >To this:
 >
 >```css
->.md-button ***REMOVED***
+>.md-button {
 >  color: red;
->***REMOVED***
+>}
 >```
 
 
@@ -3642,7 +3642,7 @@ Version 0.4.1 changes the prefix for all services and directives from 'material'
 To migrate your code, replace all instances of 'material' in your project with 'md':
 
 ```sh
-sed -i '' 's/material/md/g' $(echo my-material-project/app/**/*.***REMOVED***js,html,css***REMOVED***)
+sed -i '' 's/material/md/g' $(echo my-material-project/app/**/*.{js,html,css})
 ```
 
 Additionally, `material-linear-progress` has been renamed to `md-progress-linear` and `material-circular-progress` has been renamed to `md-progress-circular`.
@@ -3710,8 +3710,8 @@ To this:
 $materialDialog
   .show(options)
   .then(
-  function success(response) ***REMOVED******REMOVED***,
-  function cancelled(reason) ***REMOVED******REMOVED***
+  function success(response) {},
+  function cancelled(reason) {}
    );
 
 // Hides the dialog last shown with `show()`
@@ -3744,8 +3744,8 @@ To this:
 $materialToast
   .show(options)
   .then(
-  function success(response) ***REMOVED******REMOVED***,
-  function cancelled(reason) ***REMOVED******REMOVED***
+  function success(response) {},
+  function cancelled(reason) {}
   );
 
 

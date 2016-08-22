@@ -104,21 +104,21 @@ angular
  *  <a href="https://www.google.com/design/icons/#ic_accessibility" target="_blank">Material Design Icon-Selector</a>.
  * </span>
  *
- * @param ***REMOVED***string***REMOVED*** md-font-icon String name of CSS icon associated with the font-face will be used
+ * @param {string} md-font-icon String name of CSS icon associated with the font-face will be used
  * to render the icon. Requires the fonts and the named CSS styles to be preloaded.
- * @param ***REMOVED***string***REMOVED*** md-font-set CSS style name associated with the font library; which will be assigned as
+ * @param {string} md-font-set CSS style name associated with the font library; which will be assigned as
  * the class for the font-icon ligature. This value may also be an alias that is used to lookup the classname;
  * internally use `$mdIconProvider.fontSet(<alias>)` to determine the style name.
- * @param ***REMOVED***string***REMOVED*** md-svg-src String URL (or expression) used to load, cache, and display an
+ * @param {string} md-svg-src String URL (or expression) used to load, cache, and display an
  *     external SVG.
- * @param ***REMOVED***string***REMOVED*** md-svg-icon md-svg-icon String name used for lookup of the icon from the internal cache;
+ * @param {string} md-svg-icon md-svg-icon String name used for lookup of the icon from the internal cache;
  *     interpolated strings or expressions may also be used. Specific set names can be used with
  *     the syntax `<set name>:<icon name>`.<br/><br/>
  * To use icon sets, developers are required to pre-register the sets using the `$mdIconProvider` service.
- * @param ***REMOVED***string=***REMOVED*** aria-label Labels icon for accessibility. If an empty string is provided, icon
+ * @param {string=} aria-label Labels icon for accessibility. If an empty string is provided, icon
  * will be hidden from accessibility layer with `aria-hidden="true"`. If there's no aria-label on the icon
  * nor a label on the parent element, a warning will be logged to the console.
- * @param ***REMOVED***string=***REMOVED*** alt Labels icon for accessibility. If an empty string is provided, icon
+ * @param {string=} alt Labels icon for accessibility. If an empty string is provided, icon
  * will be hidden from accessibility layer with `aria-hidden="true"`. If there's no alt on the icon
  * nor a label on the parent element, a warning will be logged to the console.
  *
@@ -131,7 +131,7 @@ angular
  *
  *  <!-- Icon urls; may be preloaded in templateCache -->
  *  <md-icon md-svg-src="/android.svg"       aria-label="android " ></md-icon>
- *  <md-icon md-svg-src="***REMOVED******REMOVED*** getAndroid() ***REMOVED******REMOVED***" aria-label="android " ></md-icon>
+ *  <md-icon md-svg-src="{{ getAndroid() }}" aria-label="android " ></md-icon>
  *
  * </hljs>
  *
@@ -140,12 +140,12 @@ angular
  *
  * <hljs lang="js">
  *  angular.module('appSvgIconSets', ['ngMaterial'])
- *    .controller('DemoCtrl', function($scope) ***REMOVED******REMOVED***)
- *    .config(function($mdIconProvider) ***REMOVED***
+ *    .controller('DemoCtrl', function($scope) {})
+ *    .config(function($mdIconProvider) {
  *      $mdIconProvider
  *         .iconSet('social', 'img/icons/sets/social-icons.svg', 24)
  *         .defaultIconSet('img/icons/sets/core-icons.svg', 24);
- *     ***REMOVED***);
+ *     });
  * </hljs>
  *
  *
@@ -177,9 +177,9 @@ angular
  *
  * <hljs lang="js">
  *  // Specify a font-icon style alias
- *  angular.config(function($mdIconProvider) ***REMOVED***
+ *  angular.config(function($mdIconProvider) {
  *    $mdIconProvider.fontSet('md', 'material-icons');
- *  ***REMOVED***);
+ *  });
  * </hljs>
  *
  * <hljs lang="html">
@@ -187,19 +187,19 @@ angular
  * </hljs>
  *
  */
-function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
+function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) {
 
-  return ***REMOVED***
+  return {
     restrict: 'E',
     link : postLink
-  ***REMOVED***;
+  };
 
 
   /**
    * Directive postLink
    * Supports embedded SVGs, font-icons, & external SVGs
    */
-  function postLink(scope, element, attr) ***REMOVED***
+  function postLink(scope, element, attr) {
     $mdTheming(element);
     var lastFontIcon = attr.mdFontIcon;
     var lastFontSet = $mdIcon.fontSet(attr.mdFontSet);
@@ -219,89 +219,89 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
     var label = attr.alt || attr.mdFontIcon || attr.mdSvgIcon || element.text();
     var attrName = attr.$normalize(attr.$attr.mdSvgIcon || attr.$attr.mdSvgSrc || '');
 
-    if ( !attr['aria-label'] ) ***REMOVED***
+    if ( !attr['aria-label'] ) {
 
-      if (label !== '' && !parentsHaveText() ) ***REMOVED***
+      if (label !== '' && !parentsHaveText() ) {
 
         $mdAria.expect(element, 'aria-label', label);
         $mdAria.expect(element, 'role', 'img');
 
-      ***REMOVED*** else if ( !element.text() ) ***REMOVED***
+      } else if ( !element.text() ) {
         // If not a font-icon with ligature, then
         // hide from the accessibility layer.
 
         $mdAria.expect(element, 'aria-hidden', 'true');
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
-    if (attrName) ***REMOVED***
+    if (attrName) {
       // Use either pre-configured SVG or URL source, respectively.
-      attr.$observe(attrName, function(attrVal) ***REMOVED***
+      attr.$observe(attrName, function(attrVal) {
         element.empty();
-        if (attrVal) ***REMOVED***
+        if (attrVal) {
           $mdIcon(attrVal)
-            .then(function(svg) ***REMOVED***
+            .then(function(svg) {
             element.empty();
             element.append(svg);
-          ***REMOVED***);
-        ***REMOVED***
+          });
+        }
 
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
 
-    function parentsHaveText() ***REMOVED***
+    function parentsHaveText() {
       var parent = element.parent();
-      if (parent.attr('aria-label') || parent.text()) ***REMOVED***
+      if (parent.attr('aria-label') || parent.text()) {
         return true;
-      ***REMOVED***
-      else if(parent.parent().attr('aria-label') || parent.parent().text()) ***REMOVED***
+      }
+      else if(parent.parent().attr('aria-label') || parent.parent().text()) {
         return true;
-      ***REMOVED***
+      }
       return false;
-    ***REMOVED***
+    }
 
-    function prepareForFontIcon() ***REMOVED***
-      if (!attr.mdSvgIcon && !attr.mdSvgSrc) ***REMOVED***
-        if (attr.mdFontIcon) ***REMOVED***
+    function prepareForFontIcon() {
+      if (!attr.mdSvgIcon && !attr.mdSvgSrc) {
+        if (attr.mdFontIcon) {
           element.addClass('md-font ' + attr.mdFontIcon);
-        ***REMOVED***
+        }
 
         element.addClass(lastFontSet);
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
-    function fontIconChanged() ***REMOVED***
-      if (!attr.mdSvgIcon && !attr.mdSvgSrc) ***REMOVED***
-        if (attr.mdFontIcon) ***REMOVED***
+    function fontIconChanged() {
+      if (!attr.mdSvgIcon && !attr.mdSvgSrc) {
+        if (attr.mdFontIcon) {
           element.removeClass(lastFontIcon);
           element.addClass(attr.mdFontIcon);
 
           lastFontIcon = attr.mdFontIcon;
-        ***REMOVED***
+        }
 
         var fontSet = $mdIcon.fontSet(attr.mdFontSet);
 
-        if (lastFontSet !== fontSet) ***REMOVED***
+        if (lastFontSet !== fontSet) {
           element.removeClass(lastFontSet);
           element.addClass(fontSet);
 
           lastFontSet = fontSet;
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
-***REMOVED***
+        }
+      }
+    }
+  }
+}
 
   angular
     .module('material.components.icon')
-    .constant('$$mdSvgRegistry', ***REMOVED***
+    .constant('$$mdSvgRegistry', {
         'mdTabsArrow':   'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxnPjxwb2x5Z29uIHBvaW50cz0iMTUuNCw3LjQgMTQsNiA4LDEyIDE0LDE4IDE1LjQsMTYuNiAxMC44LDEyICIvPjwvZz48L3N2Zz4=',
         'mdClose':       'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxnPjxwYXRoIGQ9Ik0xOSA2LjQxbC0xLjQxLTEuNDEtNS41OSA1LjU5LTUuNTktNS41OS0xLjQxIDEuNDEgNS41OSA1LjU5LTUuNTkgNS41OSAxLjQxIDEuNDEgNS41OS01LjU5IDUuNTkgNS41OSAxLjQxLTEuNDEtNS41OS01LjU5eiIvPjwvZz48L3N2Zz4=',
         'mdCancel':      'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxnPjxwYXRoIGQ9Ik0xMiAyYy01LjUzIDAtMTAgNC40Ny0xMCAxMHM0LjQ3IDEwIDEwIDEwIDEwLTQuNDcgMTAtMTAtNC40Ny0xMC0xMC0xMHptNSAxMy41OWwtMS40MSAxLjQxLTMuNTktMy41OS0zLjU5IDMuNTktMS40MS0xLjQxIDMuNTktMy41OS0zLjU5LTMuNTkgMS40MS0xLjQxIDMuNTkgMy41OSAzLjU5LTMuNTkgMS40MSAxLjQxLTMuNTkgMy41OSAzLjU5IDMuNTl6Ii8+PC9nPjwvc3ZnPg==',
         'mdMenu':        'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGQ9Ik0zLDZIMjFWOEgzVjZNMywxMUgyMVYxM0gzVjExTTMsMTZIMjFWMThIM1YxNloiIC8+PC9zdmc+',
         'mdToggleArrow': 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNDggNDgiPjxwYXRoIGQ9Ik0yNCAxNmwtMTIgMTIgMi44MyAyLjgzIDkuMTctOS4xNyA5LjE3IDkuMTcgMi44My0yLjgzeiIvPjxwYXRoIGQ9Ik0wIDBoNDh2NDhoLTQ4eiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==',
         'mdCalendar':    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTkgM2gtMVYxaC0ydjJIOFYxSDZ2Mkg1Yy0xLjExIDAtMS45OS45LTEuOTkgMkwzIDE5YzAgMS4xLjg5IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bTAgMTZINVY4aDE0djExek03IDEwaDV2NUg3eiIvPjwvc3ZnPg=='
-    ***REMOVED***)
+    })
     .provider('$mdIcon', MdIconProvider);
 
 /**
@@ -325,7 +325,7 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
  * This means, when loading icons from an external URL, you have to trust the URL in the `$sceDelegateProvider`.
  *
  * <hljs lang="js">
- *   app.config(function($sceDelegateProvider) ***REMOVED***
+ *   app.config(function($sceDelegateProvider) {
  *     $sceDelegateProvider.resourceUrlWhitelist([
  *       // Adding 'self' to the whitelist, will allow requests from the current origin.
  *       'self',
@@ -333,7 +333,7 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
  *       // We recommend to only specify the given domain you want to allow.
  *       '**'
  *     ]);
- *   ***REMOVED***);
+ *   });
  * </hljs>
  *
  * Read more about the [$sceDelegateProvider](https://docs.angularjs.org/api/ng/provider/$sceDelegateProvider).
@@ -356,7 +356,7 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
  *
  * @usage
  * <hljs lang="js">
- *   app.config(function($mdIconProvider) ***REMOVED***
+ *   app.config(function($mdIconProvider) {
     *
     *     // Configure URLs for icons specified by [set:]id.
     *
@@ -366,31 +366,31 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
     *          .iconSet('social', 'my/app/social.svg')   // Register a named icon set of SVGs
     *          .icon('android', 'my/app/android.svg')    // Register a specific icon (by name)
     *          .icon('work:chair', 'my/app/chair.svg');  // Register icon in a specific set
-    *   ***REMOVED***);
+    *   });
  * </hljs>
  *
  * SVG icons and icon sets can be easily pre-loaded and cached using either (a) a build process or (b) a runtime
  * **startup** process (shown below):
  *
  * <hljs lang="js">
- *   app.config(function($mdIconProvider) ***REMOVED***
+ *   app.config(function($mdIconProvider) {
     *
     *     // Register a default set of SVG icon definitions
     *     $mdIconProvider.defaultIconSet('my/app/icons.svg')
     *
-    *   ***REMOVED***)
- *   .run(function($templateRequest)***REMOVED***
+    *   })
+ *   .run(function($templateRequest){
     *
     *     // Pre-fetch icons sources by URL and cache in the $templateCache...
     *     // subsequent $templateRequest calls will look there first.
     *
     *     var urls = [ 'imy/app/icons.svg', 'img/icons/android.svg'];
     *
-    *     angular.forEach(urls, function(url) ***REMOVED***
+    *     angular.forEach(urls, function(url) {
     *       $templateRequest(url);
-    *     ***REMOVED***);
+    *     });
     *
-    *   ***REMOVED***);
+    *   });
  *
  * </hljs>
  *
@@ -406,25 +406,25 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
  * Register a source URL for a specific icon name; the name may include optional 'icon set' name prefix.
  * These icons  will later be retrieved from the cache using `$mdIcon( <icon name> )`
  *
- * @param ***REMOVED***string***REMOVED*** id Icon name/id used to register the icon
- * @param ***REMOVED***string***REMOVED*** url specifies the external location for the data file. Used internally by
+ * @param {string} id Icon name/id used to register the icon
+ * @param {string} url specifies the external location for the data file. Used internally by
  * `$templateRequest` to load the data or as part of the lookup in `$templateCache` if pre-loading
  * was configured.
- * @param ***REMOVED***number=***REMOVED*** viewBoxSize Sets the width and height the icon's viewBox.
+ * @param {number=} viewBoxSize Sets the width and height the icon's viewBox.
  * It is ignored for icons with an existing viewBox. Default size is 24.
  *
- * @returns ***REMOVED***obj***REMOVED*** an `$mdIconProvider` reference; used to support method call chains for the API
+ * @returns {obj} an `$mdIconProvider` reference; used to support method call chains for the API
  *
  * @usage
  * <hljs lang="js">
- *   app.config(function($mdIconProvider) ***REMOVED***
+ *   app.config(function($mdIconProvider) {
     *
     *     // Configure URLs for icons specified by [set:]id.
     *
     *     $mdIconProvider
     *          .icon('android', 'my/app/android.svg')    // Register a specific icon (by name)
     *          .icon('work:chair', 'my/app/chair.svg');  // Register icon in a specific set
-    *   ***REMOVED***);
+    *   });
  * </hljs>
  *
  */
@@ -437,26 +437,26 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
  * has an icon id. Individual icons can be subsequently retrieved from this cached set using
  * `$mdIcon(<icon set name>:<icon name>)`
  *
- * @param ***REMOVED***string***REMOVED*** id Icon name/id used to register the iconset
- * @param ***REMOVED***string***REMOVED*** url specifies the external location for the data file. Used internally by
+ * @param {string} id Icon name/id used to register the iconset
+ * @param {string} url specifies the external location for the data file. Used internally by
  * `$templateRequest` to load the data or as part of the lookup in `$templateCache` if pre-loading
  * was configured.
- * @param ***REMOVED***number=***REMOVED*** viewBoxSize Sets the width and height of the viewBox of all icons in the set.
+ * @param {number=} viewBoxSize Sets the width and height of the viewBox of all icons in the set.
  * It is ignored for icons with an existing viewBox. All icons in the icon set should be the same size.
  * Default value is 24.
  *
- * @returns ***REMOVED***obj***REMOVED*** an `$mdIconProvider` reference; used to support method call chains for the API
+ * @returns {obj} an `$mdIconProvider` reference; used to support method call chains for the API
  *
  *
  * @usage
  * <hljs lang="js">
- *   app.config(function($mdIconProvider) ***REMOVED***
+ *   app.config(function($mdIconProvider) {
     *
     *     // Configure URLs for icons specified by [set:]id.
     *
     *     $mdIconProvider
     *          .iconSet('social', 'my/app/social.svg')   // Register a named icon set
-    *   ***REMOVED***);
+    *   });
  * </hljs>
  *
  */
@@ -469,24 +469,24 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
  * subsequent lookups of icons will failover to search this 'default' icon set.
  * Icon can be retrieved from this cached, default set using `$mdIcon(<name>)`
  *
- * @param ***REMOVED***string***REMOVED*** url specifies the external location for the data file. Used internally by
+ * @param {string} url specifies the external location for the data file. Used internally by
  * `$templateRequest` to load the data or as part of the lookup in `$templateCache` if pre-loading
  * was configured.
- * @param ***REMOVED***number=***REMOVED*** viewBoxSize Sets the width and height of the viewBox of all icons in the set.
+ * @param {number=} viewBoxSize Sets the width and height of the viewBox of all icons in the set.
  * It is ignored for icons with an existing viewBox. All icons in the icon set should be the same size.
  * Default value is 24.
  *
- * @returns ***REMOVED***obj***REMOVED*** an `$mdIconProvider` reference; used to support method call chains for the API
+ * @returns {obj} an `$mdIconProvider` reference; used to support method call chains for the API
  *
  * @usage
  * <hljs lang="js">
- *   app.config(function($mdIconProvider) ***REMOVED***
+ *   app.config(function($mdIconProvider) {
     *
     *     // Configure URLs for icons specified by [set:]id.
     *
     *     $mdIconProvider
     *          .defaultIconSet( 'my/app/social.svg' )   // Register a default icon set
-    *   ***REMOVED***);
+    *   });
  * </hljs>
  *
  */
@@ -511,13 +511,13 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
  *  will render as
  *  `<span class="fa"> face </span>`
  *
- * @param ***REMOVED***string***REMOVED*** name of the font-library style that should be applied to the md-icon DOM element
+ * @param {string} name of the font-library style that should be applied to the md-icon DOM element
  *
  * @usage
  * <hljs lang="js">
- *   app.config(function($mdIconProvider) ***REMOVED***
+ *   app.config(function($mdIconProvider) {
    *     $mdIconProvider.defaultFontSet( 'fa' );
-   *   ***REMOVED***);
+   *   });
  * </hljs>
  *
  */
@@ -531,15 +531,15 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
  * attribute. If the fonset className is really long, your markup may become cluttered... an easy
  * solution is to define an `alias` for your fontset:
  *
- * @param ***REMOVED***string***REMOVED*** alias of the specified fontset.
- * @param ***REMOVED***string***REMOVED*** className of the fontset.
+ * @param {string} alias of the specified fontset.
+ * @param {string} className of the fontset.
  *
  * @usage
  * <hljs lang="js">
- *   app.config(function($mdIconProvider) ***REMOVED***
+ *   app.config(function($mdIconProvider) {
    *     // In this case, we set an alias for the `material-icons` fontset.
    *     $mdIconProvider.fontSet('md', 'material-icons');
-   *   ***REMOVED***);
+   *   });
  * </hljs>
  *
  */
@@ -552,102 +552,102 @@ function mdIconDirective($mdIcon, $mdTheming, $mdAria, $sce) ***REMOVED***
  * While `<md-icon />` markup can also be style with sizing CSS, this method configures
  * the default width **and** height used for all icons; unless overridden by specific CSS.
  * The default sizing is (24px, 24px).
- * @param ***REMOVED***number=***REMOVED*** viewBoxSize Sets the width and height of the viewBox for an icon or an icon set.
+ * @param {number=} viewBoxSize Sets the width and height of the viewBox for an icon or an icon set.
  * All icons in a set should be the same size. The default value is 24.
  *
- * @returns ***REMOVED***obj***REMOVED*** an `$mdIconProvider` reference; used to support method call chains for the API
+ * @returns {obj} an `$mdIconProvider` reference; used to support method call chains for the API
  *
  * @usage
  * <hljs lang="js">
- *   app.config(function($mdIconProvider) ***REMOVED***
+ *   app.config(function($mdIconProvider) {
     *
     *     // Configure URLs for icons specified by [set:]id.
     *
     *     $mdIconProvider
     *          .defaultViewBoxSize(36)   // Register a default icon size (width == height)
-    *   ***REMOVED***);
+    *   });
  * </hljs>
  *
  */
 
-var config = ***REMOVED***
+var config = {
   defaultViewBoxSize: 24,
   defaultFontSet: 'material-icons',
   fontSets: []
-***REMOVED***;
+};
 
-function MdIconProvider() ***REMOVED***
-***REMOVED***
+function MdIconProvider() {
+}
 
-MdIconProvider.prototype = ***REMOVED***
-  icon: function(id, url, viewBoxSize) ***REMOVED***
+MdIconProvider.prototype = {
+  icon: function(id, url, viewBoxSize) {
     if (id.indexOf(':') == -1) id = '$default:' + id;
 
     config[id] = new ConfigurationItem(url, viewBoxSize);
     return this;
-  ***REMOVED***,
+  },
 
-  iconSet: function(id, url, viewBoxSize) ***REMOVED***
+  iconSet: function(id, url, viewBoxSize) {
     config[id] = new ConfigurationItem(url, viewBoxSize);
     return this;
-  ***REMOVED***,
+  },
 
-  defaultIconSet: function(url, viewBoxSize) ***REMOVED***
+  defaultIconSet: function(url, viewBoxSize) {
     var setName = '$default';
 
-    if (!config[setName]) ***REMOVED***
+    if (!config[setName]) {
       config[setName] = new ConfigurationItem(url, viewBoxSize);
-    ***REMOVED***
+    }
 
     config[setName].viewBoxSize = viewBoxSize || config.defaultViewBoxSize;
 
     return this;
-  ***REMOVED***,
+  },
 
-  defaultViewBoxSize: function(viewBoxSize) ***REMOVED***
+  defaultViewBoxSize: function(viewBoxSize) {
     config.defaultViewBoxSize = viewBoxSize;
     return this;
-  ***REMOVED***,
+  },
 
   /**
    * Register an alias name associated with a font-icon library style ;
    */
-  fontSet: function fontSet(alias, className) ***REMOVED***
-    config.fontSets.push(***REMOVED***
+  fontSet: function fontSet(alias, className) {
+    config.fontSets.push({
       alias: alias,
       fontSet: className || alias
-    ***REMOVED***);
+    });
     return this;
-  ***REMOVED***,
+  },
 
   /**
    * Specify a default style name associated with a font-icon library
    * fallback to Material Icons.
    *
    */
-  defaultFontSet: function defaultFontSet(className) ***REMOVED***
+  defaultFontSet: function defaultFontSet(className) {
     config.defaultFontSet = !className ? '' : className;
     return this;
-  ***REMOVED***,
+  },
 
-  defaultIconSize: function defaultIconSize(iconSize) ***REMOVED***
+  defaultIconSize: function defaultIconSize(iconSize) {
     config.defaultIconSize = iconSize;
     return this;
-  ***REMOVED***,
+  },
 
-  $get: ['$templateRequest', '$q', '$log', '$mdUtil', '$sce', function($templateRequest, $q, $log, $mdUtil, $sce) ***REMOVED***
+  $get: ['$templateRequest', '$q', '$log', '$mdUtil', '$sce', function($templateRequest, $q, $log, $mdUtil, $sce) {
     return MdIconService(config, $templateRequest, $q, $log, $mdUtil, $sce);
-  ***REMOVED***]
-***REMOVED***;
+  }]
+};
 
 /**
  *  Configuration item stored in the Icon registry; used for lookups
  *  to load if not already cached in the `loaded` cache
  */
-function ConfigurationItem(url, viewBoxSize) ***REMOVED***
+function ConfigurationItem(url, viewBoxSize) {
   this.url = url;
   this.viewBoxSize = viewBoxSize || config.defaultViewBoxSize;
-***REMOVED***
+}
 
 /**
  * @ngdoc service
@@ -657,35 +657,35 @@ function ConfigurationItem(url, viewBoxSize) ***REMOVED***
  * @description
  * The `$mdIcon` service is a function used to lookup SVG icons.
  *
- * @param ***REMOVED***string***REMOVED*** id Query value for a unique Id or URL. If the argument is a URL, then the service will retrieve the icon element
+ * @param {string} id Query value for a unique Id or URL. If the argument is a URL, then the service will retrieve the icon element
  * from its internal cache or load the icon and cache it first. If the value is not a URL-type string, then an ID lookup is
  * performed. The Id may be a unique icon ID or may include an iconSet ID prefix.
  *
  * For the **id** query to work properly, this means that all id-to-URL mappings must have been previously configured
  * using the `$mdIconProvider`.
  *
- * @returns ***REMOVED***angular.$q.Promise***REMOVED*** A promise that gets resolved to a clone of the initial SVG DOM element; which was
+ * @returns {angular.$q.Promise} A promise that gets resolved to a clone of the initial SVG DOM element; which was
  * created from the SVG markup in the SVG data file. If an error occurs (e.g. the icon cannot be found) the promise
  * will get rejected.
  *
  * @usage
  * <hljs lang="js">
- * function SomeDirective($mdIcon) ***REMOVED***
+ * function SomeDirective($mdIcon) {
   *
   *   // See if the icon has already been loaded, if not
   *   // then lookup the icon from the registry cache, load and cache
   *   // it for future requests.
   *   // NOTE: ID queries require configuration with $mdIconProvider
   *
-  *   $mdIcon('android').then(function(iconEl)    ***REMOVED*** element.append(iconEl); ***REMOVED***);
-  *   $mdIcon('work:chair').then(function(iconEl) ***REMOVED*** element.append(iconEl); ***REMOVED***);
+  *   $mdIcon('android').then(function(iconEl)    { element.append(iconEl); });
+  *   $mdIcon('work:chair').then(function(iconEl) { element.append(iconEl); });
   *
   *   // Load and cache the external SVG using a URL
   *
-  *   $mdIcon('img/icons/android.svg').then(function(iconEl) ***REMOVED***
+  *   $mdIcon('img/icons/android.svg').then(function(iconEl) {
   *     element.append(iconEl);
-  *   ***REMOVED***);
-  * ***REMOVED***;
+  *   });
+  * };
  * </hljs>
  *
  * NOTE: The `<md-icon />  ` directive internally uses the `$mdIcon` service to query, loaded, and instantiate
@@ -693,13 +693,13 @@ function ConfigurationItem(url, viewBoxSize) ***REMOVED***
  */
 
 /* ngInject */
-function MdIconService(config, $templateRequest, $q, $log, $mdUtil, $sce) ***REMOVED***
-  var iconCache = ***REMOVED******REMOVED***;
-  var svgCache = ***REMOVED******REMOVED***;
-  var urlRegex = /[-\w@:%\+.~#?&//=]***REMOVED***2,***REMOVED***\.[a-z]***REMOVED***2,4***REMOVED***\b(\/[-\w@:%\+.~#?&//=]*)?/i;
+function MdIconService(config, $templateRequest, $q, $log, $mdUtil, $sce) {
+  var iconCache = {};
+  var svgCache = {};
+  var urlRegex = /[-\w@:%\+.~#?&//=]{2,}\.[a-z]{2,4}\b(\/[-\w@:%\+.~#?&//=]*)?/i;
   var dataUrlRegex = /^data:image\/svg\+xml[\s*;\w\-\=]*?(base64)?,(.*)$/i;
 
-  Icon.prototype = ***REMOVED***clone: cloneSVG, prepare: prepareAndStyle***REMOVED***;
+  Icon.prototype = {clone: cloneSVG, prepare: prepareAndStyle};
   getIcon.fontSet = findRegisteredFontSet;
 
   // Publish service...
@@ -708,54 +708,54 @@ function MdIconService(config, $templateRequest, $q, $log, $mdUtil, $sce) ***REM
   /**
    * Actual $mdIcon service is essentially a lookup function
    */
-  function getIcon(id) ***REMOVED***
+  function getIcon(id) {
     id = id || '';
 
     // If the "id" provided is not a string, the only other valid value is a $sce trust wrapper
     // over a URL string. If the value is not trusted, this will intentionally throw an error
     // because the user is attempted to use an unsafe URL, potentially opening themselves up
     // to an XSS attack.
-    if (!angular.isString(id)) ***REMOVED***
+    if (!angular.isString(id)) {
       id = $sce.getTrustedUrl(id);
-    ***REMOVED***
+    }
 
     // If already loaded and cached, use a clone of the cached icon.
     // Otherwise either load by URL, or lookup in the registry and then load by URL, and cache.
 
-    if (iconCache[id]) ***REMOVED***
+    if (iconCache[id]) {
       return $q.when(transformClone(iconCache[id]));
-    ***REMOVED***
+    }
 
-    if (urlRegex.test(id) || dataUrlRegex.test(id)) ***REMOVED***
+    if (urlRegex.test(id) || dataUrlRegex.test(id)) {
       return loadByURL(id).then(cacheIcon(id));
-    ***REMOVED***
+    }
 
-    if (id.indexOf(':') == -1) ***REMOVED***
+    if (id.indexOf(':') == -1) {
       id = '$default:' + id;
-    ***REMOVED***
+    }
 
     var load = config[id] ? loadByID : loadFromIconSet;
     return load(id)
       .then(cacheIcon(id));
-  ***REMOVED***
+  }
 
   /**
    * Lookup registered fontSet style using its alias...
    * If not found,
    */
-  function findRegisteredFontSet(alias) ***REMOVED***
+  function findRegisteredFontSet(alias) {
     var useDefault = angular.isUndefined(alias) || !(alias && alias.length);
     if (useDefault) return config.defaultFontSet;
 
     var result = alias;
-    angular.forEach(config.fontSets, function(it) ***REMOVED***
+    angular.forEach(config.fontSets, function(it) {
       if (it.alias == alias) result = it.fontSet || result;
-    ***REMOVED***);
+    });
 
     return result;
-  ***REMOVED***
+  }
 
-  function transformClone(cacheElement) ***REMOVED***
+  function transformClone(cacheElement) {
     var clone = cacheElement.clone();
     var cacheSuffix = '_cache' + $mdUtil.nextUid();
 
@@ -763,153 +763,153 @@ function MdIconService(config, $templateRequest, $q, $log, $mdUtil, $sce) ***REM
     // This is needed because SVG id's are treated as normal DOM ids
     // and should not have a duplicated id.
     if (clone.id) clone.id += cacheSuffix;
-    angular.forEach(clone.querySelectorAll('[id]'), function(item) ***REMOVED***
+    angular.forEach(clone.querySelectorAll('[id]'), function(item) {
       item.id += cacheSuffix;
-    ***REMOVED***);
+    });
 
     return clone;
-  ***REMOVED***
+  }
 
   /**
    * Prepare and cache the loaded icon for the specified `id`
    */
-  function cacheIcon(id) ***REMOVED***
+  function cacheIcon(id) {
 
-    return function updateCache(icon) ***REMOVED***
+    return function updateCache(icon) {
       iconCache[id] = isIcon(icon) ? icon : new Icon(icon, config[id]);
 
       return iconCache[id].clone();
-    ***REMOVED***;
-  ***REMOVED***
+    };
+  }
 
   /**
    * Lookup the configuration in the registry, if !registered throw an error
    * otherwise load the icon [on-demand] using the registered URL.
    *
    */
-  function loadByID(id) ***REMOVED***
+  function loadByID(id) {
     var iconConfig = config[id];
-    return loadByURL(iconConfig.url).then(function(icon) ***REMOVED***
+    return loadByURL(iconConfig.url).then(function(icon) {
       return new Icon(icon, iconConfig);
-    ***REMOVED***);
-  ***REMOVED***
+    });
+  }
 
   /**
    *    Loads the file as XML and uses querySelector( <id> ) to find
    *    the desired node...
    */
-  function loadFromIconSet(id) ***REMOVED***
+  function loadFromIconSet(id) {
     var setName = id.substring(0, id.lastIndexOf(':')) || '$default';
     var iconSetConfig = config[setName];
 
     return !iconSetConfig ? announceIdNotFound(id) : loadByURL(iconSetConfig.url).then(extractFromSet);
 
-    function extractFromSet(set) ***REMOVED***
+    function extractFromSet(set) {
       var iconName = id.slice(id.lastIndexOf(':') + 1);
       var icon = set.querySelector('#' + iconName);
       return icon ? new Icon(icon, iconSetConfig) : announceIdNotFound(id);
-    ***REMOVED***
+    }
 
-    function announceIdNotFound(id) ***REMOVED***
+    function announceIdNotFound(id) {
       var msg = 'icon ' + id + ' not found';
       $log.warn(msg);
 
       return $q.reject(msg || id);
-    ***REMOVED***
-  ***REMOVED***
+    }
+  }
 
   /**
    * Load the icon by URL (may use the $templateCache).
    * Extract the data for later conversion to Icon
    */
-  function loadByURL(url) ***REMOVED***
+  function loadByURL(url) {
     /* Load the icon from embedded data URL. */
-    function loadByDataUrl(url) ***REMOVED***
+    function loadByDataUrl(url) {
       var results = dataUrlRegex.exec(url);
       var isBase64 = /base64/i.test(url);
       var data = isBase64 ? window.atob(results[2]) : results[2];
 
       return $q.when(angular.element(data)[0]);
-    ***REMOVED***
+    }
 
     /* Load the icon by URL using HTTP. */
-    function loadByHttpUrl(url) ***REMOVED***
-      return $q(function(resolve, reject) ***REMOVED***
+    function loadByHttpUrl(url) {
+      return $q(function(resolve, reject) {
         // Catch HTTP or generic errors not related to incorrect icon IDs.
-        var announceAndReject = function(err) ***REMOVED***
+        var announceAndReject = function(err) {
             var msg = angular.isString(err) ? err : (err.message || err.data || err.statusText);
             $log.warn(msg);
             reject(err);
-          ***REMOVED***,
-          extractSvg = function(response) ***REMOVED***
-            if (!svgCache[url]) ***REMOVED***
+          },
+          extractSvg = function(response) {
+            if (!svgCache[url]) {
               svgCache[url] = angular.element('<div>').append(response)[0].querySelector('svg');
-            ***REMOVED***
+            }
             resolve(svgCache[url]);
-          ***REMOVED***;
+          };
 
         $templateRequest(url, true).then(extractSvg, announceAndReject);
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
 
     return dataUrlRegex.test(url)
       ? loadByDataUrl(url)
       : loadByHttpUrl(url);
-  ***REMOVED***
+  }
 
   /**
    * Check target signature to see if it is an Icon instance.
    */
-  function isIcon(target) ***REMOVED***
+  function isIcon(target) {
     return angular.isDefined(target.element) && angular.isDefined(target.config);
-  ***REMOVED***
+  }
 
   /**
    *  Define the Icon class
    */
-  function Icon(el, config) ***REMOVED***
-    if (el && el.tagName != 'svg') ***REMOVED***
+  function Icon(el, config) {
+    if (el && el.tagName != 'svg') {
       el = angular.element('<svg xmlns="http://www.w3.org/2000/svg">').append(el.cloneNode(true))[0];
-    ***REMOVED***
+    }
 
     // Inject the namespace if not available...
-    if (!el.getAttribute('xmlns')) ***REMOVED***
+    if (!el.getAttribute('xmlns')) {
       el.setAttribute('xmlns', "http://www.w3.org/2000/svg");
-    ***REMOVED***
+    }
 
     this.element = el;
     this.config = config;
     this.prepare();
-  ***REMOVED***
+  }
 
   /**
    *  Prepare the DOM element that will be cached in the
    *  loaded iconCache store.
    */
-  function prepareAndStyle() ***REMOVED***
+  function prepareAndStyle() {
     var viewBoxSize = this.config ? this.config.viewBoxSize : config.defaultViewBoxSize;
-    angular.forEach(***REMOVED***
+    angular.forEach({
       'fit': '',
       'height': '100%',
       'width': '100%',
       'preserveAspectRatio': 'xMidYMid meet',
       'viewBox': this.element.getAttribute('viewBox') || ('0 0 ' + viewBoxSize + ' ' + viewBoxSize),
       'focusable': false // Disable IE11s default behavior to make SVGs focusable
-    ***REMOVED***, function(val, attr) ***REMOVED***
+    }, function(val, attr) {
       this.element.setAttribute(attr, val);
-    ***REMOVED***, this);
-  ***REMOVED***
+    }, this);
+  }
 
   /**
    * Clone the Icon DOM element.
    */
-  function cloneSVG() ***REMOVED***
+  function cloneSVG() {
     // If the element or any of its children have a style attribute, then a CSP policy without
     // 'unsafe-inline' in the style-src directive, will result in a violation.
     return this.element.cloneNode(true);
-  ***REMOVED***
+  }
 
-***REMOVED***
+}
 MdIconService.$inject = ["config", "$templateRequest", "$q", "$log", "$mdUtil", "$sce"];
 
 ngmaterial.components.icon = angular.module("material.components.icon");

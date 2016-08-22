@@ -4,7 +4,7 @@
  * @license MIT
  * v0.9.0-rc1-master-3c0ce9b
  */
-(function() ***REMOVED***
+(function() {
 'use strict';
 
 /**
@@ -21,71 +21,71 @@ angular.module('material.components.textField', [
   .directive('mdTextFloat', mdTextFloatDirective);
 
 
-function mdTextFloatDirective($mdTheming, $mdUtil, $parse, $log) ***REMOVED***
-  return ***REMOVED***
+function mdTextFloatDirective($mdTheming, $mdUtil, $parse, $log) {
+  return {
     restrict: 'E',
     replace: true,
-    scope : ***REMOVED***
+    scope : {
       fid : '@?mdFid',
       label : '@?',
       value : '=ngModel'
-    ***REMOVED***,
-    compile : function(element, attr) ***REMOVED***
+    },
+    compile : function(element, attr) {
 
       $log.warn('<md-text-float> is deprecated. Please use `<md-input-container>` and `<input>`.' + 
                 'More information at http://material.angularjs.org/#/api/material.components.input/directive/mdInputContainer');
 
-      if ( angular.isUndefined(attr.mdFid) ) ***REMOVED***
+      if ( angular.isUndefined(attr.mdFid) ) {
         attr.mdFid = $mdUtil.nextUid();
-      ***REMOVED***
+      }
 
-      return ***REMOVED***
-        pre : function(scope, element, attrs) ***REMOVED***
+      return {
+        pre : function(scope, element, attrs) {
           var disabledParsed = $parse(attrs.ngDisabled);
-          scope.isDisabled = function() ***REMOVED***
+          scope.isDisabled = function() {
             return disabledParsed(scope.$parent);
-          ***REMOVED***;
+          };
 
           scope.inputType = attrs.type || "text";
-        ***REMOVED***,
+        },
         post: $mdTheming
-      ***REMOVED***;
-    ***REMOVED***,
+      };
+    },
     template:
     '<md-input-group tabindex="-1">' +
-    ' <label for="***REMOVED******REMOVED***fid***REMOVED******REMOVED***" >***REMOVED******REMOVED***label***REMOVED******REMOVED***</label>' +
-    ' <md-input id="***REMOVED******REMOVED***fid***REMOVED******REMOVED***" ng-disabled="isDisabled()" ng-model="value" type="***REMOVED******REMOVED***inputType***REMOVED******REMOVED***"></md-input>' +
+    ' <label for="{{fid}}" >{{label}}</label>' +
+    ' <md-input id="{{fid}}" ng-disabled="isDisabled()" ng-model="value" type="{{inputType}}"></md-input>' +
     '</md-input-group>'
-  ***REMOVED***;
-***REMOVED***
+  };
+}
 mdTextFloatDirective.$inject = ["$mdTheming", "$mdUtil", "$parse", "$log"];
 
-function mdInputGroupDirective($log) ***REMOVED***
-  return ***REMOVED***
+function mdInputGroupDirective($log) {
+  return {
     restrict: 'CE',
-    controller: ['$element', function($element) ***REMOVED***
+    controller: ['$element', function($element) {
 
       $log.warn('<md-input-group> is deprecated. Please use `<md-input-container>` and `<input>`.' + 
                 'More information at http://material.angularjs.org/#/api/material.components.input/directive/mdInputContainer');
-      this.setFocused = function(isFocused) ***REMOVED***
+      this.setFocused = function(isFocused) {
         $element.toggleClass('md-input-focused', !!isFocused);
-      ***REMOVED***;
-      this.setHasValue = function(hasValue) ***REMOVED***
+      };
+      this.setHasValue = function(hasValue) {
         $element.toggleClass('md-input-has-value', hasValue );
-      ***REMOVED***;
-    ***REMOVED***]
-  ***REMOVED***;
+      };
+    }]
+  };
 
-***REMOVED***
+}
 mdInputGroupDirective.$inject = ["$log"];
 
-function mdInputDirective($mdUtil, $log) ***REMOVED***
-  return ***REMOVED***
+function mdInputDirective($mdUtil, $log) {
+  return {
     restrict: 'E',
     replace: true,
     template: '<input >',
     require: ['^?mdInputGroup', '?ngModel'],
-    link: function(scope, element, attr, ctrls) ***REMOVED***
+    link: function(scope, element, attr, ctrls) {
       if ( !ctrls[0] ) return;
 
       $log.warn('<md-input> is deprecated. Please use `<md-input-container>` and `<input>`.' + 
@@ -94,50 +94,50 @@ function mdInputDirective($mdUtil, $log) ***REMOVED***
       var inputGroupCtrl = ctrls[0];
       var ngModelCtrl = ctrls[1];
 
-      scope.$watch(scope.isDisabled, function(isDisabled) ***REMOVED***
+      scope.$watch(scope.isDisabled, function(isDisabled) {
         element.attr('aria-disabled', !!isDisabled);
         element.attr('tabindex', !!isDisabled);
-      ***REMOVED***);
+      });
       element.attr('type', attr.type || element.parent().attr('type') || "text");
 
       // When the input value changes, check if it "has" a value, and
       // set the appropriate class on the input group
-      if (ngModelCtrl) ***REMOVED***
+      if (ngModelCtrl) {
         //Add a $formatter so we don't use up the render function
-        ngModelCtrl.$formatters.push(function(value) ***REMOVED***
+        ngModelCtrl.$formatters.push(function(value) {
           inputGroupCtrl.setHasValue( isNotEmpty(value) );
           return value;
-        ***REMOVED***);
-      ***REMOVED***
+        });
+      }
 
       element
-        .on('input', function() ***REMOVED***
+        .on('input', function() {
           inputGroupCtrl.setHasValue( isNotEmpty() );
-        ***REMOVED***)
-        .on('focus', function(e) ***REMOVED***
+        })
+        .on('focus', function(e) {
           // When the input focuses, add the focused class to the group
           inputGroupCtrl.setFocused(true);
-        ***REMOVED***)
-        .on('blur', function(e) ***REMOVED***
+        })
+        .on('blur', function(e) {
           // When the input blurs, remove the focused class from the group
           inputGroupCtrl.setFocused(false);
           inputGroupCtrl.setHasValue( isNotEmpty() );
-        ***REMOVED***);
+        });
 
-      scope.$on('$destroy', function() ***REMOVED***
+      scope.$on('$destroy', function() {
         inputGroupCtrl.setFocused(false);
         inputGroupCtrl.setHasValue(false);
-      ***REMOVED***);
+      });
 
 
-      function isNotEmpty(value) ***REMOVED***
+      function isNotEmpty(value) {
         value = angular.isUndefined(value) ? element.val() : value;
         return (angular.isDefined(value) && (value!==null) &&
                (value.toString().trim() !== ""));
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***
+      }
+    }
+  };
+}
 mdInputDirective.$inject = ["$mdUtil", "$log"];
 
-***REMOVED***)();
+})();

@@ -1,37 +1,37 @@
 /*! @license Firebase v3.3.0
     Build: 3.3.0-rc.7
     Terms: https://developers.google.com/terms */
-declare namespace firebase ***REMOVED***
-  interface FirebaseError ***REMOVED***
+declare namespace firebase {
+  interface FirebaseError {
     code: string;
     message: string;
     name: string;
     stack: string;
-  ***REMOVED***
+  }
 
-  class Promise<T> extends Promise_Instance<T> ***REMOVED***
+  class Promise<T> extends Promise_Instance<T> {
     static all(values: firebase.Promise<any>[]): firebase.Promise<any[]>;
     static reject(error: Error): firebase.Promise<any>;
     static resolve<T>(value?: T): firebase.Promise<T>;
-  ***REMOVED***
-  class Promise_Instance<T> implements firebase.Thenable<any> ***REMOVED***
+  }
+  class Promise_Instance<T> implements firebase.Thenable<any> {
     constructor(
         resolver:
             (a?: (a: T) => undefined, b?: (a: Error) => undefined) => any);
     catch (onReject?: (a: Error) => any): firebase.Thenable<any>;
     then(onResolve?: (a: T) => any, onReject?: (a: Error) => any):
         firebase.Promise<any>;
-  ***REMOVED***
+  }
 
   var SDK_VERSION: string;
 
-  interface Thenable<T> ***REMOVED***
+  interface Thenable<T> {
     catch (onReject?: (a: Error) => any): any;
     then(onResolve?: (a: T) => any, onReject?: (a: Error) => any):
         firebase.Thenable<any>;
-  ***REMOVED***
+  }
 
-  interface User extends firebase.UserInfo ***REMOVED***
+  interface User extends firebase.UserInfo {
     delete (): firebase.Promise<any>;
     emailVerified: boolean;
     getToken(opt_forceRefresh?: boolean): firebase.Promise<any>;
@@ -49,17 +49,17 @@ declare namespace firebase ***REMOVED***
     unlink(providerId: string): firebase.Promise<any>;
     updateEmail(newEmail: string): firebase.Promise<any>;
     updatePassword(newPassword: string): firebase.Promise<any>;
-    updateProfile(profile: ***REMOVED***displayName: string | null, photoURL: string|null***REMOVED***):
+    updateProfile(profile: {displayName: string | null, photoURL: string|null}):
         firebase.Promise<any>;
-  ***REMOVED***
+  }
 
-  interface UserInfo ***REMOVED***
+  interface UserInfo {
     displayName: string|null;
     email: string|null;
     photoURL: string|null;
     providerId: string;
     uid: string;
-  ***REMOVED***
+  }
 
   function app(name: string): firebase.app.App;
 
@@ -72,23 +72,23 @@ declare namespace firebase ***REMOVED***
   function initializeApp(options: Object, name?: string): firebase.app.App;
 
   function storage(app?: firebase.app.App): firebase.storage.Storage;
-***REMOVED***
+}
 
-declare namespace firebase.app ***REMOVED***
-  interface App ***REMOVED***
+declare namespace firebase.app {
+  interface App {
     auth(): firebase.auth.Auth;
     database(): firebase.database.Database;
     delete (): firebase.Promise<any>;
     name: string;
     options: Object;
     storage(): firebase.storage.Storage;
-  ***REMOVED***
-***REMOVED***
+  }
+}
 
-declare namespace firebase.auth ***REMOVED***
-  interface ActionCodeInfo ***REMOVED******REMOVED***
+declare namespace firebase.auth {
+  interface ActionCodeInfo {}
 
-  interface Auth ***REMOVED***
+  interface Auth {
     app: firebase.app.App;
     applyActionCode(code: string): firebase.Promise<any>;
     checkActionCode(code: string): firebase.Promise<any>;
@@ -117,75 +117,75 @@ declare namespace firebase.auth ***REMOVED***
     signOut(): firebase.Promise<any>;
     verifyIdToken(idToken: string): firebase.Promise<any>;
     verifyPasswordResetCode(code: string): firebase.Promise<any>;
-  ***REMOVED***
+  }
 
-  interface AuthCredential ***REMOVED***
+  interface AuthCredential {
     provider: string;
-  ***REMOVED***
+  }
 
-  interface AuthProvider ***REMOVED***
+  interface AuthProvider {
     providerId: string;
-  ***REMOVED***
+  }
 
-  class EmailAuthProvider extends EmailAuthProvider_Instance ***REMOVED***
+  class EmailAuthProvider extends EmailAuthProvider_Instance {
     static PROVIDER_ID: string;
     static credential(email: string, password: string):
         firebase.auth.AuthCredential;
-  ***REMOVED***
-  class EmailAuthProvider_Instance implements firebase.auth.AuthProvider ***REMOVED***
+  }
+  class EmailAuthProvider_Instance implements firebase.auth.AuthProvider {
     providerId: string;
-  ***REMOVED***
+  }
 
-  interface Error ***REMOVED***
+  interface Error {
     code: string;
     message: string;
-  ***REMOVED***
+  }
 
-  class FacebookAuthProvider extends FacebookAuthProvider_Instance ***REMOVED***
+  class FacebookAuthProvider extends FacebookAuthProvider_Instance {
     static PROVIDER_ID: string;
     static credential(token: string): firebase.auth.AuthCredential;
-  ***REMOVED***
-  class FacebookAuthProvider_Instance implements firebase.auth.AuthProvider ***REMOVED***
+  }
+  class FacebookAuthProvider_Instance implements firebase.auth.AuthProvider {
     addScope(scope: string): any;
     providerId: string;
-  ***REMOVED***
+  }
 
-  class GithubAuthProvider extends GithubAuthProvider_Instance ***REMOVED***
+  class GithubAuthProvider extends GithubAuthProvider_Instance {
     static PROVIDER_ID: string;
     static credential(token: string): firebase.auth.AuthCredential;
-  ***REMOVED***
-  class GithubAuthProvider_Instance implements firebase.auth.AuthProvider ***REMOVED***
+  }
+  class GithubAuthProvider_Instance implements firebase.auth.AuthProvider {
     addScope(scope: string): any;
     providerId: string;
-  ***REMOVED***
+  }
 
-  class GoogleAuthProvider extends GoogleAuthProvider_Instance ***REMOVED***
+  class GoogleAuthProvider extends GoogleAuthProvider_Instance {
     static PROVIDER_ID: string;
     static credential(idToken?: string|null, accessToken?: string|null):
         firebase.auth.AuthCredential;
-  ***REMOVED***
-  class GoogleAuthProvider_Instance implements firebase.auth.AuthProvider ***REMOVED***
+  }
+  class GoogleAuthProvider_Instance implements firebase.auth.AuthProvider {
     addScope(scope: string): any;
     providerId: string;
-  ***REMOVED***
+  }
 
-  class TwitterAuthProvider extends TwitterAuthProvider_Instance ***REMOVED***
+  class TwitterAuthProvider extends TwitterAuthProvider_Instance {
     static PROVIDER_ID: string;
     static credential(token: string, secret: string):
         firebase.auth.AuthCredential;
-  ***REMOVED***
-  class TwitterAuthProvider_Instance implements firebase.auth.AuthProvider ***REMOVED***
+  }
+  class TwitterAuthProvider_Instance implements firebase.auth.AuthProvider {
     providerId: string;
-  ***REMOVED***
+  }
 
-  type UserCredential = ***REMOVED***
+  type UserCredential = {
     credential: firebase.auth.AuthCredential | null,
     user: firebase.User | null
-  ***REMOVED***;
-***REMOVED***
+  };
+}
 
-declare namespace firebase.database ***REMOVED***
-  interface DataSnapshot ***REMOVED***
+declare namespace firebase.database {
+  interface DataSnapshot {
     child(path: string): firebase.database.DataSnapshot;
     exists(): boolean;
     exportVal(): any;
@@ -197,17 +197,17 @@ declare namespace firebase.database ***REMOVED***
     numChildren(): number;
     ref: firebase.database.Reference;
     val(): any;
-  ***REMOVED***
+  }
 
-  interface Database ***REMOVED***
+  interface Database {
     app: firebase.app.App;
     goOffline(): any;
     goOnline(): any;
     ref(path?: string): firebase.database.Reference;
     refFromURL(url: string): firebase.database.Reference;
-  ***REMOVED***
+  }
 
-  interface OnDisconnect ***REMOVED***
+  interface OnDisconnect {
     cancel(onComplete?: (a: Error|null) => any): firebase.Promise<any>;
     remove(onComplete?: (a: Error|null) => any): firebase.Promise<any>;
     set(value: any, onComplete?: (a: Error|null) => any): firebase.Promise<any>;
@@ -216,9 +216,9 @@ declare namespace firebase.database ***REMOVED***
         onComplete?: (a: Error|null) => any): firebase.Promise<any>;
     update(values: Object, onComplete?: (a: Error|null) => any):
         firebase.Promise<any>;
-  ***REMOVED***
+  }
 
-  interface Query ***REMOVED***
+  interface Query {
     endAt(value: number|string|boolean|null, key?: string):
         firebase.database.Query;
     equalTo(value: number|string|boolean|null, key?: string):
@@ -246,9 +246,9 @@ declare namespace firebase.database ***REMOVED***
     startAt(value: number|string|boolean|null, key?: string):
         firebase.database.Query;
     toString(): string;
-  ***REMOVED***
+  }
 
-  interface Reference extends firebase.database.Query ***REMOVED***
+  interface Reference extends firebase.database.Query {
     child(path: string): firebase.database.Reference;
     key: string|null;
     onDisconnect(): firebase.database.OnDisconnect;
@@ -272,18 +272,18 @@ declare namespace firebase.database ***REMOVED***
         applyLocally?: boolean): firebase.Promise<any>;
     update(values: Object, onComplete?: (a: Error|null) => any):
         firebase.Promise<any>;
-  ***REMOVED***
+  }
 
   interface ThenableReference extends firebase.database.Reference,
-                                      firebase.Thenable<any> ***REMOVED******REMOVED***
+                                      firebase.Thenable<any> {}
 
   function enableLogging(logger?: any, persistent?: boolean): any;
-***REMOVED***
+}
 
-declare namespace firebase.database.ServerValue ***REMOVED******REMOVED***
+declare namespace firebase.database.ServerValue {}
 
-declare namespace firebase.storage ***REMOVED***
-  interface FullMetadata extends firebase.storage.UploadMetadata ***REMOVED***
+declare namespace firebase.storage {
+  interface FullMetadata extends firebase.storage.UploadMetadata {
     bucket: string;
     downloadURLs: string[];
     fullPath: string;
@@ -293,9 +293,9 @@ declare namespace firebase.storage ***REMOVED***
     size: number;
     timeCreated: string;
     updated: string;
-  ***REMOVED***
+  }
 
-  interface Reference ***REMOVED***
+  interface Reference {
     bucket: string;
     child(path: string): firebase.storage.Reference;
     delete (): Promise<any>;
@@ -315,18 +315,18 @@ declare namespace firebase.storage ***REMOVED***
     storage: firebase.storage.Storage;
     toString(): string;
     updateMetadata(metadata: firebase.storage.SettableMetadata): Promise<any>;
-  ***REMOVED***
+  }
 
-  interface SettableMetadata ***REMOVED***
+  interface SettableMetadata {
     cacheControl?: string|null;
     contentDisposition?: string|null;
     contentEncoding?: string|null;
     contentLanguage?: string|null;
     contentType?: string|null;
-    customMetadata?: ***REMOVED***[/* warning: coerced from ? */ key: string]: string***REMOVED***|null;
-  ***REMOVED***
+    customMetadata?: {[/* warning: coerced from ? */ key: string]: string}|null;
+  }
 
-  interface Storage ***REMOVED***
+  interface Storage {
     app: firebase.app.App;
     maxOperationRetryTime: number;
     maxUploadRetryTime: number;
@@ -334,35 +334,35 @@ declare namespace firebase.storage ***REMOVED***
     refFromURL(url: string): firebase.storage.Reference;
     setMaxOperationRetryTime(time: number): any;
     setMaxUploadRetryTime(time: number): any;
-  ***REMOVED***
+  }
 
   type StringFormat = string;
-  var StringFormat: ***REMOVED***
+  var StringFormat: {
     BASE64: StringFormat,
     BASE64URL: StringFormat,
     DATA_URL: StringFormat,
     RAW: StringFormat,
-  ***REMOVED***;
+  };
 
   type TaskEvent = string;
-  var TaskEvent: ***REMOVED***
+  var TaskEvent: {
     STATE_CHANGED: TaskEvent,
-  ***REMOVED***;
+  };
 
   type TaskState = string;
-  var TaskState: ***REMOVED***
+  var TaskState: {
     CANCELED: TaskState,
     ERROR: TaskState,
     PAUSED: TaskState,
     RUNNING: TaskState,
     SUCCESS: TaskState,
-  ***REMOVED***;
+  };
 
-  interface UploadMetadata extends firebase.storage.SettableMetadata ***REMOVED***
+  interface UploadMetadata extends firebase.storage.SettableMetadata {
     md5Hash?: string|null;
-  ***REMOVED***
+  }
 
-  interface UploadTask ***REMOVED***
+  interface UploadTask {
     cancel(): boolean;
     catch (onRejected: (a: Error) => any): Promise<any>;
     on(event: firebase.storage.TaskEvent, nextOrObserver?: null|Object,
@@ -373,9 +373,9 @@ declare namespace firebase.storage ***REMOVED***
     then(
         onFulfilled?: ((a: firebase.storage.UploadTaskSnapshot) => any)|null,
         onRejected?: ((a: Error) => any)|null): Promise<any>;
-  ***REMOVED***
+  }
 
-  interface UploadTaskSnapshot ***REMOVED***
+  interface UploadTaskSnapshot {
     bytesTransferred: number;
     downloadURL: string|null;
     metadata: firebase.storage.FullMetadata;
@@ -383,9 +383,9 @@ declare namespace firebase.storage ***REMOVED***
     state: firebase.storage.TaskState;
     task: firebase.storage.UploadTask;
     totalBytes: number;
-  ***REMOVED***
-***REMOVED***
+  }
+}
 
-declare module 'firebase' ***REMOVED***
+declare module 'firebase' {
   export = firebase;
-***REMOVED***
+}

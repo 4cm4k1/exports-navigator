@@ -4,5 +4,5 @@
  * @license MIT
  * v1.1.0
  */
-md-sidenav.md-THEME_NAME-theme, md-sidenav.md-THEME_NAME-theme md-content ***REMOVED***
-  background-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***'; ***REMOVED***
+md-sidenav.md-THEME_NAME-theme, md-sidenav.md-THEME_NAME-theme md-content {
+  background-color: '{{background-hue-1}}'; }

@@ -39,32 +39,32 @@ angular
  * @usage
  * <hljs lang="js">
  * // Async lookup for sidenav instance; will resolve when the instance is available
- * $mdSidenav(componentId, true).then(function(instance) ***REMOVED***
+ * $mdSidenav(componentId, true).then(function(instance) {
  *   $log.debug( componentId + "is now ready" );
- * ***REMOVED***);
+ * });
  * // Sync lookup for sidenav instance; this will resolve immediately.
- * $mdSidenav(componentId).then(function(instance) ***REMOVED***
+ * $mdSidenav(componentId).then(function(instance) {
  *   $log.debug( componentId + "is now ready" );
- * ***REMOVED***);
+ * });
  * // Async toggle the given sidenav;
  * // when instance is known ready and lazy lookup is not needed.
  * $mdSidenav(componentId)
  *    .toggle()
- *    .then(function()***REMOVED***
+ *    .then(function(){
  *      $log.debug('toggled');
- *    ***REMOVED***);
+ *    });
  * // Async open the given sidenav
  * $mdSidenav(componentId)
  *    .open()
- *    .then(function()***REMOVED***
+ *    .then(function(){
  *      $log.debug('opened');
- *    ***REMOVED***);
+ *    });
  * // Async close the given sidenav
  * $mdSidenav(componentId)
  *    .close()
- *    .then(function()***REMOVED***
+ *    .then(function(){
  *      $log.debug('closed');
- *    ***REMOVED***);
+ *    });
  * // Sync check to see if the specified sidenav is set to be open
  * $mdSidenav(componentId).isOpen();
  * // Sync check to whether given sidenav is locked open
@@ -72,66 +72,66 @@ angular
  * $mdSidenav(componentId).isLockedOpen();
  * // On close callback to handle close, backdrop click or escape key pressed
  * // Callback happens BEFORE the close action occurs.
- * $mdSidenav(componentId).onClose(function () ***REMOVED***
+ * $mdSidenav(componentId).onClose(function () {
  *   $log.debug('closing');
- * ***REMOVED***);
+ * });
  * </hljs>
  */
-function SidenavService($mdComponentRegistry, $mdUtil, $q, $log) ***REMOVED***
-  var errorMsg = "SideNav '***REMOVED***0***REMOVED***' is not available! Did you use md-component-id='***REMOVED***0***REMOVED***'?";
-  var service = ***REMOVED***
+function SidenavService($mdComponentRegistry, $mdUtil, $q, $log) {
+  var errorMsg = "SideNav '{0}' is not available! Did you use md-component-id='{0}'?";
+  var service = {
         find    : findInstance,     //  sync  - returns proxy API
         waitFor : waitForInstance   //  async - returns promise
-      ***REMOVED***;
+      };
 
   /**
    * Service API that supports three (3) usages:
    *   $mdSidenav().find("left")                       // sync (must already exist) or returns undefined
    *   $mdSidenav("left").toggle();                    // sync (must already exist) or returns reject promise;
-   *   $mdSidenav("left",true).then( function(left)***REMOVED***   // async returns instance when available
+   *   $mdSidenav("left",true).then( function(left){   // async returns instance when available
    *    left.toggle();
-   *   ***REMOVED***);
+   *   });
    */
-  return function(handle, enableWait) ***REMOVED***
+  return function(handle, enableWait) {
     if ( angular.isUndefined(handle) ) return service;
 
     var shouldWait = enableWait === true;
     var instance = service.find(handle, shouldWait);
     return  !instance && shouldWait ? service.waitFor(handle) :
             !instance && angular.isUndefined(enableWait) ? addLegacyAPI(service, handle) : instance;
-  ***REMOVED***;
+  };
 
   /**
    * For failed instance/handle lookups, older-clients expect an response object with noops
    * that include `rejected promise APIs`
    */
-  function addLegacyAPI(service, handle) ***REMOVED***
-      var falseFn  = function() ***REMOVED*** return false; ***REMOVED***;
-      var rejectFn = function() ***REMOVED***
+  function addLegacyAPI(service, handle) {
+      var falseFn  = function() { return false; };
+      var rejectFn = function() {
             return $q.when($mdUtil.supplant(errorMsg, [handle || ""]));
-          ***REMOVED***;
+          };
 
-      return angular.extend(***REMOVED***
+      return angular.extend({
         isLockedOpen : falseFn,
         isOpen       : falseFn,
         toggle       : rejectFn,
         open         : rejectFn,
         close        : rejectFn,
         onClose      : angular.noop,
-        then : function(callback) ***REMOVED***
+        then : function(callback) {
           return waitForInstance(handle)
             .then(callback || angular.noop);
-        ***REMOVED***
-       ***REMOVED***, service);
-    ***REMOVED***
+        }
+       }, service);
+    }
     /**
      * Synchronously lookup the controller instance for the specified sidNav instance which has been
      * registered with the markup `md-component-id`
      */
-    function findInstance(handle, shouldWait) ***REMOVED***
+    function findInstance(handle, shouldWait) {
       var instance = $mdComponentRegistry.get(handle);
 
-      if (!instance && !shouldWait) ***REMOVED***
+      if (!instance && !shouldWait) {
 
         // Report missing instance
         $log.error( $mdUtil.supplant(errorMsg, [handle || ""]) );
@@ -139,18 +139,18 @@ function SidenavService($mdComponentRegistry, $mdUtil, $q, $log) ***REMOVED***
         // The component has not registered itself... most like NOT yet created
         // return null to indicate that the Sidenav is not in the DOM
         return undefined;
-      ***REMOVED***
+      }
       return instance;
-    ***REMOVED***
+    }
 
     /**
      * Asynchronously wait for the component instantiation,
      * Deferred lookup of component instance using $component registry
      */
-    function waitForInstance(handle) ***REMOVED***
+    function waitForInstance(handle) {
       return $mdComponentRegistry.when(handle).catch($log.error);
-    ***REMOVED***
-***REMOVED***
+    }
+}
 SidenavService.$inject = ["$mdComponentRegistry", "$mdUtil", "$q", "$log"];
 /**
  * @ngdoc directive
@@ -175,15 +175,15 @@ SidenavService.$inject = ["$mdComponentRegistry", "$mdUtil", "$q", "$log"];
  * </md-sidenav>
  * </hljs>
  **/
-function SidenavFocusDirective() ***REMOVED***
-  return ***REMOVED***
+function SidenavFocusDirective() {
+  return {
     restrict: 'A',
     require: '^mdSidenav',
-    link: function(scope, element, attr, sidenavCtrl) ***REMOVED***
+    link: function(scope, element, attr, sidenavCtrl) {
       // @see $mdUtil.findFocusTarget(...)
-    ***REMOVED***
-  ***REMOVED***;
-***REMOVED***
+    }
+  };
+}
 /**
  * @ngdoc directive
  * @name mdSidenav
@@ -229,17 +229,17 @@ function SidenavFocusDirective() ***REMOVED***
  *
  * <hljs lang="js">
  * var app = angular.module('myApp', ['ngMaterial']);
- * app.controller('MyController', function($scope, $mdSidenav) ***REMOVED***
- *   $scope.openLeftMenu = function() ***REMOVED***
+ * app.controller('MyController', function($scope, $mdSidenav) {
+ *   $scope.openLeftMenu = function() {
  *     $mdSidenav('left').toggle();
- *   ***REMOVED***;
- * ***REMOVED***);
+ *   };
+ * });
  * </hljs>
  *
- * @param ***REMOVED***expression=***REMOVED*** md-is-open A model bound to whether the sidenav is opened.
- * @param ***REMOVED***boolean=***REMOVED*** md-disable-backdrop When present in the markup, the sidenav will not show a backdrop.
- * @param ***REMOVED***string=***REMOVED*** md-component-id componentId to use with $mdSidenav service.
- * @param ***REMOVED***expression=***REMOVED*** md-is-locked-open When this expression evaluates to true,
+ * @param {expression=} md-is-open A model bound to whether the sidenav is opened.
+ * @param {boolean=} md-disable-backdrop When present in the markup, the sidenav will not show a backdrop.
+ * @param {string=} md-component-id componentId to use with $mdSidenav service.
+ * @param {expression=} md-is-locked-open When this expression evaluates to true,
  * the sidenav 'locks open': it falls into the content's flow instead
  * of appearing over it. This overrides the `md-is-open` attribute.
  *
@@ -251,44 +251,44 @@ function SidenavFocusDirective() ***REMOVED***
  *   - `<md-sidenav md-is-locked-open="$mdMedia('min-width: 1000px')"></md-sidenav>`
  *   - `<md-sidenav md-is-locked-open="$mdMedia('sm')"></md-sidenav>` (locks open on small screens)
  */
-function SidenavDirective($mdMedia, $mdUtil, $mdConstant, $mdTheming, $animate, $compile, $parse, $log, $q, $document) ***REMOVED***
-  return ***REMOVED***
+function SidenavDirective($mdMedia, $mdUtil, $mdConstant, $mdTheming, $animate, $compile, $parse, $log, $q, $document) {
+  return {
     restrict: 'E',
-    scope: ***REMOVED***
+    scope: {
       isOpen: '=?mdIsOpen'
-    ***REMOVED***,
+    },
     controller: '$mdSidenavController',
-    compile: function(element) ***REMOVED***
+    compile: function(element) {
       element.addClass('md-closed');
       element.attr('tabIndex', '-1');
       return postLink;
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
   /**
    * Directive Post Link function...
    */
-  function postLink(scope, element, attr, sidenavCtrl) ***REMOVED***
+  function postLink(scope, element, attr, sidenavCtrl) {
     var lastParentOverFlow;
     var backdrop;
     var triggeringElement = null;
     var previousContainerStyles;
     var promise = $q.when(true);
     var isLockedOpenParsed = $parse(attr.mdIsLockedOpen);
-    var isLocked = function() ***REMOVED***
-      return isLockedOpenParsed(scope.$parent, ***REMOVED***
-        $media: function(arg) ***REMOVED***
+    var isLocked = function() {
+      return isLockedOpenParsed(scope.$parent, {
+        $media: function(arg) {
           $log.warn("$media is deprecated for is-locked-open. Use $mdMedia instead.");
           return $mdMedia(arg);
-        ***REMOVED***,
+        },
         $mdMedia: $mdMedia
-      ***REMOVED***);
-    ***REMOVED***;
+      });
+    };
 
     // Only create the backdrop if the backdrop isn't disabled.
-    if (!angular.isDefined(attr.mdDisableBackdrop)) ***REMOVED***
+    if (!angular.isDefined(attr.mdDisableBackdrop)) {
       backdrop = $mdUtil.createBackdrop(scope, "md-sidenav-backdrop md-opaque ng-enter");
-    ***REMOVED***
+    }
 
     element.addClass('_md');     // private md component indicator for styling
     $mdTheming(element);
@@ -297,14 +297,14 @@ function SidenavDirective($mdMedia, $mdUtil, $mdConstant, $mdTheming, $animate, 
     // because the backdrop will take its parent theme by default.
     if ( backdrop ) $mdTheming.inherit(backdrop, element);
 
-    element.on('$destroy', function() ***REMOVED***
+    element.on('$destroy', function() {
       backdrop && backdrop.remove();
       sidenavCtrl.destroy();
-    ***REMOVED***);
+    });
 
-    scope.$on('$destroy', function()***REMOVED***
+    scope.$on('$destroy', function(){
       backdrop && backdrop.remove();
-    ***REMOVED***);
+    });
 
     scope.$watch(isLocked, updateIsLocked);
     scope.$watch('isOpen', updateIsOpen);
@@ -317,23 +317,23 @@ function SidenavDirective($mdMedia, $mdUtil, $mdConstant, $mdTheming, $animate, 
      * Toggle the DOM classes to indicate `locked`
      * @param isLocked
      */
-    function updateIsLocked(isLocked, oldValue) ***REMOVED***
+    function updateIsLocked(isLocked, oldValue) {
       scope.isLockedOpen = isLocked;
-      if (isLocked === oldValue) ***REMOVED***
+      if (isLocked === oldValue) {
         element.toggleClass('md-locked-open', !!isLocked);
-      ***REMOVED*** else ***REMOVED***
+      } else {
         $animate[isLocked ? 'addClass' : 'removeClass'](element, 'md-locked-open');
-      ***REMOVED***
-      if (backdrop) ***REMOVED***
+      }
+      if (backdrop) {
         backdrop.toggleClass('md-locked-open', !!isLocked);
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     /**
      * Toggle the SideNav view and attach/detach listeners
      * @param isOpen
      */
-    function updateIsOpen(isOpen) ***REMOVED***
+    function updateIsOpen(isOpen) {
       // Support deprecated md-sidenav-focus attribute as fallback
       var focusEl = $mdUtil.findFocusTarget(element) || $mdUtil.findFocusTarget(element,'[md-sidenav-focus]') || element;
       var parent = element.parent();
@@ -343,10 +343,10 @@ function SidenavDirective($mdMedia, $mdUtil, $mdConstant, $mdTheming, $animate, 
 
       var restorePositioning = updateContainerPositions(parent, isOpen);
 
-      if ( isOpen ) ***REMOVED***
+      if ( isOpen ) {
         // Capture upon opening..
         triggeringElement = $document[0].activeElement;
-      ***REMOVED***
+      }
 
       disableParentScroll(isOpen);
 
@@ -354,46 +354,46 @@ function SidenavDirective($mdMedia, $mdUtil, $mdConstant, $mdTheming, $animate, 
         isOpen && backdrop ? $animate.enter(backdrop, parent) : backdrop ?
                              $animate.leave(backdrop) : $q.when(true),
         $animate[isOpen ? 'removeClass' : 'addClass'](element, 'md-closed')
-      ]).then(function() ***REMOVED***
+      ]).then(function() {
         // Perform focus when animations are ALL done...
-        if (scope.isOpen) ***REMOVED***
+        if (scope.isOpen) {
           focusEl && focusEl.focus();
-        ***REMOVED***
+        }
 
         // Restores the positioning on the sidenav and backdrop.
         restorePositioning && restorePositioning();
-      ***REMOVED***);
-    ***REMOVED***
+      });
+    }
 
-    function updateContainerPositions(parent, willOpen) ***REMOVED***
+    function updateContainerPositions(parent, willOpen) {
       var drawerEl = element[0];
       var scrollTop = parent[0].scrollTop;
 
-      if (willOpen && scrollTop) ***REMOVED***
-        previousContainerStyles = ***REMOVED***
+      if (willOpen && scrollTop) {
+        previousContainerStyles = {
           top: drawerEl.style.top,
           bottom: drawerEl.style.bottom,
           height: drawerEl.style.height
-        ***REMOVED***;
+        };
 
         // When the parent is scrolled down, then we want to be able to show the sidenav at the current scroll
         // position. We're moving the sidenav down to the correct scroll position and apply the height of the
         // parent, to increase the performance. Using 100% as height, will impact the performance heavily.
-        var positionStyle = ***REMOVED***
+        var positionStyle = {
           top: scrollTop + 'px',
           bottom: 'auto',
           height: parent[0].clientHeight + 'px'
-        ***REMOVED***;
+        };
 
         // Apply the new position styles to the sidenav and backdrop.
         element.css(positionStyle);
         backdrop.css(positionStyle);
-      ***REMOVED***
+      }
 
       // When the sidenav is closing and we have previous defined container styles,
       // then we return a restore function, which resets the sidenav and backdrop.
-      if (!willOpen && previousContainerStyles) ***REMOVED***
-        return function() ***REMOVED***
+      if (!willOpen && previousContainerStyles) {
+        return function() {
           drawerEl.style.top = previousContainerStyles.top;
           drawerEl.style.bottom = previousContainerStyles.bottom;
           drawerEl.style.height = previousContainerStyles.height;
@@ -403,88 +403,88 @@ function SidenavDirective($mdMedia, $mdUtil, $mdConstant, $mdTheming, $animate, 
           backdrop[0].style.height = null;
 
           previousContainerStyles = null;
-        ***REMOVED***
-      ***REMOVED***
-    ***REMOVED***
+        }
+      }
+    }
 
     /**
      * Prevent parent scrolling (when the SideNav is open)
      */
-    function disableParentScroll(disabled) ***REMOVED***
+    function disableParentScroll(disabled) {
       var parent = element.parent();
-      if ( disabled && !lastParentOverFlow ) ***REMOVED***
+      if ( disabled && !lastParentOverFlow ) {
 
         lastParentOverFlow = parent.css('overflow');
         parent.css('overflow', 'hidden');
 
-      ***REMOVED*** else if (angular.isDefined(lastParentOverFlow)) ***REMOVED***
+      } else if (angular.isDefined(lastParentOverFlow)) {
 
         parent.css('overflow', lastParentOverFlow);
         lastParentOverFlow = undefined;
 
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     /**
      * Toggle the sideNav view and publish a promise to be resolved when
      * the view animation finishes.
      *
      * @param isOpen
-     * @returns ***REMOVED*******REMOVED***
+     * @returns {*}
      */
-    function toggleOpen( isOpen ) ***REMOVED***
-      if (scope.isOpen == isOpen ) ***REMOVED***
+    function toggleOpen( isOpen ) {
+      if (scope.isOpen == isOpen ) {
 
         return $q.when(true);
 
-      ***REMOVED*** else ***REMOVED***
+      } else {
         if (scope.isOpen && sidenavCtrl.onCloseCb) sidenavCtrl.onCloseCb();
 
-        return $q(function(resolve)***REMOVED***
+        return $q(function(resolve){
           // Toggle value to force an async `updateIsOpen()` to run
           scope.isOpen = isOpen;
 
-          $mdUtil.nextTick(function() ***REMOVED***
+          $mdUtil.nextTick(function() {
             // When the current `updateIsOpen()` animation finishes
-            promise.then(function(result) ***REMOVED***
+            promise.then(function(result) {
 
-              if ( !scope.isOpen ) ***REMOVED***
+              if ( !scope.isOpen ) {
                 // reset focus to originating element (if available) upon close
                 triggeringElement && triggeringElement.focus();
                 triggeringElement = null;
-              ***REMOVED***
+              }
 
               resolve(result);
-            ***REMOVED***);
-          ***REMOVED***);
+            });
+          });
 
-        ***REMOVED***);
+        });
 
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
     /**
      * Auto-close sideNav when the `escape` key is pressed.
      * @param evt
      */
-    function onKeyDown(ev) ***REMOVED***
+    function onKeyDown(ev) {
       var isEscape = (ev.keyCode === $mdConstant.KEY_CODE.ESCAPE);
       return isEscape ? close(ev) : $q.when(true);
-    ***REMOVED***
+    }
 
     /**
      * With backdrop `clicks` or `escape` key-press, immediately
      * apply the CSS close transition... Then notify the controller
      * to close() and perform its own actions.
      */
-    function close(ev) ***REMOVED***
+    function close(ev) {
       ev.preventDefault();
 
       return sidenavCtrl.close();
-    ***REMOVED***
+    }
 
-  ***REMOVED***
-***REMOVED***
+  }
+}
 SidenavDirective.$inject = ["$mdMedia", "$mdUtil", "$mdConstant", "$mdTheming", "$animate", "$compile", "$parse", "$log", "$q", "$document"];
 
 /*
@@ -494,30 +494,30 @@ SidenavDirective.$inject = ["$mdMedia", "$mdUtil", "$mdConstant", "$mdTheming", 
  * @module material.components.sidenav
  *
  */
-function SidenavController($scope, $element, $attrs, $mdComponentRegistry, $q) ***REMOVED***
+function SidenavController($scope, $element, $attrs, $mdComponentRegistry, $q) {
 
   var self = this;
 
   // Use Default internal method until overridden by directive postLink
 
   // Synchronous getters
-  self.isOpen = function() ***REMOVED*** return !!$scope.isOpen; ***REMOVED***;
-  self.isLockedOpen = function() ***REMOVED*** return !!$scope.isLockedOpen; ***REMOVED***;
+  self.isOpen = function() { return !!$scope.isOpen; };
+  self.isLockedOpen = function() { return !!$scope.isLockedOpen; };
 
   // Synchronous setters
-  self.onClose = function (callback) ***REMOVED***
+  self.onClose = function (callback) {
     self.onCloseCb = callback;
     return self;
-  ***REMOVED***;
+  };
 
   // Async actions
-  self.open   = function() ***REMOVED*** return self.$toggleOpen( true );  ***REMOVED***;
-  self.close  = function() ***REMOVED*** return self.$toggleOpen( false ); ***REMOVED***;
-  self.toggle = function() ***REMOVED*** return self.$toggleOpen( !$scope.isOpen );  ***REMOVED***;
-  self.$toggleOpen = function(value) ***REMOVED*** return $q.when($scope.isOpen = value); ***REMOVED***;
+  self.open   = function() { return self.$toggleOpen( true );  };
+  self.close  = function() { return self.$toggleOpen( false ); };
+  self.toggle = function() { return self.$toggleOpen( !$scope.isOpen );  };
+  self.$toggleOpen = function(value) { return $q.when($scope.isOpen = value); };
 
   self.destroy = $mdComponentRegistry.register(self, $attrs.mdComponentId);
-***REMOVED***
+}
 SidenavController.$inject = ["$scope", "$element", "$attrs", "$mdComponentRegistry", "$q"];
 
 ngmaterial.components.sidenav = angular.module("material.components.sidenav");

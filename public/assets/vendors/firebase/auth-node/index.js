@@ -8,37 +8,37 @@ var firebase = require('../app-node');
 
 /**
  * Factory function that creates a new auth service.
- * @param ***REMOVED***Object***REMOVED*** app The app for this service
- * @param ***REMOVED***function(Object)***REMOVED*** extendApp An extend function to extend the app
+ * @param {Object} app The app for this service
+ * @param {function(Object)} extendApp An extend function to extend the app
  *                                     namespace
- * @return ***REMOVED***Auth***REMOVED*** The auth service for the specified app.
+ * @return {Auth} The auth service for the specified app.
  */
-var serviceFactory = function(app, extendApp) ***REMOVED***
+var serviceFactory = function(app, extendApp) {
   var auth = new Auth(app);
-  extendApp(***REMOVED***
-    'INTERNAL': ***REMOVED***
+  extendApp({
+    'INTERNAL': {
       'getToken': auth.INTERNAL.getToken.bind(auth),
       'addAuthTokenListener': auth.INTERNAL.addAuthTokenListener.bind(auth),
       'removeAuthTokenListener': auth.INTERNAL.removeAuthTokenListener.bind(auth)
-    ***REMOVED***
-  ***REMOVED***);
+    }
+  });
   return auth;
-***REMOVED***;
+};
 
 /**
  * Create a hook to initialize auth so auth listeners and getToken
  * functions are available to other services immediately.
- * @param ***REMOVED***string***REMOVED*** event
- * @param ***REMOVED***Object***REMOVED*** app
+ * @param {string} event
+ * @param {Object} app
  */
-function appHook(event, app) ***REMOVED***
-  if (event === 'create') ***REMOVED***
+function appHook(event, app) {
+  if (event === 'create') {
     app.auth();
-  ***REMOVED***
-***REMOVED***
+  }
+}
 
 module.exports = firebase.INTERNAL.registerService(
   'serverAuth',
   serviceFactory,
-  ***REMOVED***'Auth': Auth***REMOVED***,
+  {'Auth': Auth},
   appHook);

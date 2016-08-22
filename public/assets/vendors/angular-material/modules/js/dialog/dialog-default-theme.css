@@ -4,9 +4,9 @@
  * @license MIT
  * v1.1.0
  */
-md-dialog.md-THEME_NAME-theme ***REMOVED***
+md-dialog.md-THEME_NAME-theme {
   border-radius: 4px;
-  background-color: '***REMOVED******REMOVED***background-hue-1***REMOVED******REMOVED***';
-  color: '***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***'; ***REMOVED***
-  md-dialog.md-THEME_NAME-theme.md-content-overflow .md-actions, md-dialog.md-THEME_NAME-theme.md-content-overflow md-dialog-actions ***REMOVED***
-    border-top-color: '***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'; ***REMOVED***
+  background-color: '{{background-hue-1}}';
+  color: '{{foreground-1}}'; }
+  md-dialog.md-THEME_NAME-theme.md-content-overflow .md-actions, md-dialog.md-THEME_NAME-theme.md-content-overflow md-dialog-actions {
+    border-top-color: '{{foreground-4}}'; }

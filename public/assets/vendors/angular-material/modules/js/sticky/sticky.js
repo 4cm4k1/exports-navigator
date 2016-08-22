@@ -4,7 +4,7 @@
  * @license MIT
  * v1.1.0
  */
-(function( window, angular, undefined )***REMOVED***
+(function( window, angular, undefined ){
 "use strict";
 
 /**
@@ -42,35 +42,35 @@ angular
  * See the right usage below:
  * <hljs lang="js">
  *   angular.module('myModule')
- *     .directive('stickySelect', function($mdSticky, $compile) ***REMOVED***
+ *     .directive('stickySelect', function($mdSticky, $compile) {
  *       var SELECT_TEMPLATE =
  *         '<md-select ng-model="selected">' +
  *           '<md-option>Option 1</md-option>' +
  *         '</md-select>';
  *
- *       return ***REMOVED***
+ *       return {
  *         restrict: 'E',
  *         replace: true,
  *         template: SELECT_TEMPLATE,
- *         link: function(scope,element) ***REMOVED***
+ *         link: function(scope,element) {
  *           $mdSticky(scope, element, $compile(SELECT_TEMPLATE)(scope));
- *         ***REMOVED***
- *       ***REMOVED***;
- *     ***REMOVED***);
+ *         }
+ *       };
+ *     });
  * </hljs>
  *
  * @usage
  * <hljs lang="js">
  *   angular.module('myModule')
- *     .directive('stickyText', function($mdSticky, $compile) ***REMOVED***
- *       return ***REMOVED***
+ *     .directive('stickyText', function($mdSticky, $compile) {
+ *       return {
  *         restrict: 'E',
  *         template: '<span>Sticky Text</span>',
- *         link: function(scope,element) ***REMOVED***
+ *         link: function(scope,element) {
  *           $mdSticky(scope, element);
- *         ***REMOVED***
- *       ***REMOVED***;
- *     ***REMOVED***);
+ *         }
+ *       };
+ *     });
  * </hljs>
  *
  * @returns A `$mdSticky` function that takes three arguments:
@@ -80,39 +80,39 @@ angular
  *     when the user starts scrolling past the original element.
  *     If not provided, it will use the result of `element.clone()` and compiles it in the given scope.
  */
-function MdSticky($mdConstant, $$rAF, $mdUtil, $compile) ***REMOVED***
+function MdSticky($mdConstant, $$rAF, $mdUtil, $compile) {
 
   var browserStickySupport = $mdUtil.checkStickySupport();
 
   /**
    * Registers an element as sticky, used internally by directives to register themselves
    */
-  return function registerStickyElement(scope, element, stickyClone) ***REMOVED***
+  return function registerStickyElement(scope, element, stickyClone) {
     var contentCtrl = element.controller('mdContent');
     if (!contentCtrl) return;
 
-    if (browserStickySupport) ***REMOVED***
-      element.css(***REMOVED***
+    if (browserStickySupport) {
+      element.css({
         position: browserStickySupport,
         top: 0,
         'z-index': 2
-      ***REMOVED***);
-    ***REMOVED*** else ***REMOVED***
+      });
+    } else {
       var $$sticky = contentCtrl.$element.data('$$sticky');
-      if (!$$sticky) ***REMOVED***
+      if (!$$sticky) {
         $$sticky = setupSticky(contentCtrl);
         contentCtrl.$element.data('$$sticky', $$sticky);
-      ***REMOVED***
+      }
 
       // Compile our cloned element, when cloned in this service, into the given scope.
       var cloneElement = stickyClone || $compile(element.clone())(scope);
 
       var deregister = $$sticky.add(element, cloneElement);
       scope.$on('$destroy', deregister);
-    ***REMOVED***
-  ***REMOVED***;
+    }
+  };
 
-  function setupSticky(contentCtrl) ***REMOVED***
+  function setupSticky(contentCtrl) {
     var contentEl = contentCtrl.$element;
 
     // Refresh elements is very expensive, so we use the debounced
@@ -126,66 +126,66 @@ function MdSticky($mdConstant, $$rAF, $mdUtil, $compile) ***REMOVED***
     contentEl.on('$scroll', onScroll);
 
     var self;
-    return self = ***REMOVED***
+    return self = {
       prev: null,
       current: null, //the currently stickied item
       next: null,
       items: [],
       add: add,
       refreshElements: refreshElements
-    ***REMOVED***;
+    };
 
     /***************
      * Public
      ***************/
     // Add an element and its sticky clone to this content's sticky collection
-    function add(element, stickyClone) ***REMOVED***
+    function add(element, stickyClone) {
       stickyClone.addClass('md-sticky-clone');
 
-      var item = ***REMOVED***
+      var item = {
         element: element,
         clone: stickyClone
-      ***REMOVED***;
+      };
       self.items.push(item);
 
-      $mdUtil.nextTick(function() ***REMOVED***
+      $mdUtil.nextTick(function() {
         contentEl.prepend(item.clone);
-      ***REMOVED***);
+      });
 
       debouncedRefreshElements();
 
-      return function remove() ***REMOVED***
-        self.items.forEach(function(item, index) ***REMOVED***
-          if (item.element[0] === element[0]) ***REMOVED***
+      return function remove() {
+        self.items.forEach(function(item, index) {
+          if (item.element[0] === element[0]) {
             self.items.splice(index, 1);
             item.clone.remove();
-          ***REMOVED***
-        ***REMOVED***);
+          }
+        });
         debouncedRefreshElements();
-      ***REMOVED***;
-    ***REMOVED***
+      };
+    }
 
-    function refreshElements() ***REMOVED***
+    function refreshElements() {
       // Sort our collection of elements by their current position in the DOM.
       // We need to do this because our elements' order of being added may not
       // be the same as their order of display.
       self.items.forEach(refreshPosition);
-      self.items = self.items.sort(function(a, b) ***REMOVED***
+      self.items = self.items.sort(function(a, b) {
         return a.top < b.top ? -1 : 1;
-      ***REMOVED***);
+      });
 
       // Find which item in the list should be active, 
       // based upon the content's current scroll position
       var item;
       var currentScrollTop = contentEl.prop('scrollTop');
-      for (var i = self.items.length - 1; i >= 0; i--) ***REMOVED***
-        if (currentScrollTop > self.items[i].top) ***REMOVED***
+      for (var i = self.items.length - 1; i >= 0; i--) {
+        if (currentScrollTop > self.items[i].top) {
           item = self.items[i];
           break;
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
       setCurrentItem(item);
-    ***REMOVED***
+    }
 
     /***************
      * Private
@@ -193,30 +193,30 @@ function MdSticky($mdConstant, $$rAF, $mdUtil, $compile) ***REMOVED***
 
     // Find the `top` of an item relative to the content element,
     // and also the height.
-    function refreshPosition(item) ***REMOVED***
+    function refreshPosition(item) {
       // Find the top of an item by adding to the offsetHeight until we reach the 
       // content element.
       var current = item.element[0];
       item.top = 0;
       item.left = 0;
       item.right = 0;
-      while (current && current !== contentEl[0]) ***REMOVED***
+      while (current && current !== contentEl[0]) {
         item.top += current.offsetTop;
         item.left += current.offsetLeft;
-        if ( current.offsetParent )***REMOVED***
+        if ( current.offsetParent ){
           item.right += current.offsetParent.offsetWidth - current.offsetWidth - current.offsetLeft; //Compute offsetRight
-        ***REMOVED***
+        }
         current = current.offsetParent;
-      ***REMOVED***
+      }
       item.height = item.element.prop('offsetHeight');
 
       var defaultVal = $mdUtil.floatingScrollbars() ? '0' : undefined;
       $mdUtil.bidi(item.clone, 'margin-left', item.left, defaultVal);
       $mdUtil.bidi(item.clone, 'margin-right', defaultVal, item.right);
-    ***REMOVED***
+    }
 
     // As we scroll, push in and select the correct sticky element.
-    function onScroll() ***REMOVED***
+    function onScroll() {
       var scrollTop = contentEl.prop('scrollTop');
       var isScrollingDown = scrollTop > (onScroll.prevScrollTop || 0);
 
@@ -226,68 +226,68 @@ function MdSticky($mdConstant, $$rAF, $mdUtil, $compile) ***REMOVED***
       //
       // AT TOP (not scrolling)
       //
-      if (scrollTop === 0) ***REMOVED***
+      if (scrollTop === 0) {
         // If we're at the top, just clear the current item and return
         setCurrentItem(null);
         return;
-      ***REMOVED***
+      }
 
       //
       // SCROLLING DOWN (going towards the next item)
       //
-      if (isScrollingDown) ***REMOVED***
+      if (isScrollingDown) {
 
         // If we've scrolled down past the next item's position, sticky it and return
-        if (self.next && self.next.top <= scrollTop) ***REMOVED***
+        if (self.next && self.next.top <= scrollTop) {
           setCurrentItem(self.next);
           return;
-        ***REMOVED***
+        }
 
         // If the next item is close to the current one, push the current one up out of the way
-        if (self.current && self.next && self.next.top - scrollTop <= self.next.height) ***REMOVED***
+        if (self.current && self.next && self.next.top - scrollTop <= self.next.height) {
           translate(self.current, scrollTop + (self.next.top - self.next.height - scrollTop));
           return;
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
       //
       // SCROLLING UP (not at the top & not scrolling down; must be scrolling up)
       //
-      if (!isScrollingDown) ***REMOVED***
+      if (!isScrollingDown) {
 
         // If we've scrolled up past the previous item's position, sticky it and return
-        if (self.current && self.prev && scrollTop < self.current.top) ***REMOVED***
+        if (self.current && self.prev && scrollTop < self.current.top) {
           setCurrentItem(self.prev);
           return;
-        ***REMOVED***
+        }
 
         // If the next item is close to the current one, pull the current one down into view
-        if (self.next && self.current && (scrollTop >= (self.next.top - self.current.height))) ***REMOVED***
+        if (self.next && self.current && (scrollTop >= (self.next.top - self.current.height))) {
           translate(self.current, scrollTop + (self.next.top - scrollTop - self.current.height));
           return;
-        ***REMOVED***
-      ***REMOVED***
+        }
+      }
 
       //
       // Otherwise, just move the current item to the proper place (scrolling up or down)
       //
-      if (self.current) ***REMOVED***
+      if (self.current) {
         translate(self.current, scrollTop);
-      ***REMOVED***
-    ***REMOVED***
+      }
+    }
 
-    function setCurrentItem(item) ***REMOVED***
+    function setCurrentItem(item) {
       if (self.current === item) return;
       // Deactivate currently active item
-      if (self.current) ***REMOVED***
+      if (self.current) {
         translate(self.current, null);
         setStickyState(self.current, null);
-      ***REMOVED***
+      }
 
       // Activate new item if given
-      if (item) ***REMOVED***
+      if (item) {
         setStickyState(item, 'active');
-      ***REMOVED***
+      }
 
       self.current = item;
       var index = self.items.indexOf(item);
@@ -296,36 +296,36 @@ function MdSticky($mdConstant, $$rAF, $mdUtil, $compile) ***REMOVED***
       self.prev = self.items[index - 1];
       setStickyState(self.next, 'next');
       setStickyState(self.prev, 'prev');
-    ***REMOVED***
+    }
 
-    function setStickyState(item, state) ***REMOVED***
+    function setStickyState(item, state) {
       if (!item || item.state === state) return;
-      if (item.state) ***REMOVED***
+      if (item.state) {
         item.clone.attr('sticky-prev-state', item.state);
         item.element.attr('sticky-prev-state', item.state);
-      ***REMOVED***
+      }
       item.clone.attr('sticky-state', state);
       item.element.attr('sticky-state', state);
       item.state = state;
-    ***REMOVED***
+    }
 
-    function translate(item, amount) ***REMOVED***
+    function translate(item, amount) {
       if (!item) return;
-      if (amount === null || amount === undefined) ***REMOVED***
-        if (item.translateY) ***REMOVED***
+      if (amount === null || amount === undefined) {
+        if (item.translateY) {
           item.translateY = null;
           item.clone.css($mdConstant.CSS.TRANSFORM, '');
-        ***REMOVED***
-      ***REMOVED*** else ***REMOVED***
+        }
+      } else {
         item.translateY = amount;
 
         $mdUtil.bidi( item.clone, $mdConstant.CSS.TRANSFORM,
           'translate3d(' + item.left + 'px,' + amount + 'px,0)',
           'translateY(' + amount + 'px)'
         );
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
+      }
+    }
+  }
 
 
   // Android 4.4 don't accurately give scroll events.
@@ -333,32 +333,32 @@ function MdSticky($mdConstant, $$rAF, $mdUtil, $compile) ***REMOVED***
   // > If a scroll or touchmove event has happened in the last DELAY milliseconds, 
   //   then send a `$scroll` event every animationFrame.
   // Additionally, we add $scrollstart and $scrollend events.
-  function setupAugmentedScrollEvents(element) ***REMOVED***
+  function setupAugmentedScrollEvents(element) {
     var SCROLL_END_DELAY = 200;
     var isScrolling;
     var lastScrollTime;
-    element.on('scroll touchmove', function() ***REMOVED***
-      if (!isScrolling) ***REMOVED***
+    element.on('scroll touchmove', function() {
+      if (!isScrolling) {
         isScrolling = true;
         $$rAF.throttle(loopScrollEvent);
         element.triggerHandler('$scrollstart');
-      ***REMOVED***
+      }
       element.triggerHandler('$scroll');
       lastScrollTime = +$mdUtil.now();
-    ***REMOVED***);
+    });
 
-    function loopScrollEvent() ***REMOVED***
-      if (+$mdUtil.now() - lastScrollTime > SCROLL_END_DELAY) ***REMOVED***
+    function loopScrollEvent() {
+      if (+$mdUtil.now() - lastScrollTime > SCROLL_END_DELAY) {
         isScrolling = false;
         element.triggerHandler('$scrollend');
-      ***REMOVED*** else ***REMOVED***
+      } else {
         element.triggerHandler('$scroll');
         $$rAF.throttle(loopScrollEvent);
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
+      }
+    }
+  }
 
-***REMOVED***
+}
 MdSticky.$inject = ["$mdConstant", "$$rAF", "$mdUtil", "$compile"];
 
-***REMOVED***)(window, window.angular);
+})(window, window.angular);

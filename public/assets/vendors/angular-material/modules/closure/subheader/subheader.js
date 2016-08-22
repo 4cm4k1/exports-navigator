@@ -61,8 +61,8 @@ angular
  * </hljs>
  */
 
-function MdSubheaderDirective($mdSticky, $compile, $mdTheming, $mdUtil) ***REMOVED***
-  return ***REMOVED***
+function MdSubheaderDirective($mdSticky, $compile, $mdTheming, $mdUtil) {
+  return {
     restrict: 'E',
     replace: true,
     transclude: true,
@@ -73,7 +73,7 @@ function MdSubheaderDirective($mdSticky, $compile, $mdTheming, $mdUtil) ***REMOV
     '  </div>' +
     '</div>'
     ),
-    link: function postLink(scope, element, attr, controllers, transclude) ***REMOVED***
+    link: function postLink(scope, element, attr, controllers, transclude) {
       $mdTheming(element);
       element.addClass('_md');
 
@@ -83,20 +83,20 @@ function MdSubheaderDirective($mdSticky, $compile, $mdTheming, $mdUtil) ***REMOV
 
       var outerHTML = element[0].outerHTML;
 
-      function getContent(el) ***REMOVED***
+      function getContent(el) {
         return angular.element(el[0].querySelector('.md-subheader-content'));
-      ***REMOVED***
+      }
 
       // Transclude the user-given contents of the subheader
       // the conventional way.
-      transclude(scope, function(clone) ***REMOVED***
+      transclude(scope, function(clone) {
         getContent(element).append(clone);
-      ***REMOVED***);
+      });
 
       // Create another clone, that uses the outer and inner contents
       // of the element, that will be 'stickied' as the user scrolls.
-      if (!element.hasClass('md-no-sticky')) ***REMOVED***
-        transclude(scope, function(clone) ***REMOVED***
+      if (!element.hasClass('md-no-sticky')) {
+        transclude(scope, function(clone) {
           // If the user adds an ng-if or ng-repeat directly to the md-subheader element, the
           // compiled clone below will only be a comment tag (since they replace their elements with
           // a comment) which cannot be properly passed to the $mdSticky; so we wrap it in our own
@@ -105,22 +105,22 @@ function MdSubheaderDirective($mdSticky, $compile, $mdTheming, $mdUtil) ***REMOV
 
           // Delay initialization until after any `ng-if`/`ng-repeat`/etc has finished before
           // attempting to create the clone
-          $mdUtil.nextTick(function() ***REMOVED***
+          $mdUtil.nextTick(function() {
             // Append our transcluded clone into the wrapper.
             // We don't have to recompile the element again, because the clone is already
             // compiled in it's transclusion scope. If we recompile the outerHTML of the new clone, we would lose
             // our ngIf's and other previous registered bindings / properties.
             getContent(wrapper).append(clone);
-          ***REMOVED***);
+          });
 
           // Make the element sticky and provide the stickyClone our self, to avoid recompilation of the subheader
           // element.
           $mdSticky(scope, element, wrapper);
-        ***REMOVED***);
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
-***REMOVED***
+        });
+      }
+    }
+  }
+}
 MdSubheaderDirective.$inject = ["$mdSticky", "$compile", "$mdTheming", "$mdUtil"];
 
 ngmaterial.components.subheader = angular.module("material.components.subheader");

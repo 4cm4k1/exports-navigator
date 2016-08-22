@@ -70,22 +70,22 @@
  * provider.addScope('email');
  * provider.addScope('user_friends');
  * // Link with popup:
- * user.linkWithPopup(provider).then(function(result) ***REMOVED***
+ * user.linkWithPopup(provider).then(function(result) {
  *   // The firebase.User instance:
  *   var user = result.user;
  *   // The Facebook firebase.auth.AuthCredential containing the Facebook
  *   // access token:
  *   var credential = result.credential;
- * ***REMOVED***, function(error) ***REMOVED***
+ * }, function(error) {
  *   // An error happened.
- * ***REMOVED***);
+ * });
  *
- * @param ***REMOVED***!firebase.auth.AuthProvider***REMOVED*** provider The provider to authenticate.
- *     The provider has to be an OAuth provider. Non-OAuth providers like ***REMOVED***@link
- *     firebase.auth.EmailAuthProvider***REMOVED*** will throw an error.
- * @return ***REMOVED***!firebase.Promise<!firebase.auth.UserCredential>***REMOVED***
+ * @param {!firebase.auth.AuthProvider} provider The provider to authenticate.
+ *     The provider has to be an OAuth provider. Non-OAuth providers like {@link
+ *     firebase.auth.EmailAuthProvider} will throw an error.
+ * @return {!firebase.Promise<!firebase.auth.UserCredential>}
  */
-firebase.User.prototype.linkWithPopup = function(provider) ***REMOVED******REMOVED***;
+firebase.User.prototype.linkWithPopup = function(provider) {};
 
 
 /**
@@ -112,12 +112,12 @@ firebase.User.prototype.linkWithPopup = function(provider) ***REMOVED******REMOV
  *     console.</dd>
  * </dl>
  *
- * @param ***REMOVED***!firebase.auth.AuthProvider***REMOVED*** provider The provider to authenticate.
- *     The provider has to be an OAuth provider. Non-OAuth providers like ***REMOVED***@link
- *     firebase.auth.EmailAuthProvider***REMOVED*** will throw an error.
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @param {!firebase.auth.AuthProvider} provider The provider to authenticate.
+ *     The provider has to be an OAuth provider. Non-OAuth providers like {@link
+ *     firebase.auth.EmailAuthProvider} will throw an error.
+ * @return {!firebase.Promise<void>}
  */
-firebase.User.prototype.linkWithRedirect = function(provider) ***REMOVED******REMOVED***;
+firebase.User.prototype.linkWithRedirect = function(provider) {};
 
 
 /**
@@ -133,15 +133,15 @@ firebase.User.prototype.linkWithRedirect = function(provider) ***REMOVED******RE
  * <dt>auth/account-exists-with-different-credential</dt>
  * <dd>Thrown if there already exists an account with the email address
  *     asserted by the credential. Resolve this by calling
- *     ***REMOVED***@link firebase.auth.Auth#fetchProvidersForEmail***REMOVED*** with the error.email
+ *     {@link firebase.auth.Auth#fetchProvidersForEmail} with the error.email
  *     and then asking the user to sign in using one of the returned providers.
  *     Once the user is signed in, the original credential retrieved from the
  *     error.credential can be linked to the user with
- *     ***REMOVED***@link firebase.User#link***REMOVED*** to prevent the user from signing in again
+ *     {@link firebase.User#link} to prevent the user from signing in again
  *     to the original provider via popup or redirect. If you are using
  *     redirects for sign in, save the credential in session storage and then
  *     retrieve on redirect and repopulate the credential using for example
- *     ***REMOVED***@link firebase.auth.GoogleAuthProvider#credential***REMOVED*** depending on the
+ *     {@link firebase.auth.GoogleAuthProvider#credential} depending on the
  *     credential provider id and complete the link.</dd>
  * <dt>auth/auth-domain-config-required</dt>
  * <dd>Thrown if authDomain configuration is not provided when calling
@@ -178,13 +178,13 @@ firebase.User.prototype.linkWithRedirect = function(provider) ***REMOVED******RE
  * provider.addScope('email');
  * provider.addScope('user_friends');
  * // Sign in with popup:
- * auth.signInWithPopup(provider).then(function(result) ***REMOVED***
+ * auth.signInWithPopup(provider).then(function(result) {
  *   // The firebase.User instance:
  *   var user = result.user;
  *   // The Facebook firebase.auth.AuthCredential containing the Facebook
  *   // access token:
  *   var credential = result.credential;
- * ***REMOVED***, function(error) ***REMOVED***
+ * }, function(error) {
  *   // The provider's account email, can be used in case of
  *   // auth/account-exists-with-different-credential to fetch the providers
  *   // linked to the email:
@@ -193,27 +193,27 @@ firebase.User.prototype.linkWithRedirect = function(provider) ***REMOVED******RE
  *   var credential = error.credential;
  *   // In case of auth/account-exists-with-different-credential error,
  *   // you can fetch the providers using this:
- *   if (error.code === 'auth/account-exists-with-different-credential') ***REMOVED***
- *     auth.fetchProvidersForEmail(email).then(function(providers) ***REMOVED***
+ *   if (error.code === 'auth/account-exists-with-different-credential') {
+ *     auth.fetchProvidersForEmail(email).then(function(providers) {
  *       // The returned 'providers' is a list of the available providers
  *       // linked to the email address. Please refer to the guide for a more
  *       // complete explanation on how to recover from this error.
- *     ***REMOVED***);
- *   ***REMOVED***
- * ***REMOVED***);
+ *     });
+ *   }
+ * });
  *
- * @param ***REMOVED***!firebase.auth.AuthProvider***REMOVED*** provider The provider to authenticate.
- *     The provider has to be an OAuth provider. Non-OAuth providers like ***REMOVED***@link
- *     firebase.auth.EmailAuthProvider***REMOVED*** will throw an error.
- * @return ***REMOVED***!firebase.Promise<!firebase.auth.UserCredential>***REMOVED***
+ * @param {!firebase.auth.AuthProvider} provider The provider to authenticate.
+ *     The provider has to be an OAuth provider. Non-OAuth providers like {@link
+ *     firebase.auth.EmailAuthProvider} will throw an error.
+ * @return {!firebase.Promise<!firebase.auth.UserCredential>}
  */
-firebase.auth.Auth.prototype.signInWithPopup = function(provider) ***REMOVED******REMOVED***;
+firebase.auth.Auth.prototype.signInWithPopup = function(provider) {};
 
 
 /**
  * Authenticates a Firebase client using a full-page redirect flow. To handle
- * the results and errors for this operation, refer to ***REMOVED***@link
- * firebase.auth.Auth#getRedirectResult***REMOVED***.
+ * the results and errors for this operation, refer to {@link
+ * firebase.auth.Auth#getRedirectResult}.
  *
  * <h4>Error Codes</h4>
  * <dl>
@@ -231,12 +231,12 @@ firebase.auth.Auth.prototype.signInWithPopup = function(provider) ***REMOVED****
  *     console.</dd>
  * </dl>
  *
- * @param ***REMOVED***!firebase.auth.AuthProvider***REMOVED*** provider The provider to authenticate.
- *     The provider has to be an OAuth provider. Non-OAuth providers like ***REMOVED***@link
- *     firebase.auth.EmailAuthProvider***REMOVED*** will throw an error.
- * @return ***REMOVED***!firebase.Promise<void>***REMOVED***
+ * @param {!firebase.auth.AuthProvider} provider The provider to authenticate.
+ *     The provider has to be an OAuth provider. Non-OAuth providers like {@link
+ *     firebase.auth.EmailAuthProvider} will throw an error.
+ * @return {!firebase.Promise<void>}
  */
-firebase.auth.Auth.prototype.signInWithRedirect = function(provider) ***REMOVED******REMOVED***;
+firebase.auth.Auth.prototype.signInWithRedirect = function(provider) {};
 
 
 /**
@@ -251,15 +251,15 @@ firebase.auth.Auth.prototype.signInWithRedirect = function(provider) ***REMOVED*
  * <dt>auth/account-exists-with-different-credential</dt>
  * <dd>Thrown if there already exists an account with the email address
  *     asserted by the credential. Resolve this by calling
- *     ***REMOVED***@link firebase.auth.Auth#fetchProvidersForEmail***REMOVED*** with the error.email
+ *     {@link firebase.auth.Auth#fetchProvidersForEmail} with the error.email
  *     and then asking the user to sign in using one of the returned providers.
  *     Once the user is signed in, the original credential retrieved from the
  *     error.credential can be linked to the user with
- *     ***REMOVED***@link firebase.User#link***REMOVED*** to prevent the user from signing in again
+ *     {@link firebase.User#link} to prevent the user from signing in again
  *     to the original provider via popup or redirect. If you are using
  *     redirects for sign in, save the credential in session storage and then
  *     retrieve on redirect and repopulate the credential using for example
- *     ***REMOVED***@link firebase.auth.GoogleAuthProvider#credential***REMOVED*** depending on the
+ *     {@link firebase.auth.GoogleAuthProvider#credential} depending on the
  *     credential provider id and complete the link.</dd>
  * <dt>auth/auth-domain-config-required</dt>
  * <dd>Thrown if authDomain configuration is not provided when calling
@@ -295,13 +295,13 @@ firebase.auth.Auth.prototype.signInWithRedirect = function(provider) ***REMOVED*
  * // The user is redirected to the provider's sign in flow...
  * ////////////////////////////////////////////////////////////
  * // Then redirected back to the app, where we check the redirect result:
- * auth.getRedirectResult().then(function(result) ***REMOVED***
+ * auth.getRedirectResult().then(function(result) {
  *   // The firebase.User instance:
  *   var user = result.user;
  *   // The Facebook firebase.auth.AuthCredential containing the Facebook
  *   // access token:
  *   var credential = result.credential;
- * ***REMOVED***, function(error) ***REMOVED***
+ * }, function(error) {
  *   // The provider's account email, can be used in case of
  *   // auth/account-exists-with-different-credential to fetch the providers
  *   // linked to the email:
@@ -310,15 +310,15 @@ firebase.auth.Auth.prototype.signInWithRedirect = function(provider) ***REMOVED*
  *   var credential = error.credential;
  *   // In case of auth/account-exists-with-different-credential error,
  *   // you can fetch the providers using this:
- *   if (error.code === 'auth/account-exists-with-different-credential') ***REMOVED***
- *     auth.fetchProvidersForEmail(email).then(function(providers) ***REMOVED***
+ *   if (error.code === 'auth/account-exists-with-different-credential') {
+ *     auth.fetchProvidersForEmail(email).then(function(providers) {
  *       // The returned 'providers' is a list of the available providers
  *       // linked to the email address. Please refer to the guide for a more
  *       // complete explanation on how to recover from this error.
- *     ***REMOVED***);
- *   ***REMOVED***
- * ***REMOVED***);
+ *     });
+ *   }
+ * });
  *
- * @return ***REMOVED***!firebase.Promise<!firebase.auth.UserCredential>***REMOVED***
+ * @return {!firebase.Promise<!firebase.auth.UserCredential>}
  */
-firebase.auth.Auth.prototype.getRedirectResult = function() ***REMOVED******REMOVED***;
+firebase.auth.Auth.prototype.getRedirectResult = function() {};

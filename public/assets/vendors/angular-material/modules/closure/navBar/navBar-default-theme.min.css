@@ -3,4 +3,4 @@
  * https://github.com/angular/material
  * @license MIT
  * v1.1.0-rc.5-master-c447c12
- */md-nav-bar.md-THEME_NAME-theme .md-nav-bar***REMOVED***background-color:transparent;border-color:'***REMOVED******REMOVED***foreground-4***REMOVED******REMOVED***'***REMOVED***md-nav-bar.md-THEME_NAME-theme .md-button._md-nav-button.md-unselected***REMOVED***color:'***REMOVED******REMOVED***foreground-2***REMOVED******REMOVED***'***REMOVED***md-nav-bar.md-THEME_NAME-theme md-nav-ink-bar***REMOVED***color:'***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***';background:'***REMOVED******REMOVED***accent-color***REMOVED******REMOVED***'***REMOVED***
+ */md-nav-bar.md-THEME_NAME-theme .md-nav-bar{background-color:transparent;border-color:'{{foreground-4}}'}md-nav-bar.md-THEME_NAME-theme .md-button._md-nav-button.md-unselected{color:'{{foreground-2}}'}md-nav-bar.md-THEME_NAME-theme md-nav-ink-bar{color:'{{accent-color}}';background:'{{accent-color}}'}

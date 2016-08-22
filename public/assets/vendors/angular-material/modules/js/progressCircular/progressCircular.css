@@ -4,32 +4,32 @@
  * @license MIT
  * v1.1.0
  */
-@-webkit-keyframes indeterminate-rotate ***REMOVED***
-  0% ***REMOVED***
+@-webkit-keyframes indeterminate-rotate {
+  0% {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg); ***REMOVED***
-  100% ***REMOVED***
+            transform: rotate(0deg); }
+  100% {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg); ***REMOVED*** ***REMOVED***
+            transform: rotate(360deg); } }
 
-@keyframes indeterminate-rotate ***REMOVED***
-  0% ***REMOVED***
+@keyframes indeterminate-rotate {
+  0% {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg); ***REMOVED***
-  100% ***REMOVED***
+            transform: rotate(0deg); }
+  100% {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg); ***REMOVED*** ***REMOVED***
+            transform: rotate(360deg); } }
 
-md-progress-circular ***REMOVED***
+md-progress-circular {
   position: relative;
-  display: block; ***REMOVED***
-  md-progress-circular._md-progress-circular-disabled ***REMOVED***
-    visibility: hidden; ***REMOVED***
-  md-progress-circular.md-mode-indeterminate svg ***REMOVED***
+  display: block; }
+  md-progress-circular._md-progress-circular-disabled {
+    visibility: hidden; }
+  md-progress-circular.md-mode-indeterminate svg {
     -webkit-animation: indeterminate-rotate 2.9s linear infinite;
-            animation: indeterminate-rotate 2.9s linear infinite; ***REMOVED***
-  md-progress-circular svg ***REMOVED***
+            animation: indeterminate-rotate 2.9s linear infinite; }
+  md-progress-circular svg {
     position: absolute;
     overflow: visible;
     top: 0;
-    left: 0; ***REMOVED***
+    left: 0; }

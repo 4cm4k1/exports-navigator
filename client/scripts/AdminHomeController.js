@@ -1,13 +1,13 @@
-(function() ***REMOVED***
+(function() {
   'use strict';
 
   angular.module('exportsNavigator').controller('AdminHomeController', AdminHomeController);
 
   AdminHomeController.$inject = ['currentAuth'];
 
-  function AdminHomeController(currentAuth) ***REMOVED***
+  function AdminHomeController(currentAuth) {
     var vm = this;
 
     vm.userQueriesFail = '(number goes here)';
-  ***REMOVED***
-***REMOVED***)();
+  }
+})();

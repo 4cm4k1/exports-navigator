@@ -3,4 +3,4 @@
  * https://github.com/angular/material
  * @license MIT
  * v1.1.0-rc.5-master-c447c12
- */body.md-THEME_NAME-theme,html.md-THEME_NAME-theme***REMOVED***color:'***REMOVED******REMOVED***foreground-1***REMOVED******REMOVED***';background-color:'***REMOVED******REMOVED***background-color***REMOVED******REMOVED***'***REMOVED***
+ */body.md-THEME_NAME-theme,html.md-THEME_NAME-theme{color:'{{foreground-1}}';background-color:'{{background-color}}'}
