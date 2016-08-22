@@ -149,6 +149,23 @@ router.delete('/topics/delete', function(req, res)***REMOVED***
 ***REMOVED***);
 
 
+//  ~ Admin Reports
+//below are routes for ADMIN REPORTS PURPOSES
+router.get('/unmatched', function(req, res)***REMOVED***
+  var query = 'SELECT * FROM unmatched_topics';
+  queryDB(query, [], req, res);
+***REMOVED***);
+
+router.post('/unmatched/create', function(req, res)***REMOVED***
+  var query = 'INSERT INTO unmatched_topics' +
+'(unmatched_topic) VALUES' +
+'($1)';
+var params = [req.body.unmatched_topic];
+  queryDB(query, params, req, res);
+***REMOVED***);
+
+
+
 
 
 //refactored routes to use one function for retrieving or sending data KRQ
