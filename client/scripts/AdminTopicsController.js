@@ -3,9 +3,9 @@
 
   angular.module('exportsNavigator').controller('AdminTopicsController', AdminTopicsController);
 
-  AdminTopicsController.$inject = ['currentAuth', '$http', '$routeParams'];
+  AdminTopicsController.$inject = ['currentAuth', '$http'];
 
-  function AdminTopicsController(currentAuth, $http, $routeParams) ***REMOVED***
+  function AdminTopicsController(currentAuth, $http) ***REMOVED***
     var vm = this;
 
     var list = [];
@@ -21,7 +21,6 @@
 
     vm.update = function(item) ***REMOVED***
       console.log('Update clicked', item.id);
-      item.id = $routeParams.itemID;
     ***REMOVED***;
 
     vm.add = function() ***REMOVED***
