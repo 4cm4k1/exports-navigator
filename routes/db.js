@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var Pool = require('pg').Pool;
+//user authentication on admin routes KRQ
+var firebase = require("firebase");
+firebase.initializeApp(***REMOVED***
+  serviceAccount: 'path/to/serviceAccountCredentials.json'
+***REMOVED***);
 //securely access heroku postgres configuration
 require('dotenv').config();
 var parseDbUrl = require('parse-database-url');
@@ -181,7 +186,20 @@ function queryDB(queryStatement, vars, req, res)***REMOVED***
       ***REMOVED***
     ***REMOVED***);
   ***REMOVED***);
-***REMOVED***
+***REMOVED***;
+
+function checkUserAuth()***REMOVED***
+  firebase.auth().currentUser.getToken(true).then(function(idToken) ***REMOVED***
+    firebase.auth().verifyIdToken(idToken).then(function(decodedToken) ***REMOVED***
+      var uid = decodedToken.uid;
+      return ***REMOVED***message: uid, success: true***REMOVED***;
+    ***REMOVED***).catch(function(error) ***REMOVED***
+      return ***REMOVED***message: error, success: false***REMOVED***;
+    ***REMOVED***);
+  ***REMOVED***).catch(function(error) ***REMOVED***
+    return ***REMOVED***message: error, success: false***REMOVED***;
+  ***REMOVED***);
+***REMOVED***;
 
 pool.on('error', function (err, client) ***REMOVED***
   // if an error is encountered by a client while it sits idle in the pool
