@@ -27,10 +27,10 @@
     });
 
   vm.update = function() {
-    // $http.put('/db/topics/update').then(function(request, response) {
-    //
-    // });
-    console.log(vm.)
+    $http.put('/db/topics/update').then(function(request, response) {
+      console.log(request.body);
+      response.sendStatus(200);
+    });
   };
 
   }

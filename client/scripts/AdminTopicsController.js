@@ -19,12 +19,10 @@
 
     vm.topicsList = list;
 
-    vm.update = function(item) {
-      console.log('Update clicked', item.id);
-    };
-
     vm.add = function() {
-      console.log('Add clicked, input reads:', vm.new);
+      console.log('Add clicked');
+
+      // $http.post('/db/topics/create').then()
     };
 
     vm.export = function() {

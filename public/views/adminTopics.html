@@ -3,15 +3,13 @@
 <p ng-repeat="item in adminTopics.topicsList track by $index">
 
     <a href="admin/topics/{{adminTopics.topicsList.indexOf(item)}}">
-    <button ng-click="adminTopics.update(item)">Update</button></a>
+    <button>Update</button></a>
 
     {{item.topic}}
 
 </p>
 
-<label for="addTopic">Add a topic: </label>
-<input type="text" name="addTopic" ng-model="adminTopics.new" />
-<button ng-click="adminTopics.add()">Add</button>
+<button ng-click="adminTopics.add()">Add a Topic</button>
 
 <br />
 
