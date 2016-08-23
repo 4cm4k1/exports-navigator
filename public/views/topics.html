@@ -1,20 +1,28 @@
 <!-- Topic Search View -->
-<md-content layout-padding>
-    <h1 class="md-headline">Search by Topic</h1>
+<!DOCTYPE html>
+<html lang="en" ng-app="exports-navigator">
+  <head>
+    <meta charset="utf-8">
+    <title>Exports Help Navigator</title>
+  </head>
+  <body>
+    <md-content layout-padding>
+        <h1 class="md-headline">Search by Topic</h1>
 
-    <!-- HTML for SEARCH Bar -->
-      <div ng-app="exports-navigator" class="container" ng-controller="TopicsCtrl">
+        <!-- HTML for SEARCH Bar -->
+          <div class="container" ng-controller="TopicsCtrl">
+          <div class="topicHeader">
+            <form class="topics" action="" method="get">
+                <md auto-complete><input type="text" name="search" placeholder="Search.."></md auto-complete>
+                <md-button class="raised">Search</md-button>
+                    <div class="clear-search"></div>
+            </form>
+            </div>
+            <div class="footer">
+                <h3 class="sub-headline">Don't see your topic listed?</h3>
+            </div>
+          </div>
+    </md-content>
 
-      </div>
-      <div class="topicHeader">
-        <form class="topics" action="" method="get">
-            <md auto-complete><input type="text" name="search" placeholder="Search.."></md auto-complete>
-            <md-button class="raised">Search</md-button>
-                <div class="clear-search"></div>
-        </form>
-
-        <div class="footer">
-            <h3 class="sub-headline">Don't see your topic listed?</h3>
-        </div>
-      </div>
-</md-content>
+  </body>
+</html>
