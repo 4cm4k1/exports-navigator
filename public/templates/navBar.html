@@ -1,4 +1,4 @@
-<md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links" layout="row" layout-align="space-between center" ng-if="nav.user">
+<md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links" layout="row" layout-align="space-around center" ng-if="nav.user">
   <md-nav-item md-nav-href="/admin" name="home">Home</md-nav-item>
   <md-nav-item md-nav-href="/admin/industries" name="industries">Industries</md-nav-item>
   <md-nav-item md-nav-href="/admin/topics" name="topics">Topics</md-nav-item>
@@ -7,4 +7,5 @@
   <md-nav-item md-nav-href="/admin/websites" name="websites">Websites</md-nav-item>
   <md-nav-item md-nav-href="/admin/reports" name="reports">Reports</md-nav-item>
   <md-nav-item md-nav-href="/admin/managers" name="managers">Managers</md-nav-item>
+  <md-nav-item md-nav-click="nav.signOut()" name="sign out">Sign Out</md-nav-item>
 </md-nav-bar>

@@ -12,9 +12,12 @@
 
         vm.auth.$onAuthStateChanged(function(user){
             vm.user = user;
-            console.log('navbar ctrl:', vm.user);
         });
 
+        vm.signOut = function(){
+            vm.auth.$signOut();
+            $location.path('/');
+        };
     }
 
 })();
