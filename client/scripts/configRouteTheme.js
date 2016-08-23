@@ -32,6 +32,17 @@
           }
         })
 
+        // admin view of all industries
+        .when('/admin/industries', {
+          controller: 'AdminIndustriesController as adminIndustries',
+          templateUrl: 'views/adminIndustries.html',
+          resolve: {
+            'currentAuth': ['Auth', function(Auth) {
+              return Auth.$requireSignIn();
+            }]
+          }
+        })
+
         // admin view of all topics
         .when('/admin/topics', {
           controller: 'AdminTopicsController as adminTopics',
@@ -58,6 +69,28 @@
         .when('/admin/countries', {
           controller: 'AdminCountriesController as adminCountries',
           templateUrl: 'views/adminCountries.html',
+          resolve: {
+            'currentAuth': ['Auth', function(Auth) {
+              return Auth.$requireSignIn();
+            }]
+          }
+        })
+
+        // admin view of all contacts
+        .when('/admin/contacts', {
+          controller: 'AdminContactsController as adminContacts',
+          templateUrl: 'views/adminContacts.html',
+          resolve: {
+            'currentAuth': ['Auth', function(Auth) {
+              return Auth.$requireSignIn();
+            }]
+          }
+        })
+
+        // admin view of all websites
+        .when('/admin/websites', {
+          controller: 'AdminWebsitesController as adminWebsites',
+          templateUrl: 'views/adminWebsites.html',
           resolve: {
             'currentAuth': ['Auth', function(Auth) {
               return Auth.$requireSignIn();

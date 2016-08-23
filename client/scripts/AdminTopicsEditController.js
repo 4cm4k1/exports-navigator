@@ -26,12 +26,12 @@
       // console.log('list at index:', list[index]);
     });
 
-  vm.update = function() {
-    $http.put('/db/topics/update').then(function(request, response) {
-      console.log(request.body);
-      response.sendStatus(200);
-    });
-  };
+    vm.update = function() {
+      $http.put('/db/topics/update').then(function(request, response) {
+        console.log(request.body);
+        response.sendStatus(200);
+      });
+    };
 
   }
 })();
