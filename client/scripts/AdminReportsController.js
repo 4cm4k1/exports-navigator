@@ -22,7 +22,8 @@ var topicsList = [];
 vm.getUserData = function(){
   $http.get('/db/topics/number_of_hits').then(function(response){
     console.log('getting topics data', response);
-    topicsList = response.data;
+    vm.topicsList = response.data.rows;
+    return(vm.topicsList);
   },
   function(response){
     console.log('error getting topics data', response);

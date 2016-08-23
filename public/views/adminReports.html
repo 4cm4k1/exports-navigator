@@ -4,20 +4,20 @@
 <button ng-click="adminReports.getUserData()">Get Reports</button>
 
 
-<p ng-repeat="topic in adminReports.topicsList track by $index">
+<ul ng-repeat="topic in adminReports.topicsList track by $index">
 
     <!-- <a href="admin/reports/{{adminReports.topicsList.indexOf(item)}}"> -->
 
 
-     {{topic}}
+  <li>  {{topic.id}} {{topic.topic}} {{topic.number_of_hits}} </li>
 
-</p>
+</ul>
 
 
 <div id="print-area-1" class="print-area">
     <div style="text-align:right"><a class="no-print" href="admin/reports">Print</a></div>
-    <h2>Lorem Ipsum</h2>
-    <p>gh.</p>
+    <h2>Admin Reports</h2>
+    <p>Most Hits</p>
 </div>
 
 <textarea id="printing-css" style="display:none"></textarea>
