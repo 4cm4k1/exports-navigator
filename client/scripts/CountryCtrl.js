@@ -1,7 +1,3 @@
-var app = angular.module('exports-navigator', []);
-app.controller('CountryCtrl', function($scope) {
-  $scope.message = 'Hello from CountryCtrl';
-});
 // //client/scripts/CountryCtrl.js User Country View Controller
 // (function() {
 //     'use strict';

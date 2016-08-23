@@ -7,7 +7,7 @@
 
     function TopicsCtrl(Topic) {
         var vm = this;
-        console.log('Injecting some stuff.');
+        console.log('Injeting some stuff.');
     }
 })();
 

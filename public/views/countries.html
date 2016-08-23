@@ -1,21 +1,14 @@
 <!-- Country Search View -->
-<!DOCTYPE html>
-<html lang="en" ng-app"exports-navigator">
-  <head>
-    <meta charset="utf-8">
-    <title>Exports Help Navigator</title>
-  </head>
-  <body ng-controller="CountryCtrl">
-    <md-content layout-padding>
-        <h2 "md-headline">Search by Country</h2>
-        <!-- HTML for SEARCH Bar -->
-        <div class="container">
-            <form class="countries" action="" method="get">
-                <md auto-complete><input type="text" name="search" placeholder="Search.."></md auto-complete>
-                <md-button class="raised">Search</md-button>
-                <div class="clear-search"></div>
-            </form>
-        </div>
-      </md-content>
-  </body>
-</html>
+<md-content layout-padding>
+    <h2 "md-headline">Search by Country</h2>
+    <!-- HTML for SEARCH Bar -->
+    <div ng-app="exports-navigator" ng-controller="CountryCtrl" class="container">
+    <div class="countriesHeader" ng-controller="CountriesCtrl">
+        <form class="countries" action="" method="get">
+            <md auto-complete><input type="text" name="search" placeholder="Search.."></md auto-complete>
+            <md-button class="raised">Search</md-button>
+            <div class="clear-search"></div>
+        </form>
+    </div>
+    </div>
+  </md-content>

@@ -1,7 +1,3 @@
-var app = angular.module('exports-navigator', []);
-app.controller('IndustryCtrl', function($scope) {
-  $scope.message = 'Hello from IndustryCtrl';
-});
 // //client/scripts/IndustryCtrl.js User Industry View Controller
 // (function() {
 //     'use strict';
