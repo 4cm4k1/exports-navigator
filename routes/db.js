@@ -190,6 +190,13 @@ router.put('/topics/update/number_of_hits', function(req, res){
   queryDB(query, params, req, res);
 });
 
+router.get('/topics/number_of_hits', function(req, res){
+  var query = 'SELECT topics.id, topic, number_of_hits FROM topics ORDER BY topics.id';
+  queryDB(query, [], req, res);
+});
+
+
+
 router.get('/testUserAuth', function(req, res){
   var authenticated = checkUserAuth();
   if(authenticated.success){

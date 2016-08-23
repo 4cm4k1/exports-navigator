@@ -1,1 +1,36 @@
 <h1>Reports</h1>
+
+
+<button ng-click="adminReports.getUserData()">Get Reports</button>
+
+
+<p ng-repeat="topic in adminReports.topicsList track by $index">
+
+    <!-- <a href="admin/reports/{{adminReports.topicsList.indexOf(item)}}"> -->
+
+
+     {{topic}}
+
+</p>
+
+
+<div id="print-area-1" class="print-area">
+    <div style="text-align:right"><a class="no-print" href="admin/reports">Print</a></div>
+    <h2>Lorem Ipsum</h2>
+    <p>gh.</p>
+</div>
+
+<textarea id="printing-css" style="display:none"></textarea>
+<iframe id="printing-frame" name="print_frame" src="about:blank" style="display:none"></iframe>
+
+
+
+<!-- printDiv('print-area-1')" -->
+
+
+<!-- <button ng-click="adminTopics.add()">Add a Topic</button>
+
+<br />
+
+<button ng-click="adminTopics.export()">Export Topics</button>
+<button ng-click="adminTopics.import()">Import Topics</button> -->
