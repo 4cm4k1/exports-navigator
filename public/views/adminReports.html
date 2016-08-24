@@ -1,36 +1,39 @@
 <h1>Reports</h1>
 
 
-<button ng-click="adminReports.getUserData()">Get Reports</button>
+<!-- <button ng-click="adminReports.getUserData()">Get Reports</button> -->
 
+<button ng-click="adminReports.printPage()">Print Reports</button>
 
-<ul ng-repeat="topic in adminReports.topicsList track by $index">
+<table border="1">
+    <thead>
+        <tr>
+            <th>Topic id</th>
+            <th>Topic</th>
+            <th>Number Of Hits</th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="topic in adminReports.topicsList track by $index">
+        <tr>
+            <td>{{topic.id}}</td>
+            <td>{{topic.topic}}</td>
+            <td>{{topic.number_of_hits}}</td>
+        </tr>
+    </tbody>
+</table>
 
-    <!-- <a href="admin/reports/{{adminReports.topicsList.indexOf(item)}}"> -->
-
-
-  <li>  {{topic.id}} {{topic.topic}} {{topic.number_of_hits}} </li>
-
-</ul>
-
-
-<div id="print-area-1" class="print-area">
-    <div style="text-align:right"><a class="no-print" href="admin/reports">Print</a></div>
-    <h2>Admin Reports</h2>
-    <p>Most Hits</p>
-</div>
-
-<textarea id="printing-css" style="display:none"></textarea>
-<iframe id="printing-frame" name="print_frame" src="about:blank" style="display:none"></iframe>
-
-
-
-<!-- printDiv('print-area-1')" -->
-
-
-<!-- <button ng-click="adminTopics.add()">Add a Topic</button>
-
-<br />
-
-<button ng-click="adminTopics.export()">Export Topics</button>
-<button ng-click="adminTopics.import()">Import Topics</button> -->
+ <h1> Unmatched Topics Table</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Unmatched Topic id</th>
+            <th>Unmatched Topic</th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="topic in adminReports.unmatchedList track by $index">
+        <tr>
+            <td>{{topic.id}}</td>
+            <td>{{topic.unmatched_topic}}</td>
+        </tr>
+    </tbody>
+</table>
