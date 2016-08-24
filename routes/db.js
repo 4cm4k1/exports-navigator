@@ -130,9 +130,9 @@ router.delete('/industries/delete', function(req, res){
 
 router.get('/topics', function(req, res){
   var query = 'SELECT topics.id,topic,note_1,note_2,note_3,' +
-  'contacts_1.first_name AS first_name_1,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1, ' +
-  'contacts_2.first_name AS first_name_2,contacts_2.last_name AS last_name_2,contacts_2.title AS title_2,contacts_2.organization AS organization_2,contacts_2.email AS email_2,contacts_2.phone AS phone_2, ' +
-  'contacts_3.first_name AS first_name_3,contacts_3.last_name AS last_name_3,contacts_3.title AS title_3,contacts_3.organization AS organization_3,contacts_3.email AS email_3,contacts_3.phone AS phone_3, ' +
+  'contacts_1.id AS contact_id_1,contacts_1.first_name AS first_name_1,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1, ' +
+  'contacts_2.id AS contact_id_2,contacts_2.first_name AS first_name_2,contacts_2.last_name AS last_name_2,contacts_2.title AS title_2,contacts_2.organization AS organization_2,contacts_2.email AS email_2,contacts_2.phone AS phone_2, ' +
+  'contacts_3.id AS contact_id_3,contacts_3.first_name AS first_name_3,contacts_3.last_name AS last_name_3,contacts_3.title AS title_3,contacts_3.organization AS organization_3,contacts_3.email AS email_3,contacts_3.phone AS phone_3, ' +
   'websites_1.website AS website_1, websites_2.website AS website_2, websites_3.website AS website_3 ' +
   'FROM topics ' +
   'LEFT OUTER JOIN contacts AS contacts_1 ON topics.contact_1=contacts_1.id ' +
@@ -216,6 +216,7 @@ router.post('/createBackup', function(req, res){
   var fields = req.body.fields;
   table2json(table, fields, req, res);
 });
+
 //delete a backup of a table KRQ
 router.delete('/deleteBackup', function(req, res){
   var table = req.body.table;
@@ -231,11 +232,12 @@ router.delete('/deleteBackup', function(req, res){
 //route to test firebase authentication KRQ
 router.get('/testUserAuth', function(req, res){
   var authenticated = checkUserAuth();
-  if(authenticated.success){
-    res.send('Authenticated: ' + authenticated.message);
-  } else {
-    res.redirect('/');
-  }
+  console.log(authenticated);
+  // if(authenticated.success){
+  //   res.send('Authenticated: ' + authenticated.message);
+  // } else {
+  //   res.redirect('/');
+  // }
 });
 
 //route to test json2csv
