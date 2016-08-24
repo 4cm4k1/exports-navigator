@@ -198,10 +198,34 @@ router.get('/topics/number_of_hits', function(req, res){
 });
 
 //export a table to csv using json2csv KRQ
+router.post('/backups', function(req, res){
+  var table = req.body.table;
+  fs.readdir('./backups/' + table +'/', function(err, files){
+    if(err){
+      res.sendStatus(500);
+      console.log(err);
+    }else{
+      res.send(files);
+    }
+  })
+});
+
+//export a table to csv using json2csv KRQ
 router.post('/createBackup', function(req, res){
   var table = req.body.table;
   var fields = req.body.fields;
   table2json(table, fields, req, res);
+});
+//delete a backup of a table KRQ
+router.delete('/deleteBackup', function(req, res){
+  var table = req.body.table;
+  var name = req.body.name
+  fs.unlink('./backups/' + table +'/' + name, function(err, success){
+    if(err){
+      res.sendStatus(500);
+    }
+    res.sendStatus(200);
+  })
 });
 
 //route to test firebase authentication KRQ
@@ -242,7 +266,7 @@ function table2json(table, fields, req, res){
     client.query('SELECT * FROM ' + table, [], function(err, queryRes){
       done();
       if(err){
-        res.send(err);
+        res.sendStatus(500);
       }else{
         try{
           var csv = json2csv({data: queryRes.rows, fields: fields});
