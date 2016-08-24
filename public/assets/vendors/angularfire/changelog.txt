@@ -1,2 +1,1 @@
-fixed - Fixed issue which caused the promises returned from `$firebaseAuth` methods to not fire.
-fixed - Improved error messages when improperly initializing an instance of the `$firebaseAuth` service.
+fixed - `$firebaseAuth.signOut()` now correctly returns a `Promise` fulfilled when the underlying Firebase SDK has signed the user out.
