@@ -7,7 +7,6 @@
     <meta name="viewport" content="initial-scale=1, width=device-width" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" charset="utf-8" />
     <link rel="stylesheet" href="/assets/vendors/angular-material/angular-material.min.css" charset="utf-8" />
-    <link href="/assets/vendors/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/assets/styles/style.min.css" />
     <script src="/assets/vendors/angular/angular.min.js" charset="utf-8"></script>
     <script src="/assets/vendors/firebase/firebase.js" charset="utf-8"></script>
@@ -17,31 +16,25 @@
     <script src="/assets/vendors/angular-messages/angular-messages.min.js" charset="utf-8"></script>
     <script src="/assets/vendors/angular-route/angular-route.min.js" charset="utf-8"></script>
     <script src="/assets/vendors/angular-material/angular-material.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/assets/vendors/angular-material-data-table/dist/md-data-table.min.js"></script>
     <script src="/assets/scripts/client.min.js" charset="utf-8"></script>
     <base href="/" />
 </head>
 
-<body layout-fill>
-    <md-toolbar layout="column">
-        <!-- HEADER -->
-        <div class="md-toolbar-tools">
-            <h1>
-                <span>Export Help Navigator</span>
-            </h1>
-        </div>
-
-        <!-- NAV BAR -->
-        <nav ng-include="'templates/navBar.html'" ng-controller="NavCtrl as nav" layout="row"></nav>
-    </md-toolbar>
+<body layout="column" layout-fill>
+    <!-- TOOLBAR HEADER -->
+    <md-toolbar ng-include="'templates/toolbar.html'" ng-controller="ToolbarCtrl as toolbar" layout="row" layout-align="space-between stretch" md-scroll-shrink></md-toolbar>
 
     <!-- MAIN SECTION -->
-    <md-content layout-padding flex>
+    <md-content layout="row" flex>
+        <!-- PULL-OUT SIDENAV -->
+        <nav ng-include="'templates/sidenav.html'" ng-controller="SidenavCtrl as sidenav"></nav>
+
+        <!-- NGROUTE VIEWS -->
         <ng-view></ng-view>
     </md-content>
 
     <!-- FOOTER -->
-    <footer ng-include="'templates/footer.html'" ng-controller="FooterCtrl as footer" layout-padding></footer>
+    <footer ng-include="'templates/footer.html'" ng-controller="FooterCtrl as footer"></footer>
 
 </body>
 
