@@ -57,7 +57,7 @@
         // admin view of editing a topic
         .when('/admin/topics/:itemID', {
           controller: 'AdminTopicsEditController as adminTopicsEdit',
-          templateUrl: 'templates/adminTopicsEdit.html',
+          templateUrl: 'views/adminTopicsEdit.html',
           resolve: {
             'currentAuth': ['Auth', function(Auth) {
               return Auth.$requireSignIn();

@@ -1,0 +1,67 @@
+<h1>Topic: <input type="text" ng-model="adminTopicsEdit.topic.topic" /></h1>
+
+<label for="note_1">Note 1: </label>
+<textarea ng-model="adminTopicsEdit.topic.note_1" ></textarea>
+<br />
+<label for="note_2">Note 2: </label>
+<textarea ng-model="adminTopicsEdit.topic.note_2" ></textarea>
+<br />
+<label for="note_3">Note 3: </label>
+<textarea ng-model="adminTopicsEdit.topic.note_3" ></textarea>
+<br />
+<br />
+
+<label for="website_1">Website 1: </label>
+<input type="text" ng-model="adminTopicsEdit.topic.website_1" />
+<br />
+<label for="website_2">Website 2: </label>
+<input type="text" ng-model="adminTopicsEdit.topic.website_2" />
+<br />
+<label for="website_3">Website 3: </label>
+<input type="text" ng-model="adminTopicsEdit.topic.website_3" />
+<br />
+<br />
+
+<p>
+  {{adminTopicsEdit.contact1}}
+</p>
+<!-- <label for="contact_1">Change to: </label>
+<select>
+  <option value="null"> </option>
+  <option ng-repeat="adminTopicsEdit.topic.last_name_1"
+          value="adminTopicsEdit.topic.last_name_1">
+          {{adminTopicsEdit.topic.first_name_1}} {{adminTopicsEdit.topic.last_name_1}}
+  </option>
+</select> -->
+<br />
+
+<p>
+  {{adminTopicsEdit.contact2}}
+  <!-- Contact 2 is currently set to: {{adminTopicsEdit.topic.first_name_2}} {{adminTopicsEdit.topic.last_name_2}} -->
+</p>
+<!-- <label for="contact_2">Change to: </label> -->
+<!-- <select>
+  <option value="null"> </option>
+  <option ng-repeat="adminTopicsEdit.topic.last_name_2"
+          value="adminTopicsEdit.topic.last_name_2">
+          {{adminTopicsEdit.topic.first_name_2}} {{adminTopicsEdit.topic.last_name_2}}
+  </option>
+</select> -->
+<br />
+
+
+<p>
+  {{adminTopicsEdit.contact3}}
+  <!-- Contact 3 is currently set to: {{adminTopicsEdit.topic.first_name_3}} {{adminTopicsEdit.topic.last_name_3}} -->
+</p>
+<!-- <label for="contact_3">Change to: </label>
+<select>
+  <option value="null"> </option>
+  <option ng-repeat="adminTopicsEdit.topic.last_name_3"
+          value="adminTopicsEdit.topic.last_name_3">
+          {{adminTopicsEdit.topic.first_name_3}} {{adminTopicsEdit.topic.last_name_3}}
+  </option>
+</select> -->
+<br />
+
+<button ng-click="adminTopicsEdit.update()">Update</button>

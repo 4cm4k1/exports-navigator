@@ -45,5 +45,5 @@
         vm.printPage = function() {
             window.print();
         };
-    };
+    }
 })();
