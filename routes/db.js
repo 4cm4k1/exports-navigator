@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var Pool = require('pg').Pool;
+var json2csv = require('json2csv');
+var fs = require('fs');
 require('dotenv').config();
 //user authentication on admin routes KRQ
 var firebase = require("firebase");
@@ -196,7 +198,7 @@ router.get('/topics/number_of_hits', function(req, res){
 });
 
 
-
+//route to test firebase authentication KRQ
 router.get('/testUserAuth', function(req, res){
   var authenticated = checkUserAuth();
   if(authenticated.success){
@@ -206,7 +208,12 @@ router.get('/testUserAuth', function(req, res){
   }
 });
 
-
+//route to test json2csv
+router.get('/testJson2Csv', function(req, res){
+  var table = 'contacts';
+  var fields = ['id', 'first_name', 'last_name', 'title', 'organization', 'email', 'phone'];
+  table2json(table, fields, req, res);
+});
 
 //refactored routes to use one function for retrieving or sending data KRQ
 function queryDB(queryStatement, vars, req, res){
@@ -218,6 +225,32 @@ function queryDB(queryStatement, vars, req, res){
         res.send(err);
       }else{
         res.send(queryRes);
+      }
+    });
+  });
+}
+//query function to return json to export KRQ
+function table2json(table, fields, req, res){
+  pool.connect(function(err, client, done){
+    if(err) res.send(err.code);
+    client.query('SELECT * FROM ' + table, [], function(err, queryRes){
+      done();
+      if(err){
+        res.send(err);
+      }else{
+        try{
+          var csv = json2csv({data: queryRes.rows, fields: fields});
+        } catch (err) {
+          // Errors are thrown for bad options, or if the data is empty and no fields are provided.
+          // Be sure to provide fields if it is possible that your data array will be empty.
+          console.error('json2csv error: ',err);
+        }
+        var d = new Date();
+        var date = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate() + '-' + d.getHours() + ':' + d.getMinutes();
+        fs.writeFile('./backups/' + table + '/' + date + '-' + table + '.csv', csv, function(err) {
+          if (err) throw err;
+        });
+        res.sendStatus(200);
       }
     });
   });
