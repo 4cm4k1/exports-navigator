@@ -3,10 +3,21 @@
 
     angular.module('exportsNavigator').controller('FooterCtrl', FooterCtrl);
 
-    FooterCtrl.$inject = ['$mdDialog'];
+    FooterCtrl.$inject = ['$mdDialog', 'Auth'];
 
-    function FooterCtrl($mdDialog){
+    function FooterCtrl($mdDialog, Auth){
         var vm = this;
+
+        vm.auth = Auth;
+
+        vm.auth.$onAuthStateChanged(function(user){
+            vm.user = user;
+        });
+
+        vm.signOut = function(){
+            vm.auth.$signOut();
+            $location.path('/');
+        };
 
         vm.showSignInModal = function(ev) {
             $mdDialog.show({

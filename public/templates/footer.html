@@ -1,0 +1,16 @@
+<md-content layout="row" layout-align="space-between center">
+<span>&copy; 2016 GREATER MSP.</span>
+<span flex></span>
+<md-button class="md-icon-button" ng-click="footer.showSignInModal($event)" ng-if="!footer.user">
+    <md-tooltip md-direction="top">
+        Admin Sign In
+    </md-tooltip>
+    <md-icon aria-label="Admin sign in">settings</md-icon>
+</md-button>
+<md-button class="md-icon-button" ng-click="footer.signOut()" ng-if="footer.user">
+    <md-tooltip md-direction="top">
+        Sign Out
+    </md-tooltip>
+    <md-icon aria-label="Sign out">exit_to_app</md-icon>
+</md-button>
+</md-content>

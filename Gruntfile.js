@@ -14,7 +14,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: 'node_modules',
-                    src: ['angular/**', 'angular-animate/**', 'angular-aria/**', 'angular-material/**', 'angular-messages/**', 'angular-route/**', 'angularfire/**', 'firebase/**'],
+                    src: ['angular/**', 'angular-animate/**', 'angular-aria/**', 'angular-material/**', 'angular-messages/**', 'angular-route/**', 'angularfire/**', 'firebase/**', 'angular-material-data-table/**'],
                     dest: 'public/assets/vendors'
                 }, ],
             },
