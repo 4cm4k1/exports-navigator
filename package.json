@@ -25,7 +25,7 @@
     "angular-material-data-table": "^0.10.9",
     "angular-messages": "^1.5.8",
     "angular-route": "^1.5.8",
-    "angularfire": "^2.0.1",
+    "angularfire": "^2.0.2",
     "body-parser": "^1.15.2",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
