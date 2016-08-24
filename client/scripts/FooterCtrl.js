@@ -3,9 +3,9 @@
 
     angular.module('exportsNavigator').controller('FooterCtrl', FooterCtrl);
 
-    FooterCtrl.$inject = ['$mdDialog', 'Auth'];
+    FooterCtrl.$inject = ['$mdDialog', 'Auth', '$location'];
 
-    function FooterCtrl($mdDialog, Auth){
+    function FooterCtrl($mdDialog, Auth, $location){
         var vm = this;
 
         vm.auth = Auth;

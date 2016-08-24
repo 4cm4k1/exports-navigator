@@ -2,26 +2,26 @@
   "_args": [
     [
       {
-        "raw": "angularfire",
+        "raw": "angularfire@2.0.2",
         "scope": null,
         "escapedName": "angularfire",
         "name": "angularfire",
-        "rawSpec": "",
-        "spec": "latest",
-        "type": "tag"
+        "rawSpec": "2.0.2",
+        "spec": "2.0.2",
+        "type": "version"
       },
       "/Users/4cm4k1/GitHub/exports-navigator"
     ]
   ],
-  "_from": "angularfire@latest",
-  "_id": "angularfire@2.0.1",
+  "_from": "angularfire@2.0.2",
+  "_id": "angularfire@2.0.2",
   "_inCache": true,
   "_installable": true,
   "_location": "/angularfire",
   "_nodeVersion": "0.10.38",
   "_npmOperationalInternal": {
-    "host": "packages-16-east.internal.npmjs.com",
-    "tmp": "tmp/angularfire-2.0.1.tgz_1464910384313_0.22874928009696305"
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/angularfire-2.0.2.tgz_1471641406215_0.5176531828474253"
   },
   "_npmUser": {
     "name": "firebase",
@@ -30,22 +30,22 @@
   "_npmVersion": "2.7.5",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "angularfire",
+    "raw": "angularfire@2.0.2",
     "scope": null,
     "escapedName": "angularfire",
     "name": "angularfire",
-    "rawSpec": "",
-    "spec": "latest",
-    "type": "tag"
+    "rawSpec": "2.0.2",
+    "spec": "2.0.2",
+    "type": "version"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/angularfire/-/angularfire-2.0.1.tgz",
-  "_shasum": "07d59e8586590fcb51ba3f9f4cef812f09e0c847",
+  "_resolved": "https://registry.npmjs.org/angularfire/-/angularfire-2.0.2.tgz",
+  "_shasum": "5d4fe8736e6146e5145c6c950800723dbaf7a7f2",
   "_shrinkwrap": null,
-  "_spec": "angularfire",
+  "_spec": "angularfire@2.0.2",
   "_where": "/Users/4cm4k1/GitHub/exports-navigator",
   "author": {
     "name": "Firebase",
@@ -90,8 +90,8 @@
   },
   "directories": {},
   "dist": {
-    "shasum": "07d59e8586590fcb51ba3f9f4cef812f09e0c847",
-    "tarball": "https://registry.npmjs.org/angularfire/-/angularfire-2.0.1.tgz"
+    "shasum": "5d4fe8736e6146e5145c6c950800723dbaf7a7f2",
+    "tarball": "https://registry.npmjs.org/angularfire/-/angularfire-2.0.2.tgz"
   },
   "files": [
     "index.js",
@@ -100,7 +100,7 @@
     "README.md",
     "package.json"
   ],
-  "gitHead": "c681548bfade5be82c7819080ab13e349e73f944",
+  "gitHead": "575fc88bd3b5f104e76cadedad1348a4f6ceea07",
   "homepage": "https://github.com/firebase/angularfire",
   "keywords": [
     "angular",
@@ -128,5 +128,5 @@
     "url": "git+https://github.com/firebase/angularfire.git"
   },
   "scripts": {},
-  "version": "2.0.1"
+  "version": "2.0.2"
 }
