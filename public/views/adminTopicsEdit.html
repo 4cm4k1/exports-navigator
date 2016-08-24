@@ -26,11 +26,11 @@
   Contact 1 is set to: {{adminTopicsEdit.topic.first_name_1}} {{adminTopicsEdit.topic.last_name_1}}
 </p>
 <label for="contact_1">Change to: </label>
-<select ng-model="adminTopicsEdit.contacts.id">
+<select ng-model="adminEditController.selectedContact">
   <option> </option>
-  <option ng-repeat="contact in adminTopicsEdit.contacts"
+  <option ng-repeat="contact in adminTopicsEdit.contacts track by $index"
           ng-value="contact.id">
-          {{contact.first_name}} {{contact.last_name}}
+          {{contact}}
   </option>
 </select>
 <br />

@@ -78,7 +78,9 @@
       //   console.log(request.body);
       //   response.sendStatus(200);
       // });
-      console.log(vm.contact_1);
+
+
+      console.log(vm.selectedContact);
     };
 
   }

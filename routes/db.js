@@ -207,7 +207,7 @@ router.post('/backups', function(req, res){
     }else{
       res.send(files);
     }
-  })
+  });
 });
 
 //export a table to csv using json2csv KRQ
@@ -220,13 +220,13 @@ router.post('/createBackup', function(req, res){
 //delete a backup of a table KRQ
 router.delete('/deleteBackup', function(req, res){
   var table = req.body.table;
-  var name = req.body.name
+  var name = req.body.name;
   fs.unlink('./backups/' + table +'/' + name, function(err, success){
     if(err){
       res.sendStatus(500);
     }
     res.sendStatus(200);
-  })
+  });
 });
 
 //route to test firebase authentication KRQ
