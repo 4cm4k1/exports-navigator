@@ -59,7 +59,7 @@ router.delete('/contacts/delete', function(req, res){
 
 
 router.get('/countries', function(req, res){
-  var query = 'SELECT * FROM countries JOIN contacts ON' +
+  var query = 'SELECT * FROM countries JOIN contacts ON ' +
   'contacts.id = countries.contact_id';
   queryDB(query, [], req, res);
 });
@@ -197,6 +197,12 @@ router.get('/topics/number_of_hits', function(req, res){
   queryDB(query, [], req, res);
 });
 
+//export a table to csv using json2csv KRQ
+router.post('/createBackup', function(req, res){
+  var table = req.body.table;
+  var fields = req.body.fields;
+  table2json(table, fields, req, res);
+});
 
 //route to test firebase authentication KRQ
 router.get('/testUserAuth', function(req, res){
