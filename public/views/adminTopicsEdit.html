@@ -23,21 +23,20 @@
 <br />
 
 <p>
-  {{adminTopicsEdit.contact1}}
+  Contact 1 is set to: {{adminTopicsEdit.topic.first_name_1}} {{adminTopicsEdit.topic.last_name_1}}
 </p>
-<!-- <label for="contact_1">Change to: </label>
-<select>
-  <option value="null"> </option>
-  <option ng-repeat="adminTopicsEdit.topic.last_name_1"
-          value="adminTopicsEdit.topic.last_name_1">
-          {{adminTopicsEdit.topic.first_name_1}} {{adminTopicsEdit.topic.last_name_1}}
+<label for="contact_1">Change to: </label>
+<select ng-model="adminTopicsEdit.contacts.id">
+  <option> </option>
+  <option ng-repeat="contact in adminTopicsEdit.contacts"
+          ng-value="contact.id">
+          {{contact.first_name}} {{contact.last_name}}
   </option>
-</select> -->
+</select>
 <br />
 
 <p>
-  {{adminTopicsEdit.contact2}}
-  <!-- Contact 2 is currently set to: {{adminTopicsEdit.topic.first_name_2}} {{adminTopicsEdit.topic.last_name_2}} -->
+  Contact 2 is set to: {{adminTopicsEdit.topic.first_name_2}} {{adminTopicsEdit.topic.last_name_2}}
 </p>
 <!-- <label for="contact_2">Change to: </label> -->
 <!-- <select>
@@ -51,8 +50,7 @@
 
 
 <p>
-  {{adminTopicsEdit.contact3}}
-  <!-- Contact 3 is currently set to: {{adminTopicsEdit.topic.first_name_3}} {{adminTopicsEdit.topic.last_name_3}} -->
+  Contact 3 is set to: {{adminTopicsEdit.topic.first_name_3}} {{adminTopicsEdit.topic.last_name_3}}
 </p>
 <!-- <label for="contact_3">Change to: </label>
 <select>

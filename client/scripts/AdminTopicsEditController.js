@@ -42,44 +42,43 @@
 
       // to display contacts on the page, only if they are stored
       if (list[index].first_name_1 !== null) {
-        vm.contact1 = 'Contact 1 is set to: ' + list[index].first_name_1 + ' ' +
+        vm.contact_1 = 'Contact 1 is set to: ' + list[index].first_name_1 + ' ' +
         list[index].last_name_1;
       }
       else {
-        vm.contact1 = 'Contact 1 is not stored';
+        vm.contact_1 = 'Contact 1 is not stored';
       }
       if (list[index].first_name_2 !== null) {
-        vm.contact2 = 'Contact 2 is set to: ' + list[index].first_name_2 + ' ' +
+        vm.contact_2 = 'Contact 2 is set to: ' + list[index].first_name_2 + ' ' +
         list[index].last_name_2;
-        console.log('lastname2:', list[index].last_name_2);
       }
       else {
-        vm.contact2 = 'Contact 2 is not stored';
+        vm.contact_2 = 'Contact 2 is not stored';
       }
       if (list[index].first_name_3 !== null) {
-        vm.contact3 = 'Contact 3 is set to: ' + list[index].first_name_3 + ' ' +
+        vm.contact_3 = 'Contact 3 is set to: ' + list[index].first_name_3 + ' ' +
         list[index].last_name_3;
-        console.log('lastname3:', list[index].last_name_3);
       }
       else {
-        vm.contact3 = 'Contact 3 is not stored';
+        vm.contact_3 = 'Contact 3 is not stored';
       }
 
     });
 
-    // $http.get('/db/contacts').then(function(response) {
-    //   console.log('contacts:', response);
-    // });
+    $http.get('/db/contacts').then(function(response) {
+      console.log('contacts:', response);
+      for (var i = 0; i < response.data.rows.length; i++) {
+        contactList.push(response.data.rows[i]);
+      }
+      vm.contacts = contactList;
+    });
 
     vm.update = function() {
       // $http.put('/db/topics/update').then(function(request, response) {
       //   console.log(request.body);
       //   response.sendStatus(200);
       // });
-
-      $http.get('/db/contacts').then(function(response) {
-        console.log('contacts:', response);
-      });
+      console.log(vm.contact_1);
     };
 
   }

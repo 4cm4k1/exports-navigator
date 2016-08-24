@@ -1,57 +1,13 @@
 {
-  "_args": [
-    [
-      {
-        "raw": "angular-material-data-table",
-        "scope": null,
-        "escapedName": "angular-material-data-table",
-        "name": "angular-material-data-table",
-        "rawSpec": "",
-        "spec": "latest",
-        "type": "tag"
-      },
-      "/Users/4cm4k1/GitHub/exports-navigator"
-    ]
-  ],
-  "_from": "angular-material-data-table@latest",
-  "_id": "angular-material-data-table@0.10.9",
-  "_inCache": true,
-  "_installable": true,
-  "_location": "/angular-material-data-table",
-  "_nodeVersion": "5.10.1",
-  "_npmOperationalInternal": {
-    "host": "packages-16-east.internal.npmjs.com",
-    "tmp": "tmp/angular-material-data-table-0.10.9.tgz_1461690559142_0.3837499727960676"
-  },
-  "_npmUser": {
-    "name": "daniel-nagy",
-    "email": "daniel_nagy@me.com"
-  },
-  "_npmVersion": "3.8.3",
-  "_phantomChildren": {},
-  "_requested": {
-    "raw": "angular-material-data-table",
-    "scope": null,
-    "escapedName": "angular-material-data-table",
-    "name": "angular-material-data-table",
-    "rawSpec": "",
-    "spec": "latest",
-    "type": "tag"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/angular-material-data-table/-/angular-material-data-table-0.10.9.tgz",
-  "_shasum": "a4171898999db13ccae2f4c042b7bc5c57bd4ca7",
-  "_shrinkwrap": null,
-  "_spec": "angular-material-data-table",
-  "_where": "/Users/4cm4k1/GitHub/exports-navigator",
-  "bugs": {
-    "url": "https://github.com/daniel-nagy/md-data-table/issues"
-  },
-  "dependencies": {},
+  "name": "angular-material-data-table",
+  "version": "0.10.9",
   "description": "Material Design data table.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/daniel-nagy/md-data-table.git"
+  },
+  "main": "index.js",
   "devDependencies": {
     "bower": "^1.3.9",
     "grunt": "^0.4.5",
@@ -69,32 +25,39 @@
     "jshint-stylish": "^1.0.0",
     "load-grunt-tasks": "^0.6.0"
   },
-  "directories": {},
+  "peerDependencies": {
+    "angular": "^1.4.0",
+    "angular-material": "^1.0.0"
+  },
+  "gitHead": "06e1993154664af5e1571e0abb4d28e76790af19",
+  "bugs": {
+    "url": "https://github.com/daniel-nagy/md-data-table/issues"
+  },
+  "homepage": "https://github.com/daniel-nagy/md-data-table#readme",
+  "_id": "angular-material-data-table@0.10.9",
+  "scripts": {},
+  "_shasum": "a4171898999db13ccae2f4c042b7bc5c57bd4ca7",
+  "_from": "angular-material-data-table@>=0.10.9 <0.11.0",
+  "_npmVersion": "3.8.3",
+  "_nodeVersion": "5.10.1",
+  "_npmUser": {
+    "name": "daniel-nagy",
+    "email": "daniel_nagy@me.com"
+  },
   "dist": {
     "shasum": "a4171898999db13ccae2f4c042b7bc5c57bd4ca7",
     "tarball": "https://registry.npmjs.org/angular-material-data-table/-/angular-material-data-table-0.10.9.tgz"
   },
-  "gitHead": "06e1993154664af5e1571e0abb4d28e76790af19",
-  "homepage": "https://github.com/daniel-nagy/md-data-table#readme",
-  "license": "MIT",
-  "main": "index.js",
   "maintainers": [
     {
       "name": "daniel-nagy",
       "email": "daniel_nagy@me.com"
     }
   ],
-  "name": "angular-material-data-table",
-  "optionalDependencies": {},
-  "peerDependencies": {
-    "angular": "^1.4.0",
-    "angular-material": "^1.0.0"
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/angular-material-data-table-0.10.9.tgz_1461690559142_0.3837499727960676"
   },
-  "readme": "ERROR: No README data found!",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/daniel-nagy/md-data-table.git"
-  },
-  "scripts": {},
-  "version": "0.10.9"
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/angular-material-data-table/-/angular-material-data-table-0.10.9.tgz"
 }
