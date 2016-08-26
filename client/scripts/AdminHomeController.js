@@ -7,7 +7,7 @@
 
   function AdminHomeController(currentAuth) {
     var vm = this;
-
+    vm.auth = currentAuth;
     vm.userQueriesFail = '(number goes here)';
   }
 })();
