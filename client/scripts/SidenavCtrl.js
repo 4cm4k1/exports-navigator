@@ -57,13 +57,14 @@
 
         vm.auth = Auth;
 
-        vm.auth.$onAuthStateChanged(function(user){
-            vm.user = user;
-            if(!vm.user) {
-                $location.path('/');
-                vm.close();
-            }
-        });
+        // Bug fix for unauthenticated results page
+        // vm.auth.$onAuthStateChanged(function(user){
+        //     vm.user = user;
+        //     if(!vm.user) {
+        //         $location.path('/');
+        //         vm.close();
+        //     }
+        // });
 
         vm.signOut = function(){
             vm.auth.$signOut();

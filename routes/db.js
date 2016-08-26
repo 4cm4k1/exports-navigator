@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var Pool = require('pg').Pool;
 var json2csv = require('json2csv');
+var Converter = require("csvtojson").Converter;
 var fs = require('fs');
 require('dotenv').config();
 //user authentication on admin routes KRQ
@@ -28,6 +29,58 @@ config.idleTimeoutMillis = 30000; // how long a client is allowed to remain idle
 config.ssl = true; //use encryption
 
 var pool = new Pool(config);
+
+//display all backups for a specific table KRQ
+router.post('/backups', function(req, res){
+  var table = req.body.table;
+  fs.readdir('./backups/' + table +'/', function(err, files){
+    if(err){
+      res.sendStatus(500);
+      console.log(err);
+    }else{
+      res.send(files);
+    }
+  });
+});
+
+//export a table to csv using json2csv KRQ
+router.post('/backups/create', function(req, res){
+  var table = req.body.table;
+  var fields = req.body.fields;
+  table2csv(table, fields, req, res);
+});
+
+//delete a backup of a table KRQ
+router.delete('/backups/delete', function(req, res){
+  var table = req.body.table;
+  var name = req.body.name;
+  fs.unlink('./backups/' + table +'/' + name, function(err, success){
+    if(err){
+      res.sendStatus(500);
+    }
+    res.sendStatus(200);
+  });
+});
+
+//restore a table backup KRQ
+router.post('/backups/restore', function(req, res){
+  var table = req.body.table;
+  var file = req.body.file;
+  var converter = new Converter({});
+  converter.fromFile('/backups/' + table + '/' + file,function(err,result){
+    if(err) res.sendStatus(500);
+    console.log(result);
+    // var query = 'INSERT INTO ' + table + '';
+    // queryDB(query, [], req, res);
+  });
+});
+
+//clear contents in a table in preparation for restoring backup KRQ
+router.post('/clearTable', function(req, res){
+  var table = req.body.table;
+  var query = 'DELETE FROM ' + table;
+  queryDB(query, [], req, res);
+});
 
 //routes to return each table and related foreign key data KRQ
 router.get('/contacts', function(req, res){
@@ -55,8 +108,6 @@ router.delete('/contacts/delete', function(req, res){
   var query = 'DELETE FROM contacts WHERE id =' + req.body.id;
   queryDB(query, [], req, res);
 });
-
-
 
 router.get('/countries', function(req, res){
   var query = 'SELECT * FROM countries JOIN contacts ON ' +
@@ -125,15 +176,12 @@ router.delete('/industries/delete', function(req, res){
   queryDB(query, [], req, res);
 });
 
-
-
-
 router.get('/topics', function(req, res){
   var query = 'SELECT topics.id,topic,note_1,note_2,note_3,' +
   'contacts_1.id AS contact_id_1,contacts_1.first_name AS first_name_1,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1, ' +
   'contacts_2.id AS contact_id_2,contacts_2.first_name AS first_name_2,contacts_2.last_name AS last_name_2,contacts_2.title AS title_2,contacts_2.organization AS organization_2,contacts_2.email AS email_2,contacts_2.phone AS phone_2, ' +
   'contacts_3.id AS contact_id_3,contacts_3.first_name AS first_name_3,contacts_3.last_name AS last_name_3,contacts_3.title AS title_3,contacts_3.organization AS organization_3,contacts_3.email AS email_3,contacts_3.phone AS phone_3, ' +
-  'websites_1.website AS website_1, websites_2.website AS website_2, websites_3.website AS website_3 ' +
+  'websites_1.website AS website_1, websites_1.id AS website_id_1, websites_2.website AS website_2, websites_2.id AS website_id_2, websites_3.website AS website_3, websites_3.id AS website_id_3' +
   'FROM topics ' +
   'LEFT OUTER JOIN contacts AS contacts_1 ON topics.contact_1=contacts_1.id ' +
   'LEFT OUTER JOIN contacts AS contacts_2 ON topics.contact_2=contacts_2.id ' +
@@ -166,6 +214,40 @@ router.delete('/topics/delete', function(req, res){
   queryDB(query, [], req, res);
 });
 
+//below is the route specifically for the function which updates the
+//number of hits for a specific topic which exists in the DB
+router.put('/topics/update/number_of_hits', function(req, res){
+  var query = 'UPDATE topics SET number_of_hits = ($1) + 1' +
+    'WHERE id =' + req.body.id;
+  var params = [req.body.number_of_hits];
+  queryDB(query, params, req, res);
+});
+
+router.get('/websites', function(req, res){
+  var query = 'SELECT * FROM websites';
+  queryDB(query, [], req, res);
+});
+
+router.post('/websites/create', function(req, res){
+  var query = 'INSERT INTO websites' +
+  '(website) VALUES' +
+  '($1)';
+  var params = [req.body.website];
+  queryDB(query, params, req, res);
+});
+
+router.put('/websites/update', function(req, res){
+  var query = 'UPDATE websites SET (website) = ' +
+  '($1)' +
+  'WHERE id =' + req.body.id;
+  var params = [req.body.website];
+  queryDB(query, params, req, res);
+});
+
+router.delete('/websites/delete', function(req, res){
+  var query = 'DELETE FROM websites WHERE id =' + req.body.id;
+  queryDB(query, [], req, res);
+});
 
 //  ~ Admin Reports
 //below are routes for ADMIN REPORTS PURPOSES
@@ -182,69 +264,27 @@ var params = [req.body.unmatched_topic];
   queryDB(query, params, req, res);
 });
 
-
-//below is the route specifically for the function which updates the
-//number of hits for a specific topic which exists in the DB
-router.put('/topics/update/number_of_hits', function(req, res){
-  var query = 'UPDATE topics SET number_of_hits = ($1) + 1' +
-    'WHERE id =' + req.body.id;
-  var params = [req.body.number_of_hits];
-  queryDB(query, params, req, res);
-});
-
 router.get('/topics/number_of_hits', function(req, res){
   var query = 'SELECT topics.id, topic, number_of_hits FROM topics ORDER BY topics.id';
   queryDB(query, [], req, res);
 });
 
-//export a table to csv using json2csv KRQ
-router.post('/backups', function(req, res){
-  var table = req.body.table;
-  fs.readdir('./backups/' + table +'/', function(err, files){
-    if(err){
-      res.sendStatus(500);
-      console.log(err);
-    }else{
-      res.send(files);
-    }
-  });
-});
-
-//export a table to csv using json2csv KRQ
-router.post('/createBackup', function(req, res){
-  var table = req.body.table;
-  var fields = req.body.fields;
-  table2json(table, fields, req, res);
-});
-
-//delete a backup of a table KRQ
-router.delete('/deleteBackup', function(req, res){
-  var table = req.body.table;
-  var name = req.body.name;
-  fs.unlink('./backups/' + table +'/' + name, function(err, success){
-    if(err){
-      res.sendStatus(500);
-    }
-    res.sendStatus(200);
-  });
-});
-
-//route to test firebase authentication KRQ
-router.get('/testUserAuth', function(req, res){
-  var authenticated = checkUserAuth();
-  console.log(authenticated);
-  // if(authenticated.success){
-  //   res.send('Authenticated: ' + authenticated.message);
-  // } else {
-  //   res.redirect('/');
-  // }
-});
+// //route to test firebase authentication KRQ
+// router.get('/testUserAuth', function(req, res){
+//   var authenticated = checkUserAuth();
+//   console.log(authenticated);
+//   // if(authenticated.success){
+//   //   res.send('Authenticated: ' + authenticated.message);
+//   // } else {
+//   //   res.redirect('/');
+//   // }
+// });
 
 //route to test json2csv
 router.get('/testJson2Csv', function(req, res){
   var table = 'contacts';
   var fields = ['id', 'first_name', 'last_name', 'title', 'organization', 'email', 'phone'];
-  table2json(table, fields, req, res);
+  table2csv(table, fields, req, res);
 });
 
 //refactored routes to use one function for retrieving or sending data KRQ
@@ -262,7 +302,7 @@ function queryDB(queryStatement, vars, req, res){
   });
 }
 //query function to return json to export KRQ
-function table2json(table, fields, req, res){
+function table2csv(table, fields, req, res){
   pool.connect(function(err, client, done){
     if(err) res.send(err.code);
     client.query('SELECT * FROM ' + table, [], function(err, queryRes){
@@ -270,16 +310,16 @@ function table2json(table, fields, req, res){
       if(err){
         res.sendStatus(500);
       }else{
-        try{
+        // try{
           var csv = json2csv({data: queryRes.rows, fields: fields});
-        } catch (err) {
-          // Errors are thrown for bad options, or if the data is empty and no fields are provided.
-          // Be sure to provide fields if it is possible that your data array will be empty.
-          console.error('json2csv error: ',err);
-        }
+        // } catch(err) {
+        //   // Errors are thrown for bad options, or if the data is empty and no fields are provided.
+        //   // Be sure to provide fields if it is possible that your data array will be empty.
+        //   console.error('json2csv error: ',err);
+        // }
         var d = new Date();
         var date = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate() + '-' + d.getHours() + ':' + d.getMinutes();
-        fs.writeFile('./backups/' + table + '/' + date + '-' + table + '.csv', csv, function(err) {
+        fs.writeFile('./backups/' + table + '/' + date + '-' + table + '.csv', function(err) {
           if (err) throw err;
         });
         res.sendStatus(200);
@@ -288,22 +328,22 @@ function table2json(table, fields, req, res){
   });
 }
 //function for protected routes KRQ
-function checkUserAuth(){
-  if(firebase.auth().currentUser){
-    firebase.auth().currentUser.getToken(true).then(function(idToken) {
-      firebase.auth().verifyIdToken(idToken).then(function(decodedToken) {
-        var uid = decodedToken.uid;
-        return {message: uid, success: true};
-      }).catch(function(error) {
-        return {message: error, success: false};
-      });
-    }).catch(function(error) {
-      return {message: error, success: false};
-    });
-  }else{
-    return {message: 'No user logged in', success: false};
-  }
-}
+// function checkUserAuth(){
+//   if(firebase.auth().currentUser){
+//     firebase.auth().currentUser.getToken(true).then(function(idToken) {
+//       firebase.auth().verifyIdToken(idToken).then(function(decodedToken) {
+//         var uid = decodedToken.uid;
+//         return {message: uid, success: true};
+//       }).catch(function(error) {
+//         return {message: error, success: false};
+//       });
+//     }).catch(function(error) {
+//       return {message: error, success: false};
+//     });
+//   }else{
+//     return {message: 'No user logged in', success: false};
+//   }
+// }
 
 pool.on('error', function (err, client) {
   // if an error is encountered by a client while it sits idle in the pool
