@@ -1,8 +1,12 @@
 <md-content layout-padding>
 
-<a href="/results/a/b">Text to click</a>
+
 
   <h2>Contact List</h2>
+  <div>
+  <a href="results/{{home.industrySelected.id}}"><md-button ng-click="home.selectedIndustry(home.industrySelected)">Get My Info</md-button></a>
+  </div>
+
     <md-divider></md-divider>
     <md-radio-group ng-model="home.industrySelected">
       <div ng-repeat="industry in home.industryList track by $index" class="row">
@@ -13,8 +17,7 @@
         </div>
       </div>
     </md-radio-group>
-    <div>
-  <a href="results/{{home.industrySelected.id}}"><md-button ng-click="home.selectedIndustry(home.industrySelected)">Get My Info</md-button></a>
-    </div>
+
+
 
 </md-content>
