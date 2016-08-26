@@ -1,3 +1,100 @@
-<md-content>
-<!-- stuff will go here -->
+<md-content ng-repeat="item in results.industryList track by $index">
+  <md-card>
+  <md-card-header>
+    <!-- <md-card-avatar>
+      <img class="md-user-avatar" src="avatar.png">
+    </md-card-avatar> -->
+    <md-card-header-text>
+      <span class="md-title">Contacts for Industry: {{item.industry}}</span>
+      <!-- <span class="md-subhead">{{item.industry}}</span> -->
+    </md-card-header-text>
+  </md-card-header>
+  <!-- <img ng-src="card-image.png" class="md-card-image" alt="image caption"> -->
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">{{item.first_name_1}} {{item.last_name_1}}</span>
+      <span class="md-subhead">{{item.email_1}}</span>
+    </md-card-title-text>
+  </md-card-title>
+  <md-card-actions layout="row" layout-align="start center">
+
+  <md-button><a href= "{{item.website_1}} ">{{item.website_1}}</a></a></md-button>
+    <md-card-icon-actions>
+      <md-button class="md-icon-button" aria-label="icon">
+        <md-icon md-svg-icon="icon"></md-icon>
+      </md-button>
+    </md-card-icon-actions>
+  </md-card-actions>
+  <md-card-content>
+    <p>
+    {{item.note_1}}
+    </p>
+  </md-card-content>
+</md-card>
+
+<md-card>
+  <md-card-header>
+    <!-- <md-card-avatar>
+      <img class="md-user-avatar" src="avatar.png">
+    </md-card-avatar> -->
+    <md-card-header-text>
+      <span class="md-title">Contact Card</span>
+      <span class="md-subhead">{{item.industry}}</span>
+    </md-card-header-text>
+  </md-card-header>
+  <!-- <img ng-src="card-image.png" class="md-card-image" alt="image caption"> -->
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">{{item.first_name_2}} {{item.last_name_2}}</span>
+      <span class="md-subhead">{{item.email_2}}</span>
+    </md-card-title-text>
+  </md-card-title>
+  <md-card-actions layout="row" layout-align="start center">
+
+    <md-button><a href = "{{item.website_2}}">{{item.website_2}}</a></md-button>
+    <md-card-icon-actions>
+      <md-button class="md-icon-button" aria-label="icon">
+        <md-icon md-svg-icon="icon"></md-icon>
+      </md-button>
+    </md-card-icon-actions>
+  </md-card-actions>
+  <md-card-content>
+    <p>
+    {{item.note_2}}
+    </p>
+  </md-card-content>
+</md-card>
+
+<md-card>
+  <md-card-header>
+    <!-- <md-card-avatar>
+      <img class="md-user-avatar" src="avatar.png">
+    </md-card-avatar> -->
+    <md-card-header-text>
+      <span class="md-title">Contact Card</span>
+      <span class="md-subhead">{{item.industry}}</span>
+    </md-card-header-text>
+  </md-card-header>
+  <!-- <img ng-src="card-image.png" class="md-card-image" alt="image caption"> -->
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">{{item.first_name_3}} {{item.last_name_3}}</span>
+      <span class="md-subhead">{{item.email_3}}</span>
+    </md-card-title-text>
+  </md-card-title>
+  <md-card-actions layout="row" layout-align="start center">
+
+    <md-button><a href="{{item.website_3}}">{{item.website_3}}</a></md-button>
+    <md-card-icon-actions>
+      <md-button class="md-icon-button" aria-label="icon">
+        <md-icon md-svg-icon="icon"></md-icon>
+      </md-button>
+    </md-card-icon-actions>
+  </md-card-actions>
+  <md-card-content>
+    <p>
+    {{item.note_3}}
+    </p>
+  </md-card-content>
+</md-card>
 </md-content>
