@@ -138,9 +138,9 @@ router.delete('/countries/delete', function(req, res){
 
 router.get('/industries', function(req, res){
   var query = 'SELECT industries.id,industry,industries.note_1,industries.note_2,industries.note_3, ' +
-              'contacts_1.first_name AS first_name_1,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1, ' +
-              'contacts_2.first_name AS first_name_2,contacts_2.last_name AS last_name_2,contacts_2.title AS title_2,contacts_2.organization AS organization_2,contacts_2.email AS email_2,contacts_2.phone AS phone_2, ' +
-              'contacts_3.first_name AS first_name_3,contacts_3.last_name AS last_name_3,contacts_3.title AS title_3,contacts_3.organization AS organization_3,contacts_3.email AS email_3,contacts_3.phone AS phone_3, ' +
+              'contacts_1.id AS contact_id_1,contacts_1.first_name AS first_name_1,contacts_1.last_name AS last_name_1,contacts_1.title AS title_1,contacts_1.organization AS organization_1,contacts_1.email AS email_1,contacts_1.phone AS phone_1, ' +
+              'contacts_2.id AS contact_id_2,contacts_2.first_name AS first_name_2,contacts_2.last_name AS last_name_2,contacts_2.title AS title_2,contacts_2.organization AS organization_2,contacts_2.email AS email_2,contacts_2.phone AS phone_2, ' +
+              'contacts_3.id AS contact_id_3,contacts_3.first_name AS first_name_3,contacts_3.last_name AS last_name_3,contacts_3.title AS title_3,contacts_3.organization AS organization_3,contacts_3.email AS email_3,contacts_3.phone AS phone_3, ' +
               'websites_1.website AS website_1, ' +
               'websites_2.website AS website_2, ' +
               'websites_3.website AS website_3 ' +
@@ -269,16 +269,16 @@ router.get('/topics/number_of_hits', function(req, res){
   queryDB(query, [], req, res);
 });
 
-// //route to test firebase authentication KRQ
-// router.get('/testUserAuth', function(req, res){
-//   var authenticated = checkUserAuth();
-//   console.log(authenticated);
-//   // if(authenticated.success){
-//   //   res.send('Authenticated: ' + authenticated.message);
-//   // } else {
-//   //   res.redirect('/');
-//   // }
-// });
+//route to test firebase authentication KRQ
+router.get('/testUserAuth', function(req, res){
+  var authenticated = checkUserAuth();
+  console.log(authenticated);
+  if(authenticated.success){
+    res.send('Authenticated: ' + authenticated.message);
+  } else {
+    res.send('Authenticated: ' + authenticated.message);
+  }
+});
 
 //route to test json2csv
 router.get('/testJson2Csv', function(req, res){
@@ -328,22 +328,9 @@ function table2csv(table, fields, req, res){
   });
 }
 //function for protected routes KRQ
-// function checkUserAuth(){
-//   if(firebase.auth().currentUser){
-//     firebase.auth().currentUser.getToken(true).then(function(idToken) {
-//       firebase.auth().verifyIdToken(idToken).then(function(decodedToken) {
-//         var uid = decodedToken.uid;
-//         return {message: uid, success: true};
-//       }).catch(function(error) {
-//         return {message: error, success: false};
-//       });
-//     }).catch(function(error) {
-//       return {message: error, success: false};
-//     });
-//   }else{
-//     return {message: 'No user logged in', success: false};
-//   }
-// }
+function checkUserAuth(){
+    //check firebase authentication
+}
 
 pool.on('error', function (err, client) {
   // if an error is encountered by a client while it sits idle in the pool
