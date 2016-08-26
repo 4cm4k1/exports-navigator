@@ -14,7 +14,7 @@
         })
 
         //  results view with $routeParams
-        .when('/results/:category/:searchTerm', {
+        .when('/results/:industry/:topic?', {
           controller: 'ResultsCtrl as results',
           templateUrl: 'views/results.html'
         })

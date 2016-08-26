@@ -1,11 +1,20 @@
 <md-content layout-padding>
-    <h2 class="md-headline">Welcome to Export Help Navigator!</h2>
-    <p>
-      We hope to help you find the resources you need to export your products across the world!
-    </p>
-</md-content>
 
-<ul ng-repeat = "industry in home.industryList track by $index">
-  <li> {{industry.industry}}</li>
-</ul>
 <a href="/results/a/b">Text to click</a>
+
+  <h2>Contact List</h2>
+    <md-divider></md-divider>
+    <md-radio-group ng-model="home.industrySelected">
+      <div ng-repeat="industry in home.industryList track by $index" class="row">
+        <div flex layout='row' layout-padding layout-align="start center" >
+          <md-radio-button flex
+              ng-value="industry"
+              class="md-primary">{{industry.industry}}</md-radio-button>
+        </div>
+      </div>
+    </md-radio-group>
+    <div>
+  <a href="results/{{home.industrySelected.id}}"><md-button ng-click="home.selectedIndustry(home.industrySelected)">Get My Info</md-button></a>
+    </div>
+
+</md-content>

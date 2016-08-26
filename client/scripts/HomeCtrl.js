@@ -20,11 +20,27 @@
                     function(response) {
                         console.log('error getting industry data', response);
                     });
-
             };
             vm.getIndustryData();
-          }
-        })();
+
+//below code is the function to keep track of WHICH industry was selected and SUBMITTED on the home page
+vm.selectedId = 2;
+vm.selectedIndustry = function(industrySelected) {
+  console.log('you chose this industry:', vm.industrySelected);
+  var thisIndustry = vm.industrySelected.industry;
+  return(thisIndustry);
+}
+
+
+
+
+
+
+
+
+  }// end home controller
+
+})();
 
 
     // $scope.prequalData = [{

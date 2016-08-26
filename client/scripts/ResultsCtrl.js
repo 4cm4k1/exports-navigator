@@ -7,8 +7,16 @@
 
     function ResultsCtrl($location, $routeParams, $http){
         var vm = this;
-        console.log('category:', $routeParams.category);
-        console.log('search term:', $routeParams.searchTerm);
+        console.log('industry:', $routeParams.industry);
+        console.log('topic (optional):', $routeParams.topic);
+
+
+
+        var index = $routeParams.industry;
+        index = parseInt(index);
+
+
+
 
 
         vm.getIndustryData = function() {
@@ -23,6 +31,22 @@
 
         };
         vm.getIndustryData();
+
+
+
+
+
+
+  // this code needs to go into the function that fires when someone chooses a topic
+
+
+        //
+        // $http.put('/db/topics/number_of_hits').then(function(response){
+        //         console.log('adding to your hits', response);
+        //     },
+        //     function(response) {
+        //         console.log('error adding to hits', response);
+        //     });
 
 
         //  $routeParams.category & $routeParams.searchTerm will be made
