@@ -4,19 +4,88 @@
     angular.module('exportsNavigator').factory('Data', ['$http', Data]);
 
     function Data($http){
-        //  This is the basic framework for our data factory
-        this.aTestOfSomethingGreat = function(){
-            return 'Yay!';
+      /*
+       *  START OF GET * CALLS
+       *  START OF PUBLIC
+       *
+       */
+
+        this.getAllIndustries = function() {
+            $http.get('/db/industries').then(function(response){
+                return response.data.rows;
+            })
+            .catch(function(error){
+                console.error('Error retrieving industries:', error);
+            });
         };
 
-        this.heresAnotherGreatThing = function(){
-            return 'Eureka!';
+        this.getAllTopics = function() {
+            $http.get('/db/topics').then(function(response){
+                return response.data.rows;
+            })
+            .catch(function(error){
+                console.error('Error retrieving topics:', error);
+            });
         };
 
-        //  Possibly group $http calls by /path ???
+        this.getAllCountries = function() {
+            $http.get('/db/countries').then(function(response){
+                return response.data.rows;
+            })
+            .catch(function(error){
+                console.error('Error retrieving countries:', error);
+            });
+        };
 
-        //  Return it all
+        /*
+         *  END OF PUBLIC
+         *  START OF PRIVATE (ADMIN)
+         *
+         */
 
+        this.getAllContacts = function() {
+            $http.get('/db/contacts').then(function(response){
+                return response.data.rows;
+            })
+            .catch(function(error){
+                console.error('Error retrieving contacts:', error);
+            });
+        };
+
+        this.getAllWebsites = function() {
+            $http.get('/db/websites').then(function(response){
+                return response.data.rows;
+            })
+            .catch(function(error){
+                console.error('Error retrieving websites:', error);
+            });
+        };
+
+        this.getAllUnmatched = function() {
+            $http.get('/db/unmatched').then(function(response){
+                return response.data.rows;
+            })
+            .catch(function(error){
+                console.error('Error retrieving unmatched:', error);
+            });
+        };
+
+        this.getAllTopicsNumberOfHits = function() {
+            $http.get('/db/topics/number_of_hits').then(function(response){
+                return response.data.rows;
+            })
+            .catch(function(error){
+                console.error('Error retrieving topics number of hits:', error);
+            });
+        };
+
+        /*
+         *  END OF PRIVATE (ADMIN)
+         *  END OF GET * CALLS
+         *
+         */
+
+        //  EXPORT FUNCTIONS
         return this;
     }
 
