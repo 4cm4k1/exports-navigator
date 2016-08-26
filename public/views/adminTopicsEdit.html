@@ -1,65 +1,79 @@
+<md-content layout-padding>
+
 <h1>Topic: <input type="text" ng-model="adminTopicsEdit.topic.topic" /></h1>
 
 <label for="note_1">Note 1: </label>
 <textarea ng-model="adminTopicsEdit.topic.note_1" ></textarea>
+
 <br />
+
 <label for="note_2">Note 2: </label>
 <textarea ng-model="adminTopicsEdit.topic.note_2" ></textarea>
+
 <br />
+
 <label for="note_3">Note 3: </label>
 <textarea ng-model="adminTopicsEdit.topic.note_3" ></textarea>
+
 <br />
 <br />
 
 <label for="website_1">Website 1: </label>
-<input type="text" ng-model="adminTopicsEdit.topic.website_1" />
+<!-- <select ng-options="site for site in adminTopicsEdit.websites"
+  ng-model="adminTopicsEdit.selectedWebsite1">
+</select>   -->
+
 <br />
+
 <label for="website_2">Website 2: </label>
-<input type="text" ng-model="adminTopicsEdit.topic.website_2" />
+<!-- <select ng-options="site for site in adminTopicsEdit.websites"
+  ng-model="adminTopicsEdit.selectedWebsite2">
+</select>  -->
+
 <br />
+
 <label for="website_3">Website 3: </label>
-<input type="text" ng-model="adminTopicsEdit.topic.website_3" />
+<!-- <select ng-options="site for site in adminTopicsEdit.websites"
+  ng-model="adminTopicsEdit.selectedWebsite3">
+</select>  -->
+
 <br />
 <br />
 
 <p>
-  Contact 1 is set to: {{adminTopicsEdit.topic.first_name_1}} {{adminTopicsEdit.topic.last_name_1}}
+  {{adminTopicsEdit.contact_1}}
 </p>
+
 <label for="contact_1">Change to: </label>
-<select ng-model="adminEditController.selectedContact">
-  <option> </option>
-  <option ng-repeat="contact in adminTopicsEdit.contacts track by $index"
-          ng-value="contact.id">
-          {{contact}}
-  </option>
+<select ng-options="contact.first_name + ' ' + contact.last_name for contact in
+  adminTopicsEdit.contacts" ng-model="adminTopicsEdit.selectedContact1.id">
 </select>
+
 <br />
 
 <p>
-  Contact 2 is set to: {{adminTopicsEdit.topic.first_name_2}} {{adminTopicsEdit.topic.last_name_2}}
+  {{adminTopicsEdit.contact_2}}
 </p>
-<!-- <label for="contact_2">Change to: </label> -->
-<!-- <select>
-  <option value="null"> </option>
-  <option ng-repeat="adminTopicsEdit.topic.last_name_2"
-          value="adminTopicsEdit.topic.last_name_2">
-          {{adminTopicsEdit.topic.first_name_2}} {{adminTopicsEdit.topic.last_name_2}}
-  </option>
-</select> -->
+
+<label for="contact_2">Change to: </label>
+<select ng-options="contact.first_name + ' ' + contact.last_name for contact in
+  adminTopicsEdit.contacts" ng-model="adminTopicsEdit.selectedContact2.id">
+</select>
+
 <br />
 
 
 <p>
-  Contact 3 is set to: {{adminTopicsEdit.topic.first_name_3}} {{adminTopicsEdit.topic.last_name_3}}
+  {{adminTopicsEdit.contact_3}}
 </p>
-<!-- <label for="contact_3">Change to: </label>
-<select>
-  <option value="null"> </option>
-  <option ng-repeat="adminTopicsEdit.topic.last_name_3"
-          value="adminTopicsEdit.topic.last_name_3">
-          {{adminTopicsEdit.topic.first_name_3}} {{adminTopicsEdit.topic.last_name_3}}
-  </option>
-</select> -->
+
+<label for="contact_3">Change to: </label>
+<select ng-options="contact.first_name + ' ' + contact.last_name for contact in
+  adminTopicsEdit.contacts" ng-model="adminTopicsEdit.selectedContact3.id">
+</select>
+
 <br />
 
 <button ng-click="adminTopicsEdit.update()">Update</button>
+
+</md-content>
