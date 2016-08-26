@@ -18,24 +18,36 @@
 <br />
 <br />
 
-<label for="website_1">Website 1: </label>
-<!-- <select ng-options="site for site in adminTopicsEdit.websites"
-  ng-model="adminTopicsEdit.selectedWebsite1">
-</select>   -->
+<p>
+  {{adminTopicsEdit.website_1}}
+</p>
+
+<label for="website_1">Change to: </label>
+<select ng-options="site.website for site in adminTopicsEdit.websites"
+  ng-model="adminTopicsEdit.selectedWebsite1.id">
+</select>
 
 <br />
+
+<p>
+  {{adminTopicsEdit.website_2}}
+</p>
 
 <label for="website_2">Website 2: </label>
-<!-- <select ng-options="site for site in adminTopicsEdit.websites"
-  ng-model="adminTopicsEdit.selectedWebsite2">
-</select>  -->
+<select ng-options="site.website for site in adminTopicsEdit.websites"
+  ng-model="adminTopicsEdit.selectedWebsite2.id">
+</select>
 
 <br />
 
+<p>
+  {{adminTopicsEdit.website_3}}
+</p>
+
 <label for="website_3">Website 3: </label>
-<!-- <select ng-options="site for site in adminTopicsEdit.websites"
-  ng-model="adminTopicsEdit.selectedWebsite3">
-</select>  -->
+<select ng-options="site.website for site in adminTopicsEdit.websites"
+  ng-model="adminTopicsEdit.selectedWebsite3.id">
+</select>
 
 <br />
 <br />
@@ -61,7 +73,6 @@
 </select>
 
 <br />
-
 
 <p>
   {{adminTopicsEdit.contact_3}}

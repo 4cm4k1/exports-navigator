@@ -50,21 +50,38 @@
       else {
         vm.contact_3 = 'Contact 3 is not stored';
       }
+
+      // to display websites on the page, only if they are stored
+      if (list[index].website_1 !== null) {
+        vm.website_1 = 'Website 1 is set to: ' + list[index].website_1;
+      } else {
+        vm.website_1 = 'Website 1 is not stored';
+      }
+      if (list[index].website_2 !== null) {
+        vm.website_2 = 'Website 2 is set to: ' + list[index].website_2;
+      } else {
+        vm.website_2 = 'Website 2 is not stored';
+      }
+      if (list[index].website_3 !== null) {
+        vm.website_3 = 'Website 3 is set to: ' + list[index].website_3;
+      } else {
+        vm.website_3 = 'Website 3 is not stored';
+      }
     });
 
 
-    // // to populate the website select elements with all websites in database
-    // $http.get('/db/websites').then(function(response) {
-    //
-    //   // add all of the information about a website as an object to an array
-    //   for (var i = o, i < response.data.rows.length; i++) {
-    //     websiteList.push(response.data.rows[i]);
-    //   }
-    //
-    //   // vm.websites can access the array of objects that is websiteList
-    //   vm.websites = websiteList;
-    //   console.log(websiteList);
-    // });
+    // to populate the website select elements with all websites in database
+    $http.get('/db/websites').then(function(response) {
+
+      // add all of the information about a website as an object to an array
+      for (var i = 0; i < response.data.rows.length; i++) {
+        websiteList.push(response.data.rows[i]);
+      }
+      
+      // vm.websites can access the array of objects that is websiteList
+      vm.websites = websiteList;
+      console.log(websiteList);
+    });
 
 
     // to populate the contact select elements with all contacts in database
@@ -79,7 +96,7 @@
       // vm.contacts can access the array of objects that is contactList
       vm.contacts = contactList;
     });
-    
+
 
     // when "Update" is clicked at the bottom of the page
     vm.update = function() {
