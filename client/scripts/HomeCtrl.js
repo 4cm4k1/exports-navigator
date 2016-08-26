@@ -28,7 +28,9 @@ vm.selectedId = 2;
 vm.selectedIndustry = function(industrySelected) {
   console.log('you chose this industry:', vm.industrySelected);
   var thisIndustry = vm.industrySelected.industry;
+
   return(thisIndustry);
+
 };
 
 

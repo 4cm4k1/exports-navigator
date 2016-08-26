@@ -155,6 +155,7 @@ router.get('/industries', function(req, res){
   queryDB(query, [], req, res);
 });
 
+
 router.post('/industries/create', function(req, res){
   var query = 'INSERT INTO industries' +
 '(industry, note_1, note_2, note_3, contact_1, contact_2, contact_3, website_1, website_2, website_3) VALUES' +

@@ -61,6 +61,9 @@
           resolve: {
             'currentAuth': ['Auth', function(Auth) {
               return Auth.$requireSignIn();
+            }],
+            'allTopics': ['Data', function(Data) {
+              return Data.getAllTopics();
             }]
           }
         })
