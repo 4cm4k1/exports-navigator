@@ -20,7 +20,8 @@
         };
 
         this.getAllTopics = function() {
-            $http.get('/db/topics').then(function(response){
+            $http.get('/db/topics')
+            .then(function(response){
                 return response.data.rows;
             })
             .catch(function(error){

@@ -3,20 +3,20 @@
 
   angular.module('exportsNavigator').controller('AdminTopicsEditController', AdminTopicsEditController);
 
-  AdminTopicsEditController.$inject = ['currentAuth', '$http', '$routeParams'];
+  AdminTopicsEditController.$inject = ['currentAuth', '$http', '$routeParams', 'Data'];
 
 
-  function AdminTopicsEditController(currentAuth, $http, $routeParams) {
+  function AdminTopicsEditController(currentAuth, $http, $routeParams, Data) {
     var vm = this;
 
-
+    // declare these here so they're available throughout the controller function
     var list = [];
     var contactList = [];
     var websiteList = [];
 
 
     $http.get('/db/topics').then(function(response) {
-
+    // Data.getAllTopics();
       for (var i = 0; i < response.data.rows.length; i++) {
         // pushes each row from the topics table into list array
         list.push(response.data.rows[i]);
@@ -51,6 +51,7 @@
         vm.contact_3 = 'Contact 3 is not stored';
       }
 
+
       // to display websites on the page, only if they are stored
       if (list[index].website_1 !== null) {
         vm.website_1 = 'Website 1 is set to: ' + list[index].website_1;
@@ -77,10 +78,10 @@
       for (var i = 0; i < response.data.rows.length; i++) {
         websiteList.push(response.data.rows[i]);
       }
-      
+
       // vm.websites can access the array of objects that is websiteList
       vm.websites = websiteList;
-      console.log(websiteList);
+      console.log('website list:', websiteList);
     });
 
 

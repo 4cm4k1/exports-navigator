@@ -3,11 +3,19 @@
 
   angular.module('exportsNavigator').controller('AdminIndustriesController', AdminIndustriesController);
 
-  AdminIndustriesController.$inject = ['currentAuth'];
+  AdminIndustriesController.$inject = ['currentAuth', 'Data'];
 
-  function AdminIndustriesController(currentAuth) {
+  function AdminIndustriesController(currentAuth, Data) {
     var vm = this;
 
-    vm.text = 'Industries';
+    var list = [];
+
+    // Data.getAllIndustries();
+
+    vm.list = list;
+
+    vm.add = function() {
+      console.log('Add clicked');
+    };
   }
 })();

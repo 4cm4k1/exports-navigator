@@ -1,3 +1,15 @@
 <md-content layout-padding>
-    <h1>{{adminIndustries.text}}</h1>
+
+    <h1>Industries</h1>
+
+    <p ng-repeat="item in adminIndustries.list track by $index">
+
+        {{item}}
+
+        <a href="admin/industries/{{adminIndustries.list.indexOf(item)}}">
+        <button>Update</button></a>
+    </p>
+
+    <button ng-click="adminIndustries.add()">Add an Industry</button>
+
 </md-content>

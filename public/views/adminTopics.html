@@ -1,17 +1,21 @@
-<h1>Topics</h1>
+<md-content layout-padding>
 
-<p ng-repeat="item in adminTopics.topicsList track by $index">
+    <h1>Topics</h1>
 
-    <a href="admin/topics/{{adminTopics.topicsList.indexOf(item)}}">
-    <button>Update</button></a>
+    <p ng-repeat="item in adminTopics.topicsList track by $index">
 
-    {{item.topic}}
+        {{item.topic}}
 
-</p>
+        <a href="admin/topics/{{adminTopics.topicsList.indexOf(item)}}">
+        <button>Update</button></a>
 
-<button ng-click="adminTopics.add()">Add a Topic</button>
+    </p>
 
-<br />
+    <button ng-click="adminTopics.add()">Add a Topic</button>
 
-<button ng-click="adminTopics.export()">Export Topics</button>
-<button ng-click="adminTopics.import()">Import Topics</button>
+    <br />
+
+    <button ng-click="adminTopics.export()">Export Topics</button>
+    <button ng-click="adminTopics.import()">Import Topics</button>
+
+</md-content>
