@@ -3,37 +3,21 @@
 
   angular.module('exportsNavigator').controller('AdminManagersController', AdminManagersController);
 
-  AdminManagersController.$inject = ['currentAuth'];
+  AdminManagersController.$inject = ['currentAuth', 'Data'];
 
-  function AdminManagersController(currentAuth) {
+  function AdminManagersController(currentAuth, Data) {
     var vm = this;
-
-    vm.list = ['this will be a', 'list of managers'];
-
-    vm.update = function(manager) {
-      console.log('Update clicked on manager', manager);
-    };
-
-    vm.remove = function(manager) {
-      console.log('Remove clicked on manager', manager);
-    };
-
-    vm.addManager = function() {
-
-      if (vm.password === vm.passwordConfirm) {
-
-        var username = vm.username;
-        var password = vm.password;
-
-        vm.noMatch = '';
-
-        console.log('Username:', username, 'Password:', password);
-
-      } else {
-
-        vm.noMatch = 'Passwords do not match';
-
-      }
+    vm.auth = currentAuth;
+    vm.newDisplayName = '';
+    vm.newEmail = '';
+    vm.newPassword = '';
+    vm.newPasswordConfirm = '';
+    vm.message = 'Test Message';
+    vm.updateUser = function(){
+      vm.message = '';
+      if(vm.newDisplayName.length > 0) vm.message = Data.updateDisplayName(vm.newDisplayName);
+      if(vm.newEmail.length > 0) vm.message = Data.updateUserEmail(vm.newEmail);
+      if(vm.newPassword.length > 0) vm.message = Data.updateUserPassword(vm.newPassword);
     };
   }
 })();

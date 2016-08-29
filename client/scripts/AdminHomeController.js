@@ -9,7 +9,6 @@
     var vm = this;
     vm.auth = currentAuth;
     vm.goToPath = function(path){
-      var path = path;
       $timeout(function() {
         $location.path(path);
       }, 250);

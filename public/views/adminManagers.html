@@ -1,26 +1,34 @@
-<h1>Managers</h1>
+<main layout-padding>
+  <md-toolbar layout="row" class="md-hue-1">
+      <div class="md-toolbar-tools">
+        <h1>Account Settings - {{adminManagers.auth.email}}</h1>
+      </div>
+  </md-toolbar>
+    <form>
+      <md-input-container class="md-icon-float md-block">
+        <label>Name</label>
+        <md-icon>person</md-icon>
+        <input ng-model="adminManagers.newDisplayName" placeholder="{{adminManagers.auth.displayName}}" type="text">
+      </md-input-container>
+      <md-input-container md-no-float class="md-block">
+        <label>Email</label>
+        <md-icon>email</md-icon>
+        <input ng-model="adminManagers.newEmail" placeholder="{{adminManagers.auth.email}}" type="text" >
+      </md-input-container>
+      <md-input-container md-no-float class="md-block">
+        <label>Password</label>
+        <md-icon>lock</md-icon>
+        <input ng-model="adminManagers.newPassword" placeholder="********" type="password" >
+      </md-input-container>
+      <!-- <md-input-container md-no-float class="md-block">
+        <label>Confirm Password</label>
+        <md-icon>lock_outline</md-icon>
+        <input ng-model="adminManagers.newPasswordConfirm" placeholder="********" type="password" >
+      </md-input-container> -->
+      <md-button class="md-raised md-primary" type="submit" ng-click="adminManagers.updateUser()">Update</md-button>
+      <md-input-container md-no-float class="md-block">
+        {{adminManagers.message}}
+      </md-input-container>
+    </form>
 
-<h2>Current Managers</h2>
-
-<p ng-repeat="manager in adminManagers.list track by $index">
-    {{manager}}
-    <button ng-click="adminManagers.update(manager)">Update</button>
-    <button ng-click="adminManagers.remove(manager)">Remove</button>
-</p>
-
-<h2>Add a Manager</h2>
-
-<label for="username">Username: </label>
-<input type="text" name="username" ng-model="adminManagers.username" />
-
-<label for="password">Password: </label>
-<input type="password" name="password" ng-model="adminManagers.password" />
-
-<label for="passwordConfirm">Confirm password: </label>
-<input type="password" name="passwordConfirm" ng-model="adminManagers.passwordConfirm" />
-
-<button ng-click="adminManagers.addManager()">Add</button>
-
-<br />
-
-<p>{{adminManagers.noMatch}}</p>
+</main>
