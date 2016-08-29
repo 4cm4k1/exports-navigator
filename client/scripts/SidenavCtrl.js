@@ -10,7 +10,7 @@
 
         vm.locations = [{
             path: '/admin',
-            name: 'Home',
+            name: 'Dashboard',
             icon: 'home'
         }, {
             path: '/admin/industries',
@@ -38,7 +38,7 @@
             icon: 'show_chart'
         }, {
             path: '/admin/managers',
-            name: 'Managers',
+            name: 'Account',
             icon: 'supervisor_account'
         }];
 

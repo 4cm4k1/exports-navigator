@@ -14,11 +14,6 @@
             vm.user = user;
         });
 
-        vm.signOut = function(){
-            vm.auth.$signOut();
-            $location.path('/');
-        };
-
         vm.showSignInModal = function(ev) {
             $mdDialog.show({
                     controller: 'AuthCtrl as auth',
