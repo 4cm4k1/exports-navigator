@@ -99,7 +99,7 @@
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
-                })
+                });
         };
 
         var createCountry = function(countryObject) {
@@ -112,7 +112,7 @@
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
-                })
+                });
         };
 
         var createIndustry = function(industryObject) {
@@ -126,7 +126,7 @@
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
-                })
+                });
         };
 
         var createTopic = function(topicObject) {
@@ -140,7 +140,7 @@
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
-                })
+                });
         };
 
         var createWebsite = function(websiteObject) {
@@ -153,7 +153,7 @@
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
-                })
+                });
         };
 
         var createUnmatchedTopic = function(unmatchedTopicObject) {
@@ -166,7 +166,7 @@
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
-                })
+                });
         };
 
         /*
@@ -208,7 +208,7 @@
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
-                })
+                });
         };
 
         var sendPasswordResetEmail = function(email) {
