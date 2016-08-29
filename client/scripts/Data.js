@@ -221,6 +221,18 @@
                 });
         };
 
+        var updateDisplayName = function(displayName) {
+          Auth.updateProfile({
+            displayName: displayName
+          })
+          .then(function(user) {
+              console.log('Display name has been set to', user.displayName, 'successfully!');
+          })
+          .catch(function(error){
+              console.error('Error:', error);
+          });
+        }
+
         //  FACTORY-EXPORTED FUNCTIONS AND OBJECTS
         return {
             //  SYNCHRONIZED DATA OBJECT
