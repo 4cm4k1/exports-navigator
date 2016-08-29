@@ -222,11 +222,11 @@
         };
 
         var updateDisplayName = function(displayName) {
-          Auth.updateProfile({
+          Auth.$getAuth().updateProfile({
             displayName: displayName
           })
-          .then(function(user) {
-              console.log('Display name has been set to', user.displayName, 'successfully!');
+          .then(function() {
+              console.log('Display name has been set to', displayName, 'successfully!');
           })
           .catch(function(error){
               console.error('Error:', error);
