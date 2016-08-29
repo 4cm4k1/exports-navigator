@@ -1,16 +1,16 @@
-(function(){
+(function() {
     'use strict';
 
     angular.module('exportsNavigator').controller('FooterCtrl', FooterCtrl);
 
     FooterCtrl.$inject = ['$mdDialog', 'Auth', '$location'];
 
-    function FooterCtrl($mdDialog, Auth, $location){
+    function FooterCtrl($mdDialog, Auth, $location) {
         var vm = this;
 
         vm.auth = Auth;
 
-        vm.auth.$onAuthStateChanged(function(user){
+        vm.auth.$onAuthStateChanged(function(user) {
             vm.user = user;
         });
 

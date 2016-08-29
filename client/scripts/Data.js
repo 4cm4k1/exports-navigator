@@ -1,15 +1,28 @@
 (function() {
     'use strict';
 
-    angular.module('exportsNavigator').factory('Data', ['$http', 'Auth', Data]);
+    angular.module('exportsNavigator').factory('Data', ['$http', 'Auth', '$mdToast', Data]);
 
-    function Data($http, Auth) {
+    function Data($http, Auth, $mdToast) {
 
         /*
          *  SYNCHRONIZED DATA OBJECT
          */
 
         var data = {};
+
+        /*
+         *  TOAST MAKER
+         */
+
+        var showToast = function(message) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position('top right')
+                    .hideDelay(3000)
+            );
+        };
 
         /*
          *  GET CALLS
@@ -176,7 +189,7 @@
         var createNewUser = function(email, password) {
             Auth.$createUserWithEmailAndPassword(email, password)
                 .then(function(user) {
-                    console.log('User', user.uid, 'created successfully!');
+                    showToast('User ' + user.uid + ' created successfully!');
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
@@ -186,7 +199,7 @@
         var updateUserPassword = function(newPassword) {
             Auth.$updatePassword(newPassword)
                 .then(function() {
-                    console.log('Password changed successfully!');
+                    showToast('Password changed successfully!');
                 }).catch(function(error) {
                     console.error('Error:', error);
                 });
@@ -195,7 +208,7 @@
         var updateUserEmail = function(newEmail) {
             Auth.$updateEmail(newEmail)
                 .then(function() {
-                    console.log('Email changed successfully!');
+                    showToast('Email changed to ' + newEmail + ' successfully!');
                 }).catch(function(error) {
                     console.error('Error:', error);
                 });
@@ -204,7 +217,7 @@
         var deleteUser = function() {
             Auth.$deleteUser()
                 .then(function() {
-                    console.log('User deleted successfully!');
+                    showToast('User deleted successfully!');
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
@@ -214,7 +227,7 @@
         var sendPasswordResetEmail = function(email) {
             Auth.$sendPasswordResetEmail(email)
                 .then(function() {
-                    console.log('Password reset email sent successfully!');
+                    showToast('Password reset email sent successfully!');
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
@@ -226,7 +239,7 @@
             displayName: displayName
           })
           .then(function() {
-              console.log('Display name has been set to', displayName, 'successfully!');
+              showToast('Display name has been set to ' + displayName + ' successfully!');
           })
           .catch(function(error){
               console.error('Error:', error);
@@ -237,6 +250,8 @@
         return {
             //  SYNCHRONIZED DATA OBJECT
             data: data,
+            //  TOAST MAKER
+            //  ...
             //  GET CALLS
             getIndustries: getIndustries,
             getTopics: getTopics,

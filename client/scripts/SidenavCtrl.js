@@ -66,7 +66,7 @@
         //     }
         // });
 
-        vm.signOut = function(){
+        vm.signOut = function() {
             vm.auth.$signOut();
             $location.path('/');
             vm.close();
