@@ -4,24 +4,30 @@
 
         angular.module('exportsNavigator').controller('HomeCtrl', HomeCtrl);
 
-        HomeCtrl.$inject = ['$http'];
+        HomeCtrl.$inject = ['$http', 'Data'];
 
-        function HomeCtrl($http) {
+        function HomeCtrl($http, Data) {
+
+
             var vm = this;
+            vm.data = Data.data;
 
-            var industryList = [];
+            // var industryList = [];
 
-            vm.getIndustryData = function() {
-                $http.get('/db/industries').then(function(response) {
-                        console.log('getting industries', response);
-                        vm.industryList = response.data.rows;
-                        return (vm.industryList);
-                    },
-                    function(response) {
-                        console.log('error getting industry data', response);
-                    });
-            };
-            vm.getIndustryData();
+
+            Data.getIndustries();
+
+            // vm.getIndustryData = function() {
+            //     $http.get('/db/industries').then(function(response) {
+            //             console.log('getting industries', response);
+            //             vm.industryList = response.data.rows;
+            //             return (vm.industryList);
+            //         },
+            //         function(response) {
+            //             console.log('error getting industry data', response);
+            //         });
+            // };
+            // vm.getIndustryData();
 
 //below code is the function to keep track of WHICH industry was selected and SUBMITTED on the home page
 vm.selectedId = 2;

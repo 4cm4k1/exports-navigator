@@ -9,7 +9,7 @@
 
     <md-divider></md-divider>
     <md-radio-group ng-model="home.industrySelected">
-      <div ng-repeat="industry in home.industryList track by $index" class="row">
+      <div ng-repeat="industry in home.data.industries track by $index" class="row">
         <div flex layout='row' layout-padding layout-align="start center" >
           <md-radio-button flex
               ng-value="industry"

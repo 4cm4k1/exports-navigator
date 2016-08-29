@@ -11,18 +11,20 @@
        *
        */
 
-      this.data = {};
+      // this.data = {};
 
+var data = {};
       /*
        *  START OF GET * CALLS
        *  START OF PUBLIC
        *
        */
 
-        this.getIndustries = function() {
+       var getIndustries = function() {
             $http.get('/db/industries')
               .then(function(response){
-                  this.data.industries = response.data.rows;
+                console.log('inside get call', response.data.rows);
+                  data.industries = response.data.rows;
               })
               .catch(function(error){
                   console.error('Error:', error);
@@ -259,7 +261,10 @@
         };
 
         //  EXPORT ALL METHODS AND PROPERTIES ATTACHED TO 'THIS'
-        return this;
+        return {
+          data: data,
+          getIndustries: getIndustries
+        };
     }
 
 })();

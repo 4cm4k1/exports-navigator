@@ -45,14 +45,14 @@
                 });
                   return (vm.topicList);
         };
-        // vm.getTopicList();
+        vm.getTopicList();
 
 
 
 //all code below is under construction and related to the search by topics autocomplete field
 //I am thinking it will be part of an ng-hide/ng-show
 //if someone selects "other industries", then the radio buttons will be hidden and this
-//"search by topics" field will appear. 
+//"search by topics" field will appear.
 
         vm.selectedItem = null;
         vm.searchText = null;
@@ -104,7 +104,6 @@
         //     });
 
 
-        //  $routeParams.category & $routeParams.searchTerm will be made
-        //  available to this controller
+
     }
 })();
