@@ -3,9 +3,9 @@
 
     angular.module('exportsNavigator').controller('AuthCtrl', AuthCtrl);
 
-    AuthCtrl.$inject = ['Auth', '$location', '$mdDialog'];
+    AuthCtrl.$inject = ['Auth', '$location', '$mdDialog', 'Data'];
 
-    function AuthCtrl(Auth, $location, $mdDialog) {
+    function AuthCtrl(Auth, $location, $mdDialog, Data) {
         var vm = this;
 
         //  This will redirect the user to the admin dashboard
@@ -35,6 +35,10 @@
                     console.error('Authentication failed:', error);
                     // toast to indicate failure goes here
                 });
+        };
+
+        vm.sendPasswordResetEmail = function() {
+            Data.sendPasswordResetEmail(vm.user.email);
         };
 
         vm.hide = function() {
