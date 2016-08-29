@@ -32,24 +32,28 @@
       <br />
 
       <p>
+          <!-- make sure this matches the selection before removing from html -->
           {{adminTopicsEdit.website_2}}
       </p>
 
       <label for="website_2">Website 2: </label>
-      <select ng-options="site.website for site in adminTopicsEdit.websites"
-        ng-model="adminTopicsEdit.selectedWebsite2.id">
-      </select>
+      <md-select ng-model="adminTopicsEdit.topic.website_2">
+          <md-option ng-repeat="site in adminTopicsEdit.websites"
+          value="{{site.website}}">{{site.website}}</md-option>
+      </md-select>
 
       <br />
 
       <p>
+          <!-- make sure this matches the selection before removing from html -->
           {{adminTopicsEdit.website_3}}
       </p>
 
       <label for="website_3">Website 3: </label>
-      <select ng-options="site.website for site in adminTopicsEdit.websites"
-        ng-model="adminTopicsEdit.selectedWebsite3.id">
-      </select>
+      <md-select ng-model="adminTopicsEdit.topic.website_3">
+          <md-option ng-repeat="site in adminTopicsEdit.websites"
+          value="{{site.website}}">{{site.website}}</md-option>
+      </md-select>
 
       <br />
       <br />
@@ -58,10 +62,12 @@
           {{adminTopicsEdit.contact_1}}
       </p>
 
-      <label for="contact_1">Change to: </label>
-      <select ng-options="contact.first_name + ' ' + contact.last_name for contact in
-        adminTopicsEdit.contacts" ng-model="adminTopicsEdit.selectedContact1.id">
-      </select>
+      <!-- <label for="contact_1">Contact 1: </label>
+      <md-select ng-model="contact.first_name + ' ' + contact.last_name for contact in
+        adminTopicsEdit.contacts">
+        <md-option ng-repeat="contact in adminTopicsEdit.contacts"
+        value="{{contact.first_name + ' ' + contact.last_name}}">
+      </select> -->
 
       <br />
 

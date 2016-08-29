@@ -43,7 +43,7 @@
           }
         })
 
-        // admin view on which industries are edited 
+        // admin view on which industries are edited
         .when('/admin/industries/:itemID', {
           controller: 'AdminIndustriesEditController as adminIndustriesEdit',
           templateUrl: 'views/adminIndustriesEdit.html',
@@ -61,9 +61,6 @@
           resolve: {
             'currentAuth': ['Auth', function(Auth) {
               return Auth.$requireSignIn();
-            }],
-            'allTopics': ['Data', function(Data) {
-              return Data.getAllTopics();
             }]
           }
         })

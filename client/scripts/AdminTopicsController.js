@@ -3,26 +3,19 @@
 
   angular.module('exportsNavigator').controller('AdminTopicsController', AdminTopicsController);
 
-  AdminTopicsController.$inject = ['currentAuth', '$http'];
+  AdminTopicsController.$inject = ['currentAuth', '$http', 'Data'];
 
-  function AdminTopicsController(currentAuth, $http) {
+  function AdminTopicsController(currentAuth, $http, Data) {
     var vm = this;
 
-    var list = [];
+    vm.data = Data.data;
 
-    $http.get('/db/topics').then(function(response) {
-
-      for (var i = 0; i < response.data.rows.length; i++) {
-        list.push(response.data.rows[i]);
-      }
-    });
-
-    vm.topicsList = list;
+    Data.getTopics();
 
     vm.add = function() {
       console.log('Add clicked');
 
-      // $http.post('/db/topics/create').then()
+      Data.getTopics();
     };
 
     vm.export = function() {
