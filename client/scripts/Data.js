@@ -1,9 +1,9 @@
 (function(){
     'use strict';
 
-    angular.module('exportsNavigator').factory('Data', ['$http', Data]);
+    angular.module('exportsNavigator').factory('Data', ['$http', '$firebaseAuth', Data]);
 
-    function Data($http){
+    function Data($http, $firebaseAuth){
 
       /*
        *  DATA OBJECT, TO WHICH THE BELOW FUNCTIONS WILL ADD KEYS FOR EACH SET
@@ -200,6 +200,62 @@
             .catch(function(error){
                 console.error('Error:', error);
             })
+        };
+
+        /*
+         *  START OF MANAGER CALLS (FIREBASE)
+         *  ADMIN ONLY
+         *
+         */
+
+        //  Non-ideal but probably what we have to do
+        //  All of these methods ONLY operate on the currently logged in user
+        this.createNewUser = function(email, password) {
+            Auth.$createUserWithEmailAndPassword(email, password)
+            .then(function(user){
+                console.log('User', user.uid, 'created successfully!');
+            })
+            .catch(function(error){
+                console.error('Error:', error);
+            });
+        };
+
+        this.updateUserPassword = function(authObject, newPassword) {
+          authObject.$updatePassword(newPassword)
+          .then(function() {
+              console.log('Password changed successfully!');
+          }).catch(function(error) {
+              console.error('Error:', error);
+          });
+        };
+
+        this.updateUserEmail = function(authObject, newEmail) {
+          authObject.$updateEmail(newEmail)
+          .then(function() {
+              console.log('Email changed successfully!');
+          }).catch(function(error) {
+              console.error('Error:', error);
+          });
+        };
+
+        this.deleteUser = function(authObject){
+            authObject.$deleteUser()
+            .then(function() {
+                console.log('User deleted successfully!');
+            })
+            .catch(function(error){
+                console.error('Error:', error);
+            })
+        };
+
+        this.sendPasswordResetEmail = function(authObject, email){
+            authObject.$sendPasswordResetEmail(email)
+            .then(function(){
+                console.log('Password reset email sent successfully!');
+            })
+            .catch(function(error){
+                console.error('Error:', error);
+            });
         };
 
         //  EXPORT ALL METHODS AND PROPERTIES ATTACHED TO 'THIS'
