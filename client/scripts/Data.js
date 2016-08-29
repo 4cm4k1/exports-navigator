@@ -1,10 +1,17 @@
 (function(){
     'use strict';
 
-    angular.module('exportsNavigator').factory('Data', ['$http', '$q', Data]);
+    angular.module('exportsNavigator').factory('Data', ['$http', Data]);
 
-    function Data($http, $q){
-      var deferred = $q.defer();
+    function Data($http){
+
+      /*
+       *  DATA OBJECT, TO WHICH THE BELOW FUNCTIONS WILL ADD KEYS FOR EACH SET
+       *  OF ROWS FROM THE DATABASE (EXPORTED)
+       *
+       */
+
+      this.data = {};
 
       /*
        *  START OF GET * CALLS
@@ -12,40 +19,40 @@
        *
        */
 
-        this.getAllIndustries = function() {
+        this.getIndustries = function() {
             $http.get('/db/industries')
               .then(function(response){
-                  deferred.resolve(response.data.rows);
+                  this.data.industries = response.data.rows;
               })
               .catch(function(error){
-                  deferred.reject(error);
+                  console.error('Error:', error);
               });
 
-              return deferred.promise;
+
         };
 
-        this.getAllTopics = function() {
+        this.getTopics = function() {
             $http.get('/db/topics')
             .then(function(response){
-                deferred.resolve(response.data.rows);
+                this.data.topics = response.data.rows;
             })
             .catch(function(error){
-                deferred.reject(error);
+                console.error('Error:', error);
             });
 
-            return deferred.promise;
+
         };
 
-        this.getAllCountries = function() {
+        this.getCountries = function() {
             $http.get('/db/countries')
             .then(function(response){
-                deferred.resolve(response.data.rows);
+                this.data.countries = response.data.rows;
             })
             .catch(function(error){
-                deferred.reject(error);
+                console.error('Error:', error);
             });
 
-            return deferred.promise;
+
         };
 
         /*
@@ -54,52 +61,52 @@
          *
          */
 
-        this.getAllContacts = function() {
+        this.getContacts = function() {
             $http.get('/db/contacts')
             .then(function(response){
-                deferred.resolve(response.data.rows);
+                this.data.contacts = response.data.rows;
             })
             .catch(function(error){
-                deferred.reject(error);
+                console.error('Error:', error);
             });
 
-            return deferred.promise;
+
         };
 
-        this.getAllWebsites = function() {
+        this.getWebsites = function() {
             $http.get('/db/websites')
             .then(function(response){
-                deferred.resolve(response.data.rows);
+                this.data.websites = response.data.rows;
             })
             .catch(function(error){
-                deferred.reject(error);
+                console.error('Error:', error);
             });
 
-            return deferred.promise;
+
         };
 
-        this.getAllUnmatched = function() {
+        this.getUnmatched = function() {
             $http.get('/db/unmatched')
             .then(function(response){
-                deferred.resolve(response.data.rows);
+                this.data.unmatched = response.data.rows;
             })
             .catch(function(error){
-                deferred.reject(error);
+                console.error('Error:', error);
             });
 
-            return deferred.promise;
+
         };
 
-        this.getAllTopicsNumberOfHits = function() {
+        this.getTopicsNumberOfHits = function() {
             $http.get('/db/topics/number_of_hits')
             .then(function(response){
-                deferred.resolve(response.data.rows);
+                this.data.topicsNumberOfHits = response.data.rows;
             })
             .catch(function(error){
-                deferred.reject(error);
+                console.error('Error:', error);
             });
 
-            return deferred.promise;
+
         };
 
         /*
@@ -108,7 +115,7 @@
          *
          */
 
-        //  EXPORT FUNCTIONS
+        //  EXPORT ALL METHODS AND PROPERTIES ATTACHED TO 'THIS'
         return this;
     }
 
