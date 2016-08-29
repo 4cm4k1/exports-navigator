@@ -231,7 +231,7 @@
           .catch(function(error){
               console.error('Error:', error);
           });
-        }
+        };
 
         //  FACTORY-EXPORTED FUNCTIONS AND OBJECTS
         return {
