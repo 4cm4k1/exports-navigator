@@ -259,7 +259,8 @@
             updateUserPassword: updateUserPassword,
             updateUserEmail: updateUserEmail,
             deleteUser: deleteUser,
-            sendPasswordResetEmail: sendPasswordResetEmail
+            sendPasswordResetEmail: sendPasswordResetEmail,
+            updateDisplayName: updateDisplayName
         };
     }
 
