@@ -20,22 +20,26 @@
     <base href="/" />
 </head>
 
-<body layout="column" layout-fill>
+<body layout="column" style="height:100%;">
     <!-- TOOLBAR HEADER -->
     <md-toolbar ng-include="'templates/toolbar.html'" ng-controller="ToolbarCtrl as toolbar" layout="row" layout-align="space-between stretch" md-scroll-shrink></md-toolbar>
 
     <!-- MAIN SECTION -->
-    <md-content layout="row" flex>
+    <div layout="row" flex style="height:100%;">
         <!-- PULL-OUT SIDENAV -->
         <nav ng-include="'templates/sidenav.html'" ng-controller="SidenavCtrl as sidenav"></nav>
 
-        <!-- NGROUTE VIEWS -->
-        <ng-view layout-fill></ng-view>
-    </md-content>
+        <div layout="column" layout-fill>
+
+          <!-- NGROUTE VIEWS -->
+          <md-content ng-view layout-fill></md-content>
+
+
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <footer ng-include="'templates/footer.html'" ng-controller="FooterCtrl as footer"></footer>
-
 </body>
 
 </html>

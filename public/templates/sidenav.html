@@ -1,8 +1,14 @@
 <md-sidenav class="md-sidenav-left" md-component-id="sidenav" md-whiteframe="4">
-    <md-toolbar class="">
-        <h2 class="md-toolbar-tools">Menu</h2>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2><span>Administrator Menu</span></h2>
+        <span flex></span>
+        <md-button aria-label="Close Sidenav Bar" ng-click="sidenav.close()">
+          <md-icon>close</md-icon>
+        </md-button>
+      </div>
     </md-toolbar>
-    <md-content layout-padding>
+    <md-subheader>Export Help Navigator</md-subheader>
         <md-list flex>
             <md-list-item ng-repeat="location in sidenav.locations" ng-click="sidenav.navigate(location.path)">
                     <md-icon>{{location.icon}}</md-icon>
@@ -13,5 +19,4 @@
                     <p>Sign Out</p>
             </md-list-item>
         </md-list>
-    </md-content>
 </md-sidenav>
