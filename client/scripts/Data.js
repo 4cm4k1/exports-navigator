@@ -108,7 +108,7 @@
             $http.post('/countries/create', countryObject)
                 .then(function(response) {
                     console.log('Successful POST to /countries/create');
-                    var getCountries();
+                    getCountries();
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
@@ -122,7 +122,7 @@
             $http.post('/industries/create', industryObject)
                 .then(function(response) {
                     console.log('Successful POST to /industries/create');
-                    var getIndustries();
+                    getIndustries();
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
@@ -136,7 +136,7 @@
             $http.post('/topics/create', topicObject)
                 .then(function(response) {
                     console.log('Successful POST to /topics/create');
-                    var getTopics();
+                    getTopics();
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
@@ -149,7 +149,7 @@
             $http.post('/websites/create', websiteObject)
                 .then(function(response) {
                     console.log('Successful POST to /websites/create');
-                    var getWebsites();
+                    getWebsites();
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
@@ -162,7 +162,7 @@
             $http.post('/unmatched/create', unmatchedTopicObject)
                 .then(function(response) {
                     console.log('Successful POST to /unmatched/create');
-                    var getWebsites();
+                    getWebsites();
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
