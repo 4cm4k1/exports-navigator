@@ -107,11 +107,13 @@
             //  first_name, last_name, title, organization, email, phone
             return $http.post('/db/contacts/create', contactObject)
                 .then(function(response) {
-                    console.log('Successful POST to /contacts/create');
+                    console.log('Successful POST to /db/contacts/create');
                     getContacts();
+                    showToast('New contact successfully added!');
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
+                    showToast('Sorry, adding a new contact failed. Please try again.\nError: ' + error);
                 });
         };
 
@@ -120,11 +122,13 @@
             //  contact_id, country
             return $http.post('/db/countries/create', countryObject)
                 .then(function(response) {
-                    console.log('Successful POST to /countries/create');
+                    console.log('Successful POST to /db/countries/create');
                     getCountries();
+                    showToast('New country successfully added!');
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
+                    showToast('Sorry, adding a new country failed. Please try again.\nError: ' + error);
                 });
         };
 
@@ -134,11 +138,13 @@
             //  contact_3, website_1, website_2, website_3
             return $http.post('/db/industries/create', industryObject)
                 .then(function(response) {
-                    console.log('Successful POST to /industries/create');
+                    console.log('Successful POST to /db/industries/create');
                     getIndustries();
+                    showToast('New industry successfully added!');
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
+                    showToast('Sorry, adding a new industry failed. Please try again.\nError: ' + error);
                 });
         };
 
@@ -148,11 +154,13 @@
             //  contact_3, website_1, website_2, website_3
             return $http.post('/db/topics/create', topicObject)
                 .then(function(response) {
-                    console.log('Successful POST to /topics/create');
+                    console.log('Successful POST to /db/topics/create');
                     getTopics();
+                    showToast('New topic successfully added!');
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
+                    showToast('Sorry, adding a new topic failed. Please try again.\nError: ' + error);
                 });
         };
 
@@ -161,11 +169,13 @@
             //  website
             return $http.post('/db/websites/create', websiteObject)
                 .then(function(response) {
-                    console.log('Successful POST to /websites/create');
+                    console.log('Successful POST to /db/websites/create');
                     getWebsites();
+                    showToast('New website successfully added!');
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
+                    showToast('Sorry, adding a new website failed. Please try again.\nError: ' + error);
                 });
         };
 
@@ -174,12 +184,104 @@
             //  unmatched_topic
             return $http.post('/db/unmatched/create', unmatchedTopicObject)
                 .then(function(response) {
-                    console.log('Successful POST to /unmatched/create');
+                    console.log('Successful POST to /db/unmatched/create');
                     getWebsites();
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
                 });
+        };
+
+        /*
+         *  PUT CALLS
+         */
+
+        var updateContact = function(contactObject){
+          //  contactObject has:
+          //  id, first_name, last_name, title, organization, email, phone
+          return $http.put('/db/contacts/update', contactObject)
+              .then(function(response) {
+                  console.log('Successful PUT to /db/contacts/update');
+                  getContacts();
+                  showToast('Contact successfully updated!');
+              })
+              .catch(function(error) {
+                  console.error('Error:', error);
+                  showToast('Sorry, updating the contact failed. Please try again.\nError: ' + error);
+              });
+        };
+
+        var updateCountry = function(countryObject){
+          //  countryObject has:
+          //  id, contact_id, country
+          return $http.put('/db/countries/update', countryObject)
+              .then(function(response) {
+                  console.log('Successful PUT to /db/countries/update');
+                  getCountries();
+                  showToast('Country successfully updated!');
+              })
+              .catch(function(error) {
+                  console.error('Error:', error);
+                  showToast('Sorry, updating the country failed. Please try again.\nError: ' + error);
+              });
+        };
+
+        var updateIndustry = function(industryObject){
+          //  industryObject has:
+          //  id, industry, note_1, note_2, note_3, contact_1, contact_2, contact_3, website_1, website_2, website_3
+          return $http.put('/db/industries/update', industryObject)
+              .then(function(response) {
+                  console.log('Successful PUT to /db/industries/update');
+                  getIndustries();
+                  showToast('Industry successfully updated!');
+              })
+              .catch(function(error) {
+                  console.error('Error:', error);
+                  showToast('Sorry, updating the industry failed. Please try again.\nError: ' + error);
+              });
+        };
+
+        var updateTopic = function(topicObject){
+          //  topicObject has:
+          //  id, topic, note_1, note_2, note_3, contact_1, contact_2, contact_3, website_1, website_2, website_3
+          return $http.put('/db/topics/update', topicObject)
+              .then(function(response) {
+                  console.log('Successful PUT to /db/topics/update');
+                  getTopics();
+                  showToast('Topic successfully updated!');
+              })
+              .catch(function(error) {
+                  console.error('Error:', error);
+                  showToast('Sorry, updating the topic failed. Please try again.\nError: ' + error);
+              });
+        };
+
+        var updateTopicNumberOfHits = function(topicIdObject){
+          //  topicIdObject has:
+          //  id
+          return $http.put('/db/topics/update/number_of_hits', topicIdObject)
+              .then(function(response) {
+                  console.log('Successful PUT to /db/topics/update/number_of_hits');
+                  getTopicsNumberOfHits();
+              })
+              .catch(function(error) {
+                  console.error('Error:', error);
+              });
+        };
+
+        var updateWebsite = function(websiteObject){
+          //  websiteObject has:
+          //  id, website
+          return $http.put('/db/websites/update', websiteObject)
+              .then(function(response) {
+                  console.log('Successful PUT to /db/websites/update');
+                  getWebsites();
+                  showToast('Website successfully updated!');
+              })
+              .catch(function(error) {
+                  console.error('Error:', error);
+                  showToast('Sorry, updating the website failed. Please try again.\nError: ' + error);
+              });
         };
 
         /*
