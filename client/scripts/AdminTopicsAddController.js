@@ -8,6 +8,7 @@
   function AdminTopicsAddController(currentAuth, Data) {
     var vm = this;
 
+    // use the data factory
     vm.data = Data.data;
 
     vm.add = function() {
