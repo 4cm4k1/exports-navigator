@@ -9,8 +9,8 @@
         var vm = this;
         vm.data = Data.data;
 
-        console.log('industry:', $routeParams.industry);
-        console.log('topic (optional):', $routeParams.topic);
+        // console.log('industry:', $routeParams.industry);
+        // console.log('topic (optional):', $routeParams.topic);
         vm.industry = $routeParams.industry;
         vm.topic = $routeParams.topic;
 
@@ -28,7 +28,7 @@
             indId = parseInt(indId);
             console.log('industries', indId);
             $http.get('/db/industries').then(function(response) {
-                    console.log('getting industries', response.data);
+                    // console.log('getting industries', response.data);
                     vm.industryList = response.data.rows;
                     return (vm.industryList);
                 },
@@ -46,9 +46,9 @@
             // topicId = parseInt(topicId);
             // console.log('topics', topicId);
             $http.get('/db/topics').then(function(response) {
-                    console.log('getting topics', response.data);
+                    // console.log('getting topics', response.data);
                     vm.topicList = response.data.rows;
-                    console.log('topicList', vm.topicList);
+                    // console.log('topicList', vm.topicList);
                     return (vm.topicList);
                 },
                 function(response) {
@@ -63,10 +63,11 @@
         vm.selectedTopic = null;
         vm.displaySelectedTopic = function() {
 
-            vm.hasMatch = vm.checkHasMatch();
+            // vm.hasMatch = vm.checkHasMatch();
+            vm.checkHasMatch();
             console.log('hasMatch?', vm.hasMatch);
             console.log('displaying selected topic', vm.selectedTopic);
-            return (vm.selectedTopic);
+            // return (vm.selectedTopic);
 
         };
 
@@ -75,11 +76,15 @@
         vm.checkHasMatch = function() {
             for (var i = 0; i < vm.topicList.length; i++) {
                 if (vm.topicList[i].topic == vm.selectedTopic) {
-                    console.log('found a match in topicList', vm.selectedTopic, vm.topicList[i]);
+                    console.log('vm.checkHasMatch found a match in topicList', vm.selectedTopic, vm.topicList[i]);
                     vm.item = vm.topicList[i];
-                    return true;
+                    vm.hasMatch = true;
+                    vm.noMatch = false;
+                    break;
+                    // return true;
                 } else {
-                    console.log('did NOT find a match in topicList', vm.selectedTopic, vm.topicList[i].topic);
+                    console.log('vm.checkHasMatch did NOT find a match in topicList', vm.selectedTopic, vm.topicList[i].topic);
+                    vm.hasMatch=false;
                     vm.noMatch = true;
                 }
             }
