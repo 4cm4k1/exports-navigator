@@ -185,7 +185,7 @@
             return $http.post('/db/unmatched/create', unmatchedTopicObject)
                 .then(function(response) {
                     console.log('Successful POST to /db/unmatched/create');
-                    getWebsites();
+                    getUnmatched();
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
@@ -285,6 +285,85 @@
         };
 
         /*
+         *  DELETE CALLS
+         */
+
+        var deleteContact = function(contactIdObject){
+          //  contactIdObject has:
+          //  id
+          return $http.delete('/db/contacts/delete', contactIdObject)
+              .then(function(response) {
+                  console.log('Successful DELETE to /db/contacts/delete');
+                  getContacts();
+                  showToast('Contact successfully deleted!');
+              })
+              .catch(function(error) {
+                  console.error('Error:', error);
+                  showToast('Sorry, deleting the contact failed. Please try again.\nError: ' + error);
+              });
+        };
+
+        var deleteCountry = function(countryIdObject){
+          //  countryIdObject has:
+          //  id
+          return $http.delete('/db/countries/delete', countryIdObject)
+              .then(function(response) {
+                  console.log('Successful DELETE to /db/countries/delete');
+                  getCountries();
+                  showToast('Country successfully deleted!');
+              })
+              .catch(function(error) {
+                  console.error('Error:', error);
+                  showToast('Sorry, deleting the country failed. Please try again.\nError: ' + error);
+              });
+        };
+
+        var deleteIndustry = function(industryIdObject){
+          //  industryIdObject has:
+          //  id
+          return $http.delete('/db/industries/delete', industryIdObject)
+              .then(function(response) {
+                  console.log('Successful DELETE to /db/industries/delete');
+                  getIndustries();
+                  showToast('Industry successfully deleted!');
+              })
+              .catch(function(error) {
+                  console.error('Error:', error);
+                  showToast('Sorry, deleting the industry failed. Please try again.\nError: ' + error);
+              });
+        };
+
+        var deleteTopic = function(topicIdObject){
+          //  topicIdObject has:
+          //  id
+          return $http.delete('/db/topics/delete', topicIdObject)
+              .then(function(response) {
+                  console.log('Successful DELETE to /db/topics/delete');
+                  getTopics();
+                  showToast('Topic successfully deleted!');
+              })
+              .catch(function(error) {
+                  console.error('Error:', error);
+                  showToast('Sorry, deleting the topic failed. Please try again.\nError: ' + error);
+              });
+        };
+
+        var deleteWebsite = function(websiteIdObject){
+          //  websiteIdObject has:
+          //  id
+          return $http.delete('/db/websites/delete', websiteIdObject)
+              .then(function(response) {
+                  console.log('Successful DELETE to /db/websites/delete');
+                  getWebsites();
+                  showToast('Website successfully deleted!');
+              })
+              .catch(function(error) {
+                  console.error('Error:', error);
+                  showToast('Sorry, deleting the website failed. Please try again.\nError: ' + error);
+              });
+        };
+
+        /*
          *  FIREBASE CALLS
          */
 
@@ -363,21 +442,39 @@
             getUnmatched: getUnmatched,
             getTopicsNumberOfHits: getTopicsNumberOfHits,
             //  POST CALLS
+            //  ALL EXCEPT createUnmatchedTopic() CALL
+            //  showToast() WITH RELEVANT MESSAGE FOR USER;
+            //  ALL ALSO CALL getDataTypeHere() ON SUCCESS
             createCountry: createCountry,
             createTopic: createTopic,
             createContact: createContact,
             createIndustry: createIndustry,
             createWebsite: createWebsite,
             createUnmatchedTopic: createUnmatchedTopic,
-            //  PUT CALLS (COMING SOON!)
-
-            //  DELETE CALLS (COMING SOON!)
-
+            //  PUT CALLS
+            //  ALL EXCEPT updateTopicNumberOfHits() CALL
+            //  showToast() WITH RELEVANT MESSAGE FOR USER;
+            //  ALL ALSO CALL getDataTypeHere() ON SUCCESS
+            updateContact: updateContact,
+            updateCountry: updateCountry,
+            updateIndustry: updateIndustry,
+            updateTopic: updateTopic,
+            updateTopicNumberOfHits: updateTopicNumberOfHits,
+            updateWebsite: updateWebsite,
+            //  DELETE CALLS
+            //  ALL CALL showToast() WITH RELEVANT MESSAGE FOR USER;
+            //  ALL ALSO CALL getDataTypeHere() ON SUCCESS
+            deleteContact: deleteContact,
+            deleteCountry: deleteCountry,
+            deleteIndustry: deleteIndustry,
+            deleteTopic: deleteTopic,
+            deleteWebsite: deleteWebsite,
             //  FIREBASE CALLS
-            createNewUser: createNewUser,
+            //  ALL CALL showToast() WITH RELEVANT MESSAGE FOR USER
+            createNewUser: createNewUser, //  PROBABLY WON'T BE USED
             updateUserPassword: updateUserPassword,
             updateUserEmail: updateUserEmail,
-            deleteUser: deleteUser,
+            deleteUser: deleteUser, //  PROBABLY WON'T BE USED
             sendPasswordResetEmail: sendPasswordResetEmail,
             updateDisplayName: updateDisplayName
         };
