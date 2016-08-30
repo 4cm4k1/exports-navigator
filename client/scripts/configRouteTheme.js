@@ -85,19 +85,20 @@
 
         // admin view of adding a topic
         .when('admin/topics/add', {
-          controller: 'AdminTopicsAddController as adminTopicsAdd',
-          templateUrl: 'views/adminTopicsAdd.html',
-          resolve: {
-            'currentAuth': ['Auth', function(Auth) {
-              return Auth.$requireSignIn();
-            }],
-            'data': ['Data', function(Data) {
-              return Promise.all([
-                Data.getWebsites(),
-                Data.getContacts()
-              ]);
-            }]
-          }
+            controller: 'AdminTopicsAddController as adminTopicsAdd',
+            templateUrl: 'views/adminTopicsAdd.html',
+            resolve: {
+                'currentAuth': ['Auth', function(Auth) {
+                    return Auth.$requireSignIn();
+                }],
+                'data': ['Data', function(Data) {
+                    return Promise.all([
+                        Data.getWebsites(),
+                        Data.getContacts()
+                    ]);
+                }]
+            }
+        })
 
         // admin view of all countries
         .when('/admin/countries', {
