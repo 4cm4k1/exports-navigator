@@ -29,7 +29,7 @@
          */
 
         var getIndustries = function() {
-            $http.get('/db/industries')
+            return $http.get('/db/industries')
                 .then(function(response) {
                     data.industries = response.data.rows;
                 })
@@ -39,7 +39,7 @@
         };
 
         var getTopics = function() {
-            $http.get('/db/topics')
+            return $http.get('/db/topics')
                 .then(function(response) {
                     data.topics = response.data.rows;
                 })
@@ -49,7 +49,7 @@
         };
 
         var getCountries = function() {
-            $http.get('/db/countries')
+            return $http.get('/db/countries')
                 .then(function(response) {
                     data.countries = response.data.rows;
                 })
@@ -59,7 +59,7 @@
         };
 
         var getContacts = function() {
-            $http.get('/db/contacts')
+            return $http.get('/db/contacts')
                 .then(function(response) {
                     data.contacts = response.data.rows;
                 })
@@ -69,7 +69,7 @@
         };
 
         var getWebsites = function() {
-            $http.get('/db/websites')
+            return $http.get('/db/websites')
                 .then(function(response) {
                     data.websites = response.data.rows;
                 })
@@ -79,7 +79,7 @@
         };
 
         var getUnmatched = function() {
-            $http.get('/db/unmatched')
+            return $http.get('/db/unmatched')
                 .then(function(response) {
                     data.unmatched = response.data.rows;
                 })
@@ -89,7 +89,7 @@
         };
 
         var getTopicsNumberOfHits = function() {
-            $http.get('/db/topics/number_of_hits')
+            return $http.get('/db/topics/number_of_hits')
                 .then(function(response) {
                     data.topicsNumberOfHits = response.data.rows;
                 })
@@ -105,7 +105,7 @@
         var createContact = function(contactObject) {
             //  contactObject has:
             //  first_name, last_name, title, organization, email, phone
-            $http.post('/contacts/create', contactObject)
+            return $http.post('/contacts/create', contactObject)
                 .then(function(response) {
                     console.log('Successful POST to /contacts/create');
                     getContacts();
@@ -118,7 +118,7 @@
         var createCountry = function(countryObject) {
             //  countryObject has:
             //  contact_id, country
-            $http.post('/countries/create', countryObject)
+            return $http.post('/countries/create', countryObject)
                 .then(function(response) {
                     console.log('Successful POST to /countries/create');
                     getCountries();
@@ -132,7 +132,7 @@
             //  industryObject has:
             //  industry, note_1, note_2, note_3, contact_1, contact_2,
             //  contact_3, website_1, website_2, website_3
-            $http.post('/industries/create', industryObject)
+            return $http.post('/industries/create', industryObject)
                 .then(function(response) {
                     console.log('Successful POST to /industries/create');
                     getIndustries();
@@ -146,7 +146,7 @@
             //  topicObject has:
             //  topic, note_1, note_2, note_3, contact_1, contact_2,
             //  contact_3, website_1, website_2, website_3
-            $http.post('/topics/create', topicObject)
+            return $http.post('/topics/create', topicObject)
                 .then(function(response) {
                     console.log('Successful POST to /topics/create');
                     getTopics();
@@ -159,7 +159,7 @@
         var createWebsite = function(websiteObject) {
             //  websiteObject has:
             //  website
-            $http.post('/websites/create', websiteObject)
+            return $http.post('/websites/create', websiteObject)
                 .then(function(response) {
                     console.log('Successful POST to /websites/create');
                     getWebsites();
@@ -172,7 +172,7 @@
         var createUnmatchedTopic = function(unmatchedTopicObject) {
             //  unmatchedTopicObject has:
             //  unmatched_topic
-            $http.post('/unmatched/create', unmatchedTopicObject)
+            return $http.post('/unmatched/create', unmatchedTopicObject)
                 .then(function(response) {
                     console.log('Successful POST to /unmatched/create');
                     getWebsites();
@@ -187,7 +187,7 @@
          */
 
         var createNewUser = function(email, password) {
-            Auth.$createUserWithEmailAndPassword(email, password)
+            return Auth.$createUserWithEmailAndPassword(email, password)
                 .then(function(user) {
                     showToast('User ' + user.uid + ' created successfully!');
                 })
@@ -197,7 +197,7 @@
         };
 
         var updateUserPassword = function(newPassword) {
-            Auth.$updatePassword(newPassword)
+            return Auth.$updatePassword(newPassword)
                 .then(function() {
                     showToast('Password changed successfully!');
                 }).catch(function(error) {
@@ -206,7 +206,7 @@
         };
 
         var updateUserEmail = function(newEmail) {
-            Auth.$updateEmail(newEmail)
+            return Auth.$updateEmail(newEmail)
                 .then(function() {
                     showToast('Email changed to ' + newEmail + ' successfully!');
                 }).catch(function(error) {
@@ -215,7 +215,7 @@
         };
 
         var deleteUser = function() {
-            Auth.$deleteUser()
+            return Auth.$deleteUser()
                 .then(function() {
                     showToast('User deleted successfully!');
                 })
@@ -225,7 +225,7 @@
         };
 
         var sendPasswordResetEmail = function(email) {
-            Auth.$sendPasswordResetEmail(email)
+            return Auth.$sendPasswordResetEmail(email)
                 .then(function() {
                     showToast('Password reset email sent successfully!');
                 })
@@ -235,7 +235,7 @@
         };
 
         var updateDisplayName = function(displayName) {
-          Auth.$getAuth().updateProfile({
+          return Auth.$getAuth().updateProfile({
             displayName: displayName
           })
           .then(function() {

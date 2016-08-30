@@ -10,9 +10,9 @@
 
     // use the data factory
     vm.data = Data.data;
-    Data.getTopics();
-    Data.getWebsites();
-    Data.getContacts();
+    // Data.getTopics();
+    // Data.getWebsites();
+    // Data.getContacts();
 
     // the url dictates on which topic "Update" was clicked
     vm.topicId = parseInt($routeParams.itemID);

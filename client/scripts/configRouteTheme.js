@@ -72,6 +72,13 @@
           resolve: {
             'currentAuth': ['Auth', function(Auth) {
               return Auth.$requireSignIn();
+            }],
+            'data': ['Data', function(Data) {
+              return Promise.all([
+                Data.getTopics(),
+                Data.getContacts(),
+                Data.getWebsites()
+              ]);
             }]
           }
         })
