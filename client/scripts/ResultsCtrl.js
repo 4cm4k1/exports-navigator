@@ -58,31 +58,32 @@
         };
         vm.getTopicList();
 
-
-
+        vm.noMatch = false;
+        vm.hasMatch = false;
         vm.selectedTopic = null;
-        vm.displaySelectedTopic = function(selectedTopic) {
+        vm.displaySelectedTopic = function() {
 
-            // var topicId = $routeParams.topic;
-            // topicId = parseInt(topicId);
-
-            // vm.hasMatch = checkHasMatch();
-            // console.log('topics', topicId);
-            console.log('displaying selected topic', selectedTopic);
+            vm.hasMatch = vm.checkHasMatch();
+            console.log('hasMatch?', vm.hasMatch);
+            console.log('displaying selected topic', vm.selectedTopic);
             return (vm.selectedTopic);
 
         };
 
 
-        // checkHasMatch = function(selectedTopic, topicList) {
-        //     for (var i = 0; i < topicList.length; i++) {
-        //         if (topicList[i].topic = vm.selectedTopic) {
-        //             return true;
-        //         } else {
-        //             return false;
-        //         }
-        //     }
-        // };
+        vm.item = undefined;
+        vm.checkHasMatch = function() {
+            for (var i = 0; i < vm.topicList.length; i++) {
+                if (vm.topicList[i].topic == vm.selectedTopic) {
+                    console.log('found a match in topicList', vm.selectedTopic, vm.topicList[i]);
+                    vm.item = vm.topicList[i];
+                    return true;
+                } else {
+                    console.log('did NOT find a match in topicList', vm.selectedTopic, vm.topicList[i].topic);
+                    vm.noMatch = true;
+                }
+            }
+        };
 
         Data.getCountries();
 
