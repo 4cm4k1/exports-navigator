@@ -8,9 +8,17 @@
   function AdminIndustriesEditController(currentAuth, $http, $routeParams, Data) {
     var vm = this;
 
-    // declared here so they're available throughout the controller function
-    var list = [];
+    // use data factory
+    vm.data = Data.data;
+    Data.getIndustries();
+    Data.getWebsites();
+    Data.getContacts();
 
-    
+    vm.industryId = parseInt($routeParams.itemID);
+
+    vm.update = function() {
+      console.log('Update clicked');
+    };
+
   }
 })();

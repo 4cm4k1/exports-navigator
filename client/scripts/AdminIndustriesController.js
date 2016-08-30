@@ -8,11 +8,9 @@
   function AdminIndustriesController(currentAuth, Data) {
     var vm = this;
 
-    var list = [];
+    vm.data = Data.data;
 
-    // Data.getAllIndustries();
-
-    vm.list = list;
+    Data.getIndustries();
 
     vm.add = function() {
       console.log('Add clicked');

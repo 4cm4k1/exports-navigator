@@ -1,65 +1,46 @@
 //client/scripts/HomeCtrl.js User Landing View Controller
 (function() {
-        'use strict';
+    'use strict';
 
-        angular.module('exportsNavigator').controller('HomeCtrl', HomeCtrl);
+    angular.module('exportsNavigator').controller('HomeCtrl', HomeCtrl);
 
-        HomeCtrl.$inject = ['$http', 'Data'];
+    HomeCtrl.$inject = ['$http', 'Data'];
 
-        function HomeCtrl($http, Data) {
-
-
-            var vm = this;
-            vm.data = Data.data;
-
-            // var industryList = [];
+    function HomeCtrl($http, Data) {
 
 
-            Data.getIndustries();
+        var vm = this;
+        vm.data = Data.data;
 
-            // vm.getIndustryData = function() {
-            //     $http.get('/db/industries').then(function(response) {
-            //             console.log('getting industries', response);
-            //             vm.industryList = response.data.rows;
-            //             return (vm.industryList);
-            //         },
-            //         function(response) {
-            //             console.log('error getting industry data', response);
-            //         });
-            // };
-            // vm.getIndustryData();
+        Data.getIndustries();
 
-//below code is the function to keep track of WHICH industry was selected and SUBMITTED on the home page
-vm.selectedId = 2;
-vm.selectedIndustry = function(industrySelected) {
-  console.log('you chose this industry:', vm.industrySelected);
-  var thisIndustry = vm.industrySelected.industry;
+        //below code is the function to keep track of WHICH industry was selected and SUBMITTED on the home page
+        vm.selectedId = 2;
+        vm.selectedIndustry = function(industrySelected) {
+            console.log('you chose this industry:', vm.industrySelected);
+            var thisIndustry = vm.industrySelected.industry;
 
-  return(thisIndustry);
+            return (thisIndustry);
 
-};
+        };
 
 
 
 
-
-
-
-
-  }// end home controller
+    } // end home controller
 
 })();
 
 
-    // $scope.prequalData = [{
-    //     label: 'Food-Aggribusiness',
-    //     value: 'Food-Aggribusiness'
-    // }, {
-    //     label: 'Medical Device, Pharma & Life Sciences',
-    //     value: 'Medical Device, Pharma & Life Sciences'
-    // }, {
-    //     label: 'Other',
-    //     value: 'Other',
-    //     /*isDisabled: true*/
-    // }, ];
-    // $scope.group = 'Food-Aggribusiness';
+// $scope.prequalData = [{
+//     label: 'Food-Aggribusiness',
+//     value: 'Food-Aggribusiness'
+// }, {
+//     label: 'Medical Device, Pharma & Life Sciences',
+//     value: 'Medical Device, Pharma & Life Sciences'
+// }, {
+//     label: 'Other',
+//     value: 'Other',
+//     /*isDisabled: true*/
+// }, ];
+// $scope.group = 'Food-Aggribusiness';

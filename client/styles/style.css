@@ -1,6 +1,9 @@
 /*  Some CSS lives here */
-center{
+.center{
   text-align: center;
+}
+.floatRight{
+  float: right;
 }
 .tileIcon{
   width:10vw;
