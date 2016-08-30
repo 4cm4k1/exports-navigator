@@ -1,95 +1,84 @@
 <md-content layout-padding>
 
-    <h1>Topic: <input type="text" ng-model="adminTopicsEdit.topic.topic" /></h1>
+    <h1>Topic: <input type="text" ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].topic" /></h1>
 
       <label for="note_1">Note 1: </label>
-      <textarea ng-model="adminTopicsEdit.topic.note_1" ></textarea>
+      <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_1" ></textarea>
 
       <br />
 
       <label for="note_2">Note 2: </label>
-      <textarea ng-model="adminTopicsEdit.topic.note_2" ></textarea>
+      <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_2" ></textarea>
 
       <br />
 
       <label for="note_3">Note 3: </label>
-      <textarea ng-model="adminTopicsEdit.topic.note_3" ></textarea>
+      <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_3" ></textarea>
 
       <br />
       <br />
 
-      <p>
-          <!-- make sure this matches the selection before removing from html -->
-          {{adminTopicsEdit.website_1}}
-      </p>
 
       <label for="website_1">Website 1: </label>
-      <md-select ng-model="adminTopicsEdit.topic.website_1">
-          <md-option ng-repeat="site in adminTopicsEdit.websites"
+      <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].website_1">
+          <md-option ng-repeat="site in adminTopicsEdit.data.websites"
           value="{{site.website}}">{{site.website}}</md-option>
       </md-select>
 
       <br />
 
-      <p>
-          <!-- make sure this matches the selection before removing from html -->
-          {{adminTopicsEdit.website_2}}
-      </p>
 
       <label for="website_2">Website 2: </label>
-      <md-select ng-model="adminTopicsEdit.topic.website_2">
-          <md-option ng-repeat="site in adminTopicsEdit.websites"
+      <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].website_2">
+          <md-option ng-repeat="site in adminTopicsEdit.data.websites"
           value="{{site.website}}">{{site.website}}</md-option>
       </md-select>
 
       <br />
 
-      <p>
-          <!-- make sure this matches the selection before removing from html -->
-          {{adminTopicsEdit.website_3}}
-      </p>
 
       <label for="website_3">Website 3: </label>
-      <md-select ng-model="adminTopicsEdit.topic.website_3">
-          <md-option ng-repeat="site in adminTopicsEdit.websites"
+      <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].website_3">
+          <md-option ng-repeat="site in adminTopicsEdit.data.websites"
           value="{{site.website}}">{{site.website}}</md-option>
       </md-select>
 
       <br />
       <br />
 
-      <p>
-          {{adminTopicsEdit.contact_1}}
-      </p>
-
-      <!-- <label for="contact_1">Contact 1: </label>
-      <md-select ng-model="contact.first_name + ' ' + contact.last_name for contact in
-        adminTopicsEdit.contacts">
-        <md-option ng-repeat="contact in adminTopicsEdit.contacts"
-        value="{{contact.first_name + ' ' + contact.last_name}}">
-      </select> -->
-
-      <br />
-
-      <p>
-          {{adminTopicsEdit.contact_2}}
-      </p>
-
-      <label for="contact_2">Change to: </label>
-      <select ng-options="contact.first_name + ' ' + contact.last_name for contact in
-        adminTopicsEdit.contacts" ng-model="adminTopicsEdit.selectedContact2.id">
-      </select>
+      <label for="contact_1">Contact 1: </label>
+      <md-select ng-model="adminTopicsEdit.contact1">
+          <md-option
+              ng-repeat="contact in adminTopicsEdit.data.contacts"
+              ng-value="contact"
+              ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_1">
+              {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+          </md-option>
+      </md-select>
 
       <br />
 
-      <p>
-          {{adminTopicsEdit.contact_3}}
-      </p>
+      <label for="contact_2">Contact 2: </label>
+      <md-select ng-model="adminTopicsEdit.contact2">
+        <md-option
+          ng-repeat="contact in adminTopicsEdit.data.contacts"
+          ng-value="contact"
+          ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_2">
+          {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+        </md-option>
+      </md-select>
 
-      <label for="contact_3">Change to: </label>
-      <select ng-options="contact.first_name + ' ' + contact.last_name for contact in
-        adminTopicsEdit.contacts" ng-model="adminTopicsEdit.selectedContact3.id">
-      </select>
+      <br />
+
+      <label for="contact_3">Contact 3: </label>
+      <md-select ng-model="adminTopicsEdit.contact3">
+        <md-option
+          ng-repeat="contact in adminTopicsEdit.data.contacts"
+          ng-value="contact"
+          ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_3">
+          {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+        </md-option>
+      </md-select>
 
       <br />
 
