@@ -9,7 +9,6 @@
     var vm = this;
 
     vm.data = Data.data;
-
     Data.getIndustries();
 
     vm.add = function() {

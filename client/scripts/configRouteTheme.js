@@ -76,6 +76,17 @@
           }
         })
 
+        // admin view of adding a topic
+        .when('admin/topics/add', {
+          controller: 'AdminTopicsAddController as adminTopicsAdd',
+          templateUrl: 'views/adminTopicsAdd.html',
+          resolve: {
+            'currentAuth': ['Auth', function(Auth) {
+              return Auth.$requireSignIn();
+            }]
+          }
+        })
+
         // admin view of all countries
         .when('/admin/countries', {
           controller: 'AdminCountriesController as adminCountries',

@@ -52,7 +52,7 @@
     createGreeting();
     function createGreeting(){
       if(vm.auth.displayName){
-        vm.greetingName = vm.auth.displayName
+        vm.greetingName = vm.auth.displayName;
       }else{
         vm.greetingName = 'User';
       }
