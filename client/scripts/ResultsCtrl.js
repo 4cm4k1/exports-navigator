@@ -47,9 +47,9 @@
           if(vm.industry != 7){
             vm.isOther = false;
           } else {
-            vm.isOther = true
+            vm.isOther = true;
           }
-        };
+        }
 
         //get data for an industry
         function getIndustryData() {
@@ -63,7 +63,7 @@
                 function(response) {
                     console.log('error getting industry data', response.data);
                 });
-        };
+        }
 
         //this is to get the list of Topics which should display only when someone has selected "other industries"
         function getTopicList() {
@@ -78,7 +78,7 @@
                 function(response) {
                     console.log('error getting topic data', response.data);
                 });
-        };
+        }
         //check if the search topic matches
         function checkHasMatch() {
             for (var i = 0; i < vm.topicList.length; i++) {
@@ -95,7 +95,7 @@
                     vm.noMatch = true;
                 }
             }
-        };
+        }
 
     }
 })();
