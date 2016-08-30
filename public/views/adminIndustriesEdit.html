@@ -1,0 +1,84 @@
+<md-content layout-padding>
+
+    <h1>Topic: <input type="text" ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].industry" /></h1>
+
+    <label for="note_1">Note 1: </label>
+    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].note_1"></textarea>
+
+    <br/>
+
+    <label for="note_2">Note 2: </label>
+    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].note_2"></textarea>
+
+    <br/>
+
+    <label for="note_3">Note 3: </label>
+    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].note_3"></textarea>
+
+    <br/>
+    <br/>
+
+    <label for="website_1">Website 1: </label>
+    <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].website_1">
+      <md-option ng-repeat="site in adminIndustriesEdit.data.websites"
+      value="{{site.website}}">{{site.website}}</md-option>
+    </md-select>
+
+    <br/>
+
+    <label for="website_2">Website 2: </label>
+    <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].website_2">
+      <md-option ng-repeat="site in adminIndustriesEdit.data.websites"
+      value="{{site.website}}">{{site.website}}</md-option>
+    </md-select>
+
+    <br/>
+
+    <label for="website_3">Website 3: </label>
+    <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].website_3">
+      <md-option ng-repeat="site in adminIndustriesEdit.data.websites"
+      value="{{site.website}}">{{site.website}}</md-option>
+    </md-select>
+
+    <br/>
+    <br/>
+
+    <label for="contact_1">Contact 1: </label>
+    <md-select ng-model="adminIndustriesEdit.contact1">
+      <md-option
+        ng-repeat="contact in adminIndustriesEdit.data.contacts"
+        ng-value="contact"
+        ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.industryId})[0].contact_id_1">
+        {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+      </md-option>
+    </md-select>
+
+    <br/>
+
+    <label for="contact_2">Contact 2: </label>
+    <md-select ng-model="adminIndustriesEdit.contact2">
+      <md-option
+        ng-repeat="contact in adminIndustriesEdit.data.contacts"
+        ng-value="contact"
+        ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.industryId})[0].contact_id_2">
+        {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+      </md-option>
+    </md-select>
+
+    <br/>
+
+    <label for="contact_3">Contact 3: </label>
+    <md-select ng-model="adminIndustriesEdit.contact3">
+      <md-option
+        ng-repeat="contact in adminIndustriesEdit.data.contacts"
+        ng-value="contact"
+        ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.industryId})[0].contact_id_3">
+        {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+      </md-option>
+    </md-select>
+
+    <br/>
+
+    <button ng-click="adminIndustriesEdit.update()">Update</button>
+    
+</md-content>
