@@ -1,1 +1,26 @@
-<h1>Countries</h1>
+<main layout-padding>
+  <md-toolbar layout="row" class="md-hue-1">
+      <div class="md-toolbar-tools">
+        <h1>Countries</h1>
+      </div>
+  </md-toolbar>
+  <md-list flex>
+    <md-subheader class="md-no-sticky">
+      <md-button class="md-raised md-primary">
+          <md-icon>add</md-icon>
+          Add
+      </md-button>
+      <md-input-container class="floatRight">
+        <label>Search</label>
+        <input ng-model="adminCountries.search">
+      </md-input-container>
+    </md-subheader>
+    <md-list-item class="md-3-line" ng-repeat="country in adminCountries.data.countries | filter: adminCountries.search" ng-click="null">
+      <div class="md-list-item-text" layout="column">
+        <h3>{{country.country}}</h3>
+        <h4>{{country.first_name}} {{country.last_name}}</h4>
+        <p>{{country.title}} - {{country.organization}}</p>
+      </div>
+    </md-list-item>
+  </md-list>
+</main>
