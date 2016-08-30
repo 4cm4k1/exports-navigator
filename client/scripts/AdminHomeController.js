@@ -45,8 +45,8 @@
         name: 'Reports',
         icon: 'show_chart'
     }, {
-        path: '/admin/managers',
-        name: 'Managers',
+        path: '/admin/account',
+        name: 'Account',
         icon: 'supervisor_account'
     }];
     createGreeting();

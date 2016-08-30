@@ -1,34 +1,31 @@
 <main layout-padding>
   <md-toolbar layout="row" class="md-hue-1">
       <div class="md-toolbar-tools">
-        <h1>Account Settings - {{adminManagers.auth.email}}</h1>
+        <h1>Account Settings - {{adminAccount.auth.email}}</h1>
       </div>
   </md-toolbar>
     <form>
       <md-input-container class="md-icon-float md-block">
         <label>Name</label>
         <md-icon>person</md-icon>
-        <input ng-model="adminManagers.newDisplayName" placeholder="{{adminManagers.auth.displayName}}" type="text">
+        <input ng-model="adminAccount.newDisplayName" placeholder="{{adminAccount.auth.displayName}}" type="text">
       </md-input-container>
       <md-input-container md-no-float class="md-block">
         <label>Email</label>
         <md-icon>email</md-icon>
-        <input ng-model="adminManagers.newEmail" placeholder="{{adminManagers.auth.email}}" type="text" >
+        <input ng-model="adminAccount.newEmail" placeholder="{{adminAccount.auth.email}}" type="text" >
       </md-input-container>
       <md-input-container md-no-float class="md-block">
         <label>Password</label>
         <md-icon>lock</md-icon>
-        <input ng-model="adminManagers.newPassword" placeholder="********" type="password" >
+        <input ng-model="adminAccount.newPassword" placeholder="********" type="password" >
       </md-input-container>
       <!-- <md-input-container md-no-float class="md-block">
         <label>Confirm Password</label>
         <md-icon>lock_outline</md-icon>
-        <input ng-model="adminManagers.newPasswordConfirm" placeholder="********" type="password" >
+        <input ng-model="adminAccount.newPasswordConfirm" placeholder="********" type="password" >
       </md-input-container> -->
-      <md-button class="md-raised md-primary" type="submit" ng-click="adminManagers.updateUser()">Update</md-button>
-      <md-input-container md-no-float class="md-block">
-        {{adminManagers.message}}
-      </md-input-container>
+      <md-button class="md-raised md-primary" type="submit" ng-click="adminAccount.updateUser()">Update</md-button>
     </form>
 
 </main>

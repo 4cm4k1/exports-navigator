@@ -37,7 +37,7 @@
             name: 'Reports',
             icon: 'show_chart'
         }, {
-            path: '/admin/managers',
+            path: '/admin/account',
             name: 'Account',
             icon: 'supervisor_account'
         }];

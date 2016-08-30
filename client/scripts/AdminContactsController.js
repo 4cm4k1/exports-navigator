@@ -3,11 +3,11 @@
 
   angular.module('exportsNavigator').controller('AdminContactsController', AdminContactsController);
 
-  AdminContactsController.$inject = ['currentAuth'];
+  AdminContactsController.$inject = ['currentAuth', 'Data'];
 
-  function AdminContactsController(currentAuth) {
+  function AdminContactsController(currentAuth, Data) {
     var vm = this;
-
-    vm.text = 'Contacts';
+    vm.data = Data.data;
+    Data.getContacts();
   }
 })();

@@ -3,11 +3,11 @@
 
   angular.module('exportsNavigator').controller('AdminWebsitesController', AdminWebsitesController);
 
-  AdminWebsitesController.$inject = ['currentAuth'];
+  AdminWebsitesController.$inject = ['currentAuth', 'Data'];
 
-  function AdminWebsitesController(currentAuth) {
+  function AdminWebsitesController(currentAuth, Data) {
     var vm = this;
-
-    vm.text = 'Websites';
+    vm.data = Data.data;
+    Data.getWebsites();
   }
 })();

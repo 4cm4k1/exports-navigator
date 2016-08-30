@@ -1,11 +1,11 @@
 (function() {
   'use strict';
 
-  angular.module('exportsNavigator').controller('AdminManagersController', AdminManagersController);
+  angular.module('exportsNavigator').controller('AdminAccountController', AdminAccountController);
 
-  AdminManagersController.$inject = ['currentAuth', 'Data'];
+  AdminAccountController.$inject = ['currentAuth', 'Data'];
 
-  function AdminManagersController(currentAuth, Data) {
+  function AdminAccountController(currentAuth, Data) {
     var vm = this;
     vm.auth = currentAuth;
     vm.newDisplayName = '';

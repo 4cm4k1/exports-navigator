@@ -1,1 +1,24 @@
-<h1>{{adminWebsites.text}}</h1>
+<main layout-padding>
+  <md-toolbar layout="row" class="md-hue-1">
+      <div class="md-toolbar-tools">
+        <h1>Websites</h1>
+      </div>
+  </md-toolbar>
+  <md-list flex>
+    <md-subheader class="md-no-sticky">
+      <md-button class="md-raised md-primary">
+          <md-icon>add</md-icon>
+          Add
+      </md-button>
+      <md-input-container class="floatRight">
+        <label>Search</label>
+        <input ng-model="adminWebsites.search">
+      </md-input-container>
+    </md-subheader>
+    <md-list-item class="md-3-line" ng-repeat="website in adminWebsites.data.websites | filter: adminWebsites.search" ng-click="null">
+      <div class="md-list-item-text" layout="column">
+        <h3>{{ website.website }}</h3>
+      </div>
+    </md-list-item>
+  </md-list>
+</main>

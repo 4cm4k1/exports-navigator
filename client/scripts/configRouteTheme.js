@@ -132,9 +132,9 @@
         })
 
         // admin view, where admin can add, edit, or delete managers
-        .when('/admin/managers', {
-          controller: 'AdminManagersController as adminManagers',
-          templateUrl: 'views/adminManagers.html',
+        .when('/admin/account', {
+          controller: 'AdminAccountController as adminAccount',
+          templateUrl: 'views/adminAccount.html',
           resolve: {
             'currentAuth': ['Auth', function(Auth) {
               return Auth.$requireSignIn();
