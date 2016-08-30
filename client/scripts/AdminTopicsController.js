@@ -12,12 +12,6 @@
 
     Data.getTopics();
 
-    vm.add = function() {
-      console.log('Add clicked');
-
-      Data.getTopics();
-    };
-
     vm.export = function() {
       console.log('Export clicked');
     };
