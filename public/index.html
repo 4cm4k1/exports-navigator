@@ -26,17 +26,12 @@
     <md-toolbar ng-include="'templates/toolbar.html'" ng-controller="ToolbarCtrl as toolbar" layout="row" layout-align="space-between stretch" md-scroll-shrink></md-toolbar>
 
     <!-- MAIN SECTION -->
-    <div layout="row" flex style="height:100%;">
+    <div layout="row" style="height:100%;">
         <!-- PULL-OUT SIDENAV -->
         <nav ng-include="'templates/sidenav.html'" ng-controller="SidenavCtrl as sidenav"></nav>
 
-        <div layout="column" layout-fill>
-
-          <!-- NGROUTE VIEWS -->
-          <md-content ng-view layout-fill></md-content>
-
-
-        </div>
+        <!-- NGROUTE VIEWS -->
+        <md-content layout="column" ng-view layout-fill flex></md-content>
     </div>
 
     <!-- FOOTER -->

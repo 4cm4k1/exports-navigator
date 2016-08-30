@@ -1,39 +1,49 @@
-<h1>Reports</h1>
+<md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Reports">
+            <md-icon>show_chart</md-icon>
+        </md-button>
+        <h2>
+          <span>Reports</span>
+        </h2>
+    </div>
+</md-toolbar>
 
 
 <!-- <button ng-click="adminReports.getUserData()">Get Reports</button> -->
+<md-content layout-padding>
+    <md-button class="md-primary md-raised" ng-click="adminReports.printPage()">Print Reports</md-button>
 
-<button ng-click="adminReports.printPage()">Print Reports</button>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Topic id</th>
+                <th>Topic</th>
+                <th>Number Of Hits</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="topic in adminReports.topicsList track by $index">
+            <tr>
+                <td>{{topic.id}}</td>
+                <td>{{topic.topic}}</td>
+                <td>{{topic.number_of_hits}}</td>
+            </tr>
+        </tbody>
+    </table>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>Topic id</th>
-            <th>Topic</th>
-            <th>Number Of Hits</th>
-        </tr>
-    </thead>
-    <tbody ng-repeat="topic in adminReports.topicsList track by $index">
-        <tr>
-            <td>{{topic.id}}</td>
-            <td>{{topic.topic}}</td>
-            <td>{{topic.number_of_hits}}</td>
-        </tr>
-    </tbody>
-</table>
-
- <h1> Unmatched Topics Table</h1>
-<table border="1">
-    <thead>
-        <tr>
-            <th>Unmatched Topic id</th>
-            <th>Unmatched Topic</th>
-        </tr>
-    </thead>
-    <tbody ng-repeat="topic in adminReports.unmatchedList track by $index">
-        <tr>
-            <td>{{topic.id}}</td>
-            <td>{{topic.unmatched_topic}}</td>
-        </tr>
-    </tbody>
-</table>
+    <h1> Unmatched Topics Table</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Unmatched Topic id</th>
+                <th>Unmatched Topic</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="topic in adminReports.unmatchedList track by $index">
+            <tr>
+                <td>{{topic.id}}</td>
+                <td>{{topic.unmatched_topic}}</td>
+            </tr>
+        </tbody>
+    </table>
+</md-content>
