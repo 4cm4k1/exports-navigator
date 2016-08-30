@@ -105,7 +105,7 @@
         var createContact = function(contactObject) {
             //  contactObject has:
             //  first_name, last_name, title, organization, email, phone
-            return $http.post('/contacts/create', contactObject)
+            return $http.post('/db/contacts/create', contactObject)
                 .then(function(response) {
                     console.log('Successful POST to /contacts/create');
                     getContacts();
@@ -118,7 +118,7 @@
         var createCountry = function(countryObject) {
             //  countryObject has:
             //  contact_id, country
-            return $http.post('/countries/create', countryObject)
+            return $http.post('/db/countries/create', countryObject)
                 .then(function(response) {
                     console.log('Successful POST to /countries/create');
                     getCountries();
@@ -132,7 +132,7 @@
             //  industryObject has:
             //  industry, note_1, note_2, note_3, contact_1, contact_2,
             //  contact_3, website_1, website_2, website_3
-            return $http.post('/industries/create', industryObject)
+            return $http.post('/db/industries/create', industryObject)
                 .then(function(response) {
                     console.log('Successful POST to /industries/create');
                     getIndustries();
@@ -146,7 +146,7 @@
             //  topicObject has:
             //  topic, note_1, note_2, note_3, contact_1, contact_2,
             //  contact_3, website_1, website_2, website_3
-            return $http.post('/topics/create', topicObject)
+            return $http.post('/db/topics/create', topicObject)
                 .then(function(response) {
                     console.log('Successful POST to /topics/create');
                     getTopics();
@@ -159,7 +159,7 @@
         var createWebsite = function(websiteObject) {
             //  websiteObject has:
             //  website
-            return $http.post('/websites/create', websiteObject)
+            return $http.post('/db/websites/create', websiteObject)
                 .then(function(response) {
                     console.log('Successful POST to /websites/create');
                     getWebsites();
@@ -172,7 +172,7 @@
         var createUnmatchedTopic = function(unmatchedTopicObject) {
             //  unmatchedTopicObject has:
             //  unmatched_topic
-            return $http.post('/unmatched/create', unmatchedTopicObject)
+            return $http.post('/db/unmatched/create', unmatchedTopicObject)
                 .then(function(response) {
                     console.log('Successful POST to /unmatched/create');
                     getWebsites();
@@ -251,7 +251,7 @@
             //  SYNCHRONIZED DATA OBJECT
             data: data,
             //  TOAST MAKER
-            //  ...
+            showToast: showToast,
             //  GET CALLS
             getIndustries: getIndustries,
             getTopics: getTopics,
@@ -268,7 +268,9 @@
             createWebsite: createWebsite,
             createUnmatchedTopic: createUnmatchedTopic,
             //  PUT CALLS (COMING SOON!)
+
             //  DELETE CALLS (COMING SOON!)
+
             //  FIREBASE CALLS
             createNewUser: createNewUser,
             updateUserPassword: updateUserPassword,
