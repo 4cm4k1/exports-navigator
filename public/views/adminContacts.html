@@ -1,9 +1,14 @@
-<main layout-padding>
-  <md-toolbar layout="row" class="md-hue-1">
-      <div class="md-toolbar-tools">
-        <h1>Contacts</h1>
-      </div>
-  </md-toolbar>
+<md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Reports">
+            <md-icon>contacts</md-icon>
+        </md-button>
+        <h2>
+          <span>Contacts</span>
+        </h2>
+    </div>
+</md-toolbar>
+<md-content layout-padding>
   <md-list flex>
     <md-subheader class="md-no-sticky">
       <md-button class="md-raised md-primary">
@@ -23,4 +28,4 @@
       </div>
     </md-list-item>
   </md-list>
-</main>
+</md-content>
