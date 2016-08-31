@@ -1,3 +1,24 @@
+<md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
+  <div class="md-toolbar-tools">
+
+    <md-button class="md-icon-button" aria-label="Industries">
+      <md-icon>business</md-icon>
+    </md-button>
+
+    <h2>
+      <span>Industries</span>
+    </h2>
+
+    <span flex></span>
+
+    <md-button ng-click="adminIndustriesEdit.update()" class="md-raised md-warn md-hue-2" aria-label="Update this industry">
+      <md-icon>update</md-icon>
+      Update
+    </md-button>
+
+  </div>
+</md-toolbar>
+
 <md-content layout-padding>
 
     <h1>Topic: <input type="text" ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].industry" /></h1>
@@ -79,6 +100,4 @@
 
     <br/>
 
-    <button ng-click="adminIndustriesEdit.update()">Update</button>
-    
 </md-content>
