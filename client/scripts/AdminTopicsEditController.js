@@ -3,9 +3,9 @@
 
   angular.module('exportsNavigator').controller('AdminTopicsEditController', AdminTopicsEditController);
 
-  AdminTopicsEditController.$inject = ['currentAuth', '$http', '$routeParams', 'Data'];
+  AdminTopicsEditController.$inject = ['currentAuth', '$http', '$routeParams', 'Data', '$location'];
 
-  function AdminTopicsEditController(currentAuth, $http, $routeParams, Data) {
+  function AdminTopicsEditController(currentAuth, $http, $routeParams, Data, $location) {
     var vm = this;
 
     // use the data factory
@@ -17,5 +17,13 @@
     vm.update = function() {
       console.log('Update clicked');
     };
+
+    vm.delete = function() {
+
+      // gives the user a chance to confirm deletion 
+      if (confirm("Are you sure you want to delete this topic?")) {
+        $location.url('/admin/topics');
+      }
+    }
   }
 })();

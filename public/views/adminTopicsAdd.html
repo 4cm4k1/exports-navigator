@@ -21,7 +21,7 @@
     <label for="website_1">Website 1: </label>
     <md-select ng-model="adminTopicsAdd.newWebsite_1">
       <md-option ng-repeat="site in adminTopicsAdd.data.websites"
-      value="{{site.website}}">{{site.website}}</md-option>
+      value="{{site.id}}">{{site.website}}</md-option>
     </md-select>
 
     <br/>
@@ -29,7 +29,7 @@
     <label for="website_2">Website 2: </label>
     <md-select ng-model="adminTopicsAdd.newWebsite_2">
       <md-option ng-repeat="site in adminTopicsAdd.data.websites"
-      value="{{site.website}}">{{site.website}}</md-option>
+      value="{{site.id}}">{{site.website}}</md-option>
     </md-select>
 
     <br/>
@@ -37,14 +37,14 @@
     <label for="website_3">Website 3: </label>
     <md-select ng-model="adminTopicsAdd.newWebsite_3">
       <md-option ng-repeat="site in adminTopicsAdd.data.websites"
-      value="{{site.website}}">{{site.website}}</md-option>
+      value="{{site.id}}">{{site.website}}</md-option>
     </md-select>
 
     <br/>
     <br/>
 
     <label for="contact_1">Contact 1: </label>
-    <md-select ng-model="adminTopicsAdd.newContact_1">
+    <md-select ng-model="adminTopicsAdd.newContact_1.id">
       <md-option
         ng-repeat="contact in adminTopicsAdd.data.contacts"
         ng-value="contact">
@@ -55,7 +55,7 @@
     <br/>
 
     <label for="contact_2">Contact 2: </label>
-    <md-select ng-model="adminTopicsAdd.newContact_2">
+    <md-select ng-model="adminTopicsAdd.newContact_2.id">
       <md-option
         ng-repeat="contact in adminTopicsAdd.data.contacts"
         ng-value="contact">
@@ -66,7 +66,7 @@
     <br/>
 
     <label for="contact_3">Contact 3: </label>
-    <md-select ng-model="adminTopicsAdd.newContact_3">
+    <md-select ng-model="adminTopicsAdd.newContact_3.id">
       <md-option
         ng-repeat="contact in adminTopicsAdd.data.contacts"
         ng-value="contact">

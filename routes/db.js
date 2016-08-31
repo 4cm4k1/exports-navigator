@@ -290,12 +290,17 @@ router.get('/testJson2Csv', function(req, res){
 //refactored routes to use one function for retrieving or sending data KRQ
 function queryDB(queryStatement, vars, req, res){
   pool.connect(function(err, client, done){
-    if(err) res.send(err.code);
+    if(err) {
+      console.log('Error in connecting to db');
+      res.send(err.code);
+    }
     client.query(queryStatement, vars, function(err, queryRes){
       done();
       if(err){
+        console.log('Error from db.js, error', err);
         res.send(err);
       }else{
+        console.log('No error from db.js');
         res.send(queryRes);
       }
     });

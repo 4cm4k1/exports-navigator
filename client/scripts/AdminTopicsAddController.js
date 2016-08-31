@@ -19,9 +19,9 @@
         note_1: vm.newNote_1,
         note_2: vm.newNote_2,
         note_3: vm.newNote_3,
-        contact_1: vm.newContact_1,
-        contact_2: vm.newContact_2,
-        contact_3: vm.newContact_3,
+        contact_1: parseInt(vm.newContact_1),
+        contact_2: parseInt(vm.newContact_2),
+        contact_3: parseInt(vm.newContact_3),
         website_1: vm.newWebsite_1,
         website_2: vm.newWebsite_2,
         website_3: vm.newWebsite_3
