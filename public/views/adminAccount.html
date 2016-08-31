@@ -1,31 +1,65 @@
-<main layout-padding>
-  <md-toolbar layout="row" class="md-hue-1">
-      <div class="md-toolbar-tools">
-        <h1>Account Settings - {{adminAccount.auth.email}}</h1>
-      </div>
-  </md-toolbar>
-    <form>
-      <md-input-container class="md-icon-float md-block">
-        <label>Name</label>
-        <md-icon>person</md-icon>
-        <input ng-model="adminAccount.newDisplayName" placeholder="{{adminAccount.auth.displayName}}" type="text">
-      </md-input-container>
-      <md-input-container md-no-float class="md-block">
-        <label>Email</label>
-        <md-icon>email</md-icon>
-        <input ng-model="adminAccount.newEmail" placeholder="{{adminAccount.auth.email}}" type="text" >
-      </md-input-container>
-      <md-input-container md-no-float class="md-block">
-        <label>Password</label>
-        <md-icon>lock</md-icon>
-        <input ng-model="adminAccount.newPassword" placeholder="********" type="password" >
-      </md-input-container>
-      <!-- <md-input-container md-no-float class="md-block">
-        <label>Confirm Password</label>
-        <md-icon>lock_outline</md-icon>
-        <input ng-model="adminAccount.newPasswordConfirm" placeholder="********" type="password" >
-      </md-input-container> -->
-      <md-button class="md-raised md-primary" type="submit" ng-click="adminAccount.updateUser()">Update</md-button>
-    </form>
+<md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Account">
+            <md-icon>supervisor_account</md-icon>
+        </md-button>
+        <h2>
+        <span>Account ({{adminAccount.auth.email}})</span>
+      </h2>
+    </div>
+</md-toolbar>
 
-</main>
+<md-content layout-padding layout="row" layout-xs="column">
+  <div flex>
+      <h3 class="md-title">Account info</h3>
+      <md-list>
+          <md-list-item class="md-2-line">
+              <md-icon>person</md-icon>
+              <div class="md-list-item-text">
+                  <h3>Display name</h3>
+                  <p>
+                      {{adminAccount.auth.displayName}}
+                  </p>
+              </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+              <md-icon>email</md-icon>
+              <div class="md-list-item-text">
+                  <h3>Email address</h3>
+                  <p>
+                      {{adminAccount.auth.email}}
+                  </p>
+              </div>
+          </md-list-item>
+      </md-list>
+  </div>
+    <div flex>
+        <h3 class="md-title">Update account info</h3>
+        <form layout-padding>
+            <md-input-container class="md-icon-float md-block">
+                <label>Display name</label>
+                <md-icon>person</md-icon>
+                <input ng-model="adminAccount.newDisplayName" placeholder="{{adminAccount.auth.displayName}}" type="text">
+            </md-input-container>
+
+            <md-input-container class="md-icon-float md-block">
+                <label>Email address</label>
+                <md-icon>email</md-icon>
+                <input ng-model="adminAccount.newEmail" placeholder="{{adminAccount.auth.email}}" type="email">
+            </md-input-container>
+
+            <md-input-container class="md-icon-float md-block">
+                <label>Password</label>
+                <md-icon>lock</md-icon>
+                <input ng-model="adminAccount.newPassword" placeholder="********" type="password">
+            </md-input-container>
+
+            <md-button class="md-raised md-primary" type="submit" ng-click="adminAccount.updateUser()">
+                <md-icon>save</md-icon>
+                Update
+            </md-button>
+        </form>
+    </div>
+
+
+</md-content>
