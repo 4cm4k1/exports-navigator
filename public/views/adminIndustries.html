@@ -1,15 +1,29 @@
-<md-content layout-padding>
-
-    <h1>Industries</h1>
-
-    <p ng-repeat="item in adminIndustries.data.industries track by $index">
-
-        {{item.industry}}
-
-        <a href="admin/industries/{{adminIndustries.data.industries.indexOf(item)}}">
-        <button>Update</button></a>
-    </p>
-
-    <button ng-click="adminIndustries.add()">Add an Industry</button>
-
+<md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Industries">
+            <md-icon>business</md-icon>
+        </md-button>
+        <h2>
+          <span>Industries</span>
+        </h2>
+        <span flex></span>
+        <md-button ng-click="adminIndustries.add()" class="md-raised md-warn md-hue-2">
+            <md-icon>add</md-icon>
+            New industry
+        </md-button>
+    </div>
+</md-toolbar>
+<md-content>
+    <md-list>
+        <md-list-item class="md-2-line" ng-repeat="item in adminIndustries.data.industries track by $index" ng-click="null">
+            <div class="md-list-item-text">
+                <h3>{{item.industry}}</h3>
+                <p>ID: {{item.id}}</p>
+            </div>
+            <md-button class="md-secondary md-raised md-primary" href="/admin/industries/{{adminIndustries.data.industries.indexOf(item)}}" aria-label="Edit industry">
+                <md-icon ng-click="adminIndustries.doAThing()" >edit</md-icon>
+                Edit
+            </md-button>
+        </md-list-item>
+    </md-list>
 </md-content>

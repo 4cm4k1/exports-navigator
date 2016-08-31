@@ -10,29 +10,25 @@
 </md-toolbar>
 
 <md-content layout-padding layout="row" layout-xs="column">
-  <div flex>
-      <h3 class="md-title">Account info</h3>
-      <md-list>
-          <md-list-item class="md-2-line">
-              <md-icon>person</md-icon>
-              <div class="md-list-item-text">
-                  <h3>Display name</h3>
-                  <p>
-                      {{adminAccount.auth.displayName}}
-                  </p>
-              </div>
-          </md-list-item>
-          <md-list-item class="md-2-line">
-              <md-icon>email</md-icon>
-              <div class="md-list-item-text">
-                  <h3>Email address</h3>
-                  <p>
-                      {{adminAccount.auth.email}}
-                  </p>
-              </div>
-          </md-list-item>
-      </md-list>
-  </div>
+    <div flex>
+        <h3 class="md-title">Account info</h3>
+        <md-list>
+            <md-list-item class="md-2-line">
+                <md-icon>person</md-icon>
+                <div class="md-list-item-text">
+                    <h3>Display name</h3>
+                    <p>{{adminAccount.auth.displayName}}</p>
+                </div>
+            </md-list-item>
+            <md-list-item class="md-2-line">
+                <md-icon>email</md-icon>
+                <div class="md-list-item-text">
+                    <h3>Email address</h3>
+                    <p>{{adminAccount.auth.email}}</p>
+                </div>
+            </md-list-item>
+        </md-list>
+    </div>
     <div flex>
         <h3 class="md-title">Update account info</h3>
         <form layout-padding>
@@ -54,8 +50,8 @@
                 <input ng-model="adminAccount.newPassword" placeholder="********" type="password">
             </md-input-container>
 
-            <md-button class="md-raised md-primary" type="submit" ng-click="adminAccount.updateUser()">
-                <md-icon>save</md-icon>
+            <md-button class="md-raised md-primary" ng-click="adminAccount.updateUser()" aria-label="Update account info">
+                <md-icon>update</md-icon>
                 Update
             </md-button>
         </form>
