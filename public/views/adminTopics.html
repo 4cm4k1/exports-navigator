@@ -1,38 +1,51 @@
 <md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
     <div class="md-toolbar-tools">
+
       <md-button class="md-icon-button" aria-label="Topics">
           <md-icon>chat_bubble</md-icon>
       </md-button>
+
       <h2>
         <span>Topics</span>
       </h2>
+
       <span flex></span>
-      <md-button class="md-raised md-warn md-hue-2" href="/admin/topics/add">
+
+      <md-button ng-click="adminTopics.import()" class="md-raised md-warn md-hue-2">
+        <md-icon>arrow_downward</md-icon>
+        Import Topics
+      </md-button>
+
+      <md-button ng-click="adminTopics.export()" class="md-raised md-warn md-hue-2">
+        <md-icon>arrow_upward</md-icon>
+        Export Topics
+      </md-button>
+
+      <md-button ng-click="null" class="md-raised md-warn md-hue-2" href="/admin/topics/add">
         <md-icon>add</md-icon>
         New Topic
       </md-button>
+
     </div>
+
 </md-toolbar>
 
 <md-content layout-padding>
 
   <md-list>
+
     <md-list-item class="md-2-line" ng-repeat="item in adminTopics.data.topics track by $index" ng-click="null">
       <div class="md-list-item-text">
         <h3>{{item.topic}}</h3>
+
         <md-button class="md-secondary md-raised md-primary"
         href="admin/topics/{{adminTopics.data.topics.indexOf(item)}}">
           <md-icon aria-label="View and edit topic information">edit</md-icon>
           Edit
         </md-button>
+
       </div>
     </md-list-item>
   </md-list>
-
-
-
-
-    <button ng-click="adminTopics.export()">Export Topics</button>
-    <button ng-click="adminTopics.import()">Import Topics</button>
 
 </md-content>
