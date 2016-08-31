@@ -1,13 +1,9 @@
+<md-toolbar layout="row" class="md-hue-1">
+    <div class="md-toolbar-tools">
+      <h1>Select your Industry:</h1>
+    </div>
+</md-toolbar>
 <md-content layout-padding>
-
-
-
-  <h2>Select your Industry</h2>
-  <div>
-  <a href="results/{{home.industrySelected.id}}"><md-button ng-click="home.selectedIndustry(home.industrySelected)">Get My Info</md-button></a>
-  </div>
-
-    <md-divider></md-divider>
     <md-radio-group ng-model="home.industrySelected">
       <div ng-repeat="industry in home.data.industries track by $index" class="row">
         <div flex layout='row' layout-padding layout-align="start center" >
@@ -17,7 +13,11 @@
         </div>
       </div>
     </md-radio-group>
+    <div>
+    <a href="results/{{home.industrySelected.id}}"><md-button class="md-raised md-primary"ng-click="home.selectedIndustry(home.industrySelected)">Get Info</md-button></a>
+    </div>
 
+      <md-divider></md-divider>
 
 
 </md-content>
