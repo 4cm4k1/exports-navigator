@@ -18,37 +18,30 @@
         vm.industry = $routeParams.industry;
         vm.topic = $routeParams.topic;
         vm.displaySelectedTopic = function() {
+            vm.topicList = vm.data.topics;
+            console.log('vm.topicList', vm.data.topics);
             checkTopicHasMatch();
         };
         vm.displaySelectedCountry = function() {
             checkCountryHasMatch();
         };
-        // console.log('industry:', $routeParams.industry);
-        // console.log('topic (optional):', $routeParams.topic);
+        Data.getTopics();
+
+
         checkIsOther();
         getIndustryData();
-        getTopicList();
         getCountryList();
 
-        // this code needs to go into the function that fires when someone chooses a topic
-
-        //
-        // $http.put('/db/topics/number_of_hits').then(function(response){
-        //         console.log('adding to your hits', response);
-        //     },
-        //     function(response) {
-        //         console.log('error adding to hits', response);
-        //     });
 
         //check if user selected 'other industry'
-        function checkIsOther(){
-          if(vm.industry != 7){
-            vm.showIndustryContacts = true;
-            vm.showTopicSearch = false;
-          } else {
-            vm.showIndustryContacts = false;
-            vm.showTopicSearch = true;
-          }
+        function checkIsOther() {
+            if (vm.industry != 7) {
+                vm.showIndustryContacts = true;
+                vm.showTopicSearch = false;
+            } else {
+                vm.showIndustryContacts = false;
+                vm.showTopicSearch = true;
+            }
         }
 
         //get data for an industry
@@ -64,48 +57,41 @@
                 });
         }
 
-        //this is to get the list of Topics which should display only when someone has selected "other industries"
-        function getTopicList() {
-            // var topicId = $routeParams.topic.id;
-            // topicId = parseInt(topicId);
-            // console.log('topics', topicId);
-            $http.get('/db/topics').then(function(response) {
-                    // console.log('getting topics', response.data);
-                    vm.topicList = response.data.rows;
-                    // console.log('topicList', vm.topicList);
-                },
-                function(response) {
-                    console.log('error getting topic data', response.data);
-                });
-        }
         function getCountryList() {
-            // var topicId = $routeParams.topic.id;
-            // topicId = parseInt(topicId);
-            // console.log('topics', topicId);
             $http.get('/db/countries').then(function(response) {
-                    // console.log('getting topics', response.data);
                     vm.countryList = response.data.rows;
-                    // console.log('topicList', vm.topicList);
                 },
                 function(response) {
                     console.log('error getting country data', response.data);
                 });
         }
+
         //check if the search topic matches
         function checkTopicHasMatch() {
-            for (var i = 0; i < vm.topicList.length; i++) {
-                if (vm.topicList[i].topic == vm.selectedTopic) {
-                    vm.item = vm.topicList[i];
+          vm.hasTopicMatch = false;
+          vm.noTopicMatch = false; 
+            for (var i = 0; i < vm.data.topics.length; i++) {
+                if (vm.data.topics[i].topic == vm.selectedTopic) {
+                    vm.item = vm.data.topics[i];
+                    var topicId = vm.item.id;
+                    topicId = parseInt(topicId);
+                    console.log('thisTopicId:', topicId);
+                    Data.updateTopicNumberOfHits(topicId);
                     vm.hasTopicMatch = true;
                     vm.noTopicMatch = false;
                     break;
                     // return true;
-                } else {
-                    vm.hasTopicMatch = false;
-                    vm.noTopicMatch = true;
                 }
+
             }
+              if(vm.hasTopicMatch) return;
+              vm.hasTopicMatch = false;
+              vm.noTopicMatch = true;
+              var unmatchedTopic = vm.selectedTopic;
+              console.log('unmatched topic:', unmatchedTopic);
+              Data.createUnmatchedTopic(unmatchedTopic);
         }
+
         //check if the search country matches
         function checkCountryHasMatch() {
             for (var i = 0; i < vm.countryList.length; i++) {
