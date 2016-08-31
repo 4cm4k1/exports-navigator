@@ -21,12 +21,12 @@
     <base href="/" />
 </head>
 
-<body layout="column" style="height:100%;">
+<body layout="column">
     <!-- TOOLBAR HEADER -->
     <md-toolbar ng-include="'templates/toolbar.html'" ng-controller="ToolbarCtrl as toolbar" layout="row" layout-align="space-between stretch" md-scroll-shrink></md-toolbar>
 
     <!-- MAIN SECTION -->
-    <div layout="row" style="height:100%;">
+    <div layout="row" class="main-section print-view">
         <!-- PULL-OUT SIDENAV -->
         <nav ng-include="'templates/sidenav.html'" ng-controller="SidenavCtrl as sidenav"></nav>
 

@@ -6,44 +6,28 @@
         <h2>
           <span>Reports</span>
         </h2>
+        <span flex></span>
+        <md-button class="" ng-click="adminReports.printPage()">Print Reports</md-button>
     </div>
 </md-toolbar>
-
-
-<!-- <button ng-click="adminReports.getUserData()">Get Reports</button> -->
-<md-content layout-padding>
-    <md-button class="md-primary md-raised" ng-click="adminReports.printPage()">Print Reports</md-button>
-
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Topic id</th>
-                <th>Topic</th>
-                <th>Number Of Hits</th>
-            </tr>
-        </thead>
-        <tbody ng-repeat="topic in adminReports.topicsList track by $index">
-            <tr>
-                <td>{{topic.id}}</td>
-                <td>{{topic.topic}}</td>
-                <td>{{topic.number_of_hits}}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h1> Unmatched Topics Table</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Unmatched Topic id</th>
-                <th>Unmatched Topic</th>
-            </tr>
-        </thead>
-        <tbody ng-repeat="topic in adminReports.unmatchedList track by $index">
-            <tr>
-                <td>{{topic.id}}</td>
-                <td>{{topic.unmatched_topic}}</td>
-            </tr>
-        </tbody>
-    </table>
+<md-content>
+    <md-list>
+        <md-subheader>Topics</md-subheader>
+        <md-list-item class="md-2-line" ng-repeat="topic in adminReports.topicsList track by $index" ng-click="null">
+            <div class="md-list-item-text">
+                <h3>{{topic.topic}} (ID: {{topic.id}})</h3>
+                <p>{{topic.number_of_hits}} <span ng-if="topic.number_of_hits>1||topic.number_of_hits==0">hits</span><span ng-if="topic.number_of_hits==1">hit</span></p>
+            </div>
+            <md-icon class="md-secondary" ng-click="adminReports.doAThing()" aria-label="View and edit topic">open_in_new</md-icon>
+        </md-list-item>
+        <md-subheader>Unmatched Topics</md-subheader>
+        <md-list-item class="md-2-line" ng-repeat="topic in adminReports.unmatchedList track by $index" ng-click="null">
+            <div class="md-list-item-text">
+                <h3>{{topic.unmatched_topic}}</h3>
+                <p>
+                    ID: {{topic.id}}
+                </p>
+            </div>
+        </md-list-item>
+    </md-list>
 </md-content>
