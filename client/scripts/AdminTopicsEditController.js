@@ -19,11 +19,12 @@
     };
 
     vm.delete = function() {
-
-      // gives the user a chance to confirm deletion 
+      console.log('vm.data.topics[vm.topicId].id:', vm.data.topics[vm.topicId].id);
+      // gives the user a chance to confirm deletion
       if (confirm("Are you sure you want to delete this topic?")) {
+        Data.deleteTopic({id: vm.data.topics[vm.topicId].id});
         $location.url('/admin/topics');
       }
-    }
+    };
   }
 })();

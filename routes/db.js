@@ -212,6 +212,7 @@ router.put('/topics/update', function(req, res){
 
 router.delete('/topics/delete', function(req, res){
   var query = 'DELETE FROM topics WHERE id =' + req.body.id;
+  console.log('req.body: ', req.body);
   queryDB(query, [], req, res);
 });
 
@@ -297,10 +298,9 @@ function queryDB(queryStatement, vars, req, res){
     client.query(queryStatement, vars, function(err, queryRes){
       done();
       if(err){
-        console.log('Error from db.js, error', err);
+        console.log('Error from db.js, error:', err);
         res.send(err);
       }else{
-        console.log('No error from db.js');
         res.send(queryRes);
       }
     });
