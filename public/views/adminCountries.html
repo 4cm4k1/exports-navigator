@@ -6,26 +6,30 @@
         <h2>
           <span>Countries</span>
         </h2>
+        <span flex></span>
+        <md-autocomplete md-selected-item="adminCountries.selectedItem" md-search-text="adminCountries.searchText" md-items="item in adminCountries.data.countries | filter: adminCountries.searchText" md-item-text="item.country" placeholder="Search Countries">
+            <md-item-template>
+                <span md-highlight-text="adminCountries.searchText" md-highlight-flags="^i" class="md-body-2">{{item.country}}</span>
+                <span class="md-caption">{{item.first_name}} {{item.last_name}}</span>
+            </md-item-template>
+            <md-not-found>
+                Sorry, no matches found.
+            </md-not-found>
+        </md-autocomplete>
+        <md-button class="md-raised md-warn md-hue-2" aria-label="Add new country">
+            <md-icon>add</md-icon>
+            New country
+        </md-button>
     </div>
 </md-toolbar>
-<md-content layout-padding>
-  <md-list flex>
-    <md-subheader class="md-no-sticky">
-      <md-button class="md-raised md-primary">
-          <md-icon>add</md-icon>
-          Add
-      </md-button>
-      <md-input-container class="floatRight">
-        <label>Search</label>
-        <input ng-model="adminCountries.search">
-      </md-input-container>
-    </md-subheader>
-    <md-list-item class="md-3-line" ng-repeat="country in adminCountries.data.countries | filter: adminCountries.search" ng-click="null">
-      <div class="md-list-item-text" layout="column">
-        <h3>{{country.country}}</h3>
-        <h4>{{country.first_name}} {{country.last_name}}</h4>
-        <p>{{country.title}} - {{country.organization}}</p>
-      </div>
-    </md-list-item>
-  </md-list>
+<md-content>
+    <md-list>
+        <md-list-item class="md-3-line" ng-repeat="country in adminCountries.data.countries | filter: adminCountries.searchText" ng-click="null">
+            <div class="md-list-item-text" layout="column">
+                <h3>{{country.country}}</h3>
+                <h4>{{country.first_name}} {{country.last_name}}</h4>
+                <p>{{country.title}} - {{country.organization}}</p>
+            </div>
+        </md-list-item>
+    </md-list>
 </md-content>

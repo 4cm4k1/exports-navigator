@@ -100,7 +100,7 @@
             <input type="text" ng-model="results.selectedTopic" list="topics">
           </md-input-container>
           <datalist id="topics" ng-value="topic.id">
-              <option ng-repeat="topic in results.topicList track by $index" value="{{topic.topic}}">
+              <option ng-repeat="topic in results.data.topics track by $index" value="{{topic.topic}}">
           </datalist>
           <md-button class="md-raised md-primary" ng-click="results.displaySelectedTopic()">Search</md-button>
         </md-card-content>

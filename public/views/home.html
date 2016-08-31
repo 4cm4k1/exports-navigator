@@ -1,23 +1,30 @@
-<md-toolbar layout="row" class="md-hue-1">
+
+<md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
     <div class="md-toolbar-tools">
-      <h1>Select your Industry:</h1>
+      <h2>
+        <span>Select your Industry:</span>
+      </h2>
     </div>
 </md-toolbar>
-<md-content layout-padding>
-    <md-radio-group ng-model="home.industrySelected">
-      <div ng-repeat="industry in home.data.industries track by $index" class="row">
-        <div flex layout='row' layout-padding layout-align="start center" >
-          <md-radio-button flex
-              ng-value="industry"
-              class="md-primary">{{industry.industry}}</md-radio-button>
+<md-content layout-padding layout="row" layout-xs="column">
+  <div flex>
+      <md-radio-group ng-model="home.industrySelected">
+        <div ng-repeat="industry in home.data.industries track by $index" class="row">
+          <div flex layout='row' layout-align="start center" >
+            <md-radio-button flex
+                ng-value="industry"
+                class="md-primary">{{industry.industry}}</md-radio-button>
+          </div>
         </div>
+      </md-radio-group>
+      <div>
+      <a href="results/{{home.industrySelected.id}}"><md-button class="md-raised md-primary"ng-click="home.selectedIndustry(home.industrySelected)">Get Info</md-button></a>
       </div>
-    </md-radio-group>
-    <div>
-    <a href="results/{{home.industrySelected.id}}"><md-button class="md-raised md-primary"ng-click="home.selectedIndustry(home.industrySelected)">Get Info</md-button></a>
-    </div>
-
-      <md-divider></md-divider>
-
-
+  </div>
+  <div class="textRight" flex >
+    <h2>An initiative of:</h2>
+    <img src="./assets/images/gmsp_logo.svg" width="500px" alt="gmsp logo">
+    <h2>supported by:</h2>
+    <img src="./assets/images/jpmc_logo.svg" width="500px" alt="gmsp logo">
+  </div>
 </md-content>

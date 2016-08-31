@@ -122,6 +122,28 @@
             }
         })
 
+        //admin view for adding a contact
+        .when('/admin/contacts/add', {
+            controller: 'AdminContactsAddController as adminContactsAdd',
+            templateUrl: 'views/adminContactsAdd.html',
+            resolve: {
+                'currentAuth': ['Auth', function(Auth) {
+                    return Auth.$requireSignIn();
+                }]
+            }
+        })
+
+        //admin view of editing a contact
+        .when('/admin/contacts/:itemID', {
+            controller: 'AdminContactsEditController as adminContactsEdit',
+            templateUrl: 'views/adminContactsEdit.html',
+            resolve: {
+                'currentAuth': ['Auth', function(Auth) {
+                    return Auth.$requireSignIn();
+                }]
+            }
+        })
+
         // admin view of all websites
         .when('/admin/websites', {
             controller: 'AdminWebsitesController as adminWebsites',
