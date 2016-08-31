@@ -7,23 +7,17 @@
           <span>Reports</span>
         </h2>
         <span flex></span>
-        <md-button class="" ng-click="adminReports.printPage()">
-          <md-icon>print</md-icon>
-          Print
+        <md-button class="md-raised md-warn md-hue-2" ng-click="adminReports.printPage()">
+            <md-icon>print</md-icon>
+            Print
         </md-button>
     </div>
 </md-toolbar>
-<md-content layout-padding>
+<md-content>
     <md-list>
-        <md-subheader>Topics</md-subheader>
-        <md-list-item class="md-2-line" ng-repeat="topic in adminReports.topicsList track by $index" ng-click="null">
-            <div class="md-list-item-text">
-                <h3>{{topic.topic}} (ID: {{topic.id}})</h3>
-                <p>{{topic.number_of_hits}} <span ng-if="topic.number_of_hits>1||topic.number_of_hits==0">hits</span><span ng-if="topic.number_of_hits==1">hit</span></p>
-            </div>
-            <md-icon class="md-secondary" ng-click="adminReports.doAThing()" aria-label="View and edit topic">open_in_new</md-icon>
-        </md-list-item>
-        <md-subheader>Unmatched Topics</md-subheader>
+        <md-subheader>
+            <md-icon>warning</md-icon> <span>Unmatched Topics</span>
+        </md-subheader>
         <md-list-item class="md-2-line" ng-repeat="topic in adminReports.unmatchedList track by $index" ng-click="null">
             <div class="md-list-item-text">
                 <h3>{{topic.unmatched_topic}}</h3>
@@ -32,5 +26,16 @@
                 </p>
             </div>
         </md-list-item>
+        <md-subheader>
+            <md-icon>chat_bubble</md-icon> <span>Topics</span>
+        </md-subheader>
+        <md-list-item class="md-2-line" ng-repeat="topic in adminReports.topicsList track by $index" ng-click="null">
+            <div class="md-list-item-text">
+                <h3>{{topic.topic}} (ID: {{topic.id}})</h3>
+                <p>{{topic.number_of_hits}} <span ng-if="topic.number_of_hits>1||topic.number_of_hits==0">hits</span><span ng-if="topic.number_of_hits==1">hit</span></p>
+            </div>
+            <md-icon class="md-secondary" ng-click="adminReports.doAThing()" aria-label="View and edit topic">open_in_new</md-icon>
+        </md-list-item>
+
     </md-list>
 </md-content>

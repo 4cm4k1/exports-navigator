@@ -9,8 +9,8 @@
     </div>
 </md-toolbar>
 
-<md-content layout-padding layout="row" layout-xs="column">
-    <div flex>
+<md-content layout="row" layout-xs="column">
+    <div flex layout-padding>
         <h3 class="md-title">Account info</h3>
         <md-list>
             <md-list-item class="md-2-line">
@@ -28,33 +28,38 @@
                 </div>
             </md-list-item>
         </md-list>
+
+        <md-divider hide-gt-xs></md-divider>
     </div>
-    <div flex>
+    <div flex layout-padding>
         <h3 class="md-title">Update account info</h3>
-        <form layout-padding>
+        <form layout-margin>
             <md-input-container class="md-icon-float md-block">
-                <label>Display name</label>
+                <label>New display name</label>
                 <md-icon>person</md-icon>
                 <input ng-model="adminAccount.newDisplayName" placeholder="{{adminAccount.auth.displayName}}" type="text">
             </md-input-container>
 
             <md-input-container class="md-icon-float md-block">
-                <label>Email address</label>
+                <label>New email address</label>
                 <md-icon>email</md-icon>
                 <input ng-model="adminAccount.newEmail" placeholder="{{adminAccount.auth.email}}" type="email">
             </md-input-container>
+            <div layout="row" layout-align="space-between start">
+              <md-input-container class="md-icon-float" flex>
+                  <label>New password</label>
+                  <md-icon>lock</md-icon>
+                  <input ng-model="adminAccount.newPassword" placeholder="********" type="password">
+              </md-input-container>
+              <md-button class="md-raised md-primary" ng-click="adminAccount.updateUser()" aria-label="Update account info">
+                  <md-icon>update</md-icon>
+                  Update
+              </md-button>
+            </div>
 
-            <md-input-container class="md-icon-float md-block">
-                <label>Password</label>
-                <md-icon>lock</md-icon>
-                <input ng-model="adminAccount.newPassword" placeholder="********" type="password">
-            </md-input-container>
 
-            <md-button class="md-raised md-primary" ng-click="adminAccount.updateUser()" aria-label="Update account info">
-                <md-icon>update</md-icon>
-                Update
-            </md-button>
         </form>
+
     </div>
 
 
