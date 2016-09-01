@@ -15,8 +15,8 @@
           <md-card>
               <md-card-header>
                   <md-card-header-text>
-                      <span class="md-title">Contacts for Industry: {{item.industry}}</span>
-                      <!-- <span class="md-subhead">{{item.industry}}</span> -->
+                      <span class="md-title">Contact Information</span>
+                      <span class="md-subhead">Industry: {{item.industry}}</span>
                   </md-card-header-text>
               </md-card-header>
               <md-card-title>
@@ -40,8 +40,8 @@
           <md-card>
               <md-card-header>
                   <md-card-header-text>
-                      <span class="md-title">Contact Card</span>
-                      <span class="md-subhead">{{item.industry}}</span>
+                      <span class="md-title">Contact Information</span>
+                      <span class="md-subhead">Industry: {{item.industry}}</span>
                   </md-card-header-text>
               </md-card-header>
               <md-card-title>
@@ -63,8 +63,8 @@
           <md-card ng-hide="item.contact_id_3==null">
               <md-card-header>
                   <md-card-header-text>
-                      <span class="md-title">Contact Card</span>
-                      <span class="md-subhead">{{item.industry}}</span>
+                      <span class="md-title">Contact Information</span>
+                      <span class="md-subhead">Industry: {{item.industry}}</span>
                   </md-card-header-text>
               </md-card-header>
               <md-card-title>
@@ -90,8 +90,9 @@
     <md-card>
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">All Other Industries</span>
-            <span class="md-subhead">Please search for contact information by topic</span>
+            <span class="md-headline">We will need some more information to help you with your search. </br>
+               Please enter a topic</span>
+            <span class="md-subhead">Other Industries</span>
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
@@ -111,7 +112,8 @@
      <md-card>
          <md-card-header>
              <md-card-header-text>
-                 <span class="md-title">Contacts for Topic: {{results.item.topic}}</span>
+                 <span class="md-title">Contact Information</span>
+                   <span class="md-subhead">Topic: {{results.item.topic}}</span>
                </md-card-header-text>
          </md-card-header>
          <md-card-title>
@@ -132,8 +134,8 @@
        <md-card ng-hide="results.item.contact_id_2==null">
              <md-card-header>
                  <md-card-header-text>
-                     <span class="md-title">Contact Card</span>
-                     <span class="md-subhead">{{results.item.topic}}</span>
+                     <span class="md-title">Contact Information</span>
+                     <span class="md-subhead">Topic: {{results.item.topic}}</span>
                  </md-card-header-text>
              </md-card-header>
              <md-card-title>
@@ -155,8 +157,8 @@
          <md-card ng-hide="results.item.contact_id_3==null">
              <md-card-header>
                  <md-card-header-text>
-                     <span class="md-title">Contact Card</span>
-                     <span class="md-subhead">{{results.item.topic}}</span>
+                     <span class="md-title">Contact Information</span>
+                     <span class="md-subhead">Topic: {{results.item.topic}}</span>
                  </md-card-header-text>
              </md-card-header>
              <md-card-title>
@@ -181,7 +183,8 @@
   <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">No Results Found for your Topic Search</span>
+          <span class="md-headline">We found no results that match your Topic Search </br>
+          To what country would you like to export your product?</span>
           <span class="md-subhead">Please search for contact information by country</span>
         </md-card-title-text>
       </md-card-title>
