@@ -269,6 +269,20 @@
                 });
         };
 
+        var updateUnmatchedTopicNumberOfHits = function(unmatchedTopicId) {
+
+            return $http.put('/db/topics/update/unmatched_number_of_hits', {
+                    id: unmatchedTopicId
+                })
+                .then(function(response) {
+                    console.log('Successful PUT to /db/topics/update/unmatched_topics');
+                    getUnmatched();
+                })
+                .catch(function(error) {
+                    console.error('Error:', error);
+                });
+        };
+
         var updateWebsite = function(websiteObject) {
             //  websiteObject has:
             //  id, website
@@ -467,6 +481,7 @@
             updateTopic: updateTopic,
             updateTopicNumberOfHits: updateTopicNumberOfHits,
             updateWebsite: updateWebsite,
+            updateUnmatchedTopicNumberOfHits: updateUnmatchedTopicNumberOfHits,
             //  DELETE CALLS
             //  ALL CALL showToast() WITH RELEVANT MESSAGE FOR USER;
             //  ALL ALSO CALL getDataTypeHere() ON SUCCESS

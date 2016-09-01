@@ -8,15 +8,24 @@
     function ResultsCtrl($location, $routeParams, $http, Data) {
         var vm = this;
         vm.data = Data.data;
+        //all show values are set to false on page load
+        //their values will change if appropriate
         vm.showIndustryContacts = false;
         vm.showTopicSearch = false;
         vm.noMatch = false;
         vm.hasMatch = false;
+        //below are the variables which are needed in order
+        //to check if there is a match or not a match
         vm.selectedTopic = null;
         vm.selectedCountry = null;
         vm.item = undefined;
+        //below are variables needed for user experience and ability
+        //to bookmark an address
         vm.industry = $routeParams.industry;
         vm.topic = $routeParams.topic;
+
+        vm.industryList = vm.data.industries;
+        // vm.countryList = vm.data.countries;
         vm.displaySelectedTopic = function() {
             vm.topicList = vm.data.topics;
             console.log('vm.topicList', vm.data.topics);
@@ -26,10 +35,12 @@
             checkCountryHasMatch();
         };
         Data.getTopics();
-
-
+        Data.getUnmatched();
+        console.log('getting unmatched topics', vm.data.unmatched);
+        Data.getIndustries();
         checkIsOther();
-        getIndustryData();
+        // Data.getCountries();
+        // console.log('getCountries:', vm.data.countries );
         getCountryList();
 
 
@@ -44,19 +55,7 @@
             }
         }
 
-        //get data for an industry
-        function getIndustryData() {
-            var indId = $routeParams.industry;
-            indId = parseInt(indId);
-            $http.get('/db/industries').then(function(response) {
-                    // console.log('getting industries', response.data);
-                    vm.industryList = response.data.rows;
-                },
-                function(response) {
-                    console.log('error getting industry data', response.data);
-                });
-        }
-
+        //get the information in order to make a countryList
         function getCountryList() {
             $http.get('/db/countries').then(function(response) {
                     vm.countryList = response.data.rows;
@@ -66,10 +65,10 @@
                 });
         }
 
-        //check if the search topic matches
+        //check if the search topic matches information in the DB
         function checkTopicHasMatch() {
-          vm.hasTopicMatch = false;
-          vm.noTopicMatch = false; 
+            vm.hasTopicMatch = false;
+            vm.noTopicMatch = false;
             for (var i = 0; i < vm.data.topics.length; i++) {
                 if (vm.data.topics[i].topic == vm.selectedTopic) {
                     vm.item = vm.data.topics[i];
@@ -84,15 +83,30 @@
                 }
 
             }
-              if(vm.hasTopicMatch) return;
-              vm.hasTopicMatch = false;
-              vm.noTopicMatch = true;
-              var unmatchedTopic = vm.selectedTopic;
-              console.log('unmatched topic:', unmatchedTopic);
-              Data.createUnmatchedTopic(unmatchedTopic);
+            if (vm.hasTopicMatch) return;
+            vm.hasTopicMatch = false;
+            vm.noTopicMatch = true;
+            var unmatchedTopic = vm.selectedTopic;
+            console.log('unmatched topic:', unmatchedTopic);
+            for (var j = 0; j < vm.data.unmatched.length; j++) {
+                if (vm.data.unmatched[j].unmatched_topic == vm.selectedTopic) {
+                    //  unmatchedTopic == vm.data.unmatched[j];
+                    console.log('unmatched topic', vm.data.unmatched[j]);
+                    var unmatchedTopicId = vm.data.unmatched[j].id;
+                    unmatchedTopicId = parseInt(unmatchedTopicId);
+                    console.log('this unmatchedTopicId', unmatchedTopicId);
+                    Data.updateUnmatchedTopicNumberOfHits(unmatchedTopicId);
+                    break;
+                }
+
+            }
+          
+            Data.createUnmatchedTopic(unmatchedTopic);
         }
 
-        //check if the search country matches
+
+
+        //check if the search country matches info in the DB
         function checkCountryHasMatch() {
             for (var i = 0; i < vm.countryList.length; i++) {
                 if (vm.countryList[i].country == vm.selectedCountry) {
