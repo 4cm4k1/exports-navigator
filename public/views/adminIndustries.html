@@ -1,6 +1,6 @@
 <md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
     <div class="md-toolbar-tools">
-      
+
         <md-button class="md-icon-button" aria-label="Industries">
             <md-icon>business</md-icon>
         </md-button>
@@ -17,7 +17,6 @@
         <md-list-item class="md-2-line" ng-repeat="item in adminIndustries.data.industries track by $index" ng-click="null">
             <div class="md-list-item-text">
                 <h3>{{item.industry}}</h3>
-                <p>ID: {{item.id}}</p>
             </div>
             <md-button class="md-secondary md-raised md-primary" href="/admin/industries/{{adminIndustries.data.industries.indexOf(item)}}" aria-label="Edit industry">
                 <md-icon ng-click="adminIndustries.doAThing()" >edit</md-icon>
