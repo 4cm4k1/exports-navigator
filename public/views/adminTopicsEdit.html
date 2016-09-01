@@ -1,21 +1,18 @@
 <md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
     <div class="md-toolbar-tools">
-
         <md-button class="md-icon-button" aria-label="Topics">
             <md-icon>chat_bubble</md-icon>
         </md-button>
-
         <h2>
           <span>Topics</span>
         </h2>
-
         <span flex></span>
 
         <md-button ng-click="adminTopicsEdit.update()" href="/admin/topics" class="md-raised md-warn md-hue-2" aria-label="Update this topic">
+
           <md-icon>update</md-icon>
           Update
         </md-button>
-
         <md-button ng-click="adminTopicsEdit.delete()" class="md-raised md-warn md-hue-2" aria-label="Delete this topic">
           <md-icon>delete</md-icon>
           Delete
@@ -23,7 +20,6 @@
 
     </div>
 </md-toolbar>
-
 <md-content layout-padding>
 
   <md-input-container class="md-block">
@@ -73,12 +69,12 @@
   <md-input-container class="md-block">
     <label>Contact 1</label>
     <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].contact_id_1">
-        <md-option
-            ng-repeat="contact in adminTopicsEdit.data.contacts"
-            ng-value="contact"
-            ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_1">
-            {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
-        </md-option>
+      <md-option
+          ng-repeat="contact in adminTopicsEdit.data.contacts"
+          ng-value="contact"
+          ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_1">
+          {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+      </md-option>
     </md-select>
   </md-input-container>
 
@@ -97,13 +93,13 @@
   <md-input-container class="md-block">
     <label>Contact 3</label>
     <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].contact_id_3">
-        <md-option
-            ng-repeat="contact in adminTopicsEdit.data.contacts"
-            ng-value="contact"
-            ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_3">
-            {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
-        </md-option>
+      <md-option
+          ng-repeat="contact in adminTopicsEdit.data.contacts"
+          ng-value="contact"
+          ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_3">
+          {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+      </md-option>
     </md-select>
   </md-input-container>
-
+  
 </md-content>
