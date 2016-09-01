@@ -11,7 +11,7 @@
 
     <span flex></span>
 
-    <md-button ng-click="adminIndustriesEdit.update()" class="md-raised md-warn md-hue-2" aria-label="Update this industry">
+    <md-button ng-click="adminIndustriesEdit.update()" href="/admin/industries" class="md-raised md-warn md-hue-2" aria-label="Update this industry">
       <md-icon>update</md-icon>
       Update
     </md-button>
@@ -21,48 +21,51 @@
 
 <md-content layout-padding>
 
-    <h1>Topic: <input type="text" ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].industry" /></h1>
+  <md-input-container class="md-block">
+    <label>Industry</label>
+    <input ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].industry" aria-label="Input for industry's title">
+  </md-input-container>
 
-    <label for="note_1">Note 1: </label>
-    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].note_1"></textarea>
+  <md-input-container class="md-block">
+    <label>Note 1</label>
+    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].note_1" aria-label="Input for note 1" ></textarea>
+  </md-input-container>
 
-    <br/>
+  <md-input-container class="md-block">
+    <label>Note 2</label>
+    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].note_2" aria-label="Input for note 2" ></textarea>
+  </md-input-container>
 
-    <label for="note_2">Note 2: </label>
-    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].note_2"></textarea>
+  <md-input-container class="md-block">
+    <label>Note 3</label>
+    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].note_3" aria-label="Input for note 3" ></textarea>
+  </md-input-container>
 
-    <br/>
-
-    <label for="note_3">Note 3: </label>
-    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].note_3"></textarea>
-
-    <br/>
-    <br/>
-
-    <label for="website_1">Website 1: </label>
+  <md-input-container class="md-block">
+    <label>Website 1</label>
     <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].website_1">
-      <md-option ng-repeat="site in adminIndustriesEdit.data.websites"
-      value="{{site.website}}">{{site.website}}</md-option>
+        <md-option ng-repeat="site in adminIndustriesEdit.data.websites"
+        value="{{site.website}}">{{site.website}}</md-option>
     </md-select>
+  </md-input-container>
 
-    <br/>
-
-    <label for="website_2">Website 2: </label>
+  <md-input-container class="md-block">
+    <label>Website 2</label>
     <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].website_2">
-      <md-option ng-repeat="site in adminIndustriesEdit.data.websites"
-      value="{{site.website}}">{{site.website}}</md-option>
+        <md-option ng-repeat="site in adminIndustriesEdit.data.websites"
+        value="{{site.website}}">{{site.website}}</md-option>
     </md-select>
+  </md-input-container>
 
-    <br/>
-
-    <label for="website_3">Website 3: </label>
+  <md-input-container class="md-block">
+    <label>Website 3</label>
     <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.industryId].website_3">
-      <md-option ng-repeat="site in adminIndustriesEdit.data.websites"
-      value="{{site.website}}">{{site.website}}</md-option>
+        <md-option ng-repeat="site in adminIndustriesEdit.data.websites"
+        value="{{site.website}}">{{site.website}}</md-option>
     </md-select>
+  </md-input-container>
 
-    <br/>
-    <br/>
+
 
     <label for="contact_1">Contact 1: </label>
     <md-select ng-model="adminIndustriesEdit.contact1">

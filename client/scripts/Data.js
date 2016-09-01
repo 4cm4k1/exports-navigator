@@ -244,6 +244,7 @@
         var updateTopic = function(topicObject) {
             //  topicObject has:
             //  id, topic, note_1, note_2, note_3, contact_1, contact_2, contact_3, website_1, website_2, website_3
+            console.log('contactObject:', topicObject);
             return $http.put('/db/topics/update', topicObject)
                 .then(function(response) {
                     console.log('Successful PUT to /db/topics/update');

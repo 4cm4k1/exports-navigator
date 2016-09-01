@@ -203,6 +203,7 @@ var params = [req.body.topic, req.body.note_1, req.body.note_2, req.body.note_3,
 });
 
 router.put('/topics/update', function(req, res){
+  console.log('request.body:', req.body);
   var query = 'UPDATE topics SET (topic, note_1, note_2, note_3, contact_1, contact_2, contact_3, website_1, website_2, website_3) = ' +
   '($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)' +
   'WHERE id =' + req.body.id;

@@ -15,7 +15,56 @@
     vm.topicId = parseInt($routeParams.itemID);
 
     vm.update = function() {
-      console.log('Update clicked');
+
+      var contact1;
+      var contact2;
+      var contact3;
+
+      if (vm.data.topics[vm.topicId].contact_id_1 !== null) {
+        contact1 = vm.data.topics[vm.topicId].contact_id_1.id;
+      } else {
+        contact1 = null;
+      }
+
+      if (vm.data.topics[vm.topicId].contact_id_2 !== null) {
+        contact2 = vm.data.topics[vm.topicId].contact_id_2.id;
+      } else {
+        contact2 = null;
+      }
+
+      if (vm.data.topics[vm.topicId].contact_id_3 !== null) {
+        contact3 = vm.data.topics[vm.topicId].contact_id_3.id;
+      } else {
+        contact3 = null;
+      }
+
+      var update = {
+        id: vm.data.topics[vm.topicId].id,
+        topic: vm.data.topics[vm.topicId].topic,
+        note_1: vm.data.topics[vm.topicId].note_1,
+        note_2: vm.data.topics[vm.topicId].note_2,
+        note_3: vm.data.topics[vm.topicId].note_3,
+        contact_1: contact1,
+        contact_2: contact2,
+        contact_3: contact3,
+        website_1: vm.data.topics[vm.topicId].website_id_1,
+        website_2: vm.data.topics[vm.topicId].website_id_2,
+        website_3: vm.data.topics[vm.topicId].website_id_3
+      };
+      console.log('contact1:', contact1);
+      console.log('contact2:', contact2);
+      console.log('no .id:', vm.data.topics[vm.topicId].contact_id_3);
+      console.log('with .id:', vm.data.topics[vm.topicId].contact_id_1.id);
+      console.log(vm.data.topics[vm.topicId]);
+      console.log('website_3:', vm.data.topics[vm.topicId].website_id_3);
+
+      console.log('vm.data', vm.data);
+
+      Data.updateTopic(update).then(function(response) {
+        console.log('response', response);
+      }, function(err) {
+        console.log('err:', err);
+      });
     };
 
     vm.delete = function() {

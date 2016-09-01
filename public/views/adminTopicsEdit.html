@@ -11,7 +11,7 @@
 
         <span flex></span>
 
-        <md-button ng-click="adminTopicsEdit.update()" class="md-raised md-warn md-hue-2" aria-label="Update this topic">
+        <md-button ng-click="adminTopicsEdit.update()" href="/admin/topics" class="md-raised md-warn md-hue-2" aria-label="Update this topic">
           <md-icon>update</md-icon>
           Update
         </md-button>
@@ -20,87 +20,90 @@
           <md-icon>delete</md-icon>
           Delete
         </md-button>
-        
+
     </div>
 </md-toolbar>
 
 <md-content layout-padding>
 
-    <h1>Topic: <input type="text" ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].topic" aria-label="Text input for topic's title" /></h1>
+  <md-input-container class="md-block">
+    <label>Topic</label>
+    <input ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].topic" aria-label="Input for topic's title">
+  </md-input-container>
 
-      <label for="note_1">Note 1: </label>
-      <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_1" aria-label ></textarea>
+  <md-input-container class="md-block">
+    <label>Note 1</label>
+    <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_1" aria-label="Input for note 1" ></textarea>
+  </md-input-container>
 
-      <br />
+  <md-input-container class="md-block">
+    <label>Note 2</label>
+    <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_2" aria-label="Input for note 2" ></textarea>
+  </md-input-container>
 
-      <label for="note_2">Note 2: </label>
-      <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_2" ></textarea>
+  <md-input-container class="md-block">
+    <label>Note 3</label>
+    <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_3" aria-label="Input for note 3" ></textarea>
+  </md-input-container>
 
-      <br />
+  <md-input-container class="md-block">
+    <label>Website 1</label>
+    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].website_1">
+        <md-option ng-repeat="site in adminTopicsEdit.data.websites"
+        value="{{site.website}}">{{site.website}}</md-option>
+    </md-select>
+  </md-input-container>
 
-      <label for="note_3">Note 3: </label>
-      <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_3" ></textarea>
+  <md-input-container class="md-block">
+    <label>Website 2</label>
+    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].website_2">
+        <md-option ng-repeat="site in adminTopicsEdit.data.websites"
+        value="{{site.website}}">{{site.website}}</md-option>
+    </md-select>
+  </md-input-container>
 
-      <br />
-      <br />
+  <md-input-container class="md-block">
+    <label>Website 3</label>
+    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].website_3">
+        <md-option ng-repeat="site in adminTopicsEdit.data.websites"
+        value="{{site.website}}">{{site.website}}</md-option>
+    </md-select>
+  </md-input-container>
 
-      <label for="website_1">Website 1: </label>
-      <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].website_1">
-          <md-option ng-repeat="site in adminTopicsEdit.data.websites"
-          value="{{site.website}}">{{site.website}}</md-option>
-      </md-select>
-
-      <br />
-
-      <label for="website_2">Website 2: </label>
-      <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].website_2">
-          <md-option ng-repeat="site in adminTopicsEdit.data.websites"
-          value="{{site.website}}">{{site.website}}</md-option>
-      </md-select>
-
-      <br />
-
-      <label for="website_3">Website 3: </label>
-      <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].website_3">
-          <md-option ng-repeat="site in adminTopicsEdit.data.websites"
-          value="{{site.website}}">{{site.website}}</md-option>
-      </md-select>
-
-      <br />
-      <br />
-
-      <label for="contact_1">Contact 1: </label>
-      <md-select ng-model="adminTopicsEdit.contact1">
-          <md-option
-              ng-repeat="contact in adminTopicsEdit.data.contacts"
-              ng-value="contact"
-              ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_1">
-              {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
-          </md-option>
-      </md-select>
-
-      <br />
-
-      <label for="contact_2">Contact 2: </label>
-      <md-select ng-model="adminTopicsEdit.contact2">
+  <md-input-container class="md-block">
+    <label>Contact 1</label>
+    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].contact_id_1">
         <md-option
-          ng-repeat="contact in adminTopicsEdit.data.contacts"
-          ng-value="contact"
-          ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_2">
-          {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+            ng-repeat="contact in adminTopicsEdit.data.contacts"
+            ng-value="contact"
+            ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_1">
+            {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
         </md-option>
-      </md-select>
+    </md-select>
+  </md-input-container>
 
-      <br />
-
-      <label for="contact_3">Contact 3: </label>
-      <md-select ng-model="adminTopicsEdit.contact3">
+  <md-input-container class="md-block">
+    <label>Contact 2</label>
+    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].contact_id_2">
         <md-option
-          ng-repeat="contact in adminTopicsEdit.data.contacts"
-          ng-value="contact"
-          ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_3">
-          {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+            ng-repeat="contact in adminTopicsEdit.data.contacts"
+            ng-value="contact"
+            ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_2">
+            {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
         </md-option>
-      </md-select>
+    </md-select>
+  </md-input-container>
+
+  <md-input-container class="md-block">
+    <label>Contact 3</label>
+    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].contact_id_3">
+        <md-option
+            ng-repeat="contact in adminTopicsEdit.data.contacts"
+            ng-value="contact"
+            ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_3">
+            {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+        </md-option>
+    </md-select>
+  </md-input-container>
 
 </md-content>
