@@ -8,11 +8,16 @@
         </h2>
         <span flex></span>
 
-        <md-button ng-click="adminTopicsEdit.update()" href="/admin/topics" class="md-raised md-warn md-hue-2" aria-label="Update this topic">
+        <md-button href="/admin/topics" class="md-raised md-warn md-hue-2" aria-label="Go back">
+          <md-icon>arrow_back</md-icon>
+          Back
+        </md-button>
 
+        <md-button ng-click="adminTopicsEdit.update()" href="/admin/topics" class="md-raised md-warn md-hue-2" aria-label="Update this topic">
           <md-icon>update</md-icon>
           Update
         </md-button>
+
         <md-button ng-click="adminTopicsEdit.delete()" class="md-raised md-warn md-hue-2" aria-label="Delete this topic">
           <md-icon>delete</md-icon>
           Delete
