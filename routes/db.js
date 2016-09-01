@@ -226,7 +226,7 @@ router.put('/topics/update/number_of_hits', function(req, res){
 });
 
 router.put('/topics/update/unmatched_number_of_hits', function(req, res){
-  var query = 'UPDATE unmatched_topics SET unmatched_number_of_hits = unmatched_number_of_hits + 1' +
+  var query = 'UPDATE unmatched_topics SET unmatched_number_of_hits = unmatched_number_of_hits + 1 ' +
     'WHERE id =' + req.body.id;
   queryDB(query, [], req, res);
 });

@@ -86,6 +86,7 @@
             if (vm.hasTopicMatch) return;
             vm.hasTopicMatch = false;
             vm.noTopicMatch = true;
+            vm.noUnmatchedTopic = true;
             var unmatchedTopic = vm.selectedTopic;
             console.log('unmatched topic:', unmatchedTopic);
             for (var j = 0; j < vm.data.unmatched.length; j++) {
@@ -95,13 +96,15 @@
                     var unmatchedTopicId = vm.data.unmatched[j].id;
                     unmatchedTopicId = parseInt(unmatchedTopicId);
                     console.log('this unmatchedTopicId', unmatchedTopicId);
+                    vm.noUnmatchedTopic = false;
                     Data.updateUnmatchedTopicNumberOfHits(unmatchedTopicId);
                     break;
                 }
 
             }
-          
+            if (vm.noUnmatchedTopic){
             Data.createUnmatchedTopic(unmatchedTopic);
+          }
         }
 
 
