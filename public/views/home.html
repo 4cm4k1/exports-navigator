@@ -1,30 +1,58 @@
-
-<md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
-    <div class="md-toolbar-tools">
-      <h2>
-        <span>Select your Industry:</span>
-      </h2>
-    </div>
-</md-toolbar>
-<md-content layout-padding layout="row" layout-xs="column">
-  <div flex>
-      <md-radio-group ng-model="home.industrySelected">
-        <div ng-repeat="industry in home.data.industries track by $index" class="row">
-          <div flex layout='row' layout-align="start center" >
-            <md-radio-button flex
-                ng-value="industry"
-                class="md-primary">{{industry.industry}}</md-radio-button>
-          </div>
+<md-content layout="row" layout-xs="column" layout-align="space-around center" class="md-padding" layout-fill>
+    <div flex-xs flex-gt-xs="40" layout="column" layout-align="stretch">
+        <div>
+            <md-card>
+                <img ng-src="/assets/images/skyline.jpg" class="md-card-image" alt="Minneapolis skyline" />
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Welcome to Export Help Navigator</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-divider></md-divider>
+                <md-card-content layout="column">
+                    <div layout="row" layout-align="end center">
+                        <span class="md-subhead"><em>An initiative of</em></span>
+                        <img src="/assets/images/gmsp_logo.svg" alt="GREATER MSP Logo" flex="50" />
+                    </div>
+                    <div layout="row" layout-align="end center">
+                        <span class="md-subhead"><em>supported by</em></span>
+                        <img src="/assets/images/jpmc_logo.svg" alt="JP Morgan Chase Logo" flex="50" />
+                    </div>
+                </md-card-content>
+                <md-divider></md-divider>
+                <md-card-content>
+                    <div layout="column">
+                        <span class="md-title">Helping Minnesota businesses export products abroad</span>
+                        <p>
+                            You have products you want to export. We can connect you to the appropriate resources and contacts. Get started by using our guided discovery tool.
+                        </p>
+                    </div>
+                </md-card-content>
+            </md-card>
         </div>
-      </md-radio-group>
-      <div>
-      <a href="results/{{home.industrySelected.id}}"><md-button class="md-raised md-primary"ng-click="home.selectedIndustry(home.industrySelected)">Get Info</md-button></a>
-      </div>
-  </div>
-  <div class="textRight" flex >
-    <h2>An initiative of:</h2>
-    <img src="./assets/images/gmsp_logo.svg" width="500px" alt="gmsp logo">
-    <h2>supported by:</h2>
-    <img src="./assets/images/jpmc_logo.svg" width="500px" alt="gmsp logo">
-  </div>
+        <div layout="row" layout-sm="column" layout-align="space-around" ng-if="!home.data.industries" layout-padding>
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <div>
+
+
+            <md-card ng-if="home.data.industries">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-title">What industry does the product you want to export fall into?</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-divider></md-divider>
+                <md-card-content>
+                    <md-radio-group ng-model="home.industrySelected" layout-padding>
+                        <md-radio-button ng-value="industry" class="md-primary" ng-repeat="industry in home.data.industries track by $index">{{industry.industry}}</md-radio-button>
+                    </md-radio-group>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-raised md-primary" ng-click="home.selectedIndustry(home.industrySelected)" href="results/{{home.industrySelected.id}}">Get Connected</md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </div>
+
 </md-content>
