@@ -28,18 +28,15 @@
   </md-input-container>
 
   <md-input-container class="md-block">
-    <label>Note 1</label>
-    <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_1" aria-label="Input for note 1" ></textarea>
-  </md-input-container>
-
-  <md-input-container class="md-block">
-    <label>Note 2</label>
-    <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_2" aria-label="Input for note 2" ></textarea>
-  </md-input-container>
-
-  <md-input-container class="md-block">
-    <label>Note 3</label>
-    <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_3" aria-label="Input for note 3" ></textarea>
+    <label>Contact 1</label>
+    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].contact_id_1">
+      <md-option
+          ng-repeat="contact in adminTopicsEdit.data.contacts"
+          ng-value="contact"
+          ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_1">
+          {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+      </md-option>
+    </md-select>
   </md-input-container>
 
   <md-input-container class="md-block">
@@ -51,31 +48,8 @@
   </md-input-container>
 
   <md-input-container class="md-block">
-    <label>Website 2</label>
-    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].website_2">
-        <md-option ng-repeat="site in adminTopicsEdit.data.websites"
-        value="{{site.website}}">{{site.website}}</md-option>
-    </md-select>
-  </md-input-container>
-
-  <md-input-container class="md-block">
-    <label>Website 3</label>
-    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].website_3">
-        <md-option ng-repeat="site in adminTopicsEdit.data.websites"
-        value="{{site.website}}">{{site.website}}</md-option>
-    </md-select>
-  </md-input-container>
-
-  <md-input-container class="md-block">
-    <label>Contact 1</label>
-    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].contact_id_1">
-      <md-option
-          ng-repeat="contact in adminTopicsEdit.data.contacts"
-          ng-value="contact"
-          ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.topicId})[0].contact_id_1">
-          {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
-      </md-option>
-    </md-select>
+    <label>Note 1</label>
+    <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_1" aria-label="Input for note 1" ></textarea>
   </md-input-container>
 
   <md-input-container class="md-block">
@@ -91,6 +65,19 @@
   </md-input-container>
 
   <md-input-container class="md-block">
+    <label>Website 2</label>
+    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].website_2">
+        <md-option ng-repeat="site in adminTopicsEdit.data.websites"
+        value="{{site.website}}">{{site.website}}</md-option>
+    </md-select>
+  </md-input-container>
+
+  <md-input-container class="md-block">
+    <label>Note 2</label>
+    <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_2" aria-label="Input for note 2" ></textarea>
+  </md-input-container>
+
+  <md-input-container class="md-block">
     <label>Contact 3</label>
     <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].contact_id_3">
       <md-option
@@ -101,5 +88,18 @@
       </md-option>
     </md-select>
   </md-input-container>
-  
+
+  <md-input-container class="md-block">
+    <label>Website 3</label>
+    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].website_3">
+        <md-option ng-repeat="site in adminTopicsEdit.data.websites"
+        value="{{site.website}}">{{site.website}}</md-option>
+    </md-select>
+  </md-input-container>
+
+  <md-input-container class="md-block">
+    <label>Note 3</label>
+    <textarea ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.topicId].note_3" aria-label="Input for note 3" ></textarea>
+  </md-input-container>
+
 </md-content>
