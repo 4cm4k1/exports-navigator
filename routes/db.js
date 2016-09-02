@@ -104,8 +104,8 @@ router.put('/contacts/update', function(req, res){
   queryDB(query, params, req, res);
 });
 
-router.delete('/contacts/delete', function(req, res){
-  var query = 'DELETE FROM contacts WHERE id =' + req.body.id;
+router.delete('/contacts/delete/:id', function(req, res){
+  var query = 'DELETE FROM contacts WHERE id =' + req.params.id;
   queryDB(query, [], req, res);
 });
 
@@ -131,8 +131,8 @@ router.put('/countries/update', function(req, res){
   queryDB(query, params, req, res);
 });
 
-router.delete('/countries/delete', function(req, res){
-  var query = 'DELETE FROM countries WHERE id =' + req.body.id;
+router.delete('/countries/delete/:id', function(req, res){
+  var query = 'DELETE FROM countries WHERE id =' + req.params.id;
   queryDB(query, [], req, res);
 });
 
@@ -172,8 +172,8 @@ router.put('/industries/update', function(req, res){
   queryDB(query, params, req, res);
 });
 
-router.delete('/industries/delete', function(req, res){
-  var query = 'DELETE FROM industries WHERE id =' + req.body.id;
+router.delete('/industries/delete/:id', function(req, res){
+  var query = 'DELETE FROM industries WHERE id =' + req.params.id;
   queryDB(query, [], req, res);
 });
 
@@ -211,9 +211,8 @@ router.put('/topics/update', function(req, res){
   queryDB(query, params, req, res);
 });
 
-router.delete('/topics/delete', function(req, res){
-  var query = 'DELETE FROM topics WHERE id =' + req.body.id;
-  console.log('req.body: ', req.body);
+router.delete('/topics/delete/:id', function(req, res){
+  var query = 'DELETE FROM topics WHERE id =' + req.params.id;
   queryDB(query, [], req, res);
 });
 
@@ -253,8 +252,8 @@ router.put('/websites/update', function(req, res){
   queryDB(query, params, req, res);
 });
 
-router.delete('/websites/delete', function(req, res){
-  var query = 'DELETE FROM websites WHERE id =' + req.body.id;
+router.delete('/websites/delete/:id', function(req, res){
+  var query = 'DELETE FROM websites WHERE id =' + req.params.id;
   queryDB(query, [], req, res);
 });
 
