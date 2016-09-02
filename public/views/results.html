@@ -108,7 +108,7 @@
       </md-card>
   </div>
 <!--Display contact card if there is a topic match  -->
-  <div ng-show="results.hasTopicMatch" ng-class="{'background-color': results.noTopicMatch}">
+  <div ng-show="results.hasTopicMatch">
      <md-card>
          <md-card-header>
              <md-card-header-text>
@@ -218,4 +218,27 @@
           </md-card-title>
         </md-card>
       </div>
+</md-content>
+
+<!--Display message card if there is a country match  -->
+  <!-- <div ng-show="results.hasCountryMatch">
+     <md-card>
+         <md-card-header>
+             <md-card-header-text>
+                 <span class="md-title">Thank you for useing Exports Help Navigator</span>
+               </md-card-header-text>
+         </md-card-header>
+         <md-card-title>
+           <md-card-title-text>
+             <span class="md-headline">Did you find the information you were seeking?</span>
+           </md-card-title-text>
+         </md-card-title>
+         <md-card-content>
+               <md-button class="md-raised md-primary" ng-click="results.unHappy">Yes</md-button>
+                <md-button class="md-raised md-primary" ng-click="results.unHappy">No</md-button>
+         </md-card-content>
+       </md-card>
+     </div> -->
+
+
 </md-content>
