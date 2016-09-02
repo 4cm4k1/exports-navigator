@@ -276,7 +276,7 @@
                     id: unmatchedTopicId
                 })
                 .then(function(response) {
-                    console.log('Successful PUT to /db/topics/update/unmatched_topics');
+                    console.log('Successful PUT to /db/topics/update/unmatched_number_of_hits');
                     getUnmatched();
                 })
                 .catch(function(error) {

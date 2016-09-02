@@ -108,7 +108,7 @@
       </md-card>
   </div>
 <!--Display contact card if there is a topic match  -->
-  <div ng-show="results.hasTopicMatch">
+  <div ng-show="results.hasTopicMatch" ng-class="{'background-color': results.noTopicMatch}">
      <md-card>
          <md-card-header>
              <md-card-header-text>
