@@ -303,12 +303,11 @@
          *  DELETE CALLS
          */
 
-        var deleteContact = function(contactIdObject) {
-            //  contactIdObject has:
-            //  id
-            return $http.delete('/db/contacts/delete', contactIdObject)
+        var deleteContact = function(contactId) {
+            //  contactId is integer
+            return $http.delete('/db/contacts/delete', contactId)
                 .then(function(response) {
-                    console.log('Successful DELETE to /db/contacts/delete');
+                    console.log('Successful DELETE to /db/contacts/delete/' + contactId);
                     getContacts();
                     showToast('Contact successfully deleted!');
                 })
@@ -318,12 +317,11 @@
                 });
         };
 
-        var deleteCountry = function(countryIdObject) {
-            //  countryIdObject has:
-            //  id
-            return $http.delete('/db/countries/delete', countryIdObject)
+        var deleteCountry = function(countryId) {
+            //  countryId is integer
+            return $http.delete('/db/countries/delete/' + countryId)
                 .then(function(response) {
-                    console.log('Successful DELETE to /db/countries/delete');
+                    console.log('Successful DELETE to /db/countries/delete/' + countryId);
                     getCountries();
                     showToast('Country successfully deleted!');
                 })
@@ -333,12 +331,11 @@
                 });
         };
 
-        var deleteIndustry = function(industryIdObject) {
-            //  industryIdObject has:
-            //  id
-            return $http.delete('/db/industries/delete', industryIdObject)
+        var deleteIndustry = function(industryId) {
+            //  industryId is integer
+            return $http.delete('/db/industries/delete', industryId)
                 .then(function(response) {
-                    console.log('Successful DELETE to /db/industries/delete');
+                    console.log('Successful DELETE to /db/industries/delete/' + industryId);
                     getIndustries();
                     showToast('Industry successfully deleted!');
                 })
@@ -348,12 +345,11 @@
                 });
         };
 
-        var deleteTopic = function(topicIdObject) {
-            //  topicIdObject has:
-            //  id
-            return $http.delete('/db/topics/delete', topicIdObject)
+        var deleteTopic = function(topicId) {
+            //  topicId is integer
+            return $http.delete('/db/topics/delete/' + topicId)
                 .then(function(response) {
-                    console.log('Successful DELETE to /db/topics/delete');
+                    console.log('Successful DELETE to /db/topics/delete/' + topicId);
                     getTopics();
                     showToast('Topic successfully deleted!');
                 })
@@ -363,12 +359,11 @@
                 });
         };
 
-        var deleteWebsite = function(websiteIdObject) {
-            //  websiteIdObject has:
-            //  id
-            return $http.delete('/db/websites/delete', websiteIdObject)
+        var deleteWebsite = function(websiteId) {
+            //  websiteId is integer
+            return $http.delete('/db/websites/delete/' + websiteId)
                 .then(function(response) {
-                    console.log('Successful DELETE to /db/websites/delete');
+                    console.log('Successful DELETE to /db/websites/delete/' + websiteId);
                     getWebsites();
                     showToast('Website successfully deleted!');
                 })
