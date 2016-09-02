@@ -9,6 +9,26 @@
           <span>Industries</span>
         </h2>
 
+        <span flex></span>
+
+        <md-button ng-click="adminIndustries.import()" class="md-raised md-warn md-hue-2">
+          <md-icon>arrow_downward</md-icon>
+          Import Industries
+        </md-button>
+
+        <md-button ng-click="adminIndustries.export()" class="md-raised md-warn md-hue-2">
+          <md-icon>arrow_upward</md-icon>
+          Export Industries
+        </md-button>
+
+        <md-button ng-click="adminIndustries.add()" class="md-raised md-warn md-hue-2" href="/admin/industries/add">
+          <md-icon>add</md-icon>
+          New Industry
+        </md-button>
+
+
+
+
     </div>
 </md-toolbar>
 
@@ -18,8 +38,8 @@
             <div class="md-list-item-text">
                 <h3>{{item.industry}}</h3>
             </div>
-            <md-button class="md-secondary md-raised md-primary" href="/admin/industries/{{adminIndustries.data.industries.indexOf(item)}}" aria-label="Edit industry">
-                <md-icon ng-click="adminIndustries.doAThing()" >edit</md-icon>
+            <md-button class="md-secondary md-raised md-primary" href="/admin/industries/{{item.id}}" aria-label="Edit industry">
+                <md-icon ng-click="adminIndustries.edit()" >edit</md-icon>
                 Edit
             </md-button>
         </md-list-item>
