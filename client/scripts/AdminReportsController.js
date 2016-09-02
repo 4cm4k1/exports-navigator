@@ -3,9 +3,9 @@
 
     angular.module('exportsNavigator').controller('AdminReportsController', AdminReportsController);
 
-    AdminReportsController.$inject = ['currentAuth', '$http'];
+    AdminReportsController.$inject = ['currentAuth', '$http', 'Data'];
 
-    function AdminReportsController(currentAuth, $http) {
+    function AdminReportsController(currentAuth, $http, Data) {
         var vm = this;
 
         //this will produce the list of topics and make available the number_of_hits for the adminReports.html
@@ -42,8 +42,8 @@
 
         vm.getUnmatched();
 
-        vm.printPage = function() {
-            window.print();
+        vm.print = function(){
+            Data.printPage();
         };
     }
 })();

@@ -4,12 +4,16 @@
             <md-icon>supervisor_account</md-icon>
         </md-button>
         <h2>
-        <span>Account ({{adminAccount.auth.email}})</span>
+        <span>Account</span>
       </h2>
       <span flex></span>
       <md-button class="md-raised md-warn md-hue-2" ng-click="adminAccount.updateUser()" aria-label="Update account info">
           <md-icon>update</md-icon>
           Update
+      </md-button>
+      <md-button class="md-raised md-warn md-hue-2" ng-click="adminAccount.print()">
+          <md-icon>print</md-icon>
+          Print
       </md-button>
     </div>
 </md-toolbar>
