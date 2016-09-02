@@ -305,7 +305,7 @@
 
         var deleteContact = function(contactId) {
             //  contactId is integer
-            return $http.delete('/db/contacts/delete', contactId)
+            return $http.delete('/db/contacts/delete/' + contactId)
                 .then(function(response) {
                     console.log('Successful DELETE to /db/contacts/delete/' + contactId);
                     getContacts();
@@ -333,7 +333,7 @@
 
         var deleteIndustry = function(industryId) {
             //  industryId is integer
-            return $http.delete('/db/industries/delete', industryId)
+            return $http.delete('/db/industries/delete/' + industryId)
                 .then(function(response) {
                     console.log('Successful DELETE to /db/industries/delete/' + industryId);
                     getIndustries();
