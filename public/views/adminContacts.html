@@ -36,6 +36,11 @@
         <h4>{{ contact.title }} - {{contact.organization}}</h4>
         <p>Email: {{ contact.email }} Phone: {{contact.phone}}</p>
       </div>
+      <md-button class="md-secondary md-raised md-primary"
+      href="admin/contacts/{{contact.id}}">
+        <md-icon aria-label="View and edit topic information">edit</md-icon>
+        Edit
+      </md-button>
     </md-list-item>
   </md-list>
 </md-content>

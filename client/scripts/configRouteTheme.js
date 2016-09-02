@@ -118,6 +118,11 @@
             resolve: {
                 'currentAuth': ['Auth', function(Auth) {
                     return Auth.$requireSignIn();
+                }],
+                'data': ['Data', function(Data) {
+                    return Promise.all([
+                        Data.getContacts()
+                    ]);
                 }]
             }
         })
@@ -134,12 +139,17 @@
         })
 
         //admin view of editing a contact
-        .when('/admin/contacts/:itemID', {
+        .when('/admin/contacts/:contactID', {
             controller: 'AdminContactsEditController as adminContactsEdit',
             templateUrl: 'views/adminContactsEdit.html',
             resolve: {
                 'currentAuth': ['Auth', function(Auth) {
                     return Auth.$requireSignIn();
+                }],
+                'data': ['Data', function(Data) {
+                    return Promise.all([
+                        Data.getContacts()
+                    ]);
                 }]
             }
         })
