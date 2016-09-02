@@ -17,5 +17,8 @@
       if(vm.newPassword.length > 0) Data.updateUserPassword(vm.newPassword);
       if(vm.newDisplayName.length === 0 && vm.newEmail.length === 0 && vm.newPassword.length === 0) Data.showToast('Sorry, you haven\'t entered any changes to your account info. Please try again.');
     };
+    vm.print = function(){
+        Data.printPage();
+    };
   }
 })();
