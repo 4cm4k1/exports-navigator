@@ -1,0 +1,45 @@
+<md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Reports">
+            <md-icon>contacts</md-icon>
+        </md-button>
+        <h2>
+          <span>New Contact</span>
+        </h2>
+        <span flex></span>
+        <md-button href="/admin/contacts" class="md-raised md-warn md-hue-2" aria-label="Go back">
+          <md-icon>arrow_back</md-icon>
+          Back
+        </md-button>
+        <md-button ng-click="adminContactsAdd.saveContact()" class="md-raised md-warn md-hue-2" aria-label="Update this topic">
+          <md-icon>save</md-icon>
+          Save
+        </md-button>
+    </div>
+</md-toolbar>
+<md-content layout-padding>
+  <md-input-container class="md-block">
+    <label>First Name</label>
+    <input ng-model="adminContactsAdd.newContact.first_name" aria-label="Input for contact's first name">
+  </md-input-container>
+  <md-input-container class="md-block">
+    <label>First Name</label>
+    <input ng-model="adminContactsAdd.newContact.last_name" aria-label="Input for contact's last name">
+  </md-input-container>
+  <md-input-container class="md-block">
+    <label>Job Title</label>
+    <input ng-model="adminContactsAdd.newContact.title" aria-label="Input for contact's job title">
+  </md-input-container>
+  <md-input-container class="md-block">
+    <label>Organization</label>
+    <input ng-model="adminContactsAdd.newContact.organization" aria-label="Input for contact's organization">
+  </md-input-container>
+  <md-input-container class="md-block">
+    <label>Email</label>
+    <input ng-model="adminContactsAdd.newContact.email" aria-label="Input for contact's email">
+  </md-input-container>
+  <md-input-container class="md-block">
+    <label>Phone</label>
+    <input ng-model="adminContactsAdd.newContact.phone" aria-label="Input for contact's phone number">
+  </md-input-container>
+</md-content>
