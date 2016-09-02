@@ -24,6 +24,11 @@
             );
         };
 
+        var printPage = function(){
+            showToast('Launching your system\'s print dialog!');
+            window.print();
+        };
+
         /*
          *  GET CALLS
          */
@@ -449,6 +454,7 @@
             data: data,
             //  TOAST MAKER
             showToast: showToast,
+            printPage: printPage,
             //  GET CALLS
             getIndustries: getIndustries,
             getTopics: getTopics,
