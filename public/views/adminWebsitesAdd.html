@@ -1,0 +1,26 @@
+<md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
+  <div class="md-toolbar-tools">
+    <md-button class="md-icon-button" aria-label="Websites">
+      <md-icon>web</md-icon>
+    </md-button>
+    <h2>
+      <span>Websites</span>
+    </h2>
+    <span flex></span>
+    <md-button href="/admin/websites" class="md-raised md-warn md-hue-2" aria-label="Go back">
+      <md-icon>arrow_back</md-icon>
+      Back
+    </md-button>
+    <md-button href="/admin/websites" ng-click="adminWebsitesAdd.add()" class="md-raised md-warn md-hue-2" aria-label="Add new website">
+      <md-icon>add</md-icon>
+      Add
+    </md-button>
+  </div>
+</md-toolbar>
+
+<md-content layout-padding>
+  <md-input-container class="md-block">
+    <label>Website</label>
+    <input ng-model="adminWebsitesAdd.newWebsite" />
+  </md-input-container>
+</md-content>

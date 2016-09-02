@@ -155,6 +155,17 @@
             }
         })
 
+        // admin view to add a website
+        .when('/admin/websites/add', {
+            controller: 'AdminWebsitesAddController as adminWebsitesAdd',
+            templateUrl: 'views/adminWebsitesAdd.html',
+            resolve: {
+                'currentAuth': ['Auth', function(Auth) {
+                    return Auth.$requireSignIn();
+                }]
+            }
+        })
+
         // admin view of generated reports
         .when('/admin/reports', {
             controller: 'AdminReportsController as adminReports',
