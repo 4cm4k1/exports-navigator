@@ -238,7 +238,7 @@ router.get('/websites', function(req, res){
 
 router.post('/websites/create', function(req, res){
   var query = 'INSERT INTO websites' +
-  '(website) VALUES' +
+  '(website) VALUES ' +
   '($1)';
   var params = [req.body.website];
   queryDB(query, params, req, res);

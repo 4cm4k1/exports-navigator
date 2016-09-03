@@ -28,6 +28,11 @@
       <div class="md-list-item-text" layout="column">
         <h3>{{ website.website }}</h3>
       </div>
+      <md-button class="md-secondary md-raised md-primary"
+      href="admin/websites/{{website.id}}">
+        <md-icon aria-label="View and edit website information">edit</md-icon>
+        Edit
+      </md-button>
     </md-list-item>
   </md-list>
 </md-content>

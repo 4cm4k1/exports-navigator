@@ -176,6 +176,22 @@
             }
         })
 
+        // admin view to edit a website
+        .when('/admin/websites/:websiteID', {
+            controller: 'AdminWebsitesEditController as adminWebsitesEdit',
+            templateUrl: 'views/adminWebsitesEdit.html',
+            resolve: {
+                'currentAuth': ['Auth', function(Auth) {
+                    return Auth.$requireSignIn();
+                }],
+                'data': ['Data', function(Data) {
+                    return Promise.all([
+                        Data.getWebsites()
+                    ]);
+                }]
+            }
+        })
+
         // admin view of generated reports
         .when('/admin/reports', {
             controller: 'AdminReportsController as adminReports',

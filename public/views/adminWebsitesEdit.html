@@ -1,0 +1,29 @@
+<md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Reports">
+            <md-icon>web</md-icon>
+        </md-button>
+        <h2>
+          <span>Edit Website</span>
+        </h2>
+        <span flex></span>
+        <md-button href="/admin/websites" class="md-raised md-warn md-hue-2" aria-label="Go back">
+          <md-icon>arrow_back</md-icon>
+          Back
+        </md-button>
+        <md-button ng-click="adminWebsitesEdit.update()" class="md-raised md-warn md-hue-2" aria-label="Update this topic">
+          <md-icon>update</md-icon>
+          Update
+        </md-button>
+        <md-button ng-click="adminWebsitesEdit.delete(adminWebsitesEdit.selectedWebsite)" href="/admin/websites" class="md-raised md-warn md-hue-2" aria-label="Delete this topic">
+          <md-icon>delete</md-icon>
+          Delete
+        </md-button>
+    </div>
+</md-toolbar>
+<md-content layout-padding>
+  <md-input-container class="md-block">
+    <label>URL</label>
+    <input ng-model="adminWebsitesEdit.data.websites[adminWebsitesEdit.selectedRecordIndex].website" aria-label="Input for website URL">
+  </md-input-container>
+</md-content>
