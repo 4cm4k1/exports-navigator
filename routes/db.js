@@ -238,7 +238,7 @@ router.get('/websites', function(req, res){
 
 router.post('/websites/create', function(req, res){
   var query = 'INSERT INTO websites' +
-  '(website) VALUES' +
+  '(website) VALUES ' +
   '($1)';
   var params = [req.body.website];
   queryDB(query, params, req, res);
@@ -260,7 +260,7 @@ router.delete('/websites/delete/:id', function(req, res){
 //  ~ Admin Reports
 //below are routes for ADMIN REPORTS PURPOSES
 router.get('/unmatched', function(req, res){
-  var query = 'SELECT * FROM unmatched_topics';
+  var query = 'SELECT * FROM unmatched_topics ORDER BY unmatched_number_of_hits DESC';
   queryDB(query, [], req, res);
 });
 
@@ -273,7 +273,7 @@ var params = [req.body.unmatched_topic];
 });
 
 router.get('/topics/number_of_hits', function(req, res){
-  var query = 'SELECT topics.id, topic, number_of_hits FROM topics ORDER BY topics.id';
+  var query = 'SELECT topics.id, topic, number_of_hits FROM topics ORDER BY number_of_hits DESC';
   queryDB(query, [], req, res);
 });
 
