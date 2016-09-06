@@ -25,19 +25,19 @@
       var contact3;
 
       if (vm.data.topics[vm.selected].contact_id_1 !== null) {
-        contact1 = vm.data.topics[vm.selected].contact_id_1.id;
+        contact1 = vm.data.topics[vm.selected].contact_id_1;
       } else {
         contact1 = null;
       }
 
       if (vm.data.topics[vm.selected].contact_id_2 !== null) {
-        contact2 = vm.data.topics[vm.selected].contact_id_2.id;
+        contact2 = vm.data.topics[vm.selected].contact_id_2;
       } else {
         contact2 = null;
       }
 
       if (vm.data.topics[vm.selected].contact_id_3 !== null) {
-        contact3 = vm.data.topics[vm.selected].contact_id_3.id;
+        contact3 = vm.data.topics[vm.selected].contact_id_3;
       } else {
         contact3 = null;
       }
@@ -83,8 +83,8 @@
 
     //loop over an array and find where the id matches the id of that index; record the index in vm.selectedRecordIndex
     function findRecordIndex(recordID){
-      for(var i=0; vm.data.contacts.length > i; i++){
-        if(recordID === vm.data.contacts[i].id){
+      for(var i=0; vm.data.topics.length > i; i++){
+        if(recordID === vm.data.topics[i].id){
           vm.selected = i;
           break;
         }
