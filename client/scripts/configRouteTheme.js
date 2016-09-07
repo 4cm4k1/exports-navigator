@@ -111,6 +111,22 @@
             }
         })
 
+        // admin view to add countries
+        .when('/admin/countries/add', {
+            controller: 'AdminCountriesAddController as adminCountriesAdd',
+            templateUrl: 'views/adminCountriesAdd.html',
+            resolve: {
+                'currentAuth': ['Auth', function(Auth) {
+                    return Auth.$requireSignIn();
+                }],
+                'data': ['Data', function(Data) {
+                    return Promise.all([
+                        Data.getContacts()
+                    ]);
+                }]
+            }
+        })
+
         // admin view of all contacts
         .when('/admin/contacts', {
             controller: 'AdminContactsController as adminContacts',
