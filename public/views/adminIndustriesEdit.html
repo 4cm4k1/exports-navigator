@@ -36,13 +36,20 @@
     <input ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].industry" aria-label="Input for industry's title">
   </md-input-container>
 
+  <br />
+
+  <md-input-container class="md-block">
+    <label>Note 1</label>
+    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].note_1" aria-label="Input for note 1" ></textarea>
+  </md-input-container>
+
   <md-input-container class="md-block">
     <label>Contact 1</label>
     <md-select ng-model="adminIndustriesEdit.contact1">
       <md-option
         ng-repeat="contact in adminIndustriesEdit.data.contacts"
         ng-value="contact"
-        ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.selectedRecordIndex}).contact_id_1">
+        ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].id})[0].contact_id_1">
         {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
       </md-option>
     </md-select>
@@ -56,9 +63,12 @@
     </md-select>
   </md-input-container>
 
+  <br />
+  <br />
+
   <md-input-container class="md-block">
-    <label>Note 1</label>
-    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].note_1" aria-label="Input for note 1" ></textarea>
+    <label>Note 2</label>
+    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].note_2" aria-label="Input for note 2" ></textarea>
   </md-input-container>
 
   <md-input-container class="md-block">
@@ -67,7 +77,7 @@
       <md-option
         ng-repeat="contact in adminIndustriesEdit.data.contacts"
         ng-value="contact"
-        ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.selectedRecordIndex})[0].contact_id_2">
+        ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].id})[0].contact_id_2">
         {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
       </md-option>
     </md-select>
@@ -81,9 +91,12 @@
     </md-select>
   </md-input-container>
 
+  <br />
+  <br />
+
   <md-input-container class="md-block">
-    <label>Note 2</label>
-    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].note_2" aria-label="Input for note 2" ></textarea>
+    <label>Note 3</label>
+    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].note_3" aria-label="Input for note 3" ></textarea>
   </md-input-container>
 
   <md-input-container class="md-block">
@@ -92,7 +105,7 @@
       <md-option
         ng-repeat="contact in adminIndustriesEdit.data.contacts"
         ng-value="contact"
-        ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.selectedRecordIndex})[0].contact_id_3">
+        ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].id})[0].contact_id_3">
         {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
       </md-option>
     </md-select>
@@ -104,11 +117,6 @@
         <md-option ng-repeat="site in adminIndustriesEdit.data.websites"
         value="{{site.website}}">{{site.website}}</md-option>
     </md-select>
-  </md-input-container>
-
-  <md-input-container class="md-block">
-    <label>Note 3</label>
-    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].note_3" aria-label="Input for note 3" ></textarea>
   </md-input-container>
 
 </md-content>
