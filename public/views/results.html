@@ -135,9 +135,9 @@
             </md-card-header>
             <md-card-title>
                 <md-card-title-text>
-                  <p>
-                      {{results.item.note_2}}
-                  </p>
+                    <p>
+                        {{results.item.note_2}}
+                    </p>
                     <span class="md-headline">{{results.item.first_name_2}} {{results.item.last_name_2}}</span>
                     <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email_2}}</span>
                     <span class="md-subhead"><md-icon>phone</md-icon> {{results.item.phone_2}}</span>
@@ -156,9 +156,9 @@
             </md-card-header>
             <md-card-title>
                 <md-card-title-text>
-                  <p>
-                      {{results.item.note_3}}
-                  </p>
+                    <p>
+                        {{results.item.note_3}}
+                    </p>
                     <span class="md-headline">{{results.item.first_name_3}} {{results.item.last_name_3}}</span>
                     <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email_3}}</span>
                     <span class="md-subhead"><md-icon>phone</md-icon> {{results.item.phone_3}}</span>
@@ -201,9 +201,9 @@
             </md-card-header>
             <md-card-title>
                 <md-card-title-text>
-                  <p>
-                     {{results.item.note}}
-                  </p>
+                    <p>
+                        {{results.item.note}}
+                    </p>
                     <span class="md-headline">{{results.item.first_name}} {{results.item.last_name}}</span>
                     <span class="md-subhead">{{results.item.organization}}</span>
                     <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email}}</span>
@@ -214,104 +214,104 @@
     </div>
 
 
-<!--Display message card if there is a country match  -->
-<div ng-show="results.hasCountryMatch">
-     <md-card>
-         <md-card-header>
-             <md-card-header-text>
-                 <span class="md-title">Thank you for visiting Export Help Navigator</span>
-               </md-card-header-text>
-         </md-card-header>
-         <md-card-title>
-           <md-card-title-text>
-             <span class="md-headline">Did you find the information you were seeking?</span>
-           </md-card-title-text>
-         </md-card-title>
-         <md-card-content>
-               <md-button class="md-raised md-primary" ng-click="results.happy = true">Yes</md-button>
+    <!--Display message card if there is a country match  -->
+    <div ng-show="results.hasCountryMatch">
+        <md-card>
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">Thank you for visiting Export Help Navigator</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Did you find the information you were seeking?</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <md-button class="md-raised md-primary" ng-click="results.happy = true">Yes</md-button>
                 <md-button class="md-raised md-primary" ng-click="results.getFailedTopicResult()">No</md-button>
-         </md-card-content>
-       </md-card>
-     </div>
+            </md-card-content>
+        </md-card>
+    </div>
 
 
 
-<!-- Show the following card if the user clicks "Yes" to found Info -->
-     <div ng-show="results.happy">
-          <md-card>
-              <md-card-header>
-                  <md-card-header-text>
-                      <span class="md-title">We were happy to help.  Have a great day!</span>
-                    </md-card-header-text>
-              </md-card-header>
-          </md-card>
-      </div>
+    <!-- Show the following card if the user clicks "Yes" to found Info -->
+    <div ng-show="results.happy">
+        <md-card>
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">We were happy to help.  Have a great day!</span>
+                </md-card-header-text>
+            </md-card-header>
+        </md-card>
+    </div>
 
-<!-- Show the following cards if the user clicks "no" to found info  -->
+    <!-- Show the following cards if the user clicks "no" to found info  -->
 
-          <div ng-show="results.unHappy" ng-model="results.failed">
-            <md-card>
-                <md-card-header>
-                    <md-card-header-text>
-                      <h1>Please see below for further information</h1>
-                        <span class="md-title">Contact Information</span>
-                    </md-card-header-text>
-                </md-card-header>
-                <md-card-title>
-                    <md-card-title-text>
-                         <p>{{results.failed.note_1}}</p>
-                        <span class="md-headline">{{results.failed.first_name_1}} {{results.failed.last_name_1}}</span>
-                        <span class="md-subhead"><md-icon>email</md-icon> {{results.failed.email_1}}</span>
-                        <span class="md-subhead"><md-icon>phone</md-icon> {{results.failed.phone_1}}</span>
-                    </md-card-title-text>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="start center">
-                    <md-button><a href="{{results.failed.website_1}} ">{{results.failed.website_1}}</a></a>
-                    </md-button>
-                </md-card-actions>
-            </md-card>
-            <md-card>
-                <md-card-header>
-                    <md-card-header-text>
-                        <span class="md-title">Contact Information</span>
-                        <span class="md-subhead">Topic: {{results.failed.topic}}</span>
-                    </md-card-header-text>
-                </md-card-header>
-                <md-card-title>
-                    <md-card-title-text>
-                      <p>
-                          {{results.failed.note_2}}
-                      </p>
-                        <span class="md-headline">{{results.failed.first_name_2}} {{results.failed.last_name_2}}</span>
-                        <span class="md-subhead"><md-icon>email</md-icon> {{results.failed.email_2}}</span>
-                        <span class="md-subhead"><md-icon>phone</md-icon> {{results.failed.phone_2}}</span>
-                    </md-card-title-text>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="start center">
-                    <md-button><a href="{{results.failed.website_2}}">{{results.failed.website_2}}</a></md-button>
-                </md-card-actions>
-            </md-card>
-            <md-card>
-                <md-card-header>
-                    <md-card-header-text>
-                        <span class="md-title">Contact Information</span>
-                        <span class="md-subhead">Topic: {{results.failed.topic}}</span>
-                    </md-card-header-text>
-                </md-card-header>
-                <md-card-title>
-                    <md-card-title-text>
-                      <p>
-                          {{results.failed.note_3}}
-                      </p>
-                        <span class="md-headline">{{results.failed.first_name_3}} {{results.failed.last_name_3}}</span>
-                        <span class="md-subhead"><md-icon>email</md-icon> {{results.failed.email_3}}</span>
-                        <span class="md-subhead"><md-icon>phone</md-icon> {{results.failed.phone_3}}</span>
-                    </md-card-title-text>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="start center">
-                    <md-button><a href="{{results.failed.website_3}}">{{results.failed.website_3}}</a></md-button>
-                </md-card-actions>
-            </md-card>
-        </div>
+    <div ng-show="results.unHappy" ng-model="results.failed">
+        <md-card>
+            <md-card-header>
+                <md-card-header-text>
+                    <h1>Please see below for further information</h1>
+                    <span class="md-title">Contact Information</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-title>
+                <md-card-title-text>
+                    <p>{{results.failed.note_1}}</p>
+                    <span class="md-headline">{{results.failed.first_name_1}} {{results.failed.last_name_1}}</span>
+                    <span class="md-subhead"><md-icon>email</md-icon> {{results.failed.email_1}}</span>
+                    <span class="md-subhead"><md-icon>phone</md-icon> {{results.failed.phone_1}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="start center">
+                <md-button><a href="{{results.failed.website_1}} ">{{results.failed.website_1}}</a></a>
+                </md-button>
+            </md-card-actions>
+        </md-card>
+        <md-card>
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">Contact Information</span>
+                    <span class="md-subhead">Topic: {{results.failed.topic}}</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-title>
+                <md-card-title-text>
+                    <p>
+                        {{results.failed.note_2}}
+                    </p>
+                    <span class="md-headline">{{results.failed.first_name_2}} {{results.failed.last_name_2}}</span>
+                    <span class="md-subhead"><md-icon>email</md-icon> {{results.failed.email_2}}</span>
+                    <span class="md-subhead"><md-icon>phone</md-icon> {{results.failed.phone_2}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="start center">
+                <md-button><a href="{{results.failed.website_2}}">{{results.failed.website_2}}</a></md-button>
+            </md-card-actions>
+        </md-card>
+        <md-card>
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">Contact Information</span>
+                    <span class="md-subhead">Topic: {{results.failed.topic}}</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-title>
+                <md-card-title-text>
+                    <p>
+                        {{results.failed.note_3}}
+                    </p>
+                    <span class="md-headline">{{results.failed.first_name_3}} {{results.failed.last_name_3}}</span>
+                    <span class="md-subhead"><md-icon>email</md-icon> {{results.failed.email_3}}</span>
+                    <span class="md-subhead"><md-icon>phone</md-icon> {{results.failed.phone_3}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="start center">
+                <md-button><a href="{{results.failed.website_3}}">{{results.failed.website_3}}</a></md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
 
 </md-content>

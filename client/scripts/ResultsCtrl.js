@@ -105,9 +105,9 @@
                 }
 
             }
-            if (vm.noUnmatchedTopic){
-            Data.createUnmatchedTopic(unmatchedTopic);
-          }
+            if (vm.noUnmatchedTopic) {
+                Data.createUnmatchedTopic(unmatchedTopic);
+            }
         }
 
 
@@ -131,12 +131,14 @@
         }
 
 
-        vm.getFailedTopicResult = function(){
-          vm.unHappy = true;
-          console.log('failed info', vm.data.failed[0]);
-          vm.failed = vm.data.failed[0];
+        vm.getFailedTopicResult = function() {
+            vm.unHappy = true;
+            vm.hasCountryMatch = false;
+            vm.noTopicMatch = false;
+            console.log('failed info', vm.data.failed[0]);
+            vm.failed = vm.data.failed[0];
 
-          };
+        };
 
 
 
