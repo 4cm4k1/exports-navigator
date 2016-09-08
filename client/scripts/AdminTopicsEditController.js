@@ -74,12 +74,12 @@
 
     // var topicId = vm.data.topics[vm.selected].id;
 
-    vm.delete = function(topicId) {
-      var topicId = vm.data.topics[vm.selected].id;
-      console.log('vm.data.topics[vm.selected].id:', topicId);
+    vm.delete = function() {
+      var id = vm.data.topics[vm.selected].id;
+      console.log('vm.data.topics[vm.selected].id:', id);
       // gives the user a chance to confirm deletion
       if (confirm("Are you sure you want to delete this topic?")) {
-        Data.deleteTopic(topicId);
+        Data.deleteTopic(id);
         $location.url('/admin/topics');
       }
     };
