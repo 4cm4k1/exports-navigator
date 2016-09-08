@@ -110,8 +110,12 @@ router.delete('/contacts/delete/:id', function(req, res){
 });
 
 router.get('/countries', function(req, res){
-  var query = 'SELECT * FROM countries JOIN contacts ON ' +
-  'contacts.id = countries.contact_id';
+  var query = 'SELECT countries.id, countries.country, countries.note, ' +
+  'contacts.id AS contact_id, contacts.first_name AS first_name, ' +
+  'contacts.last_name AS last_name, contacts.title AS title, ' +
+  'contacts.organization AS organization, contacts.email AS email, ' +
+  'contacts.phone as phone FROM countries ' +
+  'JOIN contacts ON countries.contact_id = contacts.id ORDER BY country';
   queryDB(query, [], req, res);
 });
 
@@ -124,10 +128,11 @@ var params = [req.body.country, req.body.contact_id, req.body.note];
 });
 
 router.put('/countries/update', function(req, res){
-  var query = 'UPDATE countries SET (contact_id, country) = ' +
-  '($1, $2)' +
+  console.log('req.body: ' + req.body);
+  var query = 'UPDATE countries SET (contact_id, country, note) = ' +
+  '($1, $2, $3)' +
   'WHERE id =' + req.body.id;
-  var params = [req.body.contact_id, req.body.country];
+  var params = [req.body.contact_id, req.body.country, req.body.note];
   queryDB(query, params, req, res);
 });
 

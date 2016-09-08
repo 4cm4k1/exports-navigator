@@ -127,6 +127,23 @@
             }
         })
 
+        //admin view of editing a country
+        .when('/admin/countries/:countryID', {
+            controller: 'AdminCountriesEditController as adminCountriesEdit',
+            templateUrl: 'views/adminCountriesEdit.html',
+            resolve: {
+                'currentAuth': ['Auth', function(Auth) {
+                    return Auth.$requireSignIn();
+                }],
+                'data': ['Data', function(Data) {
+                    return Promise.all([
+                        Data.getContacts(),
+                        Data.getCountries()
+                    ]);
+                }]
+            }
+        })
+
         // admin view of all contacts
         .when('/admin/contacts', {
             controller: 'AdminContactsController as adminContacts',

@@ -218,7 +218,7 @@
 
         var updateCountry = function(countryObject) {
             //  countryObject has:
-            //  id, contact_id, country
+            //  id, contact_id, country, note
             return $http.put('/db/countries/update', countryObject)
                 .then(function(response) {
                     console.log('Successful PUT to /db/countries/update');

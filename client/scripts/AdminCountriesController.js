@@ -10,7 +10,6 @@
         vm.data = Data.data;
         Data.getCountries().then(function(countries){
             vm.countries = countries;
-            console.log('stuff:', vm.data.countries);
         });
     }
 })();
