@@ -4,7 +4,6 @@
     angular.module('exportsNavigator').factory('Data', ['$http', 'Auth', '$mdToast', Data]);
 
     function Data($http, Auth, $mdToast) {
-
         /*
          *  SYNCHRONIZED DATA OBJECT
          */

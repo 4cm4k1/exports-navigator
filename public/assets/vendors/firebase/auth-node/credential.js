@@ -1,5 +1,5 @@
-/*! @license Firebase v3.3.0
-    Build: 3.3.0-rc.7
+/*! @license Firebase v3.3.2
+    Build: 3.3.2-rc.1
     Terms: https://developers.google.com/terms */
 'use strict';
 

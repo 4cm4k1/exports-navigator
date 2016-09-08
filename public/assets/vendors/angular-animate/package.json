@@ -1,30 +1,68 @@
 {
-  "name": "angular-animate",
-  "version": "1.5.8",
-  "description": "AngularJS module for animations",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/angular/angular.js.git"
-  },
-  "keywords": [
-    "angular",
-    "framework",
-    "browser",
-    "animation",
-    "client-side"
+  "_args": [
+    [
+      {
+        "raw": "angular-animate",
+        "scope": null,
+        "escapedName": "angular-animate",
+        "name": "angular-animate",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/Users/4cm4k1/GitHub/exports-navigator"
+    ]
   ],
+  "_from": "angular-animate@latest",
+  "_id": "angular-animate@1.5.8",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/angular-animate",
+  "_nodeVersion": "4.4.7",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/angular-animate-1.5.8.tgz_1469201403735_0.004368406254798174"
+  },
+  "_npmUser": {
+    "name": "angularcore",
+    "email": "angular-core+npm@google.com"
+  },
+  "_npmVersion": "2.15.8",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "angular-animate",
+    "scope": null,
+    "escapedName": "angular-animate",
+    "name": "angular-animate",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-animate/-/angular-animate-1.5.8.tgz",
+  "_shasum": "535f7369225aba7fb15bf7134c71b15bc635c586",
+  "_shrinkwrap": null,
+  "_spec": "angular-animate",
+  "_where": "/Users/4cm4k1/GitHub/exports-navigator",
   "author": {
     "name": "Angular Core Team",
     "email": "angular-core+npm@google.com"
   },
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/angular/angular.js/issues"
   },
+  "dependencies": {},
+  "description": "AngularJS module for animations",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "535f7369225aba7fb15bf7134c71b15bc635c586",
+    "tarball": "https://registry.npmjs.org/angular-animate/-/angular-animate-1.5.8.tgz"
+  },
+  "gitHead": "688b68844cf95420e1793327f69d0c25589c23d1",
   "homepage": "http://angularjs.org",
   "jspm": {
     "shim": {
@@ -35,20 +73,15 @@
       }
     }
   },
-  "gitHead": "688b68844cf95420e1793327f69d0c25589c23d1",
-  "_id": "angular-animate@1.5.8",
-  "_shasum": "535f7369225aba7fb15bf7134c71b15bc635c586",
-  "_from": "angular-animate@>=1.5.8 <2.0.0",
-  "_npmVersion": "2.15.8",
-  "_nodeVersion": "4.4.7",
-  "_npmUser": {
-    "name": "angularcore",
-    "email": "angular-core+npm@google.com"
-  },
-  "dist": {
-    "shasum": "535f7369225aba7fb15bf7134c71b15bc635c586",
-    "tarball": "https://registry.npmjs.org/angular-animate/-/angular-animate-1.5.8.tgz"
-  },
+  "keywords": [
+    "angular",
+    "framework",
+    "browser",
+    "animation",
+    "client-side"
+  ],
+  "license": "MIT",
+  "main": "index.js",
   "maintainers": [
     {
       "name": "akalinovski",
@@ -63,11 +96,15 @@
       "email": "pete@bacondarwin.com"
     }
   ],
-  "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/angular-animate-1.5.8.tgz_1469201403735_0.004368406254798174"
+  "name": "angular-animate",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular/angular.js.git"
   },
-  "directories": {},
-  "_resolved": "https://registry.npmjs.org/angular-animate/-/angular-animate-1.5.8.tgz",
-  "readme": "ERROR: No README data found!"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.5.8"
 }
