@@ -16,6 +16,10 @@
 
     findRecordIndex(vm.topicId);
 
+
+    console.log('vm.data.topics[vm.selected].contact_id_1', vm.data.topics[vm.selected].contact_id_1);
+    console.log('vm.data.websites', vm.data.websites);
+    // console.log('vm.data.topics | filter: {id: vm.data.topics[vm.selected].id})[0].contact_id_1', vm.data.topics | filter: {id: vm.data.topics[vm.selected].id})[0].contact_id_1);
     // console.log('topics at vm.selected: ', vm.data.topics[vm.selected]);
 
     vm.update = function() {
