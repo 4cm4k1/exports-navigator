@@ -43,6 +43,17 @@
             }
         })
 
+        // admin view on which industries are added
+        .when('/admin/industries/add', {
+            controller: 'AdminIndustriesAddController as adminIndustriesAdd',
+            templateUrl: 'views/adminIndustriesAdd.html',
+            resolve: {
+                'currentAuth': ['Auth', function(Auth) {
+                return Auth.$requireSignIn();
+                }]
+            }
+        })
+
         // admin view on which industries are edited
         .when('/admin/industries/:itemID', {
             controller: 'AdminIndustriesEditController as adminIndustriesEdit',

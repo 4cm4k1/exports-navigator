@@ -1,14 +1,13 @@
 (function() {
   'use strict';
 
-  angular.module('exportsNavigator').controller('AdminTopicsAddController', AdminTopicsAddController);
+  angular.module('exportsNavigator').controller('AdminIndustriesAddController', AdminIndustriesAddController);
 
-  AdminTopicsAddController.$inject = ['currentAuth', 'Data'];
+  AdminIndustriesAddController.$inject = ['currentAuth', 'Data'];
 
-  function AdminTopicsAddController(currentAuth, Data) {
+  function AdminIndustriesAddController(currentAuth, Data) {
     var vm = this;
 
-    // use the data factory
     vm.data = Data.data;
 
     Data.getContacts();
@@ -46,9 +45,9 @@
         newWebsite3 = parseInt(vm.newWebsite_3.id);
       }
 
-      // grab all of the information needed for the object to be POSTed
-      var newTopic = {
-        topic: vm.newTopic,
+      // get all of the information needed for the object to be POSTed
+      var newIndustry = {
+        industry: vm.newIndustry,
         note_1: vm.newNote_1,
         note_2: vm.newNote_2,
         note_3: vm.newNote_3,
@@ -60,11 +59,7 @@
         website_3: newWebsite3
       };
 
-      console.log('newTopic: ', newTopic);
-      console.log('vm.newWebsite_1: ', vm.newWebsite_1);
-
-      // use the POST function in the data factory
-      Data.createTopic(newTopic);
+      Data.createIndustry(newIndustry);
     };
   }
 })();
