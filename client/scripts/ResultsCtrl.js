@@ -120,6 +120,7 @@
                     vm.hasCountryMatch = true;
                     vm.noCountryMatch = false;
                     vm.showTopicSearch = false;
+                    vm.happy = false;
                     break;
                     // return true;
                 } else {
@@ -135,13 +136,17 @@
             vm.unHappy = true;
             vm.hasCountryMatch = false;
             vm.noTopicMatch = false;
+            vm.happy = false;
             console.log('failed info', vm.data.failed[0]);
             vm.failed = vm.data.failed[0];
 
         };
 
 
+        vm.happyGoodbye = function(){
+          vm.happy = true;
 
+        };
 
 
 
