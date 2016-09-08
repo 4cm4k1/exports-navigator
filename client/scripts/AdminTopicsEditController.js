@@ -72,11 +72,14 @@
       });
     };
 
-    vm.delete = function() {
-      // console.log('vm.data.topics[vm.selected].id:', vm.data.topics[vm.selected].id);
+    // var topicId = vm.data.topics[vm.selected].id;
+
+    vm.delete = function(topicId) {
+      var topicId = vm.data.topics[vm.selected].id;
+      console.log('vm.data.topics[vm.selected].id:', topicId);
       // gives the user a chance to confirm deletion
       if (confirm("Are you sure you want to delete this topic?")) {
-        Data.deleteTopic({id: vm.data.topics[vm.selected].id});
+        Data.deleteTopic(topicId);
         $location.url('/admin/topics');
       }
     };
