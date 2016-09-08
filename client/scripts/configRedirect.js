@@ -14,12 +14,10 @@
             if (user) {
                 user.getToken(true)
                     .then(function(idToken) {
-                      console.log('idtoken', idToken);
                         $http.defaults.headers.common.firebaseToken = idToken;
-                        console.log('http default headers:', $http.defaults.headers.common.firebaseToken);
                     })
                     .catch(function(error) {
-                        console.log('Didnt work');
+                        console.log('firebaseToken authentication header was not set correctly.');
                     });
             } else {
                 $http.defaults.headers.common.firebaseToken = undefined;
