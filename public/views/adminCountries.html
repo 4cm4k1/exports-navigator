@@ -7,7 +7,7 @@
           <span>Countries</span>
         </h2>
         <span flex></span>
-        <md-autocomplete md-selected-item="adminCountries.selectedItem" md-search-text="adminCountries.searchText" md-items="item in adminCountries.data.countries | filter: adminCountries.searchText" md-item-text="item.country" placeholder="Search Countries" arai-label="Search websites">
+        <md-autocomplete md-selected-item="adminCountries.selectedItem" md-search-text="adminCountries.searchText" md-items="item in adminCountries.data.countries | filter: adminCountries.searchText" md-item-text="item.country" placeholder="Search Countries" arai-label="Search countries">
             <md-item-template>
                 <span md-highlight-text="adminCountries.searchText" md-highlight-flags="^i" class="md-body-2">{{item.country}}</span>
                 <span class="md-caption">{{item.first_name}} {{item.last_name}}</span>

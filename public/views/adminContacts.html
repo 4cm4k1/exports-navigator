@@ -7,7 +7,7 @@
           <span>Contacts</span>
         </h2>
         <span flex></span>
-        <md-autocomplete md-selected-item="adminContacts.selectedItem" md-search-text="adminContacts.searchText" md-items="item in adminContacts.data.contacts | filter: adminContacts.searchText" md-item-text="item.contact" placeholder="Search Contacts" aria-label="Seach contacts">
+        <md-autocomplete md-selected-item="adminContacts.selectedItem" md-search-text="adminContacts.searchText" md-items="item in adminContacts.data.contacts | filter: adminContacts.searchText" md-item-text="item.full_name" placeholder="Search Contacts" aria-label="Seach contacts">
             <md-item-template>
                 <span md-highlight-text="adminContacts.searchText" md-highlight-flags="^i" class="md-body-2">{{item.contact}}</span>
                 <span class="md-caption">{{item.first_name}} {{item.last_name}}</span>
@@ -30,7 +30,7 @@
         <input ng-model="adminContacts.search">
       </md-input-container>
     </md-subheader> -->
-    <md-list-item class="md-3-line" ng-repeat="contact in adminContacts.data.contacts | filter: adminContacts.search" ng-click="null">
+    <md-list-item class="md-3-line" ng-repeat="contact in adminContacts.data.contacts | filter: adminContacts.searchText" ng-click="null">
       <div class="md-list-item-text" layout="column">
         <h3>{{ contact.first_name }} {{contact.last_name }}</h3>
         <h4>{{ contact.title }} - {{contact.organization}}</h4>

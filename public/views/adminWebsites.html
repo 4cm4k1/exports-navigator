@@ -24,7 +24,7 @@
 </md-toolbar>
 <md-content layout-padding>
   <md-list flex>
-    <md-list-item class="md-3-line" ng-repeat="website in adminWebsites.data.websites | filter: adminWebsites.search" ng-click="null">
+    <md-list-item class="md-3-line" ng-repeat="website in adminWebsites.data.websites | filter: adminWebsites.searchText" ng-click="null">
       <div class="md-list-item-text" layout="column">
         <h3>{{ website.website }}</h3>
       </div>
