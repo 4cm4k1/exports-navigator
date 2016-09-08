@@ -128,7 +128,6 @@ var params = [req.body.country, req.body.contact_id, req.body.note];
 });
 
 router.put('/countries/update', function(req, res){
-  console.log('req.body: ' + req.body);
   var query = 'UPDATE countries SET (contact_id, country, note) = ' +
   '($1, $2, $3)' +
   'WHERE id =' + req.body.id;
