@@ -16,14 +16,14 @@
                 Sorry, no matches found.
             </md-not-found>
         </md-autocomplete>
-        <md-button class="md-raised md-warn md-hue-2" href="admin/contacts/add" aria-label="Add contact">
+        <md-button class="md-raised md-warn md-hue-2" href="/admin/contacts/add" aria-label="Add new contact">
             <md-icon>add</md-icon>
-            New
+            Add New Contact
         </md-button>
     </div>
 </md-toolbar>
-<md-content layout-padding>
-  <md-list flex>
+<md-content layout-padding layout="column" layout-align="space-around center">
+  <md-list flex flex-gt-sm="80">
     <!-- <md-subheader class="md-no-sticky">
       <md-input-container class="floatRight">
         <label>Search</label>
@@ -37,8 +37,8 @@
         <p>Email: {{ contact.email }} Phone: {{contact.phone}}</p>
       </div>
       <md-button class="md-secondary md-raised md-primary"
-      href="admin/contacts/{{contact.id}}">
-        <md-icon aria-label="View and edit contact information">edit</md-icon>
+      href="/admin/contacts/{{contact.id}}">
+        <md-icon aria-label="Edit contact">edit</md-icon>
         Edit
       </md-button>
     </md-list-item>
