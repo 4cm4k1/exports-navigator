@@ -212,7 +212,7 @@ router.put('/topics/update', function(req, res){
 });
 
 router.delete('/topics/delete/:id', function(req, res){
-  var query = 'DELETE FROM topics WHERE id =' + req.params.id;
+  var query = 'DELETE FROM topics WHERE id = ' + req.params.id;
   queryDB(query, [], req, res);
 });
 
