@@ -13,12 +13,12 @@
 
     // the url dictates on which topic "Update" was clicked
     vm.topicId = parseInt($routeParams.itemID);
-
     findRecordIndex(vm.topicId);
 
-
-    console.log('vm.data.topics[vm.selected].contact_id_1', vm.data.topics[vm.selected].contact_id_1);
-    console.log('vm.data.websites', vm.data.websites);
+    console.log('vm.data', vm.data);
+    console.log('vm.data.contacts', vm.data.contacts);
+    // console.log('vm.data.topics[vm.selected].contact_id_1', vm.data.topics[vm.selected].contact_id_1);
+    // console.log('vm.data.websites', vm.data.websites);
     // console.log('vm.data.topics | filter: {id: vm.data.topics[vm.selected].id})[0].contact_id_1', vm.data.topics | filter: {id: vm.data.topics[vm.selected].id})[0].contact_id_1);
     // console.log('topics at vm.selected: ', vm.data.topics[vm.selected]);
 
@@ -46,7 +46,6 @@
         contact3 = null;
       }
 
-      // if statements could be useful for other values too
       var update = {
         id: vm.data.topics[vm.selected].id,
         topic: vm.data.topics[vm.selected].topic,
@@ -60,14 +59,6 @@
         website_2: vm.data.topics[vm.selected].website_id_2,
         website_3: vm.data.topics[vm.selected].website_id_3
       };
-      // console.log('contact1:', contact1);
-      // console.log('contact2:', contact2);
-      // console.log('no .id:', vm.data.topics[vm.selected].contact_id_3);
-      // console.log('with .id:', vm.data.topics[vm.selected].contact_id_1.id);
-      // console.log(vm.data.topics[vm.selected]);
-      // console.log('website_3:', vm.data.topics[vm.selected].website_id_3);
-      //
-      // console.log('vm.data', vm.data);
 
       Data.updateTopic(update).then(function(response) {
         console.log('response', response);
@@ -75,8 +66,6 @@
         console.log('err:', err);
       });
     };
-
-    // var topicId = vm.data.topics[vm.selected].id;
 
     vm.delete = function() {
       var id = vm.data.topics[vm.selected].id;

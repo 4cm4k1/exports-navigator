@@ -16,7 +16,7 @@
       Back
     </md-button>
 <!-- href="/admin/industries/{{adminIndustriesEdit.industries[adminIndustries.SelectedRecordIndex].id}}" -->
-    <md-button ng-click="adminIndustriesEdit.update()"  class ="md-raised md-warn md-hue-2" aria-label="Update this industry">
+    <md-button ng-click="adminIndustriesEdit.update()" href='/admin/industries' class ="md-raised md-warn md-hue-2" aria-label="Update this industry">
       <md-icon>update</md-icon>
       Update
     </md-button>
@@ -45,7 +45,7 @@
 
   <md-input-container class="md-block">
     <label>Contact 1</label>
-    <md-select ng-model="adminIndustriesEdit.contact1">
+    <md-select ng-model="adminIndustriesEdit.data.">
       <md-option
         ng-repeat="contact in adminIndustriesEdit.data.contacts"
         ng-value="contact"
