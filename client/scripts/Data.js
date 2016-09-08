@@ -103,6 +103,16 @@
                 });
         };
 
+        var getFailed = function() {
+            return $http.get('/db/last_resort')
+                .then(function(response) {
+                    data.failed = response.data.rows;
+                })
+                .catch(function(error) {
+                    console.error('Error:', error);
+                });
+        };
+
         /*
          *  POST CALLS
          */
@@ -463,6 +473,7 @@
             getWebsites: getWebsites,
             getUnmatched: getUnmatched,
             getTopicsNumberOfHits: getTopicsNumberOfHits,
+            getFailed: getFailed,
             //  POST CALLS
             //  ALL EXCEPT createUnmatchedTopic() CALL
             //  showToast() WITH RELEVANT MESSAGE FOR USER;

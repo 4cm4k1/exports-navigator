@@ -9,223 +9,217 @@
     </div>
 </md-toolbar>
 <md-content layout-padding>
-<!--Show contact cards if industry is not 'other'  -->
-  <div ng-show="results.showIndustryContacts">
-      <div ng-repeat="item in results.industryList | filter: {id: results.industry} track by $index ">
-          <md-card>
-              <md-card-header>
-                  <md-card-header-text>
-                      <span class="md-title">Contact Information</span>
-                      <span class="md-subhead">Industry: {{item.industry}}</span>
-                  </md-card-header-text>
-              </md-card-header>
-              <md-card-title>
-                  <md-card-title-text>
-                      <span class="md-headline">{{item.first_name_1}} {{item.last_name_1}}</span>
-                      <span class="md-subhead"><md-icon>email</md-icon> {{item.email_1}}</span>
-                      <span class="md-subhead"><md-icon>phone</md-icon> {{item.phone_1}}</span>
-                  </md-card-title-text>
-              </md-card-title>
-              <md-card-actions layout="row" layout-align="start center">
+    <!--Show contact cards if industry is not 'other'  -->
+    <div ng-show="results.showIndustryContacts">
+        <div ng-repeat="item in results.industryList | filter: {id: results.industry} track by $index ">
+            <md-card>
+                <md-card-header>
+                    <md-card-header-text>
+                        <span class="md-title">Contact Information</span>
+                        <span class="md-subhead">Industry: {{item.industry}}</span>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-title>
+                    <md-card-title-text>
+                        <p>
+                            {{item.note_1}}
+                        </p>
+                        <span class="md-headline">{{item.first_name_1}} {{item.last_name_1}}</span>
+                        <span class="md-subhead"><md-icon>email</md-icon> {{item.email_1}}</span>
+                        <span class="md-subhead"><md-icon>phone</md-icon> {{item.phone_1}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="start center">
 
-                  <md-button><a href="{{item.website_1}} ">{{item.website_1}}</a></a>
-                  </md-button>
-              </md-card-actions>
-              <md-card-content>
-                  <p>
-                      {{item.note_1}}
-                  </p>
-              </md-card-content>
-          </md-card>
-          <md-card>
-              <md-card-header>
-                  <md-card-header-text>
-                      <span class="md-title">Contact Information</span>
-                      <span class="md-subhead">Industry: {{item.industry}}</span>
-                  </md-card-header-text>
-              </md-card-header>
-              <md-card-title>
-                  <md-card-title-text>
-                      <span class="md-headline">{{item.first_name_2}} {{item.last_name_2}}</span>
-                      <span class="md-subhead"><md-icon>email</md-icon> {{item.email_2}}</span>
-                      <span class="md-subhead"><md-icon>phone</md-icon> {{item.phone_2}}</span>
-                  </md-card-title-text>
-              </md-card-title>
-              <md-card-actions layout="row" layout-align="start center">
-                  <md-button><a href="{{item.website_2}}">{{item.website_2}}</a></md-button>
-              </md-card-actions>
-              <md-card-content>
-                  <p>
-                      {{item.note_2}}
-                  </p>
-              </md-card-content>
-          </md-card>
-          <md-card ng-hide="item.contact_id_3==null">
-              <md-card-header>
-                  <md-card-header-text>
-                      <span class="md-title">Contact Information</span>
-                      <span class="md-subhead">Industry: {{item.industry}}</span>
-                  </md-card-header-text>
-              </md-card-header>
-              <md-card-title>
-                  <md-card-title-text>
-                      <span class="md-headline">{{item.first_name_3}} {{item.last_name_3}}</span>
-                      <span class="md-subhead"><md-icon>email</md-icon> {{item.email_3}}</span>
-                      <span class="md-subhead"><md-icon>phone</md-icon> {{item.phone_3}}</span>
-                  </md-card-title-text>
-              </md-card-title>
-              <md-card-actions layout="row" layout-align="start center">
-                  <md-button><a href="{{item.website_3}}">{{item.website_3}}</a></md-button>
-              </md-card-actions>
-              <md-card-content>
-                  <p>
-                      {{item.note_3}}
-                  </p>
-              </md-card-content>
-          </md-card>
-      </div>
-  </div>
-<!--Display topic search if 'other' industry is selected  -->
-  <div ng-show="results.showTopicSearch">
-    <md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">We will need some more information to help you with your search. </br>
+                    <md-button><a href="{{item.website_1}} ">{{item.website_1}}</a></a>
+                    </md-button>
+                </md-card-actions>
+
+            </md-card>
+            <md-card>
+                <md-card-header>
+                    <md-card-header-text>
+                        <span class="md-title">Contact Information</span>
+                        <span class="md-subhead">Industry: {{item.industry}}</span>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-title>
+                    <md-card-title-text>
+                        <p>
+                            {{item.note_2}}
+                        </p>
+                        <span class="md-headline">{{item.first_name_2}} {{item.last_name_2}}</span>
+                        <span class="md-subhead"><md-icon>email</md-icon> {{item.email_2}}</span>
+                        <span class="md-subhead"><md-icon>phone</md-icon> {{item.phone_2}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="start center">
+                    <md-button><a href="{{item.website_2}}">{{item.website_2}}</a></md-button>
+                </md-card-actions>
+
+            </md-card>
+            <md-card ng-hide="item.contact_id_3==null">
+                <md-card-header>
+                    <md-card-header-text>
+                        <span class="md-title">Contact Information</span>
+                        <span class="md-subhead">Industry: {{item.industry}}</span>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-title>
+                    <md-card-title-text>
+                        <p>
+                            {{item.note_3}}
+                        </p>
+                        <span class="md-headline">{{item.first_name_3}} {{item.last_name_3}}</span>
+                        <span class="md-subhead"><md-icon>email</md-icon> {{item.email_3}}</span>
+                        <span class="md-subhead"><md-icon>phone</md-icon> {{item.phone_3}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="start center">
+                    <md-button><a href="{{item.website_3}}">{{item.website_3}}</a></md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </div>
+
+    <!--Display topic search if 'other' industry is selected  -->
+    <div ng-show="results.showTopicSearch">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">We will need some more information to help you with your search. </br>
                Please enter a topic</span>
-            <span class="md-subhead">Other Industries</span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-          <md-input-container>
-            <label>Enter Topic</label>
-            <input type="text" ng-model="results.selectedTopic" list="topics">
-          </md-input-container>
-          <datalist id="topics" ng-value="topic.id">
-              <option ng-repeat="topic in results.data.topics track by $index" value="{{topic.topic}}">
-          </datalist>
-          <md-button class="md-raised md-primary" ng-click="results.displaySelectedTopic()">Search</md-button>
-        </md-card-content>
-      </md-card>
-  </div>
-<!--Display contact card if there is a topic match  -->
-  <div ng-show="results.hasTopicMatch">
-     <md-card>
-         <md-card-header>
-             <md-card-header-text>
-                 <span class="md-title">Contact Information</span>
-                   <span class="md-subhead">Topic: {{results.item.topic}}</span>
-               </md-card-header-text>
-         </md-card-header>
-         <md-card-title>
-           <md-card-title-text>
-             <span class="md-headline">{{results.item.first_name_1}} {{results.item.last_name_1}}</span>
-             <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email_1}}</span>
-             <span class="md-subhead"><md-icon>phone</md-icon> {{results.item.phone_1}}</span>
-           </md-card-title-text>
-         </md-card-title>
-         <md-card-actions layout="row" layout-align="start center">
-           <md-button><a href="{{results.item.website_1}} ">{{results.item.website_1}}</a></a>
-           </md-button>
-         </md-card-actions>
-         <md-card-content>
-           <p>{{results.item.note_1}}</p>
-         </md-card-content>
-       </md-card>
-       <md-card ng-hide="results.item.contact_id_2==null">
-             <md-card-header>
-                 <md-card-header-text>
-                     <span class="md-title">Contact Information</span>
-                     <span class="md-subhead">Topic: {{results.item.topic}}</span>
-                 </md-card-header-text>
-             </md-card-header>
-             <md-card-title>
-                 <md-card-title-text>
-                     <span class="md-headline">{{results.item.first_name_2}} {{results.item.last_name_2}}</span>
-                     <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email_2}}</span>
-                     <span class="md-subhead"><md-icon>phone</md-icon> {{results.item.phone_2}}</span>
-                 </md-card-title-text>
-             </md-card-title>
-             <md-card-actions layout="row" layout-align="start center">
-                 <md-button><a href="{{results.item.website_2}}">{{results.item.website_2}}</a></md-button>
-             </md-card-actions>
-             <md-card-content>
-                 <p>
-                     {{results.item.note_2}}
-                 </p>
-             </md-card-content>
-         </md-card>
-         <md-card ng-hide="results.item.contact_id_3==null">
-             <md-card-header>
-                 <md-card-header-text>
-                     <span class="md-title">Contact Information</span>
-                     <span class="md-subhead">Topic: {{results.item.topic}}</span>
-                 </md-card-header-text>
-             </md-card-header>
-             <md-card-title>
-                 <md-card-title-text>
-                     <span class="md-headline">{{results.item.first_name_3}} {{results.item.last_name_3}}</span>
-                     <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email_3}}</span>
-                     <span class="md-subhead"><md-icon>phone</md-icon> {{results.item.phone_3}}</span>
-                 </md-card-title-text>
-             </md-card-title>
-             <md-card-actions layout="row" layout-align="start center">
-                 <md-button><a href="{{results.item.website_3}}">{{results.item.website_3}}</a></md-button>
-             </md-card-actions>
-             <md-card-content>
-                 <p>
-                     {{results.item.note_3}}
-                 </p>
-             </md-card-content>
-         </md-card>
-     </div>
-<!--Display country list if search doesn't match a topic  -->
-<div ng-show="results.noTopicMatch">
-  <md-card>
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">We found no results that match your Topic Search </br>
-          To what country would you like to export your product?</span>
-          <span class="md-subhead">Please search for contact information by country</span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content>
-        <md-input-container>
-          <label>Enter Country</label>
-          <input type="text" ng-model="results.selectedCountry" list="countries">
-        </md-input-container>
-        <datalist id="countries" ng-value="country.id">
-            <option ng-repeat="country in results.countryList track by $index" value="{{country.country}}">
-        </datalist>
-        <md-button class="md-raised md-primary" ng-click="results.displaySelectedCountry(results.selectedCountry)">Search</md-button>
-      </md-card-content>
-    </md-card>
- </div>
- <!--Display contact card if there is a country match  -->
-   <div ng-show="results.hasCountryMatch">
-      <md-card>
-          <md-card-header>
-              <md-card-header-text>
-                  <span class="md-title">Contact for {{results.item.country}}</span>
-                </md-card-header-text>
-          </md-card-header>
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline">{{results.item.first_name}} {{results.item.last_name}}</span>
-              <span class="md-subhead">{{results.item.organization}}</span>
-              <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email}}</span>
-              <span class="md-subhead"><md-icon>phone</md-icon> {{results.item.phone}}</span>
-            </md-card-title-text>
-          </md-card-title>
+                    <span class="md-subhead">Other Industries</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <md-input-container>
+                    <label>Enter Topic</label>
+                    <input type="text" ng-model="results.selectedTopic" list="topics">
+                </md-input-container>
+                <datalist id="topics" ng-value="topic.id">
+                    <option ng-repeat="topic in results.data.topics track by $index" value="{{topic.topic}}">
+                </datalist>
+                <md-button class="md-raised md-primary" ng-click="results.displaySelectedTopic()">Search</md-button>
+            </md-card-content>
         </md-card>
-      </div>
-</md-content>
+    </div>
+    <!--Display contact card if there is a topic match  -->
+    <div ng-show="results.hasTopicMatch">
+        <md-card>
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">Contact Information</span>
+                    <span class="md-subhead">Topic: {{results.item.topic}}</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-title>
+                <md-card-title-text>
+                    <p>{{results.item.note_1}}</p>
+                    <span class="md-headline">{{results.item.first_name_1}} {{results.item.last_name_1}}</span>
+                    <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email_1}}</span>
+                    <span class="md-subhead"><md-icon>phone</md-icon> {{results.item.phone_1}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="start center">
+                <md-button><a href="{{results.item.website_1}} ">{{results.item.website_1}}</a></a>
+                </md-button>
+            </md-card-actions>
+        </md-card>
+        <md-card ng-hide="results.item.contact_id_2==null">
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">Contact Information</span>
+                    <span class="md-subhead">Topic: {{results.item.topic}}</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-title>
+                <md-card-title-text>
+                  <p>
+                      {{results.item.note_2}}
+                  </p>
+                    <span class="md-headline">{{results.item.first_name_2}} {{results.item.last_name_2}}</span>
+                    <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email_2}}</span>
+                    <span class="md-subhead"><md-icon>phone</md-icon> {{results.item.phone_2}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="start center">
+                <md-button><a href="{{results.item.website_2}}">{{results.item.website_2}}</a></md-button>
+            </md-card-actions>
+        </md-card>
+        <md-card ng-hide="results.item.contact_id_3==null">
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">Contact Information</span>
+                    <span class="md-subhead">Topic: {{results.item.topic}}</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-title>
+                <md-card-title-text>
+                  <p>
+                      {{results.item.note_3}}
+                  </p>
+                    <span class="md-headline">{{results.item.first_name_3}} {{results.item.last_name_3}}</span>
+                    <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email_3}}</span>
+                    <span class="md-subhead"><md-icon>phone</md-icon> {{results.item.phone_3}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="start center">
+                <md-button><a href="{{results.item.website_3}}">{{results.item.website_3}}</a></md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+    <!--Display country list if search doesn't match a topic  -->
+    <div ng-show="results.noTopicMatch">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">We found no results that match your Topic Search </br>
+          To what country would you like to export your product?</span>
+                    <span class="md-subhead">Please search for contact information by country</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <md-input-container>
+                    <label>Enter Country</label>
+                    <input type="text" ng-model="results.selectedCountry" list="countries">
+                </md-input-container>
+                <datalist id="countries" ng-value="country.id">
+                    <option ng-repeat="country in results.countryList track by $index" value="{{country.country}}">
+                </datalist>
+                <md-button class="md-raised md-primary" ng-click="results.displaySelectedCountry(results.selectedCountry)">Search</md-button>
+            </md-card-content>
+        </md-card>
+    </div>
+    <!--Display contact card if there is a country match  -->
+    <div ng-show="results.hasCountryMatch">
+        <md-card>
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">Contact for {{results.item.country}}</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-title>
+                <md-card-title-text>
+                  <p>
+                     {{results.item.note}}
+                  </p>
+                    <span class="md-headline">{{results.item.first_name}} {{results.item.last_name}}</span>
+                    <span class="md-subhead">{{results.item.organization}}</span>
+                    <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email}}</span>
+                    <span class="md-subhead"><md-icon>phone</md-icon> {{results.item.phone}}</span>
+                </md-card-title-text>
+            </md-card-title>
+        </md-card>
+    </div>
+
 
 <!--Display message card if there is a country match  -->
-  <!-- <div ng-show="results.hasCountryMatch">
+<div ng-show="results.hasCountryMatch">
      <md-card>
          <md-card-header>
              <md-card-header-text>
-                 <span class="md-title">Thank you for useing Exports Help Navigator</span>
+                 <span class="md-title">Thank you for visiting Export Help Navigator</span>
                </md-card-header-text>
          </md-card-header>
          <md-card-title>
@@ -234,11 +228,90 @@
            </md-card-title-text>
          </md-card-title>
          <md-card-content>
-               <md-button class="md-raised md-primary" ng-click="results.unHappy">Yes</md-button>
-                <md-button class="md-raised md-primary" ng-click="results.unHappy">No</md-button>
+               <md-button class="md-raised md-primary" ng-click="results.happy = true">Yes</md-button>
+                <md-button class="md-raised md-primary" ng-click="results.getFailedTopicResult()">No</md-button>
          </md-card-content>
        </md-card>
-     </div> -->
+     </div>
 
+
+
+<!-- Show the following card if the user clicks "Yes" to found Info -->
+     <div ng-show="results.happy">
+          <md-card>
+              <md-card-header>
+                  <md-card-header-text>
+                      <span class="md-title">We were happy to help.  Have a great day!</span>
+                    </md-card-header-text>
+              </md-card-header>
+          </md-card>
+      </div>
+
+<!-- Show the following cards if the user clicks "no" to found info  -->
+
+          <div ng-show="results.unHappy" ng-model="results.failed">
+            <md-card>
+                <md-card-header>
+                    <md-card-header-text>
+                      <h1>Please see below for further information</h1>
+                        <span class="md-title">Contact Information</span>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-title>
+                    <md-card-title-text>
+                         <p>{{results.failed.note_1}}</p>
+                        <span class="md-headline">{{results.failed.first_name_1}} {{results.failed.last_name_1}}</span>
+                        <span class="md-subhead"><md-icon>email</md-icon> {{results.failed.email_1}}</span>
+                        <span class="md-subhead"><md-icon>phone</md-icon> {{results.failed.phone_1}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="start center">
+                    <md-button><a href="{{results.failed.website_1}} ">{{results.failed.website_1}}</a></a>
+                    </md-button>
+                </md-card-actions>
+            </md-card>
+            <md-card>
+                <md-card-header>
+                    <md-card-header-text>
+                        <span class="md-title">Contact Information</span>
+                        <span class="md-subhead">Topic: {{results.failed.topic}}</span>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-title>
+                    <md-card-title-text>
+                      <p>
+                          {{results.failed.note_2}}
+                      </p>
+                        <span class="md-headline">{{results.failed.first_name_2}} {{results.failed.last_name_2}}</span>
+                        <span class="md-subhead"><md-icon>email</md-icon> {{results.failed.email_2}}</span>
+                        <span class="md-subhead"><md-icon>phone</md-icon> {{results.failed.phone_2}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="start center">
+                    <md-button><a href="{{results.failed.website_2}}">{{results.failed.website_2}}</a></md-button>
+                </md-card-actions>
+            </md-card>
+            <md-card>
+                <md-card-header>
+                    <md-card-header-text>
+                        <span class="md-title">Contact Information</span>
+                        <span class="md-subhead">Topic: {{results.failed.topic}}</span>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-title>
+                    <md-card-title-text>
+                      <p>
+                          {{results.failed.note_3}}
+                      </p>
+                        <span class="md-headline">{{results.failed.first_name_3}} {{results.failed.last_name_3}}</span>
+                        <span class="md-subhead"><md-icon>email</md-icon> {{results.failed.email_3}}</span>
+                        <span class="md-subhead"><md-icon>phone</md-icon> {{results.failed.phone_3}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="start center">
+                    <md-button><a href="{{results.failed.website_3}}">{{results.failed.website_3}}</a></md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
 
 </md-content>
