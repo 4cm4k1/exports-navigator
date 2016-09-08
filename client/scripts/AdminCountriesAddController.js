@@ -9,11 +9,9 @@
     var vm = this;
     vm.data = Data.data;
     Data.getContacts();
-    vm.newCountry = {
-      country: '',
-      contact_id: null,
-    };
+    vm.newCountry = {};
     vm.saveCountry = function(){
+      // vm.newCountry.contact_id = parseInt(vm.newCountry.contact_id);
       Data.createCountry(vm.newCountry);
     };
   }

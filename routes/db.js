@@ -117,9 +117,9 @@ router.get('/countries', function(req, res){
 
 router.post('/countries/create', function(req, res){
   var query = 'INSERT INTO countries' +
-'(contact_id, country) VALUES' +
-'($1, $2)';
-var params = [req.body.contact_id, req.body.country];
+'(country, contact_id, note) VALUES' +
+'($1, $2, $3)';
+var params = [req.body.country, req.body.contact_id, req.body.note];
   queryDB(query, params, req, res);
 });
 

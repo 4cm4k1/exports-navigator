@@ -124,7 +124,7 @@
 
         var createCountry = function(countryObject) {
             //  countryObject has:
-            //  contact_id, country
+            //  country, contact_id, note
             return $http.post('/db/countries/create', countryObject)
                 .then(function(response) {
                     console.log('Successful POST to /db/countries/create');
