@@ -10,6 +10,9 @@
             }
         });
 
+        //  This watches the user's authentication state while using the app
+        //  and will add a token as a header to all $http requests for
+        //  verification on the server
         Auth.$onAuthStateChanged(function(user) {
             if (user) {
                 user.getToken(true)
