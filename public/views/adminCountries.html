@@ -7,7 +7,7 @@
           <span>Countries</span>
         </h2>
         <span flex></span>
-        <md-autocomplete md-selected-item="adminCountries.selectedItem" md-search-text="adminCountries.searchText" md-items="item in adminCountries.data.countries | filter: adminCountries.searchText" md-item-text="item.country" placeholder="Search Countries" arai-label="Search websites">
+        <md-autocomplete md-selected-item="adminCountries.selectedItem" md-search-text="adminCountries.searchText" md-items="item in adminCountries.data.countries | filter: adminCountries.searchText" md-item-text="item.country" placeholder="Search Countries" arai-label="Search countries">
             <md-item-template>
                 <span md-highlight-text="adminCountries.searchText" md-highlight-flags="^i" class="md-body-2">{{item.country}}</span>
                 <span class="md-caption">{{item.first_name}} {{item.last_name}}</span>
@@ -16,7 +16,7 @@
                 Sorry, no matches found.
             </md-not-found>
         </md-autocomplete>
-        <md-button class="md-raised md-warn md-hue-2" aria-label="Add new country">
+        <md-button class="md-raised md-warn md-hue-2" href="/admin/countries/add" aria-label="Add new country">
             <md-icon>add</md-icon>
             Add
         </md-button>
@@ -30,6 +30,11 @@
                 <h4>{{country.first_name}} {{country.last_name}}</h4>
                 <p>{{country.title}} - {{country.organization}}</p>
             </div>
+            <md-button class="md-secondary md-raised md-primary"
+            href="/admin/countries/{{country.id}}">
+              <md-icon aria-label="View and edit country information">edit</md-icon>
+              Edit
+            </md-button>
         </md-list-item>
     </md-list>
 </md-content>

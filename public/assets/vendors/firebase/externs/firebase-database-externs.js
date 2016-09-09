@@ -1,6 +1,6 @@
 /**
  * @fileoverview Firebase Database API.
- * Version: 3.3.0
+ * Version: 3.3.2
  *
  * Copyright 2016 Google Inc. All Rights Reserved.
  *
@@ -600,7 +600,7 @@ firebase.database.Query.prototype.ref;
  * and it will be triggered again every time a new child is added. The
  * `DataSnapshot` passed into the callback will reflect the data for the relevant
  * child. For ordering purposes, it is passed a second argument which is a
- * string containing the key of the previous sibling child by priority order (or
+ * string containing the key of the previous sibling child by sort order (or
  * `null` if it is the first child).
  *
  * <h4>child_removed event</h4>
@@ -613,24 +613,24 @@ firebase.database.Query.prototype.ref;
  * - a client calls `set(null)` on that child or one of its ancestors
  * - that child has all of its children removed
  * - there is a query in effect which now filters out the child (because it's
- *   priority changed or the max limit was hit)
+ *   sort order changed or the max limit was hit)
  *
  * <h4>child_changed event</h4>
  *
  * This event will be triggered when the data stored in a child (or any of its
- * descendants) changes. Note that a single child_changed event may represent
+ * descendants) changes. Note that a single `child_changed` event may represent
  * multiple changes to the child. The `DataSnapshot` passed to the callback will
  * contain the new child contents. For ordering purposes, the callback is also
  * passed a second argument which is a string containing the key of the previous
- * sibling child by priority order (or `null` if it is the first child).
+ * sibling child by sort order (or `null` if it is the first child).
  *
  * <h4>child_moved event</h4>
  *
- * This event will be triggered when a child's priority changes such that its
+ * This event will be triggered when a child's sort order changes such that its
  * position relative to its siblings changes. The `DataSnapshot` passed to the
  * callback will be for the data of the child that has moved. It is also passed
  * a second argument which is a string containing the key of the previous
- * sibling child by priority order (or `null` if it is the first child).
+ * sibling child by sort order (or `null` if it is the first child).
  *
  * @example <caption>Handle a new value:</caption>
  * ref.on('value', function(dataSnapshot) {
@@ -663,7 +663,7 @@ firebase.database.Query.prototype.ref;
  *   callback that fires when the specified event occurs. The callback will be
  *   passed a DataSnapshot. For ordering purposes, "child_added",
  *   "child_changed", and "child_moved" will also be passed a string containing
- *   the key of the previous child, by priority order (or `null` if it is the
+ *   the key of the previous child, by sort order (or `null` if it is the
  *   first child).
  * @param {(function(Error)|Object)=} cancelCallbackOrContext An optional
  *   callback that will be notified if your event subscription is ever canceled
@@ -742,7 +742,7 @@ firebase.database.Query.prototype.off =
  *   callback that fires when the specified event occurs. The callback will be
  *   passed a DataSnapshot. For ordering purposes, "child_added",
  *   "child_changed", and "child_moved" will also be passed a string containing
- *   the key of the previous child, by priority order (or `null` if it is the
+ *   the key of the previous child, by sort order (or `null` if it is the
  *   first child).
  * @param {(function(Error)|Object)=} failureCallbackOrContext An optional
  *   callback that will be notified if your client does not have permission to

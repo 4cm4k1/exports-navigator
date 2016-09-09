@@ -11,37 +11,25 @@
 
         <span flex></span>
 
-        <md-button ng-click="adminIndustries.import()" class="md-raised md-warn md-hue-2">
-          <md-icon>arrow_downward</md-icon>
-          Import Industries
-        </md-button>
-
-        <md-button ng-click="adminIndustries.export()" class="md-raised md-warn md-hue-2">
-          <md-icon>arrow_upward</md-icon>
-          Export Industries
-        </md-button>
-
-        <md-button ng-click="adminIndustries.add()" class="md-raised md-warn md-hue-2" href="/admin/industries/add">
+        <md-button ng-click="null" class="md-raised md-warn md-hue-2" href="/admin/industries/add">
           <md-icon>add</md-icon>
           New Industry
         </md-button>
 
-
-
-
     </div>
+
 </md-toolbar>
 
 <md-content layout-padding>
     <md-list>
-        <md-list-item class="md-2-line" ng-repeat="item in adminIndustries.data.industries track by $index" ng-click="null">
+        <md-list-item class="md-2-line" ng-repeat="item in adminIndustries.data.industries" ng-click="null">
             <div class="md-list-item-text">
                 <h3>{{item.industry}}</h3>
+                <md-button class="md-secondary md-raised md-primary" href="/admin/industries/{{item.id}}" aria-label="Edit industry">
+                    <md-icon aria-label="View and edit industry information">edit</md-icon>
+                    Edit
+                </md-button>
             </div>
-            <md-button class="md-secondary md-raised md-primary" href="/admin/industries/{{item.id}}" aria-label="Edit industry">
-                <md-icon ng-click="adminIndustries.edit()" >edit</md-icon>
-                Edit
-            </md-button>
         </md-list-item>
     </md-list>
 </md-content>

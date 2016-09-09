@@ -3,11 +3,11 @@
 
   angular.module('exportsNavigator').controller('AdminHomeController', AdminHomeController);
 
-  AdminHomeController.$inject = ['currentAuth', '$location', '$timeout'];
+  AdminHomeController.$inject = ['currentAuth', '$location', '$timeout', 'Auth'];
 
-  function AdminHomeController(currentAuth, $location, $timeout) {
+  function AdminHomeController(currentAuth, $location, $timeout, Auth) {
     var vm = this;
-    vm.auth = currentAuth;
+    vm.auth = Auth;
     vm.goToPath = function(path){
       $timeout(function() {
         $location.path(path);
@@ -49,10 +49,15 @@
         name: 'Account',
         icon: 'supervisor_account'
     }];
-    createGreeting();
-    function createGreeting(){
-      if(vm.auth.displayName){
-        vm.greetingName = vm.auth.displayName;
+
+    vm.auth.$onAuthStateChanged(function(user){
+        createGreeting(user);
+    });
+
+
+    function createGreeting(user){
+      if(user.displayName){
+        vm.greetingName = user.displayName;
       }else{
         vm.greetingName = 'User';
       }

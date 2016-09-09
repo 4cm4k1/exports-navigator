@@ -12,7 +12,7 @@
         //  if they already have a session going
         Auth.$onAuthStateChanged(function(firebaseUser) {
             if (firebaseUser) {
-                console.log('User is already signed in!');
+                // console.log('User is already signed in!');
                 $location.path('/admin');
             }
         });
@@ -27,12 +27,12 @@
         vm.signIn = function() {
             Auth.$signInWithEmailAndPassword(vm.user.email, vm.user.password)
                 .then(function(firebaseUser) {
-                    console.log('Signed in as:', firebaseUser.uid);
+                    Data.showToast('Signed in successfully!');
                     $location.path('/admin');
                     $mdDialog.hide();
                 })
                 .catch(function(error) {
-                    console.error('Authentication failed:', error);
+                    Data.showToast('Please try again. ' + error);
                     // toast to indicate failure goes here
                 });
         };

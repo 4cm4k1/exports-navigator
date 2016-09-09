@@ -3,9 +3,9 @@
 
     angular.module('exportsNavigator').controller('SidenavCtrl', SidenavCtrl);
 
-    SidenavCtrl.$inject = ['$timeout', '$mdSidenav', '$location', 'Auth', '$log'];
+    SidenavCtrl.$inject = ['$timeout', '$mdSidenav', '$location', 'Auth', '$log', 'Data'];
 
-    function SidenavCtrl($timeout, $mdSidenav, $location, Auth, $log) {
+    function SidenavCtrl($timeout, $mdSidenav, $location, Auth, $log, Data) {
         var vm = this;
 
         vm.locations = [{
@@ -68,6 +68,7 @@
 
         vm.signOut = function() {
             vm.auth.$signOut();
+            Data.showToast('Signed out successfully!');
             $location.path('/');
             vm.close();
         };

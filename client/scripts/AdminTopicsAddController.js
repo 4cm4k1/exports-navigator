@@ -11,6 +11,9 @@
     // use the data factory
     vm.data = Data.data;
 
+    Data.getContacts();
+    Data.getWebsites();
+
     vm.add = function() {
 
       // to make empty values null instead of undefined

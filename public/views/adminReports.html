@@ -7,9 +7,9 @@
           <span>Reports</span>
         </h2>
         <span flex></span>
-        <md-button class="md-raised md-warn md-hue-2" ng-click="adminReports.print()">
+        <md-button class="md-raised md-warn md-hue-2" ng-click="adminReports.print()" aria-label="Print page">
             <md-icon>print</md-icon>
-            Print
+            Print page
         </md-button>
     </div>
 </md-toolbar>
@@ -34,7 +34,10 @@
                 <h3>{{topic.topic}} </h3>
                 <p>{{topic.number_of_hits}} <span ng-if="topic.number_of_hits>1||topic.number_of_hits==0">hits</span><span ng-if="topic.number_of_hits==1">hit</span></p>
             </div>
-            <md-icon class="md-secondary" ng-click="adminReports.doAThing()" aria-label="View and edit topic">open_in_new</md-icon>
+            <md-button class="md-secondary md-raised md-primary" href="/admin/topics/{{topic.id}}" aria-label="Edit in topics">
+                <md-icon>open_in_new</md-icon> Edit in topics
+            </md-button>
+
         </md-list-item>
 
     </md-list>

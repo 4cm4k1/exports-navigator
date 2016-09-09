@@ -4,7 +4,6 @@
     angular.module('exportsNavigator').factory('Data', ['$http', 'Auth', '$mdToast', Data]);
 
     function Data($http, Auth, $mdToast) {
-
         /*
          *  SYNCHRONIZED DATA OBJECT
          */
@@ -103,6 +102,16 @@
                 });
         };
 
+        var getFailed = function() {
+            return $http.get('/db/last_resort')
+                .then(function(response) {
+                    data.failed = response.data.rows;
+                })
+                .catch(function(error) {
+                    console.error('Error:', error);
+                });
+        };
+
         /*
          *  POST CALLS
          */
@@ -124,7 +133,7 @@
 
         var createCountry = function(countryObject) {
             //  countryObject has:
-            //  contact_id, country
+            //  country, contact_id, note
             return $http.post('/db/countries/create', countryObject)
                 .then(function(response) {
                     console.log('Successful POST to /db/countries/create');
@@ -218,7 +227,7 @@
 
         var updateCountry = function(countryObject) {
             //  countryObject has:
-            //  id, contact_id, country
+            //  id, contact_id, country, note
             return $http.put('/db/countries/update', countryObject)
                 .then(function(response) {
                     console.log('Successful PUT to /db/countries/update');
@@ -463,6 +472,7 @@
             getWebsites: getWebsites,
             getUnmatched: getUnmatched,
             getTopicsNumberOfHits: getTopicsNumberOfHits,
+            getFailed: getFailed,
             //  POST CALLS
             //  ALL EXCEPT createUnmatchedTopic() CALL
             //  showToast() WITH RELEVANT MESSAGE FOR USER;

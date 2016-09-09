@@ -14,11 +14,16 @@
         vm.showTopicSearch = false;
         vm.noMatch = false;
         vm.hasMatch = false;
+        //results.happy means they clicked "YES"
+        vm.happy = false;
+        //results.unHappy means tey clicked "No"
+        vm.unHappy = false;
         //below are the variables which are needed in order
         //to check if there is a match or not a match
         vm.selectedTopic = null;
         vm.selectedCountry = null;
         vm.item = undefined;
+        vm.failed = undefined;
         //below are variables needed for user experience and ability
         //to bookmark an address
         vm.industry = $routeParams.industry;
@@ -39,10 +44,8 @@
         console.log('getting unmatched topics', vm.data.unmatched);
         Data.getIndustries();
         checkIsOther();
-        // Data.getCountries();
-        // console.log('getCountries:', vm.data.countries );
+        Data.getFailed();
         getCountryList();
-
 
         //check if user selected 'other industry'
         function checkIsOther() {
@@ -102,9 +105,9 @@
                 }
 
             }
-            if (vm.noUnmatchedTopic){
-            Data.createUnmatchedTopic(unmatchedTopic);
-          }
+            if (vm.noUnmatchedTopic) {
+                Data.createUnmatchedTopic(unmatchedTopic);
+            }
         }
 
 
@@ -117,16 +120,37 @@
                     vm.hasCountryMatch = true;
                     vm.noCountryMatch = false;
                     vm.showTopicSearch = false;
+                    vm.happy = false;
                     break;
                     // return true;
                 } else {
                     vm.hasCountryMatch = false;
                     vm.noCountryMatch = true;
                 }
+
             }
         }
 
-        
+
+        vm.getFailedTopicResult = function() {
+            vm.unHappy = true;
+            vm.hasCountryMatch = false;
+            vm.noTopicMatch = false;
+            vm.happy = false;
+            console.log('failed info', vm.data.failed[0]);
+            vm.failed = vm.data.failed[0];
+
+        };
+
+
+        vm.happyGoodbye = function() {
+            vm.happy = true;
+
+        };
+
+
+
+
 
     }
 })();

@@ -44,8 +44,8 @@
     <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.selected].contact_id_1">
       <md-option
           ng-repeat="contact in adminTopicsEdit.data.contacts"
-          ng-value="contact"
-          ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.selected})[0].contact_id_1">
+          ng-value="contact.id"
+          ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.data.topics[adminTopicsEdit.selected].id})[0].contact_id_1">
           {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
       </md-option>
     </md-select>
@@ -53,9 +53,12 @@
 
   <md-input-container class="md-block">
     <label>Website 1</label>
-    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.selected].website_1">
-        <md-option ng-repeat="site in adminTopicsEdit.data.websites"
-        value="{{site.website}}">{{site.website}}</md-option>
+    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.selected].website_id_1">
+        <md-option
+          ng-repeat="site in adminTopicsEdit.data.websites"
+          ng-value="site.id">
+          {{site.website}}
+        </md-option>
     </md-select>
   </md-input-container>
 
@@ -72,8 +75,8 @@
     <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.selected].contact_id_2">
         <md-option
             ng-repeat="contact in adminTopicsEdit.data.contacts"
-            ng-value="contact"
-            ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.selected})[0].contact_id_2">
+            ng-value="contact.id"
+            ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.data.topics[adminTopicsEdit.selected].id})[0].contact_id_2">
             {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
         </md-option>
     </md-select>
@@ -81,9 +84,12 @@
 
   <md-input-container class="md-block">
     <label>Website 2</label>
-    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.selected].website_2">
-        <md-option ng-repeat="site in adminTopicsEdit.data.websites"
-        value="{{site.website}}">{{site.website}}</md-option>
+    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.selected].website_id_2">
+        <md-option
+          ng-repeat="site in adminTopicsEdit.data.websites"
+          ng-value="site.id">
+          {{site.website}}
+        </md-option>
     </md-select>
   </md-input-container>
 
@@ -100,8 +106,8 @@
     <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.selected].contact_id_3">
       <md-option
           ng-repeat="contact in adminTopicsEdit.data.contacts"
-          ng-value="contact"
-          ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.selected})[0].contact_id_3">
+          ng-value="contact.id"
+          ng-selected="contact.id === (adminTopicsEdit.data.topics | filter: {id: adminTopicsEdit.data.topics[adminTopicsEdit.selected].id})[0].contact_id_3">
           {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
       </md-option>
     </md-select>
@@ -109,9 +115,12 @@
 
   <md-input-container class="md-block">
     <label>Website 3</label>
-    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.selected].website_3">
-        <md-option ng-repeat="site in adminTopicsEdit.data.websites"
-        value="{{site.website}}">{{site.website}}</md-option>
+    <md-select ng-model="adminTopicsEdit.data.topics[adminTopicsEdit.selected].website_id_3">
+        <md-option
+          ng-repeat="site in adminTopicsEdit.data.websites"
+          ng-value="site.id">
+          {{site.website}}
+        </md-option>
     </md-select>
   </md-input-container>
 

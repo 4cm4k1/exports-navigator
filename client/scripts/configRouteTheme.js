@@ -43,6 +43,24 @@
             }
         })
 
+        // admin view on which industries are added
+        .when('/admin/industries/add', {
+            controller: 'AdminIndustriesAddController as adminIndustriesAdd',
+            templateUrl: 'views/adminIndustriesAdd.html',
+            resolve: {
+                'currentAuth': ['Auth', function(Auth) {
+                return Auth.$requireSignIn();
+              }],
+              'data': ['Data', function(Data) {
+                  return Promise.all([
+                      Data.getWebsites(),
+                      Data.getContacts(),
+                      Data.getIndustries()
+                  ]);
+              }]
+            }
+        })
+
         // admin view on which industries are edited
         .when('/admin/industries/:itemID', {
             controller: 'AdminIndustriesEditController as adminIndustriesEdit',
@@ -50,6 +68,13 @@
             resolve: {
                 'currentAuth': ['Auth', function(Auth) {
                     return Auth.$requireSignIn();
+                }],
+                'data': ['Data', function(Data) {
+                    return Promise.all([
+                        Data.getWebsites(),
+                        Data.getContacts(),
+                        Data.getIndustries()
+                    ]);
                 }]
             }
         })
@@ -76,7 +101,8 @@
                 'data': ['Data', function(Data) {
                     return Promise.all([
                         Data.getWebsites(),
-                        Data.getContacts()
+                        Data.getContacts(),
+                        Data.getTopics()
                     ]);
                 }]
             }
@@ -107,6 +133,39 @@
             resolve: {
                 'currentAuth': ['Auth', function(Auth) {
                     return Auth.$requireSignIn();
+                }]
+            }
+        })
+
+        // admin view to add countries
+        .when('/admin/countries/add', {
+            controller: 'AdminCountriesAddController as adminCountriesAdd',
+            templateUrl: 'views/adminCountriesAdd.html',
+            resolve: {
+                'currentAuth': ['Auth', function(Auth) {
+                    return Auth.$requireSignIn();
+                }],
+                'data': ['Data', function(Data) {
+                    return Promise.all([
+                        Data.getContacts()
+                    ]);
+                }]
+            }
+        })
+
+        //admin view of editing a country
+        .when('/admin/countries/:countryID', {
+            controller: 'AdminCountriesEditController as adminCountriesEdit',
+            templateUrl: 'views/adminCountriesEdit.html',
+            resolve: {
+                'currentAuth': ['Auth', function(Auth) {
+                    return Auth.$requireSignIn();
+                }],
+                'data': ['Data', function(Data) {
+                    return Promise.all([
+                        Data.getContacts(),
+                        Data.getCountries()
+                    ]);
                 }]
             }
         })

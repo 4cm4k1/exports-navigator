@@ -10,17 +10,14 @@
       </h2>
 
       <span flex></span>
-
-      <md-button ng-click="adminTopics.import()" class="md-raised md-warn md-hue-2">
-        <md-icon>arrow_downward</md-icon>
-        Import Topics
-      </md-button>
-
-      <md-button ng-click="adminTopics.export()" class="md-raised md-warn md-hue-2">
-        <md-icon>arrow_upward</md-icon>
-        Export Topics
-      </md-button>
-
+      <md-autocomplete md-selected-item="adminTopics.selectedItem" md-search-text="adminTopics.searchText" md-items="item in adminTopics.data.topics | filter: adminTopics.searchText" md-item-text="item.topic" placeholder="Search Topics" arai-label="Search topics">
+          <md-item-template>
+              <span md-highlight-text="adminTopics.searchText" md-highlight-flags="^i" class="md-body-2">{{item.topic}}</span>
+          </md-item-template>
+          <md-not-found>
+              Sorry, no matches found.
+          </md-not-found>
+      </md-autocomplete>
       <md-button ng-click="null" class="md-raised md-warn md-hue-2" href="/admin/topics/add">
         <md-icon>add</md-icon>
         New Topic
@@ -34,12 +31,12 @@
 
   <md-list>
 
-    <md-list-item class="md-2-line" ng-repeat="item in adminTopics.data.topics track by $index" ng-click="null">
+    <md-list-item class="md-2-line" ng-repeat="item in adminTopics.data.topics | orderBy: 'topic' | filter: adminTopics.searchText" ng-click="null">
       <div class="md-list-item-text">
         <h3>{{item.topic}}</h3>
 
         <md-button class="md-secondary md-raised md-primary"
-        href="/admin/topics/{{item.id}}">
+          href="/admin/topics/{{item.id}}">
           <md-icon aria-label="View and edit topic information">edit</md-icon>
           Edit
         </md-button>
