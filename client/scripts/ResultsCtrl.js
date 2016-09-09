@@ -143,8 +143,8 @@
         };
 
 
-        vm.happyGoodbye = function(){
-          vm.happy = true;
+        vm.happyGoodbye = function() {
+            vm.happy = true;
 
         };
 
