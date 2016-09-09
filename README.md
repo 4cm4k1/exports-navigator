@@ -7,7 +7,6 @@ Web portal for [GREATER MSP](https://greatermsp.org) and its 16-county region bu
 * [Liz Kerber](https://github.com/emkerber)
 * [Anthony Maki](https://github.com/4cm4k1)
 * [Kyle Quamme](https://github.com/kylequamme)
-* [Sahasha Reese](https://github.com/HerCode)
 * [Katie Vogel](https://github.com/katiebvogel)
 
 ## Installation
