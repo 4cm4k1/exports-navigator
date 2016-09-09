@@ -277,8 +277,8 @@ router.get('/unmatched', function(req, res) {
 
 router.post('/unmatched/create', function(req, res) {
     var query = 'INSERT INTO unmatched_topics' +
-        '(unmatched_topic) VALUES' +
-        '($1)';
+        '(unmatched_topic) VALUES(LOWER' +
+        '($1))';
     var params = [req.body.unmatched_topic];
     queryDB(query, params, req, res);
 });
