@@ -20,7 +20,7 @@
                         console.log('firebaseToken authentication header was not set correctly.');
                     });
             } else {
-                $http.defaults.headers.common.firebaseToken = undefined;
+                $http.defaults.headers.common.firebaseToken = null;
             }
         });
     }
