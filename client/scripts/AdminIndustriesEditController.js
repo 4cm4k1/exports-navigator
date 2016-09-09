@@ -17,7 +17,7 @@
 
 
     console.log('vm.data', vm.data);
-    console.log('vm.data.contacts', vm.data.contacts);
+    console.log('vm.data.industries[1]', vm.data.industries[1]);
     // console.log('vm.data.industries', vm.data.industries);
     // // console.log('vm.data.industries.length', vm.data.industries.length);
     // console.log('vm.selectedRecordIndex', vm.selectedRecordIndex);
