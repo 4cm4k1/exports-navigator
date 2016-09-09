@@ -20,17 +20,6 @@
   vm.edit = function(){
     console.log('Edit clicked');
   };
-
-
-  vm.export = function() {
-    console.log('Export clicked');
-  };
-
-  vm.import = function() {
-    console.log('Import clicked');
-  };
-
-
 }
 
 })();

@@ -50,7 +50,14 @@
             resolve: {
                 'currentAuth': ['Auth', function(Auth) {
                 return Auth.$requireSignIn();
-                }]
+              }],
+              'data': ['Data', function(Data) {
+                  return Promise.all([
+                      Data.getWebsites(),
+                      Data.getContacts(),
+                      Data.getIndustries()
+                  ]);
+              }]
             }
         })
 
@@ -61,6 +68,13 @@
             resolve: {
                 'currentAuth': ['Auth', function(Auth) {
                     return Auth.$requireSignIn();
+                }],
+                'data': ['Data', function(Data) {
+                    return Promise.all([
+                        Data.getWebsites(),
+                        Data.getContacts(),
+                        Data.getIndustries()
+                    ]);
                 }]
             }
         })
@@ -87,7 +101,8 @@
                 'data': ['Data', function(Data) {
                     return Promise.all([
                         Data.getWebsites(),
-                        Data.getContacts()
+                        Data.getContacts(),
+                        Data.getTopics()
                     ]);
                 }]
             }
