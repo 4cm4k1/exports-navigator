@@ -20,6 +20,9 @@
   vm.edit = function(){
     console.log('Edit clicked');
   };
+  vm.print = function(){
+      Data.printPage();
+  };
 }
 
 })();

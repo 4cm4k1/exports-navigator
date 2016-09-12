@@ -9,5 +9,8 @@
     var vm = this;
     vm.data = Data.data;
     Data.getWebsites();
+    vm.print = function(){
+        Data.printPage();
+    };
   }
 })();

@@ -19,6 +19,9 @@
     vm.import = function() {
       console.log('Import clicked');
     };
+    vm.print = function(){
+        Data.printPage();
+    };
   }
 
 })();

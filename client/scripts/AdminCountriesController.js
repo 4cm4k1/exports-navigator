@@ -11,5 +11,8 @@
         Data.getCountries().then(function(countries){
             vm.countries = countries;
         });
+        vm.print = function(){
+            Data.printPage();
+        };
     }
 })();

@@ -7,7 +7,7 @@
           <span>Countries</span>
         </h2>
         <span flex></span>
-        <md-autocomplete md-selected-item="adminCountries.selectedItem" md-search-text="adminCountries.searchText" md-items="item in adminCountries.data.countries | filter: adminCountries.searchText" md-item-text="item.country" placeholder="Search Countries" arai-label="Search countries">
+        <md-autocomplete md-selected-item="adminCountries.selectedItem" md-search-text="adminCountries.searchText" md-items="item in adminCountries.data.countries | filter: adminCountries.searchText" md-item-text="item.country" placeholder="Search Countries" aria-label="Search countries">
             <md-item-template>
                 <span md-highlight-text="adminCountries.searchText" md-highlight-flags="^i" class="md-body-2">{{item.country}}</span>
                 <span class="md-caption">{{item.first_name}} {{item.last_name}}</span>
@@ -19,6 +19,10 @@
         <md-button class="md-raised md-warn md-hue-2" href="/admin/countries/add" aria-label="Add new country">
             <md-icon>add</md-icon>
             New Country
+        </md-button>
+        <md-button class="md-raised md-warn md-hue-2" ng-click="adminCountries.print()" aria-label="Print">
+            <md-icon>print</md-icon>
+            Print
         </md-button>
     </div>
 </md-toolbar>
