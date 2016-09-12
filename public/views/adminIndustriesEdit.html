@@ -1,125 +1,113 @@
 <md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
-  <div class="md-toolbar-tools">
+    <div class="md-toolbar-tools">
 
-    <md-button class="md-icon-button" aria-label="Industries">
-      <md-icon>business</md-icon>
-    </md-button>
+        <md-button class="md-icon-button" aria-label="Industries">
+            <md-icon>business</md-icon>
+        </md-button>
 
-    <h2>
+        <h2>
       <span>Industries</span>
     </h2>
-    <md-icon>chevron_right</md-icon>
-    <h2>
+        <md-icon>chevron_right</md-icon>
+        <h2>
       <span>Edit Industry</span>
     </h2>
 
-    <span flex></span>
+        <span flex></span>
 
-    <md-button href="/admin/industries" class="md-raised md-warn md-hue-2" aria-label="Go back">
-      <md-icon>arrow_back</md-icon>
-      Back
-    </md-button>
-    <md-button ng-click="adminIndustriesEdit.update()" href="/admin/industries" class ="md-raised md-warn md-hue-2" aria-label="Update industry">
-      <md-icon>update</md-icon>
-      Update
-    </md-button>
+        <md-button href="/admin/industries" class="md-raised md-warn md-hue-2" aria-label="Go back">
+            <md-icon>arrow_back</md-icon>
+            Back
+        </md-button>
+        <md-button ng-click="adminIndustriesEdit.update()" href="/admin/industries" class="md-raised md-warn md-hue-2" aria-label="Update industry">
+            <md-icon>update</md-icon>
+            Update
+        </md-button>
 
-    <md-button ng-click="adminIndustriesEdit.delete(adminIndustriesEdit.selectedIndustry)" href= "/admin/industries" class="md-raised md-warn md-hue-2" aria-label="Delete industry">
-      <md-icon>delete</md-icon>
-      Delete
-    </md-button>
+        <md-button ng-click="adminIndustriesEdit.delete(adminIndustriesEdit.selectedIndustry)" href="/admin/industries" class="md-raised md-warn md-hue-2" aria-label="Delete industry">
+            <md-icon>delete</md-icon>
+            Delete
+        </md-button>
 
 
-  </div>
+    </div>
 </md-toolbar>
 
 <md-content layout-padding>
-  <md-input-container class="md-block">
-    <label>Industry</label>
-    <input ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].industry" aria-label="Input for industry's title">
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Industry</label>
+        <input ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].industry" aria-label="Input for industry's title">
+    </md-input-container>
 
-  <br />
+    <br />
 
-  <md-input-container class="md-block">
-    <label>Note 1</label>
-    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].note_1" aria-label="Input for note 1" ></textarea>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Note 1</label>
+        <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].note_1" aria-label="Input for note 1"></textarea>
+    </md-input-container>
 
-  <md-input-container class="md-block">
-    <label>Contact 1</label>
-    <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].contact_id_1">
-      <md-option
-        ng-repeat="contact in adminIndustriesEdit.data.contacts"
-        ng-value="contact.id"
-        ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].id})[0].contact_id_1">
-        {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
-      </md-option>
-    </md-select>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Contact 1</label>
+        <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].contact_id_1">
+            <md-option ng-repeat="contact in adminIndustriesEdit.data.contacts" ng-value="contact.id" ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].id})[0].contact_id_1">
+                {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+            </md-option>
+        </md-select>
+    </md-input-container>
 
-  <md-input-container class="md-block">
-    <label>Website 1</label>
-    <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].website_id_1">
-        <md-option ng-repeat="site in adminIndustriesEdit.data.websites"
-        ng-value="site.id">{{site.website}}</md-option>
-    </md-select>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Website 1</label>
+        <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].website_id_1">
+            <md-option ng-repeat="site in adminIndustriesEdit.data.websites" ng-value="site.id">{{site.website}}</md-option>
+        </md-select>
+    </md-input-container>
 
-  <br />
-  <br />
+    <br />
+    <br />
 
-  <md-input-container class="md-block">
-    <label>Note 2</label>
-    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].note_2" aria-label="Input for note 2" ></textarea>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Note 2</label>
+        <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].note_2" aria-label="Input for note 2"></textarea>
+    </md-input-container>
 
-  <md-input-container class="md-block">
-    <label>Contact 2</label>
-    <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].contact_id_2">
-      <md-option
-        ng-repeat="contact in adminIndustriesEdit.data.contacts"
-        ng-value="contact.id"
-        ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].id})[0].contact_id_2">
-        {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
-      </md-option>
-    </md-select>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Contact 2</label>
+        <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].contact_id_2">
+            <md-option ng-repeat="contact in adminIndustriesEdit.data.contacts" ng-value="contact.id" ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].id})[0].contact_id_2">
+                {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+            </md-option>
+        </md-select>
+    </md-input-container>
 
-  <md-input-container class="md-block">
-    <label>Website 2</label>
-    <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].website_id_2">
-        <md-option ng-repeat="site in adminIndustriesEdit.data.websites"
-        ng-value="site.id">{{site.website}}</md-option>
-    </md-select>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Website 2</label>
+        <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].website_id_2">
+            <md-option ng-repeat="site in adminIndustriesEdit.data.websites" ng-value="site.id">{{site.website}}</md-option>
+        </md-select>
+    </md-input-container>
 
-  <br />
-  <br />
+    <br />
+    <br />
 
-  <md-input-container class="md-block">
-    <label>Note 3</label>
-    <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].note_3" aria-label="Input for note 3" ></textarea>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Note 3</label>
+        <textarea ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].note_3" aria-label="Input for note 3"></textarea>
+    </md-input-container>
 
-  <md-input-container class="md-block">
-    <label>Contact 3</label>
-    <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].contact_id_3">
-      <md-option
-        ng-repeat="contact in adminIndustriesEdit.data.contacts"
-        ng-value="contact.id"
-        ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].id})[0].contact_id_3">
-        {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
-      </md-option>
-    </md-select>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Contact 3</label>
+        <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].contact_id_3">
+            <md-option ng-repeat="contact in adminIndustriesEdit.data.contacts" ng-value="contact.id" ng-selected="contact.id === (adminIndustriesEdit.data.industries | filter: {id: adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].id})[0].contact_id_3">
+                {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+            </md-option>
+        </md-select>
+    </md-input-container>
 
-  <md-input-container class="md-block">
-    <label>Website 3</label>
-    <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].website_id_3">
-        <md-option ng-repeat="site in adminIndustriesEdit.data.websites"
-        ng-value="site.id">{{site.website}}</md-option>
-    </md-select>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Website 3</label>
+        <md-select ng-model="adminIndustriesEdit.data.industries[adminIndustriesEdit.selectedRecordIndex].website_id_3">
+            <md-option ng-repeat="site in adminIndustriesEdit.data.websites" ng-value="site.id">{{site.website}}</md-option>
+        </md-select>
+    </md-input-container>
 
 </md-content>

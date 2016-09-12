@@ -23,7 +23,7 @@
             );
         };
 
-        var printPage = function(){
+        var printPage = function() {
             showToast('Launching your system\'s print dialog!');
             window.print();
         };
@@ -196,7 +196,9 @@
         var createUnmatchedTopic = function(unmatchedTopic) {
             //  unmatchedTopicObject has:
             //  unmatched_topic
-            return $http.post('/db/unmatched/create', {unmatched_topic: unmatchedTopic})
+            return $http.post('/db/unmatched/create', {
+                    unmatched_topic: unmatchedTopic
+                })
                 .then(function(response) {
                     console.log('Successful POST to /db/unmatched/create');
                     getUnmatched();
@@ -274,7 +276,9 @@
         var updateTopicNumberOfHits = function(topicId) {
             //  topicIdObject has:
             //  id
-            return $http.put('/db/topics/update/number_of_hits', {id: topicId})
+            return $http.put('/db/topics/update/number_of_hits', {
+                    id: topicId
+                })
                 .then(function(response) {
                     console.log('Successful PUT to /db/topics/update/number_of_hits');
                     getTopicsNumberOfHits();

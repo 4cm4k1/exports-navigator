@@ -12,36 +12,34 @@
         </h2>
         <span flex></span>
         <md-button href="/admin/countries" class="md-raised md-warn md-hue-2" aria-label="Go back">
-          <md-icon>arrow_back</md-icon>
-          Back
+            <md-icon>arrow_back</md-icon>
+            Back
         </md-button>
         <md-button ng-click="adminCountriesEdit.update()" class="md-raised md-warn md-hue-2" aria-label="Update country">
-          <md-icon>update</md-icon>
-          Update
+            <md-icon>update</md-icon>
+            Update
         </md-button>
         <md-button ng-click="adminCountriesEdit.delete(adminCountriesEdit.selectedCountry)" href="/admin/countries" class="md-raised md-warn md-hue-2" aria-label="Delete this country">
-          <md-icon>delete</md-icon>
-          Delete
+            <md-icon>delete</md-icon>
+            Delete
         </md-button>
     </div>
 </md-toolbar>
 <md-content layout-padding>
-  <md-input-container class="md-block">
-    <label>Name of Country</label>
-    <input ng-model="adminCountriesEdit.data.countries[adminCountriesEdit.selectedRecordIndex].country" aria-label="Input for name of country">
-  </md-input-container>
-  <md-input-container class="md-block">
-    <label>Note</label>
-    <textarea ng-model="adminCountriesEdit.data.countries[adminCountriesEdit.selectedRecordIndex].note" aria-label="Input for country note" ></textarea>
-  </md-input-container>
-  <md-input-container class="md-block">
-    <label>Contact</label>
-    <md-select ng-model="adminCountriesEdit.data.countries[adminCountriesEdit.selectedRecordIndex].contact_id">
-      <md-option
-          ng-repeat="contact in adminCountriesEdit.data.contacts"
-          ng-value="contact.id">
-          {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
-      </md-option>
-    </md-select>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Name of Country</label>
+        <input ng-model="adminCountriesEdit.data.countries[adminCountriesEdit.selectedRecordIndex].country" aria-label="Input for name of country">
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Note</label>
+        <textarea ng-model="adminCountriesEdit.data.countries[adminCountriesEdit.selectedRecordIndex].note" aria-label="Input for country note"></textarea>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Contact</label>
+        <md-select ng-model="adminCountriesEdit.data.countries[adminCountriesEdit.selectedRecordIndex].contact_id">
+            <md-option ng-repeat="contact in adminCountriesEdit.data.contacts" ng-value="contact.id">
+                {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+            </md-option>
+        </md-select>
+    </md-input-container>
 </md-content>

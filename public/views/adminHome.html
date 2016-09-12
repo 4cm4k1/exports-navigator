@@ -1,22 +1,17 @@
 <main layout-padding>
-  <h1>Hello, {{adminHome.greetingName}}!</h1>
-  <md-grid-list
-          md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="8"
-          md-row-height-gt-md="1.5:1" md-row-height="2:1"
-          md-gutter="12px" md-gutter-gt-sm="8px">
-          <md-grid-tile md-ink-ripple style="background:#DB3762" ng-repeat="tile in adminHome.dataTiles"
-            ng-click="adminHome.goToPath(tile.path)" md-rowspan="2" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
+    <h1>Hello, {{adminHome.greetingName}}!</h1>
+    <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="8" md-row-height-gt-md="1.5:1" md-row-height="2:1" md-gutter="12px" md-gutter-gt-sm="8px">
+        <md-grid-tile md-ink-ripple style="background:#DB3762" ng-repeat="tile in adminHome.dataTiles" ng-click="adminHome.goToPath(tile.path)" md-rowspan="2" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
             <md-icon class="tileIcon">{{tile.icon}}</md-icon>
             <md-grid-tile-footer class="center">
-              <h3>{{tile.name}}</h3>
+                <h3>{{tile.name}}</h3>
             </md-grid-tile-footer>
-          </md-grid-tile>
-          <md-grid-tile md-ink-ripple style="background:#D0D741" ng-repeat="tile in adminHome.taskTiles"
-            ng-click="adminHome.goToPath(tile.path)" md-rowspan="2" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
+        </md-grid-tile>
+        <md-grid-tile md-ink-ripple style="background:#D0D741" ng-repeat="tile in adminHome.taskTiles" ng-click="adminHome.goToPath(tile.path)" md-rowspan="2" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
             <md-icon class="tileIcon">{{tile.icon}}</md-icon>
             <md-grid-tile-footer>
-              <h3>{{tile.name}}</h3>
+                <h3>{{tile.name}}</h3>
             </md-grid-tile-footer>
-          </md-grid-tile>
-  </md-grid-list>
+        </md-grid-tile>
+    </md-grid-list>
 </main>

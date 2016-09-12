@@ -1,21 +1,21 @@
-(function(){
+(function() {
     'use strict';
 
     angular.module('exportsNavigator').controller('ToolbarCtrl', ToolbarCtrl);
 
     ToolbarCtrl.$inject = ['$timeout', '$mdSidenav', '$log', 'Auth'];
 
-    function ToolbarCtrl($timeout, $mdSidenav, $log, Auth){
+    function ToolbarCtrl($timeout, $mdSidenav, $log, Auth) {
         var vm = this;
 
         vm.auth = Auth;
 
-        vm.auth.$onAuthStateChanged(function(user){
+        vm.auth.$onAuthStateChanged(function(user) {
             vm.user = user;
         });
 
         vm.toggleSidenav = buildDelayedToggler('sidenav');
-        vm.isOpenSidenav = function(){
+        vm.isOpenSidenav = function() {
             return $mdSidenav('sidenav').isOpen();
         };
 

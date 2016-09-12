@@ -1,28 +1,28 @@
 (function() {
-  'use strict';
+    'use strict';
 
-  angular.module('exportsNavigator').controller('AdminIndustriesController', AdminIndustriesController);
+    angular.module('exportsNavigator').controller('AdminIndustriesController', AdminIndustriesController);
 
-  AdminIndustriesController.$inject = ['currentAuth', '$http', 'Data'];
+    AdminIndustriesController.$inject = ['currentAuth', '$http', 'Data'];
 
-  function AdminIndustriesController(currentAuth, $http, Data) {
-    var vm = this;
+    function AdminIndustriesController(currentAuth, $http, Data) {
+        var vm = this;
 
-    vm.data = Data.data;
+        vm.data = Data.data;
 
-    Data.getIndustries();
+        Data.getIndustries();
 
-    vm.add = function() {
-      console.log('Add clicked');
-    };
+        vm.add = function() {
+            console.log('Add clicked');
+        };
 
 
-  vm.edit = function(){
-    console.log('Edit clicked');
-  };
-  vm.print = function(){
-      Data.printPage();
-  };
-}
+        vm.edit = function() {
+            console.log('Edit clicked');
+        };
+        vm.print = function() {
+            Data.printPage();
+        };
+    }
 
 })();

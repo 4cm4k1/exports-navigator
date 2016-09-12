@@ -42,7 +42,7 @@
 
         vm.getUnmatched();
 
-        vm.print = function(){
+        vm.print = function() {
             Data.printPage();
         };
     }

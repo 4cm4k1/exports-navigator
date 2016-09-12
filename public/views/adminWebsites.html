@@ -27,19 +27,18 @@
     </div>
 </md-toolbar>
 <md-content layout-padding>
-  <div layout="row" layout-sm="column" layout-align="space-around center" ng-if="!adminWebsites.data.websites" layout-padding>
-      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-  </div>
-  <md-list flex>
-    <md-list-item class="md-3-line" ng-repeat="website in adminWebsites.data.websites | filter: adminWebsites.searchText" ng-click="null">
-      <div class="md-list-item-text" layout="column">
-        <h3>{{ website.website }}</h3>
-      </div>
-      <md-button class="md-secondary md-raised md-primary"
-      href="/admin/websites/{{website.id}}">
-        <md-icon aria-label="View and edit website information">edit</md-icon>
-        Edit
-      </md-button>
-    </md-list-item>
-  </md-list>
+    <div layout="row" layout-sm="column" layout-align="space-around center" ng-if="!adminWebsites.data.websites" layout-padding>
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-list flex>
+        <md-list-item class="md-3-line" ng-repeat="website in adminWebsites.data.websites | filter: adminWebsites.searchText" ng-click="null">
+            <div class="md-list-item-text" layout="column">
+                <h3>{{ website.website }}</h3>
+            </div>
+            <md-button class="md-secondary md-raised md-primary" href="/admin/websites/{{website.id}}">
+                <md-icon aria-label="View and edit website information">edit</md-icon>
+                Edit
+            </md-button>
+        </md-list-item>
+    </md-list>
 </md-content>

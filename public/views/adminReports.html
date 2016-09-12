@@ -14,9 +14,9 @@
     </div>
 </md-toolbar>
 <md-content>
-  <div layout="row" layout-sm="column" layout-align="space-around center" ng-if="!adminReports.unmatchedList" layout-padding>
-      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-  </div>
+    <div layout="row" layout-sm="column" layout-align="space-around center" ng-if="!adminReports.unmatchedList" layout-padding>
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
     <md-list>
         <md-subheader ng-if="adminReports.unmatchedList">
             <md-icon>warning</md-icon> <span>Unmatched Topics</span>
@@ -25,7 +25,7 @@
             <div class="md-list-item-text">
                 <h3>{{topic.unmatched_topic}}</h3>
                 <p>
-                   {{topic.unmatched_number_of_hits}} <span ng-if="topic.unmatched_number_of_hits>1||topic.unmatched_number_of_hits==0">hits</span><span ng-if="topic.unmatched_number_of_hits==1">hit</span>
+                    {{topic.unmatched_number_of_hits}} <span ng-if="topic.unmatched_number_of_hits>1||topic.unmatched_number_of_hits==0">hits</span><span ng-if="topic.unmatched_number_of_hits==1">hit</span>
                 </p>
             </div>
         </md-list-item>

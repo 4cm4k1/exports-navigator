@@ -1,55 +1,54 @@
 <md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
     <div class="md-toolbar-tools">
 
-      <md-button class="md-icon-button" aria-label="Topics">
-          <md-icon>chat_bubble</md-icon>
-      </md-button>
+        <md-button class="md-icon-button" aria-label="Topics">
+            <md-icon>chat_bubble</md-icon>
+        </md-button>
 
-      <h2>
+        <h2>
         <span>Topics</span>
       </h2>
 
-      <span flex></span>
-      <md-autocomplete md-selected-item="adminTopics.selectedItem" md-search-text="adminTopics.searchText" md-items="item in adminTopics.data.topics | filter: adminTopics.searchText" md-item-text="item.topic" placeholder="Search Topics" aria-label="Search topics">
-          <md-item-template>
-              <span md-highlight-text="adminTopics.searchText" md-highlight-flags="^i" class="md-body-2">{{item.topic}}</span>
-          </md-item-template>
-          <md-not-found>
-              Sorry, no matches found.
-          </md-not-found>
-      </md-autocomplete>
-      <md-button ng-click="null" class="md-raised md-warn md-hue-2" href="/admin/topics/add" aria-label="Add new topic">
-        <md-icon>add</md-icon>
-        New Topic
-      </md-button>
-      <md-button class="md-raised md-warn md-hue-2" ng-click="adminTopics.print()" aria-label="Print">
-          <md-icon>print</md-icon>
-          Print
-      </md-button>
+        <span flex></span>
+        <md-autocomplete md-selected-item="adminTopics.selectedItem" md-search-text="adminTopics.searchText" md-items="item in adminTopics.data.topics | filter: adminTopics.searchText" md-item-text="item.topic" placeholder="Search Topics" aria-label="Search topics">
+            <md-item-template>
+                <span md-highlight-text="adminTopics.searchText" md-highlight-flags="^i" class="md-body-2">{{item.topic}}</span>
+            </md-item-template>
+            <md-not-found>
+                Sorry, no matches found.
+            </md-not-found>
+        </md-autocomplete>
+        <md-button ng-click="null" class="md-raised md-warn md-hue-2" href="/admin/topics/add" aria-label="Add new topic">
+            <md-icon>add</md-icon>
+            New Topic
+        </md-button>
+        <md-button class="md-raised md-warn md-hue-2" ng-click="adminTopics.print()" aria-label="Print">
+            <md-icon>print</md-icon>
+            Print
+        </md-button>
 
     </div>
 
 </md-toolbar>
 
 <md-content layout-padding>
-  <div layout="row" layout-sm="column" layout-align="space-around center" ng-if="!adminTopics.data.topics" layout-padding>
-      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-  </div>
+    <div layout="row" layout-sm="column" layout-align="space-around center" ng-if="!adminTopics.data.topics" layout-padding>
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
 
-  <md-list>
+    <md-list>
 
-    <md-list-item class="md-2-line" ng-repeat="item in adminTopics.data.topics | orderBy: 'topic' | filter: adminTopics.searchText" ng-click="null">
-      <div class="md-list-item-text">
-        <h3>{{item.topic}}</h3>
+        <md-list-item class="md-2-line" ng-repeat="item in adminTopics.data.topics | orderBy: 'topic' | filter: adminTopics.searchText" ng-click="null">
+            <div class="md-list-item-text">
+                <h3>{{item.topic}}</h3>
 
-        <md-button class="md-secondary md-raised md-primary"
-          href="/admin/topics/{{item.id}}">
-          <md-icon aria-label="View and edit topic information">edit</md-icon>
-          Edit
-        </md-button>
+                <md-button class="md-secondary md-raised md-primary" href="/admin/topics/{{item.id}}">
+                    <md-icon aria-label="View and edit topic information">edit</md-icon>
+                    Edit
+                </md-button>
 
-      </div>
-    </md-list-item>
-  </md-list>
+            </div>
+        </md-list-item>
+    </md-list>
 
 </md-content>

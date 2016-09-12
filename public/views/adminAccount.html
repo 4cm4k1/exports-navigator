@@ -6,15 +6,15 @@
         <h2>
         <span>Account</span>
       </h2>
-      <span flex></span>
-      <md-button class="md-raised md-warn md-hue-2" ng-click="adminAccount.showSignInModal($event)" aria-label="Update account">
-          <md-icon>update</md-icon>
-          Update
-      </md-button>
-      <md-button class="md-raised md-warn md-hue-2" ng-click="adminAccount.print()" aria-label="Print">
-          <md-icon>print</md-icon>
-          Print
-      </md-button>
+        <span flex></span>
+        <md-button class="md-raised md-warn md-hue-2" ng-click="adminAccount.showSignInModal($event)" aria-label="Update account">
+            <md-icon>update</md-icon>
+            Update
+        </md-button>
+        <md-button class="md-raised md-warn md-hue-2" ng-click="adminAccount.print()" aria-label="Print">
+            <md-icon>print</md-icon>
+            Print
+        </md-button>
     </div>
 </md-toolbar>
 
@@ -55,11 +55,11 @@
                 <input ng-model="adminAccount.newEmail" placeholder="{{adminAccount.auth.email}}" type="email">
             </md-input-container>
             <div layout="row" layout-align="space-between start">
-              <md-input-container class="md-icon-float" flex>
-                  <label>New password</label>
-                  <md-icon>lock</md-icon>
-                  <input ng-model="adminAccount.newPassword" placeholder="********" type="password">
-              </md-input-container>
+                <md-input-container class="md-icon-float" flex>
+                    <label>New password</label>
+                    <md-icon>lock</md-icon>
+                    <input ng-model="adminAccount.newPassword" placeholder="********" type="password">
+                </md-input-container>
             </div>
 
 

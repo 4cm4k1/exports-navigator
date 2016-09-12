@@ -8,10 +8,10 @@
     function AdminCountriesController(currentAuth, Data, $log, $timeout, $q) {
         var vm = this;
         vm.data = Data.data;
-        Data.getCountries().then(function(countries){
+        Data.getCountries().then(function(countries) {
             vm.countries = countries;
         });
-        vm.print = function(){
+        vm.print = function() {
             Data.printPage();
         };
     }

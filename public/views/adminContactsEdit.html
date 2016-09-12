@@ -12,42 +12,42 @@
         </h2>
         <span flex></span>
         <md-button href="/admin/contacts" class="md-raised md-warn md-hue-2" aria-label="Go back">
-          <md-icon>arrow_back</md-icon>
-          Back
+            <md-icon>arrow_back</md-icon>
+            Back
         </md-button>
         <md-button ng-click="adminContactsEdit.update()" class="md-raised md-warn md-hue-2" aria-label="Update contact">
-          <md-icon>update</md-icon>
-          Update
+            <md-icon>update</md-icon>
+            Update
         </md-button>
         <md-button ng-click="adminContactsEdit.delete(adminContactsEdit.selectedContact)" href="/admin/contacts" class="md-raised md-warn md-hue-2" aria-label="Delete contact">
-          <md-icon>delete</md-icon>
-          Delete
+            <md-icon>delete</md-icon>
+            Delete
         </md-button>
     </div>
 </md-toolbar>
 <md-content layout-padding>
-  <md-input-container class="md-block">
-    <label>First Name</label>
-    <input ng-model="adminContactsEdit.data.contacts[adminContactsEdit.selectedRecordIndex].first_name" aria-label="Input for contact's first name">
-  </md-input-container>
-  <md-input-container class="md-block">
-    <label>First Name</label>
-    <input ng-model="adminContactsEdit.data.contacts[adminContactsEdit.selectedRecordIndex].last_name" aria-label="Input for contact's last name">
-  </md-input-container>
-  <md-input-container class="md-block">
-    <label>Job Title</label>
-    <input ng-model="adminContactsEdit.data.contacts[adminContactsEdit.selectedRecordIndex].title" aria-label="Input for contact's job title">
-  </md-input-container>
-  <md-input-container class="md-block">
-    <label>Organization</label>
-    <input ng-model="adminContactsEdit.data.contacts[adminContactsEdit.selectedRecordIndex].organization" aria-label="Input for contact's organization">
-  </md-input-container>
-  <md-input-container class="md-block">
-    <label>Email</label>
-    <input ng-model="adminContactsEdit.data.contacts[adminContactsEdit.selectedRecordIndex].email" aria-label="Input for contact's email">
-  </md-input-container>
-  <md-input-container class="md-block">
-    <label>Phone</label>
-    <input ng-model="adminContactsEdit.data.contacts[adminContactsEdit.selectedRecordIndex].phone" aria-label="Input for contact's phone number">
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>First Name</label>
+        <input ng-model="adminContactsEdit.data.contacts[adminContactsEdit.selectedRecordIndex].first_name" aria-label="Input for contact's first name">
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>First Name</label>
+        <input ng-model="adminContactsEdit.data.contacts[adminContactsEdit.selectedRecordIndex].last_name" aria-label="Input for contact's last name">
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Job Title</label>
+        <input ng-model="adminContactsEdit.data.contacts[adminContactsEdit.selectedRecordIndex].title" aria-label="Input for contact's job title">
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Organization</label>
+        <input ng-model="adminContactsEdit.data.contacts[adminContactsEdit.selectedRecordIndex].organization" aria-label="Input for contact's organization">
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Email</label>
+        <input ng-model="adminContactsEdit.data.contacts[adminContactsEdit.selectedRecordIndex].email" aria-label="Input for contact's email">
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Phone</label>
+        <input ng-model="adminContactsEdit.data.contacts[adminContactsEdit.selectedRecordIndex].phone" aria-label="Input for contact's phone number">
+    </md-input-container>
 </md-content>

@@ -16,13 +16,13 @@
         <span flex></span>
 
         <md-button href="/admin/industries" class="md-raised md-warn md-hue-2" aria-label="Go back">
-          <md-icon>arrow_back</md-icon>
-          Back
+            <md-icon>arrow_back</md-icon>
+            Back
         </md-button>
 
         <md-button ng-click="adminIndustriesAdd.add()" href="/admin/industries" class="md-raised md-warn md-hue-2" aria-label="Save new industry">
-          <md-icon>save</md-icon>
-          Save
+            <md-icon>save</md-icon>
+            Save
         </md-button>
 
     </div>
@@ -30,89 +30,80 @@
 
 <md-content layout-padding>
 
-  <md-input-container class="md-block">
-    <label>Industry</label>
-    <input ng-model="adminIndustriesAdd.newIndustry" aria-label="Input for industry's title">
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Industry</label>
+        <input ng-model="adminIndustriesAdd.newIndustry" aria-label="Input for industry's title">
+    </md-input-container>
 
-  <br />
+    <br />
 
-  <md-input-container class="md-block">
-    <label>Note 1</label>
-    <textarea ng-model="adminIndustriesAdd.newNote_1" aria-label="Input for note 1" ></textarea>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Note 1</label>
+        <textarea ng-model="adminIndustriesAdd.newNote_1" aria-label="Input for note 1"></textarea>
+    </md-input-container>
 
-  <md-input-container class="md-block">
-    <label>Contact 1</label>
-    <md-select ng-model="adminIndustriesAdd.newContact_1">
-      <md-option
-          ng-repeat="contact in adminIndustriesAdd.data.contacts"
-          ng-value="contact">
-          {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
-      </md-option>
-    </md-select>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Contact 1</label>
+        <md-select ng-model="adminIndustriesAdd.newContact_1">
+            <md-option ng-repeat="contact in adminIndustriesAdd.data.contacts" ng-value="contact">
+                {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+            </md-option>
+        </md-select>
+    </md-input-container>
 
-  <md-input-container class="md-block">
-    <label>Website 1</label>
-    <md-select ng-model="adminIndustriesAdd.newWebsite_1">
-        <md-option ng-repeat="site in adminIndustriesAdd.data.websites"
-        ng-value="{{site}}">{{site.website}}</md-option>
-    </md-select>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Website 1</label>
+        <md-select ng-model="adminIndustriesAdd.newWebsite_1">
+            <md-option ng-repeat="site in adminIndustriesAdd.data.websites" ng-value="{{site}}">{{site.website}}</md-option>
+        </md-select>
+    </md-input-container>
 
-  <br />
-  <br />
+    <br />
+    <br />
 
-  <md-input-container class="md-block">
-    <label> Note 2</label>
-    <textarea ng-model="adminIndustriesAdd.newNote_2" aria-label="Input for note 2" ></textarea>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label> Note 2</label>
+        <textarea ng-model="adminIndustriesAdd.newNote_2" aria-label="Input for note 2"></textarea>
+    </md-input-container>
 
-  <md-input-container class="md-block">
-    <label>Contact 2</label>
-    <md-select ng-model="adminIndustriesAdd.newContact_2">
-      <md-option
-          ng-repeat="contact in adminIndustriesAdd.data.contacts"
-          ng-value="contact">
-          {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
-      </md-option>
-    </md-select>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Contact 2</label>
+        <md-select ng-model="adminIndustriesAdd.newContact_2">
+            <md-option ng-repeat="contact in adminIndustriesAdd.data.contacts" ng-value="contact">
+                {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+            </md-option>
+        </md-select>
+    </md-input-container>
 
-  <md-input-container class="md-block">
-    <label>Website 2</label>
-    <md-select ng-model="adminIndustriesAdd.newWebsite_2">
-        <md-option ng-repeat="site in adminIndustriesAdd.data.websites"
-        ng-value="{{site}}">{{site.website}}</md-option>
-    </md-select>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Website 2</label>
+        <md-select ng-model="adminIndustriesAdd.newWebsite_2">
+            <md-option ng-repeat="site in adminIndustriesAdd.data.websites" ng-value="{{site}}">{{site.website}}</md-option>
+        </md-select>
+    </md-input-container>
 
-  <br />
-  <br />
+    <br />
+    <br />
 
-  <md-input-container class="md-block">
-    <label> Note 3</label>
-    <textarea ng-model="adminIndustriesAdd.newNote_3" aria-label="Input for note 3" ></textarea>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label> Note 3</label>
+        <textarea ng-model="adminIndustriesAdd.newNote_3" aria-label="Input for note 3"></textarea>
+    </md-input-container>
 
-  <md-input-container class="md-block">
-    <label>Contact 3</label>
-    <md-select ng-model="adminIndustriesAdd.newContact_3">
-      <md-option
-          ng-repeat="contact in adminIndustriesAdd.data.contacts"
-          ng-value="contact">
-          {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
-      </md-option>
-    </md-select>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Contact 3</label>
+        <md-select ng-model="adminIndustriesAdd.newContact_3">
+            <md-option ng-repeat="contact in adminIndustriesAdd.data.contacts" ng-value="contact">
+                {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+            </md-option>
+        </md-select>
+    </md-input-container>
 
-  <md-input-container class="md-block">
-    <label>Website 3</label>
-    <md-select ng-model="adminIndustriesAdd.newWebsite_3">
-        <md-option ng-repeat="site in adminIndustriesAdd.data.websites"
-        ng-value="{{site}}">{{site.website}}</md-option>
-    </md-select>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Website 3</label>
+        <md-select ng-model="adminIndustriesAdd.newWebsite_3">
+            <md-option ng-repeat="site in adminIndustriesAdd.data.websites" ng-value="{{site}}">{{site.website}}</md-option>
+        </md-select>
+    </md-input-container>
 
 </md-content>

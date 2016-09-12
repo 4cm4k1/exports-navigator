@@ -12,8 +12,8 @@
         <span flex></span>
 
         <md-button ng-click="null" class="md-raised md-warn md-hue-2" href="/admin/industries/add">
-          <md-icon>add</md-icon>
-          New Industry
+            <md-icon>add</md-icon>
+            New Industry
         </md-button>
         <md-button class="md-raised md-warn md-hue-2" ng-click="adminIndustries.print()" aria-label="Print">
             <md-icon>print</md-icon>
@@ -25,9 +25,9 @@
 </md-toolbar>
 
 <md-content layout-padding>
-  <div layout="row" layout-sm="column" layout-align="space-around center" ng-if="!adminIndustries.data.industries" layout-padding>
-      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-  </div>
+    <div layout="row" layout-sm="column" layout-align="space-around center" ng-if="!adminIndustries.data.industries" layout-padding>
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
     <md-list>
         <md-list-item class="md-2-line" ng-repeat="item in adminIndustries.data.industries" ng-click="null">
             <div class="md-list-item-text">

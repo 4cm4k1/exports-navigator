@@ -12,32 +12,30 @@
         </h2>
         <span flex></span>
         <md-button href="/admin/countries" class="md-raised md-warn md-hue-2" aria-label="Go back">
-          <md-icon>arrow_back</md-icon>
-          Back
+            <md-icon>arrow_back</md-icon>
+            Back
         </md-button>
         <md-button ng-click="adminCountriesAdd.saveCountry()" class="md-raised md-warn md-hue-2" aria-label="Save new country">
-          <md-icon>save</md-icon>
-          Save
+            <md-icon>save</md-icon>
+            Save
         </md-button>
     </div>
 </md-toolbar>
 <md-content layout-padding>
-  <md-input-container class="md-block">
-    <label>Name of Country</label>
-    <input ng-model="adminCountriesAdd.newCountry.country" aria-label="Input for name of country">
-  </md-input-container>
-  <md-input-container class="md-block">
-    <label>Note</label>
-    <textarea ng-model="adminCountriesAdd.newCountry.note" aria-label="Input for country note" ></textarea>
-  </md-input-container>
-  <md-input-container class="md-block">
-    <label>Contact</label>
-    <md-select ng-model="adminCountriesAdd.newCountry.contact_id">
-      <md-option
-          ng-repeat="contact in adminCountriesAdd.data.contacts"
-          ng-value="contact.id">
-          {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
-      </md-option>
-    </md-select>
-  </md-input-container>
+    <md-input-container class="md-block">
+        <label>Name of Country</label>
+        <input ng-model="adminCountriesAdd.newCountry.country" aria-label="Input for name of country">
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Note</label>
+        <textarea ng-model="adminCountriesAdd.newCountry.note" aria-label="Input for country note"></textarea>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Contact</label>
+        <md-select ng-model="adminCountriesAdd.newCountry.contact_id">
+            <md-option ng-repeat="contact in adminCountriesAdd.data.contacts" ng-value="contact.id">
+                {{contact.first_name}} {{contact.last_name}}, {{contact.organization}}
+            </md-option>
+        </md-select>
+    </md-input-container>
 </md-content>

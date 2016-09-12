@@ -1,27 +1,27 @@
 (function() {
-  'use strict';
+    'use strict';
 
-  angular.module('exportsNavigator').controller('AdminTopicsController', AdminTopicsController);
+    angular.module('exportsNavigator').controller('AdminTopicsController', AdminTopicsController);
 
-  AdminTopicsController.$inject = ['currentAuth', '$http', 'Data'];
+    AdminTopicsController.$inject = ['currentAuth', '$http', 'Data'];
 
-  function AdminTopicsController(currentAuth, $http, Data) {
-    var vm = this;
+    function AdminTopicsController(currentAuth, $http, Data) {
+        var vm = this;
 
-    vm.data = Data.data;
+        vm.data = Data.data;
 
-    Data.getTopics();
+        Data.getTopics();
 
-    vm.export = function() {
-      console.log('Export clicked');
-    };
+        vm.export = function() {
+            console.log('Export clicked');
+        };
 
-    vm.import = function() {
-      console.log('Import clicked');
-    };
-    vm.print = function(){
-        Data.printPage();
-    };
-  }
+        vm.import = function() {
+            console.log('Import clicked');
+        };
+        vm.print = function() {
+            Data.printPage();
+        };
+    }
 
 })();

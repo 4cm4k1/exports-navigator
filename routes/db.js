@@ -111,14 +111,14 @@ router.delete('/contacts/delete/:id', function(req, res) {
 });
 
 router.get('/countries', function(req, res) {
-  var query = 'SELECT countries.id, countries.country, countries.note, ' +
-      'contacts.id AS contact_id, contacts.first_name AS first_name, ' +
-      'contacts.last_name AS last_name, contacts.title AS title, ' +
-      'contacts.organization AS organization, contacts.email AS email, ' +
-      'contacts.phone as phone FROM countries ' +
-      'JOIN contacts ON countries.contact_id = contacts.id ORDER BY country';
-  var params = [];
-  queryDB(query, params, req, res);
+    var query = 'SELECT countries.id, countries.country, countries.note, ' +
+        'contacts.id AS contact_id, contacts.first_name AS first_name, ' +
+        'contacts.last_name AS last_name, contacts.title AS title, ' +
+        'contacts.organization AS organization, contacts.email AS email, ' +
+        'contacts.phone as phone FROM countries ' +
+        'JOIN contacts ON countries.contact_id = contacts.id ORDER BY country';
+    var params = [];
+    queryDB(query, params, req, res);
 });
 
 
@@ -338,17 +338,17 @@ function queryDB(queryStatement, vars, req, res) {
 function protectRoute(query, params, req, res) {
     var idToken = req.get('firebaseToken');
 
-    if(idToken){
-      firebase.auth().verifyIdToken(idToken).then(function(decodedToken) {
-          var uid = decodedToken.uid;
-          queryDB(query, params, req, res);
-      }).catch(function(error) {
-          // Handle error
-          console.log(error);
-          res.sendStatus(403);
-      });
+    if (idToken) {
+        firebase.auth().verifyIdToken(idToken).then(function(decodedToken) {
+            var uid = decodedToken.uid;
+            queryDB(query, params, req, res);
+        }).catch(function(error) {
+            // Handle error
+            console.log(error);
+            res.sendStatus(403);
+        });
     } else {
-      res.sendStatus(403);
+        res.sendStatus(403);
     }
 }
 //query function to return json to export KRQ

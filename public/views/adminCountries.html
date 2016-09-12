@@ -7,7 +7,8 @@
           <span>Countries</span>
         </h2>
         <span flex></span>
-        <md-autocomplete md-selected-item="adminCountries.selectedItem" md-search-text="adminCountries.searchText" md-items="item in adminCountries.data.countries | filter: adminCountries.searchText" md-item-text="item.country" placeholder="Search Countries" aria-label="Search countries">
+        <md-autocomplete md-selected-item="adminCountries.selectedItem" md-search-text="adminCountries.searchText" md-items="item in adminCountries.data.countries | filter: adminCountries.searchText" md-item-text="item.country" placeholder="Search Countries"
+            aria-label="Search countries">
             <md-item-template>
                 <span md-highlight-text="adminCountries.searchText" md-highlight-flags="^i" class="md-body-2">{{item.country}}</span>
                 <span class="md-caption">{{item.first_name}} {{item.last_name}}</span>
@@ -27,9 +28,9 @@
     </div>
 </md-toolbar>
 <md-content>
-  <div layout="row" layout-sm="column" layout-align="space-around center" ng-if="!adminCountries.data.countries" layout-padding>
-      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-  </div>
+    <div layout="row" layout-sm="column" layout-align="space-around center" ng-if="!adminCountries.data.countries" layout-padding>
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
     <md-list>
         <md-list-item class="md-3-line" ng-repeat="country in adminCountries.data.countries | filter: adminCountries.searchText" ng-click="null">
             <div class="md-list-item-text" layout="column">
@@ -37,10 +38,9 @@
                 <h4>{{country.first_name}} {{country.last_name}}</h4>
                 <p>{{country.title}} - {{country.organization}}</p>
             </div>
-            <md-button class="md-secondary md-raised md-primary"
-            href="/admin/countries/{{country.id}}">
-              <md-icon aria-label="View and edit country information">edit</md-icon>
-              Edit
+            <md-button class="md-secondary md-raised md-primary" href="/admin/countries/{{country.id}}">
+                <md-icon aria-label="View and edit country information">edit</md-icon>
+                Edit
             </md-button>
         </md-list-item>
     </md-list>
