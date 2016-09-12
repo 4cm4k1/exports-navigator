@@ -27,6 +27,9 @@
     </div>
 </md-toolbar>
 <md-content>
+  <div layout="row" layout-sm="column" layout-align="space-around center" ng-if="!adminCountries.data.countries" layout-padding>
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
     <md-list>
         <md-list-item class="md-3-line" ng-repeat="country in adminCountries.data.countries | filter: adminCountries.searchText" ng-click="null">
             <div class="md-list-item-text" layout="column">

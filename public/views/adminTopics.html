@@ -32,6 +32,9 @@
 </md-toolbar>
 
 <md-content layout-padding>
+  <div layout="row" layout-sm="column" layout-align="space-around center" ng-if="!adminTopics.data.topics" layout-padding>
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
 
   <md-list>
 
