@@ -24,7 +24,7 @@
                         <p>
                             {{item.note_1}}
                         </p>
-                        <span class="md-headline">{{item.first_name_1}} {{item.last_name_1}}</span>
+                        <span class="md-headline">{{item.first_name_1}} {{item.last_name_1}}, {{item.title_1}}, {{item.organization_1}}</span>
                         <span class="md-subhead"><md-icon>email</md-icon> {{item.email_1}}</span>
                         <span class="md-subhead"><md-icon>phone</md-icon> {{item.phone_1}}</span>
                     </md-card-title-text>
@@ -48,7 +48,7 @@
                         <p>
                             {{item.note_2}}
                         </p>
-                        <span class="md-headline">{{item.first_name_2}} {{item.last_name_2}}</span>
+                        <span class="md-headline">{{item.first_name_2}} {{item.last_name_2}}, {{item.title_2}}, {{item.organization_2}}</span>
                         <span class="md-subhead"><md-icon>email</md-icon> {{item.email_2}}</span>
                         <span class="md-subhead"><md-icon>phone</md-icon> {{item.phone_2}}</span>
                     </md-card-title-text>
@@ -70,7 +70,7 @@
                         <p>
                             {{item.note_3}}
                         </p>
-                        <span class="md-headline">{{item.first_name_3}} {{item.last_name_3}}</span>
+                        <span class="md-headline">{{item.first_name_3}} {{item.last_name_3}}, {{item.title_3}}, {{item.organization_3}}</span>
                         <span class="md-subhead"><md-icon>email</md-icon> {{item.email_3}}</span>
                         <span class="md-subhead"><md-icon>phone</md-icon> {{item.phone_3}}</span>
                     </md-card-title-text>
@@ -116,7 +116,7 @@
             <md-card-title>
                 <md-card-title-text>
                     <p>{{results.item.note_1}}</p>
-                    <span class="md-headline">{{results.item.first_name_1}} {{results.item.last_name_1}}</span>
+                    <span class="md-headline">{{results.item.first_name_1}} {{results.item.last_name_1}}, {{results.item.title_1}}, {{results.item.organization_1}}</span>
                     <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email_1}}</span>
                     <span class="md-subhead"><md-icon>phone</md-icon> {{results.item.phone_1}}</span>
                 </md-card-title-text>
@@ -138,7 +138,7 @@
                     <p>
                         {{results.item.note_2}}
                     </p>
-                    <span class="md-headline">{{results.item.first_name_2}} {{results.item.last_name_2}}</span>
+                    <span class="md-headline">{{results.item.first_name_2}} {{results.item.last_name_2}}, {{results.item.title_2}}, {{results.item.organization_2}}</span>
                     <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email_2}}</span>
                     <span class="md-subhead"><md-icon>phone</md-icon> {{results.item.phone_2}}</span>
                 </md-card-title-text>
@@ -159,7 +159,7 @@
                     <p>
                         {{results.item.note_3}}
                     </p>
-                    <span class="md-headline">{{results.item.first_name_3}} {{results.item.last_name_3}}</span>
+                    <span class="md-headline">{{results.item.first_name_3}} {{results.item.last_name_3}}, {{results.item.title_3}}, {{results.item.organization_3}}</span>
                     <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email_3}}</span>
                     <span class="md-subhead"><md-icon>phone</md-icon> {{results.item.phone_3}}</span>
                 </md-card-title-text>
@@ -204,8 +204,7 @@
                     <p>
                         {{results.item.note}}
                     </p>
-                    <span class="md-headline">{{results.item.first_name}} {{results.item.last_name}}</span>
-                    <span class="md-subhead">{{results.item.organization}}</span>
+                    <span class="md-headline">{{results.item.first_name}} {{results.item.last_name}}, {{results.item.title}}, {{results.item.organization}}</span>
                     <span class="md-subhead"><md-icon>email</md-icon> {{results.item.email}}</span>
                     <span class="md-subhead"><md-icon>phone</md-icon> {{results.item.phone}}</span>
                 </md-card-title-text>
@@ -263,7 +262,7 @@
             <md-card-title>
                 <md-card-title-text>
                     <p>{{results.failed.note_1}}</p>
-                    <span class="md-headline">{{results.failed.first_name_1}} {{results.failed.last_name_1}}</span>
+                    <span class="md-headline">{{results.failed.first_name_1}} {{results.failed.last_name_1}}, {{results.failed.title_1}}, {{results.failed.organization_1}}</span>
                     <span class="md-subhead"><md-icon>email</md-icon> {{results.failed.email_1}}</span>
                     <span class="md-subhead"><md-icon>phone</md-icon> {{results.failed.phone_1}}</span>
                 </md-card-title-text>
@@ -285,7 +284,7 @@
                     <p>
                         {{results.failed.note_2}}
                     </p>
-                    <span class="md-headline">{{results.failed.first_name_2}} {{results.failed.last_name_2}}</span>
+                    <span class="md-headline">{{results.failed.first_name_2}} {{results.failed.last_name_2}}, {{results.failed.title_2}}, {{results.failed.organization_2}}</span>
                     <span class="md-subhead"><md-icon>email</md-icon> {{results.failed.email_2}}</span>
                     <span class="md-subhead"><md-icon>phone</md-icon> {{results.failed.phone_2}}</span>
                 </md-card-title-text>
@@ -306,7 +305,7 @@
                     <p>
                         {{results.failed.note_3}}
                     </p>
-                    <span class="md-headline">{{results.failed.first_name_3}} {{results.failed.last_name_3}}</span>
+                    <span class="md-headline">{{results.failed.first_name_3}} {{results.failed.last_name_3}}, {{results.failed.title_3}}, {{results.failed.organization_3}}</span>
                     <span class="md-subhead"><md-icon>email</md-icon> {{results.failed.email_3}}</span>
                     <span class="md-subhead"><md-icon>phone</md-icon> {{results.failed.phone_3}}</span>
                 </md-card-title-text>
