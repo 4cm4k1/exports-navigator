@@ -8,6 +8,10 @@
     <h2>
       <span>Industries</span>
     </h2>
+    <md-icon>chevron_right</md-icon>
+    <h2>
+      <span>Edit Industry</span>
+    </h2>
 
     <span flex></span>
 
@@ -15,13 +19,12 @@
       <md-icon>arrow_back</md-icon>
       Back
     </md-button>
-<!-- href="/admin/industries/{{adminIndustriesEdit.industries[adminIndustries.SelectedRecordIndex].id}}" -->
-    <md-button ng-click="adminIndustriesEdit.update()" href='/admin/industries' class ="md-raised md-warn md-hue-2" aria-label="Update this industry">
+    <md-button ng-click="adminIndustriesEdit.update()" href="/admin/industries" class ="md-raised md-warn md-hue-2" aria-label="Update industry">
       <md-icon>update</md-icon>
       Update
     </md-button>
 
-    <md-button ng-click="adminIndustriesEdit.delete(adminIndustriesEdit.selectedIndustry)" href= "/admin/industries" class="md-raised md-warn md-hue-2" aria-label="Delete this industry">
+    <md-button ng-click="adminIndustriesEdit.delete(adminIndustriesEdit.selectedIndustry)" href= "/admin/industries" class="md-raised md-warn md-hue-2" aria-label="Delete industry">
       <md-icon>delete</md-icon>
       Delete
     </md-button>

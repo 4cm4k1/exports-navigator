@@ -6,6 +6,10 @@
         <h2>
           <span>Topics</span>
         </h2>
+        <md-icon>chevron_right</md-icon>
+        <h2>
+          <span>Edit Topic</span>
+        </h2>
         <span flex></span>
 
         <md-button href="/admin/topics" class="md-raised md-warn md-hue-2" aria-label="Go back">
@@ -13,12 +17,12 @@
           Back
         </md-button>
 
-        <md-button ng-click="adminTopicsEdit.update()" href="/admin/topics" class="md-raised md-warn md-hue-2" aria-label="Update this topic">
+        <md-button ng-click="adminTopicsEdit.update()" href="/admin/topics" class="md-raised md-warn md-hue-2" aria-label="Update topic">
           <md-icon>update</md-icon>
           Update
         </md-button>
 
-        <md-button ng-click="adminTopicsEdit.delete()" class="md-raised md-warn md-hue-2" aria-label="Delete this topic">
+        <md-button ng-click="adminTopicsEdit.delete()" class="md-raised md-warn md-hue-2" aria-label="Delete topic">
           <md-icon>delete</md-icon>
           Delete
         </md-button>

@@ -8,6 +8,10 @@
         <h2>
           <span>Topics</span>
         </h2>
+        <md-icon>chevron_right</md-icon>
+        <h2>
+          <span>Add Topic</span>
+        </h2>
 
         <span flex></span>
 
@@ -16,9 +20,9 @@
           Back
         </md-button>
 
-        <md-button ng-click="adminTopicsAdd.add()" href="/admin/topics" class="md-raised md-warn md-hue-2">
-          <md-icon>add</md-icon>
-          Add
+        <md-button ng-click="adminTopicsAdd.add()" href="/admin/topics" class="md-raised md-warn md-hue-2" aria-label="Save new topic">
+          <md-icon>save</md-icon>
+          Save
         </md-button>
 
     </div>

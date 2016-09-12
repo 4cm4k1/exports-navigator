@@ -10,7 +10,7 @@
       </h2>
 
       <span flex></span>
-      <md-autocomplete md-selected-item="adminTopics.selectedItem" md-search-text="adminTopics.searchText" md-items="item in adminTopics.data.topics | filter: adminTopics.searchText" md-item-text="item.topic" placeholder="Search Topics" arai-label="Search topics">
+      <md-autocomplete md-selected-item="adminTopics.selectedItem" md-search-text="adminTopics.searchText" md-items="item in adminTopics.data.topics | filter: adminTopics.searchText" md-item-text="item.topic" placeholder="Search Topics" aria-label="Search topics">
           <md-item-template>
               <span md-highlight-text="adminTopics.searchText" md-highlight-flags="^i" class="md-body-2">{{item.topic}}</span>
           </md-item-template>
@@ -18,7 +18,7 @@
               Sorry, no matches found.
           </md-not-found>
       </md-autocomplete>
-      <md-button ng-click="null" class="md-raised md-warn md-hue-2" href="/admin/topics/add">
+      <md-button ng-click="null" class="md-raised md-warn md-hue-2" href="/admin/topics/add" aria-label="Add new topic">
         <md-icon>add</md-icon>
         New Topic
       </md-button>

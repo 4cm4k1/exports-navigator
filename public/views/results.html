@@ -31,7 +31,7 @@
                 </md-card-title>
                 <md-card-actions layout="row" layout-align="start center">
 
-                    <md-button><a href="{{item.website_1}} ">{{item.website_1}}</a></a>
+                    <md-button><a href="{{item.website_1}} ">{{item.website_1}}</a>
                     </md-button>
                 </md-card-actions>
 
@@ -87,7 +87,7 @@
         <md-card>
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-headline">We will need some more information to help you with your search. </br>
+                    <span class="md-headline">We will need some more information to help you with your search. <br/>
                Please enter a topic</span>
                     <span class="md-subhead">Other Industries</span>
                 </md-card-title-text>
@@ -98,7 +98,7 @@
                     <input type="text" ng-model="results.selectedTopic" list="topics">
                 </md-input-container>
                 <datalist id="topics" ng-value="topic.id">
-                    <option ng-repeat="topic in results.data.topics track by $index" value="{{topic.topic}}">
+                    <option ng-repeat="topic in results.data.topics track by $index" value="{{topic.topic}}"></option>
                 </datalist>
                 <md-button class="md-raised md-primary" ng-click="results.displaySelectedTopic()">Search</md-button>
             </md-card-content>
@@ -122,7 +122,7 @@
                 </md-card-title-text>
             </md-card-title>
             <md-card-actions layout="row" layout-align="start center">
-                <md-button><a href="{{results.item.website_1}} ">{{results.item.website_1}}</a></a>
+                <md-button><a href="{{results.item.website_1}} ">{{results.item.website_1}}</a>
                 </md-button>
             </md-card-actions>
         </md-card>
@@ -174,7 +174,7 @@
         <md-card>
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-headline">We found no results that match your Topic Search </br>
+                    <span class="md-headline">We found no results that match your Topic Search <br/>
           To what country would you like to export your product?</span>
                     <span class="md-subhead">Please search for contact information by country</span>
                 </md-card-title-text>
@@ -185,7 +185,7 @@
                     <input type="text" ng-model="results.selectedCountry" list="countries">
                 </md-input-container>
                 <datalist id="countries" ng-value="country.id">
-                    <option ng-repeat="country in results.countryList track by $index" value="{{country.country}}">
+                    <option ng-repeat="country in results.countryList track by $index" value="{{country.country}}"></option>
                 </datalist>
                 <md-button class="md-raised md-primary" ng-click="results.displaySelectedCountry(results.selectedCountry)">Search</md-button>
             </md-card-content>
@@ -269,7 +269,7 @@
                 </md-card-title-text>
             </md-card-title>
             <md-card-actions layout="row" layout-align="start center">
-                <md-button><a href="{{results.failed.website_1}} ">{{results.failed.website_1}}</a></a>
+                <md-button><a href="{{results.failed.website_1}} ">{{results.failed.website_1}}</a>
                 </md-button>
             </md-card-actions>
         </md-card>
@@ -298,7 +298,7 @@
             <md-card-header>
                 <md-card-header-text>
                     <span class="md-title">Contact Information</span>
-                  
+
                 </md-card-header-text>
             </md-card-header>
             <md-card-title>

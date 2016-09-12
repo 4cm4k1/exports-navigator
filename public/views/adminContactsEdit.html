@@ -1,8 +1,12 @@
 <md-toolbar class="md-primary md-hue-1" md-scroll-shrink>
     <div class="md-toolbar-tools">
-        <md-button class="md-icon-button" aria-label="Reports">
+        <md-button class="md-icon-button" aria-label="Contacts">
             <md-icon>contacts</md-icon>
         </md-button>
+        <h2>
+          <span>Contacts</span>
+        </h2>
+        <md-icon>chevron_right</md-icon>
         <h2>
           <span>Edit Contact</span>
         </h2>
@@ -11,11 +15,11 @@
           <md-icon>arrow_back</md-icon>
           Back
         </md-button>
-        <md-button ng-click="adminContactsEdit.update()" class="md-raised md-warn md-hue-2" aria-label="Update this topic">
+        <md-button ng-click="adminContactsEdit.update()" class="md-raised md-warn md-hue-2" aria-label="Update contact">
           <md-icon>update</md-icon>
           Update
         </md-button>
-        <md-button ng-click="adminContactsEdit.delete(adminContactsEdit.selectedContact)" href="/admin/contacts" class="md-raised md-warn md-hue-2" aria-label="Delete this topic">
+        <md-button ng-click="adminContactsEdit.delete(adminContactsEdit.selectedContact)" href="/admin/contacts" class="md-raised md-warn md-hue-2" aria-label="Delete contact">
           <md-icon>delete</md-icon>
           Delete
         </md-button>
