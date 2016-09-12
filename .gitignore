@@ -3,7 +3,6 @@ node_modules
 *.log
 bower_components
 *.env
-*.min.js
 latest.dump
 firebaseCredentials.json
 npm-debug.log
