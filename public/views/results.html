@@ -284,7 +284,7 @@
                     <p>
                         {{results.failed.note_2}}
                     </p>
-                    <span class="md-headline">{{results.failed.first_name_2}} {{results.failed.last_name_2}}, {{results.failed.title_2}}, {{results.failed.organization_2}}</span>
+                    <span class="md-headline"><span ng-show="results.failed.first_name_2">{{results.failed.first_name_2}} {{results.failed.last_name_2}}, </span>{{results.failed.title_2}}, {{results.failed.organization_2}}</span>
                     <span class="md-subhead"><md-icon>email</md-icon> {{results.failed.email_2}}</span>
                     <span class="md-subhead"><md-icon>phone</md-icon> {{results.failed.phone_2}}</span>
                 </md-card-title-text>
