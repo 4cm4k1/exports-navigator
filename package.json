@@ -38,6 +38,6 @@
         "grunt-contrib-watch": "^1.0.0",
         "json2csv": "^3.6.3",
         "parse-database-url": "^0.3.0",
-        "pg": "^6.1.0"
+        "pg": "^7.0.0"
     }
 }
